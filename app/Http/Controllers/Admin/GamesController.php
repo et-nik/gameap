@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 
 class GamesController extends Controller
 {
+    /**
+     * Display a listing of the games.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $games = Game::all();
+        $games = Game::orderBy('code')->paginate(10);
+        return view('admin.games.list',compact('games'));
 
-        return view('admin.games.list', [
-            'games' => $games,
-        ]);
     }
 
     /**
@@ -27,6 +30,12 @@ class GamesController extends Controller
         return view('admin.games.create');
     }
 
+    /**
+     * Store a newly created game in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -51,7 +60,7 @@ class GamesController extends Controller
      */
     public function show(Game $game)
     {
-
+        return view('admin.games.view', compact('game'));
     }
 
     /**
@@ -62,7 +71,7 @@ class GamesController extends Controller
      */
     public function edit(Game $game)
     {
-        return view('admin.games.edit', ['game' => $game]);
+        return view('admin.games.edit', compact('game'));
     }
 
     /**
@@ -86,5 +95,18 @@ class GamesController extends Controller
 
         return redirect()->route('admin.games.index')
             ->with('success','Games updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Gameap\Models\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Game $game)
+    {
+        $game->delete();
+        return redirect()->route('admin.games.index')
+            ->with('success','Game deleted successfully');
     }
 }

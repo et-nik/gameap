@@ -29,10 +29,9 @@
             @include("layouts.sidebar")
         </div>
         <div class="col-sm-12 col-md-10 col-lg-10 content">
-            <section class="content-header">
-{{--                <h1>{{ isset($title) ? $title : "GameAP" }}</h1>--}}
-            </section>
             @yield('breadclumbs')
+            
+            @include('components.messages')
 
             @yield('content')
         </div>

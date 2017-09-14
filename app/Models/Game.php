@@ -49,7 +49,8 @@ class Game extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'start_code', 'name', 'engine', 'engine_version',
+        'code', 'start_code', 'name', 
+        'engine', 'engine_version',
     ];
 
 //    protected $guarded = ['code'];

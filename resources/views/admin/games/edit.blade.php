@@ -1,4 +1,4 @@
-@php($title = "Create Game")
+@php($title = "Edit Game")
 
 @extends('layouts.main')
 
@@ -6,7 +6,7 @@
     <ol class="breadcrumb">
         <li><a href="/">GameAP</a></li>
         <li><a href="{{ route('admin.games.index') }}">Games</a></li>
-        <li>Save</li>
+        <li>Edit Game</li>
     </ol>
 @endsection
 
