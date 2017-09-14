@@ -18,11 +18,11 @@ class CreateGamesTable extends Migration
             $table->string('start_code', 16);
             $table->string('name');
             $table->string('engine');
-            $table->string('engine_version');
-            $table->integer('app_id')->unsigned();
-            $table->string('app_set_config');
-            $table->string('remote_repository');
-            $table->string('local_repository');
+            $table->string('engine_version')->default('1.0');
+            $table->integer('steam_app_id')->unsigned()->nullable();
+            $table->string('steam_app_set_config')->nullable();
+            $table->string('remote_repository')->nullable();
+            $table->string('local_repository')->nullable();
         });
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Gameap\Http\Controllers;
+namespace Gameap\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller;
+use Gameap\Http\Controllers\Controller;
 use Gameap\Models\Server;
 
 class ServersController extends Controller {

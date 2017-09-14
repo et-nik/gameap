@@ -1,0 +1,12 @@
+.navbar {
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+
+.navbar-brand {
+    min-width: 200px;
+}
+
+.btn {
+    border-radius: 0px;
+}
