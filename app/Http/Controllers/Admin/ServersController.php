@@ -10,9 +10,7 @@ class ServersController extends Controller {
     public function index()
     {
         $server = Server::find(1);
-
         print_r($server);
-
 //        $server->save();
     }
 }

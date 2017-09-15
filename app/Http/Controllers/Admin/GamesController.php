@@ -4,10 +4,23 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\Controller;
 use Gameap\Models\Game;
+use Gameap\Repositories\GameRepository;
 use Illuminate\Http\Request;
 
 class GamesController extends Controller
 {
+    protected $gameRepository;
+
+    /**
+     * Create a new CommentController instance.
+     *
+     * @param  \Gameap\Repositories\GameRepository $gameRepository
+     */
+    public function __construct(GameRepository $gameRepository)
+    {
+        $this->gameRepository = $gameRepository;
+    }
+
     /**
      * Display a listing of the games.
      *
@@ -15,9 +28,8 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games = Game::orderBy('code')->paginate(10);
+        $games = $this->gameRepository->getAll();
         return view('admin.games.list',compact('games'));
-
     }
 
     /**
