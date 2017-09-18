@@ -9,7 +9,6 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <script src="{{ URL::asset('/js/app.js') }}"></script>
     @yield('header-scripts')
 
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/app.css') }}">
@@ -44,8 +43,9 @@
     </div>
 </div>
 
-</body>
 
+<script src="{{ URL::asset('/js/app.js') }}"></script>
 @yield('footer-scripts')
+</body>
 
 </html>

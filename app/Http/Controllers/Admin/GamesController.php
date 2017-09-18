@@ -5,20 +5,25 @@ namespace Gameap\Http\Controllers\Admin;
 use Gameap\Http\Controllers\Controller;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameRepository;
-use Illuminate\Http\Request;
+use Gameap\Http\Requests\GameRequest;
 
 class GamesController extends Controller
 {
-    protected $gameRepository;
+    /**
+     * The GameRepository instance.
+     *
+     * @var \Gameap\Repositories\GameRepository
+     */
+    protected $repository;
 
     /**
-     * Create a new CommentController instance.
+     * Create a new GameController instance.
      *
-     * @param  \Gameap\Repositories\GameRepository $gameRepository
+     * @param  \Gameap\Repositories\GameRepository $repository
      */
-    public function __construct(GameRepository $gameRepository)
+    public function __construct(GameRepository $repository)
     {
-        $this->gameRepository = $gameRepository;
+        $this->repository = $repository;
     }
 
     /**
@@ -28,8 +33,9 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games = $this->gameRepository->getAll();
-        return view('admin.games.list',compact('games'));
+        return view('admin.games.list',[
+            'games' => $this->repository->getAll()
+        ]);
     }
 
     /**
@@ -45,19 +51,11 @@ class GamesController extends Controller
     /**
      * Store a newly created game in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Gameap\Http\Requests\GameRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GameRequest $request)
     {
-        $request->validate([
-            'code' => 'required|unique:games|alpha_num|max:16',
-            'start_code' => 'required|max:16',
-            'name' => 'required|min:2',
-            'engine' => 'required|min:2',
-            'engine_version' => 'required',
-        ]);
-
         Game::create($request->all());
 
         return redirect()->route('admin.games.index')
@@ -89,20 +87,12 @@ class GamesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Gameap\Http\Requests\GameRequest  $request
      * @param  \Gameap\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Game $game)
+    public function update(GameRequest $request, Game $game)
     {
-        request()->validate([
-            'code' => 'unique:games|alpha_num|max:16',
-            'start_code' => 'required|max:16',
-            'name' => 'required|min:2',
-            'engine' => 'required|min:2',
-            'engine_version' => 'required',
-        ]);
-
         $game->update($request->all());
 
         return redirect()->route('admin.games.index')

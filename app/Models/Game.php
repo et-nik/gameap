@@ -53,5 +53,13 @@ class Game extends Model
         'engine', 'engine_version',
     ];
 
-//    protected $guarded = ['code'];
+    /**
+     * One to many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function servers()
+    {
+        return $this->hasMany(Server::class);
+    }
 }

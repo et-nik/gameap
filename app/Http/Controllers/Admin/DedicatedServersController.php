@@ -4,10 +4,28 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\Controller;
 use Gameap\Models\DedicatedServer;
-use Illuminate\Http\Request;
+use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Http\Requests\DedicatedServerRequest;
 
 class DedicatedServersController extends Controller
 {
+    /**
+     * The DedicatedServersRepository instance.
+     *
+     * @var \Gameap\Repositories\DedicatedServersRepository
+     */
+    protected $repository;
+
+    /**
+     * Create a new DedicatedServersController instance.
+     *
+     * @param  \Gameap\Repositories\DedicatedServersRepository $repository
+     */
+    public function __construct(DedicatedServersRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +33,10 @@ class DedicatedServersController extends Controller
      */
     public function index()
     {
-        //
+        $dedicatedServers = $this->repository->getAll();
+        return view('admin.dedicated_servers.list',[
+            'dedicatedServers' => $this->repository->getAll()
+        ]);
     }
 
     /**
@@ -25,18 +46,21 @@ class DedicatedServersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.dedicated_servers.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Gameap\Http\Requests\DedicatedServerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DedicatedServerRequest $request)
     {
-        //
+        DedicatedServer::create($request->all());
+
+        return redirect()->route('admin.dedicated_servers.index')
+            ->with('success','Dedicated server created successfully');
     }
 
     /**
@@ -47,7 +71,7 @@ class DedicatedServersController extends Controller
      */
     public function show(DedicatedServer $dedicatedServer)
     {
-        //
+        return view('admin.dedicated_servers.view', compact('dedicatedServer'));
     }
 
     /**
@@ -58,19 +82,22 @@ class DedicatedServersController extends Controller
      */
     public function edit(DedicatedServer $dedicatedServer)
     {
-        //
+        return view('admin.dedicated_servers.edit', compact('dedicatedServer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Gameap\Http\Requests\DedicatedServerRequest  $request
      * @param  \Gameap\Models\DedicatedServer  $dedicatedServer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DedicatedServer $dedicatedServer)
+    public function update(DedicatedServerRequest $request, DedicatedServer $dedicatedServer)
     {
-        //
+        $dedicatedServer->update($request->all());
+
+        return redirect()->route('admin.dedicated_servers.index')
+            ->with('success','Dedicated server updated successfully');
     }
 
     /**
@@ -81,6 +108,8 @@ class DedicatedServersController extends Controller
      */
     public function destroy(DedicatedServer $dedicatedServer)
     {
-        //
+        $dedicatedServer->delete();
+        return redirect()->route('admin.dedicated_servers.index')
+            ->with('success','Dedicated server deleted successfully');
     }
 }

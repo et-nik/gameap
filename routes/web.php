@@ -21,3 +21,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);
 });
 
+Route::group(['prefix' => 'ajax'], function() {
+    Route::name('ajax.dedicated_servers.get_ip_list')->get('dedicated_servers/get_ip_list/{dedicated_server}', 'Ajax\\DedicatedServersController@getIpList');
+});

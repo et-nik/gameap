@@ -15,8 +15,38 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+// var app = new Vue({
+//     el: '#app',
+//     data: {
+//         messages: ['azaza', 'ololo', 'haha']
+//     }
+// });
 
-const app = new Vue({
-    el: '#app'
+// ---------------------------------------------
+// Admin
+
+Vue.component('ip-list', {
+    props: ['ipList'],
+    template: '#ip-list-template'
 });
+
+new Vue({
+    el: "#adminServerForm",
+    data: {
+        dsId: 1,
+        ipList: []
+    },
+    created: function() {
+        this.fetchIpList();
+    },
+    methods: {
+        fetchIpList: function() {
+            axios.get('/ajax/dedicated_servers/get_ip_list/' + this.dsId).then(function(response) {
+                this.ipList = response.data;
+            }.bind(this));
+        },
+        dsChangeHandler: function() {
+            this.fetchIpList();
+        }
+    }
+})
