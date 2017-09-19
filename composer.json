@@ -16,7 +16,10 @@
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~6.0",
+        "infyomlabs/laravel-generator": "5.5.x-dev",
+        "laravelcollective/html": "^5.5.0",
+        "infyomlabs/adminlte-templates": "5.5.x-dev"
     },
     "autoload": {
         "classmap": [
