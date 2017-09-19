@@ -24,3 +24,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'ajax'], function() {
     Route::name('ajax.dedicated_servers.get_ip_list')->get('dedicated_servers/get_ip_list/{dedicated_server}', 'Ajax\\DedicatedServersController@getIpList');
 });
+
+Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
+Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
+Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');

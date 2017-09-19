@@ -6,7 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~3.3",
+        "infyomlabs/generator-builder": "dev-master",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5.0"
@@ -27,7 +29,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "Gameap\\": "app/"
+            "Gameap\\": "app/",
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
