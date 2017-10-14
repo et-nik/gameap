@@ -40,6 +40,15 @@
             </li>
         </ul>
 
-        <button class="btn btn-danger navbar-btn" href="{site_url}auth/out">{{ __('navbar.sign_out') }}</button>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
+
+        <button
+                class="btn btn-danger navbar-btn"
+                href="{{ route('logout') }}"
+                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            {{ __('navbar.sign_out') }}
+        </button>
     </div>
 </nav>

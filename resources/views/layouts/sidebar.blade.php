@@ -1,4 +1,4 @@
-<p align="center"><strong>Login</strong></p>
+<p align="center"><strong>{{ Auth::user()->name }}</strong></p>
 
 <p align="center"><strong>Profile</strong></p>
 <ul class="page-sidebar-menu">

@@ -13,14 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('auth/login', 'Auth\LoginController@showLoginForm');
-Route::post('auth/login', 'Auth\LoginController@postLogin');
-Route::get('auth/logout', 'Auth\LoginController@getLogout');
-
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+})->middleware('auth');
 
 Route::get('servers', 'ServersController@index');
 Route::get('servers/{id}', 'ServersController@show');
@@ -38,3 +31,6 @@ Route::group(['prefix' => 'ajax'], function() {
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
 Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
 Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');

@@ -1,0 +1,34 @@
+.panel-heading {
+    background-color:#444;
+    color:#fff;
+    font-size:25px;
+    border-bottom:1px solid #ddd;
+}
+
+.panel-bottom {
+    padding: 10px 15px;
+    background-color:#444;
+    color: #ffa800;
+    border-bottom:1px solid #ddd;
+}
+
+.panel-bottom a {
+    color: #ffa800;
+}
+
+.panel-bottom a:hover {
+    color: #ffa800;
+}
+
+.panel {
+    border: 1px solid #ddd;
+    -moz-box-shadow: 1px 1px 7px #ccc;
+    -webkit-box-shadow: 1px 1px 7px #ccc;
+    box-shadow: 1px 1px 7px #ccc;
+}
+
+p.copyright {
+    text-align: center;
+    font-size: 11px;
+    padding: 0 10px 0 10px;
+}

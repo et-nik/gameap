@@ -5,7 +5,7 @@ namespace Gameap\Http\Controllers;
 use Gameap\Models\Server;
 use Gameap\Repositories\ServerRepository;
 
-class ServersController extends Controller
+class ServersController extends AuthController
 {
     /**
      * The ServerRepository instance.
@@ -21,6 +21,8 @@ class ServersController extends Controller
      */
     public function __construct(ServerRepository $repository)
     {
+        parent::__construct();
+
         $this->repository = $repository;
     }
 
