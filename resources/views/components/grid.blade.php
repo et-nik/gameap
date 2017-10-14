@@ -19,7 +19,16 @@
 
                     {{--Get Cell value--}}
                     @if (is_array($attr))
-                        @php($cellValue = $model->{$attr[0]} . $attr[1] . $model->{$attr[2]})
+                        @php ($type = $attr[0])
+                        @php ($params = $attr[1])
+
+                        @if ($type == 'raw')
+                            @php($cellValue = $params)
+                        @elseif ($type == 'lambda')
+                            @php($cellValue = $params($model))
+                        @elseif ($type == 'twoSeparatedValues')
+                            @php($cellValue = $model->{$params[0]} . $params[1] . $model->{$params[2]})
+                        @endif
                     @elseif (is_string($attr))
                         @if (is_array($model->{$attr}))
                             @foreach ($model->{$attr} as $val)

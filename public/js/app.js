@@ -791,48 +791,6 @@ __webpack_require__(10);
 
 window.Vue = __webpack_require__(35);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-// var app = new Vue({
-//     el: '#app',
-//     data: {
-//         messages: ['azaza', 'ololo', 'haha']
-//     }
-// });
-
-// ---------------------------------------------
-// Admin
-
-Vue.component('ip-list', {
-    props: ['ipList'],
-    template: '#ip-list-template'
-});
-
-new Vue({
-    el: "#adminServerForm",
-    data: {
-        dsId: null,
-        ipList: []
-    },
-    created: function created() {
-        this.fetchIpList();
-    },
-    methods: {
-        fetchIpList: function fetchIpList() {
-            axios.get('/ajax/dedicated_servers/get_ip_list/' + this.dsId).then(function (response) {
-                this.ipList = response.data;
-            }.bind(this));
-        },
-        dsChangeHandler: function dsChangeHandler() {
-            this.fetchIpList();
-        }
-    }
-});
-
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {

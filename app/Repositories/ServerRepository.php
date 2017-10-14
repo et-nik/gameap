@@ -8,6 +8,12 @@ class ServerRepository
 {
     public function getAll($perPage = 20)
     {
-        return Server::orderBy('id')->with('game')->paginate($perPage);
+        if (!$perPage) {
+            $servers = Server::orderBy('id')->with('game');
+        } else {
+            $servers = Server::orderBy('id')->with('game')->paginate($perPage);
+        }
+
+        return $servers;
     }
 }

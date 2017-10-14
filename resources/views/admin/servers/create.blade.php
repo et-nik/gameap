@@ -13,22 +13,26 @@
 @section('content')
     @include('components.form.errors_block')
 
-    {!! Form::open(['url' => route('admin.servers.index')]) !!}
+    {!! Form::open(['url' => route('admin.servers.index'), 'id' => 'adminServerForm']) !!}
     <div class="col-md-6">
         {{ Form::bsText('name') }}
         {{ Form::bsText('code_name') }}
 
-        <div class="form-group">
+        <div class="form-group" id="dedicatedServerForm">
             {{ Form::label('ds_id', 'Dedicated server', ['class' => 'control-label']) }}
-            {{ Form::select('ds_id', $dedicatedServers, null, ['class' => 'form-control']) }}
+            {{ Form::select('ds_id', $dedicatedServers, null, ['class' => 'form-control', 'v-on:change' => 'dsChangeHandler', 'v-model' => 'dsId']) }}
         </div>
 
-        <div id="app">
+        <div class="form-group">
+            <template id="ip-list-template">
+                {{ Form::label('server_ip', 'IP', ['class' => 'control-label']) }}
 
+                <select class='form-control' id='server_ip' name='server_ip'>
+                    <option :value="ip" v-for="ip in ipList">@{{ip}}</option>
+                </select>
+            </template>
         </div>
 
-        {{--TODO: Autoload Dedicated server IP list--}}
-        {{ Form::bsText('server_ip') }}
         {{ Form::bsText('server_port') }}
 
         {{--{{ Form::bsText('query_port') }}--}}
@@ -57,4 +61,8 @@
     </div>
 
     {!! Form::close() !!}
+@endsection
+
+@section('footer-scripts')
+    <script src="{{ URL::asset('/js/adminServerForm.js') }}"></script>
 @endsection
