@@ -84,20 +84,31 @@ Vue.component('ip-list', {
     template: '#ip-list-template'
 });
 
+Vue.component('game-mod-list', {
+    props: ['gameModsList'],
+    template: '#game-mod-list-template'
+});
+
 new Vue({
     el: "#adminServerForm",
     data: {
         dsId: $('#ds_id').val(),
-        ipList: []
+        gameId: $('#game_id').val(),
+        ipList: [],
+        gameModsList: []
     },
     created: function created() {
         this.fetchIpList();
+        this.fetchGameModsList();
     },
     methods: {
         fetchIpList: function fetchIpList() {
-            axios.get('/ajax/dedicated_servers/get_ip_list/' + this.dsId).then(function (response) {
+            axios.get('/api/dedicated_servers/get_ip_list/' + this.dsId).then(function (response) {
                 this.ipList = response.data;
             }.bind(this));
+        },
+        fetchGameModsList: function fetchGameModsList() {
+            this.gameModsList = [{ id: 5, name: 'Game1' }, { id: 6, name: 'Game2' }];
         },
         dsChangeHandler: function dsChangeHandler() {
             this.fetchIpList();

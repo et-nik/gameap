@@ -45,8 +45,8 @@
 
         {{--TODO: Autoload games mods for selected games--}}
         <div class="form-group">
-        {{ Form::label('game_mod_id', 'Game Mod', ['class' => 'control-label']) }}
-        {{ Form::select('game_mod_id', [], null, ['class' => 'form-control']) }}
+            {{ Form::label('game_mod_id', 'Game Mod', ['class' => 'control-label']) }}
+            {{ Form::select('game_mod_id', [], null, ['class' => 'form-control']) }}
         </div>
 
         {{ Form::bsText('rcon') }}

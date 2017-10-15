@@ -24,8 +24,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);
 });
 
-Route::group(['prefix' => 'ajax'], function() {
-    Route::name('ajax.dedicated_servers.get_ip_list')->get('dedicated_servers/get_ip_list/{dedicated_server}', 'Ajax\\DedicatedServersController@getIpList');
+Route::group(['prefix' => 'api'], function() {
+    Route::name('api.dedicated_servers.get_ip_list')->get('dedicated_servers/get_ip_list/{dedicated_server}', 'Api\\DedicatedServersController@getIpList');
 });
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
