@@ -17,6 +17,7 @@
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
         "vue": "^2.1.10",
-        "font-awesome": "4.7.0"
+        "font-awesome": "4.7.0",
+        "bootbox": "^4.4.0"
     }
 }

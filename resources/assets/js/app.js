@@ -6,5 +6,36 @@
  */
 
 require('./bootstrap');
+bootbox = require('bootbox');
 
 window.Vue = require('vue');
+
+new Vue({
+    el: "#app",
+    data: {
+        actionConfirmed: false
+    },
+    methods: {
+        confirmAction: function (e, message) {
+            /*
+            // Default
+            if (!confirm(message)) {
+                event.preventDefault();
+            }
+            */
+
+            if (!this.actionConfirmed) {
+                e.preventDefault();
+
+                bootbox.confirm(message, function (result) {
+                    if (result) {
+                        this.actionConfirmed = true;
+                        $(e.target).trigger(e.type);
+                    }
+                }.bind(this));
+            }
+
+            this.actionConfirmed = false;
+        }
+    }
+})

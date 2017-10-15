@@ -20,7 +20,8 @@
 </head>
 <body>
 
-<div class="container-fluid">
+<div id="app">
+    <div class="container-fluid">
 
     <div class="row">
         @include("layouts.navbar")
@@ -44,6 +45,7 @@
             <p class="copyright">Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br> Developer: knik</p>
         </div>
     </div>
+</div>
 </div>
 
 <script src="{{ URL::asset('/js/app.js') }}"></script>

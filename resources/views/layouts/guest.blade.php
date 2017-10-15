@@ -73,11 +73,11 @@
         </nav>
 
         @yield('content')
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <p class="copyright">Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br> Developer: knik</p>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br> Developer: knik</p>
+            </div>
         </div>
     </div>
 

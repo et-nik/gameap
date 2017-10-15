@@ -60,20 +60,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 37:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
 
-/***/ 38:
+/***/ 39:
 /***/ (function(module, exports) {
 
 // ---------------------------------------------
@@ -111,7 +111,6 @@ new Vue({
             axios.get('/api/game_mods/get_list_for_game/' + this.gameId).then(function (response) {
                 this.gameModsList = response.data;
             }.bind(this));
-            // this.gameModsList = [{id: 5, name: 'Game1'}, {id: 6, name: 'Game2'}];
         },
         dsChangeHandler: function dsChangeHandler() {
             this.fetchIpList();
