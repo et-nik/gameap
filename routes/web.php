@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);
+    Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
 });
 
 Route::group(['prefix' => 'api'], function() {

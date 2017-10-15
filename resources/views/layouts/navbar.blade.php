@@ -21,8 +21,8 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ __('navbar.users') }}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">{{ __('navbar.users') }}</a></li>
-                    <li><a href="#">{{ __('navbar.add_user') }}</a></li>
+                    <li><a href="{{ route('admin.users.index') }}">{{ __('navbar.users') }}</a></li>
+                    <li><a href="{{ route('admin.users.create') }}">{{ __('navbar.add_user') }}</a></li>
                 </ul>
             </li>
 

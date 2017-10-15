@@ -51,7 +51,7 @@ class LoginController extends Controller
     {
         $field = filter_var($this->request->input('login'), FILTER_VALIDATE_EMAIL)
             ? 'email'
-            : 'name';
+            : 'login';
 
         $this->request->merge([$field => $this->request->input('login')]);
 
