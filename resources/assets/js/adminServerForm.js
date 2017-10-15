@@ -30,10 +30,15 @@ new Vue({
             }.bind(this));
         },
         fetchGameModsList: function() {
-            this.gameModsList = [{id: 5, name: 'Game1'}, {id: 6, name: 'Game2'}];
+            axios.get('/api/game_mods/get_list_for_game/' + this.gameId).then(function(response) {
+                this.gameModsList = response.data;
+            }.bind(this));
         },
         dsChangeHandler: function() {
             this.fetchIpList();
+        },
+        gameChangeHandler: function() {
+            this.fetchGameModsList();
         }
     }
 })

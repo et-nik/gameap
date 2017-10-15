@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'api'], function() {
     Route::name('api.dedicated_servers.get_ip_list')->get('dedicated_servers/get_ip_list/{dedicated_server}', 'Api\\DedicatedServersController@getIpList');
+    Route::name('api.game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', 'Api\\GameModsController@getListForGame');
 });
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
