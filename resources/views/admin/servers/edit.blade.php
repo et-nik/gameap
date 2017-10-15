@@ -43,10 +43,14 @@
             {{ Form::select('game_id', $games, null, ['class' => 'form-control']) }}
         </div>
 
-        {{--TODO: Autoload games mods for selected games--}}
         <div class="form-group">
-            {{ Form::label('game_mod_id', 'Game Mod', ['class' => 'control-label']) }}
-            {{ Form::select('game_mod_id', [], null, ['class' => 'form-control']) }}
+            <template id="game-mod-list-template">
+                {{ Form::label('game_mod_id', 'Game Mod', ['class' => 'control-label']) }}
+
+                <select class="form-control" id="game_mod_id" name="game_mod_id">
+                    <option :value="gameMod.id" v-for="gameMod in gameModsList">@{{gameMod.name}}</option>
+                </select>
+            </template>
         </div>
 
         {{ Form::bsText('rcon') }}

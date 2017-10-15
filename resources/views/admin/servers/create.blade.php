@@ -51,7 +51,6 @@
                     <option :value="gameMod.id" v-for="gameMod in gameModsList">@{{gameMod.name}}</option>
                 </select>
             </template>
-{{--            {{ Form::select('game_mod_id', $gamesMods, null, ['class' => 'form-control']) }}--}}
         </div>
 
         {{ Form::bsText('rcon') }}
