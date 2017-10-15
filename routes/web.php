@@ -12,11 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 })->middleware('auth');
 
-Route::get('servers', 'ServersController@index');
-Route::get('servers/{id}', 'ServersController@show');
+Route::get('servers', 'ServersController@index')->name('servers');
+Route::get('servers/{server}', 'ServersController@show');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);

@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property integer $id
  * @property boolean $enabled
+ * @property boolean $installed
+ * @property boolean $blocked
  * @property string $name
  * @property string $code_name
  * @property string $game_id
  * @property integer $ds_id
  * @property integer $game_mod_id
  * @property string $expires
- * @property boolean $installed
  * @property string $server_ip
  * @property integer $server_port
  * @property integer $query_port
@@ -40,6 +41,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Server extends Model
 {
+    const TIME_EXPIRE_PROCESS_CHECK = 120;
+
     protected $fillable = [
         'enabled', 'name', 'code_name', 'game_id',
         'ds_id', 'game_mod_id', 'expires',
@@ -50,6 +53,20 @@ class Server extends Model
         'start_command', 'stop_command',
         'force_stop_command', 'restart_command'
     ];
+
+    /**
+     * Get server status
+     *
+     * @return bool
+     */
+    public function processActive()
+    {
+        if ($this->process_active && $this->last_process_check >= time()-self::TIME_EXPIRE_PROCESS_CHECK) {
+            return true;
+        }
+
+        return false;
+    }
 
     public function dedicated_server()
     {

@@ -26,9 +26,9 @@ class CreateServersTable extends Migration
             $table->timestamp('expires')->nullable();
             $table->string('server_ip', 256);
             $table->integer('server_port')->unsigned();
-            $table->integer('query_port')->unsigned();
-            $table->integer('rcon_port')->unsigned();
-            $table->string('rcon', 256);
+            $table->integer('query_port')->unsigned()->nullable();
+            $table->integer('rcon_port')->unsigned()->nullable();
+            $table->string('rcon', 256)->nullable();
             $table->string('dir', 256);
             $table->string('su_user', 256)->nullable();
             $table->integer('cpu_limit')->unsigned()->nullable();
@@ -39,7 +39,7 @@ class CreateServersTable extends Migration
             $table->text('force_stop_command')->nullable();
             $table->text('restart_command')->nullable();
             $table->boolean('process_active')->default(0);
-            $table->timestamp('last_process_check')->nullable();
+            $table->integer('last_process_check')->nullable();
             $table->text('vars')->nullable();
             $table->timestamps();
         });

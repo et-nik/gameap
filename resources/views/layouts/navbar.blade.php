@@ -5,7 +5,7 @@
         </div>
 
         <ul class="nav navbar-nav">
-            <li><a href="#">{{ __('navbar.main') }}</a></li>
+            <li><a href="{{ route('home') }}">{{ __('navbar.main') }}</a></li>
             <li><a href="#">{{ __('navbar.files') }}</a></li>
 
             <li class="dropdown">
