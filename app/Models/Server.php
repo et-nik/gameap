@@ -61,7 +61,7 @@ class Server extends Model
      */
     public function processActive()
     {
-        if ($this->process_active && $this->last_process_check >= time()-self::TIME_EXPIRE_PROCESS_CHECK) {
+        if ($this->process_active && $this->last_process_check->timestamp >= time()-self::TIME_EXPIRE_PROCESS_CHECK) {
             return true;
         }
 
