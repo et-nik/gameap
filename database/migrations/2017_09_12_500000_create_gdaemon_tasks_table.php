@@ -22,7 +22,7 @@ class CreateGdaemonTasksTable extends Migration
             $table->string('task', 8);
             $table->mediumText('data')->nullable();
             $table->text('cmd')->nullable();
-            $table->mediumText('output')->default('');
+            $table->mediumText('output')->nullable();
             $table->enum('status', ['waiting', 'working', 'error', 'success'])->default('waiting');
         });
     }
