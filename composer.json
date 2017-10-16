@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "austinb/gameq": "~3.0",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~3.3",
         "infyomlabs/generator-builder": "dev-master",
