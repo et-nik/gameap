@@ -39,7 +39,7 @@ class CreateServersTable extends Migration
             $table->text('force_stop_command')->nullable();
             $table->text('restart_command')->nullable();
             $table->boolean('process_active')->default(0);
-            $table->integer('last_process_check')->nullable();
+            $table->timestamp('last_process_check')->nullable();
             $table->text('vars')->nullable();
             $table->timestamps();
         });
