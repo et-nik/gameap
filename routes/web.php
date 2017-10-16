@@ -23,6 +23,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);
     Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
+    
+    Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', 'Admin\\GdaemonTasksController@index', ['as' => 'admin']);
+    Route::name('admin.gdaemon_tasks.show')->get('gdaemon_tasks/{gdaemonTask}', 'Admin\\GdaemonTasksController@show', ['as' => 'admin']);
 });
 
 Route::group(['prefix' => 'api'], function() {

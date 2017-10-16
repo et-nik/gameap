@@ -1,40 +1,17 @@
 <?php
 
-namespace App\Repositories;
+namespace Gameap\Repositories;
 
-use App\Models\GdaemonTask;
-use InfyOm\Generator\Common\BaseRepository;
+use Gameap\Models\GdaemonTask;
 
 /**
  * Class GdaemonTaskRepository
- * @package App\Repositories
- * @version September 19, 2017, 1:29 pm UTC
- *
- * @method GdaemonTask findWithoutFail($id, $columns = ['*'])
- * @method GdaemonTask find($id, $columns = ['*'])
- * @method GdaemonTask first($columns = ['*'])
 */
-class GdaemonTaskRepository extends BaseRepository
+class GdaemonTaskRepository
 {
-    /**
-     * @var array
-     */
-    protected $fieldSearchable = [
-        'run_aft_id',
-        'dedicated_server_id',
-        'server_id',
-        'task',
-        'data',
-        'cmd',
-        'output',
-        'status'
-    ];
-
-    /**
-     * Configure the Model
-     **/
-    public function model()
+    public function getAll($perPage = 20)
     {
-        return GdaemonTask::class;
+        $gdaemonTasks = GdaemonTask::orderBy('id')->paginate($perPage);
+        return $gdaemonTasks;
     }
 }

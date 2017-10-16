@@ -14,7 +14,7 @@
                     <li><a href="{{ route('admin.dedicated_servers.index') }}">{{ __('navbar.dedicated_servers') }}</a></li>
                     <li><a href="{{ route('admin.servers.index') }}">{{ __('navbar.game_servers') }}</a></li>
                     <li><a href="{{ route('admin.games.index') }}">{{ __('navbar.games') }}</a></li>
-                    <li><a href="#">{{ __('navbar.gdaemon_tasks') }}</a></li>
+                    <li><a href="{{ route('admin.gdaemon_tasks.index') }}">{{ __('navbar.gdaemon_tasks') }}</a></li>
                 </ul>
             </li>
 
