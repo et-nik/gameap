@@ -13,7 +13,7 @@ class ServerRequest extends Request
             'ds_id' => 'required',
             'game_mod_id' => '',
             'server_ip' => 'required',
-            'server_port' => 'required',
+            'server_port' => 'required|numeric|digits_between:1,65535',
             'dir' => 'required',
         ];
     }
