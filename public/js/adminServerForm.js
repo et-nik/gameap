@@ -60,42 +60,33 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 38:
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(39);
+module.exports = __webpack_require__(41);
 
 
 /***/ }),
 
-/***/ 39:
+/***/ 41:
 /***/ (function(module, exports) {
 
 // ---------------------------------------------
 // Admin
 
-Vue.component('ip-list', {
-    props: ['ipList'],
-    template: '#ip-list-template'
-});
-
-Vue.component('game-mod-list', {
-    props: ['gameModsList'],
-    template: '#game-mod-list-template'
-});
-
-new Vue({
-    el: "#adminServerForm",
-    data: {
-        dsId: $('#ds_id').val(),
-        gameId: $('#game_id').val(),
-        ipList: [],
-        gameModsList: []
+Vue.mixin({
+    data: function data() {
+        return {
+            dsId: $('#ds_id').val(),
+            gameId: $('#game_id').val(),
+            ipList: [],
+            gameModsList: []
+        };
     },
     created: function created() {
         this.fetchIpList();
@@ -119,6 +110,16 @@ new Vue({
             this.fetchGameModsList();
         }
     }
+});
+
+Vue.component('ip-list', {
+    props: ['ipList'],
+    template: '#ip-list-template'
+});
+
+Vue.component('game-mod-list', {
+    props: ['gameModsList'],
+    template: '#game-mod-list-template'
 });
 
 /***/ })

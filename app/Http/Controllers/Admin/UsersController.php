@@ -108,7 +108,7 @@ class UsersController extends AuthController
      */
     public function destroy(User $user)
     {
-        $user->delete();
+//        $user->delete();
         return redirect()->route('admin.users.index')
             ->with('success','User deleted successfully');
     }

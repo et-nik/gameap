@@ -66,7 +66,3 @@
 
     {!! Form::close() !!}
 @endsection
-
-@section('footer-scripts')
-    <script src="{{ URL::asset('/js/adminServerForm.js') }}"></script>
-@endsection

@@ -10,7 +10,9 @@ bootbox = require('bootbox');
 
 window.Vue = require('vue');
 
-new Vue({
+require('./adminServerForm');
+
+var app = new Vue({
     el: "#app",
     data: {
         actionConfirmed: false
@@ -38,4 +40,4 @@ new Vue({
             this.actionConfirmed = false;
         }
     }
-})
+});
