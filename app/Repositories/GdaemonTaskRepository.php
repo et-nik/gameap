@@ -42,6 +42,25 @@ class GdaemonTaskRepository
     }
 
     /**
+     * Create new stopping of game server task
+     *
+     * @param Server $server
+     * @param int $runAftId
+     * @return int Gdaemon Task ID
+     */
+    public function addServerStop(Server $server, int $runAftId = 0)
+    {
+        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_STOP, 'Server stop task is already exists');
+
+        return GdaemonTask::create([
+            'run_aft_id' => $runAftId,
+            'dedicated_server_id' => $server->ds_id,
+            'server_id' => $server->id,
+            'task' => GdaemonTask::TASK_SERVER_STOP,
+        ])->id;
+    }
+
+    /**
      * @param Server $server
      * @param int    $runAftId
      *

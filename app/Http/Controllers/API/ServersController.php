@@ -49,6 +49,18 @@ class ServersController extends AuthController
 
     /**
      * @param Server $server
+     *
+     * @return array
+     */
+    public function stop(Server $server)
+    {
+        return [
+            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerStop($server)
+        ];
+    }
+
+    /**
+     * @param Server $server
      */
     public function restart(Server $server)
     {
@@ -64,6 +76,17 @@ class ServersController extends AuthController
     {
         return [
             'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerUpdate($server)
+        ];
+    }
+
+    /**
+     * Get server status
+     * @param Server $server
+     */
+    public function getStatus(Server $server)
+    {
+        return [
+            'processActive' => $server->processActive()
         ];
     }
 }
