@@ -20,6 +20,8 @@
 </head>
 <body>
 
+@yield('page-data')
+
 <div id="app">
     <div class="container-fluid">
 

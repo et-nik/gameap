@@ -1,15 +1,13 @@
 if( document.getElementById("serverControl") ) {
-
-    var server = Vue.component('server', {
-        functional: true,
-        props: ['serverId'],
-        // render: function(h) {
-        //     console.log('azaza' + this.serverId);
-        // }
+    Vue.mixin({
+        data: function () {
+            return {
+                watchTaskId: 0
+            };
+        },
         methods: {
             startServer: function() {
-                console.log(this);
-                // alert('К запуску готов, капитан! ServerId: ' + this.server.serverId);
+                alert('К запуску готов, капитан! ServerId: ' + page.serverId);
             },
             stopServer: function() {
 
@@ -25,31 +23,4 @@ if( document.getElementById("serverControl") ) {
             }
         }
     });
-
-    // Vue.mixin({
-    //     data: function () {
-    //         return {
-    //             // serverId: this.serverId,
-    //             watchTaskId: 0
-    //         };
-    //     },
-    //     methods: {
-    //         startServer: function() {
-    //             console.log(this);
-    //             // alert('К запуску готов, капитан! ServerId: ' + this.server.serverId);
-    //         },
-    //         stopServer: function() {
-    //
-    //         },
-    //         restartServer: function() {
-    //
-    //         },
-    //         updateServer: function() {
-    //
-    //         },
-    //         watchTask: function() {
-    //
-    //         }
-    //     }
-    // });
 }

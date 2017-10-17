@@ -2,11 +2,17 @@
 
 @extends('layouts.main')
 
+@section('page-data')
+    <script>
+        const page = {
+            serverId: {{ $server->id }}
+        };
+    </script>
+@endsection
+
 @section('content')
     <h2>Commands</h2>
     <div id="serverControl">
-        <server server-id="'{{ $server->id }}'"></server>
-
         @if (!$server->processActive())
             <a class="btn btn-large btn-success" href="#" @click="startServer"><span class="fa fa-play"></span>&nbsp;Start</a>
         @endif
