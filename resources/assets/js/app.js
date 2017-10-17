@@ -18,6 +18,7 @@ var vm = new Vue({
     data: {
         actionConfirmed: false
     },
+    components: {'progressbar': require('./components/progressbar.vue')},
     methods: {
         alert: function(message) {
             bootbox.alert(message);
@@ -47,6 +48,10 @@ var vm = new Vue({
             }
 
             this.actionConfirmed = false;
+        },
+        mountProgressbar: function(mount) {
+            var progressbar = Vue.extend(this.$options.components.progressbar);
+            return new progressbar().$mount(mount);
         }
     }
 });

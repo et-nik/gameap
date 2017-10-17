@@ -16,7 +16,7 @@
         <a class="btn btn-large btn-warning" href="#" @click="restartServer({{ $server->id }})"><span class="fa fa-repeat"></span>&nbsp;Restart</a>
         <a class="btn btn-large btn-info" href="#" @click="updateServer({{ $server->id }})"><span class="fa fa-refresh"></span>&nbsp;Update</a>
     </div>
-
+    
     <h2>Tools</h2>
 
     <h2>Status</h2>
