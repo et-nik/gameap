@@ -130,10 +130,10 @@ if( document.getElementById("serverControl") ) {
                         gameap.setTaskError(error.response.data.message);
                     });
             },
-            getServerStatus: function(callback) {
+            getServerStatus: function(fn) {
                 axios.get('/api/servers/get_status/' + gameap.serverId)
                     .then(function (response) {
-                        callback(response.data.processActive);
+                        fn(response.data.processActive);
                     });
             }
         }
