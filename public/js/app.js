@@ -11033,7 +11033,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
@@ -11053,6 +11053,7 @@ bootbox = __webpack_require__(35);
 window.Vue = __webpack_require__(36);
 
 __webpack_require__(37);
+__webpack_require__(38);
 
 var app = new Vue({
     el: "#app",
@@ -42957,6 +42958,58 @@ if (document.getElementById("adminServerForm")) {
 
 /***/ }),
 /* 38 */
+/***/ (function(module, exports) {
+
+if (document.getElementById("serverControl")) {
+
+    var server = Vue.component('server', {
+        functional: true,
+        props: ['serverId'],
+        // render: function(h) {
+        //     console.log('azaza' + this.serverId);
+        // }
+        methods: {
+            startServer: function startServer() {
+                console.log(this);
+                // alert('К запуску готов, капитан! ServerId: ' + this.server.serverId);
+            },
+            stopServer: function stopServer() {},
+            restartServer: function restartServer() {},
+            updateServer: function updateServer() {},
+            watchTask: function watchTask() {}
+        }
+    });
+
+    // Vue.mixin({
+    //     data: function () {
+    //         return {
+    //             // serverId: this.serverId,
+    //             watchTaskId: 0
+    //         };
+    //     },
+    //     methods: {
+    //         startServer: function() {
+    //             console.log(this);
+    //             // alert('К запуску готов, капитан! ServerId: ' + this.server.serverId);
+    //         },
+    //         stopServer: function() {
+    //
+    //         },
+    //         restartServer: function() {
+    //
+    //         },
+    //         updateServer: function() {
+    //
+    //         },
+    //         watchTask: function() {
+    //
+    //         }
+    //     }
+    // });
+}
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -16,8 +16,8 @@ class GamesController extends AuthController
     public $repository;
 
     /**
-     * GameModsController constructor.
-     * @param GamesController $repository
+     * GamesController constructor.
+     * @param GameRepository $repository
      */
     public function __construct(GameRepository $repository)
     {

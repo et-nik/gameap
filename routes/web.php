@@ -31,6 +31,15 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'api'], function() {
     Route::name('api.dedicated_servers.get_ip_list')->get('dedicated_servers/get_ip_list/{dedicated_server}', 'Api\\DedicatedServersController@getIpList');
     Route::name('api.game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', 'Api\\GameModsController@getListForGame');
+
+    // Servers
+    Route::name('api.servers.start')->get('servers/start/{server}', 'Api\\ServersController@start');
+    Route::name('api.servers.stop')->get('servers/stop/{server}', 'Api\\ServersController@stop');
+    Route::name('api.servers.restart')->get('servers/restart/{server}', 'Api\\ServersController@restart');
+    Route::name('api.servers.update')->get('servers/update/{server}', 'Api\\ServersController@update');
+
+    // Gdaemon tasks
+    Route::name('api.gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemonTask}', 'Api\\GdaemonTasksController@get');
 });
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');

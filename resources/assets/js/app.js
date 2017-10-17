@@ -10,7 +10,8 @@ bootbox = require('bootbox');
 
 window.Vue = require('vue');
 
-require('./adminServerForm');
+require('./parts/adminServerForm');
+require('./parts/serverControl');
 
 var app = new Vue({
     el: "#app",
