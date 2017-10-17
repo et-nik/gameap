@@ -4,6 +4,7 @@ namespace Gameap\Repositories;
 
 use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
+use Gameap\Exceptions\Repositories\RecordExistExceptions;
 
 /**
  * Class GdaemonTaskRepository
@@ -26,45 +27,91 @@ class GdaemonTaskRepository
      *
      * @param Server $server
      * @param int $runAftId
-     * @return int Gdaemon Task id
+     * @return int Gdaemon Task ID
      */
     public function addServerStart(Server $server, int $runAftId = 0)
     {
+        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_START, 'Server start task is already exists');
+        
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
             'dedicated_server_id' => $server->ds_id,
             'server_id' => $server->id,
-            'task' => 'gsstart',
+            'task' => GdaemonTask::TASK_SERVER_START,
         ])->id;
     }
 
+    /**
+     * @param Server $server
+     * @param int    $runAftId
+     *
+     * @return int Gdaemon Task ID
+     */
     public function addServerRestart(Server $server, int $runAftId = 0)
     {
+        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_RESTART, 'Server restart task is already exists');
+        
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
             'dedicated_server_id' => $server->ds_id,
             'server_id' => $server->id,
-            'task' => 'gsrest',
+            'task' => GdaemonTask::TASK_SERVER_RESTART,
         ])->id;
     }
 
+    /**
+     * @param Server $server
+     * @param int    $runAftId
+     *
+     * @return int Gdaemon Task ID
+     */
     public function addServerUpdate(Server $server, int $runAftId = 0)
     {
+        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_UPDATE, 'Server update/install task is already exists');
+        
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
             'dedicated_server_id' => $server->ds_id,
             'server_id' => $server->id,
-            'task' => 'gsinst',
+            'task' => GdaemonTask::TASK_SERVER_UPDATE,
         ])->id;
     }
 
+    /**
+     * @param Server $server
+     * @param int    $runAftId
+     *
+     * @return int Gdaemon Task ID
+     */
     public function addServerDelete(Server $server, int $runAftId = 0)
     {
+        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_DELETE, 'Server delete task is already exists');
+        
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
             'dedicated_server_id' => $server->ds_id,
             'server_id' => $server->id,
-            'task' => 'gsdel',
+            'task' => GdaemonTask::TASK_SERVER_DELETE,
         ])->id;
+    }
+
+    /**
+     * @param string $task task name
+     * @param string $failMsg Failure message
+     *
+     * @throws RecordExistExceptions
+     */
+    private function workingTaskNotExistOrFail($task, $failMsg = 'Task is already exists')
+    {
+        $taskExist = GdaemonTask::where([
+            ['task', '=', $task],
+        ])->orWhere([
+            ['status', '=', GdaemonTask::STATUS_WAITING],
+            ['status', '=', GdaemonTask::STATUS_WORKING]
+        ])->exists();
+
+        if ($taskExist) {
+            throw new RecordExistExceptions($failMsg);
+        }
     }
 }

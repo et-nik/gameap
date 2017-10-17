@@ -26,7 +26,19 @@ class GdaemonTask extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
+    const TASK_SERVER_START     = 'gsstart';
+    const TASK_SERVER_STOP      = 'gsstop';
+    const TASK_SERVER_RESTART   = 'gsrest';
+    const TASK_SERVER_UPDATE    = 'gsinst';
+    const TASK_SERVER_INSTALL   = 'gsinst';
+    const TASK_SERVER_DELETE    = 'gsdel';
+    const TASK_SERVER_MOVE      = 'gsmove';
+    const TASK_CMD_EXEC         = 'cmdexec';
+    
+    const STATUS_WAITING        = 'waiting';
+    const STATUS_WORKING        = 'working';
+    const STATUS_ERROR          = 'error';
+    const STATUS_SUCCESS        = 'success';
 
     public $fillable = [
         'run_aft_id',

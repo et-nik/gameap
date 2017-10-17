@@ -1,6 +1,6 @@
 <?php
 
-namespace Gameap\Http\Controllers\Api;
+namespace Gameap\Http\Controllers\API;
 
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Repositories\GameRepository;

@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\GdaemonTask;
+use Gameap\Models\GdaemonTask;
 
 class CreateGdaemonTaskRequest extends FormRequest
 {
