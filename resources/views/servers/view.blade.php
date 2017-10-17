@@ -5,7 +5,7 @@
 @section('page-data')
     <script>
         const page = {
-            serverId: {{ $server->id }}
+            serverId: '{{ $server->id }}'
         };
     </script>
 @endsection
