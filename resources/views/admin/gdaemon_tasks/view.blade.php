@@ -13,20 +13,37 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group">
-                {!! Form::label('task', 'Task:') !!}
-                {!! $gdaemonTask->task !!}
-            </div>
+            <table class="table table-striped table-bordered detail-view">
+                <tbody>
+                    <tr>
+                        <th>Task</th>
+                        <td>{!! $gdaemonTask->task !!}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            @if ($gdaemonTask->status == 'success')
+                                <span class="label label-success">{{ $gdaemonTask->status }}</span>
+                            @elseif($gdaemonTask->status == 'error')
+                                <span class="label label-danger">{{ $gdaemonTask->status }}</span>
+                            @elseif($gdaemonTask->status == 'waiting' || $gdaemonTask->status == 'working')
+                                <span class="label label-warning">{{ $gdaemonTask->status }}</span>
+                            @else
+                                <span class="label label-default">{{ $gdaemonTask->status }}</span>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Created</th>
+                        <td>{!! $gdaemonTask->created_at !!}</td>
+                    </tr>
+                    <tr>
+                        <th>Updated</th>
+                        <td>{!! $gdaemonTask->updated_at !!}</td>
+                    </tr>
+                </tbody>
+            </table>
             
-            <div class="form-group">
-                {!! Form::label('created_at', 'Created:') !!}
-                {!! $gdaemonTask->created_at !!}
-            </div>
-            
-            <div class="form-group">
-                {!! Form::label('updated_at', 'Updated:') !!}
-                {!! $gdaemonTask->updated_at !!}
-            </div>
         </div>
     </div>
     

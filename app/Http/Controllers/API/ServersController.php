@@ -37,11 +37,14 @@ class ServersController extends AuthController
 
     /**
      * @param Server $server
-     * @return int
+     *
+     * @return array
      */
     public function start(Server $server)
     {
-        return $this->gdaemonTaskRepository->addServerStart($server);
+        return [
+            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerStart($server)
+        ];
     }
 
     /**
@@ -49,7 +52,9 @@ class ServersController extends AuthController
      */
     public function restart(Server $server)
     {
-        return $this->gdaemonTaskRepository->addServerRestart($server);
+        return [
+            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerRestart($server)
+        ];
     }
 
     /**
@@ -57,6 +62,8 @@ class ServersController extends AuthController
      */
     public function update(Server $server)
     {
-        return $this->gdaemonTaskRepository->addServerUpdate($server);
+        return [
+            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerUpdate($server)
+        ];
     }
 }

@@ -13,12 +13,22 @@ window.Vue = require('vue');
 require('./parts/adminServerForm');
 require('./parts/serverControl');
 
-var app = new Vue({
+var vm = new Vue({
     el: "#app",
     data: {
         actionConfirmed: false
     },
     methods: {
+        alert: function(message) {
+            bootbox.alert(message);
+        },
+        confirm: function(message, callback) {
+            bootbox.confirm(message, function(result) {
+                if (result) {
+                    callback();
+                }
+            });
+        },
         confirmAction: function (e, message) {
             /*
             // Default
@@ -30,11 +40,9 @@ var app = new Vue({
             if (!this.actionConfirmed) {
                 e.preventDefault();
 
-                bootbox.confirm(message, function (result) {
-                    if (result) {
-                        this.actionConfirmed = true;
-                        $(e.target).trigger(e.type);
-                    }
+                this.confirm(message, function () {
+                    this.actionConfirmed = true;
+                    $(e.target).trigger(e.type);
                 }.bind(this));
             }
 
@@ -42,3 +50,5 @@ var app = new Vue({
         }
     }
 });
+
+window.gameap = vm.$root;

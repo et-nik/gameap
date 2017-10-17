@@ -6,20 +6,37 @@ if( document.getElementById("serverControl") ) {
             };
         },
         methods: {
-            startServer: function() {
-                alert('К запуску готов, капитан! ServerId: ' + page.serverId);
+            serverCommand: function(command, serverId) {
+                if ($.inArray(command, ['start', 'stop', 'restart', 'update']) != -1) {
+                    gameap.confirm('Are you sure?', function() {
+                        axios.post('/api/servers/' + command + '/' + serverId)
+                            .then(function (response) {
+                                gameap.watchTaskId = response.data.gdaemonTaskId;
+                                gameap.watchTask();
+                            }).catch(function (error) {
+                                gameap.alert(error.response.data.message);
+                            });
+                    });
+                } else {
+                    gameap.alert('Unknown server command: ' + command);
+                }
             },
-            stopServer: function() {
-
+            startServer: function(serverId) {
+                this.serverCommand('start', serverId);
             },
-            restartServer: function() {
-
+            stopServer: function(serverId) {
+                this.serverCommand('stop', serverId);
             },
-            updateServer: function() {
-
+            restartServer: function(serverId) {
+                this.serverCommand('restart', serverId);
+            },
+            updateServer: function(serverId) {
+                this.serverCommand('update', serverId);
             },
             watchTask: function() {
-
+                var dialog = bootbox.dialog({
+                    message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i> Please wait while we do something...</p>'
+                });
             }
         }
     });

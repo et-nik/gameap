@@ -96,18 +96,24 @@ class GdaemonTaskRepository
     }
 
     /**
-     * @param string $task task name
+     * @param string|array $task task name
      * @param string $failMsg Failure message
      *
      * @throws RecordExistExceptions
      */
     private function workingTaskNotExistOrFail($task, $failMsg = 'Task is already exists')
     {
-        $taskExist = GdaemonTask::where([
-            ['task', '=', $task],
-        ])->orWhere([
-            ['status', '=', GdaemonTask::STATUS_WAITING],
-            ['status', '=', GdaemonTask::STATUS_WORKING]
+        if (is_array($task)) {
+            $taskQuery = GdaemonTask::whereIn(['task', $task]);
+        } else {
+            $taskQuery = GdaemonTask::where([
+                ['task', '=', $task],
+            ]);
+        }
+
+        $taskExist = $taskQuery->whereIn('status', [
+            GdaemonTask::STATUS_WAITING, 
+            GdaemonTask::STATUS_WORKING
         ])->exists();
 
         if ($taskExist) {
