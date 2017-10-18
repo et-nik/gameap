@@ -30,7 +30,7 @@
                     </tr>
                     <tr>
                         <th>Roles</th>
-                        <td>{!! $roles->pluck('name') !!}</td>
+                        <td>{!! $user->roles->implode('name', ', ') !!}</td>
                     </tr>
                 </tbody>
             </table>
