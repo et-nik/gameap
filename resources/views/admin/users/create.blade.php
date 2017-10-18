@@ -19,8 +19,12 @@
         {{ Form::bsEmail('email') }}
         {{ Form::bsPassword('password') }}
         {{ Form::bsPassword('password_confirmation') }}
-    </div>
 
+        <div class='form-group'>
+            {{ Form::label('roles[]', 'Roles', ['class' => 'control-label']) }}
+            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['class' => 'form-control']) }}
+        </div>
+    </div>
 
     <div class="col-md-12">
         <div class="form-group">

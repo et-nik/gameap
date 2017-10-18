@@ -6,6 +6,8 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
 use Gameap\Http\Requests\UserRequest;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UsersController extends AuthController
 {
@@ -46,7 +48,9 @@ class UsersController extends AuthController
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::get();
+        
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -57,7 +61,7 @@ class UsersController extends AuthController
      */
     public function store(UserRequest $request)
     {
-        User::create($request->all());
+        $this->repository->store($request);
 
         return redirect()->route('admin.users.index')
             ->with('success','User created successfully');
@@ -71,7 +75,8 @@ class UsersController extends AuthController
      */
     public function show(User $user)
     {
-        return view('admin.users.view', compact('user'));
+        $roles = Role::get();
+        return view('admin.users.view', compact('user', 'roles'));
     }
 
     /**
@@ -82,7 +87,8 @@ class UsersController extends AuthController
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::get();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -94,7 +100,7 @@ class UsersController extends AuthController
      */
     public function update(UserRequest $request, User $user)
     {
-        $user->update($request->all());
+        $this->repository->update($request->all(), $user);
 
         return redirect()->route('admin.users.index')
             ->with('success','User updated successfully');

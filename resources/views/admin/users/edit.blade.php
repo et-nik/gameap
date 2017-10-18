@@ -18,6 +18,11 @@
         {{ Form::bsText('login') }}
         {{ Form::bsEmail('email') }}
         {{ Form::bsText('name') }}
+
+        <div class='form-group'>
+            {{ Form::label('roles[]', 'Roles', ['class' => 'control-label']) }}
+            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['class' => 'form-control']) }}
+        </div>
     </div>
 
     <div class="col-md-12">
