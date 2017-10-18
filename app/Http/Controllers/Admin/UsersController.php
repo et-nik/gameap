@@ -75,8 +75,7 @@ class UsersController extends AuthController
      */
     public function show(User $user)
     {
-        $roles = Role::get();
-        return view('admin.users.view', compact('user', 'roles'));
+        return view('admin.users.view', compact('user'));
     }
 
     /**
