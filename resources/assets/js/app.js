@@ -4,11 +4,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
-bootbox = require('bootbox');
-
-window.Vue = require('vue');
 
 require('./parts/adminServerForm');
 require('./parts/serverControl');

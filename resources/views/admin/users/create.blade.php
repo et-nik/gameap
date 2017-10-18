@@ -21,8 +21,8 @@
         {{ Form::bsPassword('password_confirmation') }}
 
         <div class='form-group'>
-            {{ Form::label('roles[]', 'Roles', ['class' => 'control-label']) }}
-            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['class' => 'form-control']) }}
+            {{ Form::label('roles', 'Roles', ['class' => 'control-label']) }}
+            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
         </div>
     </div>
 

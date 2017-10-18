@@ -51,3 +51,7 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+window.Vue = require('vue');
+bootbox = require('bootbox');
+require('bootstrap-select');
