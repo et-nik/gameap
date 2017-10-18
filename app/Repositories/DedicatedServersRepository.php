@@ -3,6 +3,7 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
+use Gameap\Http\Requests\DedicatedServerRequest;
 
 class DedicatedServersRepository
 {
@@ -28,5 +29,22 @@ class DedicatedServersRepository
             ->where('id', '=', $id)
             ->first()
             ->ip;
+    }
+
+    /**
+     * @param DedicatedServerRequest $dedicatedServerRequest
+     */
+    public function store(DedicatedServerRequest $dedicatedServerRequest)
+    {
+        $dedicatedServer = DedicatedServer::create($dedicatedServerRequest->all());
+    }
+
+    /**
+     * @param DedicatedServerRequest $dedicatedServerRequest
+     * @param DedicatedServer        $dedicatedServer
+     */
+    public function update(DedicatedServerRequest $dedicatedServerRequest, DedicatedServer $dedicatedServer)
+    {
+        $dedicatedServer->update($dedicatedServerRequest->all());
     }
 }
