@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
     
     Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', 'Admin\\GdaemonTasksController@index', ['as' => 'admin']);
-    Route::name('admin.gdaemon_tasks.show')->get('gdaemon_tasks/{gdaemonTask}', 'Admin\\GdaemonTasksController@show', ['as' => 'admin']);
+    Route::name('admin.gdaemon_tasks.show')->get('gdaemon_tasks/{gdaemon_task}', 'Admin\\GdaemonTasksController@show', ['as' => 'admin']);
 });
 
 Route::group(['prefix' => 'api'], function() {
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'api'], function() {
     Route::name('api.servers.get_status')->get('servers/get_status/{server}', 'API\\ServersController@getStatus');
 
     // Gdaemon tasks
-    Route::name('api.gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemonTask}', 'API\\GdaemonTasksController@get');
+    Route::name('api.gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemon_task}', 'API\\GdaemonTasksController@get');
 });
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');

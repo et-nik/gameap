@@ -1,4 +1,4 @@
-@php($title = "Create Dedicated server")
+@php($title = "Edit Dedicated server")
 
 @extends('layouts.main')
 
@@ -51,7 +51,7 @@
 
     <div class="col-md-12">
         <div class="form-group">
-            {{ Form::submit('Create', ['class' => 'btn btn-success']) }}
+            {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
         </div>
     </div>
 

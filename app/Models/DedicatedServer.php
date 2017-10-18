@@ -3,7 +3,8 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Sofa\Eloquence\Validable;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 
 /**
  * Class DedicatedServer
@@ -34,8 +35,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  */
-class DedicatedServer extends Model
+class DedicatedServer extends Model implements ValidableContract
 {
+    use Validable;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -56,6 +59,22 @@ class DedicatedServer extends Model
 
     protected $casts = [
         'ip' => 'array',
+    ];
+
+    /**
+     * Validation rules
+     * @var array
+     */
+    protected static $rules = [
+        'name' => 'required|max:128',
+        'location' => 'required|max:128',
+        'ip' => 'required',
+        'work_path' => 'required|max:128',
+        'gdaemon_host' => 'required|max:128',
+        'gdaemon_login' => 'required|max:128',
+        'gdaemon_password' => 'required|max:128',
+        'gdaemon_privkey' => 'required|max:128',
+        'gdaemon_keypass' => 'required|max:128',
     ];
 
     /**

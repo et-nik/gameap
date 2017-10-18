@@ -19,6 +19,7 @@
         {{ Form::bsEmail('email') }}
         {{ Form::bsPassword('password') }}
         {{ Form::bsPassword('password_confirmation') }}
+        {{ Form::bsText('name') }}
 
         <div class='form-group'>
             {{ Form::label('roles', 'Roles', ['class' => 'control-label']) }}
