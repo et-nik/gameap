@@ -26,12 +26,12 @@
     <div class="container-fluid">
 
     <div class="row">
-        @include("layouts.navbar")
+        @include("components.navbar")
     </div>
 
     <div class="row">
         <div class="col-md-2 col-lg-2 left-menu">
-            @include("layouts.sidebar")
+            @include("components.sidebar")
         </div>
         <div class="col-sm-12 col-md-10 col-lg-10 content">
             @yield('breadclumbs')

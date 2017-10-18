@@ -15,6 +15,7 @@ Route::get('/', function () {
     return redirect('home');
 })->middleware('auth');
 
+Route::get('profile', 'ProfileController@index')->name('profile');
 Route::get('servers', 'ServersController@index')->name('servers');
 Route::get('servers/{server}', 'ServersController@show');
 

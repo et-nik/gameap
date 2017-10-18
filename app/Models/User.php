@@ -34,6 +34,7 @@ class User extends Authenticatable implements ValidableContract
 
     /**
      * Validation rules
+     * 
      * @var array
      */
     protected static $rules = [

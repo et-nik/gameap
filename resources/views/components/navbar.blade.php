@@ -28,7 +28,7 @@
                 </li>
             @endcan
 
-            <li><a href="#">{{ __('navbar.profile') }}</a></li>
+            <li><a href="{{ route('profile') }}">{{ __('navbar.profile') }}</a></li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ __('navbar.gameap') }}<span class="caret"></span></a>

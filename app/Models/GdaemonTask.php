@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model as Model;
 /**
  * Class GdaemonTask
  * @package App\Models
- * @version September 19, 2017, 1:29 pm UTC
  *
  * @property integer run_aft_id
  * @property integer dedicated_server_id
@@ -20,7 +19,6 @@ use Illuminate\Database\Eloquent\Model as Model;
  */
 class GdaemonTask extends Model
 {
-
     public $table = 'gdaemon_tasks';
     
     const CREATED_AT = 'created_at';

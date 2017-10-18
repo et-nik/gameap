@@ -2,7 +2,7 @@
 
 <p align="center"><strong>Profile</strong></p>
 <ul class="page-sidebar-menu">
-    <li><a href="#"><span class="fa fa-user"></span>&nbsp;View profile</a></li>
+    <li><a href="{{ route('profile') }}"><span class="fa fa-user"></span>&nbsp;View profile</a></li>
 </ul>
 
 <p align="center"><strong>Support</strong></p>
