@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::get('servers', 'ServersController@index')->name('servers');
 Route::get('servers/{server}', 'ServersController@show');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);

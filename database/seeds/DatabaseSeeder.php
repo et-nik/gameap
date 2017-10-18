@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
              GamesTableSeeder::class,
              ServersTableSeeder::class,
              UsersTableSeeder::class,
+             PermissionsSeeder::class,
          ]);
     }
 }
