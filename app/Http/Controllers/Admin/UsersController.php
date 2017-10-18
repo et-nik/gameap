@@ -25,7 +25,7 @@ class UsersController extends AuthController
      */
     public function __construct(UserRepository $repository)
     {
-
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -100,7 +100,7 @@ class UsersController extends AuthController
      */
     public function update(UserRequest $request, User $user)
     {
-        $this->repository->update($request->all(), $user);
+        $this->repository->update($request, $user);
 
         return redirect()->route('admin.users.index')
             ->with('success','User updated successfully');

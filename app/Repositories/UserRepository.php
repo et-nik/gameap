@@ -51,8 +51,7 @@ class UserRepository
 
         if (isset($request['roles'])) {
             $user->roles()->sync($request['roles']);  
-        }
-        else {
+        } else {
             $user->roles()->detach();
         }
     }

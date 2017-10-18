@@ -5,11 +5,14 @@ namespace Gameap\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Sofa\Eloquence\Validable;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements ValidableContract
 {
     use Notifiable;
     use HasRoles;
+    use Validable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +30,17 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     * Validation rules
+     * @var array
+     */
+    protected static $rules = [
+        'login'     => 'sometimes|string|max:255|unique:users',
+        'email'     => 'sometimes|string|email|max:255|unique:users',
+        'password'  => 'sometimes|string|min:6|confirmed',
+        'name'      => 'string|nullable|max:255',
     ];
 
     /**

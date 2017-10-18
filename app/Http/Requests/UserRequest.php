@@ -2,15 +2,19 @@
 
 namespace Gameap\Http\Requests;
 
+use Gameap\Models\User;
+
 class UserRequest extends Request
 {
+    /**
+     * Rules
+     * 
+     * @return array
+     */
     public function rules()
     {
-        return [
-            'login' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'name' => 'string|max:255',
-        ];
+        return ($this->method() === self::METHOD_PATCH)
+            ? User::getUpdateRulesForId($this->route()->parameter('user')->id)
+            : User::getCreateRules();
     }
 }

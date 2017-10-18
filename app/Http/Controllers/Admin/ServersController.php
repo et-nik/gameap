@@ -2,8 +2,8 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
-use Gameap\Http\Requests\ServerRequest;
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\ServerRequest;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
 use Gameap\Models\DedicatedServer;
