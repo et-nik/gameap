@@ -26,31 +26,29 @@ class UserRepository
     }
 
     /**
-     * @param  \Gameap\Http\Requests\UserRequest  $request
+     * @param array $attributes
      */
-    public function store(UserRequest $request)
+    public function store(array $attributes)
     {
-        $user = User::create($request->all());
+        $user = User::create($attributes);
 
-        if (isset($request['roles'])) {
-            $roles = $request['roles'];
-            
-            foreach ($roles as &$role) {
+        if (isset($attributes['roles'])) {
+            foreach ($attributes['roles'] as &$role) {
                 $user->assignRole(Role::where('id', '=', $role)->firstOrFail());
             }
         }
     }
 
     /**
-     * @param UserRequest $request
-     * @param User        $user
+     * @param array $fields
+     * @param User $user
      */
-    public function update(UserRequest $request, User $user)
+    public function update(User $user, array $fields)
     {
-        $user->update($request->all());
+        $user->update($fields);
 
-        if (isset($request['roles'])) {
-            $user->roles()->sync($request['roles']);  
+        if (isset($fields['roles'])) {
+            $user->roles()->sync($fields['roles']);
         } else {
             $user->roles()->detach();
         }

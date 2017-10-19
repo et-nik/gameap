@@ -63,7 +63,7 @@ class ServersController extends AuthController
      */
     public function store(ServerRequest $request)
     {
-        $this->repository->store($request);
+        $this->repository->store($request->all());
 
         return redirect()->route('admin.servers.index')
             ->with('success','Game server created successfully');

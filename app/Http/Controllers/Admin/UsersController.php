@@ -99,7 +99,7 @@ class UsersController extends AuthController
      */
     public function update(UserRequest $request, User $user)
     {
-        $this->repository->update($request, $user);
+        $this->repository->update($request->all(), $user);
 
         return redirect()->route('admin.users.index')
             ->with('success','User updated successfully');

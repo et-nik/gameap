@@ -9,7 +9,7 @@ class DedicatedServerRequest extends Request
     public function rules()
     {
         return ($this->method() === self::METHOD_PATCH)
-            ? DedicatedServer::getUpdateRulesForId($this->route()->parameter('dedicatedServer')->id)
+            ? DedicatedServer::getUpdateRulesForId($this->route()->parameter('dedicated_server')->id)
             : DedicatedServer::getCreateRules();
     }
 }

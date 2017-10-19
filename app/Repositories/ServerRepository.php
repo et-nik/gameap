@@ -17,10 +17,10 @@ class ServerRepository
     /**
      * Store server
      * 
-     * @param \Gameap\Http\Requests\ServerRequest  $request
+     * @param array $attributes
      */
-    public function store(ServerRequest $request)
+    public function store(array $attributes)
     {
-        Server::create($request->all());
+        Server::create($attributes);
     }
 }

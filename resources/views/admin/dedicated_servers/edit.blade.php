@@ -21,7 +21,7 @@
         {{ Form::bsText('location') }}
         {{ Form::bsText('provider') }}
         @foreach ($dedicatedServer->ip as $ip)
-            {{ Form::bsText('ip', $ip) }}
+            {{ Form::bsText('ip[]', $ip, 'IP') }}
         @endforeach
 
         {{ Form::bsText('ram') }}

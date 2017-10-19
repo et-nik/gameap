@@ -32,19 +32,19 @@ class DedicatedServersRepository
     }
 
     /**
-     * @param DedicatedServerRequest $dedicatedServerRequest
+     * @param array $attributes
      */
-    public function store(DedicatedServerRequest $dedicatedServerRequest)
+    public function store(array $attributes)
     {
-        $dedicatedServer = DedicatedServer::create($dedicatedServerRequest->all());
+        $dedicatedServer = DedicatedServer::create($attributes);
     }
 
     /**
-     * @param DedicatedServerRequest $dedicatedServerRequest
+     * @param array $fields
      * @param DedicatedServer        $dedicatedServer
      */
-    public function update(DedicatedServerRequest $dedicatedServerRequest, DedicatedServer $dedicatedServer)
+    public function update(DedicatedServer $dedicatedServer, array $attributes)
     {
-        $dedicatedServer->update($dedicatedServerRequest->all());
+        $dedicatedServer->update($attributes);
     }
 }
