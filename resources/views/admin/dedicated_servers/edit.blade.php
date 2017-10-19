@@ -29,8 +29,19 @@
         {{ Form::bsText('work_path') }}
         {{ Form::bsText('steamcmd_path') }}
     </div>
-
+    
     <div class="col-md-6">
+        <div id="ip-list">
+            
+        </div>
+        {{-- https://jsfiddle.net/p4xLg8o0/ --}}
+        {{-- https://jsfiddle.net/p4xLg8o0/3/ --}}
+        
+        {{--<input-text-list :items="{{ json_encode($dedicatedServer->ip) }}" name="ip" label="IP"></input-text-list>--}}
+        <input-text-list :items='["127.0.0.3", "127.0.0.4","127.0.0.5"]' name="ip" label="IP"></input-text-list>
+    </div>
+
+    <div class="col-md-6 col-md-offset-2">
         {{ Form::bsText('script_start') }}
         {{ Form::bsText('script_stop') }}
         {{ Form::bsText('script_restart') }}

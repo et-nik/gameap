@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -14,7 +13,7 @@ var vm = new Vue({
     data: {
         actionConfirmed: false
     },
-    components: {'progressbar': require('./components/progressbar.vue')},
+    components: {'progressbar': require('./components/progressbar.vue'), 'input-text-list': require('./components/input-text-list.vue')},
     methods: {
         alert: function(message) {
             bootbox.alert(message);
@@ -45,9 +44,16 @@ var vm = new Vue({
 
             this.actionConfirmed = false;
         },
-        mountProgressbar: function(mount) {
+        mountProgressbar: function(mountPoint) {
             var progressbar = Vue.extend(this.$options.components.progressbar);
-            return new progressbar().$mount(mount);
+            return new progressbar().$mount(mountPoint);
+        },
+        appendComponent: function(componentName, appendPoint) {
+            var component = Vue.extend(this.$options.components[componentName]);
+
+            var componentInstance = new component().$mount();
+            $(appendPoint).append(componentInstance.$el);
+            return componentInstance;
         }
     }
 });
