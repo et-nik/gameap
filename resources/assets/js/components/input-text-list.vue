@@ -11,10 +11,9 @@
 
 <script>
     export default {
-        props: {
-          label : String,
-          name : String,
-          items : Array
+        props: ['initialItems', 'name', 'label'],
+        data: function () {
+            return { items: this.initialItems }
         },
         methods: {
             removeItem: function(index) {
