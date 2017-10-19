@@ -20,10 +20,7 @@
         {{ Form::bsText('os') }}
         {{ Form::bsText('location') }}
         {{ Form::bsText('provider') }}
-        @foreach ($dedicatedServer->ip as $ip)
-            {{ Form::bsText('ip[]', $ip, 'IP') }}
-        @endforeach
-
+        
         {{ Form::bsText('ram') }}
         {{ Form::bsText('cpu') }}
         {{ Form::bsText('work_path') }}
@@ -38,7 +35,7 @@
         {{-- https://jsfiddle.net/p4xLg8o0/3/ --}}
         
         {{--<input-text-list :items="{{ json_encode($dedicatedServer->ip) }}" name="ip" label="IP"></input-text-list>--}}
-        <input-text-list :initial-items='["127.0.0.12", "127.0.0.4","127.0.0.5"]' name="ip" label="IP"></input-text-list>
+        <input-text-list :initial-items="{{ json_encode($dedicatedServer->ip) }}" name="ip" label="IP"></input-text-list>
     </div>
 
     <div class="col-md-6 col-md-offset-2">
