@@ -96,7 +96,7 @@ class DedicatedServersController extends AuthController
      */
     public function update(DedicatedServerRequest $request, DedicatedServer $dedicatedServer)
     {
-        $dedicatedServer->update($request->all());
+        $this->repository->update($dedicatedServer, $request->all());
 
         return redirect()->route('admin.dedicated_servers.index')
             ->with('success','Dedicated server updated successfully');

@@ -36,7 +36,11 @@ class DedicatedServersRepository
      */
     public function store(array $attributes)
     {
-        $dedicatedServer = DedicatedServer::create($attributes);
+        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+            return !empty($value);
+        });
+
+        DedicatedServer::create($attributes);
     }
 
     /**
@@ -45,6 +49,10 @@ class DedicatedServersRepository
      */
     public function update(DedicatedServer $dedicatedServer, array $attributes)
     {
+        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+            return !empty($value);
+        });
+
         $dedicatedServer->update($attributes);
     }
 }

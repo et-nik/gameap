@@ -68,7 +68,7 @@ class DedicatedServer extends Model implements ValidableContract
     protected static $rules = [
         'name' => 'required|max:128',
         'location' => 'required|max:128',
-        'ip' => 'required',
+        'ip' => 'required|array',
         'work_path' => 'required|max:128',
         'gdaemon_host' => 'required|max:128',
         'gdaemon_login' => 'required|max:128',

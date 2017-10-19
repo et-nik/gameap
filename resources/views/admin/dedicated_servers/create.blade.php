@@ -20,11 +20,22 @@
         {{ Form::bsText('os') }}
         {{ Form::bsText('location') }}
         {{ Form::bsText('provider') }}
-        {{ Form::bsText('ip') }}
         {{ Form::bsText('ram') }}
         {{ Form::bsText('cpu') }}
         {{ Form::bsText('work_path') }}
         {{ Form::bsText('steamcmd_path') }}
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                IP List
+            </div>
+            <div class="panel-body">
+                @php ( $oldIpValue = old('ip') ? json_encode(old('ip')) : '[]' )
+                <input-text-list :initial-items="{{ $oldIpValue }}" name="ip" label="IP"></input-text-list>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-6">
