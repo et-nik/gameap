@@ -6,7 +6,7 @@
     <ol class="breadcrumb">
         <li><a href="/">GameAP</a></li>
         <li><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>
-        <li>Create</li>
+        <li>Edit</li>
     </ol>
 @endsection
 
