@@ -7,7 +7,7 @@
         <div class="form-group" v-for="(item, index) in items">
             <div class="row">
                 <div class="col-md-10">
-                    <input v-model="items[index]" v-bind:name="name + '[]'" type="text" v-bind:value="item" v-bind:id="name + '_' + index" class="form-control">
+                    <input type="text" v-model="items[index]" v-bind:name="name + '[]'" v-bind:id="name + '_' + index" class="form-control">
                 </div>
                 <div class="col-md-2">
                     <a class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(index)">X</a>
