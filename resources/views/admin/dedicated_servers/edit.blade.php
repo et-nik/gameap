@@ -4,9 +4,9 @@
 
 @section('breadclumbs')
     <ol class="breadcrumb">
-        <li><a href="/">GameAP</a></li>
-        <li><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>
-        <li>Edit</li>
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>
+        <li class="breadcrumb-item active">Edit</li>
     </ol>
 @endsection
 

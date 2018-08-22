@@ -4,9 +4,9 @@
 
 @section('breadclumbs')
     <ol class="breadcrumb">
-        <li><a href="/">GameAP</a></li>
-        <li><a href="{{ route('admin.users.index') }}">Users</a></li>
-        <li>{{ $user->login }}</li>
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
+        <li class="breadcrumb-item active">{{ $user->login }}</li>
     </ol>
 @endsection
 
