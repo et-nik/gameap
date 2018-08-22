@@ -2,7 +2,6 @@
 
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
-use Gameap\Http\Controllers\Controller;
 use Gameap\Models\Server;
 
 class ServersController extends Controller
