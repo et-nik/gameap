@@ -19,7 +19,8 @@ $brand-danger: #bf5329;
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $font-family-sans-serif: "Helvetica", "Arial", sans-serif;
-$font-size-base: 0.8rem;
+$font-size-base: 0.8rem; // Bootstrap 4
+// $font-size-base: 13px; // Bootstrap 3
 $line-height-base: 1.6;
 $text-color: #636b6f;
 
@@ -36,3 +37,6 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+// Font Awesome
+$fa-font-path: "~font-awesome/fonts/";
