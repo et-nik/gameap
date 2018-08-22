@@ -50,3 +50,5 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('gdaemon_api/get_server/{server}', 'GdaemonAPI\ServersController@getServer');
