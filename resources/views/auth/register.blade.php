@@ -3,14 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="panel">
+        <div class="col-md-4 offset-md-4">
+            <div class="card mb-3 mt-3">
                 <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                     {{ csrf_field() }}
 
-                    <div class="panel-heading">Register</div>
+                    <div class="card-header">Register</div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
                             <label for="login" class="col-md-12">Login</label>
 
@@ -62,10 +62,10 @@
                         </div>
                     </div>
 
-                    <div class="panel-bottom">
+                    <div class="card-footer">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-default pull-right">Register</button>
+                                <button type="submit" class="btn btn-default">Register</button>
                             </div>
                         </div>
                     </div>

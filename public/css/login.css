@@ -1,26 +1,26 @@
-.panel-heading {
+.card-header {
     background-color:#444;
     color:#fff;
     font-size:25px;
     border-bottom:1px solid #ddd;
 }
 
-.panel-bottom {
-    padding: 10px 15px;
+.card-footer {
+    padding: 25px 15px;
     background-color:#444;
     color: #ffa800;
     border-bottom:1px solid #ddd;
 }
 
-.panel-bottom a {
+.card-footer a {
     color: #ffa800;
 }
 
-.panel-bottom a:hover {
+.card-footer a:hover {
     color: #ffa800;
 }
 
-.panel {
+.card {
     border: 1px solid #ddd;
     -moz-box-shadow: 1px 1px 7px #ccc;
     -webkit-box-shadow: 1px 1px 7px #ccc;
