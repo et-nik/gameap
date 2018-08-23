@@ -51,4 +51,14 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('gdaemon_api/get_server/{server}', 'GdaemonAPI\ServersController@getServer');
+Route::group(['prefix' => 'gdaemon_api'], function() {
+    // Dedicated servers
+    Route::name('gdaemon_api.dedicated_servers.get_init_data')->get('dedicated_servers/get_init_data/{dedicated_server}', 'GdaemonAPI\DedicatedServersController@getInitData');
+    
+    // Servers
+    Route::name('gdaemon_api.servers.get_server')->get('servers/get_server/{server}', 'GdaemonAPI\ServersController@getServer');
+    
+    // GDaemon tasks
+    Route::name('gdaemon_api.tasks.get_waiting')->get('tasks/get_waiting/{dedicated_server}', 'GdaemonAPI\TasksController@getWaiting');
+    Route::name('gdaemon_api.tasks.get_working')->get('tasks/get_working/{dedicated_server}', 'GdaemonAPI\TasksController@getWorking');
+});

@@ -4,6 +4,7 @@ namespace Gameap\Repositories;
 
 use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
+use Gameap\Models\DedicatedServer;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 
 /**
@@ -11,6 +12,13 @@ use Gameap\Exceptions\Repositories\RecordExistExceptions;
 */
 class GdaemonTaskRepository
 {
+    protected $model;
+
+    public function __construct(GdaemonTask $gdaemonTask)
+    {
+        $this->model = $gdaemonTask;
+    }
+    
     public function getAll($perPage = 20)
     {
         $gdaemonTasks = GdaemonTask::orderBy('id')->paginate($perPage);
@@ -112,6 +120,36 @@ class GdaemonTaskRepository
             'server_id' => $server->id,
             'task' => GdaemonTask::TASK_SERVER_DELETE,
         ])->id;
+    }
+
+    /**
+     * Get waiting tasks list
+     * 
+     * @param DedicatedServer $dedicatedServer
+     *
+     * @return mixed
+     */
+    public function getWaitingList(DedicatedServer $dedicatedServer)
+    {
+        return $this->model->select('id', 'run_aft_id', 'dedicated_server_id', 'server_id', 'task', 'data', 'status')
+            ->where('status', '=', GdaemonTask::STATUS_WAITING)
+            ->where('dedicated_server_id', '=', $dedicatedServer->id)
+            ->get();
+    }
+
+    /**
+     * Get working tasks list
+     *
+     * @param DedicatedServer $dedicatedServer
+     *
+     * @return mixed
+     */
+    public function getWorkingList(DedicatedServer $dedicatedServer)
+    {
+        return $this->model->select('id', 'run_aft_id', 'dedicated_server_id', 'server_id', 'task', 'data', 'status')
+            ->where('status', '=', GdaemonTask::STATUS_WORKING)
+            ->where('dedicated_server_id', '=', $dedicatedServer->id)
+            ->get();
     }
 
     /**
