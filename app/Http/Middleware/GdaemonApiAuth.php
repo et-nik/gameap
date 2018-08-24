@@ -27,7 +27,7 @@ class GdaemonApiAuth
     public function handle($request, Closure $next)
     {
         $bearerToken = $request->bearerToken();
-
+        
         if (is_null($bearerToken)) {
             throw new HttpException(401, "Bearer token not set", null, ['WWW-Authenticate' => 'Bearer']);
         }
@@ -38,8 +38,8 @@ class GdaemonApiAuth
             throw new AccessDeniedHttpException;
         }
 
-        $request->attributes->set('dedicatedServer', $dedicatedServer);
-
+        app()->instance(DedicatedServer::class, $dedicatedServer);
+        
         return $next($request);
     }
 }

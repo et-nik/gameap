@@ -16,13 +16,8 @@ class AuthController extends BaseController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getToken()
+    public function getToken(DedicatedServer $dedicatedServer)
     {
-        /**
-         * @var DedicatedServer $dedicatedServer
-         */
-        $dedicatedServer = request()->get('dedicatedServer');
-        
         $dedicatedServer->gdaemon_api_token = Str::Random(64);
         $dedicatedServer->update();
 
