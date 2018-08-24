@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DedicatedServersTableSeeder extends Seeder
 {
@@ -26,7 +27,7 @@ class DedicatedServersTableSeeder extends Seeder
             'gdaemon_privkey'       => 'gdaemon_privkey',
             'gdaemon_pubkey'        => 'gdaemon_pubkey',
             'gdaemon_keypass'       => 'gdaemon_keypass',
-            'gdaemon_keypass'       => 'gdaemon_keypass',
+            'gdaemon_api_key'       => Str::random(64),
             'script_start'          => 'script_start',
             'script_stop'           => 'script_stop',
             'script_restart'        => 'script_restart',

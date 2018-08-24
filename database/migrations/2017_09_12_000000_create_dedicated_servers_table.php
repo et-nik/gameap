@@ -32,7 +32,7 @@ class CreateDedicatedServersTable extends Migration
             $table->string('gdaemon_pubkey');
             $table->string('gdaemon_keypass');
             $table->string('gdaemon_api_key');
-            $table->char('gdaemon_api_token', 64);
+            $table->char('gdaemon_api_token', 64)->nullable();
             $table->text('script_start')->nullable();
             $table->text('script_stop')->nullable();
             $table->text('script_restart')->nullable();
