@@ -26,6 +26,8 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $gdaemon_privkey
  * @property string $gdaemon_pubkey
  * @property string $gdaemon_keypass
+ * @property string $gdaemon_api_key
+ * @property string $gdaemon_api_token
  * @property string $script_start
  * @property string $script_stop
  * @property string $script_restart
@@ -68,13 +70,14 @@ class DedicatedServer extends Model implements ValidableContract
     protected static $rules = [
         'name' => 'required|max:128',
         'location' => 'required|max:128',
-        'ip' => 'required|array',
+        // 'ip' => 'required|array',
         'work_path' => 'required|max:128',
         'gdaemon_host' => 'required|max:128',
         'gdaemon_login' => 'required|max:128',
         'gdaemon_password' => 'required|max:128',
         'gdaemon_privkey' => 'required|max:128',
         'gdaemon_keypass' => 'required|max:128',
+        // 'gdaemon_api_key' => 'required|max:128',
     ];
 
     /**
