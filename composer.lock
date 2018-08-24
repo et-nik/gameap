@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b12741e700c40cd40ab7e7a92ca64913",
+    "content-hash": "f25679ad9d8784cc2a0ce44e1e0509ce",
     "packages": [
         {
             "name": "austinb/gameq",
@@ -2594,6 +2594,60 @@
             "time": "2018-08-24T13:39:52+00:00"
         },
         {
+            "name": "spatie/laravel-query-builder",
+            "version": "1.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-query-builder.git",
+                "reference": "f1465f764c3d93f623bef292362de19529250a75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/f1465f764c3d93f623bef292362de19529250a75",
+                "reference": "f1465f764c3d93f623bef292362de19529250a75",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.5.0|~3.6.0",
+                "phpunit/phpunit": "^6.1|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\QueryBuilder\\QueryBuilderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\QueryBuilder\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily build Eloquent queries from API requests",
+            "homepage": "https://github.com/spatie/laravel-query-builder",
+            "keywords": [
+                "laravel-query-builder",
+                "spatie"
+            ],
+            "time": "2018-08-21T06:50:03+00:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v6.1.2",
             "source": {
@@ -3630,49 +3684,6 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
-        },
-        {
-            "name": "unlu/laravel-api-query-builder",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/selahattinunlu/laravel-api-query-builder.git",
-                "reference": "2a85dea4ee09046209d09821725f9b1ceb4b97fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/selahattinunlu/laravel-api-query-builder/zipball/2a85dea4ee09046209d09821725f9b1ceb4b97fa",
-                "reference": "2a85dea4ee09046209d09821725f9b1ceb4b97fa",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": ">=5.0.0",
-                "illuminate/http": ">=5.0.0",
-                "illuminate/support": ">=5.0.0",
-                "php": ">=5.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Unlu\\Laravel\\Api\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Selahattin Ünlü",
-                    "email": "selahattin.unlu@yandex.com"
-                }
-            ],
-            "description": "Laravel API Query Builder Package.",
-            "keywords": [
-                "api",
-                "laravel"
-            ],
-            "time": "2017-06-13T23:49:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
