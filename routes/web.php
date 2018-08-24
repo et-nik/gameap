@@ -52,6 +52,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'gdaemon_api'], function() {
+
+    Route::name('gdaemon_api.get_token')->get('get_token', 'GdaemonAPI\AuthController@getToken');
     // Dedicated servers
     Route::name('gdaemon_api.dedicated_servers.get_init_data')->get('dedicated_servers/get_init_data/{dedicated_server}', 'GdaemonAPI\DedicatedServersController@getInitData');
     
@@ -61,5 +63,4 @@ Route::group(['prefix' => 'gdaemon_api'], function() {
 
     // GDaemon tasks
     Route::name('gdaemon_api.tasks.get_waiting')->get('tasks/get_waiting/{dedicated_server}', 'GdaemonAPI\TasksController@getWaiting');
-    Route::name('gdaemon_api.tasks.get_working')->get('tasks/get_working/{dedicated_server}', 'GdaemonAPI\TasksController@getWorking');
 });

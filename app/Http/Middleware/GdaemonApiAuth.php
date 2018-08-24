@@ -5,10 +5,11 @@ namespace Gameap\Http\Middleware;
 use Closure;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use \Illuminate\Database\Eloquent\ModelNotFoundException;
+use Gameap\Models\DedicatedServer;
 
 class GdaemonApiAuth
 {
-
     private $repository;
 
     public function __construct(\Gameap\Repositories\DedicatedServersRepository $dedicatedServersRepository)
@@ -25,11 +26,19 @@ class GdaemonApiAuth
      */
     public function handle($request, Closure $next)
     {
-        $token = $request->bearerToken();
+        $bearerToken = $request->bearerToken();
 
-        if (is_null($token)) {
-            throw new HttpException(401, null, null, ['WWW-Authenticate' => 'Bearer']);
+        if (is_null($bearerToken)) {
+            throw new HttpException(401, "Bearer token not set", null, ['WWW-Authenticate' => 'Bearer']);
         }
+
+        try {
+            $dedicatedServer = DedicatedServer::where('gdaemon_api_key', '=', $bearerToken)->firstOrFail();
+        } catch (ModelNotFoundException $exception) {
+            throw new AccessDeniedHttpException;
+        }
+
+        $request->attributes->set('dedicatedServer', $dedicatedServer);
 
         return $next($request);
     }
