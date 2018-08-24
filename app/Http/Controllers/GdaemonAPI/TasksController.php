@@ -4,7 +4,8 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\GdaemonTask;
-use \Gameap\Repositories\GdaemonTaskRepository;
+use Gameap\Repositories\GdaemonTaskRepository;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TasksController extends Controller
 {
@@ -25,6 +26,16 @@ class TasksController extends Controller
         parent::__construct($repository);
         
         $this->repository = $repository;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|QueryBuilder[]
+     */
+    public function index()
+    {
+        return QueryBuilder::for(GdaemonTask::class)
+            ->allowedFilters('status')
+            ->get();
     }
 
     /**
