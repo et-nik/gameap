@@ -24,7 +24,7 @@ class TasksController extends Controller
     public function __construct(GdaemonTaskRepository $repository)
     {
         parent::__construct();
-        
+
         $this->repository = $repository;
     }
 
@@ -37,5 +37,13 @@ class TasksController extends Controller
             ->allowedFilters('status')
             ->allowedAppends('status_num')
             ->get();
+    }
+
+    public function update(GdaemonTask $gdaemonTask)
+    {
+        $gdaemonTask->status = request()->status;
+        $gdaemonTask->update();
+
+        return response()->json(['message' => 'success'], 200);
     }
 }

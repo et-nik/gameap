@@ -63,4 +63,5 @@ Route::group(['prefix' => 'gdaemon_api'], function() {
 
     // GDaemon tasks
     Route::name('gdaemon_api.tasks')->get('tasks', 'GdaemonAPI\TasksController@index');
+    Route::name('gdaemon_api.tasks')->put('tasks/{gdaemon_task}', 'GdaemonAPI\TasksController@update');
 });
