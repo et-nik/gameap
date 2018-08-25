@@ -55,10 +55,16 @@ class Handler extends ExceptionHandler
                         'message' => $exception->getMessage(),
                         'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
-            } else {
+            }
+
+            // Gdaemon API
+            if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidApiKeyException
+                || $exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption
+            ) {
                 return response()->json([
-                    'message' => $exception->getMessage()
-                ]);
+                    'message' => $exception->getMessage(),
+                    'http_code' => Response::HTTP_UNAUTHORIZED
+                ], Response::HTTP_UNAUTHORIZED);
             }
         }
         

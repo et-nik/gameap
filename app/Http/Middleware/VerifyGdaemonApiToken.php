@@ -2,10 +2,11 @@
 namespace Gameap\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use \Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
 use Gameap\Models\DedicatedServer;
+use Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption;
 
 class VerifyGdaemonApiToken
 {
@@ -28,13 +29,13 @@ class VerifyGdaemonApiToken
         $authToken = $request->header('X-Auth-Token');
 
         if (is_null($authToken)) {
-            throw new HttpException(401, "Token not set", null, ['X-Auth-Token']);
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, "Token not set", null, ['X-Auth-Token']);
         }
 
         try {
             $dedicatedServer = DedicatedServer::where('gdaemon_api_token', '=', $authToken)->firstOrFail();
         } catch (ModelNotFoundException $exception) {
-            throw new AccessDeniedHttpException;
+            throw new InvalidTokenExeption("Invalid api token");
         }
 
         app()->instance(DedicatedServer::class, $dedicatedServer);
