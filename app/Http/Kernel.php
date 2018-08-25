@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'isAdmin' => \Gameap\Http\Middleware\AdminMiddleware::class,
         'gdaemonApiAuth' => \Gameap\Http\Middleware\GdaemonApiAuth::class,
+        'gdaemonVerifyApiToken' => \Gameap\Http\Middleware\VerifyGdaemonApiToken::class,
     ];
 }

@@ -4,7 +4,8 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\GdaemonTask;
-use \Gameap\Repositories\GdaemonTaskRepository;
+use Gameap\Repositories\GdaemonTaskRepository;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TasksController extends Controller
 {
@@ -22,32 +23,19 @@ class TasksController extends Controller
      */
     public function __construct(GdaemonTaskRepository $repository)
     {
-        parent::__construct($repository);
+        parent::__construct();
         
         $this->repository = $repository;
     }
 
     /**
-     * Get waiting tasks list
-     * 
-     * @param DedicatedServer $dedicatedServer
-     *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Collection|QueryBuilder[]
      */
-    public function getWaiting(DedicatedServer $dedicatedServer)
+    public function index(DedicatedServer $dedicatedServer)
     {
-        return $this->repository->getWaitingList($dedicatedServer);
-    }
-
-    /**
-     * Get working tasks list
-     * 
-     * @param DedicatedServer $dedicatedServer
-     *
-     * @return mixed
-     */
-    public function getWorking(DedicatedServer $dedicatedServer)
-    {
-        return $this->repository->getWorkingList($dedicatedServer);
+        return QueryBuilder::for(GdaemonTask::where('dedicated_server_id', $dedicatedServer->id))
+            ->allowedFilters('status')
+            ->allowedAppends('status_num')
+            ->get();
     }
 }

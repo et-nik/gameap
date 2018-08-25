@@ -38,6 +38,13 @@ class GdaemonTask extends Model
     const STATUS_ERROR          = 'error';
     const STATUS_SUCCESS        = 'success';
 
+    const NUM_STATUSES = [
+        self::STATUS_WAITING => 1,
+        self::STATUS_WORKING => 2,
+        self::STATUS_ERROR => 3,
+        self::STATUS_SUCCESS => 4,
+    ];
+
     public $fillable = [
         'run_aft_id',
         'dedicated_server_id',
@@ -75,5 +82,8 @@ class GdaemonTask extends Model
         
     ];
 
-    
+    public function getStatusNumAttribute()
+    {
+        return self::NUM_STATUSES[$this->status];
+    }
 }
