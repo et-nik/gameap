@@ -55,6 +55,10 @@ class Handler extends ExceptionHandler
                         'message' => $exception->getMessage(),
                         'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            } else {
+                return response()->json([
+                    'message' => $exception->getMessage()
+                ]);
             }
         }
         

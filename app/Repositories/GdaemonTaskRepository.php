@@ -123,36 +123,6 @@ class GdaemonTaskRepository
     }
 
     /**
-     * Get waiting tasks list
-     * 
-     * @param DedicatedServer $dedicatedServer
-     *
-     * @return mixed
-     */
-    public function getWaitingList(DedicatedServer $dedicatedServer)
-    {
-        return $this->model->select('id', 'run_aft_id', 'dedicated_server_id', 'server_id', 'task', 'data', 'status')
-            ->where('status', '=', GdaemonTask::STATUS_WAITING)
-            ->where('dedicated_server_id', '=', $dedicatedServer->id)
-            ->get();
-    }
-
-    /**
-     * Get working tasks list
-     *
-     * @param DedicatedServer $dedicatedServer
-     *
-     * @return mixed
-     */
-    public function getWorkingList(DedicatedServer $dedicatedServer)
-    {
-        return $this->model->select('id', 'run_aft_id', 'dedicated_server_id', 'server_id', 'task', 'data', 'status')
-            ->where('status', '=', GdaemonTask::STATUS_WORKING)
-            ->where('dedicated_server_id', '=', $dedicatedServer->id)
-            ->get();
-    }
-
-    /**
      * @param string|array $task task name
      * @param string $failMsg Failure message
      *

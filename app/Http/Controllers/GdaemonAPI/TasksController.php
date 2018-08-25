@@ -23,7 +23,7 @@ class TasksController extends Controller
      */
     public function __construct(GdaemonTaskRepository $repository)
     {
-        parent::__construct($repository);
+        parent::__construct();
         
         $this->repository = $repository;
     }
@@ -31,34 +31,11 @@ class TasksController extends Controller
     /**
      * @return \Illuminate\Database\Eloquent\Collection|QueryBuilder[]
      */
-    public function index()
+    public function index(DedicatedServer $dedicatedServer)
     {
-        return QueryBuilder::for(GdaemonTask::class)
+        return QueryBuilder::for(GdaemonTask::where('dedicated_server_id', $dedicatedServer->id))
             ->allowedFilters('status')
+            ->allowedAppends('status_num')
             ->get();
-    }
-
-    /**
-     * Get waiting tasks list
-     * 
-     * @param DedicatedServer $dedicatedServer
-     *
-     * @return mixed
-     */
-    public function getWaiting(DedicatedServer $dedicatedServer)
-    {
-        return $this->repository->getWaitingList($dedicatedServer);
-    }
-
-    /**
-     * Get working tasks list
-     * 
-     * @param DedicatedServer $dedicatedServer
-     *
-     * @return mixed
-     */
-    public function getWorking(DedicatedServer $dedicatedServer)
-    {
-        return $this->repository->getWorkingList($dedicatedServer);
     }
 }
