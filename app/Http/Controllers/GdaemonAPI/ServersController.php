@@ -5,6 +5,9 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 use Gameap\Models\Server;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\ServerRepository;
+use Spatie\QueryBuilder\QueryBuilder;
+use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
+use Illuminate\Http\Response;
 
 class ServersController extends Controller
 {
@@ -19,28 +22,46 @@ class ServersController extends Controller
      */
     public function __construct(ServerRepository $serverRepository)
     {
+        parent::__construct();
+
         $this->repository = $serverRepository;
+    }
+
+    /**
+     * @param DedicatedServer $dedicatedServer
+     * @return mixed
+     */
+    public function index(DedicatedServer $dedicatedServer)
+    {
+        return QueryBuilder::for(Server::where('ds_id', $dedicatedServer->id))
+            ->allowedFilters('id')
+            ->get();
     }
 
     /**
      * @param Server $server
      * @return Server
      */
-    /*
-    public function getServer(Server $server)
+    public function server(Server $server)
     {
-        return $server;
+        // Get Relations
+        $server->getRelationValue('game');
+        $server->getRelationValue('gameMod');
+
+        return response()->json($server);
     }
-    /*
 
     /**
-     * Return servers ids list
-     *
-     * @param int $dedicatedServerId
-     * @return mixed
+     * @param Server $server
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getIdList(int $dedicatedServerId)
+    public function update(Server $server)
     {
-        return $this->repository->getServerIdsForDedicatedServer($dedicatedServerId);
+        $request = request();
+        // $request2 = $request->only(['installed', 'process_active', 'last_process_check']);
+        //$server->update($request->only(['installed', 'process_active', 'last_process_check']));
+//        $server->get
+
+        return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
 }

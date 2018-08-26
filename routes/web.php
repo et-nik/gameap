@@ -58,10 +58,11 @@ Route::group(['prefix' => 'gdaemon_api'], function() {
     Route::name('gdaemon_api.dedicated_servers.get_init_data')->get('dedicated_servers/get_init_data/{dedicated_server}', 'GdaemonAPI\DedicatedServersController@getInitData');
     
     // Servers
-    Route::name('gdaemon_api.servers.get_servers_ids')->get('servers/get_id_list/{dedicated_server}', 'GdaemonAPI\ServersController@getIdList');
-    Route::name('gdaemon_api.servers.get_server')->get('servers/get_server/{server}', 'GdaemonAPI\ServersController@getServer');
+    Route::name('gdaemon_api.servers')->get('servers', 'GdaemonAPI\ServersController@index');
+    Route::name('gdaemon_api.servers.server')->get('servers/{server}', 'GdaemonAPI\ServersController@server');
+    Route::name('gdaemon_api.servers.update')->put('servers/{server}', 'GdaemonAPI\ServersController@update');
 
     // GDaemon tasks
     Route::name('gdaemon_api.tasks')->get('tasks', 'GdaemonAPI\TasksController@index');
-    Route::name('gdaemon_api.tasks')->put('tasks/{gdaemon_task}', 'GdaemonAPI\TasksController@update');
+    Route::name('gdaemon_api.tasks.update')->put('tasks/{gdaemon_task}', 'GdaemonAPI\TasksController@update');
 });

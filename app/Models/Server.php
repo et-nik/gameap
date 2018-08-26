@@ -68,7 +68,7 @@ class Server extends Model
         return false;
     }
 
-    public function dedicated_server()
+    public function dedicatedServer()
     {
         return $this->belongsTo(DedicatedServer::class, 'ds_id');
     }
@@ -76,5 +76,10 @@ class Server extends Model
     public function game()
     {
         return $this->belongsTo(Game::class, 'game_id', 'code');
+    }
+
+    public function gameMod()
+    {
+        return $this->belongsTo(GameMod::class, 'game_mod_id');
     }
 }

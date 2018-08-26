@@ -16,6 +16,8 @@ class DedicatedServersController extends Controller
     public function getInitData(DedicatedServer $dedicatedServer) 
     {
         return [
+            'work_path' => $dedicatedServer->work_path,
+
             'script_start' => $dedicatedServer->script_start,
             'script_stop' => $dedicatedServer->script_stop,
             'script_restart' => $dedicatedServer->script_restart,
