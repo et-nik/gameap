@@ -21,7 +21,7 @@ class GdaemonTaskRepository
     
     public function getAll($perPage = 20)
     {
-        $gdaemonTasks = GdaemonTask::orderBy('id')->paginate($perPage);
+        $gdaemonTasks = GdaemonTask::orderBy('id', 'DESC')->paginate($perPage);
         return $gdaemonTasks;
     }
 
