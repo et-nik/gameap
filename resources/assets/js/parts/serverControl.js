@@ -86,6 +86,7 @@ if( document.getElementById("serverControl") ) {
                 });
 
                 this.watchTaskProgress = this.mountProgressbar('#progressbar');
+                this.watchTaskProgress.progress = 0;
             },
             closeProgressModal: function() {
                 this.progressModal.modal('hide');
@@ -117,10 +118,12 @@ if( document.getElementById("serverControl") ) {
                 this.watchTaskId = 0;
                 this.closeProgressModal();
                 gameap.alert(errorMsg);
+                setTimeout(this.clearVars, 1000);
             },
             setTaskSuccess: function() {
                 this.watchTaskId = 0;
                 this.callbackTaskComplete();
+                setTimeout(this.clearVars, 1000);
             },
             getTask: function() {
                 axios.get('/api/gdaemon_tasks/get/' + this.watchTaskId)
@@ -135,6 +138,10 @@ if( document.getElementById("serverControl") ) {
                     .then(function (response) {
                         fn(response.data.processActive);
                     });
+            },
+            clearVars: function() {
+                this.watchTaskProgress.progress = 0;
+                this.watchTaskData = {};
             }
         }
     });
