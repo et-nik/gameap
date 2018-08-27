@@ -45,6 +45,11 @@ class GdaemonTask extends Model
         self::STATUS_SUCCESS => 4,
     ];
 
+
+    public $hidden = [
+        'output',
+    ];
+
     public $fillable = [
         'run_aft_id',
         'dedicated_server_id',

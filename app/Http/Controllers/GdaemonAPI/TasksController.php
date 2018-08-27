@@ -7,6 +7,8 @@ use Gameap\Models\GdaemonTask;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
@@ -52,5 +54,24 @@ class TasksController extends Controller
         $gdaemonTask->update();
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
+    }
+
+    /**
+     * Append output
+     *
+     * @param GdaemonTask $gdaemonTask
+     */
+    public function output(Request $request, int $gdaemonTaskId)
+    {
+        if (GdaemonTask::where('id', $gdaemonTaskId)->count()) {
+            $gdaemonTask = GdaemonTask::find($gdaemonTaskId);
+
+            $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), '{$request->output}')")]);
+            $response = response()->json(['message' => 'success'], Response::HTTP_OK);
+        } else {
+            $response = response()->json(['message' => 'Task does not exist'], Response::HTTP_NOT_FOUND);
+        }
+
+        return $response;
     }
 }

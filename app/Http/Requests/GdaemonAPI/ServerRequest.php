@@ -2,16 +2,14 @@
 
 namespace Gameap\Http\Requests\GdaemonAPI;
 
-use Illuminate\Http\Request;
-
-class ServerRequest extends Request
+class ServerRequest extends JsonRequest
 {
     public function rules()
     {
         return [
             'installed' => 'numeric|digits_between:0,9',
-            'process_active' => 'numeric|digits_between:0,2',
-            'last_process_check' => 'numeric',
+            'process_active' => 'numeric|digits_between:0,1',
+            'last_process_check' => '',
         ];
     }
 }

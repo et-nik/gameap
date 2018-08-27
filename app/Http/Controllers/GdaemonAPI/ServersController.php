@@ -55,12 +55,10 @@ class ServersController extends Controller
      * @param Server $server
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Server $server)
+    public function update(ServerRequest $request, Server $server)
     {
-        $request = request();
-        // $request2 = $request->only(['installed', 'process_active', 'last_process_check']);
-        //$server->update($request->only(['installed', 'process_active', 'last_process_check']));
-//        $server->get
+        $server->forceFill($request->only(['installed', 'process_active', 'last_process_check']));
+        $server->save();
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }

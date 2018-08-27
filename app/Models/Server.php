@@ -3,6 +3,7 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 /**
  * Server model
@@ -61,7 +62,9 @@ class Server extends Model
      */
     public function processActive()
     {
-        if ($this->process_active && $this->last_process_check->timestamp >= time()-self::TIME_EXPIRE_PROCESS_CHECK) {
+        $lastProcessCheck = Carbon::createFromFormat('Y-m-d H:i:s' , $this->last_process_check)->timestamp;
+
+        if ($this->process_active && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK) {
             return true;
         }
 
