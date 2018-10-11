@@ -33,8 +33,14 @@ class CreateDedicatedServersTable extends Migration
             $table->string('gdaemon_keypass');
             $table->string('gdaemon_api_key');
             $table->char('gdaemon_api_token', 64)->nullable();
+            $table->enum('prefer_installation_method', ['auto', 'copy', 'script', 'steam', 'none'])->default('auto');
+            $table->text('script_install')->nullable();
+            $table->text('script_reinstall')->nullable();
+            $table->text('script_update')->nullable();
             $table->text('script_start')->nullable();
+            $table->text('script_pause')->nullable();
             $table->text('script_stop')->nullable();
+            $table->text('script_kill')->nullable();
             $table->text('script_restart')->nullable();
             $table->text('script_status')->nullable();
             $table->text('script_get_console')->nullable();
