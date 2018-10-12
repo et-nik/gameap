@@ -63,8 +63,13 @@
             <div class="col-md-12">
                 <div class="card bg-light mt-3 mb-3">
                     <div class="card-body">
+                        {{ Form::bsText('script_install') }}
+                        {{ Form::bsText('script_reinstall') }}
+                        {{ Form::bsText('script_update') }}
                         {{ Form::bsText('script_start') }}
+                        {{ Form::bsText('script_pause') }}
                         {{ Form::bsText('script_stop') }}
+                        {{ Form::bsText('script_kill') }}
                         {{ Form::bsText('script_restart') }}
                         {{ Form::bsText('script_status') }}
                         {{ Form::bsText('script_get_console') }}

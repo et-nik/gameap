@@ -28,8 +28,14 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $gdaemon_keypass
  * @property string $gdaemon_api_key
  * @property string $gdaemon_api_token
+ * @property string $prefer_install_method
+ * @property string $script_install
+ * @property string $script_reinstall
+ * @property string $script_update
  * @property string $script_start
+ * @property string $script_pause
  * @property string $script_stop
+ * @property string $script_kill
  * @property string $script_restart
  * @property string $script_status
  * @property string $script_get_console`
@@ -47,15 +53,33 @@ class DedicatedServer extends Model implements ValidableContract
      * @var array
      */
     protected $fillable = [
-        'enabled', 'name', 'os',
-        'location', 'provider', 'ip',
-        'ram', 'cpu', 'work_path',
-        'steamcmd_path', 'gdaemon_host',
-        'gdaemon_login', 'gdaemon_password',
-        'gdaemon_privkey', 'gdaemon_pubkey',
-        'gdaemon_keypass', 'script_start',
-        'script_stop', 'script_restart',
-        'script_status', 'script_get_console',
+        'enabled', 
+        'name', 
+        'os',
+        'location', 
+        'provider', 
+        'ip',
+        'ram',
+        'cpu', 
+        'work_path',
+        'steamcmd_path', 
+        'gdaemon_host',
+        'gdaemon_login', 
+        'gdaemon_password',
+        'gdaemon_privkey', 
+        'gdaemon_pubkey',
+        'gdaemon_keypass', 
+        'prefer_install_method',
+        'script_install',
+        'script_reinstall',
+        'script_update',
+        'script_start',
+        'script_pause',
+        'script_stop', 
+        'script_kill', 
+        'script_restart',
+        'script_status', 
+        'script_get_console',
         'script_send_command'
     ];
 
