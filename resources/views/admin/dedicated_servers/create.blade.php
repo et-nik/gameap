@@ -50,6 +50,7 @@
         {{ Form::bsText('script_status') }}
         {{ Form::bsText('script_get_console') }}
         {{ Form::bsText('script_send_command') }}
+        {{ Form::bsText('script_delete') }}
     </div>
 
     <div class="col-md-12">

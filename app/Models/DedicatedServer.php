@@ -40,6 +40,7 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $script_status
  * @property string $script_get_console`
  * @property string $script_send_command
+ * @property string $script_delete
  * @property string $created_at
  * @property string $updated_at
  */
@@ -80,7 +81,8 @@ class DedicatedServer extends Model implements ValidableContract
         'script_restart',
         'script_status', 
         'script_get_console',
-        'script_send_command'
+        'script_send_command',
+        'script_delete',
     ];
 
     protected $casts = [
