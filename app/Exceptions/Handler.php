@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
                 ], Response::HTTP_UNAUTHORIZED);
             } else if ($exception instanceof \Illuminate\Validation\ValidationException) {
                 return response()->json([
-                    'message' => $exception->getMessage(),
+                    'message' => $exception->getMessage() . ' ' . $exception->validator->errors()->first(),
                     'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }

@@ -17,10 +17,10 @@ class CreateDsStatsTable extends Migration
             $table->increments('id');
             $table->integer('dedicated_server_id')->unsigned();
             $table->timestamp('time');
-            $table->string('loa');
+            $table->string('loa')->nullable();
             $table->string('ram');
             $table->string('cpu');
-            $table->string('ifstat');
+            $table->string('ifstat')->nullable();
             $table->integer('ping')->unsigned();
             $table->string('drvspace');
         });

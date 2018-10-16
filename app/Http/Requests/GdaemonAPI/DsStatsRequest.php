@@ -12,7 +12,7 @@ class DsStatsRequest extends JsonRequest
             'loa' => 'required',
             'ram' => 'required',
             'cpu' => 'required',
-            'ifstat' => 'required',
+            'ifstat' => 'present',
             'ping' => '',
             'drvspace' => 'required',
         ];
