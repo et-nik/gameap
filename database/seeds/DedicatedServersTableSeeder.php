@@ -28,12 +28,18 @@ class DedicatedServersTableSeeder extends Seeder
             'gdaemon_pubkey'        => 'gdaemon_pubkey',
             'gdaemon_keypass'       => 'gdaemon_keypass',
             'gdaemon_api_key'       => Str::random(64),
-            'script_start'          => 'script_start',
-            'script_stop'           => 'script_stop',
-            'script_restart'        => 'script_restart',
-            'script_status'         => 'script_status',
-            'script_get_console'    => 'script_get_console',
-            'script_send_command'   => 'script_send_command'
+            'script_install'          => './script_install.sh',
+            'script_reinstall'      => './script_reinstall.sh',
+            'script_update'          => './script_update.sh',
+            'script_start'          => './script_start.sh',
+            'script_pause'          => './script_pause.sh',
+            'script_stop'           => './script_stop.sh',
+            'script_kill'           => './script_kill.sh',
+            'script_restart'        => './script_restart.sh',
+            'script_status'         => './script_status.sh',
+            'script_get_console'    => './script_get_console.sh',
+            'script_send_command'   => './script_send_command.sh',
+            'script_delete'         => './script_delete.sh'
         ]);
     }
 }
