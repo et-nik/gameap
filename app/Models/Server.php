@@ -89,4 +89,14 @@ class Server extends Model
     {
         return $this->belongsTo(GameMod::class, 'game_mod_id');
     }
+
+    /**
+     * One to many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function settings()
+    {
+        return $this->hasMany(ServerSetting::class);
+    }
 }

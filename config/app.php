@@ -189,6 +189,10 @@ return [
         \InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
         \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
 
+        /*
+         * Storages
+         */
+        Gameap\Providers\GdaemonFilesServiceProvider::class,
     ],
 
     /*

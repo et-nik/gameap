@@ -6,7 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=7.1.0",
-        "alexusmai/laravel-file-manager": "^1.0",
+        "gameap/gameap-file-manager": "dev-master",
         "austinb/gameq": "~3.0",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
@@ -19,7 +19,7 @@
         "sofa/eloquence-validable": "^5.5",
         "spatie/laravel-permission": "^2.7",
         "spatie/laravel-query-builder": "^1.10",
-        "knik/flysystem-gameap": "^0.1"
+        "knik/flysystem-gameap": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.*",
