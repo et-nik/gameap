@@ -3,5 +3,6 @@
 @extends('layouts.main')
 
 @section('content')
-    <file-manager></file-manager>
+    <file-manager server-id="{{ $server->id }}">
+    </file-manager>
 @endsection
