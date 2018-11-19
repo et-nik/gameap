@@ -8,6 +8,13 @@ require('./bootstrap');
 require('./parts/adminServerForm');
 require('./parts/serverControl');
 
+import Vuex from 'vuex';
+import FileManager from 'gameap-file-manager'
+
+Vue.use(Vuex);
+const store = new Vuex.Store();
+Vue.use(FileManager, {store});
+
 var vm = new Vue({
     el: "#app",
     data: {
@@ -55,7 +62,10 @@ var vm = new Vue({
             $(appendPoint).append(componentInstance.$el);
             return componentInstance;
         }
-    }
+    },
+    store
 });
+
+import fontawesome from '@fortawesome/fontawesome-free';
 
 window.gameap = vm.$root;

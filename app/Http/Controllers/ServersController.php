@@ -48,4 +48,12 @@ class ServersController extends AuthController
     {
         return view('servers.view', compact('server'));
     }
+
+    /**
+     * @param Server $server
+     */
+    public function filemanager(Server $server)
+    {
+        return view('servers.filemanager', compact('server'));
+    }
 }

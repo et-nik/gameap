@@ -18,6 +18,8 @@
     </div>
     
     <h2>Tools</h2>
+    <a class="btn btn-large btn-info" href="{{ route('servers.filemanager', ['server' => $server->id]) }}"><span class="fa fa-folder-open"></span>&nbsp;Files</a>
+
 
     <h2>Status</h2>
 

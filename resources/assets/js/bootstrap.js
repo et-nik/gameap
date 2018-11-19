@@ -52,6 +52,9 @@ if (token) {
 //     key: 'your-pusher-key'
 // });
 
-window.Vue = require('vue');
-bootbox = require('bootbox');
+window.bootbox = require('bootbox');
 require('bootstrap-select');
+
+import Vue from 'vue';
+
+window.Vue = Vue;
