@@ -24,31 +24,30 @@
 
 <div id="app">
     <div class="container-fluid">
-
-    <div class="row">
-        @include("components.navbar")
-    </div>
-
-    <div class="row content-wrapper">
-        <div class="col-md-2 col-lg-2 left-menu">
-            @include("components.sidebar")
+        <div class="row">
+            @include("components.navbar")
         </div>
-        <div class="col-sm-12 col-md-10 col-lg-10 content">
 
-            @yield('breadclumbs')
-            
-            @include('components.messages')
+        <div class="row content-wrapper mt-5">
+            <div class="col-md-2 col-lg-2 left-menu">
+                @include("components.sidebar")
+            </div>
+            <div class="col-sm-12 col-md-10 col-lg-10 content">
 
-            @yield('content')
+                @yield('breadclumbs')
+
+                @include('components.messages')
+
+                @yield('content')
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br> Developer: knik</p>
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <p class="copyright">Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br> Developer: knik</p>
-        </div>
-    </div>
-</div>
 </div>
 
 <script src="{{ URL::asset('/js/app.js') }}"></script>

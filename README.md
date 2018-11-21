@@ -8,7 +8,31 @@
 * [Friends with](#friends-with)
 * [TODO](#todo)
 
-## Supported OS
+Server Requirements
+======
+
+Web
+------
+* PHP version 7.1 or newer.
+* GD PHP
+* OpenSSL PHP
+* CURL PHP
+
+Dedicated Server (Linux)
+------
+
+* Installed GameAP Daemon
+
+
+Dedicated Server (Windows)
+------
+
+* Installed GameAP Daemon
+* Administration privileges
+
+
+Supported OS
+------
 
 | Operating System       | Version    | Supported  | Notes                   |
 |-----------------------|-----------|-----------|----------------------------|
@@ -26,7 +50,8 @@
 | CentOS                | 7         | ✅       |
 |                       | 6         | ✅       |
 
-## Supported games
+Supported games
+------
 
 | Game | Query | Rcon | Notes |
 | ------ | ------- | ------ | ------- |
@@ -40,7 +65,8 @@
 | San Andreas: MP | |
 and many more... 
 
-## Friends with
+Friends with
+------
 
 * Docker
 * LXC
@@ -48,7 +74,8 @@ and many more...
 
 [All supported games list](#)
 
-## TODO
+TODO
+------
 
 - [ ] Multilang. Russian language
 - [ ] Checking OS and autoinstall server part (GameAP Daemon)
