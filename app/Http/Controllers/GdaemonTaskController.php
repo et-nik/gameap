@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateGdaemonTaskRequest;
-use App\Http\Requests\UpdateGdaemonTaskRequest;
-use App\Repositories\GdaemonTaskRepository;
+use Gameap\Http\Requests\CreateGdaemonTaskRequest;
+use Gameap\Http\Requests\UpdateGdaemonTaskRequest;
+use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Flash;

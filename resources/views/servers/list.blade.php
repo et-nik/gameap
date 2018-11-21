@@ -11,8 +11,8 @@
             ['twoSeparatedValues', ['server_ip', ':', 'server_port']],
             ['lambda', function ($serverModel) {
                 return $serverModel->processActive()
-                    ? '<span class="label label-success">online</span>'
-                    : '<span class="label label-danger">offline</span>';
+                    ? '<span class="badge badge-success">online</span>'
+                    : '<span class="badge badge-danger">offline</span>';
             }],
             ['lambda', function($serverModel) {
                 $buttons = '';
