@@ -25,7 +25,7 @@ before_install:
 before_script:
     - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - cp .env.travis .env
-    - travis_retry composer install --no-interaction --prefer-stable $PREFER_LOWEST --no-suggest
+    - travis_retry composer update --no-interaction --prefer-stable $PREFER_LOWEST --no-suggest
 
 script:
   - vendor/bin/phpunit --verbose
