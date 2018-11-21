@@ -6,11 +6,6 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-env:
-  matrix:
-    - PREFER_LOWEST="--prefer-lowest"
-    - PREFER_LOWEST=""
-
 php:
   - 7.1
   - 7.2
@@ -25,7 +20,7 @@ before_install:
 before_script:
     - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - cp .env.travis .env
-    - travis_retry composer update --no-interaction --prefer-stable $PREFER_LOWEST --no-suggest
+    - travis_retry composer update --no-interaction --prefer-stable --no-suggest
 
 script:
   - vendor/bin/phpunit --verbose
