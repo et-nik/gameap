@@ -28,6 +28,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     
     Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', 'Admin\\GdaemonTasksController@index', ['as' => 'admin']);
     Route::name('admin.gdaemon_tasks.show')->get('gdaemon_tasks/{gdaemon_task}', 'Admin\\GdaemonTasksController@show', ['as' => 'admin']);
+
+    Route::name('admin.servers_settings.edit')->get('servers/{server}/settings', 'Admin\\ServersSettingsController@edit', ['as' => 'admin']);
+    Route::name('admin.servers_settings.update')->patch('servers/{server}/settings', 'Admin\\ServersSettingsController@update', ['as' => 'admin']);
 });
 
 Route::group(['prefix' => 'api'], function() {
