@@ -1,4 +1,38 @@
-## Supported OS
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/et-nik/gameap/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/et-nik/gameap/?branch=develop)
+![Version](https://img.shields.io/badge/version-alpha-red.svg)
+
+* [Documentation](http://docs.gameap.ru/)
+* [GameAP 1/2 repo](https://github.com/et-nik/gameap-legacy)
+* [Supported OS](#supported-os)
+* [Supported games](#supported-games)
+* [Friends with](#friends-with)
+* [TODO](#todo)
+
+Server Requirements
+======
+
+Web
+------
+* PHP version 7.1 or newer.
+* GD PHP
+* OpenSSL PHP
+* CURL PHP
+
+Dedicated Server (Linux)
+------
+
+* Installed GameAP Daemon
+
+
+Dedicated Server (Windows)
+------
+
+* Installed GameAP Daemon
+* Administration privileges
+
+
+Supported OS
+------
 
 | Operating System       | Version    | Supported  | Notes                   |
 |-----------------------|-----------|-----------|----------------------------|
@@ -16,7 +50,8 @@
 | CentOS                | 7         | ✅       |
 |                       | 6         | ✅       |
 
-## Supported games
+Supported games
+------
 
 | Game | Query | Rcon | Notes |
 | ------ | ------- | ------ | ------- |
@@ -30,7 +65,8 @@
 | San Andreas: MP | |
 and many more... 
 
-## Friends with
+Friends with
+------
 
 * Docker
 * LXC
@@ -38,7 +74,8 @@ and many more...
 
 [All supported games list](#)
 
-## TODO
+TODO
+------
 
 - [ ] Multilang. Russian language
 - [ ] Checking OS and autoinstall server part (GameAP Daemon)

@@ -1,0 +1,33 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS travis;'
+
+before_script:
+    - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+    - cp .env.travis .env
+    - travis_retry composer update --no-interaction --prefer-stable --no-suggest
+
+script:
+  - vendor/bin/phpunit --verbose
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+
+matrix:
+  fast_finish: true

@@ -2,6 +2,15 @@
 
 @extends('layouts.main')
 
+@section('breadclumbs')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.servers.index') }}">Servers</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">{{ $server->name }}</a></li>
+        <li class="breadcrumb-item active">Settings</li>
+    </ol>
+@endsection
+
 @section('content')
     <div class="col-md-6">
         {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers_settings.update', $server->id], 'id' => 'adminServerForm']) !!}

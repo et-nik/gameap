@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('profile', 'ProfileController@index')->name('profile');
 Route::get('servers', 'ServersController@index')->name('servers');
-Route::get('servers/{server}', 'ServersController@show');
+Route::get('servers/{server}', 'ServersController@show')->name('servers.control');
 Route::get('servers/{server}/filemanager', 'ServersController@filemanager')->name('servers.filemanager');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {

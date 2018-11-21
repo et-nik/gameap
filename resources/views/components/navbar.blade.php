@@ -6,8 +6,6 @@
 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('navbar.main') }}</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">{{ __('navbar.files') }}</a></li>
-
             @can('admin roles & permissions')
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.servers') }}<span class="caret"></span></a>

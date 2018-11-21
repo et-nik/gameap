@@ -1,9 +1,16 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "knik/gameap",
+    "description": "Game Admin Panel",
+    "keywords": ["games", "panel"],
     "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "Nikita Kuznetsov",
+            "email": "nikita.hldm@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=7.1.0",
         "gameap/gameap-file-manager": "dev-master",

@@ -13,6 +13,17 @@
 @section('content')
     @include('components.form.errors_block')
 
+    <div class="mb-1">
+        <a class="btn btn-large btn-light" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
+            <span class="fa fa-cogs"></span>&nbsp;Settings
+        </a>
+
+        <a class="btn btn-large btn-light" href="{{ route('servers.control', ['server' => $server->id]) }}">
+            <span class="fa fa-chalkboard"></span>&nbsp;Control
+        </a>
+    </div>
+
+
     {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers.update', $server->id], 'id' => 'adminServerForm']) !!}
     <div class="col-md-6">
         {{ Form::bsText('name') }}

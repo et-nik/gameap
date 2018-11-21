@@ -18,6 +18,7 @@ class CreateServersSettingsTable extends Migration
             $table->string('name', 32);
             $table->integer('server_id')->unsigned();
             $table->text('value');
+            $table->unique(['name', 'server_id']);
         });
     }
 
