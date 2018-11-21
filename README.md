@@ -1,3 +1,13 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/et-nik/gameap/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/et-nik/gameap/?branch=develop)
+![Version](https://img.shields.io/badge/version-alpha-red.svg)
+
+* [Documentation](http://docs.gameap.ru/)
+* [GameAP 1/2 repo](https://github.com/et-nik/gameap-legacy)
+* [Supported OS](#supported-os)
+* [Supported games](#supported-games)
+* [Friends with](#friends-with)
+* [TODO](#todo)
+
 ## Supported OS
 
 | Operating System       | Version    | Supported  | Notes                   |

@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateGdaemonTaskRequest;
 use App\Http\Requests\UpdateGdaemonTaskRequest;
 use App\Repositories\GdaemonTaskRepository;
-use Gameap\Http\Controllers\AppBaseController;
+use Gameap\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
-class GdaemonTaskController extends AppBaseController
+class GdaemonTaskController extends Controller
 {
     /** @var  GdaemonTaskRepository */
     private $gdaemonTaskRepository;
