@@ -19,6 +19,10 @@ class FormServiceProvider extends ServiceProvider
                 ['name', 'value' => null, 'label' => null, 'attributes' => []]
             );
 
+            Form::component('bsTextArea', 'components.form.textarea',
+                ['name', 'value' => null, 'label' => null, 'attributes' => []]
+            );
+
             Form::component('bsEmail', 'components.form.email',
                 ['name', 'value' => null, 'label' => null, 'attributes' => []]
             );
