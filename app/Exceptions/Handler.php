@@ -4,6 +4,7 @@ namespace Gameap\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,30 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->expectsJson() || $request->isJson()) {
+            if ($exception instanceof \Gameap\Exceptions\Repositories\RecordExistExceptions) {
+                    return response()->json([
+                        'message' => $exception->getMessage(),
+                        'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
+                ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            // Gdaemon API
+            if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidApiKeyException
+                || $exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption
+            ) {
+                return response()->json([
+                    'message' => $exception->getMessage(),
+                    'http_code' => Response::HTTP_UNAUTHORIZED
+                ], Response::HTTP_UNAUTHORIZED);
+            } else if ($exception instanceof \Illuminate\Validation\ValidationException) {
+                return response()->json([
+                    'message' => $exception->getMessage() . ' ' . $exception->validator->errors()->first(),
+                    'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
+                ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }
+        
         return parent::render($request, $exception);
     }
 }

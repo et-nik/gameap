@@ -6,7 +6,12 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-select/dist/css/bootstrap-select";
 
-// Font Awsome
-@import "~font-awesome/scss/font-awesome";
+// Font Awesome
+//@import "~font-awesome/scss/font-awesome";
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';

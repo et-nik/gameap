@@ -62,4 +62,9 @@ class Game extends Model
     {
         return $this->hasMany(Server::class);
     }
+
+    public function mods()
+    {
+        return $this->hasMany(GameMod::class);
+    }
 }

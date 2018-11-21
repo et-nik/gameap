@@ -17,17 +17,17 @@ class CreateGameModsTable extends Migration
             $table->increments('id');
             $table->string('game_code', 16);
             $table->string('name');
-            $table->text('fast_rcon');
-            $table->text('vars');
-            $table->text('remote_repository');
-            $table->text('local_repository');
-            $table->string('kick_cmd', 64);
-            $table->string('ban_cmd', 64);
-            $table->string('chname_cmd', 64);
-            $table->string('srestart_cmd', 64);
-            $table->string('chmap_cmd', 64);
-            $table->string('sendmsg_cmd', 64);
-            $table->string('passwd_cmd', 64);
+            $table->text('fast_rcon')->nullable();
+            $table->text('vars')->nullable();
+            $table->text('remote_repository')->nullable();
+            $table->text('local_repository')->nullable();
+            $table->string('kick_cmd', 64)->nullable();
+            $table->string('ban_cmd', 64)->nullable();
+            $table->string('chname_cmd', 64)->nullable();
+            $table->string('srestart_cmd', 64)->nullable();
+            $table->string('chmap_cmd', 64)->nullable();
+            $table->string('sendmsg_cmd', 64)->nullable();
+            $table->string('passwd_cmd', 64)->nullable();
         });
     }
 

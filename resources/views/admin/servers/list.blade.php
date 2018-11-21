@@ -4,8 +4,8 @@
 
 @section('breadclumbs')
     <ol class="breadcrumb">
-        <li><a href="/">GameAP</a></li>
-        <li>Game servers</li>
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item active">Game servers</li>
     </ol>
 @endsection
 
@@ -16,7 +16,7 @@
     @include('components.grid', [
         'modelsList' => $servers,
         'labels' => ['Name', 'Game', 'IP:Port'],
-        'attributes' => ['name', 'game.name', ['server_ip', ':', 'server_port']],
+        'attributes' => ['name', 'game.name', ['twoSeparatedValues', ['server_ip', ':', 'server_port']]],
         'viewRoute' => 'admin.servers.show',
         'editRoute' => 'admin.servers.edit',
         'destroyRoute' => 'admin.servers.destroy',

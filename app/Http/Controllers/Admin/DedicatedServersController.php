@@ -2,12 +2,12 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
-use Gameap\Http\Controllers\Controller;
+use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
 use Gameap\Http\Requests\DedicatedServerRequest;
 
-class DedicatedServersController extends Controller
+class DedicatedServersController extends AuthController
 {
     /**
      * The DedicatedServersRepository instance.
@@ -23,6 +23,8 @@ class DedicatedServersController extends Controller
      */
     public function __construct(DedicatedServersRepository $repository)
     {
+        parent::__construct();
+
         $this->repository = $repository;
     }
 
@@ -94,7 +96,7 @@ class DedicatedServersController extends Controller
      */
     public function update(DedicatedServerRequest $request, DedicatedServer $dedicatedServer)
     {
-        $dedicatedServer->update($request->all());
+        $this->repository->update($dedicatedServer, $request->all());
 
         return redirect()->route('admin.dedicated_servers.index')
             ->with('success','Dedicated server updated successfully');

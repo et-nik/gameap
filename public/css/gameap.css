@@ -1,3 +1,7 @@
+.content-wrapper {
+    padding-top: 50px;
+}
+
 .content {
     padding-top: 10px;
 }
@@ -49,4 +53,17 @@ p.copyright {
     text-align: center;
     font-size: 11px;
     padding: 0 10px 0 10px;
+}
+
+pre.console {
+    font-family: Consolas, Monaco, Courier New, Courier, monospace;
+    font-size: 12px;
+    background-color: #000;
+    border: 1px solid #D0D0D0;
+    color: #FFF;
+    display: block;
+    margin: 14px 0 14px 0;
+    padding: 12px 10px 12px 10px;
+    height:450px;
+    overflow:scroll;
 }

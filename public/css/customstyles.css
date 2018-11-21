@@ -10,3 +10,11 @@
 .btn {
     border-radius: 0px;
 }
+
+.form-control {
+    border-radius: 0px;
+}
+
+.bg-black {
+    background: #222;
+}

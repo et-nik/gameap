@@ -2,12 +2,12 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
-use Gameap\Http\Controllers\Controller;
+use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameRepository;
 use Gameap\Http\Requests\GameRequest;
 
-class GamesController extends Controller
+class GamesController extends AuthController
 {
     /**
      * The GameRepository instance.
@@ -23,6 +23,7 @@ class GamesController extends Controller
      */
     public function __construct(GameRepository $repository)
     {
+
         $this->repository = $repository;
     }
 

@@ -4,9 +4,9 @@
 
 @section('breadclumbs')
     <ol class="breadcrumb">
-        <li><a href="/">GameAP</a></li>
-        <li><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>
-        <li>Create</li>
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>
+        <li class="breadcrumb-item active">Create</li>
     </ol>
 @endsection
 
@@ -20,7 +20,6 @@
         {{ Form::bsText('os') }}
         {{ Form::bsText('location') }}
         {{ Form::bsText('provider') }}
-        {{ Form::bsText('ip') }}
         {{ Form::bsText('ram') }}
         {{ Form::bsText('cpu') }}
         {{ Form::bsText('work_path') }}
@@ -28,12 +27,30 @@
     </div>
 
     <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                IP List
+            </div>
+            <div class="panel-body">
+                @php ( $oldIpValue = old('ip') ? json_encode(old('ip')) : '[]' )
+                <input-text-list :initial-items="{{ $oldIpValue }}" name="ip" label="IP"></input-text-list>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        {{ Form::bsText('script_install') }}
+        {{ Form::bsText('script_reinstall') }}
+        {{ Form::bsText('script_update') }}
         {{ Form::bsText('script_start') }}
+        {{ Form::bsText('script_pause') }}
         {{ Form::bsText('script_stop') }}
+        {{ Form::bsText('script_kill') }}
         {{ Form::bsText('script_restart') }}
         {{ Form::bsText('script_status') }}
         {{ Form::bsText('script_get_console') }}
         {{ Form::bsText('script_send_command') }}
+        {{ Form::bsText('script_delete') }}
     </div>
 
     <div class="col-md-12">

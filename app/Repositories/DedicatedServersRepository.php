@@ -3,6 +3,7 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
+use Gameap\Http\Requests\DedicatedServerRequest;
 
 class DedicatedServersRepository
 {
@@ -28,5 +29,30 @@ class DedicatedServersRepository
             ->where('id', '=', $id)
             ->first()
             ->ip;
+    }
+
+    /**
+     * @param array $attributes
+     */
+    public function store(array $attributes)
+    {
+        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+            return !empty($value);
+        });
+
+        DedicatedServer::create($attributes);
+    }
+
+    /**
+     * @param array $fields
+     * @param DedicatedServer        $dedicatedServer
+     */
+    public function update(DedicatedServer $dedicatedServer, array $attributes)
+    {
+        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+            return !empty($value);
+        });
+
+        $dedicatedServer->update($attributes);
     }
 }

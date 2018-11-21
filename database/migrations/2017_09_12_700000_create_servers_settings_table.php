@@ -14,9 +14,10 @@ class CreateServersSettingsTable extends Migration
     public function up()
     {
         Schema::create('servers_settings', function (Blueprint $table) {
-            $table->string('setting', 32);
+            $table->increments('id');
+            $table->string('name', 32);
             $table->integer('server_id')->unsigned();
-            $table->string('value', 64);
+            $table->text('value');
         });
     }
 

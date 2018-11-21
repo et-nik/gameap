@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>{{ isset($title) ? $title : "GameAP" }}</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,17 +20,21 @@
 </head>
 <body>
 
-<div class="container-fluid">
+@yield('page-data')
+
+<div id="app">
+    <div class="container-fluid">
 
     <div class="row">
-        @include("layouts.navbar")
+        @include("components.navbar")
     </div>
 
-    <div class="row">
+    <div class="row content-wrapper">
         <div class="col-md-2 col-lg-2 left-menu">
-            @include("layouts.sidebar")
+            @include("components.sidebar")
         </div>
         <div class="col-sm-12 col-md-10 col-lg-10 content">
+
             @yield('breadclumbs')
             
             @include('components.messages')
@@ -42,7 +49,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 <script src="{{ URL::asset('/js/app.js') }}"></script>
 @yield('footer-scripts')

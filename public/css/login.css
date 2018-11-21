@@ -1,0 +1,34 @@
+.card-header {
+    background-color:#444;
+    color:#fff;
+    font-size:25px;
+    border-bottom:1px solid #ddd;
+}
+
+.card-footer {
+    padding: 25px 15px;
+    background-color:#444;
+    color: #ffa800;
+    border-bottom:1px solid #ddd;
+}
+
+.card-footer a {
+    color: #ffa800;
+}
+
+.card-footer a:hover {
+    color: #ffa800;
+}
+
+.card {
+    border: 1px solid #ddd;
+    -moz-box-shadow: 1px 1px 7px #ccc;
+    -webkit-box-shadow: 1px 1px 7px #ccc;
+    box-shadow: 1px 1px 7px #ccc;
+}
+
+p.copyright {
+    text-align: center;
+    font-size: 11px;
+    padding: 0 10px 0 10px;
+}

@@ -4,8 +4,8 @@
 
 @section('breadclumbs')
     <ol class="breadcrumb">
-        <li><a href="/">GameAP</a></li>
-        <li>Games</li>
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item active">Games</li>
     </ol>
 @endsection
 
@@ -15,8 +15,8 @@
 
     @include('components.grid', [
         'modelsList' => $games,
-        'labels' => ['Name', 'Code', 'Engine'],
-        'attributes' => ['name', 'code', 'engine'],
+        'labels' => ['Name', 'Code', 'Engine', 'Mods'],
+        'attributes' => ['name', 'code', 'engine', 'mods'],
         'viewRoute' => 'admin.games.show',
         'editRoute' => 'admin.games.edit',
         'destroyRoute' => 'admin.games.destroy',

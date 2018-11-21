@@ -16,20 +16,21 @@ class CreateServersTable extends Migration
         Schema::create('servers', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('enabled')->default(0);
+            $table->boolean('installed')->default(0);
+            $table->boolean('blocked')->default(0);
             $table->string('name');
             $table->string('code_name', 64);
             $table->string('game_id', 16);
             $table->integer('ds_id')->unsigned();
             $table->integer('game_mod_id')->unsigned();
             $table->timestamp('expires')->nullable();
-            $table->boolean('installed')->default(0);
-            $table->string('server_ip', 256);
+            $table->string('server_ip', 255);
             $table->integer('server_port')->unsigned();
-            $table->integer('query_port')->unsigned();
-            $table->integer('rcon_port')->unsigned();
-            $table->string('rcon', 256);
-            $table->string('dir', 256);
-            $table->string('su_user', 256)->nullable();
+            $table->integer('query_port')->unsigned()->nullable();
+            $table->integer('rcon_port')->unsigned()->nullable();
+            $table->string('rcon', 255)->nullable();
+            $table->string('dir', 255);
+            $table->string('su_user', 255)->nullable();
             $table->integer('cpu_limit')->unsigned()->nullable();
             $table->integer('ram_limit')->unsigned()->nullable();
             $table->integer('net_limit')->unsigned()->nullable();
