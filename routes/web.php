@@ -43,6 +43,7 @@ Route::group(['prefix' => 'api'], function() {
     Route::name('api.servers.restart')->post('servers/restart/{server}', 'API\\ServersController@restart');
     Route::name('api.servers.update')->post('servers/update/{server}', 'API\\ServersController@update');
     Route::name('api.servers.get_status')->get('servers/get_status/{server}', 'API\\ServersController@getStatus');
+    Route::name('api.servers.query')->get('servers/query/{server}', 'API\\ServersController@query');
 
     // Gdaemon tasks
     Route::name('api.gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemon_task}', 'API\\GdaemonTasksController@get');

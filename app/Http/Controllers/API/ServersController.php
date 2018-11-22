@@ -6,6 +6,7 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Models\Server;
+use Gameap\Services\ServerService;
 
 class ServersController extends AuthController
 {
@@ -24,15 +25,24 @@ class ServersController extends AuthController
     public $gdaemonTaskRepository;
 
     /**
+     * @var \Gameap\Services\ServerService
+     */
+    public $serverService;
+
+    /**
      * ServersController constructor.
      * @param ServerRepository $repository
      */
-    public function __construct(ServerRepository $repository, GdaemonTaskRepository $gdaemonTaskRepository)
-    {
+    public function __construct(
+        ServerRepository $repository,
+        GdaemonTaskRepository $gdaemonTaskRepository,
+        ServerService $serverService
+    ) {
         parent::__construct();
 
         $this->repository = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
+        $this->serverService = $serverService;
     }
 
     /**
@@ -61,6 +71,7 @@ class ServersController extends AuthController
 
     /**
      * @param Server $server
+     * @return array
      */
     public function restart(Server $server)
     {
@@ -71,6 +82,7 @@ class ServersController extends AuthController
 
     /**
      * @param Server $server
+     * @return array
      */
     public function update(Server $server)
     {
@@ -82,11 +94,23 @@ class ServersController extends AuthController
     /**
      * Get server status
      * @param Server $server
+     * @return array
      */
     public function getStatus(Server $server)
     {
         return [
             'processActive' => $server->processActive()
         ];
+    }
+
+    /**
+     * @param Server $server
+     * @return array
+     */
+    public function query(Server $server)
+    {
+        $query = $this->serverService->query($server);
+
+        return $query;
     }
 }

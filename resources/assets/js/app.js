@@ -15,12 +15,20 @@ Vue.use(Vuex);
 const store = new Vuex.Store();
 Vue.use(FileManager, {store});
 
+import Progressbar from './components/Progressbar';
+import InputTextList from './components/InputTextList';
+import ServerStatus from './components/ServerStatus';
+
 var vm = new Vue({
     el: "#app",
     data: {
         actionConfirmed: false
     },
-    components: {'progressbar': require('./components/progressbar.vue'), 'input-text-list': require('./components/input-text-list.vue')},
+    components: {
+        'progressbar': Progressbar,
+        'input-text-list': InputTextList,
+        'server-status': ServerStatus,
+    },
     methods: {
         alert: function(message) {
             bootbox.alert(message);
@@ -33,13 +41,6 @@ var vm = new Vue({
             });
         },
         confirmAction: function (e, message) {
-            /*
-            // Default
-            if (!confirm(message)) {
-                event.preventDefault();
-            }
-            */
-
             if (!this.actionConfirmed) {
                 e.preventDefault();
 

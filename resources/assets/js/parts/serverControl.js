@@ -2,7 +2,7 @@ if( document.getElementById("serverControl") ) {
     Vue.mixin({
         data: function () {
             return {
-                serverId: 0,
+                // serverId: 0,
                 watchTaskId: 0,
                 watchTaskData: {},
                 watchTaskProgress: null,

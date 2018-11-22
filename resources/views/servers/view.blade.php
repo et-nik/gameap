@@ -39,5 +39,5 @@
 
     <h2>Status</h2>
 
-    <h2>Last actions</h2>
+    <server-status :server-id="{{ $server->id }}"></server-status>
 @endsection
