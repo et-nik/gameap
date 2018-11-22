@@ -1,13 +1,8 @@
 <template>
-    <div class="container">
-        <div class="row" v-for="(value, key) in items">
-            <div class="col-md-2 offset-md-2">
-                {{ key }} :
-            </div>
-            <div class="col-md-8">
-                {{ value }}
-            </div>
-        </div>
+    <div>
+        <ul class="list-group list-group-flush" v-for="(value, key) in items">
+            <li class="list-group-item">{{ key }} : {{ value }}</li>
+        </ul>
     </div>
 </template>
 
