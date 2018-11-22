@@ -34,6 +34,7 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $script_update
  * @property string $script_start
  * @property string $script_pause
+ * @property string $script_unpause
  * @property string $script_stop
  * @property string $script_kill
  * @property string $script_restart
@@ -76,6 +77,7 @@ class DedicatedServer extends Model implements ValidableContract
         'script_update',
         'script_start',
         'script_pause',
+        'script_unpause',
         'script_stop', 
         'script_kill', 
         'script_restart',

@@ -23,6 +23,7 @@ class DedicatedServersController extends Controller
             'script_update' => $dedicatedServer->script_update,
             'script_start' => $dedicatedServer->script_start,
             'script_pause' => $dedicatedServer->script_pause,
+            'script_unpause' => $dedicatedServer->script_unpause,
             'script_stop' => $dedicatedServer->script_stop,
             'script_kill' => $dedicatedServer->script_kill,
             'script_restart' => $dedicatedServer->script_restart,
