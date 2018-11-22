@@ -64,12 +64,13 @@
                     <h3>Proccess status</h3>
                 </div>
                     <ul class="list-group list-group-flush">
-                        @if (!$server->processActive())
+                        @if ($server->processActive())
                             <li class="list-group-item">Status: <span class="badge badge-success">active</span></li>
                         @else
                             <li class="list-group-item">Status: <span class="badge badge-danger">inactive</span></li>
                         @endif
-                            <li class="list-group-item">Last check: {{ $server->last_process_check }}</li>
+                        
+                        <li class="list-group-item">Last check: {{ $server->last_process_check }}</li>
                     </ul>
 
             </div>
@@ -81,6 +82,18 @@
                     <h3>Query</h3>
                 </div>
                 <server-status :server-id="{{ $server->id }}"></server-status>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Console</h3>
+                </div>
+                
+                <pre class="console">Not implemented</pre>
             </div>
         </div>
     </div>

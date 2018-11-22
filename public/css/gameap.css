@@ -60,6 +60,6 @@ pre.console {
     display: block;
     margin: 14px 0 14px 0;
     padding: 12px 10px 12px 10px;
-    height:450px;
+    min-height: 250px;
     overflow:scroll;
 }
