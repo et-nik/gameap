@@ -4,9 +4,9 @@
 
 @section('breadclumbs')
     <ol class="breadcrumb">
-        <li><a href="/">GameAP</a></li>
-        <li><a href="{{ route('admin.gdaemon_tasks.index') }}">GDaemon tasks</a></li>
-        <li>Task</li>
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.gdaemon_tasks.index') }}">GDaemon tasks</a></li>
+        <li class="breadcrumb-item">Task</li>
     </ol>
 @endsection
 

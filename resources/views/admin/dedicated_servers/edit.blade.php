@@ -59,22 +59,45 @@
             </div>
         </div>
 
-        <div class="tab-pane container fade" id="scripts">
+        <div class="tab-pane container-fluid fade" id="scripts">
             <div class="col-md-12">
                 <div class="card bg-light mt-3 mb-3">
                     <div class="card-body">
-                        {{ Form::bsText('script_install') }}
-                        {{ Form::bsText('script_reinstall') }}
-                        {{ Form::bsText('script_update') }}
-                        {{ Form::bsText('script_start') }}
-                        {{ Form::bsText('script_pause') }}
-                        {{ Form::bsText('script_stop') }}
-                        {{ Form::bsText('script_kill') }}
-                        {{ Form::bsText('script_restart') }}
-                        {{ Form::bsText('script_status') }}
-                        {{ Form::bsText('script_get_console') }}
-                        {{ Form::bsText('script_send_command') }}
-                        {{ Form::bsText('script_delete') }}
+                        <div class="row">
+                            <div class="col-6">{{ Form::bsText('script_install') }}</div>
+                            <div class="col-6">{{ Form::bsText('script_reinstall') }}</div>
+
+                            <div class="col-6">{{ Form::bsText('script_update') }}</div>
+                            <div class="col-6">{{ Form::bsText('script_start') }}</div>
+
+                            <div class="col-6">{{ Form::bsText('script_pause') }}</div>
+                            <div class="col-6">{{ Form::bsText('script_unpause') }}</div>
+
+                            <div class="col-6">{{ Form::bsText('script_stop') }}</div>
+                            <div class="col-6">{{ Form::bsText('script_kill') }}</div>
+
+                            <div class="col-6">{{ Form::bsText('script_restart') }}</div>
+                            <div class="col-6">{{ Form::bsText('script_status') }}</div>
+
+                            <div class="col-6">{{ Form::bsText('script_get_console') }}</div>
+                            <div class="col-6">{{ Form::bsText('script_send_command') }}</div>
+
+                            <div class="col-6">{{ Form::bsText('script_delete') }}</div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <h5>Game Server Shortcodes</h5>
+                        <ul>
+                            <li>{host} — server host/ip</li>
+                            <li>{port} — server port</li>
+                            <li>{query_port} — server query port</li>
+                            <li>{rcon_port} — server rcon port</li>
+                            <li>{dir} — absolute path to server directory</li>
+                            <li>{screen_name} — screen name</li>
+                            <li>{game} — game code</li>
+                            <li>{user} — user name (exist user in dedicated server, not admin panel)</li>
+                        </ul>
                     </div>
                 </div>
             </div>
