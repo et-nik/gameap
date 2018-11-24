@@ -8,7 +8,6 @@ class ServerRequest extends Request
     {
         return [
             'name' => 'required|max:128',
-            'code_name' => 'required',
             'game_id' => 'required',
             'ds_id' => 'required',
             'game_mod_id' => '',

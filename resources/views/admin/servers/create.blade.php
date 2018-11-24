@@ -16,7 +16,6 @@
     {!! Form::open(['url' => route('admin.servers.index'), 'id' => 'adminServerForm']) !!}
     <div class="col-md-6">
         {{ Form::bsText('name') }}
-        {{ Form::bsText('code_name') }}
 
         <div class="form-group" id="dedicatedServerForm">
             {{ Form::label('ds_id', 'Dedicated server', ['class' => 'control-label']) }}

@@ -3,6 +3,7 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\Server;
+use Illuminate\Support\Str;
 use Gameap\Http\Requests\ServerRequest;
 
 class ServerRepository
@@ -28,6 +29,9 @@ class ServerRepository
      */
     public function store(array $attributes)
     {
+        $attributes['uuid'] = Str::orderedUuid();
+        $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
+
         Server::create($attributes);
     }
 

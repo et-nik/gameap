@@ -26,8 +26,8 @@
 
     {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers.update', $server->id], 'id' => 'adminServerForm']) !!}
     <div class="col-md-6">
+        {{ Form::bsText('uuid', null, null, ['disabled' => 'disabled']) }}
         {{ Form::bsText('name') }}
-        {{ Form::bsText('code_name') }}
 
         <div class="form-group" id="dedicatedServerForm">
             {{ Form::label('ds_id', 'Dedicated server', ['class' => 'control-label']) }}

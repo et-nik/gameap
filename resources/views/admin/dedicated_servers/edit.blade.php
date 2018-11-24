@@ -96,7 +96,8 @@
                                     <li>{query_port} — server query port</li>
                                     <li>{rcon_port} — server rcon port</li>
                                     <li>{dir} — absolute path to server directory</li>
-                                    <li>{screen_name} — screen name</li>
+                                    <li>{uuid} — unique id</li>
+                                    <li>{uuid_short} — short unique id</li>
                                     <li>{game} — game code</li>
                                     <li>{user} — user name (exist user in dedicated server, not admin panel)</li>
                                 </ul>

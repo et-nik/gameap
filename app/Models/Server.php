@@ -14,7 +14,8 @@ use Carbon\Carbon;
  * @property boolean $installed
  * @property boolean $blocked
  * @property string $name
- * @property string $code_name
+ * @property string $uuid
+ * @property string $short_uuid
  * @property string $game_id
  * @property integer $ds_id
  * @property integer $game_mod_id
