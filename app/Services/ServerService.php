@@ -24,11 +24,11 @@ class ServerService
         $query = $this->gameq->setOption('timeout', 5)
             ->addServer([
                 'type' => $server->game->engine,
-                'host' => "{$server->server_ip}:{$server->server_port}",
+                'host' => "{$server->server_ip}:{$server->query_port}",
             ])
             ->process();
 
-        $serverResult = $query["{$server->server_ip}:{$server->server_port}"];
+        $serverResult = $query["{$server->server_ip}:{$server->query_port}"];
 
         if ($serverResult['gq_online']) {
             $result = [

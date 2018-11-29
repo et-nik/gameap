@@ -85,17 +85,19 @@
             </div>
         </div>
     </div>
-    
-    <div class="row mt-2">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Console</h3>
+
+    @if ($server->processActive())
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Console</h3>
+                    </div>
+
+                    <pre class="console">Not implemented</pre>
                 </div>
-                
-                <pre class="console">Not implemented</pre>
             </div>
         </div>
-    </div>
-    
+    @endif
+
 @endsection
