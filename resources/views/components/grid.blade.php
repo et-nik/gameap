@@ -53,9 +53,9 @@
                         @endif
 
                         @if (isset($destroyRoute))
-                            {{ Form::open(array('url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline')) }}
+                            {{ Form::open(['url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline']) }}
                             {{ Form::hidden('_method', 'DELETE') }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger btn-sm', 'v-on:click' => 'confirmAction($event, \'Are you sure?\')')) }}
+                            {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm', 'v-on:click' => 'confirmAction($event, \'Are you sure?\')']) }}
                             {{ Form::close() }}
                         @endif
                     </td>

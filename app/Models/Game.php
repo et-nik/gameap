@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Game extends Model
 {
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -63,6 +66,11 @@ class Game extends Model
         return $this->hasMany(Server::class);
     }
 
+    /**
+     * One to many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function mods()
     {
         return $this->hasMany(GameMod::class);

@@ -23,8 +23,9 @@ class GamesController extends AuthController
      */
     public function __construct(GameRepository $repository)
     {
-
         $this->repository = $repository;
+
+        parent::__construct();
     }
 
     /**
