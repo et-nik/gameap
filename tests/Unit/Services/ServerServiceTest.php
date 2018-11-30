@@ -29,6 +29,7 @@ class ServerServiceTest extends TestCase
         $server->game = $game;
         $server->server_ip = '127.0.0.1';
         $server->server_port = 1337;
+        $server->query_port = 1337;
 
         return [
             [$serverService, $mock, $server],
@@ -41,11 +42,11 @@ class ServerServiceTest extends TestCase
     public function testQuery($serverService, $mock, $server)
     {
         $mock->shouldReceive('process')->andReturn([
-            "{$server->server_ip}:{$server->server_port}" => [
+            "{$server->server_ip}:{$server->query_port}" => [
                 'gq_online' => false,
             ]
         ], [
-            "{$server->server_ip}:{$server->server_port}" => [
+            "{$server->server_ip}:{$server->query_port}" => [
                 'gq_online' => true,
                 'gq_hostname' => 'test',
                 'gq_mapname' => 'mapa',
