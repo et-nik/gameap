@@ -17,6 +17,7 @@ Vue.use(FileManager, {store});
 
 import Progressbar from './components/Progressbar';
 import InputTextList from './components/InputTextList';
+import InputManyList from './components/InputManyList';
 import ServerStatus from './components/ServerStatus';
 
 var vm = new Vue({
@@ -27,6 +28,7 @@ var vm = new Vue({
     components: {
         'progressbar': Progressbar,
         'input-text-list': InputTextList,
+        'input-many-list': InputManyList,
         'server-status': ServerStatus,
     },
     methods: {

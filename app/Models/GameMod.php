@@ -53,7 +53,15 @@ class GameMod extends Model implements ValidableContract
      */
     protected static $rules = [
         'name'      => 'required|string|max:255|unique:game_mods',
-        'game_code' => 'required|string|max:255|exists:games,code',
+        'game_code' => 'sometimes|string|max:255|exists:games,code',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'vars' => 'array',
+        'fast_rcon' => 'array',
     ];
 
     /**

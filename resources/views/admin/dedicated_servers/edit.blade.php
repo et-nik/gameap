@@ -27,7 +27,7 @@
     
     {!! Form::model($dedicatedServer, ['method' => 'PATCH', 'route' => ['admin.dedicated_servers.update', $dedicatedServer->id]]) !!}
     <div class="tab-content">
-        <div class="tab-pane container active" id="main">
+        <div class="tab-pane container-fluid active" id="main">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card bg-light mt-3 mb-3">
@@ -119,7 +119,7 @@
             </div>
         </div>
 
-        <div class="tab-pane container fade" id="gdaemon">
+        <div class="tab-pane container-fluid fade" id="gdaemon">
             <div class="col-md-12">
                 <div class="card bg-light mt-3 mb-3">
                     <div class="card-body">
