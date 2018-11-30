@@ -110,13 +110,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            {{-- TODO: Replace keys --}}
                             <input-many-list
                                     name="vars"
                                     :initial-items="{{ json_encode($gameMod->vars) }}"
-                                    :labels="{{ json_encode(['Var', 'Default', 'Info', 'Only Admins']) }}"
-                                    :keys="{{ json_encode(['alias', 'default_value', 'desc', 'only_admins']) }}"
-                                    {{--:keys="{{ json_encode(['var', 'default', 'info', 'only_admins']) }}">--}}
+                                    :labels="{{ json_encode(['Var', 'Default', 'Info', 'Admins Var']) }}"
+                                    :keys="{{ json_encode(['var', 'default', 'info', 'admin_var']) }}"
                                     :input-types="{{ json_encode(['text', 'text', 'text', 'checkbox']) }}">
                             </input-many-list>
                         </div>
@@ -134,7 +132,7 @@
                                     name="fast_rcon"
                                     :initial-items="{{ json_encode($gameMod->fast_rcon) }}"
                                     :labels="{{ json_encode(['Description', 'RCON Command']) }}"
-                                    :keys="{{ json_encode(['desc', 'rcon_command']) }}"
+                                    :keys="{{ json_encode(['info', 'command']) }}"
                                     :input-types="{{ json_encode(['text', 'text']) }}">
                             </input-many-list>
                         </div>
