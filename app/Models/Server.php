@@ -41,6 +41,8 @@ use Carbon\Carbon;
  * @property string $updated_at
  * @property string $deleted_at
  *
+ * @property string $full_path
+ *
  * @property DedicatedServer $dedicatedServer
  */
 class Server extends Model
@@ -101,5 +103,13 @@ class Server extends Model
     public function settings()
     {
         return $this->hasMany(ServerSetting::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullPathAttribute()
+    {
+        return rtrim($this->dedicatedServer->work_path, '/') . '/' . ltrim($this->dir, '/');
     }
 }

@@ -1,6 +1,10 @@
 <?php
 namespace Gameap\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Validable;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
+
 /**
  * Class ClientCertificate
  * @package Gameap\Models
@@ -10,8 +14,10 @@ namespace Gameap\Models;
  * @property string $private_key
  * @property string $private_key_pass
  */
-class ClientCertificate
+class ClientCertificate extends Model implements ValidableContract
 {
+    use Validable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -35,7 +41,7 @@ class ClientCertificate
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function servers()
+    public function dedicatedServers()
     {
         return $this->hasMany(DedicatedServer::class, 'client_certificate_id');
     }

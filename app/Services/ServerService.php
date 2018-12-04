@@ -7,12 +7,31 @@ use Gameap\Models\Server;
 use Knik\Gameap\GdaemonCommands;
 use Html;
 use Gameap\Exceptions\Services\InvalidCommand;
+use Storage;
 
 class ServerService
 {
+    /**
+     * @var GameQ
+     */
     protected $gameq;
+
+    /**
+     * @var GdaemonCommands
+     */
     protected $gdaemonCommands;
 
+    /**
+     * @var string
+     */
+    protected $storageDisk = 'local';
+
+    /**
+     * ServerService constructor.
+     *
+     * @param GameQ $gameq
+     * @param GdaemonCommands $gdaemonCommands
+     */
     public function __construct(GameQ $gameq, GdaemonCommands $gdaemonCommands)
     {
         $this->gameq = $gameq;
@@ -70,7 +89,7 @@ class ServerService
             'port' => $server->server_port,
             'query_port' => $server->query_port,
             'rcon_port' => $server->rcon_port,
-            'dir' => rtrim($server->dedicatedServer->work_path, '/') . '/' . ltrim($server->dir, '/'),
+            'dir' => $server->full_path,
             'uuid' => $server->uuid,
             'uuid_short' => $server->uuid_short,
             'game' => $server->game_id,
@@ -109,21 +128,60 @@ class ServerService
      */
     public function getConsoleLog(Server $server)
     {
-        $this->gdaemonCommands->setConfig([
-            'host' => $server->dedicatedServer->gdaemon_host,
-            'port' => $server->dedicatedServer->gdaemon_port,
-            'username' => $server->dedicatedServer->gdaemon_login,
-            'password' => $server->dedicatedServer->gdaemon_password,
-            'serverCertificate' => $server->dedicatedServer->gdaemon_server_cert,
-            'localCertificate' => $server->dedicatedServer->clientCertificate->certificate,
-            'privateKey' => $server->dedicatedServer->clientCertificate->private_key,
-            'privateKeyPass' => $server->dedicatedServer->clientCertificate->private_key_pass,
-            'timeout' => 10,
-        ]);
+        $this->configureGdaemon($server);
 
         $command = $this->getCommand($server, 'get_console');
         $result = $this->gdaemonCommands->exec($command, $exitCode);
 
         return $result;
+    }
+
+    /**
+     * @param Server $server
+     * @param string $command
+     * @return string
+     */
+    public function sendConsoleCommand(Server $server, string $command)
+    {
+        $this->configureGdaemon($server);
+
+        $command = $this->getCommand($server, 'send_command', ['command' => $command]);
+        $result = $this->gdaemonCommands->exec($command, $exitCode);
+
+        return $exitCode == 0 ? true: false;
+    }
+
+    /**
+     * Setting up gdaemon commands configuration
+     *
+     * @param Server $server
+     */
+    private function configureGdaemon(Server $server)
+    {
+        $this->gdaemonCommands->setConfig([
+            'host' => $server->dedicatedServer->gdaemon_host,
+            'port' => $server->dedicatedServer->gdaemon_port,
+            'username' => $server->dedicatedServer->gdaemon_login,
+            'password' => $server->dedicatedServer->gdaemon_password,
+
+            'serverCertificate' => Storage::disk($this->storageDisk)
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($server->dedicatedServer->gdaemon_server_cert),
+
+            'localCertificate' => Storage::disk($this->storageDisk)
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($server->dedicatedServer->clientCertificate->certificate),
+
+            'privateKey' => Storage::disk($this->storageDisk)
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($server->dedicatedServer->clientCertificate->private_key),
+
+            'privateKeyPass' => $server->dedicatedServer->clientCertificate->private_key_pass,
+            'workDir' => $server->dedicatedServer->work_path,
+            'timeout' => 10,
+        ]);
     }
 }

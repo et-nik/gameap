@@ -19,6 +19,7 @@ import Progressbar from './components/Progressbar';
 import InputTextList from './components/InputTextList';
 import InputManyList from './components/InputManyList';
 import ServerStatus from './components/ServerStatus';
+import ServerConsole from './components/ServerConsole';
 
 var vm = new Vue({
     el: "#app",
@@ -30,6 +31,7 @@ var vm = new Vue({
         'input-text-list': InputTextList,
         'input-many-list': InputManyList,
         'server-status': ServerStatus,
+        'server-console': ServerConsole,
     },
     methods: {
         alert: function(message) {

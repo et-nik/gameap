@@ -7,6 +7,7 @@ use Gameap\Repositories\ServerRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Models\Server;
 use Gameap\Services\ServerService;
+use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 
 class ServersController extends AuthController
 {
@@ -112,5 +113,28 @@ class ServersController extends AuthController
         $query = $this->serverService->query($server);
 
         return $query;
+    }
+
+    /**
+     * @param Server $server
+     * @return array
+     */
+    public function consoleLog(Server $server)
+    {
+        return [
+            'console' => $this->serverService->getConsoleLog($server)
+        ];
+    }
+
+    /**
+     * @param Server $server
+     * @return array
+     */
+    public function sendCommand(ServerConsoleCommandRequest $request, Server $server)
+    {
+        $command = $request->input('command');
+        $this->serverService->sendConsoleCommand($server, $command);
+
+        return ['message' => 'success'];
     }
 }

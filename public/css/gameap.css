@@ -61,5 +61,38 @@ pre.console {
     margin: 14px 0 14px 0;
     padding: 12px 10px 12px 10px;
     min-height: 250px;
-    overflow:scroll;
+    overflow:auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.terminal-box {
+    border-radius: 0.3em;
+    background-color: #000;
+}
+
+.terminal {
+    font-family: Consolas, Monaco, Courier New, Courier, monospace;
+    background-color: #000;
+    color: #FFF;
+    display: block;
+    min-height: 350px;
+    overflow-y: scroll;
+}
+
+.terminal-input {
+    font-family: Consolas, Monaco, Courier New, Courier, monospace;
+    width: 100%;
+    background: #000;
+    color: #FFF;
+    display: flex;
+}
+
+input.terminal-input {
+    margin-bottom: 0;
+    border: 0 !important;
+    background: transparent !important;
+    color: #FFF;
+    outline: none;
+    display: inline;
 }

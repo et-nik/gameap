@@ -105,8 +105,10 @@ class DedicatedServer extends Model implements ValidableContract
         'work_path' => 'required|max:128',
         'gdaemon_host' => 'required|max:128',
         'gdaemon_port' => 'required|numeric|digits_between:1,65535',
-        'gdaemon_login' => 'required|max:128',
-        'gdaemon_password' => 'required|max:128',
+        'gdaemon_login' => 'max:128',
+        'gdaemon_password' => 'max:128',
+        'gdaemon_server_cert' => 'max:128',
+        'client_certificate_id' => 'numeric|exists:client_certificates',
     ];
 
     /**
@@ -124,6 +126,6 @@ class DedicatedServer extends Model implements ValidableContract
      */
     public function clientCertificate()
     {
-        return $this->hasOne(ClientCertificate::class);
+        return $this->belongsTo(ClientCertificate::class);
     }
 }

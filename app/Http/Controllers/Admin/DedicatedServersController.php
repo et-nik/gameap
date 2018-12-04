@@ -3,6 +3,7 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
 use Gameap\Http\Requests\DedicatedServerRequest;
@@ -48,7 +49,8 @@ class DedicatedServersController extends AuthController
      */
     public function create()
     {
-        return view('admin.dedicated_servers.create');
+        $clientCertificates = ClientCertificate::all(['id', 'certificate'])->pluck('certificate', 'id');
+        return view('admin.dedicated_servers.create', compact('clientCertificates'));
     }
 
     /**
@@ -84,7 +86,8 @@ class DedicatedServersController extends AuthController
      */
     public function edit(DedicatedServer $dedicatedServer)
     {
-        return view('admin.dedicated_servers.edit', compact('dedicatedServer'));
+        $clientCertificates = ClientCertificate::all(['id', 'certificate'])->pluck('certificate', 'id');
+        return view('admin.dedicated_servers.edit', compact('dedicatedServer', 'clientCertificates'));
     }
 
     /**

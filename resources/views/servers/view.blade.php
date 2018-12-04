@@ -81,12 +81,18 @@
                 <div class="card-header">
                     <h3>Query</h3>
                 </div>
-                <server-status :server-id="{{ $server->id }}"></server-status>
+                <server-status :server-id="{{ $server->id }}">
+                    <div class="d-flex justify-content-center">
+                        <div class="fa-3x">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </div>
+                </server-status>
             </div>
         </div>
     </div>
 
-    @if ($server->processActive())
+    {{--@if ($server->processActive())--}}
         <div class="row mt-2">
             <div class="col-12">
                 <div class="card">
@@ -94,10 +100,16 @@
                         <h3>Console</h3>
                     </div>
 
-                    <pre class="console">Not implemented</pre>
+                    <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}">
+                        <div class="d-flex justify-content-center">
+                            <div class="fa-3x">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </server-console>
                 </div>
             </div>
         </div>
-    @endif
+    {{--@endif--}}
 
 @endsection
