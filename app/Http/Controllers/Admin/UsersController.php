@@ -32,7 +32,7 @@ class UsersController extends AuthController
     /**
      * Display a listing of the users.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -56,8 +56,8 @@ class UsersController extends AuthController
     /**
      * Store a newly created user in storage.
      *
-     * @param  \Gameap\Http\Requests\UserRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param UserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
@@ -70,8 +70,8 @@ class UsersController extends AuthController
     /**
      * Display the specified resource.
      *
-     * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(User $user)
     {
@@ -81,8 +81,8 @@ class UsersController extends AuthController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $user)
     {
@@ -95,7 +95,7 @@ class UsersController extends AuthController
      *
      * @param  \Gameap\Http\Requests\UserRequest  $request
      * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserRequest $request, User $user)
     {
@@ -109,7 +109,7 @@ class UsersController extends AuthController
      * Remove the specified resource from storage.
      *
      * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)
     {

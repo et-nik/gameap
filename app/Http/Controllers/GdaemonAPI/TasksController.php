@@ -57,9 +57,9 @@ class TasksController extends Controller
     }
 
     /**
-     * Append output
-     *
-     * @param GdaemonTask $gdaemonTask
+     * @param Request $request
+     * @param int $gdaemonTaskId
+     * @return \Illuminate\Http\JsonResponse
      */
     public function output(Request $request, int $gdaemonTaskId)
     {

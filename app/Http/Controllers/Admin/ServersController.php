@@ -33,7 +33,7 @@ class ServersController extends AuthController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -45,7 +45,7 @@ class ServersController extends AuthController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -59,7 +59,7 @@ class ServersController extends AuthController
      * Store a newly created resource in storage.
      *
      * @param  \Gameap\Http\Requests\ServerRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ServerRequest $request)
     {
@@ -73,7 +73,7 @@ class ServersController extends AuthController
      * Display the specified resource.
      *
      * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(Server $server)
     {
@@ -84,7 +84,7 @@ class ServersController extends AuthController
      * Show the form for editing the specified resource.
      *
      * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Server $server)
     {
@@ -98,7 +98,7 @@ class ServersController extends AuthController
      *
      * @param  \Gameap\Http\Requests\ServerRequest  $request
      * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ServerRequest $request, Server $server)
     {
@@ -112,7 +112,7 @@ class ServersController extends AuthController
      * Remove the specified resource from storage.
      *
      * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Server $server)
     {

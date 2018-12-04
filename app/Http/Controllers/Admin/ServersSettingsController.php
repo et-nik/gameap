@@ -10,9 +10,9 @@ use Gameap\Http\Requests\ServersSettingsRequest;
 class ServersSettingsController extends AuthController
 {
     /**
-     * Create a new ServersController instance.
+     * ServersSettingsController constructor.
      *
-     * @param  \Gameap\Repositories\ServerRepository $repository
+     * @param ServerRepository $serverRepository
      */
     public function __construct(ServerRepository $serverRepository)
     {
@@ -21,7 +21,8 @@ class ServersSettingsController extends AuthController
     }
 
     /**
-     * @param  \Gameap\Models\Server  $server
+     * @param Server $server
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Server $server)
     {
@@ -32,9 +33,9 @@ class ServersSettingsController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\ServersSettingsRequest  $request
-     * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @param ServersSettingsRequest $request
+     * @param Server $server
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ServersSettingsRequest $request, Server $server)
     {

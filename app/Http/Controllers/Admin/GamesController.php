@@ -31,7 +31,7 @@ class GamesController extends AuthController
     /**
      * Display a listing of the games.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -54,7 +54,7 @@ class GamesController extends AuthController
      * Store a newly created game in storage.
      *
      * @param  \Gameap\Http\Requests\GameRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(GameRequest $request)
     {
@@ -68,7 +68,7 @@ class GamesController extends AuthController
      * Display the specified resource.
      *
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(Game $game)
     {
@@ -79,7 +79,7 @@ class GamesController extends AuthController
      * Show the form for editing the specified resource.
      *
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Game $game)
     {
@@ -91,7 +91,7 @@ class GamesController extends AuthController
      *
      * @param  \Gameap\Http\Requests\GameRequest  $request
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(GameRequest $request, Game $game)
     {
@@ -105,7 +105,7 @@ class GamesController extends AuthController
      * Remove the specified resource from storage.
      *
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Game $game)
     {

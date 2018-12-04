@@ -100,7 +100,7 @@ class GameMod extends Model implements ValidableContract
      */
     protected function castAttribute($key, $value)
     {
-        if ($this->getCastType($key) == 'array' && is_null($value) || empty($value)) {
+        if ($this->getCastType($key) == 'array' && (is_null($value) || empty($value))) {
             return [];
         }
 

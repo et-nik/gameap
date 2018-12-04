@@ -47,7 +47,7 @@ class GameModsController extends AuthController
      * Store a newly created game mod in storage.
      *
      * @param  \Gameap\Http\Requests\GameModRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(GameModRequest $request)
     {
@@ -61,7 +61,7 @@ class GameModsController extends AuthController
      * Show the form for editing the specified resource.
      *
      * @param  \Gameap\Models\GameMod  $gameMod
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(GameMod $gameMod)
     {
@@ -73,7 +73,7 @@ class GameModsController extends AuthController
      *
      * @param  \Gameap\Http\Requests\GameModRequest  $request
      * @param  \Gameap\Models\GameMod  $gameMod
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(GameModRequest $request, GameMod $gameMod)
     {
@@ -87,7 +87,7 @@ class GameModsController extends AuthController
      * Remove the specified resource from storage.
      *
      * @param  \Gameap\Models\GameMod  $gameMod
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(GameMod $gameMod)
     {

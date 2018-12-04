@@ -17,7 +17,7 @@ class ServersController extends AuthController
     /**
      * Create a new ServersController instance.
      *
-     * @param  \Gameap\Repositories\ServerRepository $repository
+     * @param ServerRepository $repository
      */
     public function __construct(ServerRepository $repository)
     {
@@ -29,7 +29,7 @@ class ServersController extends AuthController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -42,7 +42,7 @@ class ServersController extends AuthController
      * Display the specified resource.
      *
      * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Server $server)
     {
