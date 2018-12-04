@@ -15,7 +15,7 @@ use Carbon\Carbon;
  * @property boolean $blocked
  * @property string $name
  * @property string $uuid
- * @property string $short_uuid
+ * @property string $uuid_short
  * @property string $game_id
  * @property integer $ds_id
  * @property integer $game_mod_id
@@ -40,6 +40,8 @@ use Carbon\Carbon;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
+ *
+ * @property DedicatedServer $dedicatedServer
  */
 class Server extends Model
 {

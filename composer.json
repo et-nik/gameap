@@ -18,6 +18,7 @@
         "gameap/gameap-file-manager": "dev-master",
         "infyomlabs/generator-builder": "dev-master",
         "knik/flysystem-gameap": "dev-master",
+        "knik/gameap-daemon-client": "~0.3",
         "knik/gameq": "~3.0",
         "laravel/framework": "5.6.*",
         "laravel/passport": "^7.0",

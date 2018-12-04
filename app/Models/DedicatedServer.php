@@ -21,13 +21,13 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $work_path
  * @property string $steamcmd_path
  * @property string $gdaemon_host
- * @property string $gdaemon_login
- * @property string $gdaemon_password
- * @property string $gdaemon_privkey
- * @property string $gdaemon_pubkey
- * @property string $gdaemon_keypass
+ * @property integer $gdaemon_port
  * @property string $gdaemon_api_key
  * @property string $gdaemon_api_token
+ * @property string $gdaemon_login
+ * @property string $gdaemon_password
+ * @property string $gdaemon_server_cert
+ * @property integer $client_certificate_id
  * @property string $prefer_install_method
  * @property string $script_install
  * @property string $script_reinstall
@@ -39,11 +39,14 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $script_kill
  * @property string $script_restart
  * @property string $script_status
- * @property string $script_get_console`
+ * @property string $script_get_console
  * @property string $script_send_command
  * @property string $script_delete
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @property Server[] $servers
+ * @property ClientCertificate $clientCertificate
  */
 class DedicatedServer extends Model implements ValidableContract
 {
@@ -66,11 +69,11 @@ class DedicatedServer extends Model implements ValidableContract
         'work_path',
         'steamcmd_path', 
         'gdaemon_host',
-        'gdaemon_login', 
+        'gdaemon_port',
+        'gdaemon_login',
         'gdaemon_password',
-        'gdaemon_privkey', 
-        'gdaemon_pubkey',
-        'gdaemon_keypass', 
+        'gdaemon_server_cert',
+        'client_certificate_id',
         'prefer_install_method',
         'script_install',
         'script_reinstall',
@@ -101,11 +104,9 @@ class DedicatedServer extends Model implements ValidableContract
         // 'ip' => 'required|array',
         'work_path' => 'required|max:128',
         'gdaemon_host' => 'required|max:128',
+        'gdaemon_port' => 'required|numeric|digits_between:1,65535',
         'gdaemon_login' => 'required|max:128',
         'gdaemon_password' => 'required|max:128',
-        'gdaemon_privkey' => 'required|max:128',
-        'gdaemon_keypass' => 'required|max:128',
-        // 'gdaemon_api_key' => 'required|max:128',
     ];
 
     /**
@@ -116,5 +117,13 @@ class DedicatedServer extends Model implements ValidableContract
     public function servers()
     {
         return $this->hasMany(Server::class, 'ds_id');
+    }
+
+    /**
+     * One to one relation
+     */
+    public function clientCertificate()
+    {
+        return $this->hasOne(ClientCertificate::class);
     }
 }
