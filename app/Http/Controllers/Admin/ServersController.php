@@ -9,7 +9,6 @@ use Gameap\Models\Server;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\ServerRepository;
 
-
 class ServersController extends AuthController
 {
     /**

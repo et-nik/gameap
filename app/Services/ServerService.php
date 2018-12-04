@@ -6,7 +6,8 @@ use GameQ\GameQ;
 use Gameap\Models\Server;
 use Knik\Gameap\GdaemonCommands;
 use Html;
-use Gameap\Exceptions\Services\InvalidCommand;
+use Gameap\Exceptions\Services\InvalidCommandException;
+use Gameap\Exceptions\Services\ServerInactiveException;
 use Storage;
 
 class ServerService
@@ -109,7 +110,7 @@ class ServerService
      * @param array $extraData
      * @return string
      *
-     * @throws InvalidCommand
+     * @throws InvalidCommandException
      */
     public function getCommand(Server $server, string $command, array $extraData = [])
     {
@@ -119,7 +120,7 @@ class ServerService
             return $this->replaceShortCodes($server, $script, $extraData);
         }
 
-        throw new InvalidCommand();
+        throw new InvalidCommandException();
     }
 
     /**
@@ -128,6 +129,7 @@ class ServerService
      */
     public function getConsoleLog(Server $server)
     {
+        $this->checkServer($server);
         $this->configureGdaemon($server);
 
         $command = $this->getCommand($server, 'get_console');
@@ -143,6 +145,7 @@ class ServerService
      */
     public function sendConsoleCommand(Server $server, string $command)
     {
+        $this->checkServer($server);
         $this->configureGdaemon($server);
 
         $command = $this->getCommand($server, 'send_command', ['command' => $command]);
@@ -183,5 +186,16 @@ class ServerService
             'workDir' => $server->dedicatedServer->work_path,
             'timeout' => 10,
         ]);
+    }
+
+    /**
+     * @param Server $server
+     * @throws ServerInactiveException
+     */
+    private function checkServer(Server $server)
+    {
+        if ($server->processActive() == false) {
+            throw new ServerInactiveException('Server is down');
+        }
     }
 }

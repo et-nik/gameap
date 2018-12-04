@@ -105,6 +105,7 @@ class ServerServiceTest extends TestCase
         $dedicatedServer->clientCertificate = $clientCertificate;
         $dedicatedServer->work_path = '/srv/servers';
         $dedicatedServer->script_get_console = './script_get_console.sh';
+        $dedicatedServer->script_send_command = './script_send_command.sh {command}';
 
         $server = new Server();
         $server->server_ip = '127.0.0.1';
@@ -112,6 +113,8 @@ class ServerServiceTest extends TestCase
         $server->query_port = 1337;
         $server->rcon_port = 1337;
         $server->dir = 'server01';
+        $server->last_process_check = date('Y-m-d H:i:s', time());
+        $server->process_active = true;
 
         $server->dedicatedServer = $dedicatedServer;
 
@@ -137,6 +140,50 @@ class ServerServiceTest extends TestCase
         $consoleLog = $serverService->getConsoleLog($server);
 
         $this->assertEquals('command result', $consoleLog);
+    }
+
+    /**
+     * @dataProvider adapterProviderGdaemon
+     *
+     * @param $serverService
+     * @param $mock
+     * @param $server
+     *
+     * @expectedException \Gameap\Exceptions\Services\ServerInactiveException
+     */
+    public function testGetConsoleLogInactiveServer($serverService, $mock, $server)
+    {
+        $server->process_active = false;
+
+        $mock->shouldReceive('exec')->andReturn("command result");
+        $serverService->getConsoleLog($server);
+    }
+
+    /**
+     * @dataProvider adapterProviderGdaemon
+     */
+    public function testSendConsoleCommand($serverService, $mock, $server)
+    {
+        $mock->shouldReceive('exec')->andReturn("command result");
+
+        $result = $serverService->sendConsoleCommand($server, 'ban knik');
+
+        $this->assertTrue($result);
+    }
+
+    /**
+     * @dataProvider adapterProviderGdaemon
+     * @param $serverService
+     * @param $mock
+     * @param $server
+     *
+     * @expectedException \Gameap\Exceptions\Services\ServerInactiveException
+     */
+    public function testSendConsoleCommandInactive($serverService, $mock, $server)
+    {
+        $server->process_active = false;
+        $mock->shouldReceive('exec')->andReturn("command result");
+        $serverService->sendConsoleCommand($server, 'ban knik');
     }
 
     /**
@@ -183,7 +230,7 @@ class ServerServiceTest extends TestCase
      * @param $mock
      * @param Server $server
      *
-     * @expectedException \Gameap\Exceptions\Services\InvalidCommand
+     * @expectedException \Gameap\Exceptions\Services\InvalidCommandException
      */
     public function testGetCommandInvalidCommand($serverService, $mock, $server)
     {

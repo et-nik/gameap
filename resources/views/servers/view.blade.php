@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    {{--@if ($server->processActive())--}}
+    @if ($server->processActive())
         <div class="row mt-2">
             <div class="col-12">
                 <div class="card">
@@ -110,6 +110,6 @@
                 </div>
             </div>
         </div>
-    {{--@endif--}}
+    @endif
 
 @endsection
