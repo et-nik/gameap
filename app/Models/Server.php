@@ -50,6 +50,7 @@ class Server extends Model
     const TIME_EXPIRE_PROCESS_CHECK = 120;
 
     protected $fillable = [
+        'uuid', 'uuid_short',
         'enabled', 'name', 'code_name', 'game_id',
         'ds_id', 'game_mod_id', 'expires',
         'installed', 'server_ip', 'server_port',

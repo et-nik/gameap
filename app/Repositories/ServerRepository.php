@@ -29,8 +29,13 @@ class ServerRepository
      */
     public function store(array $attributes)
     {
-        $attributes['uuid'] = Str::orderedUuid();
+        $attributes['uuid'] = Str::orderedUuid()->toString();
         $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
+
+        if (isset($attributes['install'])) {
+            $attributes['installed'] = ! $attributes['install'];
+            unset($attributes['install']);
+        }
 
         Server::create($attributes);
     }

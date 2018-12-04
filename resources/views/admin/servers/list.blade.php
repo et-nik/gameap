@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <a class='btn btn-success btn-sm' href="{{ route('admin.servers.create') }}">Create</a>
+    <a class='btn btn-success' href="{{ route('admin.servers.create') }}"><span class="fa fa-plus-square"></span>&nbsp;Create</a>
     <hr>
 
     @include('components.grid', [
