@@ -26,18 +26,19 @@ class DedicatedServersTableSeeder extends Seeder
             'gdaemon_api_key'       => Str::random(64),
             'gdaemon_server_cert'   => '/path/to/server.crt',
             'client_certificate_id' => 1,
-            'script_install'        => './script_install.sh',
-            'script_reinstall'      => './script_reinstall.sh',
-            'script_update'          => './script_update.sh',
-            'script_start'          => './script_start.sh',
-            'script_pause'          => './script_pause.sh',
-            'script_stop'           => './script_stop.sh',
-            'script_kill'           => './script_kill.sh',
-            'script_restart'        => './script_restart.sh',
-            'script_status'         => './script_status.sh',
-            'script_get_console'    => './script_get_console.sh',
-            'script_send_command'   => './script_send_command.sh',
-            'script_delete'         => './script_delete.sh'
+            'script_install'        => './server.sh install {uuid_short}',
+            'script_reinstall'      => './server.sh reinstall {uuid_short}',
+            'script_update'         => './server.sh update {uuid_short}',
+            'script_start'          => './server.sh start {uuid_short}',
+            'script_pause'          => './server.sh pause {uuid_short}',
+            'script_unpause'        => './server.sh unpause {uuid_short}',
+            'script_stop'           => './server.sh stop {uuid_short}',
+            'script_kill'           => './server.sh kill {uuid_short}',
+            'script_restart'        => './server.sh restart {uuid_short}',
+            'script_status'         => './server.sh status {uuid_short}',
+            'script_get_console'    => './server.sh console {uuid_short}',
+            'script_send_command'   => './server.sh send_command {uuid_short} "{command}"',
+            'script_delete'         => './server.sh delete {uuid_short}'
         ]);
     }
 }

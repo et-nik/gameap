@@ -14,60 +14,96 @@
     @include('components.form.errors_block')
 
     {!! Form::open(['url' => route('admin.dedicated_servers.index')]) !!}
-    <div class="col-md-6">
-        {{ Form::bsText('name') }}
-        {{ Form::bsText('enabled') }}
-        {{ Form::bsText('os') }}
-        {{ Form::bsText('location') }}
-        {{ Form::bsText('provider') }}
-        {{ Form::bsText('ram') }}
-        {{ Form::bsText('cpu') }}
-        {{ Form::bsText('work_path') }}
-        {{ Form::bsText('steamcmd_path') }}
-    </div>
 
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                IP List
+        <div class="row">
+            <div class="col-6">
+                <div class="card bg-light mt-3 mb-3">
+                    <div class="card-body">
+                        {{ Form::bsText('name') }}
+                        {{ Form::bsText('enabled') }}
+                        {{ Form::bsText('os') }}
+                        {{ Form::bsText('location') }}
+                        {{ Form::bsText('provider') }}
+                        {{ Form::bsText('ram') }}
+                        {{ Form::bsText('cpu') }}
+                        {{ Form::bsText('work_path') }}
+                        {{ Form::bsText('steamcmd_path') }}
+                    </div>
+                </div>
             </div>
-            <div class="panel-body">
-                @php ( $oldIpValue = old('ip') ? json_encode(old('ip')) : '[]' )
-                <input-text-list :initial-items="{{ $oldIpValue }}" name="ip" label="IP"></input-text-list>
+
+            <div class="col-6">
+                <div class="card bg-light mt-3 mb-3">
+                    <div class="card-header">
+                        IP List
+                    </div>
+                    <div class="card-body">
+                        @php ( $oldIpValue = old('ip') ? json_encode(old('ip')) : '[]' )
+                        <input-text-list :initial-items="{{ $oldIpValue }}" name="ip" label="IP"></input-text-list>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
-        {{ Form::bsText('script_install') }}
-        {{ Form::bsText('script_reinstall') }}
-        {{ Form::bsText('script_update') }}
-        {{ Form::bsText('script_start') }}
-        {{ Form::bsText('script_pause') }}
-        {{ Form::bsText('script_stop') }}
-        {{ Form::bsText('script_kill') }}
-        {{ Form::bsText('script_restart') }}
-        {{ Form::bsText('script_status') }}
-        {{ Form::bsText('script_get_console') }}
-        {{ Form::bsText('script_send_command') }}
-        {{ Form::bsText('script_delete') }}
-    </div>
+        <div class="card bg-light mt-3 mb-3">
+            <div class="card-header">Scripts</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">{{ Form::bsText('script_install') }}</div>
+                    <div class="col-6">{{ Form::bsText('script_reinstall') }}</div>
 
-    <div class="col-md-12">
-        {{ Form::bsText('gdaemon_host') }}
-        {{ Form::bsText('gdaemon_login') }}
-        {{ Form::bsText('gdaemon_password') }}
-        {{ Form::bsText('gdaemon_privkey') }}
-        {{ Form::bsText('gdaemon_pubkey') }}
-        {{ Form::bsText('gdaemon_keypass') }}
-    </div>
+                    <div class="col-6">{{ Form::bsText('script_update') }}</div>
+                    <div class="col-6">{{ Form::bsText('script_start') }}</div>
 
+                    <div class="col-6">{{ Form::bsText('script_pause') }}</div>
+                    <div class="col-6">{{ Form::bsText('script_unpause') }}</div>
 
-    <div class="col-md-12">
-        <div class="form-group">
-            {{ Form::submit('Create', ['class' => 'btn btn-success']) }}
+                    <div class="col-6">{{ Form::bsText('script_stop') }}</div>
+                    <div class="col-6">{{ Form::bsText('script_kill') }}</div>
+
+                    <div class="col-6">{{ Form::bsText('script_restart') }}</div>
+                    <div class="col-6">{{ Form::bsText('script_status') }}</div>
+
+                    <div class="col-6">{{ Form::bsText('script_get_console') }}</div>
+                    <div class="col-6">{{ Form::bsText('script_send_command') }}</div>
+
+                    <div class="col-6">{{ Form::bsText('script_delete') }}</div>
+                </div>
+            </div>
+            <div class="card-footer">
+                @include('admin.dedicated_servers.shortcodes_description')
+            </div>
         </div>
-    </div>
+
+        <div class="card bg-light mt-3 mb-3">
+            <div class="card-header">
+                GDaemon
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        {{ Form::bsText('gdaemon_host') }}
+                        {{ Form::bsText('gdaemon_port') }}
+                        {{ Form::bsText('gdaemon_login') }}
+                        {{ Form::bsText('gdaemon_password') }}
+                        {{ Form::bsText('gdaemon_server_cert') }}
+
+                        <div class="form-group" id="clientCertificateForm">
+                            {{ Form::label('client_certificates', 'Client Certificate', ['class' => 'control-label']) }}
+                            {{ Form::select('ds_id', $clientCertificates , null, ['class' => 'form-control']) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    {{ Form::submit('Create', ['class' => 'btn btn-success']) }}
+                </div>
+            </div>
+        </div>
 
     {!! Form::close() !!}
 @endsection

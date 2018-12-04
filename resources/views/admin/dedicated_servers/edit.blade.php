@@ -87,33 +87,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <div class="row">
-                            <div class="col-6">
-                                <h5>Game Server Shortcodes</h5>
-                                <ul>
-                                    <li>{host} — server host/ip</li>
-                                    <li>{port} — server port</li>
-                                    <li>{query_port} — server query port</li>
-                                    <li>{rcon_port} — server rcon port</li>
-                                    <li>{dir} — absolute path to server directory</li>
-                                    <li>{uuid} — unique id</li>
-                                    <li>{uuid_short} — short unique id</li>
-                                    <li>{game} — game code</li>
-                                    <li>{user} — user name (exist user in dedicated server, not admin panel)</li>
-                                </ul>
-                            </div>
-                            <div class="col-6">
-                                <h5>Start/Restart Shortcodes</h5>
-                                <ul>
-                                    <li>{command} — Game server start command</li>
-                                </ul>
-
-                                <h5>Script Send Command</h5>
-                                <ul>
-                                    <li>{command} — Console command</li>
-                                </ul>
-                            </div>
-                        </div>
+                        @include('admin.dedicated_servers.shortcodes_description')
                     </div>
                 </div>
             </div>
@@ -124,11 +98,15 @@
                 <div class="card bg-light mt-3 mb-3">
                     <div class="card-body">
                         {{ Form::bsText('gdaemon_host') }}
+                        {{ Form::bsText('gdaemon_port') }}
                         {{ Form::bsText('gdaemon_login') }}
                         {{ Form::bsText('gdaemon_password') }}
-                        {{ Form::bsText('gdaemon_privkey') }}
-                        {{ Form::bsText('gdaemon_pubkey') }}
-                        {{ Form::bsText('gdaemon_keypass') }}
+                        {{ Form::bsText('gdaemon_server_cert') }}
+
+                        <div class="form-group" id="clientCertificateForm">
+                            {{ Form::label('client_certificates', 'Client Certificate', ['class' => 'control-label']) }}
+                            {{ Form::select('ds_id', $clientCertificates , $dedicatedServer->client_certificate_id, ['class' => 'form-control']) }}
+                        </div>
                     </div>
                 </div>
             </div>
