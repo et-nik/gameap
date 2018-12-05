@@ -17,6 +17,7 @@ class DedicatedServersController extends Controller
     {
         return [
             'work_path' => $dedicatedServer->work_path,
+            'steamcmd_path' => $dedicatedServer->steamcmd_path,
             'prefer_install_method' => $dedicatedServer->prefer_install_method,
             'script_install' => $dedicatedServer->script_install,
             'script_reinstall' => $dedicatedServer->script_reinstall,

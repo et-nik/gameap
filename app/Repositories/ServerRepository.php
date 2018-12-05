@@ -10,9 +10,12 @@ class ServerRepository
 {
     protected $model;
 
-    public function __construct(Server $server)
+    protected $gdaemonTaskRepository;
+
+    public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
     {
         $this->model = $server;
+        $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
     public function getAll($perPage = 20)
@@ -32,12 +35,19 @@ class ServerRepository
         $attributes['uuid'] = Str::orderedUuid()->toString();
         $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
 
+        $addInstallTask = false;
         if (isset($attributes['install'])) {
             $attributes['installed'] = ! $attributes['install'];
+            $addInstallTask = true;
+
             unset($attributes['install']);
         }
 
-        Server::create($attributes);
+        $server = Server::create($attributes);
+
+        if ($addInstallTask) {
+            $this->gdaemonTaskRepository->addServerUpdate($server);
+        }
     }
 
     /**

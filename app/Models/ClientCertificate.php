@@ -43,6 +43,6 @@ class ClientCertificate extends Model implements ValidableContract
      */
     public function dedicatedServers()
     {
-        return $this->hasMany(DedicatedServer::class, 'client_certificate_id');
+        return $this->hasMany(DedicatedServer::class);
     }
 }

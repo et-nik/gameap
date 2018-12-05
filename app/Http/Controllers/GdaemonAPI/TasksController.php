@@ -65,8 +65,8 @@ class TasksController extends Controller
     {
         if (GdaemonTask::where('id', $gdaemonTaskId)->count()) {
             $gdaemonTask = GdaemonTask::find($gdaemonTaskId);
-
-            $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), '{$request->output}')")]);
+            $output = DB::connection()->getPdo()->quote($request->output);
+            $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), {$output})")]);
             $response = response()->json(['message' => 'success'], Response::HTTP_OK);
         } else {
             $response = response()->json(['message' => 'Task does not exist'], Response::HTTP_NOT_FOUND);
