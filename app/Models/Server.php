@@ -113,4 +113,30 @@ class Server extends Model
     {
         return rtrim($this->dedicatedServer->work_path, '/') . '/' . ltrim($this->dir, '/');
     }
+
+    /**
+     * @return array
+     */
+    public function getFileManagerDisksAttribute()
+    {
+        $fileManagerDisks = [
+            "server" => array_merge(
+                $this->dedicatedServer->gdaemonSettings('local'),
+                ['driver' => 'gameap', 'workDir' => $this->full_path]
+            )
+        ];
+
+        $setting = $this->settings()->where('name', 'file-manager')->first();
+
+        if (!empty($setting)) {
+            $disks = json_decode($setting->value, true);
+
+            if (!empty($disks)) {
+                $fileManagerDisks = array_merge($fileManagerDisks, $disks);
+            }
+        }
+
+
+        return $fileManagerDisks;
+    }
 }

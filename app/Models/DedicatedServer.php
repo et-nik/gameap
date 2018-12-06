@@ -5,6 +5,7 @@ namespace Gameap\Models;
 use Illuminate\Database\Eloquent\Model;
 use Sofa\Eloquence\Validable;
 use Sofa\Eloquence\Contracts\Validable as ValidableContract;
+use Storage;
 
 /**
  * Class DedicatedServer
@@ -127,5 +128,38 @@ class DedicatedServer extends Model implements ValidableContract
     public function clientCertificate()
     {
         return $this->belongsTo(ClientCertificate::class);
+    }
+
+    /**
+     * @param $storageDisk
+     * @return array
+     */
+    public function gdaemonSettings($storageDisk)
+    {
+        return [
+            'host' => $this->gdaemon_host,
+            'port' => $this->gdaemon_port,
+            'username' => $this->gdaemon_login,
+            'password' => $this->gdaemon_password,
+
+            'serverCertificate' => Storage::disk($this->storageDisk)
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($this->gdaemon_server_cert),
+
+            'localCertificate' => Storage::disk($storageDisk)
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($this->clientCertificate->certificate),
+
+            'privateKey' => Storage::disk($this->storageDisk)
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($this->clientCertificate->private_key),
+
+            'privateKeyPass' => $this->clientCertificate->private_key_pass,
+            'workDir' => $this->work_path,
+            'timeout' => 10,
+        ];
     }
 }

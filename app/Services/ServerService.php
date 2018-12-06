@@ -161,31 +161,9 @@ class ServerService
      */
     private function configureGdaemon(Server $server)
     {
-        $this->gdaemonCommands->setConfig([
-            'host' => $server->dedicatedServer->gdaemon_host,
-            'port' => $server->dedicatedServer->gdaemon_port,
-            'username' => $server->dedicatedServer->gdaemon_login,
-            'password' => $server->dedicatedServer->gdaemon_password,
-
-            'serverCertificate' => Storage::disk($this->storageDisk)
-                ->getDriver()
-                ->getAdapter()
-                ->applyPathPrefix($server->dedicatedServer->gdaemon_server_cert),
-
-            'localCertificate' => Storage::disk($this->storageDisk)
-                ->getDriver()
-                ->getAdapter()
-                ->applyPathPrefix($server->dedicatedServer->clientCertificate->certificate),
-
-            'privateKey' => Storage::disk($this->storageDisk)
-                ->getDriver()
-                ->getAdapter()
-                ->applyPathPrefix($server->dedicatedServer->clientCertificate->private_key),
-
-            'privateKeyPass' => $server->dedicatedServer->clientCertificate->private_key_pass,
-            'workDir' => $server->dedicatedServer->work_path,
-            'timeout' => 10,
-        ]);
+        $this->gdaemonCommands->setConfig(
+            $server->server->dedicatedServer->gdaemonSettings($this->storageDisk)
+        );
     }
 
     /**
