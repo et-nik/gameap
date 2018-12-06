@@ -122,7 +122,7 @@ class Server extends Model
         $fileManagerDisks = [
             "server" => array_merge(
                 $this->dedicatedServer->gdaemonSettings('local'),
-                ['driver' => 'gameap', 'workDir' => $this->full_path]
+                ['driver' => 'gameap', 'workDir' => $this->full_path, 'root' => $this->full_path]
             )
         ];
 
