@@ -1,15 +1,59 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Tools</div>
 
-                <div class="panel-body">
-                    <a href="/servers">Servers list</a>
+    <div class="card mb-2">
+        <div class="card-header">
+            Main
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="d-flex flex-nowrap">
+                    <div class="p-2 mb-3 text-center">
+                        <a class="btn btn-block btn-lg btn-outline-dark rounded" href="/servers">
+                            <i class="fas fa-server fa-5x m-1"></i>
+                            <h5>Servers list</h5>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="card mb-2">
+        <div class="card-header">
+            Information
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <i class="fas fa-info-circle"></i> Version: {{ Config::get('constants.AP_VERSION') }}
+            </div>
+
+            <div class="col-12">
+                <i class="fab fa-github"></i> GitHub:
+                <a href="https://github.com/et-nik/gameap">https://github.com/et-nik/gameap</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <button class="btn btn-block btn-lg btn-warning rounded">
+                <i class="fas fa-hands-helping"></i> Get Help
+            </button>
+        </div>
+
+        <div class="col-4">
+            <button href="https://docs.gameap.ru" class="btn btn-block btn-lg btn-info rounded">
+                <i class="fas fa-book"></i> Documentation
+            </button>
+        </div>
+
+        <div class="col-4">
+            <button class="btn btn-block btn-lg btn-danger rounded">
+                <i class="fas fa-bug"></i> Report a bug
+            </button>
+        </div>
+    </div>
+
 @endsection
