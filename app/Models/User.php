@@ -53,4 +53,9 @@ class User extends Authenticatable implements ValidableContract
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function servers()
+    {
+        return $this->belongsToMany(Server::class);
+    }
 }

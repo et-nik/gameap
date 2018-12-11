@@ -139,4 +139,9 @@ class Server extends Model
 
         return $fileManagerDisks;
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
