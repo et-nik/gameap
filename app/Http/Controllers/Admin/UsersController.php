@@ -61,7 +61,7 @@ class UsersController extends AuthController
      */
     public function store(UserRequest $request)
     {
-        $this->repository->store($request);
+        $this->repository->store($request->all());
 
         return redirect()->route('admin.users.index')
             ->with('success','User created successfully');
@@ -99,10 +99,13 @@ class UsersController extends AuthController
      */
     public function update(UserRequest $request, User $user)
     {
-        $this->repository->update($request->all(), $user);
-
-        return redirect()->route('admin.users.index')
-            ->with('success','User updated successfully');
+        if ($this->repository->update($user, $request->all())) {
+            return redirect()->route('admin.users.index')
+                ->with('success', 'User updated successfully');
+        } else {
+            return redirect()->route('admin.users.index')
+                ->with($user->getValidationErrors()->all());
+        }
     }
 
     /**
