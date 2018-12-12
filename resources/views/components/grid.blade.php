@@ -35,7 +35,12 @@
                                 @php($cellValue .= "<p>{$val}</p>")
                             @endforeach
                         @else
-                            @php($cellValue = $model->{$attr})
+                            @if(strpos($attr, '.') !== false)
+                                @php($ex = explode('.', $attr, 2))
+                                @php($cellValue = $model->{$ex[0]}->{$ex[1]})
+                            @else
+                                @php($cellValue = $model->{$attr})
+                            @endif
                         @endif
                     @endif
 
