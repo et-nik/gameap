@@ -4,6 +4,7 @@ namespace Gameap\Http\Controllers;
 
 use Gameap\Models\Server;
 use Gameap\Repositories\ServerRepository;
+use Illuminate\Support\Facades\Auth;
 
 class ServersController extends AuthController
 {
@@ -34,7 +35,7 @@ class ServersController extends AuthController
     public function index()
     {
         return view('servers.list',[
-            'servers' => $this->repository->getAll()
+            'servers' => $this->repository->getServersForAuth()
         ]);
     }
 
@@ -46,6 +47,8 @@ class ServersController extends AuthController
      */
     public function show(Server $server)
     {
+        $this->authorize('server-control', $server);
+
         return view('servers.view', compact('server'));
     }
 
@@ -54,6 +57,8 @@ class ServersController extends AuthController
      */
     public function filemanager(Server $server)
     {
+        $this->authorize('server-control', $server);
+
         return view('servers.filemanager', compact('server'));
     }
 }

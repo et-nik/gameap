@@ -5,6 +5,7 @@ namespace Gameap\Repositories;
 use Gameap\Models\Server;
 use Illuminate\Support\Str;
 use Gameap\Http\Requests\ServerRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ServerRepository
 {
@@ -71,6 +72,25 @@ class ServerRepository
     {
         return $this->model->select('id')
             ->where('ds_id', '=', $dedicatedServerId)
+            ->get();
+    }
+
+    public function getServersForAuth()
+    {
+        if (Auth::user()->can('admin roles & permissions')) {
+            return $this->getAll();
+        } else {
+            return Auth::user()->servers;
+        }
+    }
+
+    public function search($query)
+    {
+        return $this->model->select(['id', 'name', 'server_ip', 'server_port', 'game_id', 'game_mod_id'])
+            ->with(['game' => function($query) {
+                $query->select('code','name');
+            }])
+            ->where('name', 'LIKE', '%' . $query . '%')
             ->get();
     }
 }

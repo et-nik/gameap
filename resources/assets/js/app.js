@@ -15,11 +15,15 @@ Vue.use(Vuex);
 const store = new Vuex.Store();
 Vue.use(FileManager, {store});
 
-import Progressbar from './components/Progressbar';
-import InputTextList from './components/InputTextList';
-import InputManyList from './components/InputManyList';
-import ServerStatus from './components/ServerStatus';
-import ServerConsole from './components/ServerConsole';
+import vSelect from 'vue-select';
+
+import Progressbar from './components/Progressbar.vue';
+import InputTextList from './components/InputTextList.vue';
+import InputManyList from './components/InputManyList.vue';
+import ServerStatus from './components/ServerStatus.vue';
+import ServerConsole from './components/ServerConsole.vue';
+
+import UserServerPrivileges from './components/servers/UserServerPrivileges.vue';
 
 var vm = new Vue({
     el: "#app",
@@ -27,11 +31,14 @@ var vm = new Vue({
         actionConfirmed: false
     },
     components: {
+        'v-select': vSelect,
         'progressbar': Progressbar,
         'input-text-list': InputTextList,
         'input-many-list': InputManyList,
         'server-status': ServerStatus,
         'server-console': ServerConsole,
+
+        'user-server-privileges': UserServerPrivileges,
     },
     methods: {
         alert: function(message) {

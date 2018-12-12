@@ -49,6 +49,8 @@ Route::group(['prefix' => 'api'], function() {
     Route::name('api.servers.console')->get('servers/console/{server}', 'API\\ServersController@consoleLog');
     Route::name('api.servers.send_command')->post('servers/console/{server}', 'API\\ServersController@sendCommand');
 
+    Route::name('api.servers.search')->get('servers/search', 'API\\ServersController@search')->middleware('isAdmin');
+
     // Gdaemon tasks
     Route::name('api.gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemon_task}', 'API\\GdaemonTasksController@get');
 });

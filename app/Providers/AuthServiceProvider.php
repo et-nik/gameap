@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'Gameap\Policies\ModelPolicy',
+        \Gameap\Models\Server::class => \Gameap\Policies\ServerPolicy::class,
     ];
 
     /**
@@ -25,6 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('server-control', 'Gameap\Policies\ServerPolicy@control');
     }
 }
