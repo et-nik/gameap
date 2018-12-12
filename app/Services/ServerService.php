@@ -162,7 +162,7 @@ class ServerService
     private function configureGdaemon(Server $server)
     {
         $this->gdaemonCommands->setConfig(
-            $server->server->dedicatedServer->gdaemonSettings($this->storageDisk)
+            $server->dedicatedServer->gdaemonSettings($this->storageDisk)
         );
     }
 
