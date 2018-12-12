@@ -26,7 +26,12 @@
         </div>
         <div class="card-body">
             <div class="col-12">
-                <i class="fas fa-info-circle"></i> Version: {{ Config::get('constants.AP_VERSION') }}
+                <div class="row">
+                    <div class="col-2"><i class="fas fa-info-circle"></i> Your version: {{ Config::get('constants.AP_VERSION') }}</div>
+                    <div class="col-2">Latest stable: 1.2.2</div>
+                    <div class="col-2">Latest beta: 3.0.0-beta</div>
+                    <div class="col-2">Latest unstable: 3.0.0-dev</div>
+                </div>
             </div>
 
             <div class="col-12">

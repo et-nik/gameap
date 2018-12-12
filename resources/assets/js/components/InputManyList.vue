@@ -6,32 +6,32 @@
 
         <table class="table table-striped table-bordered">
             <thead>
-            <tr>
-                <td v-for="label in labels">
-                    {{ label }}
-                </td>
-                <td>Actions</td>
-            </tr>
+                <tr>
+                    <td v-for="label in labels">
+                        {{ label }}
+                    </td>
+                    <td>Actions</td>
+                </tr>
             </thead>
             <tbody>
-            <tr v-for="(item, itemIndex) in items">
-                <td v-for="(keyName, keyIndex) in keys">
-                    <div class="form-group">
-                        <input
-                                v-bind:type="inputTypes[keyIndex]"
-                                v-model="item[keyName]"
-                                v-bind:name="name + '[' + itemIndex + ']' + '[' + keyName + ']'"
-                                v-bind:id="name + '_' + itemIndex + '_' + keyName"
-                                v-bind:class="classes[inputTypes[keyIndex]]"
-                        >
-                    </div>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(itemIndex)">
-                        <span class="fa fa-times"></span>
-                    </button>
-                </td>
-            </tr>
+                <tr v-for="(item, itemIndex) in items">
+                    <td v-for="(keyName, keyIndex) in keys">
+                        <div class="form-group">
+                            <input
+                                    v-bind:type="inputTypes[keyIndex]"
+                                    v-model="item[keyName]"
+                                    v-bind:name="name + '[' + itemIndex + ']' + '[' + keyName + ']'"
+                                    v-bind:id="name + '_' + itemIndex + '_' + keyName"
+                                    v-bind:class="classes[inputTypes[keyIndex]]"
+                            >
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(itemIndex)">
+                            <span class="fa fa-times"></span>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
