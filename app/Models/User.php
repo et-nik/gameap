@@ -40,7 +40,11 @@ class User extends Authenticatable implements ValidableContract
     protected static $rules = [
         'login'     => 'sometimes|string|max:255|unique:users',
         'email'     => 'sometimes|string|email|max:255|unique:users',
-        'password'  => 'sometimes|string|min:6|confirmed',
+
+        // TODO: Fix sofa/eloquence-validable bug with password confirmation
+        // https://github.com/et-nik/gameap/issues/2
+        //'password'  => 'sometimes|string|min:6|confirmed',
+        'password'  => 'nullable|sometimes|string|min:6',
         'name'      => 'string|nullable|max:255',
     ];
 
@@ -54,6 +58,9 @@ class User extends Authenticatable implements ValidableContract
         $this->attributes['password'] = bcrypt($value);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function servers()
     {
         return $this->belongsToMany(Server::class);
