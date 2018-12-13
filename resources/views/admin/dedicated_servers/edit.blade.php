@@ -83,6 +83,7 @@
                             <div class="col-6">{{ Form::bsText('script_send_command') }}</div>
 
                             <div class="col-6">{{ Form::bsText('script_delete') }}</div>
+                            <div class="col-6">{{ Form::bsText('script_stats') }}</div>
                         </div>
 
                     </div>

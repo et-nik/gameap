@@ -44,6 +44,7 @@ class CreateDedicatedServersTable extends Migration
             $table->text('script_kill')->nullable();
             $table->text('script_restart')->nullable();
             $table->text('script_status')->nullable();
+            $table->text('script_stats')->nullable();
             $table->text('script_get_console')->nullable();
             $table->text('script_send_command')->nullable();
             $table->text('script_delete')->nullable();

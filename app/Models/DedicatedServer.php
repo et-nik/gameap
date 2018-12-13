@@ -40,6 +40,7 @@ use Storage;
  * @property string $script_kill
  * @property string $script_restart
  * @property string $script_status
+ * @property string $script_stats
  * @property string $script_get_console
  * @property string $script_send_command
  * @property string $script_delete
@@ -85,7 +86,8 @@ class DedicatedServer extends Model implements ValidableContract
         'script_stop', 
         'script_kill', 
         'script_restart',
-        'script_status', 
+        'script_status',
+        'script_stats',
         'script_get_console',
         'script_send_command',
         'script_delete',
