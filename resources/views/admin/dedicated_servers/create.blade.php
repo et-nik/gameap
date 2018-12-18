@@ -13,7 +13,7 @@
 @section('content')
     @include('components.form.errors_block')
 
-    {!! Form::open(['url' => route('admin.dedicated_servers.index')]) !!}
+    {!! Form::open(['url' => route('admin.dedicated_servers.index'), 'files' => true]) !!}
 
         <div class="row">
             <div class="col-6">
@@ -87,11 +87,22 @@
                         {{ Form::bsText('gdaemon_port') }}
                         {{ Form::bsText('gdaemon_login') }}
                         {{ Form::bsText('gdaemon_password') }}
-                        {{ Form::bsText('gdaemon_server_cert') }}
+                        {{--{{ Form::bsText('gdaemon_server_cert') }}--}}
+
+                        <div class="custom-file mt-2 mb-3" id="serverCertificateForm">
+                            {{ Form::file('gdaemon_server_cert', ['class' => 'custom-file-input']) }}
+                            {{ Form::label('gdaemon_server_cert', 'Server Certificate', ['class' => 'custom-file-label']) }}
+
+                            @if ($errors->has('gdaemon_server_cert'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('gdaemon_server_cert') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                         <div class="form-group" id="clientCertificateForm">
                             {{ Form::label('client_certificates', 'Client Certificate', ['class' => 'control-label']) }}
-                            {{ Form::select('ds_id', $clientCertificates , null, ['class' => 'form-control']) }}
+                            {{ Form::select('client_certificate_id', $clientCertificates , null, ['class' => 'form-control']) }}
                         </div>
                     </div>
                 </div>

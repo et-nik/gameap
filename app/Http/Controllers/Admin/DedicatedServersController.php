@@ -3,6 +3,7 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\Request;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
@@ -61,7 +62,15 @@ class DedicatedServersController extends AuthController
      */
     public function store(DedicatedServerRequest $request)
     {
-        DedicatedServer::create($request->all());
+        $attributes = $request->all();
+
+        if ($request->hasFile('gdaemon_server_cert')) {
+            $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
+                'gdaemon_certs', 'local'
+            );
+        }
+
+        $this->repository->store($attributes);
 
         return redirect()->route('admin.dedicated_servers.index')
             ->with('success','Dedicated server created successfully');

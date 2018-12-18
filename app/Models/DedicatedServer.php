@@ -75,6 +75,7 @@ class DedicatedServer extends Model implements ValidableContract
         'gdaemon_login',
         'gdaemon_password',
         'gdaemon_server_cert',
+        'gdaemon_api_key',
         'client_certificate_id',
         'prefer_install_method',
         'script_install',
@@ -104,13 +105,15 @@ class DedicatedServer extends Model implements ValidableContract
     protected static $rules = [
         'name' => 'required|max:128',
         'location' => 'required|max:128',
-        // 'ip' => 'required|array',
+        'ip' => 'required',
         'work_path' => 'required|max:128',
         'gdaemon_host' => 'required|max:128',
         'gdaemon_port' => 'required|numeric|digits_between:1,65535',
         'gdaemon_login' => 'max:128',
         'gdaemon_password' => 'max:128',
-        'gdaemon_server_cert' => 'max:128',
+        'gdaemon_api_key' => '',
+        //'gdaemon_server_cert' => 'max:128',
+        'gdaemon_server_cert' => 'required',
         'client_certificate_id' => 'numeric|exists:client_certificates,id',
     ];
 

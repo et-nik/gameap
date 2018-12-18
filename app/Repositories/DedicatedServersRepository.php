@@ -4,6 +4,7 @@ namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
 use Gameap\Http\Requests\DedicatedServerRequest;
+use Illuminate\Support\Str;
 
 class DedicatedServersRepository
 {
@@ -39,6 +40,11 @@ class DedicatedServersRepository
         $attributes['ip'] = array_filter($attributes['ip'], function($value) {
             return !empty($value);
         });
+
+        $attributes['gdaemon_api_key'] = Str::random(64);
+
+        $attributes['enabled'] = $attributes['enabled'] ?? 1;
+        $attributes['os'] = $attributes['os'] ?? 'linux';
 
         DedicatedServer::create($attributes);
     }
