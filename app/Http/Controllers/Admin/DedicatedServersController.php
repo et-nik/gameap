@@ -122,7 +122,8 @@ class DedicatedServersController extends AuthController
      */
     public function destroy(DedicatedServer $dedicatedServer)
     {
-        $dedicatedServer->delete();
+        $this->repository->destroy($dedicatedServer);
+
         return redirect()->route('admin.dedicated_servers.index')
             ->with('success','Dedicated server deleted successfully');
     }

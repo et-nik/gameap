@@ -5,6 +5,7 @@ namespace Gameap\Repositories;
 use Gameap\Models\DedicatedServer;
 use Gameap\Http\Requests\DedicatedServerRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DedicatedServersRepository
 {
@@ -47,6 +48,23 @@ class DedicatedServersRepository
         $attributes['os'] = $attributes['os'] ?? 'linux';
 
         DedicatedServer::create($attributes);
+    }
+
+    public function destroy(DedicatedServer $dedicatedServer)
+    {
+        if (! Storage::disk('local')->exists('gdaemon_certs/' . $dedicatedServer->gdaemon_server_cert)) {
+            // TODO: Not working =(
+            // Storage::disk('local')->delete('gdaemon_certs/' . $dedicatedServer->gdaemon_server_cert);
+
+            $file = Storage::disk('local')
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($dedicatedServer->gdaemon_server_cert);
+
+            unlink($file);
+        }
+
+        $dedicatedServer->delete();
     }
 
     /**
