@@ -38,7 +38,7 @@ class DedicatedServersController extends AuthController
     public function index()
     {
         $dedicatedServers = $this->repository->getAll();
-        return view('admin.dedicated_servers.list',[
+        return view('admin.dedicated_servers.list', [
             'dedicatedServers' => $this->repository->getAll()
         ]);
     }
@@ -73,7 +73,7 @@ class DedicatedServersController extends AuthController
         $this->repository->store($attributes);
 
         return redirect()->route('admin.dedicated_servers.index')
-            ->with('success','Dedicated server created successfully');
+            ->with('success', 'Dedicated server created successfully');
     }
 
     /**
@@ -111,7 +111,7 @@ class DedicatedServersController extends AuthController
         $this->repository->update($dedicatedServer, $request->all());
 
         return redirect()->route('admin.dedicated_servers.index')
-            ->with('success','Dedicated server updated successfully');
+            ->with('success', 'Dedicated server updated successfully');
     }
 
     /**
@@ -125,6 +125,6 @@ class DedicatedServersController extends AuthController
         $this->repository->destroy($dedicatedServer);
 
         return redirect()->route('admin.dedicated_servers.index')
-            ->with('success','Dedicated server deleted successfully');
+            ->with('success', 'Dedicated server deleted successfully');
     }
 }
