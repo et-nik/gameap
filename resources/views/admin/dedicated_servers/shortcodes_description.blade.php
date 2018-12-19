@@ -1,27 +1,27 @@
 <div class="row">
     <div class="col-6">
-        <h5>Game Server Shortcodes</h5>
+        <h5>{{ __('dedicated_servers.game_server_shortcodes') }}</h5>
         <ul>
-            <li>{host} — server host/ip</li>
-            <li>{port} — server port</li>
-            <li>{query_port} — server query port</li>
-            <li>{rcon_port} — server rcon port</li>
-            <li>{dir} — absolute path to server directory</li>
-            <li>{uuid} — unique id</li>
-            <li>{uuid_short} — short unique id</li>
-            <li>{game} — game code</li>
-            <li>{user} — user name (exist user in dedicated server, not admin panel)</li>
+            <li>{host} — {{ __('dedicated_servers.d_shortcodes_host') }}</li>
+            <li>{port} — {{ __('dedicated_servers.d_shortcodes_port') }}</li>
+            <li>{query_port} — {{ __('dedicated_servers.d_shortcodes_query_port') }}</li>
+            <li>{rcon_port} — {{ __('dedicated_servers.d_shortcodes_rcon_port') }}</li>
+            <li>{dir} — {{ __('dedicated_servers.d_shortcodes_dir') }}</li>
+            <li>{uuid} — {{ __('dedicated_servers.d_shortcodes_uuid') }}</li>
+            <li>{uuid_short} — {{ __('dedicated_servers.d_shortcodes_uuid_short') }}</li>
+            <li>{game} — {{ __('dedicated_servers.d_shortcodes_game') }}</li>
+            <li>{user} —{{ __('dedicated_servers.d_shortcodes_user') }}</li>
         </ul>
     </div>
     <div class="col-6">
-        <h5>Start/Restart Shortcodes</h5>
+        <h5>{{ __('dedicated_servers.start_restart_shortcodes') }}</h5>
         <ul>
-            <li>{command} — Game server start command</li>
+            <li>{command} — {{ __('dedicated_servers.d_shortcodes_start_command') }}</li>
         </ul>
 
-        <h5>Script Send Command</h5>
+        <h5>{{ __('dedicated_servers.console_command_shortcodes') }}</h5>
         <ul>
-            <li>{command} — Console command</li>
+            <li>{command} — {{ __('dedicated_servers.d_shortcodes_console_command') }}</li>
         </ul>
     </div>
 </div>
