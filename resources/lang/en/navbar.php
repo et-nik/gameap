@@ -5,6 +5,7 @@ return [
     'logs'              => 'Logs',
     'files'             => 'Files',
     'profile'           => 'Profile',
+    'admin'             => 'Administration',
     'servers'           => 'Servers',
     'dedicated_servers' => 'Dedicated servers',
     'game_servers'      => 'Servers',

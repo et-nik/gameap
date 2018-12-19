@@ -8,7 +8,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('navbar.main') }}</a></li>
             @can('admin roles & permissions')
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.servers') }}<span class="caret"></span></a>
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.admin') }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.dedicated_servers.index') }}">{{ __('navbar.dedicated_servers') }}</a></li>
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.servers.index') }}">{{ __('navbar.game_servers') }}</a></li>

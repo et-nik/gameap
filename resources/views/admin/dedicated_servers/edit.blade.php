@@ -35,13 +35,21 @@
                             {{ Form::bsText('name') }}
                             {{ Form::bsText('enabled') }}
                             {{ Form::bsText('os') }}
-                            {{ Form::bsText('location') }}
-                            {{ Form::bsText('provider') }}
 
-                            {{ Form::bsText('ram') }}
-                            {{ Form::bsText('cpu') }}
-                            {{ Form::bsText('work_path') }}
-                            {{ Form::bsText('steamcmd_path') }}
+                            <div class="row">
+                                <div class="col-6">{{ Form::bsText('location') }}</div>
+                                <div class="col-6">{{ Form::bsText('provider') }}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">{{ Form::bsText('ram') }}</div>
+                                <div class="col-6">{{ Form::bsText('cpu') }}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">{{ Form::bsText('work_path') }}</div>
+                                <div class="col-6">{{ Form::bsText('steamcmd_path') }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,10 +106,16 @@
             <div class="col-md-12">
                 <div class="card bg-light mt-3 mb-3">
                     <div class="card-body">
-                        {{ Form::bsText('gdaemon_host') }}
-                        {{ Form::bsText('gdaemon_port') }}
-                        {{ Form::bsText('gdaemon_login') }}
-                        {{ Form::bsText('gdaemon_password') }}
+                        <div class="row">
+                            <div class="col-4">{{ Form::bsText('gdaemon_host') }}</div>
+                            <div class="col-2">{{ Form::bsText('gdaemon_port') }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">{{ Form::bsText('gdaemon_login') }}</div>
+                            <div class="col-6">{{ Form::bsText('gdaemon_password') }}</div>
+                        </div>
+
                         {{ Form::bsText('gdaemon_server_cert') }}
 
                         <div class="form-group" id="clientCertificateForm">
