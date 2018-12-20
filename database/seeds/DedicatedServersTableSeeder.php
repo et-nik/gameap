@@ -36,6 +36,7 @@ class DedicatedServersTableSeeder extends Seeder
             'script_kill'           => './server.sh kill {uuid_short}',
             'script_restart'        => './server.sh restart {uuid_short}',
             'script_status'         => './server.sh status {uuid_short}',
+            'script_stats'          => './server.sh stats {uuid_short}',
             'script_get_console'    => './server.sh console {uuid_short}',
             'script_send_command'   => './server.sh send_command {uuid_short} "{command}"',
             'script_delete'         => './server.sh delete {uuid_short}'
