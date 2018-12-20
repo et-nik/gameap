@@ -28,6 +28,9 @@
                             {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
                         </div>
 
+                        {{ Form::bsPassword('password') }}
+                        {{ Form::bsPassword('password_confirmation') }}
+
                     </div>
                 </div>
             </div>
