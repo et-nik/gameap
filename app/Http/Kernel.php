@@ -60,5 +60,7 @@ class Kernel extends HttpKernel
         'isAdmin' => \Gameap\Http\Middleware\AdminMiddleware::class,
         'gdaemonApiAuth' => \Gameap\Http\Middleware\GdaemonApiAuth::class,
         'gdaemonVerifyApiToken' => \Gameap\Http\Middleware\VerifyGdaemonApiToken::class,
+        'gdaemonVerifySetupToken' => \Gameap\Http\Middleware\VerifyGdaemonSetupToken::class,
+        'gdaemonVerifyCreateToken' => \Gameap\Http\Middleware\VerifyGdaemonCreateToken::class,
     ];
 }

@@ -3,6 +3,7 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
+use Gameap\Models\ClientCertificate;
 use Gameap\Http\Requests\DedicatedServerRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -35,6 +36,7 @@ class DedicatedServersRepository
 
     /**
      * @param array $attributes
+     * @return DedicatedServer
      */
     public function store(array $attributes)
     {
@@ -42,14 +44,22 @@ class DedicatedServersRepository
             return !empty($value);
         });
 
+        if (empty($attributes['client_certificate_id'])) {
+            $attributes['client_certificate_id'] = ClientCertificate::select('id')->firstOrFail()->id;
+        }
+
         $attributes['gdaemon_api_key'] = Str::random(64);
 
         $attributes['enabled'] = $attributes['enabled'] ?? 1;
         $attributes['os'] = $attributes['os'] ?? 'linux';
 
-        DedicatedServer::create($attributes);
+        return DedicatedServer::create($attributes);
     }
 
+    /**
+     * @param DedicatedServer $dedicatedServer
+     * @throws \Exception
+     */
     public function destroy(DedicatedServer $dedicatedServer)
     {
         if (! Storage::disk('local')->exists('gdaemon_certs/' . $dedicatedServer->gdaemon_server_cert)) {
