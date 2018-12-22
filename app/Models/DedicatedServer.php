@@ -147,7 +147,7 @@ class DedicatedServer extends Model implements ValidableContract
             'username' => $this->gdaemon_login,
             'password' => $this->gdaemon_password,
 
-            'serverCertificate' => Storage::disk($this->storageDisk)
+            'serverCertificate' => Storage::disk($storageDisk)
                 ->getDriver()
                 ->getAdapter()
                 ->applyPathPrefix($this->gdaemon_server_cert),
@@ -157,7 +157,7 @@ class DedicatedServer extends Model implements ValidableContract
                 ->getAdapter()
                 ->applyPathPrefix($this->clientCertificate->certificate),
 
-            'privateKey' => Storage::disk($this->storageDisk)
+            'privateKey' => Storage::disk($storageDisk)
                 ->getDriver()
                 ->getAdapter()
                 ->applyPathPrefix($this->clientCertificate->private_key),
