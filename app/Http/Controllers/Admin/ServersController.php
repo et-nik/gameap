@@ -109,9 +109,10 @@ class ServersController extends AuthController
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Gameap\Models\Server  $server
+     * 
+     * @param Server $server
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Server $server)
     {
