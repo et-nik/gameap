@@ -34,7 +34,7 @@
                 <div class="modal-body">
                     <p>Only for Debian/Ubuntu.</p>
                     <p>To auto setup GDaemon run the command on Dedicated Server:</p>
-                    <code>curl -sL {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
+                    <code>curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
 
                     <p class="text-center"><small>Your link will expire in 5 minutes.</small></p>
                 </div>
