@@ -8,6 +8,8 @@ use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
 use Gameap\Http\Requests\DedicatedServerRequest;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class DedicatedServersController extends AuthController
 {
@@ -51,8 +53,12 @@ class DedicatedServersController extends AuthController
      */
     public function create()
     {
+        // Add auto setup token
+        $autoSetupToken = Str::random(24);
+        Cache::put('gdaemonAutoSetupToken', $autoSetupToken, 5);
+
         $clientCertificates = ClientCertificate::all(['id', 'certificate'])->pluck('certificate', 'id');
-        return view('admin.dedicated_servers.create', compact('clientCertificates'));
+        return view('admin.dedicated_servers.create', compact('clientCertificates', 'autoSetupToken'));
     }
 
     /**

@@ -12,7 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'gdaemon_api/*'
-        //
+        'gdaemon_api/*',
+        'gdaemon/create/*',
     ];
 }

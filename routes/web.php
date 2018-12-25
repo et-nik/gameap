@@ -64,6 +64,9 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::name('gdaemon.setup')->get('gdaemon/setup/{token}', 'GdaemonAPI\SetupController@setup')->middleware('gdaemonVerifySetupToken');
+Route::name('gdaemon.create')->post('gdaemon/create/{token}', 'GdaemonAPI\SetupController@create')->middleware('gdaemonVerifyCreateToken');
+
 Route::group(['prefix' => 'gdaemon_api'], function() {
 
     Route::name('gdaemon_api.get_token')->get('get_token', 'GdaemonAPI\AuthController@getToken');
