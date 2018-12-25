@@ -19,7 +19,7 @@
             <a class="nav-link active" data-toggle="tab" href="#main">Main</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#game-servers-commands">Game Servers Commands</a>
+            <a class="nav-link" data-toggle="tab" href="#game-servers-commands">Game Servers RCON Commands</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#vars">Vars</a>
@@ -40,6 +40,15 @@
                         </div>
                         <div class="card-body">
                             {{ Form::bsText('name') }}
+                        </div>
+                    </div>
+
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            Run commands
+                        </div>
+                        <div class="card-body">
+                            {{ Form::bsText('default_start_cmd') }}
                         </div>
                     </div>
                 </div>
@@ -63,7 +72,7 @@
                 <div class="col-12 m-2">
                     <div class="card">
                         <div class="card-header">
-                            Game Server Commands
+                            Game Server RCON Commands
                         </div>
                         <div class="card-body">
 
@@ -142,6 +151,13 @@
         </div>
     </div>
 
-    {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="form-group">
+                {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+            </div>
+        </div>
+    </div>
+
     {!! Form::close() !!}
 @endsection
