@@ -14,6 +14,7 @@ return [
     'title_server'          => 'Game Server',
 
     'servers'       => 'Servers',
+    'game_servers'  => 'Game Servers',
     'file_manager'  => 'File Manager',
 
     'start'         => 'Start',
@@ -29,6 +30,7 @@ return [
     'online'        => 'online',
 
     'name'          => 'Name',
+    'game'          => 'Game',
 
     'tools'         => 'Tools',
     'files'         => 'Files',
@@ -42,4 +44,8 @@ return [
     'query'         => 'Query',
 
     'console'       => 'Console',
+
+    // Admin
+
+    'create'        => 'Create',
 ];

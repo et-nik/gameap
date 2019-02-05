@@ -14,6 +14,7 @@ return [
     'title_server'       => 'Игровой сервер',
 
     'servers'       => 'Серверы',
+    'game_servers'  => 'Игровые Серверы',
     'file_manager'  => 'Файловый менеджер',
 
     'start'         => 'Запуск',
@@ -29,6 +30,7 @@ return [
     'online'        => 'онлайн',
 
     'name'          => 'Имя',
+    'game'          => 'Игра',
 
     'tools'         => 'Инструменты',
     'files'         => 'Файлы',
@@ -42,4 +44,8 @@ return [
     'query'         => 'Query',
 
     'console'       => 'Консоль',
+    
+    // Admin
+    
+    'create'        => 'Создать',
 ];
