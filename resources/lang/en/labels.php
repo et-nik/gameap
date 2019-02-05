@@ -22,7 +22,7 @@ return [
     'gdaemon_password' => 'GDaemon Password',
     'gdaemon_server_cert' => 'GDaemon Server Certificate',
     'client_certificate_id' => 'GDaemon Certificate',
-    'prefer_install_method' => 'Preffer Installation Method',
+    'prefer_install_method' => 'Prefer Installation Method',
     'script_install' => 'Script Install',
     'script_reinstall' => 'Script Reinstall',
     'script_update' => 'Script Update',
@@ -35,7 +35,7 @@ return [
     'script_stats' => 'Script Stats',
     'script_get_console' => 'Script Get Console',
     'script_send_command' => 'Script Send Command',
-    'script_delete' => 'Script delete',
+    'script_delete' => 'Script Delete',
     
     // Game
     'code' => 'Code',
@@ -79,4 +79,10 @@ return [
     'stop_command' => 'Stop Command',
     'force_stop_command' => 'Force Stop Command',
     'restart_command' => 'Restart Command',
+
+    // User
+    'login' => 'Login',
+    'password' => 'Password',
+    'password_confirmation' => 'Password Confirmation',
+    'roles' => 'Roles',
 ];
