@@ -6,9 +6,10 @@ use GameQ\GameQ;
 use Gameap\Models\Server;
 use Knik\Gameap\GdaemonCommands;
 use Html;
-use Gameap\Exceptions\Services\InvalidCommandException;
-use Gameap\Exceptions\Services\ServerInactiveException;
 use Storage;
+use Gameap\Exceptions\Services\InvalidCommandException;
+use Gameap\Exceptions\Services\EmptyCommandException;
+use Gameap\Exceptions\Services\ServerInactiveException;
 
 class ServerService
 {
@@ -115,8 +116,15 @@ class ServerService
     public function getCommand(Server $server, string $command, array $extraData = [])
     {
         $property = 'script_' . $command;
-        if (isset($server->dedicatedServer->$property)) {
-            $script = $server->dedicatedServer->$property;
+        $attributes = $server->dedicatedServer->getAttributes();
+
+        if (array_key_exists($property, $attributes)) {
+            $script = $server->dedicatedServer->getAttribute($property);
+
+            if (empty($script)) {
+                throw new EmptyCommandException();
+            }
+
             return $this->replaceShortCodes($server, $script, $extraData);
         }
 
