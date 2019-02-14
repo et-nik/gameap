@@ -51,4 +51,8 @@ return [
 
     'console_command_shortcodes'   => 'Script Send Command',
     'd_shortcodes_console_command'   => 'Console command',
+    
+    'create_success_msg' => 'Dedicated server created successfully',
+    'update_success_msg' => 'Dedicated server updated successfully',
+    'delete_success_msg' => 'Dedicated server deleted successfully',
 ];

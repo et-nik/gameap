@@ -55,4 +55,10 @@ return [
     'basic_info'    => 'Основное',
     'ds_ip_ports'    => 'Выделенный сервер, IP, порты',
     'dedicated_server' => 'Выделенный сервер',
+
+    'create_success_msg' => 'Игровой сервер успешно создан',
+    'update_success_msg' => 'Игровой сервер успешно обновлён',
+    'delete_success_msg' => 'Игровой сервер успешно удалён',
+
+    'settings_update_success_msg' => 'Настройки игрового сервера успешно обновлены',
 ];

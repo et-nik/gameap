@@ -65,7 +65,7 @@ class ServersController extends AuthController
         $this->repository->store($request->all());
 
         return redirect()->route('admin.servers.index')
-            ->with('success','Game server created successfully');
+            ->with('success', __('servers.create_success_msg'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ServersController extends AuthController
         $server->update($request->all());
 
         return redirect()->route('admin.servers.index')
-            ->with('success','Game server updated successfully');
+            ->with('success', __('servers.update_success_msg'));
     }
 
     /**
@@ -118,6 +118,6 @@ class ServersController extends AuthController
     {
         $server->delete();
         return redirect()->route('admin.servers.index')
-            ->with('success','Game server deleted successfully');
+            ->with('success', __('servers.delete_success_msg'));
     }
 }

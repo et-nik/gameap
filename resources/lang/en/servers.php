@@ -55,4 +55,10 @@ return [
     'basic_info'    => 'Basic Info',
     'ds_ip_ports'    => 'Dedicated server, IP, ports',
     'dedicated_server' => 'Dedicated Server',
+
+    'create_success_msg' => 'Game Server created successfully',
+    'update_success_msg' => 'Game Server updated successfully',
+    'delete_success_msg' => 'Game Server deleted successfully',
+
+    'settings_update_success_msg' => 'Game Server Settings updated successfully',
 ];

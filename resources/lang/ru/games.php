@@ -46,4 +46,12 @@ return [
     
     'description'         => 'Описание',
     'rcon_command'        => 'RCON команда',
+
+    'create_success_msg' => 'Игра успешно добавлена',
+    'update_success_msg' => 'Игра успешно обновлена',
+    'delete_success_msg' => 'Игра успешно удалена',
+
+    'mod_create_success_msg' => 'Мод успешно добавлен',
+    'mod_update_success_msg' => 'Мод успешно обновлён',
+    'mod_delete_success_msg' => 'Мод успешно удалён',
 ];

@@ -51,4 +51,8 @@ return [
 
     'console_command_shortcodes'   => 'Скрипт отправки команды',
     'd_shortcodes_console_command'   => 'Команда консоли',
+
+    'create_success_msg' => 'Выделенный сервер успешно создан',
+    'update_success_msg' => 'Выделенный сервер успешно обновлён',
+    'delete_success_msg' => 'Выделенный сервер успешно удалён',
 ];

@@ -14,4 +14,8 @@ return [
     'create' => 'Create User',
     
     'servers' => 'Servers',
+
+    'create_success_msg' => 'User created successfully',
+    'update_success_msg' => 'User updated successfully',
+    'delete_success_msg' => 'User deleted successfully',
 ];

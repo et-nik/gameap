@@ -46,4 +46,12 @@ return [
     
     'description'         => 'Description',
     'rcon_command'        => 'RCON Command',
+
+    'create_success_msg' => 'Game created successfully',
+    'update_success_msg' => 'Game updated successfully',
+    'delete_success_msg' => 'Game deleted successfully',
+    
+    'mod_create_success_msg' => 'Game Modification created successfully',
+    'mod_update_success_msg' => 'Game Modification updated successfully',
+    'mod_delete_success_msg' => 'Game Modification deleted successfully',
 ];
