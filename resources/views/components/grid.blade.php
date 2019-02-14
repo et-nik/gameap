@@ -60,7 +60,14 @@
                         @if (isset($destroyRoute))
                             {{ Form::open(['url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline']) }}
                             {{ Form::hidden('_method', 'DELETE') }}
-                            {{ Form::submit( __('main.delete'), ['class' => 'btn btn-danger btn-sm', 'v-on:click' => 'confirmAction($event, \'Are you sure?\')']) }}
+                            
+                            {{ Form::submit( __('main.delete'), 
+                                [
+                                    'class' => 'btn btn-danger btn-sm', 
+                                    'v-on:click' => 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
+                                ]
+                                ) }}
+                            
                             {{ Form::close() }}
                         @endif
                     </td>

@@ -15,7 +15,7 @@
 
     <div class="mb-1">
         <a class="btn btn-large btn-success" href="{{ route('admin.game_mods.create', ['game' => $game->code]) }}">
-            <span class="fa fa-cat"></span>&nbsp;{{ __('games.create_mod') }}
+            <span class="fa fa-cat"></span>&nbsp;{{ __('games.add_mod') }}
         </a>
     </div>
 

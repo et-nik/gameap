@@ -9,6 +9,7 @@ return [
     
     'create'    => 'Create',
     'save'      => 'Save',
+    'change'    => 'Change',
     
     'confirm_message' => 'Are you sure?',
 ];

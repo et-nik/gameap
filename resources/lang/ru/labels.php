@@ -83,6 +83,7 @@ return [
     
     // User
     'login' => 'Логин',
+    'current_password' => 'Текущий пароль',
     'password' => 'Пароль',
     'password_confirmation' => 'Подтверждение пароля',
     'roles' => 'Роли',

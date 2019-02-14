@@ -1,4 +1,4 @@
-@php($title = "Profile")
+@php($title = __('profile.title'))
 
 @extends('layouts.main')
 
@@ -33,14 +33,14 @@
             <div class="col-12">
                 <div class="col-2">
                     <a class="btn btn-primary" data-toggle="collapse" href="#changePassword" role="button" aria-expanded="false" aria-controls="changePassword">
-                        Change Password
+                        {{ __('profile.change_password') }}
                     </a>
                 </div>
 
                 <div class="col-12">
                     <div class="collapse" id="changePassword">
                         <div class="card bg-light mt-3 mb-3">
-                            <div class="card-header">Change Password</div>
+                            <div class="card-header">{{ __('profile.change_password') }}</div>
                             <div class="card-body">
                                 {!! Form::open(['url' => route('profile.change_password')]) !!}
                                     <div class="row">
@@ -51,7 +51,7 @@
     
                                     <div class="row">
                                         <div class="col-6">
-                                            {{ Form::submit('Change', ['class' => 'btn btn-success']) }}
+                                            {{ Form::submit(__('main.change'), ['class' => 'btn btn-success']) }}
                                         </div>
                                     </div>
                                 {!! Form::close() !!}

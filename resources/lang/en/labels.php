@@ -82,6 +82,7 @@ return [
 
     // User
     'login' => 'Login',
+    'current_password' => 'Current Password',
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'roles' => 'Roles',
