@@ -42,6 +42,15 @@
                             {{ Form::bsText('name') }}
                         </div>
                     </div>
+
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            Run commands
+                        </div>
+                        <div class="card-body">
+                            {{ Form::bsText('default_start_cmd') }}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-6">

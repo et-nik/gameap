@@ -17,6 +17,7 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $vars
  * @property string $remote_repository
  * @property string $local_repository
+ * @property string $default_start_cmd
  * @property string $kick_cmd
  * @property string $ban_cmd
  * @property string $chname_cmd
@@ -43,6 +44,7 @@ class GameMod extends Model implements ValidableContract
         'name', 'game_code',
         'fast_rcon', 'vars',
         'remote_repository', 'local_repository',
+        'default_start_cmd',
         'kick_cmd', 'ban_cmd', 'chname_cmd', 'srestart_cmd', 'chmap_cmd', 'sendmsg_cmd', 'passwd_cmd'
     ];
 
@@ -54,6 +56,8 @@ class GameMod extends Model implements ValidableContract
     protected static $rules = [
         'name'      => 'required|string|max:255',
         'game_code' => 'sometimes|string|max:255|exists:games,code',
+
+        'default_start_cmd' => 'string|max:255',
 
         'vars.*.var' => 'max:16',
         'vars.*.default' => 'max:64',

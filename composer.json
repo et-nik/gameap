@@ -13,6 +13,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
+        "ext-json": "*",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
         "gameap/gameap-file-manager": "dev-master",

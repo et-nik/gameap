@@ -3,6 +3,7 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\Server;
+use Gameap\Models\GameMod;
 use Illuminate\Support\Str;
 use Gameap\Http\Requests\ServerRequest;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,11 @@ class ServerRepository
             $addInstallTask = true;
 
             unset($attributes['install']);
+        }
+
+        if (empty($attributes['start_command'])) {
+            $gameMod = GameMod::select('default_start_cmd')->where('id', '=', $attributes['game_mod_id'])->firstOrFail();
+            $attributes['start_command'] = $gameMod->default_start_cmd;
         }
 
         $server = Server::create($attributes);

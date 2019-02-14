@@ -16,6 +16,8 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::get('profile', 'ProfileController@index')->name('profile');
+Route::post('profile', 'ProfileController@changePassword')->name('profile.change_password');
+
 Route::get('servers', 'ServersController@index')->name('servers');
 Route::get('servers/{server}', 'ServersController@show')->name('servers.control');
 Route::get('servers/{server}/filemanager', 'ServersController@filemanager')->name('servers.filemanager');
@@ -61,6 +63,9 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::name('gdaemon.setup')->get('gdaemon/setup/{token}', 'GdaemonAPI\SetupController@setup')->middleware('gdaemonVerifySetupToken');
+Route::name('gdaemon.create')->post('gdaemon/create/{token}', 'GdaemonAPI\SetupController@create')->middleware('gdaemonVerifyCreateToken');
 
 Route::group(['prefix' => 'gdaemon_api'], function() {
 

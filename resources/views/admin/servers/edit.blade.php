@@ -83,6 +83,15 @@
                         {{ Form::bsText('rcon_port') }}
                     </div>
                 </div>
+
+                <div class="card mt-2">
+                    <div class="card-header">
+                        Start command
+                    </div>
+                    <div class="card-body">
+                        {{ Form::bsText('start_command') }}
+                    </div>
+                </div>
             </div>
         </div>
 

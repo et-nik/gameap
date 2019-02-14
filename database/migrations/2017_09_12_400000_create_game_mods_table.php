@@ -21,6 +21,7 @@ class CreateGameModsTable extends Migration
             $table->text('vars')->nullable();
             $table->text('remote_repository')->nullable();
             $table->text('local_repository')->nullable();
+            $table->text('default_start_cmd')->nullable();
             $table->string('kick_cmd', 64)->nullable();
             $table->string('ban_cmd', 64)->nullable();
             $table->string('chname_cmd', 64)->nullable();
