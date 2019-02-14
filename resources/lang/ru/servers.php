@@ -54,6 +54,8 @@ return [
 
     'settings'          => 'Настройки',
 
+    'install'       => 'Установить сервер',
+
     'basic_info'    => 'Основное',
     'ds_ip_ports'    => 'Выделенный сервер, IP, порты',
     'dedicated_server' => 'Выделенный сервер',

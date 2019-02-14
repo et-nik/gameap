@@ -1,4 +1,4 @@
-@php($title = __('servers.title_edit'))
+@php($title = __('servers.title_create'))
 
 @extends('layouts.main')
 
@@ -83,7 +83,7 @@
                     <div class="card-body">
                         <div class="form-check">
                             {{ Form::checkbox('install', true, true, ['id' => 'install', 'class' => 'form-check-input']) }}
-                            {{ Form::label('install', 'Install server', ['class' => 'form-check-label']) }}
+                            {{ Form::label('install', __('servers.install'), ['class' => 'form-check-label']) }}
                         </div>
                     </div>
                 </div>
