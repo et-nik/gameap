@@ -1,12 +1,12 @@
-@php($title = "Edit User")
+@php($title = __('users.title_edit'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
-        <li class="breadcrumb-item active">Edit User</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('users.users') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('users.title_edit') }}</li>
     </ol>
 @endsection
 
@@ -24,7 +24,7 @@
                         {{ Form::bsText('name') }}
 
                         <div class='form-group'>
-                            {{ Form::label('roles', 'Roles', ['class' => 'control-label']) }}
+                            {{ Form::label('roles', __('users.roles'), ['class' => 'control-label']) }}
                             {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
                         </div>
 
@@ -34,7 +34,7 @@
 
             <div class="col-6">
                 <div class="card">
-                    <div class="card-header">Servers</div>
+                    <div class="card-header">{{ __('users.servers') }}</div>
                     <div class="card-body">
 
                         <user-server-privileges :initial-items="{{ $user->servers }}"></user-server-privileges>
@@ -45,7 +45,7 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
             </div>
         </div>
     {!! Form::close() !!}

@@ -5,8 +5,8 @@
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.servers.index') }}">Servers</a></li>
-        <li class="breadcrumb-item active">Edit server</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.servers.index') }}">{{ __('servers.game_servers') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('servers.edit') }}</li>
     </ol>
 @endsection
 
@@ -15,11 +15,11 @@
 
     <div class="mb-1">
         <a class="btn btn-large btn-light" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
-            <span class="fa fa-cogs"></span>&nbsp;Settings
+            <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
         </a>
 
         <a class="btn btn-large btn-light" href="{{ route('servers.control', ['server' => $server->id]) }}">
-            <span class="fa fa-chalkboard"></span>&nbsp;Control
+            <span class="fa fa-chalkboard"></span>&nbsp;{{ __('servers.control') }}
         </a>
     </div>
 
@@ -29,7 +29,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        Basic info
+                        {{ __('servers.basic_info') }}
                     </div>
                     <div class="card-body">
                         {{ Form::bsText('uuid', null, null, ['disabled' => 'disabled']) }}
@@ -60,11 +60,11 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        Dedicated server, IP, ports
+                        {{ __('servers.ds_ip_ports') }}
                     </div>
                     <div class="card-body">
                         <div class="form-group" id="dedicatedServerForm">
-                            {{ Form::label('ds_id', 'Dedicated server', ['class' => 'control-label']) }}
+                            {{ Form::label('ds_id', __('servers.dedicated_server'), ['class' => 'control-label']) }}
                             {{ Form::select('ds_id', $dedicatedServers, null, ['class' => 'form-control', 'v-on:change' => 'dsChangeHandler', 'v-model' => 'dsId']) }}
                         </div>
 
@@ -89,7 +89,7 @@
         <div class="row mt-2">
             <div class="col-12">
                 <div class="form-group">
-                    {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                    {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>
         </div>

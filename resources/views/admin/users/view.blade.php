@@ -5,7 +5,7 @@
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('users.users') }}</a></li>
         <li class="breadcrumb-item active">{{ $user->login }}</li>
     </ol>
 @endsection
@@ -17,7 +17,7 @@
             <table class="table table-striped table-bordered detail-view">
                 <tbody>
                     <tr>
-                        <th>Login</th>
+                        <th>{{ __('users.login') }}</th>
                         <td>{{ $user->login }}</td>
                     </tr>
                     <tr>
@@ -25,11 +25,11 @@
                         <td>{{ $user->email }}</td>
                     </tr>
                     <tr>
-                        <th>Name</th>
+                        <th>{{ __('users.name') }}</th>
                         <td>{{ $user->name }}</td>
                     </tr>
                     <tr>
-                        <th>Roles</th>
+                        <th>{{ __('users.roles') }}</th>
                         <td>{!! $user->roles->implode('name', ', ') !!}</td>
                     </tr>
                 </tbody>

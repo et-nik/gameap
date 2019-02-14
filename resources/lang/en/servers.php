@@ -48,4 +48,11 @@ return [
     // Admin
 
     'create'        => 'Create',
+    'edit'          => 'Edit server',
+    
+    'settings'      => 'Settings',
+    
+    'basic_info'    => 'Basic Info',
+    'ds_ip_ports'    => 'Dedicated server, IP, ports',
+    'dedicated_server' => 'Dedicated Server',
 ];
