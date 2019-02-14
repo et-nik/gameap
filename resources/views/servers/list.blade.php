@@ -22,7 +22,7 @@
                 }
 
                 if ($serverModel->processActive()) {
-                    $buttons .= '<a class="btn btn-small btn-success btn-sm" href="#" @click="stopServer(' . $serverModel->id . ')"><span class="fa fa-stop"></span>&nbsp;Stop</a>&nbsp;';
+                    $buttons .= '<a class="btn btn-small btn-danger btn-sm" href="#" @click="stopServer(' . $serverModel->id . ')"><span class="fa fa-stop"></span>&nbsp;Stop</a>&nbsp;';
                 }
 
                 $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="restartServer(' . $serverModel->id . ')"><span class="fa fa-repeat"></span>&nbsp;Restart</a>&nbsp;';
