@@ -1,4 +1,4 @@
-@php($title = "Create Server")
+@php($title = __('servers.title_edit'))
 
 @extends('layouts.main')
 

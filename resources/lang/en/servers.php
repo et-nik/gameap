@@ -11,6 +11,8 @@ return [
     */
 
     'title_servers_list'    => 'Game Servers List',
+    'title_create'          => 'Create Server',
+    'title_edit'            => 'Edit Server',
     'title_server'          => 'Game Server',
 
     'servers'       => 'Servers',
