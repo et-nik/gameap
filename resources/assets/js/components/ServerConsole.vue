@@ -28,30 +28,37 @@
             return {
                 console: null,
                 inputText: null,
-                block: false,
+                lock: false,
+                updateConsole: true,
             };
         },
         methods: {
             getConsole() {
+                if (!this.updateConsole) {
+                    return;
+                }
+                
                 axios.get('/api/servers/console/' + this.serverId)
                     .then(response => (this.console = response.data.console))
                     .catch(function (error) {
                         console.log(error);
                         gameap.alert(error.response.data.message);
+                        this.updateConsole = false;
                 });
             },
             sendCommand() {
-                if (this.block) {
+                if (this.lock) {
                     return;
                 }
 
-                this.block = true;
+                this.lock = true;
                 axios.post('/api/servers/console/' + this.serverId, {'command': this.inputText})
                     .then(function (response) {
                         this.inputText = '';
-                        this.block = false;
+                        this.lock = false;
+                        this.updateConsole = true;
                     }.bind(this)).catch(function (error) {
-                        this.block = false;
+                        this.lock = false;
                         console.log(error);
                         gameap.alert(error.response.data.message);
                 });
@@ -59,7 +66,7 @@
         },
         mounted() {
             this.getConsole();
-            setInterval(this.getConsole, 10000)
+            setInterval(this.getConsole, 10000);
         }
     }
 </script>
