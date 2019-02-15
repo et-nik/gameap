@@ -5,6 +5,7 @@ namespace Gameap\Services;
 use GameQ\GameQ;
 use Gameap\Models\Server;
 use Knik\Gameap\GdaemonCommands;
+
 use Html;
 use Storage;
 use Gameap\Exceptions\Services\InvalidCommandException;
@@ -38,6 +39,20 @@ class ServerService
     {
         $this->gameq = $gameq;
         $this->gdaemonCommands = $gdaemonCommands;
+    }
+
+    /**
+     * Add default server disk
+     * 
+     * @param Server $server
+     */
+    public function registerDisk(Server $server)
+    {
+        foreach ($server->file_manager_disks as $diskName => $diskConfig) {
+            if (empty(config("filesystems.disks.{$diskName}"))) {
+                config(["filesystems.disks.{$diskName}" => $diskConfig]);
+            }
+        }
     }
 
     /**
@@ -141,8 +156,14 @@ class ServerService
         $this->configureGdaemon($server);
 
         $command = $this->getCommand($server, 'get_console');
-        $result = $this->gdaemonCommands->exec($command, $exitCode);
 
+        if (empty($command)) {
+            $this->registerDisk($server);
+            $result = Storage::disk('server')->get('output.txt');
+        } else {
+            $result = $this->gdaemonCommands->exec($command, $exitCode);
+        }
+        
         return $result;
     }
 
@@ -157,7 +178,13 @@ class ServerService
         $this->configureGdaemon($server);
 
         $command = $this->getCommand($server, 'send_command', ['command' => $command]);
-        $result = $this->gdaemonCommands->exec($command, $exitCode);
+
+        if (empty($command)) {
+            $this->registerDisk($server);
+            Storage::disk('server')->put('input.txt', $command);
+        } else {
+            $this->gdaemonCommands->exec($command, $exitCode);
+        }
 
         return $exitCode == 0 ? true: false;
     }
