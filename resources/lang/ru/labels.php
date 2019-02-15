@@ -68,6 +68,9 @@ return [
     'game_id' => 'Игра',
     'game_mod_id' => 'Модификация',
     'expires' => 'Истекает',
+    'server_port' => 'Порт сервера',
+    'query_port' => 'Query порт',
+    'rcon_port' => 'RCON порт',
 
     // TODO: Replace to rcon_password
     'rcon' => 'RCON пароль',

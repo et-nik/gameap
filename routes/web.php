@@ -86,3 +86,23 @@ Route::group(['prefix' => 'gdaemon_api'], function() {
     // DS Stats
     Route::name('gdaemon_api.ds_stats.store')->post('ds_stats', 'GdaemonAPI\DsStatsController@store');
 });
+
+Route::get('/js/lang/{lang}.js', function ($lang) {
+    $strings = Cache::rememberForever('lang/' . $lang . '.js', function () use ($lang) {
+        if (!file_exists(resource_path('lang/' . $lang))) {
+            abort(\Illuminate\Http\Response::HTTP_NOT_FOUND);
+        }
+        
+        $files   = glob(resource_path('lang/' . $lang . '/*.php'));
+        $strings = [];
+
+        foreach ($files as $file) {
+            $name           = basename($file, '.php');
+            $strings[$name] = require $file;
+        }
+
+        return json_encode($strings);
+    });
+    
+    return response()->make('window.i18n = ' . $strings . ';', \Illuminate\Http\Response::HTTP_OK, ['Content-Type' => 'text/javascript']);
+})->name('assets.lang');

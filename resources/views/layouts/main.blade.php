@@ -50,6 +50,7 @@
     </div>
 </div>
 
+<script src="{{ URL::asset('/js/lang/' . config('app.locale') . '.js') }}"></script>
 <script src="{{ URL::asset('/js/app.js') }}"></script>
 @yield('footer-scripts')
 </body>

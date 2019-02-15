@@ -86,7 +86,7 @@
 
                 <div class="card mt-2">
                     <div class="card-header">
-                        Start command
+                        {{ __('servers.start_command') }}
                     </div>
                     <div class="card-body">
                         {{ Form::bsText('start_command') }}

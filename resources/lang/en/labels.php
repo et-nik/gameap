@@ -67,6 +67,9 @@ return [
     'ds_id' => 'Dedicated Server',
     'game_mod_id' => 'Game Mod',
     'expires' => 'Expires',
+    'server_port' => 'Server Port',
+    'query_port' => 'Query Port',
+    'rcon_port' => 'RCON Port',
     
     // TODO: Replace to rcon_password
     'rcon' => 'RCON Password',

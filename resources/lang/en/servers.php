@@ -51,6 +51,7 @@ return [
 
     'create'        => 'Create',
     'edit'          => 'Edit server',
+    'revoke'        => 'Revoke',
     
     'settings'      => 'Settings',
     
@@ -59,6 +60,7 @@ return [
     'basic_info'    => 'Basic Info',
     'ds_ip_ports'    => 'Dedicated server, IP, ports',
     'dedicated_server' => 'Dedicated Server',
+    'start_command' => 'Start Command',
 
     'create_success_msg' => 'Game Server created successfully',
     'update_success_msg' => 'Game Server updated successfully',
