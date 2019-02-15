@@ -127,6 +127,7 @@ class ServerService
      * @return string
      *
      * @throws InvalidCommandException
+     * @throws EmptyCommandException
      */
     public function getCommand(Server $server, string $command, array $extraData = [])
     {
@@ -155,13 +156,12 @@ class ServerService
         $this->checkServer($server);
         $this->configureGdaemon($server);
 
-        $command = $this->getCommand($server, 'get_console');
-
-        if (empty($command)) {
+        try {
+            $command = $this->getCommand($server, 'get_console');
+            $result = $this->gdaemonCommands->exec($command, $exitCode);
+        } catch (EmptyCommandException $e) {
             $this->registerDisk($server);
             $result = Storage::disk('server')->get('output.txt');
-        } else {
-            $result = $this->gdaemonCommands->exec($command, $exitCode);
         }
         
         return $result;
@@ -177,13 +177,12 @@ class ServerService
         $this->checkServer($server);
         $this->configureGdaemon($server);
 
-        $command = $this->getCommand($server, 'send_command', ['command' => $command]);
-
-        if (empty($command)) {
+        try {
+            $command = $this->getCommand($server, 'send_command', ['command' => $command]);
+            $this->gdaemonCommands->exec($command, $exitCode);
+        } catch (EmptyCommandException $e) {
             $this->registerDisk($server);
             Storage::disk('server')->put('input.txt', $command);
-        } else {
-            $this->gdaemonCommands->exec($command, $exitCode);
         }
 
         return $exitCode == 0 ? true: false;
