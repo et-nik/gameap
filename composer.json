@@ -17,6 +17,7 @@
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
         "gameap/gameap-file-manager": "dev-master",
+        "guzzlehttp/guzzle": "^6.3",
         "infyomlabs/generator-builder": "dev-master",
         "knik/flysystem-gameap": "dev-master",
         "knik/gameap-daemon-client": "~0.3",

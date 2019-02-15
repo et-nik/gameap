@@ -18,6 +18,10 @@ return [
     'latest_beta'       => 'Последняя бета',
     'latest_unstable'   => 'Последняя нестабильная',
 
+    'old_version'       => 'Ваша версия GameAP устарела',
+    'actual_version'    => 'Вы используете актуальную версию GameAP',
+    'dev_version'       => 'Вы используете DEV или неизвестную версию GameAP',
+
     'information'       => 'Информация',
     'get_help'          => 'Помощь',
     'documentation'     => 'Документация',

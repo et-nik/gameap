@@ -31,11 +31,10 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.gameap') }}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li class="dropdown-item"><a class="dropdown-item" href="#">{{ __('navbar.panel_logs') }}</a></li>
-                    <li class="dropdown-item"><a class="dropdown-item" href="http://docs.gameap.ru/">{{ __('navbar.documentation') }}</a></li>
-                    <li class="dropdown-item"><a class="dropdown-item" href="#">{{ __('navbar.update') }}</a></li>
-                    <li class="dropdown-item"><a class="dropdown-item" href="#">{{ __('navbar.error_report') }}</a></li>
-                    <li class="dropdown-item"><a class="dropdown-item" href="#">{{ __('navbar.help') }}</a></li>
+                    <li class="dropdown-item"><a class="dropdown-item" href="https://docs.gameap.ru/">{{ __('navbar.documentation') }}</a></li>
+                    <li class="dropdown-item"><a class="dropdown-item" href="{{ route('update') }}">{{ __('navbar.update') }}</a></li>
+                    <li class="dropdown-item"><a class="dropdown-item" href="{{ route('report_bug') }}">{{ __('navbar.error_report') }}</a></li>
+                    <li class="dropdown-item"><a class="dropdown-item" href="{{ route('help') }}">{{ __('navbar.help') }}</a></li>
                 </ul>
             </li>
         </ul>
