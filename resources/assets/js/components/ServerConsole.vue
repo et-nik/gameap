@@ -44,7 +44,7 @@
                         console.log(error);
                         gameap.alert(error.response.data.message);
                         this.updateConsole = false;
-                });
+                }.bind(this));
             },
             sendCommand() {
                 if (this.lock) {
@@ -61,7 +61,7 @@
                         this.lock = false;
                         console.log(error);
                         gameap.alert(error.response.data.message);
-                });
+                }.bind(this));
             },
         },
         mounted() {

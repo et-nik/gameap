@@ -182,7 +182,14 @@ class ServerService
             $this->gdaemonCommands->exec($command, $exitCode);
         } catch (EmptyCommandException $e) {
             $this->registerDisk($server);
-            Storage::disk('server')->put('input.txt', $command);
+            
+            if (Storage::disk('server')->put('input.txt', $command)) {
+                // Success
+                $exitCode = 0;
+            } else {
+                // Failure
+                $exitCode = 1;
+            }
         }
 
         return $exitCode == 0 ? true: false;
