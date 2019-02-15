@@ -1,12 +1,12 @@
-@php($title = "Create Server")
+@php($title = __('servers.title_create'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.servers.index') }}">Servers</a></li>
-        <li class="breadcrumb-item active">Create</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.servers.index') }}">{{ __('servers.game_servers') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('servers.create') }}</li>
     </ol>
 @endsection
 
@@ -83,7 +83,7 @@
                     <div class="card-body">
                         <div class="form-check">
                             {{ Form::checkbox('install', true, true, ['id' => 'install', 'class' => 'form-check-input']) }}
-                            {{ Form::label('install', 'Install server', ['class' => 'form-check-label']) }}
+                            {{ Form::label('install', __('servers.install'), ['class' => 'form-check-label']) }}
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
         <div class="row mt-2">
             <div class="col-12">
                 <div class="form-group">
-                    {{ Form::submit('Create', ['class' => 'btn btn-success']) }}
+                    {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>
         </div>

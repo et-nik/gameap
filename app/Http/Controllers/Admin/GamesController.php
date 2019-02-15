@@ -61,7 +61,7 @@ class GamesController extends AuthController
         Game::create($request->all());
 
         return redirect()->route('admin.games.index')
-            ->with('success','Game created successfully');
+            ->with('success', __('games.create_success_msg'));
     }
 
     /**
@@ -98,7 +98,7 @@ class GamesController extends AuthController
         $game->update($request->all());
 
         return redirect()->route('admin.games.index')
-            ->with('success','Games updated successfully');
+            ->with('success', __('games.update_success_msg'));
     }
 
     /**
@@ -111,6 +111,6 @@ class GamesController extends AuthController
     {
         $game->delete();
         return redirect()->route('admin.games.index')
-            ->with('success','Game deleted successfully');
+            ->with('success', __('games.delete_success_msg'));
     }
 }

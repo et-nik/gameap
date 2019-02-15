@@ -1,12 +1,16 @@
-@php($title = "Edit Dedicated server")
+@php($title = __('dedicated_servers.title_edit'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>
-        <li class="breadcrumb-item active">Edit</li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.dedicated_servers.index') }}">
+                {{ __('dedicated_servers.dedicated_servers') }}
+            </a>
+        </li>
+        <li class="breadcrumb-item active">{{ __('dedicated_servers.edit') }}</li>
     </ol>
 @endsection
 
@@ -15,10 +19,10 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#main">Main</a>
+            <a class="nav-link active" data-toggle="tab" href="#main">{{ __('dedicated_servers.main') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#scripts">Scripts</a>
+            <a class="nav-link" data-toggle="tab" href="#scripts">{{ __('dedicated_servers.scripts') }}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#gdaemon">GDaemon</a>
@@ -57,7 +61,7 @@
                 <div class="col-md-6">
                     <div class="card bg-light mt-3 mb-3">
                         <div class="card-header">
-                            IP List
+                            {{ __('dedicated_servers.ip_list') }}
                         </div>
                         <div class="card-body">
                             <input-text-list :initial-items="{{ json_encode($dedicatedServer->ip) }}" name="ip" label="IP"></input-text-list>
@@ -119,7 +123,7 @@
                         {{ Form::bsText('gdaemon_server_cert') }}
 
                         <div class="form-group" id="clientCertificateForm">
-                            {{ Form::label('client_certificates', 'Client Certificate', ['class' => 'control-label']) }}
+                            {{ Form::label('client_certificates', __('dedicated_servers.client_certificate'), ['class' => 'control-label']) }}
                             {{ Form::select('ds_id', $clientCertificates , $dedicatedServer->client_certificate_id, ['class' => 'form-control']) }}
                         </div>
                     </div>
@@ -131,7 +135,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('dedicated_servers.save'), ['class' => 'btn btn-success']) }}
             </div>
         </div>
     </div>

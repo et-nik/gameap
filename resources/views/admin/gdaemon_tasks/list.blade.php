@@ -1,11 +1,11 @@
-@php($title = 'GDaemon Tasks list')
+@php($title = __('gdaemon_tasks.title_list'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item active">GDaemon Tasks</li>
+        <li class="breadcrumb-item active">{{ __('gdaemon_tasks.gdaemon_tasks') }}</li>
     </ol>
 @endsection
 
@@ -13,10 +13,10 @@
     @include('components.grid', [
         'modelsList' => $gdaemonTasks,
         'labels' => [
-            'Task', 
-            'Status', 
-            'Created', 
-            'Updated'
+            __('gdaemon_tasks.task'), 
+            __('gdaemon_tasks.status'), 
+            __('gdaemon_tasks.created'), 
+            __('gdaemon_tasks.updated')
         ],
         'attributes' => [
             'task',

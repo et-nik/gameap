@@ -26,12 +26,12 @@ class ProfileController extends AuthController
     public function changePassword(ProfileChangePasswordRequest $request)
     {
         if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
-            return redirect()->back()->with("error", "Your current password does not matches with the password you provided. Please try again.");
+            return redirect()->back()->with("error", __('profile.password_not_match_msg'));
         }
 
         Auth::user()->update($request->only('password'));
         
         return redirect()->route('profile')
-            ->with('success','Password changed successfully');
+            ->with('success', __('profile.password_change_success_msg'));
     }
 }

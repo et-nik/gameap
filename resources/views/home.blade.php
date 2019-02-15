@@ -4,7 +4,7 @@
 
     <div class="card mb-2">
         <div class="card-header">
-            Main
+            {{ __('home.main') }}
         </div>
         <div class="card-body">
             <div class="row">
@@ -12,7 +12,7 @@
                     <div class="p-2 mb-3 text-center">
                         <a class="btn btn-block btn-lg btn-outline-dark rounded" href="/servers">
                             <i class="fas fa-server fa-5x m-1"></i>
-                            <h5>Servers list</h5>
+                            <h5>{{ __('home.servers_list') }}</h5>
                         </a>
                     </div>
                 </div>
@@ -22,15 +22,15 @@
 
     <div class="card mb-2">
         <div class="card-header">
-            Information
+            {{ __('home.information') }}
         </div>
         <div class="card-body">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-2"><i class="fas fa-info-circle"></i> Your version: {{ Config::get('constants.AP_VERSION') }}</div>
-                    <div class="col-2">Latest stable: 1.2.2</div>
-                    <div class="col-2">Latest beta: 3.0.0-beta</div>
-                    <div class="col-2">Latest unstable: 3.0.0-dev</div>
+                    <div class="col-2"><i class="fas fa-info-circle"></i> {{ __('home.your_version') }}: {{ Config::get('constants.AP_VERSION') }}</div>
+                    <div class="col-2">{{ __('home.latest_stable') }}: 1.2.2</div>
+                    <div class="col-2">{{ __('home.latest_beta') }}: 3.0.0-beta</div>
+                    <div class="col-2">{{ __('home.latest_unstable') }}: 3.0.0-dev</div>
                 </div>
             </div>
 
@@ -44,19 +44,19 @@
     <div class="row">
         <div class="col-4">
             <button class="btn btn-block btn-lg btn-warning rounded">
-                <i class="fas fa-hands-helping"></i> Get Help
+                <i class="fas fa-hands-helping"></i> {{ __('home.get_help') }}
             </button>
         </div>
 
         <div class="col-4">
             <button href="https://docs.gameap.ru" class="btn btn-block btn-lg btn-info rounded">
-                <i class="fas fa-book"></i> Documentation
+                <i class="fas fa-book"></i> {{ __('home.documentation') }}
             </button>
         </div>
 
         <div class="col-4">
             <button class="btn btn-block btn-lg btn-danger rounded">
-                <i class="fas fa-bug"></i> Report a bug
+                <i class="fas fa-bug"></i> {{ __('home.report_bug') }}
             </button>
         </div>
     </div>

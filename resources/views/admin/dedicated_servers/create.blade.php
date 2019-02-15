@@ -1,12 +1,16 @@
-@php($title = "Create Dedicated server")
+@php($title = __('dedicated_servers.title_create'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>
-        <li class="breadcrumb-item active">Create</li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('admin.dedicated_servers.index') }}">
+                {{ __('dedicated_servers.dedicated_servers') }}
+            </a>
+        </li>
+        <li class="breadcrumb-item active">{{ __('dedicated_servers.create') }}</li>
     </ol>
 @endsection
 
@@ -134,14 +138,14 @@
         <div class="row mb-2">
             <div class="col-2 offset-5">
                 <a class="btn btn-primary" data-toggle="collapse" href="#editScripts" role="button" aria-expanded="false" aria-controls="editScripts">
-                    Edit scripts
+                    {{ __('dedicated_servers.edit_scripts') }}
                 </a>
             </div>
 
             <div class="col-12">
                 <div class="collapse" id="editScripts">
                     <div class="card bg-light mt-3 mb-3">
-                        <div class="card-header">Scripts</div>
+                        <div class="card-header">{{ __('dedicated_servers.scripts') }}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">{{ Form::bsText('script_install') }}</div>
@@ -177,7 +181,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                    {{ Form::submit('Create', ['class' => 'btn btn-success']) }}
+                    {{ Form::submit(__('dedicated_servers.create'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>
         </div>

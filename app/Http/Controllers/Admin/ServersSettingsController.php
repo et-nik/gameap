@@ -49,6 +49,6 @@ class ServersSettingsController extends AuthController
         }
 
         return redirect()->route('admin.servers.index')
-            ->with('success','Game server settings updated successfully');
+            ->with('success', __('servers.settings_update_success_msg'));
     }
 }

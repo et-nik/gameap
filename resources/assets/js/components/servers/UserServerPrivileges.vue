@@ -4,9 +4,9 @@
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <td>Name</td>
-                    <td>IP:Port</td>
-                    <td>Revoke</td>
+                    <td>{{ trans('servers.name') }}</td>
+                    <td>{{ trans('servers.ip_port') }}</td>
+                    <td>{{ trans('servers.revoke') }}</td>
                 </tr>
                 </thead>
 
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-1 offset-6 centered mt-2">
-                <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;Add</button>
+                <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
             </div>
         </div>
     </div>

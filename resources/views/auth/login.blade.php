@@ -8,12 +8,12 @@
                 <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
 
-                    <div class="card-header">Login</div>
+                    <div class="card-header">{{ __('auth.sign_in') }}</div>
 
                     <div class="card-body">
 
                         <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
-                            <label for="login" class="col-md-12">Username / E-Mail Address</label>
+                            <label for="login" class="col-md-12">{{ __('auth.username_email') }}</label>
 
                             <div class="col-md-12">
                                 <input id="login" type="text" class="form-control" name="login" value="{{ old('login') }}" required autofocus>
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-12">Password</label>
+                            <label for="password" class="col-md-12">{{ __('auth.password') }}</label>
 
                             <div class="col-md-12">
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -44,7 +44,7 @@
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('auth.remember') }}
                                     </label>
                                 </div>
                             </div>
@@ -55,13 +55,13 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-default float-left">Login</button>
+                                    <button type="submit" class="btn btn-default float-left">{{ __('auth.sign_in') }}</button>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-link float-left" href="{{ route('password.request') }}">Forgot Your Password?</a>
+                                    <a class="btn btn-link float-left" href="{{ route('password.request') }}">{{ __('auth.forgot_password') }}</a>
                                 </div>
                             </div>
                         </div>

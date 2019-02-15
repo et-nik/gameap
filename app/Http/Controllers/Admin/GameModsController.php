@@ -54,7 +54,7 @@ class GameModsController extends AuthController
         GameMod::create($request->all());
 
         return redirect()->route('admin.games.index')
-            ->with('success','Game mod created successfully');
+            ->with('success', __('games.mod_create_success_msg'));
     }
 
     /**
@@ -80,7 +80,7 @@ class GameModsController extends AuthController
         $gameMod->update($request->all());
 
         return redirect()->route('admin.games.edit', ['game' => $gameMod->game_code])
-            ->with('success','Game Mod updated successfully');
+            ->with('success', __('games.mod_update_success_msg'));
     }
 
     /**
@@ -93,6 +93,6 @@ class GameModsController extends AuthController
     {
         $gameMod->delete();
         return redirect()->route('admin.games.index')
-            ->with('success','Game Mod deleted successfully');
+            ->with('success', __('games.mod_delete_success_msg'));
     }
 }
