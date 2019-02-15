@@ -11,6 +11,7 @@ return [
     'create'    => 'Create',
     'save'      => 'Save',
     'change'    => 'Change',
+    'close'     => 'Close',
     
     'confirm_message' => 'Are you sure?',
     'wait'      => 'Please wait...',

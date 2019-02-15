@@ -55,4 +55,11 @@ return [
     'create_success_msg' => 'Dedicated server created successfully',
     'update_success_msg' => 'Dedicated server updated successfully',
     'delete_success_msg' => 'Dedicated server deleted successfully',
+    
+    'autosetup_title' => 'Dedicated Server Auto Setup',
+    
+    'autosetup_description' => '<p>Only for Debian/Ubuntu.</p>
+                    <p>To auto setup GDaemon run the command on Dedicated Server:</p>',
+    
+    'autosetup_expire_msg' => 'Your link will expire in 5 minutes.',
 ];

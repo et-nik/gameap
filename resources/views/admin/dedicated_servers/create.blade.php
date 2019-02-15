@@ -29,22 +29,21 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Dedicated Server Auto Setup</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title">{{ __('dedicated_servers.autosetup_title') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('main.close') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <p>Only for Debian/Ubuntu.</p>
-                    <p>To auto setup GDaemon run the command on Dedicated Server:</p>
+                    {!! __('dedicated_servers.autosetup_description') !!}
                     <code>curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
 
-                    <p class="text-center"><small>Your link will expire in 5 minutes.</small></p>
+                    <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_msg') }}</small></p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('main.close') }}</button>
                 </div>
             </div>
         </div>
@@ -125,7 +124,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group" id="clientCertificateForm">
-                                    {{ Form::label('client_certificates', 'Client Certificate', ['class' => 'control-label']) }}
+                                    {{ Form::label('client_certificates', __('dedicated_servers.client_certificate'), ['class' => 'control-label']) }}
                                     {{ Form::select('client_certificate_id', $clientCertificates , null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
