@@ -15,8 +15,8 @@
         'labels' => [
             __('gdaemon_tasks.task'), 
             __('gdaemon_tasks.status'), 
-             __('gdaemon_tasks.created'), 
-             __('gdaemon_tasks.updated')
+            __('gdaemon_tasks.created'), 
+            __('gdaemon_tasks.updated')
         ],
         'attributes' => [
             'task',
