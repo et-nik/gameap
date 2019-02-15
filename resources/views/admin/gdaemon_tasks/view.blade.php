@@ -1,4 +1,4 @@
-@php($title = __('title_view'))
+@php($title = __('gdaemon_tasks.title_view'))
 
 @extends('layouts.main')
 
