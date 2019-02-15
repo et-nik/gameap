@@ -45,7 +45,7 @@
 
                     <div class="card mt-2">
                         <div class="card-header">
-                            Run commands
+                            {{ __('games.run_commands') }}
                         </div>
                         <div class="card-body">
                             {{ Form::bsText('default_start_cmd') }}
@@ -95,17 +95,17 @@
 
                             {{ Form::bsInput('text', [
                                 'name' => 'chmap_cmd',
-                                'description' => ('games.d_chmap_cmd')
+                                'description' => __('games.d_chmap_cmd')
                             ]) }}
 
                             {{ Form::bsInput('text', [
                                 'name' => 'sendmsg_cmd',
-                                'description' => ('games.d_sendmsg_cmd')
+                                'description' => __('games.d_sendmsg_cmd')
                             ]) }}
 
                             {{ Form::bsInput('text', [
                                 'name' => 'passwd_cmd',
-                                'description' => ('games.d_passwd_cmd')
+                                'description' => __('games.d_passwd_cmd')
                             ]) }}
 
                         </div>

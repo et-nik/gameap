@@ -58,6 +58,7 @@ return [
     'chmap_cmd' => 'Change Map Command',
     'sendmsg_cmd' => 'Send Message Command',
     'passwd_cmd' => 'Set/Change Password Command',
+    'default_start_cmd' => 'Default Start Command',
     
     // Server
     'installed' => 'Installed',

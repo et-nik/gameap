@@ -1,4 +1,4 @@
-@php($title = 'File Manager')
+@php($title = __('servers.file_manager'))
 
 @extends('layouts.main')
 

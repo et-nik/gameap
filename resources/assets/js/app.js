@@ -13,7 +13,7 @@ import FileManager from 'gameap-file-manager'
 
 Vue.use(Vuex);
 const store = new Vuex.Store();
-Vue.use(FileManager, {store});
+Vue.use(FileManager, {store, lang: document.documentElement.lang});
 
 import vSelect from 'vue-select';
 

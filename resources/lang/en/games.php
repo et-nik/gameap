@@ -21,6 +21,8 @@ return [
     'engine'              => 'Engine',
     'mods'                => 'Mods',
     
+    'run_commands'        => 'Run Commands',
+    
     // GameMod edit page
     'main'                => 'Main',
     'servers_commands'    => 'Game Servers Commands',

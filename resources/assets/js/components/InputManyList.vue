@@ -10,7 +10,7 @@
                     <td v-for="label in labels">
                         {{ label }}
                     </td>
-                    <td>Actions</td>
+                    <td>{{ trans('main.actions')}}</td>
                 </tr>
             </thead>
             <tbody>

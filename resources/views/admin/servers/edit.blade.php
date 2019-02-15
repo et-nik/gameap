@@ -36,13 +36,13 @@
                         {{ Form::bsText('name') }}
 
                         <div class="form-group">
-                            {{ Form::label('game_id', 'Game', ['class' => 'control-label']) }}
+                            {{ Form::label('game_id', __('servers.game'), ['class' => 'control-label']) }}
                             {{ Form::select('game_id', $games, null, ['class' => 'form-control']) }}
                         </div>
 
                         <div class="form-group">
                             <template id="game-mod-list-template">
-                                {{ Form::label('game_mod_id', 'Game Mod', ['class' => 'control-label']) }}
+                                {{ Form::label('game_mod_id', __('servers.game_mod'), ['class' => 'control-label']) }}
 
                                 <select class="form-control" id="game_mod_id" name="game_mod_id">
                                     <option :value="gameMod.id" v-for="gameMod in gameModsList">@{{gameMod.name}}</option>

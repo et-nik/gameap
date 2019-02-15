@@ -20,6 +20,8 @@ return [
     'code'                => 'Код',
     'engine'              => 'Движок',
     'mods'                => 'Моды',
+
+    'run_commands'        => 'Команды',
     
     // GameMod edit page
     'main'                => 'Основное',

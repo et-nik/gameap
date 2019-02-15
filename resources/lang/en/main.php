@@ -7,10 +7,11 @@ return [
     'edit'      => 'Edit',
     'delete'    => 'Delete',
     
-    'add'    => 'Add',
+    'add'       => 'Add',
     'create'    => 'Create',
     'save'      => 'Save',
     'change'    => 'Change',
     
     'confirm_message' => 'Are you sure?',
+    'wait'      => 'Please wait...',
 ];
