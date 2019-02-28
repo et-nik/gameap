@@ -35,7 +35,9 @@ class SetupController extends BaseController
      */
     public function setup(string $token)
     {
-        app('debugbar')->disable();
+        if (app()->has('debugbar')) {
+            app('debugbar')->disable();
+        }
 
         Cache::forget('gdaemonAutoSetupToken');
 
@@ -52,7 +54,10 @@ class SetupController extends BaseController
      */
     public function create(string $token, DedicatedServerRequest $request)
     {
-        app('debugbar')->disable();
+        if (app()->has('debugbar')) {
+            app('debugbar')->disable();
+        }
+
         $gdaemonCreateToken = Cache::get('gdaemonCreateToken');
         Cache::forget('gdaemonCreateToken');
 

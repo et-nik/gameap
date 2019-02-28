@@ -71,6 +71,15 @@ class Handler extends ExceptionHandler
                     'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
+        } else {
+            if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidSetupTokenExeption) {
+                if (app()->has('debugbar')) {
+                    app('debugbar')->disable();
+                }
+
+                // Return bash
+                return response()->make('echo "' . $exception->getMessage() . '"', 401);
+            }
         }
         
         return parent::render($request, $exception);

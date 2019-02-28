@@ -56,7 +56,7 @@
                 }
             }]
         ],
-        'viewRoute' => 'admin.games.show',
+        // 'viewRoute' => 'admin.games.show',
         'editRoute' => 'admin.games.edit',
         'destroyRoute' => 'admin.games.destroy',
     ])

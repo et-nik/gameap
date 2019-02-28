@@ -5,6 +5,7 @@ namespace Gameap\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Gameap\Exceptions\GdaemonAPI\InvalidSetupTokenExeption;
 
 class VerifyGdaemonSetupToken
 {
@@ -13,7 +14,7 @@ class VerifyGdaemonSetupToken
         $autoSetupToken = Cache::get('gdaemonAutoSetupToken');
 
         if ($request->route('token') != $autoSetupToken) {
-            throw new HttpException(401, "Invalid token");
+            throw new InvalidSetupTokenExeption("Invalid token");
         }
 
         return $next($request);

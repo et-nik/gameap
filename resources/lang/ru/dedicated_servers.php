@@ -27,12 +27,12 @@ return [
     'os'                => 'Операционная система',
     'servers_count'     => 'Количество серверов',
 
-    'scripts'          => 'Скрипты',
+    'scripts'           => 'Скрипты',
     'edit_scripts'      => 'Редактировать скрипты',
     'client_certificate' => 'Сертификат клиента',
 
     'ip_list'           => 'Список IP',
-
+    'gdaemon_api_key'   => 'Ключ GDaemon API',
 
     /* Shortcodes description */
     'game_server_shortcodes'    => 'Шорткоды игрового сервера',

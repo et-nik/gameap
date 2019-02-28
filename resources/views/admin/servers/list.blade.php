@@ -17,7 +17,7 @@
         'modelsList' => $servers,
         'labels' => [__('servers.name'), __('servers.game'), __('servers.ip_port')],
         'attributes' => ['name', 'game.name', ['twoSeparatedValues', ['server_ip', ':', 'server_port']]],
-        'viewRoute' => 'admin.servers.show',
+        // 'viewRoute' => 'admin.servers.show',
         'editRoute' => 'admin.servers.edit',
         'destroyRoute' => 'admin.servers.destroy',
     ])

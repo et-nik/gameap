@@ -13,6 +13,7 @@ return [
     'title_list' => 'Dedicated servers list',
     'title_create' => "Create Dedicated Server",
     'title_edit' => "Edit Dedicated Server",
+    'title_view' => "View Dedicated Server",
 
     'dedicated_servers' => 'Dedicated servers',
 
@@ -27,11 +28,12 @@ return [
     'os'                => 'OS',
     'servers_count'     => 'Servers count',
 
-    'scripts'          => 'Scripts',
+    'scripts'           => 'Scripts',
     'edit_scripts'      => 'Edit scripts',
     'client_certificate' => 'Client Certificate',
 
     'ip_list'           => 'IP List',
+    'gdaemon_api_key'   => 'GDaemon API Key',
 
 
     /* Shortcodes description */
