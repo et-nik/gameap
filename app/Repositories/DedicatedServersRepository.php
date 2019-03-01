@@ -5,16 +5,28 @@ namespace Gameap\Repositories;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\ClientCertificate;
 use Gameap\Http\Requests\DedicatedServerRequest;
+use Gameap\Repositories\ClientCertificateRepository;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class DedicatedServersRepository
 {
+    /**
+     * @var DedicatedServer
+     */
     protected $model;
 
-    public function __construct(DedicatedServer $dedicatedServer)
-    {
+    /**
+     * @var \Gameap\Repositories\ClientCertificateRepository
+     */
+    protected $clientCertificateRepository;
+
+    public function __construct(
+        DedicatedServer $dedicatedServer,
+        ClientCertificateRepository $clientCertificateRepository
+    ) {
         $this->model = $dedicatedServer;
+        $this->clientCertificateRepository = $clientCertificateRepository;
     }
 
     public function getAll($perPage = 20)
@@ -45,7 +57,8 @@ class DedicatedServersRepository
         });
 
         if (empty($attributes['client_certificate_id'])) {
-            $attributes['client_certificate_id'] = ClientCertificate::select('id')->firstOrFail()->id;
+            $clientCertificate = $this->clientCertificateRepository->getFirstOrGenerate();
+            $attributes['client_certificate_id'] = $clientCertificate->id;
         }
 
         $attributes['gdaemon_api_key'] = Str::random(64);

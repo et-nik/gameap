@@ -19,6 +19,11 @@ class ClientCertificate extends Model implements ValidableContract
     use Validable;
 
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
