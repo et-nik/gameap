@@ -4,13 +4,14 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Repositories\DedicatedServersRepository;
 use Gameap\Models\DedicatedServer;
+use Gameap\Http\Requests\GdaemonAPI\DedicatedServerRequest;
+use Gameap\Services\CertificateService;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Support\Str;
-use Gameap\Http\Requests\GdaemonAPI\DedicatedServerRequest;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class SetupController extends BaseController
 {
@@ -51,6 +52,13 @@ class SetupController extends BaseController
 
     /**
      * Creating a new Dedicated server. Uploading certificate
+     *
+     * Gets dedicated server attributes and server certificate
+     * Return signed client certificate and signed server certificate
+     *
+     * @param string $token
+     * @param DedicatedServerRequest $request
+     * @return string
      */
     public function create(string $token, DedicatedServerRequest $request)
     {
@@ -67,6 +75,8 @@ class SetupController extends BaseController
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
                 'gdaemon_certs', 'local'
             );
+
+            CertificateService::signCertificate($attributes['gdaemon_server_cert']);
         } else {
             return "Error Empty GDdaemon server certificate";
         }
@@ -74,7 +84,8 @@ class SetupController extends BaseController
         $dedicatedServer = $this->repository->store($attributes);
 
         $certificate = Storage::disk('local')->get($dedicatedServer->clientCertificate->certificate);
+        $serverSignedCertificate = Storage::disk('local')->get($attributes['gdaemon_server_cert']);
 
-        return "Success {$dedicatedServer->id} {$dedicatedServer->gdaemon_api_key}\n{$certificate}";
+        return "Success {$dedicatedServer->id} {$dedicatedServer->gdaemon_api_key}\n{$certificate}\n\n{$serverSignedCertificate}";
     }
 }
