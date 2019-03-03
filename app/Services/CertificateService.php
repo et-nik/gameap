@@ -27,8 +27,8 @@ class CertificateService
     static public function generateRoot()
     {
         $privateKey = openssl_pkey_new();
-        $certificate = openssl_csr_new(self::CERT_DN, $privateKey);
-        $certificate = openssl_csr_sign($certificate, null, $privateKey, 3650);
+        $csr = openssl_csr_new(self::CERT_DN, $privateKey);
+        $certificate = openssl_csr_sign($csr, null, $privateKey, 3650);
 
         openssl_x509_export($certificate, $pemCertificate);
         openssl_pkey_export($privateKey, $pemPrivateKey);
@@ -44,7 +44,7 @@ class CertificateService
     static public function generate($certificatePath, $keyPath)
     {
         $privateKey = openssl_pkey_new();
-        $certificate = openssl_csr_new(self::CERT_DN, $privateKey);
+        $csr = openssl_csr_new(self::CERT_DN, $privateKey);
 
         if (!Storage::exists(self::ROOT_CA)) {
             self::generateRoot();
@@ -52,7 +52,7 @@ class CertificateService
 
         $rootCa = Storage::get(self::ROOT_CA);
         $rootKey = Storage::get(self::ROOT_KEY);
-        $certificate = openssl_csr_sign($certificate, $rootCa, $rootKey, 3650);
+        $certificate = openssl_csr_sign($csr, $rootCa, $rootKey, 3650);
 
         openssl_x509_export($certificate, $pemCertificate);
         openssl_pkey_export($privateKey, $pemPrivateKey);
@@ -64,9 +64,10 @@ class CertificateService
     }
 
     /**
-     * @param $certificatePath string path to certificate in storage
+     * @param $csrPath
+     * @return string
      */
-    static public function signCertificate($certificatePath)
+    static public function signCertificate($csrPath)
     {
         if (!Storage::exists(self::ROOT_CA)) {
             self::generateRoot();
@@ -74,12 +75,15 @@ class CertificateService
 
         $rootCa = Storage::get(self::ROOT_CA);
         $rootKey = Storage::get(self::ROOT_KEY);
-        $certificate = Storage::get($certificatePath);
+        $certificate = Storage::get($csrPath);
 
         $signedCertificate = openssl_csr_sign($certificate, $rootCa, $rootKey, 3650);
         openssl_x509_export($signedCertificate, $pemCertificate);
-        $pathinfo = pathinfo($certificatePath);
 
-        Storage::put($pathinfo['dirname'] . '/' . $pathinfo['filename'] . 'crt', $pemCertificate);
+        $pathinfo = pathinfo($csrPath);
+        $signedCertificatePath = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.crt';
+
+        Storage::put($signedCertificatePath, $pemCertificate);
+        return $signedCertificatePath;
     }
 }
