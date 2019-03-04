@@ -102,7 +102,7 @@ class DedicatedServersController extends AuthController
      */
     public function edit(DedicatedServer $dedicatedServer)
     {
-        $clientCertificates = ClientCertificate::all(['id', 'certificate'])->pluck('certificate', 'id');
+        $clientCertificates = ClientCertificate::all(['id', 'fingerprint'])->pluck('fingerprint', 'id');
         return view('admin.dedicated_servers.edit', compact('dedicatedServer', 'clientCertificates'));
     }
 

@@ -40,7 +40,7 @@
 
                         {{ Form::bsText('rcon') }}
                         {{ Form::bsText('dir') }}
-                        {{ Form::bsText('su_user') }}
+                        {{ Form::bsText('su_user', 'gameap') }}
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        Dedicated server, IP, ports
+                        {{ __('servers.ds_ip_ports') }}
                     </div>
                     <div class="card-body">
                         <div class="form-group" id="dedicatedServerForm">
@@ -69,6 +69,15 @@
                         {{ Form::bsText('server_port') }}
                         {{ Form::bsText('query_port') }}
                         {{ Form::bsText('rcon_port') }}
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="card-header">
+                        {{ __('servers.start_command') }}
+                    </div>
+                    <div class="card-body">
+                        {{ Form::bsText('start_command') }}
                     </div>
                 </div>
             </div>

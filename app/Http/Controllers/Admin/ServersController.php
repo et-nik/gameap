@@ -50,7 +50,7 @@ class ServersController extends AuthController
     {
         return view('admin.servers.create', [
             'dedicatedServers' => DedicatedServer::all()->pluck('name', 'id'),
-            'games' => Game::all()->pluck('name', 'code')
+            'games' => Game::orderBy('name')->get()->pluck('name', 'code')
         ]);
     }
 
@@ -88,7 +88,7 @@ class ServersController extends AuthController
     public function edit(Server $server)
     {
         $dedicatedServers = DedicatedServer::all(['id', 'name'])->pluck('name', 'id');
-        $games = Game::all()->pluck('name', 'code');
+        $games = Game::orderBy('name')->get()->pluck('name', 'code');
         return view('admin.servers.edit', compact('server', 'dedicatedServers', 'games'));
     }
 

@@ -17,6 +17,10 @@
             <table class="table table-striped table-bordered detail-view">
                 <tbody>
                     <tr>
+                        <th>ID</th>
+                        <td>{!! $dedicatedServer->id !!}</td>
+                    </tr>
+                    <tr>
                         <th>{{ __('dedicated_servers.name') }}</th>
                         <td>{!! $dedicatedServer->name !!}</td>
                     </tr>
