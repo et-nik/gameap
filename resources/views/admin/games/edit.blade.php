@@ -21,37 +21,51 @@
 
     {!! Form::model($game, ['method' => 'PATCH','route' => ['admin.games.update', $game->code]]) !!}
 
-    <div class="row mt-2 mb-2">
-        <div class="col-8">
-            <div class="card">
-                <div class="card-body">
-                    {{ Form::bsText('code', null, null, ['disabled']) }}
-                    {{ Form::bsText('start_code') }}
-                    {{ Form::bsText('name') }}
-
-                    {{ Form::bsText('engine') }}
-                    {{ Form::bsText('engine_version') }}
+        <div class="row mt-2 mb-2">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        {{ Form::bsText('code', null, null, ['disabled']) }}
+                        {{ Form::bsText('start_code') }}
+                        {{ Form::bsText('name') }}
+    
+                        {{ Form::bsText('engine') }}
+                        {{ Form::bsText('engine_version') }}
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        {{ Form::bsText('steam_app_id') }}
+                        {{ Form::bsText('steam_app_set_config') }}
+                    </div>
+                </div>
+                
+                <div class="card mt-2">
+                    <div class="card-body">
+                        {{ Form::bsText('local_repository') }}
+                        {{ Form::bsText('remote_repository') }}
+                    </div>
+                </div>
+                
+                <div class="card mt-2">
+                    <div class="card-header">
+                        {{ __('games.mods') }}
+                    </div>
+                    <div class="card-body">
+    
+                        <ul class="list-group list-group-flush">
+                            @foreach ($game->mods as $mod)
+                                <li class="list-group-item"><a href="{{ route('admin.game_mods.edit', ['game_mod' => $mod->id]) }}">{{ $mod->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-4">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('games.mods') }}
-                </div>
-                <div class="card-body">
-
-                    <ul class="list-group list-group-flush">
-                        @foreach ($game->mods as $mod)
-                            <li class="list-group-item"><a href="{{ route('admin.game_mods.edit', ['game_mod' => $mod->id]) }}">{{ $mod->name }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
+        {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
     {!! Form::close() !!}
 @endsection
