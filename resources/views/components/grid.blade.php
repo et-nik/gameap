@@ -50,21 +50,26 @@
                 @if (isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
                     <td>
                         @if (isset($viewRoute))
-                            <a class="btn btn-small btn-success btn-sm" href="{{ route($viewRoute, $model->getKey()) }}">{{ __('main.view') }}</a>
+                            <a class="btn btn-small btn-success btn-sm" href="{{ route($viewRoute, $model->getKey()) }}">
+                                <i class="fas fa-eye"></i> {{ __('main.view') }}
+                            </a>
                         @endif
 
                         @if (isset($editRoute))
-                            <a class="btn btn-small btn-info btn-sm" href="{{ route($editRoute, $model->getKey()) }}">{{ __('main.edit') }}</a>
+                            <a class="btn btn-small btn-info btn-sm" href="{{ route($editRoute, $model->getKey()) }}">
+                                <i class="fas fa-edit"></i> {{ __('main.edit') }}
+                            </a>
                         @endif
 
                         @if (isset($destroyRoute))
                             {{ Form::open(['url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline']) }}
                             {{ Form::hidden('_method', 'DELETE') }}
                             
-                            {{ Form::submit( __('main.delete'), 
+                            {{ Form::button( '<i class="fas fa-trash"></i>&nbsp;' . __('main.delete'), 
                                 [
                                     'class' => 'btn btn-danger btn-sm', 
-                                    'v-on:click' => 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
+                                    'v-on:click' => 'confirmAction($event, \'' . __('main.confirm_message'). '\')',
+                                    'type' => 'submit'
                                 ]
                                 ) }}
                             
