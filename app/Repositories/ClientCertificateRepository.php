@@ -159,6 +159,7 @@ class ClientCertificateRepository
                 $attributes = $this->generate();
 
                 $clientCertificate->fingerprint = $attributes['fingerprint'];
+                $clientCertificate->expires = $attributes['expires'];
                 $clientCertificate->certificate = $attributes['certificate'];
                 $clientCertificate->private_key = $attributes['private_key'];
                 $clientCertificate->private_key_pass = $attributes['private_key_pass'];

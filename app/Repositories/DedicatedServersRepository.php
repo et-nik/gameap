@@ -79,12 +79,14 @@ class DedicatedServersRepository
             // TODO: Not working =(
             // Storage::disk('local')->delete('gdaemon_certs/' . $dedicatedServer->gdaemon_server_cert);
 
-            $file = Storage::disk('local')
+            $certificateFile = Storage::disk('local')
                 ->getDriver()
                 ->getAdapter()
                 ->applyPathPrefix($dedicatedServer->gdaemon_server_cert);
 
-            unlink($file);
+            if (file_exists($certificateFile)) {
+                unlink($certificateFile);
+            }
         }
 
         $dedicatedServer->delete();

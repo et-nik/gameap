@@ -19,9 +19,11 @@ class ClientCertificatesTableSeeder extends Seeder
         $privateKeyName = ClientCertificateRepository::STORAGE_CERTS_PATH . "/client_{$timestamp}.key";
 
         CertificateService::generate($certificateName, $privateKeyName);
+        $info = CertificateService::certificateInfo($certificateName);
 
         DB::table('client_certificates')->insert([
             'fingerprint' => CertificateService::fingerprintString($certificateName),
+            'expires' => $info['expires'],
             'certificate' => $certificateName,
             'private_key' => $privateKeyName,
             'private_key_pass' => '',

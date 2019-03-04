@@ -121,6 +121,15 @@ class DedicatedServersController extends AuthController
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
                 'certs/server', 'local'
             );
+
+            $certificateFile = Storage::disk('local')
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($dedicatedServer->gdaemon_server_cert);
+            
+            if (file_exists($certificateFile)) {
+                unlink($certificateFile);
+            }
         }
         
         $this->repository->update($dedicatedServer, $attributes);

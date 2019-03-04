@@ -75,7 +75,19 @@ class SetupController extends BaseController
             $csrPath = $request->file('gdaemon_server_cert')->getPathname();
 
             $serverSignedCertificatePath = CertificateService::signCertificate($csrPath);
-            $attributes['gdaemon_server_cert'] = $serverSignedCertificatePath;
+
+            $storageCertificatePath = 'certs/server/server_' . time() . '.crt';
+            $storageAbsoluteCertificatePath = Storage::disk('local')
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($storageCertificatePath);
+            
+            if (!Storage::exists('certs/server')) {
+                Storage::makeDirectory('certs/server');
+            }
+            
+            copy($serverSignedCertificatePath, $storageAbsoluteCertificatePath);
+            $attributes['gdaemon_server_cert'] = $storageCertificatePath;
         } else {
             return "Error Empty GDdaemon server certificate";
         }
@@ -83,7 +95,7 @@ class SetupController extends BaseController
         $dedicatedServer = $this->repository->store($attributes);
 
         $certificate = Storage::disk('local')->get($dedicatedServer->clientCertificate->certificate);
-        $serverSignedCertificate = Storage::disk('local')->get($serverSignedCertificatePath);
+        $serverSignedCertificate = Storage::disk('local')->get($storageCertificatePath);
 
         return "Success {$dedicatedServer->id} {$dedicatedServer->gdaemon_api_key}\n{$certificate}\n\n{$serverSignedCertificate}";
     }

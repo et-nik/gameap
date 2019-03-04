@@ -112,8 +112,7 @@ class DedicatedServer extends Model implements ValidableContract
         'gdaemon_login' => 'max:128',
         'gdaemon_password' => 'max:128',
         'gdaemon_api_key' => '',
-        //'gdaemon_server_cert' => 'max:128',
-        'gdaemon_server_cert' => 'required',
+        'gdaemon_server_cert' => 'sometimes',
         'client_certificate_id' => 'numeric|exists:client_certificates,id',
     ];
 

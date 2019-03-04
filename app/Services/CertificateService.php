@@ -2,6 +2,7 @@
 
 namespace Gameap\Services;
 
+use Gameap\Exceptions\GameapException;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
@@ -109,7 +110,9 @@ class CertificateService
 
     /**
      * @param $csrPath
+     *
      * @return string
+     * @throws GameapException
      */
     static public function signCertificate($csrPath)
     {
@@ -119,15 +122,29 @@ class CertificateService
 
         $rootCa = Storage::get(self::ROOT_CA);
         $rootKey = Storage::get(self::ROOT_KEY);
-        $certificate = Storage::get($csrPath);
-
+        
+        if (file_exists($csrPath)) {
+            $certificate = file_get_contents($csrPath);
+            $fromStorage = false;
+        } else if (Storage::exists($csrPath)) {
+            $certificate = Storage::get($csrPath);
+            $fromStorage = true;
+        } else {
+            throw new GameapException('Invalid csr path');
+        }
+        
         $signedCertificate = openssl_csr_sign($certificate, $rootCa, $rootKey, 3650);
         openssl_x509_export($signedCertificate, $pemCertificate);
 
         $pathinfo = pathinfo($csrPath);
         $signedCertificatePath = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.crt';
-
-        Storage::put($signedCertificatePath, $pemCertificate);
+        
+        if ($fromStorage) {
+            Storage::put($signedCertificatePath, $pemCertificate);
+        } else {
+            file_put_contents($signedCertificatePath, $pemCertificate);
+        }
+        
         return $signedCertificatePath;
     }
 }
