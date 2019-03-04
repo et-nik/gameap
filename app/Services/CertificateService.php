@@ -89,21 +89,21 @@ class CertificateService
 
             'signature_type' => $parsed['signatureTypeSN'],
 
-            'country' => $parsed['subject']['C'],
-            'state' => $parsed['subject']['ST'],
-            'locality' => $parsed['subject']['L'],
-            'organization' => $parsed['subject']['O'],
-            'organizational_unit' => $parsed['subject']['OU'],
-            'common_name' => $parsed['subject']['CN'],
-            'email' => $parsed['subject']['emailAddress'],
+            'country' => $parsed['subject']['C'] ?? '',
+            'state' => $parsed['subject']['ST'] ?? '',
+            'locality' => $parsed['subject']['L'] ?? '',
+            'organization' => $parsed['subject']['O'] ?? '',
+            'organizational_unit' => $parsed['subject']['OU'] ?? '',
+            'common_name' => $parsed['subject']['CN'] ?? '',
+            'email' => $parsed['subject']['emailAddress'] ?? '',
 
-            'issuer_country' => $parsed['issuer']['C'],
-            'issuer_state' => $parsed['issuer']['ST'],
-            'issuer_locality' => $parsed['issuer']['L'],
-            'issuer_organization' => $parsed['issuer']['O'],
-            'issuer_organizational_unit' => $parsed['issuer']['OU'],
-            'issuer_common_name' => $parsed['issuer']['CN'],
-            'issuer_email' => $parsed['issuer']['emailAddress'],
+            'issuer_country' => $parsed['issuer']['C'] ?? '',
+            'issuer_state' => $parsed['issuer']['ST'] ?? '',
+            'issuer_locality' => $parsed['issuer']['L'] ?? '',
+            'issuer_organization' => $parsed['issuer']['O'] ?? '',
+            'issuer_organizational_unit' => $parsed['issuer']['OU'] ?? '',
+            'issuer_common_name' => $parsed['issuer']['CN'] ?? '',
+            'issuer_email' => $parsed['issuer']['emailAddress'] ?? '',
         ];
     }
 
