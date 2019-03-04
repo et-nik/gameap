@@ -29,7 +29,9 @@ return [
 
     'scripts'           => 'Скрипты',
     'edit_scripts'      => 'Редактировать скрипты',
+    'server_certificate' => 'Сертификат сервера',
     'client_certificate' => 'Сертификат клиента',
+    'change_certificate' => 'Изменить сертификат',
 
     'ip_list'           => 'Список IP',
     'gdaemon_api_key'   => 'Ключ GDaemon API',

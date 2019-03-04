@@ -30,7 +30,9 @@ return [
 
     'scripts'           => 'Scripts',
     'edit_scripts'      => 'Edit scripts',
+    'server_certificate' => 'Server Certificate',
     'client_certificate' => 'Client Certificate',
+    'change_certificate' => 'Change Certificate',
 
     'ip_list'           => 'IP List',
     'gdaemon_api_key'   => 'GDaemon API Key',

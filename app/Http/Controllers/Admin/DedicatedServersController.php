@@ -115,7 +115,15 @@ class DedicatedServersController extends AuthController
      */
     public function update(DedicatedServerRequest $request, DedicatedServer $dedicatedServer)
     {
-        $this->repository->update($dedicatedServer, $request->all());
+        $attributes = $request->all();
+        
+        if ($request->hasFile('gdaemon_server_cert')) {
+            $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
+                'gdaemon_certs', 'local'
+            );
+        }
+        
+        $this->repository->update($dedicatedServer, $attributes);
 
         return redirect()->route('admin.dedicated_servers.index')
             ->with('success',  __('dedicated_servers.update_success_msg'));

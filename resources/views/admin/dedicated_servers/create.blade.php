@@ -18,6 +18,12 @@
     <script>
         $(window).on('load',function(){
             $('#gdaemonAutoSetupModal').modal('toggle');
+
+            $('.custom-file-input').on('change',function(){
+                var fileName = $(this).val();
+                fileName = fileName.replace(/^.*\\/, "");
+                $(this).next('.custom-file-label').html(fileName);
+            });
         });
     </script>
 @endsection
@@ -112,7 +118,7 @@
                             <div class="col-6 mt-4 mb-3 pt-1">
                                 <div class="custom-file" id="serverCertificateForm">
                                     {{ Form::file('gdaemon_server_cert', ['class' => 'custom-file-input']) }}
-                                    {{ Form::label('gdaemon_server_cert', 'Server Certificate', ['class' => 'custom-file-label']) }}
+                                    {{ Form::label('gdaemon_server_cert', __('dedicated_servers.server_certificate'), ['class' => 'custom-file-label']) }}
 
                                     @if ($errors->has('gdaemon_server_cert'))
                                         <span class="help-block">
@@ -187,3 +193,4 @@
 
     {!! Form::close() !!}
 @endsection
+
