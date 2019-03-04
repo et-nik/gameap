@@ -3,11 +3,12 @@
 namespace Gameap\Services;
 
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class CertificateService
 {
-    const ROOT_CA = 'root.crt';
-    const ROOT_KEY = 'root.key';
+    const ROOT_CA = 'certs/root.crt';
+    const ROOT_KEY = 'certs/root.key';
 
     const CERT_DN = [
         "countryName" => "RU",
@@ -57,10 +58,53 @@ class CertificateService
         openssl_x509_export($certificate, $pemCertificate);
         openssl_pkey_export($privateKey, $pemPrivateKey);
 
-        Storage::makeDirectory('client_certificates');
+        Storage::makeDirectory('certs');
 
         Storage::put($certificatePath, $pemCertificate);
         Storage::put($keyPath, $pemPrivateKey);
+    }
+
+    /**
+     * @param $certificatePath
+     *
+     * @return string
+     */
+    static public function fingerprintString($certificatePath)
+    {
+        $fingerpring = openssl_x509_fingerprint(Storage::get($certificatePath), 'sha1');
+        return strtoupper(implode(':', str_split($fingerpring, 2)));
+    }
+
+    /**
+     * @param $certificatePath
+     *
+     * @return array
+     */
+    static public function certificateInfo($certificatePath)
+    {
+        $parsed = openssl_x509_parse(Storage::get($certificatePath));
+
+        return [
+            'expires' => Carbon::createFromTimestamp($parsed['validTo_time_t'])->toDateTimeString(),
+
+            'signature_type' => $parsed['signatureTypeSN'],
+
+            'country' => $parsed['subject']['C'],
+            'state' => $parsed['subject']['ST'],
+            'locality' => $parsed['subject']['L'],
+            'organization' => $parsed['subject']['O'],
+            'organizational_unit' => $parsed['subject']['OU'],
+            'common_name' => $parsed['subject']['CN'],
+            'email' => $parsed['subject']['emailAddress'],
+
+            'issuer_country' => $parsed['issuer']['C'],
+            'issuer_state' => $parsed['issuer']['ST'],
+            'issuer_locality' => $parsed['issuer']['L'],
+            'issuer_organization' => $parsed['issuer']['O'],
+            'issuer_organizational_unit' => $parsed['issuer']['OU'],
+            'issuer_common_name' => $parsed['issuer']['CN'],
+            'issuer_email' => $parsed['issuer']['emailAddress'],
+        ];
     }
 
     /**

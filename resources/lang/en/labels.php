@@ -3,6 +3,9 @@
 return [
     // Main
     'name' => 'Name',
+
+    // ClientCertificates
+    'private_key_pass' => 'Private Key Password',
     
     // DedicatedServer
     'enabled' => 'Enabled',

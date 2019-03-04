@@ -23,6 +23,7 @@ Route::get('servers/{server}', 'ServersController@show')->name('servers.control'
 Route::get('servers/{server}/filemanager', 'ServersController@filemanager')->name('servers.filemanager');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
+    Route::resource('client_certificates','Admin\\ClientCertificatesController', ['as' => 'admin', 'except' => ['edit']]);
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);

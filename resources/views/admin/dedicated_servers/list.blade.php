@@ -11,6 +11,7 @@
 
 @section('content')
     <a class='btn btn-success btn-sm' href="{{ route('admin.dedicated_servers.create') }}">{{ __('dedicated_servers.create') }}</a>
+    <a class='btn btn-success btn-sm' href="{{ route('admin.client_certificates.index') }}">{{ __('client_certificates.list') }}</a>
     <hr>
 
     @include('components.grid', [

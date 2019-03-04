@@ -15,9 +15,11 @@ class CreateClientCertificates extends Migration
     {
         Schema::create('client_certificates', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('fingerprint');
+            $table->timestamp('expires');
             $table->string('certificate');
             $table->string('private_key');
-            $table->string('private_key_pass');
+            $table->string('private_key_pass')->nullable();
         });
     }
 

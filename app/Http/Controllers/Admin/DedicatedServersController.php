@@ -73,7 +73,7 @@ class DedicatedServersController extends AuthController
 
         if ($request->hasFile('gdaemon_server_cert')) {
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
-                'gdaemon_certs', 'local'
+                'certs/server', 'local'
             );
         }
 
@@ -119,7 +119,7 @@ class DedicatedServersController extends AuthController
         
         if ($request->hasFile('gdaemon_server_cert')) {
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
-                'gdaemon_certs', 'local'
+                'certs/server', 'local'
             );
         }
         

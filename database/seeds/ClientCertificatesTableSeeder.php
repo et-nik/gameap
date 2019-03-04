@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use Gameap\Services\CertificateService;
+use Gameap\Repositories\ClientCertificateRepository;
 
 class ClientCertificatesTableSeeder extends Seeder
 {
@@ -13,15 +14,14 @@ class ClientCertificatesTableSeeder extends Seeder
      */
     public function run()
     {
-        Storage::makeDirectory('client_certificates');
-
         $timestamp = time();
-        $certificateName = "client_certificates/client_{$timestamp}.crt";
-        $privateKeyName = "client_certificates/client_{$timestamp}.key";
+        $certificateName = ClientCertificateRepository::STORAGE_CERTS_PATH . "/client_{$timestamp}.crt";
+        $privateKeyName = ClientCertificateRepository::STORAGE_CERTS_PATH . "/client_{$timestamp}.key";
 
         CertificateService::generate($certificateName, $privateKeyName);
 
         DB::table('client_certificates')->insert([
+            'fingerprint' => CertificateService::fingerprintString($certificateName),
             'certificate' => $certificateName,
             'private_key' => $privateKeyName,
             'private_key_pass' => '',

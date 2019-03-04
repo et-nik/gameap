@@ -2,12 +2,17 @@
 
 namespace Gameap\Repositories;
 
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use Gameap\Models\ClientCertificate;
 use Gameap\Services\CertificateService;
-use Illuminate\Support\Facades\Storage;
+use Gameap\Http\Requests\ClientCertificatesRequest;
+use Gameap\Exceptions\GameapException;
 
 class ClientCertificateRepository
 {
+    const STORAGE_CERTS_PATH = 'certs/client';
+
     /**
      * @var ClientCertificate
      */
@@ -20,6 +25,112 @@ class ClientCertificateRepository
     public function __construct(ClientCertificate $clientCertificate)
     {
         $this->model = $clientCertificate;
+    }
+
+    /**
+     * @param int $perPage
+     *
+     * @return mixed
+     */
+    public function getAll($perPage = 20)
+    {
+        return ClientCertificate::orderBy('id')->paginate($perPage);
+    }
+
+    /**
+     * @param ClientCertificatesRequest $request
+     *
+     * @return ClientCertificate
+     * @throws GameapException
+     */
+    public function store(ClientCertificatesRequest $request)
+    {
+        $attributes = $request->all();
+        
+        if ($request->hasFile('certificate')) {
+            $attributes['certificate'] = $request->file('certificate')->store(
+                self::STORAGE_CERTS_PATH, 'local'
+            );
+        }
+
+        if ($request->hasFile('private_key')) {
+            $attributes['private_key'] = $request->file('private_key')->store(
+                self::STORAGE_CERTS_PATH, 'local'
+            );
+        }
+        
+        if (!openssl_x509_check_private_key(Storage::get($attributes['certificate']), Storage::get($attributes['private_key']))) {
+            throw new GameapException(__('client_certificates.private_key_not_correspond'));
+        }
+
+        $info = CertificateService::certificateInfo($attributes['certificate']);
+
+        $attributes['expires'] = $info['expires'];
+        $attributes['fingerprint'] = CertificateService::fingerprintString($attributes['certificate'], 'sha1');
+        $attributes['private_key_pass'] = '';
+        
+        return ClientCertificate::create($attributes);
+    }
+
+    /**
+     * @param ClientCertificate $clientCertificate
+     * @param ClientCertificatesRequest $request
+     */
+    public function update(ClientCertificate $clientCertificate, array $request)
+    {
+        $attributes = $request->all();
+
+        if ($request->hasFile('certificate')) {
+            $attributes['gdaemon_server_cert'] = $request->file('certificate')->store(
+                self::STORAGE_CERTS_PATH, 'local'
+            );
+        }
+
+        if ($request->hasFile('gdaemon_server_cert')) {
+            $attributes['gdaemon_server_cert'] = $request->file('private_key')->store(
+                self::STORAGE_CERTS_PATH, 'local'
+            );
+        }
+        
+        $clientCertificate->update($attributes);
+    }
+
+    /**
+     * @param ClientCertificate $clientCertificate
+     * @throws \Exception
+     */
+    public function destroy(ClientCertificate $clientCertificate)
+    {
+        if (! Storage::disk('local')->exists('certs/client/' . $clientCertificate->certificate)) {
+            // TODO: Not working =(
+            // Storage::disk('local')->delete('certs/client/' . $clientCertificate->certificate);
+
+            $file = Storage::disk('local')
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($clientCertificate->certificate);
+
+            unlink($file);
+        }
+
+        if (! Storage::disk('local')->exists('certs/client/' . $clientCertificate->private_key)) {
+            $file = Storage::disk('local')
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($clientCertificate->private_key);
+
+            unlink($file);
+        }
+
+        $clientCertificate->delete();
+    }
+
+    /**
+     * @param ClientCertificate $clientCertificate
+     */
+    public function certificateInfo(ClientCertificate $clientCertificate)
+    {
+        return CertificateService::certificateInfo($clientCertificate->certificate);
     }
 
     /**
@@ -47,6 +158,7 @@ class ClientCertificateRepository
 
                 $attributes = $this->generate();
 
+                $clientCertificate->fingerprint = $attributes['fingerprint'];
                 $clientCertificate->certificate = $attributes['certificate'];
                 $clientCertificate->private_key = $attributes['private_key'];
                 $clientCertificate->private_key_pass = $attributes['private_key_pass'];
@@ -66,12 +178,14 @@ class ClientCertificateRepository
     private function generate()
     {
         $timestamp = time();
-        $certificateName = "client_certificates/client_{$timestamp}.crt";
-        $privateKeyName = "client_certificates/client_{$timestamp}.key";
+        $certificateName = self::STORAGE_CERTS_PATH . "/client_{$timestamp}.crt";
+        $privateKeyName = self::STORAGE_CERTS_PATH . "/client_{$timestamp}.key";
 
-        CertificateService::generate($certificateName, $privateKeyName);
+        $info = CertificateService::certificateInfo($certificateName);
 
         return [
+            'fingerprint' => CertificateService::fingerprintString($certificateName),
+            'expires'     => $info['expires'],
             'certificate' => $certificateName,
             'private_key' => $privateKeyName,
             'private_key_pass' => '',

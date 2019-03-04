@@ -14,11 +14,12 @@
     </ol>
 @endsection
 
+{{-- TODO: Move filename fix --}}
 @section('footer-scripts')
     <script>
         $(window).on('load',function(){
             $('#gdaemonAutoSetupModal').modal('toggle');
-
+            
             $('.custom-file-input').on('change',function(){
                 var fileName = $(this).val();
                 fileName = fileName.replace(/^.*\\/, "");

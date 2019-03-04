@@ -10,6 +10,8 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @package Gameap\Models
  *
  * @property int $id
+ * @property string $fingerprint
+ * @property string $expires
  * @property string $certificate
  * @property string $private_key
  * @property string $private_key_pass
@@ -29,7 +31,7 @@ class ClientCertificate extends Model implements ValidableContract
      * @var array
      */
     protected $fillable = [
-        'certificate', 'private_key', 'private_key_pass'
+        'fingerprint', 'expires', 'certificate', 'private_key', 'private_key_pass'
     ];
 
     /**

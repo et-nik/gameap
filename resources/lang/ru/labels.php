@@ -3,6 +3,9 @@
 return [
     // Main
     'name' => 'Имя',
+    
+    // ClientCertificates
+    'private_key_pass' => 'Пароль от приватного ключа',
 
     // DedicatedServer
     'enabled' => 'Включен',
