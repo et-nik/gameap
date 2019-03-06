@@ -5,21 +5,25 @@ namespace Gameap\Services;
 use Gameap\Exceptions\GameapException;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use phpseclib\Crypt\RSA;
+use phpseclib\File\X509;
 
 class CertificateService
 {
     const ROOT_CA = 'certs/root.crt';
     const ROOT_KEY = 'certs/root.key';
 
-    const CERT_DN = [
-        "countryName" => "RU",
-        "stateOrProvinceName" => "GameAP",
-        "localityName" => "GameAP",
-        "organizationName" => "GameAP.ru",
-        "organizationalUnitName" => "Development",
-        "commonName" => "GameAP",
-        "emailAddress" => "support@gameap.ru"
-    ];
+//    const CERT_DN = [
+//        "countryName" => "RU",
+//        "stateOrProvinceName" => "GameAP",
+//        "localityName" => "GameAP",
+//        "organizationName" => "GameAP.ru",
+//        "organizationalUnitName" => "Development",
+//        "commonName" => "GameAP",
+//        "emailAddress" => "support@gameap.ru"
+//    ];
+
+    const CERT_DN = '/CN=GameAP/O=GameAP';
 
     const CERT_DAYS = 3650;
 
@@ -28,15 +32,34 @@ class CertificateService
      */
     static public function generateRoot()
     {
-        $privateKey = openssl_pkey_new();
-        $csr = openssl_csr_new(self::CERT_DN, $privateKey);
-        $certificate = openssl_csr_sign($csr, null, $privateKey, 3650);
+        $privKey = new RSA();
+        $keys = $privKey->createKey(2048);
+        $privKey->loadKey($keys['privatekey']);
 
-        openssl_x509_export($certificate, $pemCertificate);
-        openssl_pkey_export($privateKey, $pemPrivateKey);
+        $pubKey = new RSA();
+        $pubKey->loadKey($keys['publickey']);
+        $pubKey->setPublicKey();
 
-        Storage::put(self::ROOT_CA, $pemCertificate);
-        Storage::put(self::ROOT_KEY, $pemPrivateKey);
+        $subject = new X509();
+        $subject->setDN(self::CERT_DN);
+        $subject->setPublicKey($pubKey);
+
+        $issuer = new X509();
+        $issuer->setPrivateKey($privKey);
+        $issuer->setDN($subject->getDN());
+
+        $x509 = new X509();
+        $x509->setEndDate('+10 year');
+        $x509->makeCA();
+
+        $result = $x509->sign($issuer, $subject, 'sha256WithRSAEncryption');
+
+        if ($result == false) {
+            throw new GameapException('CA Self-signing has failed.');
+        }
+
+        Storage::put(self::ROOT_CA, $x509->saveX509($result));
+        Storage::put(self::ROOT_KEY, $privKey->getPrivateKey());
     }
 
     /**
@@ -45,24 +68,110 @@ class CertificateService
      */
     static public function generate($certificatePath, $keyPath)
     {
-        $privateKey = openssl_pkey_new();
-        $csr = openssl_csr_new(self::CERT_DN, $privateKey);
+        if (!Storage::exists(self::ROOT_CA)) {
+            self::generateRoot();
+        }
 
+        $privKey = new RSA();
+        $keys = $privKey->createKey(2048);
+        $privKey->loadKey($keys['privatekey']);
+
+        $pubKey = new RSA();
+        $pubKey->loadKey($keys['publickey']);
+        $pubKey->setPublicKey();
+
+        // Sign
+        $CAPrivKey = new RSA();
+        if (! $CAPrivKey->loadKey(Storage::get(self::ROOT_KEY))) {
+            throw new GameapException('Failed to load CA Private Key');
+        }
+
+        $issuer = new X509();
+        $issuer->loadCA(Storage::get(self::ROOT_CA));
+        $issuer->loadX509(Storage::get(self::ROOT_CA));
+        // $issuer->setDN($CASubject);
+        $issuer->setPrivateKey($CAPrivKey);
+
+        $subject = new X509();
+        $subject->setDN(self::CERT_DN);
+        $subject->setPublicKey($pubKey);
+
+        $x509 = new X509();
+        $x509->setEndDate('+10 year');
+
+        $result = $x509->sign($issuer, $subject, 'sha256WithRSAEncryption');
+        $result['tbsCertificate']['version'] = 'v1';
+
+        if ($result == false) {
+            throw new GameapException('Signing has failed.');
+        }
+
+        Storage::put($certificatePath, $x509->saveX509($result));
+        Storage::put($keyPath, $privKey->getPrivateKey());
+    }
+
+    /**
+     * @param $csrPath
+     *
+     * @return string
+     * @throws GameapException
+     */
+    static public function signCsr($csrPath)
+    {
         if (!Storage::exists(self::ROOT_CA)) {
             self::generateRoot();
         }
 
         $rootCa = Storage::get(self::ROOT_CA);
         $rootKey = Storage::get(self::ROOT_KEY);
-        $certificate = openssl_csr_sign($csr, $rootCa, $rootKey, 3650);
 
-        openssl_x509_export($certificate, $pemCertificate);
-        openssl_pkey_export($privateKey, $pemPrivateKey);
+        if (file_exists($csrPath)) {
+            $csr = file_get_contents($csrPath);
+            $fromStorage = false;
+        } else if (Storage::exists($csrPath)) {
+            $csr = Storage::get($csrPath);
+            $fromStorage = true;
+        } else {
+            throw new GameapException('Invalid csr path');
+        }
 
-        Storage::makeDirectory('certs');
+        $pathinfo = pathinfo($csrPath);
+        $signedCertificatePath = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.crt';
 
-        Storage::put($certificatePath, $pemCertificate);
-        Storage::put($keyPath, $pemPrivateKey);
+        $CAPrivKey = new RSA();
+        $CAPrivKey->loadKey($rootKey);
+
+        $issuer = new X509();
+        $issuer->loadCA($rootCa);
+        $issuer->loadX509($rootCa);
+        $issuer->setPrivateKey($CAPrivKey);
+
+        $subject = new X509();
+        $subject->loadCSR($csr);
+
+        $x509 = new X509();
+        $x509->setEndDate('+10 year');
+
+        $result = $x509->sign($issuer, $subject, 'sha256WithRSAEncryption');
+        $result['tbsCertificate']['version'] = 'v1';
+
+        if ($result == false) {
+            throw new GameapException('Signing has failed.');
+        }
+
+        $pemCertificate = $x509->saveX509($result);
+
+        if (empty($pemCertificate)) {
+            throw new GameapException('X509 Saving has failed.');
+        }
+
+        if ($fromStorage) {
+            Storage::put($signedCertificatePath, $pemCertificate);
+        } else {
+            file_put_contents($signedCertificatePath, $pemCertificate);
+        }
+
+        return $signedCertificatePath;
     }
 
     /**
@@ -72,8 +181,8 @@ class CertificateService
      */
     static public function fingerprintString($certificatePath)
     {
-        $fingerpring = openssl_x509_fingerprint(Storage::get($certificatePath), 'sha1');
-        return strtoupper(implode(':', str_split($fingerpring, 2)));
+        $fingerprint = openssl_x509_fingerprint(Storage::get($certificatePath), 'sha256');
+        return strtoupper(implode(':', str_split($fingerprint, 2)));
     }
 
     /**
@@ -106,45 +215,5 @@ class CertificateService
             'issuer_common_name' => $parsed['issuer']['CN'] ?? '',
             'issuer_email' => $parsed['issuer']['emailAddress'] ?? '',
         ];
-    }
-
-    /**
-     * @param $csrPath
-     *
-     * @return string
-     * @throws GameapException
-     */
-    static public function signCertificate($csrPath)
-    {
-        if (!Storage::exists(self::ROOT_CA)) {
-            self::generateRoot();
-        }
-
-        $rootCa = Storage::get(self::ROOT_CA);
-        $rootKey = Storage::get(self::ROOT_KEY);
-        
-        if (file_exists($csrPath)) {
-            $certificate = file_get_contents($csrPath);
-            $fromStorage = false;
-        } else if (Storage::exists($csrPath)) {
-            $certificate = Storage::get($csrPath);
-            $fromStorage = true;
-        } else {
-            throw new GameapException('Invalid csr path');
-        }
-        
-        $signedCertificate = openssl_csr_sign($certificate, $rootCa, $rootKey, 3650);
-        openssl_x509_export($signedCertificate, $pemCertificate);
-
-        $pathinfo = pathinfo($csrPath);
-        $signedCertificatePath = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.crt';
-        
-        if ($fromStorage) {
-            Storage::put($signedCertificatePath, $pemCertificate);
-        } else {
-            file_put_contents($signedCertificatePath, $pemCertificate);
-        }
-        
-        return $signedCertificatePath;
     }
 }

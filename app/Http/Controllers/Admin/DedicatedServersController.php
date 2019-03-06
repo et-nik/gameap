@@ -10,6 +10,7 @@ use Gameap\Repositories\DedicatedServersRepository;
 use Gameap\Http\Requests\DedicatedServerRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DedicatedServersController extends AuthController
 {

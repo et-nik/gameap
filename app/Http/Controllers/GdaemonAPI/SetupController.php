@@ -74,7 +74,7 @@ class SetupController extends BaseController
         if ($request->hasFile('gdaemon_server_cert')) {
             $csrPath = $request->file('gdaemon_server_cert')->getPathname();
 
-            $serverSignedCertificatePath = CertificateService::signCertificate($csrPath);
+            $serverSignedCertificatePath = CertificateService::signCsr($csrPath);
 
             $storageCertificatePath = 'certs/server/server_' . time() . '.crt';
             $storageAbsoluteCertificatePath = Storage::disk('local')

@@ -101,7 +101,7 @@ class ClientCertificateRepository
      */
     public function destroy(ClientCertificate $clientCertificate)
     {
-        if (! Storage::disk('local')->exists('certs/client/' . $clientCertificate->certificate)) {
+        if (Storage::disk('local')->exists($clientCertificate->certificate)) {
             // TODO: Not working =(
             // Storage::disk('local')->delete('certs/client/' . $clientCertificate->certificate);
 
@@ -113,7 +113,7 @@ class ClientCertificateRepository
             unlink($file);
         }
 
-        if (! Storage::disk('local')->exists('certs/client/' . $clientCertificate->private_key)) {
+        if (Storage::disk('local')->exists($clientCertificate->private_key)) {
             $file = Storage::disk('local')
                 ->getDriver()
                 ->getAdapter()
@@ -182,6 +182,7 @@ class ClientCertificateRepository
         $certificateName = self::STORAGE_CERTS_PATH . "/client_{$timestamp}.crt";
         $privateKeyName = self::STORAGE_CERTS_PATH . "/client_{$timestamp}.key";
 
+        CertificateService::generate($certificateName, $privateKeyName);
         $info = CertificateService::certificateInfo($certificateName);
 
         return [
