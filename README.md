@@ -17,6 +17,9 @@ Web
 * GD PHP
 * OpenSSL PHP
 * CURL PHP
+* Intl PHP
+* GMP PHP
+
 
 Dedicated Server (Linux)
 ------

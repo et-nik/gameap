@@ -74,7 +74,9 @@ class SetupController extends BaseController
         } else {
             return "Error Empty GDdaemon server certificate";
         }
-
+        
+        $attributes['gdaemon_server_cert'] = CertificateService::ROOT_CA_CERT;
+        
         $dedicatedServer = $this->repository->store($attributes);
         $certificate = Storage::get(CertificateService::ROOT_CA_CERT);
         
