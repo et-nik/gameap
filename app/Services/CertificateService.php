@@ -6,172 +6,151 @@ use Gameap\Exceptions\GameapException;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use phpseclib\Crypt\RSA;
-use phpseclib\File\X509;
+
+use Sop\CryptoEncoding\PEM;
+use Sop\CryptoTypes\AlgorithmIdentifier\Hash\SHA256AlgorithmIdentifier;
+use Sop\CryptoTypes\AlgorithmIdentifier\Signature\SignatureAlgorithmIdentifierFactory;
+use Sop\CryptoTypes\Asymmetric\PrivateKeyInfo;
+use X501\ASN1\Name;
+use X509\Certificate\TBSCertificate;
+use X509\Certificate\Validity;
+use X509\Certificate\Extension\BasicConstraintsExtension;
+use X509\Certificate\Extension\KeyUsageExtension;
+use X509\Certificate\Extension\SubjectKeyIdentifierExtension;
+use X509\CertificationRequest\CertificationRequestInfo;
+use X509\CertificationRequest\CertificationRequest;
+use X509\Certificate\Certificate;
+
 
 class CertificateService
 {
-    const ROOT_CA = 'certs/root.crt';
-    const ROOT_KEY = 'certs/root.key';
+    const ROOT_CA_CERT = 'certs/root.crt';
+    const ROOT_CA_KEY = 'certs/root.key';
 
-//    const CERT_DN = [
-//        "countryName" => "RU",
-//        "stateOrProvinceName" => "GameAP",
-//        "localityName" => "GameAP",
-//        "organizationName" => "GameAP.ru",
-//        "organizationalUnitName" => "Development",
-//        "commonName" => "GameAP",
-//        "emailAddress" => "support@gameap.ru"
-//    ];
-
-    const CERT_DN = '/CN=GameAP/O=GameAP';
-
-    const CERT_DAYS = 3650;
-
+    const PRIVATE_KEY_BITS = 2048;
+    
+    const CERT_YEARS = 10;
+    
     /**
-     * Generate root certificate
+     * Generate CA root key and certificate.
+     * Write root key and certificate to a Storage.
      */
     static public function generateRoot()
     {
-        $privKey = new RSA();
-        $keys = $privKey->createKey(2048);
-        $privKey->loadKey($keys['privatekey']);
+        $privateKey = (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
+        
+        $privateKeyInfo = PrivateKeyInfo::fromPEM(PEM::fromString( $privateKey));
+        
+        $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
+        
+        $name = Name::fromString("CN=GameAP CA, O=GameAP, C=RU");
+        
+        $validity = Validity::fromStrings('now', 'now + ' . self::CERT_YEARS . ' years');
 
-        $pubKey = new RSA();
-        $pubKey->loadKey($keys['publickey']);
-        $pubKey->setPublicKey();
+        // create "to be signed" certificate object with extensions
+        $tbsCert = new TBSCertificate($name, $publicKeyInfo, $name, $validity);
 
-        $subject = new X509();
-        $subject->setDN(self::CERT_DN);
-        $subject->setPublicKey($pubKey);
+        $tbsCert = $tbsCert->withRandomSerialNumber()->withAdditionalExtensions(
+            new BasicConstraintsExtension(true, true),
+            new SubjectKeyIdentifierExtension(false, $publicKeyInfo->keyIdentifier()),
+            new KeyUsageExtension(true,
+                KeyUsageExtension::DIGITAL_SIGNATURE | KeyUsageExtension::KEY_CERT_SIGN));
 
-        $issuer = new X509();
-        $issuer->setPrivateKey($privKey);
-        $issuer->setDN($subject->getDN());
+        // sign certificate with private key
+        $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
+            $privateKeyInfo->algorithmIdentifier(),
+            new SHA256AlgorithmIdentifier()
+        );
 
-        $x509 = new X509();
-        $x509->setEndDate('+10 year');
-        $x509->makeCA();
+        $cert = $tbsCert->sign($algo, $privateKeyInfo);
 
-        $result = $x509->sign($issuer, $subject, 'sha256WithRSAEncryption');
-
-        if ($result == false) {
-            throw new GameapException('CA Self-signing has failed.');
-        }
-
-        Storage::put(self::ROOT_CA, $x509->saveX509($result));
-        Storage::put(self::ROOT_KEY, $privKey->getPrivateKey());
+        Storage::put(self::ROOT_CA_CERT, $cert);
+        Storage::put(self::ROOT_CA_KEY, $privateKey);
     }
 
     /**
+     * Generate key and certificate. Sign certificate
+     * 
      * @param $certificatePath string   path to certificate in storage
      * @param $keyPath string   path to key in storage
+     *
+     * @throws GameapException
      */
     static public function generate($certificatePath, $keyPath)
     {
-        if (!Storage::exists(self::ROOT_CA)) {
+        if (!Storage::exists(self::ROOT_CA_CERT)) {
             self::generateRoot();
         }
 
-        $privKey = new RSA();
-        $keys = $privKey->createKey(2048);
-        $privKey->loadKey($keys['privatekey']);
+        $privateKey = (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
 
-        $pubKey = new RSA();
-        $pubKey->loadKey($keys['publickey']);
-        $pubKey->setPublicKey();
+        $privateKeyInfo = PrivateKeyInfo::fromPEM(
+            PEM::fromString($privateKey));
 
-        // Sign
-        $CAPrivKey = new RSA();
-        if (! $CAPrivKey->loadKey(Storage::get(self::ROOT_KEY))) {
-            throw new GameapException('Failed to load CA Private Key');
-        }
+        // extract public key from private key
+        $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
 
-        $issuer = new X509();
-        $issuer->loadCA(Storage::get(self::ROOT_CA));
-        $issuer->loadX509(Storage::get(self::ROOT_CA));
-        // $issuer->setDN($CASubject);
-        $issuer->setPrivateKey($CAPrivKey);
+        // DN of the subject
+        $subject = Name::fromString('CN=' . gethostname() . ', O=GameAP, C=RU');
 
-        $subject = new X509();
-        $subject->setDN(self::CERT_DN);
-        $subject->setPublicKey($pubKey);
+        // create certification request info
+        $cri = new CertificationRequestInfo($subject, $publicKeyInfo);
 
-        $x509 = new X509();
-        $x509->setEndDate('+10 year');
-
-        $result = $x509->sign($issuer, $subject, 'sha256WithRSAEncryption');
-        $result['tbsCertificate']['version'] = 'v1';
-
-        if ($result == false) {
-            throw new GameapException('Signing has failed.');
-        }
-
-        Storage::put($certificatePath, $x509->saveX509($result));
-        Storage::put($keyPath, $privKey->getPrivateKey());
+        // sign certificate request with private key
+        $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
+            $privateKeyInfo->algorithmIdentifier(), new SHA256AlgorithmIdentifier());
+        
+        $csr = $cri->sign($algo, $privateKeyInfo);
+        
+        $cert = self::signCsr($csr);
+        
+        Storage::put($certificatePath, $cert);
+        Storage::put($keyPath, $privateKey);
     }
 
     /**
-     * @param $csrPath
+     * @param $csr string   PEM string
      *
-     * @return string
+     * @return string  PEM certificate
      * @throws GameapException
      */
-    static public function signCsr($csrPath)
+    static public function signCsr(string $csr)
     {
-        if (!Storage::exists(self::ROOT_CA)) {
+        if (!Storage::exists(self::ROOT_CA_CERT)) {
             self::generateRoot();
         }
 
-        $rootCa = Storage::get(self::ROOT_CA);
-        $rootKey = Storage::get(self::ROOT_KEY);
-
-        if (file_exists($csrPath)) {
-            $csr = file_get_contents($csrPath);
-            $fromStorage = false;
-        } else if (Storage::exists($csrPath)) {
-            $csr = Storage::get($csrPath);
-            $fromStorage = true;
-        } else {
-            throw new GameapException('Invalid csr path');
+        // load CA's private key
+        $privateKeyInfo = PrivateKeyInfo::fromPEM(
+            PEM::fromString(Storage::get(self::ROOT_CA_KEY))
+        );
+        
+        $issuerCert = Certificate::fromPEM(
+            PEM::fromString(Storage::get(self::ROOT_CA_CERT))
+        );
+        
+        $certificationRequest = CertificationRequest::fromPEM(PEM::fromString($csr));
+        
+        if (!$certificationRequest->verify()) {
+            throw new GameapException('Failed to verify certification request signature.');
         }
 
-        $pathinfo = pathinfo($csrPath);
-        $signedCertificatePath = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.crt';
+        $tbsCert = TBSCertificate::fromCSR($certificationRequest)->withIssuerCertificate($issuerCert);
+        
+        $tbsCert = $tbsCert->withRandomSerialNumber();
+        
+        $tbsCert = $tbsCert->withValidity(
+            Validity::fromStrings('now', 'now + ' . self::CERT_YEARS . ' years')
+        );
 
-        $CAPrivKey = new RSA();
-        $CAPrivKey->loadKey($rootKey);
+        $tbsCert = $tbsCert->withVersion(0);
+        
+        // sign certificate with issuer's private key
+        $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
+            $privateKeyInfo->algorithmIdentifier(), new SHA256AlgorithmIdentifier());
 
-        $issuer = new X509();
-        $issuer->loadCA($rootCa);
-        $issuer->loadX509($rootCa);
-        $issuer->setPrivateKey($CAPrivKey);
-
-        $subject = new X509();
-        $subject->loadCSR($csr);
-
-        $x509 = new X509();
-        $x509->setEndDate('+10 year');
-
-        $result = $x509->sign($issuer, $subject, 'sha256WithRSAEncryption');
-        $result['tbsCertificate']['version'] = 'v1';
-
-        if ($result == false) {
-            throw new GameapException('Signing has failed.');
-        }
-
-        $pemCertificate = $x509->saveX509($result);
-
-        if (empty($pemCertificate)) {
-            throw new GameapException('X509 Saving has failed.');
-        }
-
-        if ($fromStorage) {
-            Storage::put($signedCertificatePath, $pemCertificate);
-        } else {
-            file_put_contents($signedCertificatePath, $pemCertificate);
-        }
-
-        return $signedCertificatePath;
+        $cert = $tbsCert->sign($algo, $privateKeyInfo);
+        return $cert;
     }
 
     /**

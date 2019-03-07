@@ -16,6 +16,7 @@
         "ext-json": "*",
         "ext-openssl": "*",
         "doctrine/dbal": "~2.3",
+        "et-nik/x509": "^0.6.2",
         "fideloper/proxy": "~4.0",
         "gameap/gameap-file-manager": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
