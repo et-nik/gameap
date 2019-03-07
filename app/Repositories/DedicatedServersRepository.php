@@ -6,6 +6,7 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Models\ClientCertificate;
 use Gameap\Http\Requests\DedicatedServerRequest;
 use Gameap\Repositories\ClientCertificateRepository;
+use Gameap\Services\CertificateService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -75,9 +76,11 @@ class DedicatedServersRepository
      */
     public function destroy(DedicatedServer $dedicatedServer)
     {
-        if (! Storage::disk('local')->exists('gdaemon_certs/' . $dedicatedServer->gdaemon_server_cert)) {
+        if ($dedicatedServer->gdaemon_server_cert != CertificateService::ROOT_CA_CERT &&
+            Storage::disk('local')->exists($dedicatedServer->gdaemon_server_cert)
+        ) {
             // TODO: Not working =(
-            // Storage::disk('local')->delete('gdaemon_certs/' . $dedicatedServer->gdaemon_server_cert);
+            // Storage::disk('local')->delete($dedicatedServer->gdaemon_server_cert);
 
             $certificateFile = Storage::disk('local')
                 ->getDriver()

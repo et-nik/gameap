@@ -12,9 +12,9 @@ class VerifyGdaemonCreateToken
     {
         $autoCreateToken = Cache::get('gdaemonAutoCreateToken');
 
-//        if ($request->route('token') != $autoCreateToken) {
-//            throw new HttpException(401, "Invalid token");
-//        }
+        if ($request->route('token') != $autoCreateToken) {
+            throw new HttpException(401, "Invalid token");
+        }
 
         return $next($request);
     }

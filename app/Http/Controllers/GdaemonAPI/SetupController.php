@@ -43,7 +43,7 @@ class SetupController extends BaseController
         Cache::forget('gdaemonAutoSetupToken');
 
         $gdaemonCreateToken = Str::random(24);
-        Cache::put('gdaemonCreateToken', $gdaemonCreateToken, 30);
+        Cache::put('gdaemonAutoCreateToken', $gdaemonCreateToken, 30);
 
         return "export createToken={$gdaemonCreateToken};
             export panelHost=" . url('/') . ";
@@ -60,7 +60,7 @@ class SetupController extends BaseController
      * @param DedicatedServerRequest $request
      * @return string
      */
-    public function create(string $token, DedicatedServerRequest $request)
+    public function create(string $token, Request $request)
     {
         if (app()->has('debugbar')) {
             app('debugbar')->disable();
