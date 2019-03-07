@@ -45,7 +45,7 @@
                                 {{ Form::label('game_mod_id', __('servers.game_mod'), ['class' => 'control-label']) }}
 
                                 <select class="form-control" id="game_mod_id" name="game_mod_id">
-                                    <option :value="gameMod.id" v-for="gameMod in gameModsList">@{{gameMod.name}}</option>
+                                    <option :value="gameMod.id" :selected="gameMod.id == {{ $server->game_mod_id }}" v-for="gameMod in gameModsList">@{{gameMod.name}}</option>
                                 </select>
                             </template>
                         </div>
@@ -73,7 +73,7 @@
                                 {{ Form::label('server_ip', 'IP', ['class' => 'control-label']) }}
 
                                 <select class='form-control' id='server_ip' name='server_ip'>
-                                    <option :value="ip" v-for="ip in ipList">@{{ip}}</option>
+                                    <option :value="ip" :selected="ip == '{{ $server->server_ip }}'" v-for="ip in ipList">@{{ip}}</option>
                                 </select>
                             </template>
                         </div>

@@ -75,21 +75,23 @@
 
             </div>
         </div>
-        
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3>{{ __('servers.query') }}</h3>
-                </div>
-                <server-status :server-id="{{ $server->id }}">
-                    <div class="d-flex justify-content-center">
-                        <div class="fa-3x">
-                            <i class="fas fa-spinner fa-spin"></i>
-                        </div>
+
+        @if ($server->processActive())
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>{{ __('servers.query') }}</h3>
                     </div>
-                </server-status>
+                    <server-status :server-id="{{ $server->id }}">
+                        <div class="d-flex justify-content-center">
+                            <div class="fa-3x">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </server-status>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 
     @if ($server->processActive())
