@@ -75,5 +75,7 @@ return [
 
     'settings_update_success_msg' => 'Настройки игрового сервера успешно обновлены',
 
+    'task_success_msg' => 'Задача успешно выполнена',
+
     'unknown_command_msg' => 'Неизвестная команда',
 ];

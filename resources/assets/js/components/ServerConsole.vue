@@ -42,7 +42,6 @@
                     .then(response => (this.console = response.data.console))
                     .catch(function (error) {
                         console.log(error);
-                        gameap.alert(error.response.data.message);
                         this.updateConsole = false;
                 }.bind(this));
             },

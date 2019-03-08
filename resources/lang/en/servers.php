@@ -74,6 +74,8 @@ return [
     'delete_success_msg' => 'Game Server deleted successfully',
 
     'settings_update_success_msg' => 'Game Server Settings updated successfully',
+
+    'task_success_msg' => 'Task completed successfully',
     
     'unknown_command_msg' => 'Unknown server command',
 ];

@@ -6,7 +6,10 @@ if( document.getElementById("serverControl") ) {
                 watchTaskId: 0,
                 watchTaskData: {},
                 watchTaskProgress: null,
-                callbackTaskComplete: null,
+                callbackTaskComplete: function() {
+                    gameap.closeProgressModal();
+                    gameap.alert(i18n.servers.task_success_msg);
+                },
                 progressModal: null
             };
         },
