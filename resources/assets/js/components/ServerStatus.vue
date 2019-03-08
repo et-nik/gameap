@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="query">
         <ul class="list-group list-group-flush" v-for="(value, key) in items">
             <li class="list-group-item">{{ key }} : {{ value }}</li>
         </ul>

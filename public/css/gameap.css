@@ -98,3 +98,8 @@ input.terminal-input {
     outline: none;
     display: inline;
 }
+
+.query {
+    max-height: 9.35rem;
+    overflow: scroll;
+}
