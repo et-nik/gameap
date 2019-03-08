@@ -47,7 +47,8 @@ class HomeController extends Controller
      */
     public function reportBug()
     {
-        return view('report_bug');
+        $extensions = get_loaded_extensions();
+        return view('report_bug', compact('extensions'));
     }
 
     /**
