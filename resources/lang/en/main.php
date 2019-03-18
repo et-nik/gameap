@@ -15,4 +15,6 @@ return [
     
     'confirm_message' => 'Are you sure?',
     'wait'      => 'Please wait...',
+    
+    'autoscroll' => 'Autoscroll',
 ];
