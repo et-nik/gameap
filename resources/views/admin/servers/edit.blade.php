@@ -37,7 +37,7 @@
 
                         <div class="form-group">
                             {{ Form::label('game_id', __('servers.game'), ['class' => 'control-label']) }}
-                            {{ Form::select('game_id', $games, null, ['class' => 'form-control']) }}
+                            {{ Form::select('game_id', $games, null, ['class' => 'form-control', 'v-on:change' => 'gameChangeHandler', 'v-model' => 'gameId']) }}
                         </div>
 
                         <div class="form-group">
@@ -96,7 +96,34 @@
                         {{ __('servers.start_command') }}
                     </div>
                     <div class="card-body">
-                        {{ Form::bsText('start_command') }}
+                        {{ Form::bsTextArea('start_command', null, null, ['rows' => 3]) }}
+
+                        <div class="col-12">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>{{ __('main.name') }}</th>
+                                        <th>{{ __('main.value') }}</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($server->aliases as $aliasName => $aliasValue)
+                                        <tr>
+                                            <td>
+                                                <code class="bg-light highlighter-rouge p-1 rounded">
+                                                    <span>{</span>{{ $aliasName }}<span>}</span>
+                                                </code>
+
+                                            </td>
+                                            <td>{{ $aliasValue }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

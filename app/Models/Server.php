@@ -149,4 +149,26 @@ class Server extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function getAliasesAttribute()
+    {
+        $aliases = [
+            'server_ip' => $this->server_ip,
+            'server_port' => $this->server_port,
+            'query_port' => $this->query_port,
+            'rcon_port' => $this->rcon_port,
+            'rcon_password' => $this->rcon,
+            'uuid' => $this->uuid,
+            'uuid_short' => $this->uuid_short,
+        ];
+
+        foreach ($this->gameMod->vars as $var) {
+            $varname = $var['var'];
+            $aliases[ $varname ] = isset($this->vars[$varname])
+                ? $this->vars[$varname]
+                : $var['default'];
+        }
+
+        return $aliases;
+    }
 }

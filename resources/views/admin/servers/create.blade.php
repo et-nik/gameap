@@ -18,7 +18,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        Basic Info
+                        {{ __('servers.basic_info') }}
                     </div>
                     <div class="card-body">
                         {{ Form::bsText('name') }}
@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        {{ Form::bsPassword('rcon') }}
+                        {{ Form::bsText('rcon') }}
                         {{ Form::bsText('dir') }}
                         {{ Form::bsText('su_user', 'gameap') }}
                     </div>
@@ -84,7 +84,7 @@
                         {{ __('servers.start_command') }}
                     </div>
                     <div class="card-body">
-                        {{ Form::bsText('start_command') }}
+                        {{ Form::bsTextArea('start_command', null, null, ['rows' => 3]) }}
                     </div>
                 </div>
             </div>
