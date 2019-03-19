@@ -22,7 +22,7 @@
             </div>
         </div>
 
-    @elseif(!$server->installed === $server::INSTALLATION_PROCESS)
+    @elseif($server->installed === $server::INSTALLATION_PROCESS)
         <div class="alert alert-warning">
             <p>{{ __('servers.installation_process_msg') }}</p>
 
