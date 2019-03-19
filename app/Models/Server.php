@@ -49,6 +49,11 @@ class Server extends Model
 {
     const TIME_EXPIRE_PROCESS_CHECK = 120;
 
+    // Installed statuses
+    const NOT_INSTALLED              = 0;
+    const INSTALLED                  = 1;
+    const INSTALLATION_PROCESS       = 2;
+
     protected $fillable = [
         'uuid', 'uuid_short',
         'enabled', 'name', 'code_name', 'game_id',

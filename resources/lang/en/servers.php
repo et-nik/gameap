@@ -28,6 +28,14 @@ return [
     'commands'      => 'Commands',
     'ip_port'       => 'IP:Port',
 
+    'enabled'       => 'Enabled',
+
+    'not_installed' => 'not installed',
+    'installation'  => 'installation',
+
+    'disabled'      => 'disabled',
+    'blocked'       => 'blocked',
+
     'offline'       => 'offline',
     'online'        => 'online',
 
@@ -47,6 +55,11 @@ return [
     'query'         => 'Query',
 
     'console'       => 'Console',
+
+    'not_installed_msg' => 'Server is not installed',
+    'installation_process_msg' => 'Server in installation process',
+    'disabled_msg' => 'Server is disabled',
+    'blocked_msg' => 'Server is blocked',
 
     // Admin
 

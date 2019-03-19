@@ -49,7 +49,9 @@ class ServersController extends AuthController
     {
         $this->authorize('server-control', $server);
 
-        return view('servers.view', compact('server'));
+        return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
+            view('servers.view', compact('server'))
+            : view('servers.not_active', compact('server'));
     }
 
     /**

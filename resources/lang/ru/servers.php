@@ -28,6 +28,14 @@ return [
     'commands'      => 'Команды',
     'ip_port'       => 'IP:Порт',
 
+    'enabled'       => 'Включен',
+
+    'not_installed' => 'не установлен',
+    'installation'  => 'установка',
+
+    'disabled'      => 'отключен',
+    'blocked'       => 'заблокирован',
+
     'offline'       => 'офлайн',
     'online'        => 'онлайн',
 
@@ -47,6 +55,11 @@ return [
     'query'         => 'Query',
 
     'console'       => 'Консоль',
+
+    'not_installed_msg' => 'Сервер не установлен',
+    'installation_process_msg' => 'Сервер в процессе установки',
+    'disabled_msg' => 'Сервер отключен',
+    'blocked_msg' => 'Сервер заблокирован',
     
     // Admin
     

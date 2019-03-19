@@ -38,7 +38,14 @@
                             </template>
                         </div>
 
-                        {{ Form::bsText('rcon') }}
+                        <div class="form-group mt-4 mb-4">
+                            <div class="form-check">
+                                {{ Form::checkbox('enabled', true, true, ['id' => 'enabled', 'class' => 'form-check-input']) }}
+                                {{ Form::label('enabled', __('servers.enabled'), ['class' => 'form-check-label']) }}
+                            </div>
+                        </div>
+
+                        {{ Form::bsPassword('rcon') }}
                         {{ Form::bsText('dir') }}
                         {{ Form::bsText('su_user', 'gameap') }}
                     </div>
