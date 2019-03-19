@@ -6,6 +6,7 @@ use Gameap\Models\Server;
 use Gameap\Models\GameMod;
 use Illuminate\Support\Str;
 use Gameap\Http\Requests\ServerRequest;
+use Gameap\Http\Requests\ServerVarsRequest;
 use Illuminate\Support\Facades\Auth;
 
 class ServerRepository
@@ -69,10 +70,12 @@ class ServerRepository
             ->get();
     }
 
+
     /**
      * Get Servers id list for Dedicated server
      *
      * @param int $dedicatedServerId
+     * @return mixed
      */
     public function getServerIdsForDedicatedServer(int $dedicatedServerId)
     {
@@ -81,6 +84,9 @@ class ServerRepository
             ->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function getServersForAuth()
     {
         if (Auth::user()->can('admin roles & permissions')) {
@@ -90,6 +96,10 @@ class ServerRepository
         }
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function search($query)
     {
         return $this->model->select(['id', 'name', 'server_ip', 'server_port', 'game_id', 'game_mod_id'])
@@ -98,5 +108,19 @@ class ServerRepository
             }])
             ->where('name', 'LIKE', '%' . $query . '%')
             ->get();
+    }
+
+    public function updateVars(Server $server, ServerVarsRequest $request)
+    {
+        $only = [];
+        foreach ($server->gameMod->vars as $var) {
+            if ($var['admin_var'] && Auth::user()->cannot('admin roles & permissions')) {
+                continue;
+            }
+
+            $only[] = 'vars.' . $var['var'];
+        }
+
+        $server->update($request->only($only));
     }
 }

@@ -43,12 +43,16 @@
                 </div>
                 
                 <div class="card-body">
-                    <a class="btn btn-large btn-light" href="{{ route('servers.filemanager', ['server' => $server->id]) }}">
+                    <a class="btn btn-large btn-light m-1" href="{{ route('servers.filemanager', ['server' => $server->id]) }}">
                         <span class="fa fa-folder-open"></span>&nbsp;{{ __('servers.files') }}
                     </a>
 
+                    <a class="btn btn-large btn-light m-1" href="{{ route('servers.settings', ['server' => $server->id]) }}">
+                        <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
+                    </a>
+
                     @can('admin roles & permissions')
-                        <a class="btn btn-large btn-danger" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
+                        <a class="btn btn-large btn-danger m-1" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
                             <span class="fa fa-hammer"></span>&nbsp;{{ __('servers.admin') }}
                         </a>
                     @endcan

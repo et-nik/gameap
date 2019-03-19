@@ -2,6 +2,13 @@
 
 @extends('layouts.main')
 
+@section('breadclumbs')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('servers') }}">{{ __('servers.game_servers') }}</a></li>
+    </ol>
+@endsection
+
 @section('content')
     @if ($server->installed === $server::NOT_INSTALLED)
         <div class="alert alert-danger">

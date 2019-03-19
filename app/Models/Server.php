@@ -63,7 +63,12 @@ class Server extends Model
         'rcon', 'dir', 'su_user',
         'cpu_limit', 'ram_limit', 'net_limit',
         'start_command', 'stop_command',
-        'force_stop_command', 'restart_command'
+        'force_stop_command', 'restart_command',
+        'vars',
+    ];
+
+    protected $casts = [
+        'vars' => 'array',
     ];
 
     /**
