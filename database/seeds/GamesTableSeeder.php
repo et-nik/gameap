@@ -303,5 +303,21 @@ class GamesTableSeeder extends Seeder
             'engine' => 'JustCause',
             'steam_app_id' => 261140,
         ]);
+
+        DB::table('games')->insert([
+            'code' => 'rok',
+            'start_code' => 'rok',
+            'name' => 'Reign Of Kings',
+            'engine' => 'ReignOfKings',
+            'steam_app_id' => 344760,
+        ]);
+
+        DB::table('games')->insert([
+            'code' => 'the-forest',
+            'start_code' => 'the-forest',
+            'name' => 'The Forest',
+            'engine' => 'TheForest',
+            'steam_app_id' => 556450,
+        ]);
     }
 }

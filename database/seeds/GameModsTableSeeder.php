@@ -64,6 +64,7 @@ class GameModsTableSeeder extends Seeder
             'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
             'remote_repository' => '',
+            'default_start_cmd' => './hlds_run -game valve +ip {server_ip} +port {server_port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'amx_say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -80,6 +81,7 @@ class GameModsTableSeeder extends Seeder
             'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
             'remote_repository' => '',
+            'default_start_cmd' => './hlds_run -game valve +ip {server_ip} +port {server_port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -98,6 +100,7 @@ class GameModsTableSeeder extends Seeder
             'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
             'remote_repository' => '',
+            'default_start_cmd' => './hlds_run -game cstrike +ip {server_ip} +port {server_port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'amx_say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -114,6 +117,7 @@ class GameModsTableSeeder extends Seeder
             'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
             'remote_repository' => '',
+            'default_start_cmd' => './hlds_run -game cstrike +ip {server_ip} +port {server_port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -128,6 +132,40 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'minecraft',
             'name' => 'Vanilla',
+            'fast_rcon' => '',
+            'vars' => '',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => '',
+            'sendmsg_cmd' => '',
+            'chmap_cmd' => '',
+            'srestart_cmd' => '',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => '',
+        ]);
+
+        // Rust
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'rust',
+            'name' => 'Vanilla',
+            'fast_rcon' => '',
+            'vars' => '',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => '',
+            'sendmsg_cmd' => '',
+            'chmap_cmd' => '',
+            'srestart_cmd' => '',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => '',
+        ]);
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'rust',
+            'name' => 'Oxide',
             'fast_rcon' => '',
             'vars' => '',
             'local_repository' => '',

@@ -78,15 +78,6 @@
                         {{ Form::bsText('rcon_port') }}
                     </div>
                 </div>
-
-                <div class="card mt-2">
-                    <div class="card-header">
-                        {{ __('servers.start_command') }}
-                    </div>
-                    <div class="card-body">
-                        {{ Form::bsTextArea('start_command', null, null, ['rows' => 3]) }}
-                    </div>
-                </div>
             </div>
         </div>
 

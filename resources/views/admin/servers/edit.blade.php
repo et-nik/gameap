@@ -90,7 +90,11 @@
                         {{ Form::bsText('rcon_port') }}
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="row mt-2">
+            <div class="col-12">
                 <div class="card mt-2">
                     <div class="card-header">
                         {{ __('servers.start_command') }}
@@ -101,33 +105,33 @@
                         <div class="col-12">
                             <table class="table table-striped table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>{{ __('main.name') }}</th>
-                                        <th>{{ __('main.value') }}</th>
-                                    </tr>
+                                <tr>
+                                    <th>{{ __('main.name') }}</th>
+                                    <th>{{ __('main.value') }}</th>
+                                </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($server->aliases as $aliasName => $aliasValue)
-                                        <tr>
-                                            <td>
-                                                <code class="bg-light highlighter-rouge p-1 rounded">
-                                                    <span>{</span>{{ $aliasName }}<span>}</span>
-                                                </code>
+                                @foreach ($server->aliases as $aliasName => $aliasValue)
+                                    <tr>
+                                        <td>
+                                            <code class="bg-light highlighter-rouge p-1 rounded">
+                                                <span>{</span>{{ $aliasName }}<span>}</span>
+                                            </code>
 
-                                            </td>
-                                            <td>{{ $aliasValue }}</td>
-                                        </tr>
-                                    @endforeach
+                                        </td>
+                                        <td>{{ $aliasValue }}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <div class="row mt-2">
             <div class="col-12">
