@@ -18,11 +18,11 @@
                     return '<span class="badge badge-secondary">' . __('servers.disabled') . '</span>';
                 }
 
-                if (!$serverModel->installed === $serverModel::NOT_INSTALLED) {
+                if ($serverModel->installed === $serverModel::NOT_INSTALLED) {
                     return '<span class="badge badge-secondary">' . __('servers.not_installed') . '</span>';
                 }
 
-                if (!$serverModel->installed === $serverModel::INSTALLATION_PROCESS) {
+                if ($serverModel->installed === $serverModel::INSTALLATION_PROCESS) {
                     return '<span class="badge badge-warning">' . __('servers.installation') . '</span>';
                 }
 
