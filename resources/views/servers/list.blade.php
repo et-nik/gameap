@@ -37,7 +37,7 @@
 
                 $buttons = '';
 
-                if ($serverModel->installed == $serverModel::INSTALLED) {
+                if ($serverModel->installed === $serverModel::INSTALLED) {
                     if (!$serverModel->processActive()) {
                         $buttons .= '<a class="btn btn-small btn-success btn-sm" href="#" @click="startServer(' . $serverModel->id . ')">
                                 <span class="fa fa-play"></span>&nbsp;' . __('servers.start') . '
@@ -52,6 +52,10 @@
 
                     $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="restartServer(' . $serverModel->id . ')">
                             <span class="fa fa-redo"></span>&nbsp;' . __('servers.restart') . '
+                        </a>&nbsp;';
+                } else if ($serverModel->installed === $serverModel::NOT_INSTALLED) {
+                    $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="updateServer(' . $serverModel->id . ')">
+                            <span class="fas fa-download"></span>&nbsp;' . __('servers.install') . '
                         </a>&nbsp;';
                 }
 

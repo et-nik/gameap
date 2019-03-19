@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div id="serverControl">
                             <a class="btn btn-large btn-info" href="#" @click="updateServer({{ $server->id }})">
-                                <span class="fas fa-sync"></span>&nbsp;{{ __('servers.install') }}
+                                <span class="fas fa-download"></span>&nbsp;{{ __('servers.install') }}
                             </a>
                         </div>
                     </div>
