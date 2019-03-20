@@ -158,8 +158,8 @@ class Server extends Model
     public function getAliasesAttribute()
     {
         $aliases = [
-            'server_ip' => $this->server_ip,
-            'server_port' => $this->server_port,
+            'ip' => $this->server_ip,
+            'port' => $this->server_port,
             'query_port' => $this->query_port,
             'rcon_port' => $this->rcon_port,
             'rcon_password' => $this->rcon,
