@@ -101,8 +101,8 @@ class ServersController extends AuthController
      */
     public function update(ServerRequest $request, Server $server)
     {
-        $server->update($request->all());
-
+        $this->repository->update($server, $request->all());
+        
         return redirect()->route('admin.servers.index')
             ->with('success', __('servers.update_success_msg'));
     }

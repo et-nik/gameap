@@ -7,6 +7,7 @@ class ServerRequest extends Request
     public function rules()
     {
         return [
+            'enabled' => '',
             'name' => 'required|max:128',
             'game_id' => 'required',
             'ds_id' => 'required',

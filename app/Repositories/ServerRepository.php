@@ -37,6 +37,9 @@ class ServerRepository
     {
         $attributes['uuid'] = Str::orderedUuid()->toString();
         $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
+        
+        $attributes['enabled'] = true;
+        $attributes['blocked'] = false;
 
         $addInstallTask = false;
         if (isset($attributes['install'])) {
@@ -110,6 +113,20 @@ class ServerRepository
             ->get();
     }
 
+    /**
+     * @param Server $server
+     * @param array  $attributes
+     */
+    public function update(Server $server, array $attributes)
+    {
+        $attributes['enabled'] = (bool)array_key_exists('enabled', $attributes);
+        $server->update($attributes);
+    }
+
+    /**
+     * @param Server            $server
+     * @param ServerVarsRequest $request
+     */
     public function updateVars(Server $server, ServerVarsRequest $request)
     {
         $only = [];
