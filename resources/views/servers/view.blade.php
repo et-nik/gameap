@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row mt-2">
-        <div class="col-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h3>{{ __('servers.commands') }}</h3>
@@ -36,7 +36,7 @@
             </div>
         </div>
         
-        <div class="col-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h3>{{ __('servers.tools') }}</h3>
@@ -62,7 +62,7 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h3>{{ __('servers.process_status') }}</h3>

@@ -1,9 +1,10 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-black">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">GameAP</a>
-        </div>
-
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-black">
+    <a class="navbar-brand" href="#">GameAP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('navbar.main') }}</a></li>
             @can('admin roles & permissions')
@@ -16,7 +17,7 @@
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.gdaemon_tasks.index') }}">{{ __('navbar.gdaemon_tasks') }}</a></li>
                     </ul>
                 </li>
-
+    
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.users') }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -25,9 +26,9 @@
                     </ul>
                 </li>
             @endcan
-
+    
             <li class="nav-item"><a class="nav-link" href="{{ route('profile') }}">{{ __('navbar.profile') }}</a></li>
-
+    
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.gameap') }}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -38,11 +39,11 @@
                 </ul>
             </li>
         </ul>
-
+    
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
         </form>
-
+    
         <button
                 class="btn btn-danger navbar-btn"
                 href="{{ route('logout') }}"
