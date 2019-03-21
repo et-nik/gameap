@@ -4,6 +4,7 @@ namespace Gameap\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(128);
+
+        Validator::extend('recaptcha', 'Gameap\\Validators\\ReCaptcha@validate');
     }
 
     /**

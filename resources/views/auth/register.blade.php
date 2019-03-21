@@ -60,6 +60,12 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+
+                        @if(env('GOOGLE_RECAPTCHA_KEY'))
+                            <div class="g-recaptcha"
+                                 data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}">
+                            </div>
+                        @endif
                     </div>
 
                     <div class="card-footer">
@@ -74,4 +80,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer-scripts')
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
