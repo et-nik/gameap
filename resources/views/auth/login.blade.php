@@ -53,15 +53,20 @@
 
                     <div class="card-footer text-muted">
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-default float-left">{{ __('auth.sign_in') }}</button>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-light float-left">{{ __('auth.sign_in') }}</button>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a class="btn btn-link float-left" href="{{ route('password.request') }}">{{ __('auth.forgot_password') }}</a>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-link float-left" href="{{ route('password.request') }}">{{ __('auth.forgot_password') }}</a>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <a class="btn btn-link float-left" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

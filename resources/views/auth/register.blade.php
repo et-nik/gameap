@@ -65,7 +65,7 @@
                     <div class="card-footer">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-default">{{ __('auth.sign_up') }}</button>
+                                <button type="submit" class="btn btn-light">{{ __('auth.sign_up') }}</button>
                             </div>
                         </div>
                     </div>
