@@ -36,7 +36,7 @@ use Carbon\Carbon;
  * @property string $restart_command
  * @property bool $process_active
  * @property string $last_process_check
- * @property string $vars
+ * @property array $vars
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at

@@ -48,7 +48,10 @@
                             {{ __('games.run_commands') }}
                         </div>
                         <div class="card-body">
-                            {{ Form::bsText('default_start_cmd') }}
+                            {{ Form::bsText('default_start_cmd_linux') }}
+                        </div>
+                        <div class="card-body">
+                            {{ Form::bsText('default_start_cmd_windows') }}
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace Gameap\Repositories;
 
+use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Gameap\Models\GameMod;
 use Illuminate\Support\Str;
@@ -50,8 +51,14 @@ class ServerRepository
         }
 
         if (empty($attributes['start_command'])) {
-            $gameMod = GameMod::select('default_start_cmd')->where('id', '=', $attributes['game_mod_id'])->firstOrFail();
-            $attributes['start_command'] = $gameMod->default_start_cmd;
+            $gameMod = GameMod::select('default_start_cmd_linux', 'default_start_cmd_windows')->where('id', '=', $attributes['game_mod_id'])->firstOrFail();
+
+            $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
+
+            $attributes['start_command'] =
+                $dedicatedServer->isLinux()
+                    ? $gameMod->default_start_cmd_linux
+                    : $gameMod->default_start_cmd_windows;
         }
 
         $server = Server::create($attributes);

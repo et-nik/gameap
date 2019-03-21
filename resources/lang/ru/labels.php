@@ -61,7 +61,8 @@ return [
     'chmap_cmd' => 'Команда смены карты',
     'sendmsg_cmd' => 'Команда отправки сообщения',
     'passwd_cmd' => 'Команда установки/смены пароля',
-    'default_start_cmd' => 'Команда запуска по умолчанию',
+    'default_start_cmd_linux' => 'Команда запуска по умолчанию (Linux)',
+    'default_start_cmd_windows' => 'Команда запуска по умолчанию (Windows)',
 
     // Server
     'installed' => 'Установлен',

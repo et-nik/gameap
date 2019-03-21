@@ -61,8 +61,9 @@ return [
     'chmap_cmd' => 'Change Map Command',
     'sendmsg_cmd' => 'Send Message Command',
     'passwd_cmd' => 'Set/Change Password Command',
-    'default_start_cmd' => 'Default Start Command',
-    
+    'default_start_cmd_linux' => 'Default Start Command (Linux)',
+    'default_start_cmd_windows' => 'Default Start Command (Windows)',
+
     // Server
     'installed' => 'Installed',
     'blocked' => 'Blocked',

@@ -166,4 +166,23 @@ class DedicatedServer extends Model implements ValidableContract
             'timeout' => 10,
         ];
     }
+
+    /**
+     * @return bool
+     */
+    public function isLinux()
+    {
+        switch (strtolower($this->os)) {
+            case 'linux':
+            case 'debian':
+            case 'ubuntu':
+            case 'centos':
+            case 'gentoo':
+            case 'opensuse':
+                return true;
+                break;
+        }
+
+        return false;
+    }
 }
