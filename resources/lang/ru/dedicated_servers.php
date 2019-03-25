@@ -60,8 +60,22 @@ return [
 
     'autosetup_title' => 'Автоматическая настройка выделенного сервера',
 
-    'autosetup_description' => '<p>Только для Debian/Ubuntu.</p>
+    'autosetup_description_debian_ubuntu' => '<p>Только для Debian/Ubuntu.</p>
                     <p>Для автоматической настройки GDaemon запустите команду в консоли выделенного сервера:</p>',
 
+    'autosetup_description_windows' => '<p>Только для Windows</p>
+                                <ul>
+                                    <li>Скачайте инсталлятор <a href="http://packages.gameap.ru/windows/gameap-daemon-installer.exe">gameap-daemon-installer.exe</a>
+                                        (<code>http://packages.gameap.ru/windows/gameap-daemon-installer.exe</code>)
+                                    </li>
+                                    <li>Запустите инсталлятор на вашем Windows хосте</li>
+                                    <li>Заполните все поля:<br>
+                                        Host: <code>:host</code><br>
+                                        Token: <code>:token</code>
+                                    </li>
+                                    <li>Кликните по кнопке установки</li>
+                                </ul>',
+
     'autosetup_expire_msg' => 'Ваша ссылка будет действительна 5 минут.',
+    'autosetup_expire_token_msg' => 'Токен будет действителен 5 минут',
 ];

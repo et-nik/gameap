@@ -62,8 +62,22 @@ return [
     
     'autosetup_title' => 'Dedicated Server Auto Setup',
     
-    'autosetup_description' => '<p>Only for Debian/Ubuntu.</p>
+    'autosetup_description_debian_ubuntu' => '<p>Only for Debian/Ubuntu.</p>
                     <p>To auto setup GDaemon run the command on Dedicated Server:</p>',
+
+    'autosetup_description_windows' => '<p>Only for Windows</p>
+                                <ul>
+                                    <li>Download <a href="http://packages.gameap.ru/windows/gameap-daemon-installer.exe">gameap-daemon-installer.exe</a>
+                                        (<code>http://packages.gameap.ru/windows/gameap-daemon-installer.exe</code>)
+                                    </li>
+                                    <li>Run gameap-daemon-installer.exe on your Windows host</li>
+                                    <li>Fill in all the fields:<br>
+                                        Host: <code>:host</code><br>
+                                        Token: <code>:token</code>
+                                    </li>
+                                    <li>Push the install button</li>
+                                </ul>',
     
     'autosetup_expire_msg' => 'Your link will expire in 5 minutes.',
+    'autosetup_expire_token_msg' => 'Your token will expire in 5 minutes.',
 ];

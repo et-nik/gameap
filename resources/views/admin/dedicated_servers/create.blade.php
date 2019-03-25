@@ -43,10 +43,38 @@
                 </div>
 
                 <div class="modal-body">
-                    {!! __('dedicated_servers.autosetup_description') !!}
-                    <code>curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#auto_install_debian_ubuntu">Debian/Ubuntu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#auto_install_windows">Windows</a>
+                        </li>
+                    </ul>
 
-                    <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_msg') }}</small></p>
+                    <div class="tab-content">
+                        <div class="row tab-pane container-fluid active" id="auto_install_debian_ubuntu">
+                            <div class="col-12 m-3">
+                                {!! __('dedicated_servers.autosetup_description_debian_ubuntu') !!}
+                                <code>curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
+
+                                <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_msg') }}</small></p>
+                            </div>
+                        </div>
+
+                        <div class="row tab-pane container-fluid" id="auto_install_windows">
+                            <div class="col-12 m-3">
+
+                                {!! __('dedicated_servers.autosetup_description_windows', [
+                                    'host' => request()->getSchemeAndHttpHost(),
+                                    'token' => $autoSetupToken
+                                    ])
+                                !!}
+
+                                <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_token_msg') }}</small></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
