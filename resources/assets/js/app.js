@@ -41,8 +41,12 @@ var vm = new Vue({
         'user-server-privileges': UserServerPrivileges,
     },
     methods: {
-        alert: function(message) {
-            bootbox.alert(message);
+        alert: function(message, callback) {
+            bootbox.alert(message, function() {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            });
         },
         confirm: function(message, callback) {
             bootbox.confirm(message, function(result) {

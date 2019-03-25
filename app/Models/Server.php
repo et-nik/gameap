@@ -58,7 +58,7 @@ class Server extends Model
         'uuid', 'uuid_short',
         'enabled', 'name', 'code_name', 'game_id',
         'ds_id', 'game_mod_id', 'expires',
-        'installed', 'server_ip', 'server_port',
+        'installed', 'blocked', 'server_ip', 'server_port',
         'query_port', 'rcon_port',
         'rcon', 'dir', 'su_user',
         'cpu_limit', 'ram_limit', 'net_limit',

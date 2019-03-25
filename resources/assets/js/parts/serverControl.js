@@ -24,7 +24,7 @@ if( document.getElementById("serverControl") ) {
                                 gameap.watchTask();
                             }).catch(function (error) {
                                 console.log(error);
-                                gameap.alert(error.response.data.message);
+                                gameap.alert(error.response.data.message, function() { location.reload()});
                             });
                     });
                 } else {
@@ -39,7 +39,7 @@ if( document.getElementById("serverControl") ) {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
                         if (serverStatus == true) {
-                            gameap.alert(i18n.servers.start_success_msg);
+                            gameap.alert(i18n.servers.start_success_msg, function() { location.reload()});
                         } else {
                             gameap.alert(i18n.servers.start_fail_msg);
                         }
@@ -54,7 +54,7 @@ if( document.getElementById("serverControl") ) {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
                         if (serverStatus == false) {
-                            gameap.alert(i18n.servers.stop_success_msg);
+                            gameap.alert(i18n.servers.stop_success_msg, function() { location.reload()});
                         } else {
                             gameap.alert(i18n.servers.stop_fail_msg);
                         }
@@ -69,7 +69,7 @@ if( document.getElementById("serverControl") ) {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
                         if (serverStatus == true) {
-                            gameap.alert(i18n.servers.restart_success_msg);
+                            gameap.alert(i18n.servers.restart_success_msg, function() { location.reload()});
                         } else {
                             gameap.alert(i18n.servers.restart_success_msg);
                         }

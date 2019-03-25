@@ -32,11 +32,32 @@
                         {{ __('servers.basic_info') }}
                     </div>
                     <div class="card-body">
+                        
                         <div class="form-group mt-4 mb-4">
-                            <div class="form-check">
-                                {{ Form::checkbox('enabled', 'on', null, ['id' => 'enabled', 'class' => 'form-check-input']) }}
-                                {{ Form::label('enabled', __('servers.enabled'), ['class' => 'form-check-label']) }}
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-check">
+                                        {{ Form::checkbox('enabled', 'on', null, ['id' => 'enabled', 'class' => 'form-check-input']) }}
+                                        {{ Form::label('enabled', __('labels.enabled'), ['class' => 'form-check-label']) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-check">
+                                        {{ Form::checkbox('blocked', 'on', null, ['id' => 'blocked', 'class' => 'form-check-input']) }}
+                                        {{ Form::label('blocked', __('labels.blocked'), ['class' => 'form-check-label']) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-check">
+                                        {{ Form::checkbox('installed', 'on', null, ['id' => 'installed', 'class' => 'form-check-input']) }}
+                                        {{ Form::label('installed', __('labels.installed'), ['class' => 'form-check-label']) }}
+                                    </div>
+                                </div>
                             </div>
+                            
+                            
                         </div>
                         
                         {{ Form::bsText('uuid', null, null, ['disabled' => 'disabled']) }}

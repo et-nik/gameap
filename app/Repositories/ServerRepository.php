@@ -127,6 +127,9 @@ class ServerRepository
     public function update(Server $server, array $attributes)
     {
         $attributes['enabled'] = (bool)array_key_exists('enabled', $attributes);
+        $attributes['blocked'] = (bool)array_key_exists('blocked', $attributes);
+        $attributes['installed'] = (bool)array_key_exists('installed', $attributes);
+        
         $server->update($attributes);
     }
 
