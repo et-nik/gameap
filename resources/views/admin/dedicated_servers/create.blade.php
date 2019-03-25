@@ -17,8 +17,10 @@
 {{-- TODO: Move filename fix --}}
 @section('footer-scripts')
     <script>
-        $(window).on('load',function(){
-            $('#gdaemonAutoSetupModal').modal('toggle');
+        $(window).on('load',function() {
+            @if (!$errors->any())
+                $('#gdaemonAutoSetupModal').modal('toggle');
+            @endif
             
             $('.custom-file-input').on('change',function(){
                 var fileName = $(this).val();
