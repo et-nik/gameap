@@ -188,6 +188,8 @@ return [
          * Storages
          */
         Gameap\Providers\GdaemonFilesServiceProvider::class,
+
+        Mavinoo\LaravelBatch\LaravelBatchServiceProvider::class,
     ],
 
     /*
@@ -241,6 +243,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
 
+        'Batch' => Mavinoo\LaravelBatch\LaravelBatchFacade::class,
 
     ],
 

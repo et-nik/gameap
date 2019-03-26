@@ -83,6 +83,7 @@ Route::group(['prefix' => 'gdaemon_api'], function() {
     Route::name('gdaemon_api.servers')->get('servers', 'GdaemonAPI\ServersController@index');
     Route::name('gdaemon_api.servers.server')->get('servers/{server}', 'GdaemonAPI\ServersController@server');
     Route::name('gdaemon_api.servers.update')->put('servers/{server}', 'GdaemonAPI\ServersController@update');
+    Route::name('gdaemon_api.servers.bulk_update')->patch('servers', 'GdaemonAPI\ServersController@updateBulk');
 
     // GDaemon tasks
     Route::name('gdaemon_api.tasks')->get('tasks', 'GdaemonAPI\TasksController@index');

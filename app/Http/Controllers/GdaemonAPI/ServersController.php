@@ -7,7 +7,9 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\ServerRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
+use Gameap\Http\Requests\GdaemonAPI\ServerBulkRequest;
 use Illuminate\Http\Response;
+use Batch;
 
 class ServersController extends Controller
 {
@@ -59,6 +61,18 @@ class ServersController extends Controller
     {
         $server->forceFill($request->only(['installed', 'process_active', 'last_process_check']));
         $server->save();
+
+        return response()->json(['message' => 'success'], Response::HTTP_OK);
+    }
+
+    /**
+     * @param ServerBulkRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateBulk(ServerBulkRequest $request)
+    {
+        $values = $request->json()->all();
+        Batch::update(new Server, $values, 'id');
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
