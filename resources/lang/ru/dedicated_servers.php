@@ -65,8 +65,8 @@ return [
 
     'autosetup_description_windows' => '<p>Только для Windows</p>
                                 <ul>
-                                    <li>Установите <a href="https://www.microsoft.com/ru-ru/download/details.aspx?id=53587">Microsoft Visual C++ 2015</a></li>
-                                    <li>Скачайте инсталлятор <a href="http://packages.gameap.ru/windows/gameap-daemon-installer.exe">gameap-daemon-installer.exe</a>
+                                    <li>Установите <a target="_blank" href="https://www.microsoft.com/ru-ru/download/details.aspx?id=53587">Microsoft Visual C++ 2015</a></li>
+                                    <li>Скачайте инсталлятор <a target="_blank" href="http://packages.gameap.ru/windows/gameap-daemon-installer.exe">gameap-daemon-installer.exe</a>
                                         (<code>http://packages.gameap.ru/windows/gameap-daemon-installer.exe</code>)
                                     </li>
                                     <li>Запустите инсталлятор на вашем Windows хосте</li>
