@@ -5,17 +5,25 @@ use Gameap\Models\DsStats;
 use Gameap\Models\DedicatedServer;
 use Gameap\Http\Requests\GdaemonAPI\DsStatsRequest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
+use Batch;
 
 class DsStatsController extends Controller
 {
     /**
      * @param DsStatsRequest $request
+     * @param DedicatedServer $dedicatedServer
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(DsStatsRequest $request, DedicatedServer $dedicatedServer)
     {
-        $attributes = $request->only(['time', 'loa', 'ram', 'cpu', 'ifstat', 'ping', 'drvspace']);
-        $attributes['dedicated_server_id'] = $dedicatedServer->id;
-        DsStats::create($attributes);
+        $values = array_map(function($v) use ($dedicatedServer) {
+            $arr = Arr::only($v, ['time', 'loa', 'ram', 'cpu', 'ifstat', 'ping', 'drvspace']);
+            $arr['dedicated_server_id'] = $dedicatedServer->id;
+            return $arr;
+        }, $request->all());
+
+        DsStats::insert($values);
 
         return response()->json(['message' => 'success'], Response::HTTP_CREATED);
     }
