@@ -67,6 +67,7 @@ return [
 
     'autosetup_description_windows' => '<p>Only for Windows</p>
                                 <ul>
+                                    <li>Install <a href="https://www.microsoft.com/ru-ru/download/details.aspx?id=53587">Microsoft Visual C++ 2015</a></li>
                                     <li>Download <a href="http://packages.gameap.ru/windows/gameap-daemon-installer.exe">gameap-daemon-installer.exe</a>
                                         (<code>http://packages.gameap.ru/windows/gameap-daemon-installer.exe</code>)
                                     </li>
