@@ -50,7 +50,20 @@ class TasksController extends Controller
      */
     public function update(GdaemonTask $gdaemonTask)
     {
-        $gdaemonTask->status = request()->status;
+        $status = request()->status;
+
+        if (is_null($status)) {
+            return response()->json(['message' => 'Empty status'], Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!in_array($status, GdaemonTask::NUM_STATUSES)) {
+            return response()->json(['message' => 'Invalid status'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $gdaemonTask->status = is_integer($status)
+            ? array_flip(GdaemonTask::NUM_STATUSES)[$status]
+            : $status;
+
         $gdaemonTask->update();
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
