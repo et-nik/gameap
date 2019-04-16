@@ -18,7 +18,7 @@ class CreateServersTable extends Migration
             $table->string('uuid', 36);
             $table->string('uuid_short', 8);
             $table->boolean('enabled')->default(0);
-            $table->boolean('installed')->default(0);
+            $table->integer('installed')->default(0);
             $table->boolean('blocked')->default(0);
             $table->string('name');
             $table->string('game_id', 16);

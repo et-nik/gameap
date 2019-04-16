@@ -96,6 +96,9 @@ class DedicatedServer extends Model implements ValidableContract
 
     protected $casts = [
         'ip' => 'array',
+        'enabled' => 'boolean',
+        'gdaemon_port' => 'integer',
+        'client_certificate_id' => 'integer',
     ];
 
     /**

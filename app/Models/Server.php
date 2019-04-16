@@ -69,6 +69,15 @@ class Server extends Model
 
     protected $casts = [
         'vars' => 'array',
+        'enabled' => 'boolean',
+        'installed' => 'integer',
+        'blocked' => 'boolean',
+        'ds_id' => 'integer',
+        'game_mod_id' => 'integer',
+        'server_port' => 'integer',
+        'query_port' => 'integer',
+        'rcon_port' => 'integer',
+        'process_active' => 'boolean',
     ];
 
     /**
