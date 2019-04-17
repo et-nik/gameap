@@ -141,7 +141,7 @@ class ServerRepository
     {
         $only = [];
         foreach ($server->gameMod->vars as $var) {
-            if ($var['admin_var'] && Auth::user()->cannot('admin roles & permissions')) {
+            if (!empty($var['admin_var']) && Auth::user()->cannot('admin roles & permissions')) {
                 continue;
             }
 
