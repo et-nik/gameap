@@ -22,6 +22,7 @@ class GdaemonTasksController extends AuthController
      */
     public function __construct(GdaemonTaskRepository $repository)
     {
+        parent::__construct();
 
         $this->repository = $repository;
     }

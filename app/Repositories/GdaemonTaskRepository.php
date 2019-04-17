@@ -6,6 +6,8 @@ use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\DedicatedServer;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
+use Illuminate\Support\Facades\DB;
+use PDO;
 
 /**
  * Class GdaemonTaskRepository
@@ -120,6 +122,25 @@ class GdaemonTaskRepository
             'server_id' => $server->id,
             'task' => GdaemonTask::TASK_SERVER_DELETE,
         ])->id;
+    }
+
+    /**
+     * @param GdaemonTask $gdaemonTask
+     * @param string $output
+     */
+    public function concatOutput(GdaemonTask $gdaemonTask, string $output)
+    {
+        $qoutedOutput = DB::connection()->getPdo()->quote($output);
+
+        $dbDriver = DB::connection()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
+
+        if ($dbDriver == 'mysql') {
+            $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), {$qoutedOutput})")]);
+        } else if ($dbDriver == 'sqlite' || $dbDriver == 'pgsql') {
+            $gdaemonTask->update(['output' => DB::raw("COALESCE(output, '') || {$qoutedOutput}")]);
+        } else {
+            $gdaemonTask->update(['output' => $gdaemonTask->output . $output]);
+        }
     }
 
     /**
