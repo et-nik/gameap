@@ -21,13 +21,13 @@
         "guzzlehttp/guzzle": "^6.3",
         "infyomlabs/generator-builder": "dev-master",
         "knik/flysystem-gameap": "dev-master",
-        "knik/gameap-daemon-client": "~0.3",
-        "knik/gameq": "~3.0",
+        "knik/gameap-daemon-client": "^0.3",
+        "knik/gameq": "^3.0",
         "knik/x509": "^0.6.2",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "5.8.*",
         "laravel/passport": "^7.0",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.6.0",
+        "laravelcollective/html": "^5.8.0",
         "league/flysystem": "^1.0",
         "mavinoo/laravel-batch": "dev-master",
         "moontoast/math": "^1.1",
@@ -42,8 +42,8 @@
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~7.0",
-        "infyomlabs/laravel-generator": "5.6.x-dev",
-        "infyomlabs/adminlte-templates": "5.6.x-dev"
+        "infyomlabs/laravel-generator": "5.8.x-dev",
+        "infyomlabs/adminlte-templates": "5.8.x-dev"
     },
     "autoload": {
         "classmap": [
