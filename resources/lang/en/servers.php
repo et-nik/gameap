@@ -91,4 +91,6 @@ return [
     'task_success_msg' => 'Task completed successfully',
     
     'unknown_command_msg' => 'Unknown server command',
+
+    'd_dir' => 'Path relative to the working directory of the dedicated server. <br> Example: <strong>servers/my_server</strong>',
 ];

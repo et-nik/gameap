@@ -15,7 +15,7 @@
     {{ Form::text($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
 
     @if(isset($description))
-        <small>{{ $description }}</small>
+        <small>{!! $description !!}</small>
     @endif
 
     @if ($errors->has($name))

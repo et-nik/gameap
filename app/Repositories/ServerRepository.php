@@ -50,16 +50,19 @@ class ServerRepository
             unset($attributes['install']);
         }
 
+        $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
+
         if (empty($attributes['start_command'])) {
             $gameMod = GameMod::select('default_start_cmd_linux', 'default_start_cmd_windows')->where('id', '=', $attributes['game_mod_id'])->firstOrFail();
-
-            $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
 
             $attributes['start_command'] =
                 $dedicatedServer->isLinux()
                     ? $gameMod->default_start_cmd_linux
                     : $gameMod->default_start_cmd_windows;
         }
+
+        // Fix path. Remove absolute dedicated server path
+        $attributes['dir'] = $this->fixPath($attributes['dir'], $dedicatedServer->work_path);
 
         $server = Server::create($attributes);
 
@@ -129,6 +132,9 @@ class ServerRepository
         $attributes['enabled'] = (bool)array_key_exists('enabled', $attributes);
         $attributes['blocked'] = (bool)array_key_exists('blocked', $attributes);
         $attributes['installed'] = (bool)array_key_exists('installed', $attributes);
+
+        // Fix path. Remove absolute dedicated server path
+        $attributes['dir'] = $this->fixPath($attributes['dir'], $server->dedicatedServer->work_path);
         
         $server->update($attributes);
     }
@@ -149,5 +155,16 @@ class ServerRepository
         }
 
         $server->update($request->only($only));
+    }
+
+    private function fixPath($path, $dsWorkPath)
+    {
+        if (substr($path, 0, strlen($dsWorkPath)) == $dsWorkPath) {
+            $path = substr($path, strlen($dsWorkPath));
+        }
+
+        $path = ltrim($path, '/\\');
+
+        return $path;
     }
 }

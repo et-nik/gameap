@@ -91,4 +91,6 @@ return [
     'task_success_msg' => 'Задача успешно выполнена',
 
     'unknown_command_msg' => 'Неизвестная команда',
+
+    'd_dir' => 'Путь относительно рабочей директории выделенного сервера. Например <strong>servers/my_server</strong>',
 ];

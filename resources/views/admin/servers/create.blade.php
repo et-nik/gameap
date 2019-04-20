@@ -37,9 +37,26 @@
                                 </select>
                             </template>
                         </div>
-                        
-                        {{ Form::bsText('rcon') }}
-                        {{ Form::bsText('dir') }}
+
+                        <div class="form-group{{ $errors->has('rcon') ? ' has-error' : '' }}">
+                            {{ Form::label('rcon', null, ['class' => 'control-label']) }}
+
+                            <div class="input-group">
+                                {{ Form::input('password', 'rcon', null,
+                                    ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
+
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {{ Form::bsInput('text', [
+                            'name' => 'dir',
+                            'description' => __('servers.d_dir')
+                        ]) }}
+
                         {{ Form::bsText('su_user', 'gameap') }}
                     </div>
                 </div>
@@ -99,4 +116,8 @@
         </div>
 
     {!! Form::close() !!}
+@endsection
+
+@section('footer-scripts')
+    <script src="{{ URL::asset('/js/formHelpers.js') }}"></script>
 @endsection
