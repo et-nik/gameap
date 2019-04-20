@@ -43,7 +43,7 @@ class SetupController extends BaseController
         Cache::forget('gdaemonAutoSetupToken');
 
         $gdaemonCreateToken = Str::random(24);
-        Cache::put('gdaemonAutoCreateToken', $gdaemonCreateToken, 30);
+        Cache::put('gdaemonAutoCreateToken', $gdaemonCreateToken, 1800);
 
         return "export createToken={$gdaemonCreateToken};
             export panelHost=" . url('/') . ";

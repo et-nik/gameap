@@ -56,7 +56,7 @@ class DedicatedServersController extends AuthController
     {
         // Add auto setup token
         $autoSetupToken = Str::random(24);
-        Cache::put('gdaemonAutoSetupToken', $autoSetupToken, 5);
+        Cache::put('gdaemonAutoSetupToken', $autoSetupToken, 300);
 
         $clientCertificates = ClientCertificate::all(['id', 'fingerprint'])->pluck('fingerprint', 'id');
         return view('admin.dedicated_servers.create', compact('clientCertificates', 'autoSetupToken'));
