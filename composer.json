@@ -20,6 +20,7 @@
         "gameap/gameap-file-manager": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
         "infyomlabs/generator-builder": "dev-master",
+        "joshbrw/laravel-module-installer": "^0.1.4",
         "knik/flysystem-gameap": "dev-master",
         "knik/gameap-daemon-client": "^0.3",
         "knik/gameq": "^3.0",
@@ -31,6 +32,7 @@
         "league/flysystem": "^1.0",
         "mavinoo/laravel-batch": "dev-master",
         "moontoast/math": "^1.1",
+        "nwidart/laravel-modules": "^5.0",
         "phpseclib/phpseclib": "~2.0",
         "sofa/eloquence-validable": "^5.5",
         "spatie/laravel-permission": "^2.7",
@@ -52,7 +54,8 @@
         ],
         "psr-4": {
             "Gameap\\": "app/",
-            "App\\": "app/"
+            "App\\": "app/",
+            "GameapModules\\": "modules/"
         }
     },
     "autoload-dev": {
@@ -64,7 +67,8 @@
         "laravel": {
             "dont-discover": [
             ]
-        }
+        },
+        "module-dir": "modules"
     },
     "scripts": {
         "post-root-package-install": [
