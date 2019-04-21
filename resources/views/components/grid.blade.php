@@ -37,7 +37,12 @@
                         @else
                             @if(strpos($attr, '.') !== false)
                                 @php($ex = explode('.', $attr, 2))
-                                @php($cellValue = $model->{$ex[0]}->{$ex[1]})
+
+                                @if (isset($model->{$ex[0]}))
+                                    @php($cellValue = $model->{$ex[0]}->{$ex[1]})
+                                @else
+                                    @php($cellValue = '')
+                                @endif
                             @else
                                 @php($cellValue = $model->{$attr})
                             @endif
