@@ -94,4 +94,9 @@ return [
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'roles' => 'Roles',
+
+    // Generic servers
+    'host' => 'Host',
+    'port' => 'Port',
+    'username' => 'UserName',
 ];

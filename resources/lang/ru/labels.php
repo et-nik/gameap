@@ -95,4 +95,9 @@ return [
     'password' => 'Пароль',
     'password_confirmation' => 'Подтверждение пароля',
     'roles' => 'Роли',
+
+    // Generic servers
+    'host' => 'Хост',
+    'port' => 'Порт',
+    'username' => 'Имя пользователя',
 ];
