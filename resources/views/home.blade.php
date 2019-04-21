@@ -9,13 +9,33 @@
         <div class="card-body">
             <div class="row">
                 <div class="d-flex flex-nowrap">
-                    <div class="p-2 mb-3 text-center">
+                    <div class="p-2 mb-3 text-center menu-item">
                         <a class="btn btn-block btn-lg btn-outline-dark rounded" href="/servers">
                             <i class="fas fa-server fa-5x m-1"></i>
                             <h5>{{ __('home.servers_list') }}</h5>
                         </a>
                     </div>
                 </div>
+
+                @foreach ($modules as $module)
+                    @if (!empty($module["main-route"]))
+                        <div class="d-flex flex-nowrap">
+                            <div class="p-2 mb-3 text-center menu-item">
+                                <a class="btn btn-block btn-lg btn-outline-dark rounded" href="{{ $module["main-route"] }}">
+
+                                    @if (!empty($module["icon"]))
+                                        {!! $module["icon"] !!}
+                                    @else
+                                        <i class="fas fa-server fa-5x m-1"></i>
+                                    @endif
+
+                                    <h5>{{ $module["name"] }}</h5>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+
             </div>
         </div>
     </div>
