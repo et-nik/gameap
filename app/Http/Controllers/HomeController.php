@@ -29,8 +29,10 @@ class HomeController extends Controller
         $latestVersion = Cache::remember('latestVersion', 3600, function () {
             return InfoService::latestRelease();
         });
+
+        $modules = app()['modules']->getCached();
         
-        return view('home', compact('latestVersion'));
+        return view('home', compact('latestVersion', 'modules'));
     }
 
     /**

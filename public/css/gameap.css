@@ -103,3 +103,7 @@ input.terminal-input {
     max-height: 9.35rem;
     overflow: scroll;
 }
+
+.menu-item {
+    min-width: 180px;
+}

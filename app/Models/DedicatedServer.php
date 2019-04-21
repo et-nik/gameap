@@ -141,7 +141,7 @@ class DedicatedServer extends Model implements ValidableContract
      * @param $storageDisk
      * @return array
      */
-    public function gdaemonSettings($storageDisk)
+    public function gdaemonSettings($storageDisk = 'local')
     {
         return [
             'host' => $this->gdaemon_host,
