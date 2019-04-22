@@ -70,6 +70,9 @@ Route::get('/help', 'HomeController@help')->name('help');
 Route::get('/report_bug', 'HomeController@reportBug')->name('report_bug');
 Route::get('/update', 'HomeController@update')->name('update');
 
+Route::get('/modules', 'ModulesController@index', ['middleware' => 'isAdmin'])->name('modules');
+Route::get('/modules/migrate', 'ModulesController@migrate', ['middleware' => 'isAdmin'])->name('modules.migrate');
+
 Route::name('gdaemon.setup')->get('gdaemon/setup/{token}', 'GdaemonAPI\SetupController@setup')->middleware('gdaemonVerifySetupToken');
 Route::name('gdaemon.create')->post('gdaemon/create/{token}', 'GdaemonAPI\SetupController@create')->middleware('gdaemonVerifyCreateToken');
 

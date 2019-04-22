@@ -33,6 +33,11 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.gameap') }}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li class="dropdown-item"><a class="dropdown-item" href="https://docs.gameap.ru/">{{ __('navbar.documentation') }}</a></li>
+
+                    @can('admin roles & permissions')
+                        <li class="dropdown-item"><a class="dropdown-item" href="{{ route('modules') }}">{{ __('navbar.modules') }}</a></li>
+                    @endcan
+
                     <li class="dropdown-item"><a class="dropdown-item" href="{{ route('update') }}">{{ __('navbar.update') }}</a></li>
                     <li class="dropdown-item"><a class="dropdown-item" href="{{ route('report_bug') }}">{{ __('navbar.error_report') }}</a></li>
                     <li class="dropdown-item"><a class="dropdown-item" href="{{ route('help') }}">{{ __('navbar.help') }}</a></li>

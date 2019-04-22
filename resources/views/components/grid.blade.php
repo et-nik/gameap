@@ -30,6 +30,10 @@
                             @php($cellValue = $model->{$params[0]} . $params[1] . $model->{$params[2]})
                         @endif
                     @elseif (is_string($attr))
+                        @if (is_array($model))
+                            @php($model = (object)$model)
+                        @endif
+
                         @if (is_array($model->{$attr}))
                             @foreach ($model->{$attr} as $val)
                                 @php($cellValue .= "<p>{$val}</p>")
