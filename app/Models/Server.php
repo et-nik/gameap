@@ -44,6 +44,10 @@ use Carbon\Carbon;
  * @property string $full_path
  *
  * @property DedicatedServer $dedicatedServer
+ * @property Game $game
+ * @property GameMod $gameMod
+ * @property ServerSetting[] $settings
+ * @property User[] $users
  */
 class Server extends Model
 {

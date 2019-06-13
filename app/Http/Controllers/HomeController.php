@@ -22,7 +22,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -37,7 +37,7 @@ class HomeController extends Controller
 
     /**
      * Show help information (GameAP resources etc)
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function help()
     {
@@ -46,6 +46,7 @@ class HomeController extends Controller
 
     /**
      * Report a bug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function reportBug()
     {
@@ -55,6 +56,7 @@ class HomeController extends Controller
 
     /**
      * Upgrade panel page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function update()
     {

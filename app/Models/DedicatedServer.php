@@ -183,7 +183,6 @@ class DedicatedServer extends Model implements ValidableContract
             case 'gentoo':
             case 'opensuse':
                 return true;
-                break;
         }
 
         return false;

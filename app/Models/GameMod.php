@@ -14,7 +14,7 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $game_code
  * @property string $name
  * @property string $fast_rcon
- * @property string $vars
+ * @property array $vars
  * @property string $remote_repository
  * @property string $local_repository
  * @property string $default_start_cmd_linux

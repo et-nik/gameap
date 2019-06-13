@@ -10,6 +10,13 @@ use Gameap\Http\Requests\ServersSettingsRequest;
 class ServersSettingsController extends AuthController
 {
     /**
+     * The DedicatedServersRepository instance.
+     *
+     * @var \Gameap\Repositories\ServerRepository
+     */
+    protected $serverRepository;
+    
+    /**
      * ServersSettingsController constructor.
      *
      * @param ServerRepository $serverRepository

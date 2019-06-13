@@ -43,7 +43,7 @@ class ServersController extends Controller
 
     /**
      * @param Server $server
-     * @return Server
+     * @return \Illuminate\Http\JsonResponse
      */
     public function server(Server $server)
     {

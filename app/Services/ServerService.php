@@ -170,7 +170,7 @@ class ServerService
     /**
      * @param Server $server
      * @param string $command
-     * @return string
+     * @return bool
      */
     public function sendConsoleCommand(Server $server, string $command)
     {
@@ -192,7 +192,7 @@ class ServerService
             }
         }
 
-        return $exitCode == 0 ? true: false;
+        return $exitCode === 0;
     }
 
     /**
@@ -213,7 +213,7 @@ class ServerService
      */
     private function checkServer(Server $server)
     {
-        if ($server->processActive() == false) {
+        if ($server->processActive() === false) {
             throw new ServerInactiveException('Server is down');
         }
     }
