@@ -13,7 +13,7 @@ Server Requirements
 
 Web
 ------
-* PHP version 7.1 or newer.
+* PHP version 7.2 or newer.
 * GD PHP
 * OpenSSL PHP
 * CURL PHP
