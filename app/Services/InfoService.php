@@ -4,6 +4,7 @@ namespace Gameap\Services;
 
 use \Illuminate\Http\Response;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class InfoService
 {
@@ -17,7 +18,11 @@ class InfoService
         $client = new Client();
         
         // TODO: Remove before beta
-        $res = $client->get('http://www.gameap.ru/gameap_version.txt');
+        try {
+            $res = $client->get('http://www.gameap.ru/gameap_version.txt');
+        } catch (ClientException $e) {
+            return '';
+        }
 
         if ($res->getStatusCode() == Response::HTTP_OK) {
              $lines = explode("\n", $res->getBody()->getContents());
