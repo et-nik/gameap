@@ -48,7 +48,7 @@ class ClientCertificatesController extends AuthController
      */
     public function create()
     {
-        return view('admin.client_certificates.create', compact('clientCertificates'));
+        return view('admin.client_certificates.create');
     }
 
     /**
