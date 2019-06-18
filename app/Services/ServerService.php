@@ -179,7 +179,7 @@ class ServerService
 
         try {
             $command = $this->getCommand($server, 'send_command', ['command' => $command]);
-            $this->gdaemonCommands->exec($command, $exitCode);
+            $exitCode = $this->gdaemonCommands->exec($command, $exitCode);
         } catch (EmptyCommandException $e) {
             $this->registerDisk($server);
             
