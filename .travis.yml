@@ -21,7 +21,7 @@ before_script:
     - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - cp .env.travis .env
     - travis_retry composer update --no-interaction --prefer-stable --no-suggest
-    - ./artisan migrate
+    - ./artisan migrate --seed
 
 script:
   - vendor/bin/phpunit --verbose
