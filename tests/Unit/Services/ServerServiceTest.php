@@ -164,11 +164,33 @@ class ServerServiceTest extends TestCase
      */
     public function testSendConsoleCommand($serverService, $mock, $server)
     {
-        $mock->shouldReceive('exec')->andReturn("command result");
+        $mock->shouldReceive('exec')
+            ->andReturnUsing(function($command, &$exitCode) {
+                $exitCode = 0;
+                return "command result";
+        });
 
+        $exitCode = null;
         $result = $serverService->sendConsoleCommand($server, 'ban knik');
 
         $this->assertTrue($result);
+    }
+
+    /**
+     * @dataProvider adapterProviderGdaemon
+     */
+    public function testSendConsoleCommandFail($serverService, $mock, $server)
+    {
+        $mock->shouldReceive('exec')
+            ->andReturnUsing(function($command, &$exitCode) {
+                $exitCode = 1;
+                return "command result";
+            });
+
+        $exitCode = null;
+        $result = $serverService->sendConsoleCommand($server, 'ban knik');
+
+        $this->assertFalse($result);
     }
 
     /**
