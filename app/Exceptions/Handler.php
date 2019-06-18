@@ -42,10 +42,11 @@ class Handler extends ExceptionHandler
 
     /**
      * Render an exception into an HTTP response.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param Exception                $exception
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
@@ -64,7 +65,13 @@ class Handler extends ExceptionHandler
         
         return parent::render($request, $exception);
     }
-    
+
+    /**
+     * @param           $request
+     * @param Exception $exception
+     *
+     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function renderJson($request, Exception $exception)
     {
         if ($exception instanceof \Gameap\Exceptions\Repositories\RecordExistExceptions) {
