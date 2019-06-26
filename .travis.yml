@@ -9,7 +9,8 @@ cache:
 php:
   - 7.2
   - 7.3
-  - 7.4
+  - 7.4snapshot
+  - nightly
 
 services:
   - mysql
@@ -33,4 +34,5 @@ after_script:
 matrix:
   fast_finish: true
   allow_failures:
-    - php: 7.4
+    - php: 7.4snapshot
+    - php: nightly
