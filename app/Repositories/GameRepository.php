@@ -19,6 +19,6 @@ class GameRepository
      */
     public function getAll($perPage = 20)
     {
-        return Game::orderBy('code')->paginate($perPage);
+        return Game::orderBy('name')->paginate($perPage);
     }
 }
