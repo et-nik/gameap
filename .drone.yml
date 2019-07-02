@@ -1,0 +1,41 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: composer
+    image: knik/php:7.2-fpm-stretch
+    commands:
+      - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      - composer install --no-dev --optimize-autoloader
+
+  - name: npm
+    image: node
+    commands:
+      - npm install
+      - npm run prod
+
+  - name: archive
+    image: debian:stretch
+    commands:
+      - apt update && apt -y install rsync
+      - mkdir gameap
+      - rsync -r --exclude=gameap --exclude=node_modules ./ gameap/
+      - mkdir "publish"
+      - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
+
+  - name: publish
+    image: cschlosser/drone-ftps
+    environment:
+      FTP_USERNAME:
+        from_secret: ftp_username
+      FTP_PASSWORD:
+        from_secret: ftp_password
+    settings:
+      hostname: packages.gameap.ru:21
+      secrets: [ ftp_username, ftp_password ]
+      secure: false
+      src_dir: /publish
+      dest_dir: /gameap
+      chmod: false
+      include:
+        - ^.*tar\.gz$
