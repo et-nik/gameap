@@ -102,6 +102,23 @@ class GamesController extends AuthController
     }
 
     /**
+     * Upgrade games and game mods from GameAP Repository
+     *
+     */
+    public function upgrade()
+    {
+        $result = $this->repository->upgradeFromRepo();
+
+        if ($result) {
+            return redirect()->route('admin.games.index')
+                ->with('success', __('games.upgrade_success_msg'));
+        } else {
+            return redirect()->route('admin.games.index')
+                ->with('error', __('games.upgrade_fail_msg'));
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \Gameap\Models\Game  $game

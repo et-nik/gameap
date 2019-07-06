@@ -67,5 +67,6 @@
         </div>
 
         {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
+
     {!! Form::close() !!}
 @endsection

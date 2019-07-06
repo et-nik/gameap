@@ -5,6 +5,8 @@ namespace Gameap\Http\Controllers;
 use Illuminate\Http\Request;
 use \Illuminate\Http\Response;
 use Gameap\Services\InfoService;
+use Gameap\Services\GlobalApi;
+use Gameap\Http\Requests\SendBugRequest;
 use Cache;
 
 class HomeController extends Controller
@@ -52,6 +54,24 @@ class HomeController extends Controller
     {
         $extensions = get_loaded_extensions();
         return view('report_bug', compact('extensions'));
+    }
+
+    /**
+     * Send bug
+     * 
+     * @param SendBugRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Gameap\Exceptions\Services\GlobalApiException
+     */
+    public function sendBug(SendBugRequest $request)
+    {
+        GlobalApi::sendBug(
+            $request->input('summary'),
+            $request->input('description')
+        );
+
+        return redirect()->route('report_bug')
+            ->with('success', __('home.send_bug_success_msg'));
     }
 
     /**

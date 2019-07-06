@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('client_certificates','Admin\\ClientCertificatesController', ['as' => 'admin', 'except' => ['edit']]);
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
+    Route::name('admin.games.upgrade')->patch('games/upgrade', 'Admin\\GamesController@upgrade', ['as' => 'admin']);
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);
     Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
     Route::resource('game_mods','Admin\\GameModsController', ['as' => 'admin']);
@@ -68,6 +69,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/help', 'HomeController@help')->name('help');
 Route::get('/report_bug', 'HomeController@reportBug')->name('report_bug');
+Route::post('/report_bug', 'HomeController@sendBug')->name('send_bug');
 Route::get('/update', 'HomeController@update')->name('update');
 
 Route::get('/modules', 'ModulesController@index', ['middleware' => 'isAdmin'])->name('modules');
