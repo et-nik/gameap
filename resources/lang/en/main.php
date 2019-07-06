@@ -13,9 +13,12 @@ return [
     'change'    => 'Change',
     'close'     => 'Close',
     'send'      => 'Send',
-    
+
     'confirm_message' => 'Are you sure?',
     'wait'      => 'Please wait...',
-    
+
+    'yes'       => 'Yes',
+    'no'        => 'No',
+
     'autoscroll' => 'Autoscroll',
 ];
