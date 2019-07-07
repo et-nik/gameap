@@ -50,7 +50,7 @@ class GlobalApi
      */
     public static function sendBug($summary, $description, $environment = '')
     {
-        $version = Config::get('constants.AP_VERSION');
+        $version = Config::get('constants.AP_VERSION') . ' [' . Config::get('constants.AP_DATE') . ']';
 
         $environment .= 'PHP version: ' . phpversion() . "\n";
         $environment .= php_uname() . "\n";
