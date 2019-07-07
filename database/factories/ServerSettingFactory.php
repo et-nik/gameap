@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 
 $factory->define(ServerSetting::class, function (Faker $faker) {
     return [
-        'name' => $faker->slug(2),
+        'name' => $faker->slug(1),
         'server_id' => Server::all()->random()->id,
         'value' => $faker->sha256,
     ];
