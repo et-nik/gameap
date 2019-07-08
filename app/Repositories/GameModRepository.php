@@ -26,6 +26,7 @@ class GameModRepository
     {
         return $this->model->select('id', 'name')
             ->where('game_code', '=', $gameCode)
+            ->orderBy('name')
             ->get();
     }
 }
