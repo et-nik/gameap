@@ -19,7 +19,7 @@ steps:
     commands:
       - apt update && apt -y install rsync
       - mkdir gameap
-      - rsync -r --exclude=gameap --exclude=node_modules ./ gameap/
+      - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
       - mkdir "publish"
       - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
 
