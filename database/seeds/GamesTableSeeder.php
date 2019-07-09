@@ -192,6 +192,7 @@ class GamesTableSeeder extends Seeder
             'name' => 'Minecraft',
             'engine' => 'Minecraft',
             'engine_version' => '1',
+            'remote_repository' => 'http://files.gameap.ru/minecraft/minecraft_install.tar.gz',
         ]);
 
         DB::table('games')->insert([
