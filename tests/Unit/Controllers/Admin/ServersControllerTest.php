@@ -90,5 +90,6 @@ class ServersControllerTest extends TestCase
     {
         $server = Server::first();
         $response = $this->controller->destroy($server);
+        $this->assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
     }
 }
