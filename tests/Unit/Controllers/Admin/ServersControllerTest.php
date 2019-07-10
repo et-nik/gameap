@@ -89,7 +89,6 @@ class ServersControllerTest extends TestCase
     public function testDestroy()
     {
         $server = Server::first();
-
-        $response = $this->controller->upgrade($server);
+        $response = $this->controller->destroy($server);
     }
 }
