@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Admin;
 
-use Gameap\Http\Requests\Admin\ServerUpdateRequest;
 use Gameap\Models\Server;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Gameap\Http\Controllers\Admin\ServersController;
+use Gameap\Http\Requests\Admin\ServerUpdateRequest;
 use Gameap\Http\Requests\Admin\ServerCreateRequest;
 use Illuminate\Container\Container;
 
@@ -55,10 +55,7 @@ class ServersControllerTest extends TestCase
 
     public function testStore()
     {
-        $this->container = Container::getInstance();
-        $this->controller = $this->container->make(ServersController::class);
-
-        $request = ServerCreateRequest::create('/admin/server', ServerCreateRequest::METHOD_POST, [
+        $request = ServerCreateRequest::create('/admin/servers', ServerCreateRequest::METHOD_POST, [
             'enabled' => 1,
             'blocked' => 0,
             'installed' => 1,
@@ -78,9 +75,9 @@ class ServersControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $server = Server::get()->first();
+        $server = Server::first();
 
-        $request = ServerUpdateRequest::create('/admin/server/', ServerCreateRequest::METHOD_PATCH, [
+        $request = ServerUpdateRequest::create('/admin/servers/', ServerCreateRequest::METHOD_PATCH, [
             'name' => 'Edited Server',
             'dir' => 'Dir',
         ]);
@@ -91,9 +88,8 @@ class ServersControllerTest extends TestCase
 
     public function testDestroy()
     {
-        $server = Server::get()->first();
+        $server = Server::first();
 
-        $response = $this->controller->destroy($server);
-        $this->assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
+        $response = $this->controller->upgrade($server);
     }
 }

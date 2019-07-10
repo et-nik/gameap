@@ -53,7 +53,7 @@ class GamesController extends AuthController
     /**
      * Store a newly created game in storage.
      *
-     * @param  \Gameap\Http\Requests\GameRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\GameRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(GameRequest $request)
@@ -89,7 +89,7 @@ class GamesController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\GameRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\GameRequest  $request
      * @param  \Gameap\Models\Game  $game
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -104,6 +104,7 @@ class GamesController extends AuthController
     /**
      * Upgrade games and game mods from GameAP Repository
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function upgrade()
     {

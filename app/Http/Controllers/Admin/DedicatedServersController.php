@@ -65,7 +65,7 @@ class DedicatedServersController extends AuthController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Gameap\Http\Requests\DedicatedServerRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\DedicatedServerRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(DedicatedServerRequest $request)
@@ -110,7 +110,7 @@ class DedicatedServersController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\DedicatedServerRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\DedicatedServerRequest  $request
      * @param  \Gameap\Models\DedicatedServer  $dedicatedServer
      * @return \Illuminate\Http\RedirectResponse
      */
