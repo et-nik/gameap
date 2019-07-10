@@ -20,5 +20,7 @@ return [
     'yes'       => 'Yes',
     'no'        => 'No',
 
+    'more'      => 'More',
+
     'autoscroll' => 'Autoscroll',
 ];

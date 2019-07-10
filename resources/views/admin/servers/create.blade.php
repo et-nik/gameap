@@ -38,26 +38,39 @@
                             </template>
                         </div>
 
-                        <div class="form-group{{ $errors->has('rcon') ? ' has-error' : '' }}">
-                            {{ Form::label('rcon', null, ['class' => 'control-label']) }}
+                        <div class="form-check mt-4 mb-4">
+                            {{ Form::checkbox('install', true, true, ['id' => 'install', 'class' => 'form-check-input']) }}
+                            {{ Form::label('install', __('servers.install'), ['class' => 'form-check-label']) }}
+                        </div>
 
-                            <div class="input-group">
-                                {{ Form::input('password', 'rcon', null,
-                                    ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
+                        <div class="col-md-4 offset-4">
+                            <a class="btn btn-primary btn-sm btn-hide" data-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
+                                <i class="far fa-caret-square-down"></i> {{ __('main.more') }}
+                            </a>
+                        </div>
 
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
+                        <div class="collapse" id="additionalParameters">
+                            <div class="form-group{{ $errors->has('rcon') ? ' has-error' : '' }}">
+                                {{ Form::label('rcon', null, ['class' => 'control-label']) }}
+
+                                <div class="input-group">
+                                    {{ Form::input('password', 'rcon', null,
+                                        ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
+
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
+                                    </div>
                                 </div>
                             </div>
 
+                            {{ Form::bsInput('text', [
+                                'name' => 'dir',
+                                'description' => __('servers.d_dir')
+                            ]) }}
+
+                            {{ Form::bsText('su_user', 'gameap') }}
                         </div>
 
-                        {{ Form::bsInput('text', [
-                            'name' => 'dir',
-                            'description' => __('servers.d_dir')
-                        ]) }}
-
-                        {{ Form::bsText('su_user', 'gameap') }}
                     </div>
                 </div>
             </div>
@@ -93,22 +106,6 @@
 
         <div class="row mt-2">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        &nbsp;
-                    </div>
-                    <div class="card-body">
-                        <div class="form-check">
-                            {{ Form::checkbox('install', true, true, ['id' => 'install', 'class' => 'form-check-input']) }}
-                            {{ Form::label('install', __('servers.install'), ['class' => 'form-check-label']) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-2">
-            <div class="col-12">
                 <div class="form-group">
                     {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>
@@ -119,5 +116,9 @@
 @endsection
 
 @section('footer-scripts')
+    <style>
+        .btn-hide[aria-expanded="true"] {display: none;}
+    </style>
+
     <script src="{{ URL::asset('/js/formHelpers.js') }}"></script>
 @endsection

@@ -31,7 +31,7 @@
         
         <div class="row">
             <div class="col-12">
-                <div class="col-2">
+                <div class="col-12">
                     <a class="btn btn-primary" data-toggle="collapse" href="#changePassword" role="button" aria-expanded="false" aria-controls="changePassword">
                         {{ __('profile.change_password') }}
                     </a>
