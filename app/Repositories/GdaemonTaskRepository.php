@@ -109,8 +109,8 @@ class GdaemonTaskRepository
     /**
      * @param Server $server
      * @param int    $runAftId
-     *
      * @return int Gdaemon Task ID
+     * @throws RecordExistExceptions
      */
     public function addServerDelete(Server $server, int $runAftId = 0)
     {

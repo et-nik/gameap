@@ -20,7 +20,54 @@
         // 'viewRoute' => 'admin.servers.show',
         'editRoute' => 'admin.servers.edit',
         'destroyRoute' => 'admin.servers.destroy',
+        'destroyConfirmAction' => '',
     ])
 
     {!! $servers->links() !!}
+@endsection
+
+@section('footer-scripts')
+    <script>
+        var confirmed = false;
+
+        $(document).on("click", ".btn-delete", function(e) {
+            if (!confirmed) {
+                e.preventDefault();
+                bootbox.prompt({
+                    title: '{{ __('servers.delete_confirm_msg') }}',
+                    value: ['delete_files'],
+                    buttons: {
+                        confirm: {
+                            label: '{{ __('main.yes') }}',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: '{{ __('main.no') }}',
+                            className: 'btn-danger'
+                        }
+                    },
+                    inputType: 'checkbox',
+                    inputOptions: [{
+                        text: '{{ __('servers.delete_files') }}',
+                        value: 'delete_files'
+                    }],
+                    callback: function (result) {
+                        if (result) {
+                            if ($.inArray('delete_files', result) !== -1) {
+                                $('<input>').attr('type', 'hidden')
+                                    .attr('value','delete_files')
+                                    .attr('name','delete_files')
+                                    .appendTo($(e.target).parent());
+                            }
+
+                            confirmed = true;
+                            $(e.target).trigger(e.type);
+                        }
+                    }
+                });
+            }
+
+            confirmed = false;
+        });
+    </script>
 @endsection

@@ -95,4 +95,8 @@ return [
     'd_dir' => 'Leave blank to set automatically. 
         Path relative to the working directory of the dedicated server. 
         <br> Example: <strong>servers/my_server</strong>',
+
+    'delete_confirm_msg' => 'Are you sure to delete game server?',
+
+    'delete_files' => 'Delete files',
 ];

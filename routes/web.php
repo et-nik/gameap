@@ -24,10 +24,15 @@ Route::get('servers/{server}/filemanager', 'ServersController@filemanager')->nam
 Route::get('servers/{server}/settings', 'ServersController@settings')->name('servers.settings');
 Route::patch('servers/{server}/settings', 'ServersController@updateSettings')->name('servers.updateSettings');
 
+Route::bind('anyserver', function ($id) {
+    return \Gameap\Models\Server::withTrashed()->where('id', $id)->first();
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('client_certificates','Admin\\ClientCertificatesController', ['as' => 'admin', 'except' => ['edit']]);
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
+
     Route::name('admin.games.upgrade')->patch('games/upgrade', 'Admin\\GamesController@upgrade', ['as' => 'admin']);
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);
     Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
@@ -86,8 +91,8 @@ Route::group(['prefix' => 'gdaemon_api'], function() {
     
     // Servers
     Route::name('gdaemon_api.servers')->get('servers', 'GdaemonAPI\ServersController@index');
-    Route::name('gdaemon_api.servers.server')->get('servers/{server}', 'GdaemonAPI\ServersController@server');
-    Route::name('gdaemon_api.servers.update')->put('servers/{server}', 'GdaemonAPI\ServersController@update');
+    Route::name('gdaemon_api.servers.server')->get('servers/{anyserver}', 'GdaemonAPI\ServersController@server');
+    Route::name('gdaemon_api.servers.update')->put('servers/{anyserver}', 'GdaemonAPI\ServersController@update');
     Route::name('gdaemon_api.servers.bulk_update')->patch('servers', 'GdaemonAPI\ServersController@updateBulk');
 
     // GDaemon tasks

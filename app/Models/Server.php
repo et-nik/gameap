@@ -3,6 +3,7 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 /**
@@ -51,6 +52,8 @@ use Carbon\Carbon;
  */
 class Server extends Model
 {
+    use SoftDeletes;
+
     const TIME_EXPIRE_PROCESS_CHECK = 120;
 
     // Installed statuses

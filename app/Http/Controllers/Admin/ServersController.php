@@ -2,13 +2,16 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
+use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\ServerCreateRequest;
+use Gameap\Http\Requests\Admin\ServerDestroyRequest;
 use Gameap\Http\Requests\Admin\ServerUpdateRequest;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\ServerRepository;
+use Gameap\Repositories\GdaemonTaskRepository;
 
 class ServersController extends AuthController
 {
@@ -20,14 +23,22 @@ class ServersController extends AuthController
     protected $repository;
 
     /**
+     * The GdaemonTaskRepository instance.
+     *
+     * @var GdaemonTaskRepository
+     */
+    public $gdaemonTaskRepository;
+
+    /**
      * Create a new ServersController instance.
      *
      * @param  \Gameap\Repositories\ServerRepository $repository
      */
-    public function __construct(ServerRepository $repository)
+    public function __construct(ServerRepository $repository, GdaemonTaskRepository $gdaemonTaskRepository)
     {
         parent::__construct();
         $this->repository = $repository;
+        $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
     /**
@@ -104,9 +115,20 @@ class ServersController extends AuthController
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Server $server)
+    public function destroy(ServerDestroyRequest $request, Server $server)
     {
-        $server->delete();
+        if ($request->input('delete_files')) {
+            try {
+                $this->gdaemonTaskRepository->addServerDelete($server);
+            } catch (RecordExistExceptions $e) {
+                // Nothing
+            }
+
+            $server->delete();
+        } else {
+            $server->forceDelete();
+        }
+
         return redirect()->route('admin.servers.index')
             ->with('success', __('servers.delete_success_msg'));
     }

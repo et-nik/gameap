@@ -138,7 +138,6 @@ class ServerServiceTest extends TestCase
         $mock->shouldReceive('exec')->andReturn("command result");
 
         $consoleLog = $serverService->getConsoleLog($server);
-
         $this->assertEquals('command result', $consoleLog);
     }
 
