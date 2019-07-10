@@ -7,7 +7,7 @@ use Gameap\Http\Requests\Request;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Http\Requests\DedicatedServerRequest;
+use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;

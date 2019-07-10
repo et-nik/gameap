@@ -1,6 +1,8 @@
 <?php
 
-namespace Gameap\Http\Requests;
+namespace Gameap\Http\Requests\Admin;
+
+use Gameap\Http\Requests\Request;
 
 class GameRequest extends Request
 {

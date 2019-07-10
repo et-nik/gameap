@@ -27,6 +27,16 @@ class GameRepository
     }
 
     /**
+     * @param string|array $with
+     * @param int $perPage
+     * @return mixed
+     */
+    public function allWith($with, $perPage = 20)
+    {
+        return Game::orderBy('name')->with($with)->paginate($perPage);
+    }
+
+    /**
      * Upgrade Games and Game Mods using GameAP API
      */
     public function upgradeFromRepo()

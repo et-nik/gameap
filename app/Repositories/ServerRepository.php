@@ -6,7 +6,6 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Gameap\Models\GameMod;
 use Illuminate\Support\Str;
-use Gameap\Http\Requests\ServerRequest;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,6 +58,10 @@ class ServerRepository
                 $dedicatedServer->isLinux()
                     ? $gameMod->default_start_cmd_linux
                     : $gameMod->default_start_cmd_windows;
+        }
+
+        if (empty($attributes['dir'])) {
+            $attributes['dir'] = 'servers/' . $attributes['uuid'];
         }
 
         // Fix path. Remove absolute dedicated server path

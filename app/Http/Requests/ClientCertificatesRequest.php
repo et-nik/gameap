@@ -2,8 +2,6 @@
 
 namespace Gameap\Http\Requests;
 
-use Gameap\Models\ClientCertificate;
-
 class ClientCertificatesRequest extends Request
 {
     public function rules()

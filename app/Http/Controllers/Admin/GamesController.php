@@ -5,7 +5,7 @@ namespace Gameap\Http\Controllers\Admin;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameRepository;
-use Gameap\Http\Requests\GameRequest;
+use Gameap\Http\Requests\Admin\GameRequest;
 
 class GamesController extends AuthController
 {
@@ -36,7 +36,7 @@ class GamesController extends AuthController
     public function index()
     {
         return view('admin.games.list',[
-            'games' => $this->repository->getAll()
+            'games' => $this->repository->allWith('mods')
         ]);
     }
 

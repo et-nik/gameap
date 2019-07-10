@@ -3,7 +3,8 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Http\Requests\ServerRequest;
+use Gameap\Http\Requests\Admin\ServerCreateRequest;
+use Gameap\Http\Requests\Admin\ServerUpdateRequest;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
 use Gameap\Models\DedicatedServer;
@@ -57,26 +58,15 @@ class ServersController extends AuthController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Gameap\Http\Requests\ServerRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\ServerCreateRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ServerRequest $request)
+    public function store(ServerCreateRequest $request)
     {
         $this->repository->store($request->all());
 
         return redirect()->route('admin.servers.index')
             ->with('success', __('servers.create_success_msg'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\View\View
-     */
-    public function show(Server $server)
-    {
-        return view('admin.servers.view', compact('server'));
     }
 
     /**
@@ -95,11 +85,11 @@ class ServersController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\ServerRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\ServerUpdateRequest  $request
      * @param  \Gameap\Models\Server  $server
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ServerRequest $request, Server $server)
+    public function update(ServerUpdateRequest $request, Server $server)
     {
         $this->repository->update($server, $request->all());
         
