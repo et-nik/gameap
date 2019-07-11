@@ -56,6 +56,21 @@ class GameModsTableSeeder extends Seeder
             ],
         ];
 
+        $defaultSourceVars = [
+            [
+                'var' => 'default_map',
+                'default' => 'crossfire',
+                'info' => 'Default Map',
+                'admin_var' => false,
+            ],
+            [
+                'var' => 'maxplayers',
+                'default' => 32,
+                'info' => 'Maximum players on server',
+                'admin_var' => false,
+            ],
+        ];
+
         /* Half-Life 1 */
         DB::table('game_mods')->insert([
             'game_code' => 'valve',
@@ -234,6 +249,26 @@ class GameModsTableSeeder extends Seeder
             'chname_cmd' => '',
             'ban_cmd' => '',
             'kick_cmd' => '',
+        ]);
+
+        /* Counter-Strike Global Offensive */
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'csgo',
+            'name' => 'Classic',
+            'fast_rcon' => '',
+            'vars' => json_encode($defaultSourceVars),
+            'default_start_cmd_linux' => './srcds_run -game csgo -console -usercon +game_type 0 +game_mode 0 +ip {ip} +port {port} +maxplayers {maxplayers} +mapgroup mg_active +map {default_map}',
+            'default_start_cmd_windows' => 'srcds.exe -game csgo -console -usercon +game_type 0 +game_mode 0 +ip {ip} +port {port} +maxplayers {maxplayers} +mapgroup mg_active +map {default_map}',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
         ]);
     }
 }
