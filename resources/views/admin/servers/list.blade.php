@@ -35,7 +35,7 @@
                 e.preventDefault();
                 bootbox.prompt({
                     title: '{{ __('servers.delete_confirm_msg') }}',
-                    value: ['delete_files'],
+                    value: [],
                     buttons: {
                         confirm: {
                             label: '{{ __('main.yes') }}',
