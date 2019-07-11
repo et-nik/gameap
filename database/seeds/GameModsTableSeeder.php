@@ -63,7 +63,7 @@ class GameModsTableSeeder extends Seeder
             'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
             'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
-            'remote_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/half-life/amxx.tar.xz',
             'default_start_cmd_linux' => './hlds_run -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'default_start_cmd_windows' => 'hlds.exe -console -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
@@ -93,6 +93,24 @@ class GameModsTableSeeder extends Seeder
             'kick_cmd' => 'kick #{id}',
         ]);
 
+        DB::table('game_mods')->insert([
+            'game_code' => 'valve',
+            'name' => 'ReHLDS',
+            'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
+            'local_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/half-life/rehlds-amxx-reunion.tar.xz',
+            'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
         /* Counter-Strike 1.6 */
 
         DB::table('game_mods')->insert([
@@ -101,7 +119,7 @@ class GameModsTableSeeder extends Seeder
             'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
             'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
-            'remote_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/cstrike-1.6/amxx.tar.xz',
             'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'default_start_cmd_windows' => 'hlds.exe -console -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
@@ -131,11 +149,29 @@ class GameModsTableSeeder extends Seeder
             'kick_cmd' => 'kick #{id}',
         ]);
 
+        DB::table('game_mods')->insert([
+            'game_code' => 'cstrike',
+            'name' => 'ReHLDS',
+            'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
+            'local_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/cstrike-1.6/rehlds-amxx-reunion.tar.xz',
+            'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
         /* Minecraft */
 
         DB::table('game_mods')->insert([
             'game_code' => 'minecraft',
-            'name' => 'Multimod',
+            'name' => 'Multicore',
             'fast_rcon' => '',
             'vars' => '[{"var":"version","default":"1.14.3","info":"Minecraft version"},{"var":"core_mod","default":"vanilla","info":"Core"},{"var":"core_mod_version","default":null,"info":"Core mod version"}]',
             'local_repository' => '',

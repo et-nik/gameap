@@ -4,6 +4,7 @@ namespace Tests\Unit\Admin;
 
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Requests\Admin\ServerDestroyRequest;
+use Gameap\Models\GameMod;
 use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
 use Gameap\Repositories\GdaemonTaskRepository;
@@ -60,14 +61,15 @@ class ServersControllerTest extends TestCase
 
     public function testStore()
     {
+        $gameMod = GameMod::where(['game_code' => 'minecraft'])->get()->random();
         $request = ServerCreateRequest::create('/admin/servers', ServerCreateRequest::METHOD_POST, [
             'enabled' => 1,
             'blocked' => 0,
             'installed' => 1,
             'name' => 'Test Server',
-            'game_id' => 'minecraft',
+            'game_id' => $gameMod->game_code,
             'ds_id' => 1,
-            'game_mod_id' => 8,
+            'game_mod_id' => $gameMod->id,
             'server_ip' => 'localhost',
             'server_port' => 27500,
             'query_port' => 27500,

@@ -15,7 +15,7 @@ use Gameap\Exceptions\Services\ServerInactiveException;
 class ServerService
 {
     const CONSOLE_MAX_SYMBOLS = 10000;
-    
+
     /**
      * @var GameQ
      */
