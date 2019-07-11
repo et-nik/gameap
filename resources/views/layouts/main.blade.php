@@ -29,10 +29,11 @@
         </div>
 
         <div class="row content-wrapper mt-5">
-            <div class="col-md-2 col-lg-2 left-menu">
+            <div class="d-none d-md-block col-md-2 col-lg-2 left-menu">
                 @include("components.sidebar")
             </div>
-            <div class="col-sm-12 col-md-10 col-lg-10 content">
+            
+            <div class="col-sm-12 col-md-10 col-lg-10 p-3 content">
 
                 @yield('breadclumbs')
 
@@ -50,6 +51,7 @@
     </div>
 </div>
 
+<script src="{{ URL::asset('/js/lang/' . app()->getLocale() . '.js') }}"></script>
 <script src="{{ URL::asset('/js/app.js') }}"></script>
 @yield('footer-scripts')
 </body>

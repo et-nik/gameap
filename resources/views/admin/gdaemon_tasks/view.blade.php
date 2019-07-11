@@ -1,12 +1,12 @@
-@php($title = "GDaemon task")
+@php($title = __('gdaemon_tasks.title_view'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
-        <li><a href="/">GameAP</a></li>
-        <li><a href="{{ route('admin.gdaemon_tasks.index') }}">GDaemon tasks</a></li>
-        <li>Task</li>
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.gdaemon_tasks.index') }}">{{ __('gdaemon_tasks.gdaemon_tasks') }}</a></li>
+        <li class="breadcrumb-item">{{ __('gdaemon_tasks.task') }}</li>
     </ol>
 @endsection
 
@@ -16,11 +16,11 @@
             <table class="table table-striped table-bordered detail-view">
                 <tbody>
                     <tr>
-                        <th>Task</th>
+                        <th>{{ __('gdaemon_tasks.task') }}</th>
                         <td>{!! $gdaemonTask->task !!}</td>
                     </tr>
                     <tr>
-                        <th>Status</th>
+                        <th>{{ __('gdaemon_tasks.status') }}</th>
                         <td>
                             @if ($gdaemonTask->status == 'success')
                                 <span class="label label-success">{{ $gdaemonTask->status }}</span>
@@ -34,11 +34,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Created</th>
+                        <th>{{ __('gdaemon_tasks.created') }}</th>
                         <td>{!! $gdaemonTask->created_at !!}</td>
                     </tr>
                     <tr>
-                        <th>Updated</th>
+                        <th>{{ __('gdaemon_tasks.updated') }}</th>
                         <td>{!! $gdaemonTask->updated_at !!}</td>
                     </tr>
                 </tbody>

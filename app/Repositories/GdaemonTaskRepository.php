@@ -6,6 +6,8 @@ use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\DedicatedServer;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
+use Illuminate\Support\Facades\DB;
+use PDO;
 
 /**
  * Class GdaemonTaskRepository
@@ -39,7 +41,7 @@ class GdaemonTaskRepository
      */
     public function addServerStart(Server $server, int $runAftId = 0)
     {
-        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_START, 'Server start task is already exists');
+        $this->workingTaskNotExistOrFail($server->id, GdaemonTask::TASK_SERVER_START, 'Server start task is already exists');
         
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
@@ -58,7 +60,7 @@ class GdaemonTaskRepository
      */
     public function addServerStop(Server $server, int $runAftId = 0)
     {
-        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_STOP, 'Server stop task is already exists');
+        $this->workingTaskNotExistOrFail($server->id, GdaemonTask::TASK_SERVER_STOP, 'Server stop task is already exists');
 
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
@@ -76,7 +78,7 @@ class GdaemonTaskRepository
      */
     public function addServerRestart(Server $server, int $runAftId = 0)
     {
-        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_RESTART, 'Server restart task is already exists');
+        $this->workingTaskNotExistOrFail($server->id, GdaemonTask::TASK_SERVER_RESTART, 'Server restart task is already exists');
         
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
@@ -94,7 +96,7 @@ class GdaemonTaskRepository
      */
     public function addServerUpdate(Server $server, int $runAftId = 0)
     {
-        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_UPDATE, 'Server update/install task is already exists');
+        $this->workingTaskNotExistOrFail($server->id, GdaemonTask::TASK_SERVER_UPDATE, 'Server update/install task is already exists');
         
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
@@ -107,12 +109,12 @@ class GdaemonTaskRepository
     /**
      * @param Server $server
      * @param int    $runAftId
-     *
      * @return int Gdaemon Task ID
+     * @throws RecordExistExceptions
      */
     public function addServerDelete(Server $server, int $runAftId = 0)
     {
-        $this->workingTaskNotExistOrFail(GdaemonTask::TASK_SERVER_DELETE, 'Server delete task is already exists');
+        $this->workingTaskNotExistOrFail($server->id, GdaemonTask::TASK_SERVER_DELETE, 'Server delete task is already exists');
         
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
@@ -123,18 +125,38 @@ class GdaemonTaskRepository
     }
 
     /**
+     * @param GdaemonTask $gdaemonTask
+     * @param string $output
+     */
+    public function concatOutput(GdaemonTask $gdaemonTask, string $output)
+    {
+        $qoutedOutput = DB::connection()->getPdo()->quote($output);
+
+        $dbDriver = DB::connection()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
+
+        if ($dbDriver == 'mysql') {
+            $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), {$qoutedOutput})")]);
+        } else if ($dbDriver == 'sqlite' || $dbDriver == 'pgsql') {
+            $gdaemonTask->update(['output' => DB::raw("COALESCE(output, '') || {$qoutedOutput}")]);
+        } else {
+            $gdaemonTask->update(['output' => $gdaemonTask->output . $output]);
+        }
+    }
+
+    /**
      * @param string|array $task task name
      * @param string $failMsg Failure message
      *
      * @throws RecordExistExceptions
      */
-    private function workingTaskNotExistOrFail($task, $failMsg = 'Task is already exists')
+    private function workingTaskNotExistOrFail($serverId, $task, $failMsg = 'Task is already exists')
     {
         if (is_array($task)) {
-            $taskQuery = GdaemonTask::whereIn(['task', $task]);
+            $taskQuery = GdaemonTask::whereIn(['task', $task])->where([['server_id', '=', $serverId]]);
         } else {
             $taskQuery = GdaemonTask::where([
                 ['task', '=', $task],
+                ['server_id', '=', $serverId]
             ]);
         }
 

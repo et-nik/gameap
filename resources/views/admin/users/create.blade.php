@@ -1,12 +1,12 @@
-@php($title = "Create User")
+@php($title = __('users.title_create'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
-        <li class="breadcrumb-item active">Create</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('users.users') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('users.create') }}</li>
     </ol>
 @endsection
 
@@ -22,14 +22,14 @@
         {{ Form::bsText('name') }}
 
         <div class='form-group'>
-            {{ Form::label('roles', 'Roles', ['class' => 'control-label']) }}
+            {{ Form::label('roles', __('users.roles'), ['class' => 'control-label']) }}
             {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
         </div>
     </div>
 
     <div class="col-md-12">
         <div class="form-group">
-            {{ Form::submit('Create', ['class' => 'btn btn-success']) }}
+            {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
         </div>
     </div>
 

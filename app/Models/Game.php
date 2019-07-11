@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Game extends Model
 {
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -51,6 +54,8 @@ class Game extends Model
     protected $fillable = [
         'code', 'start_code', 'name', 
         'engine', 'engine_version',
+        'steam_app_id', 'steam_app_set_config',
+        'local_repository', 'remote_repository'
     ];
 
     /**
@@ -60,9 +65,14 @@ class Game extends Model
      */
     public function servers()
     {
-        return $this->hasMany(Server::class);
+        return $this->hasMany(Server::class, 'game_id');
     }
 
+    /**
+     * One to many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function mods()
     {
         return $this->hasMany(GameMod::class);

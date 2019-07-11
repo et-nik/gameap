@@ -8,11 +8,11 @@
                 <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                     {{ csrf_field() }}
 
-                    <div class="card-header">Register</div>
+                    <div class="card-header">{{ __('auth.sign_up') }}</div>
 
                     <div class="card-body">
                         <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
-                            <label for="login" class="col-md-12">Login</label>
+                            <label for="login" class="col-md-12">{{ __('auth.login') }}</label>
 
                             <div class="col-md-12">
                                 <input id="login" type="text" class="form-control" name="login" value="{{ old('login') }}" required autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-12">E-Mail Address</label>
+                            <label for="email" class="col-md-12">{{ __('auth.email') }}</label>
 
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-12">Password</label>
+                            <label for="password" class="col-md-12">{{ __('auth.password') }}</label>
 
                             <div class="col-md-12">
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -54,18 +54,24 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-12">Confirm Password</label>
+                            <label for="password-confirm" class="col-md-12">{{ __('auth.confirm_password') }}</label>
 
                             <div class="col-md-12">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+
+                        @if(env('GOOGLE_RECAPTCHA_KEY'))
+                            <div class="g-recaptcha"
+                                 data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}">
+                            </div>
+                        @endif
                     </div>
 
                     <div class="card-footer">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-default">Register</button>
+                                <button type="submit" class="btn btn-light">{{ __('auth.sign_up') }}</button>
                             </div>
                         </div>
                     </div>
@@ -74,4 +80,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer-scripts')
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection

@@ -22,6 +22,7 @@ class GdaemonTasksController extends AuthController
      */
     public function __construct(GdaemonTaskRepository $repository)
     {
+        parent::__construct();
 
         $this->repository = $repository;
     }
@@ -29,7 +30,7 @@ class GdaemonTasksController extends AuthController
     /**
      * Display a listing of the games.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -42,7 +43,7 @@ class GdaemonTasksController extends AuthController
      * Display the specified resource.
      *
      * @param  \Gameap\Models\GdaemonTask  $gdaemonTask
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(GdaemonTask $gdaemonTask)
     {

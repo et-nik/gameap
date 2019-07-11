@@ -2,7 +2,7 @@
 namespace Gameap\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpKernel\Exception\HttpException;;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 use Gameap\Models\DedicatedServer;

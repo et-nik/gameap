@@ -1,5 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/et-nik/gameap/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/et-nik/gameap/?branch=develop)
-![Version](https://img.shields.io/badge/version-alpha-red.svg)
+[![Code Coverage](https://scrutinizer-ci.com/g/et-nik/gameap/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/et-nik/gameap/?branch=develop)
+[![Build Status](https://travis-ci.com/et-nik/gameap.svg?branch=develop)](https://travis-ci.com/et-nik/gameap)
+![Version](https://img.shields.io/badge/version-beta-blue.svg)
 
 * [Documentation](http://docs.gameap.ru/)
 * [GameAP 1/2 repo](https://github.com/et-nik/gameap-legacy)
@@ -13,10 +15,13 @@ Server Requirements
 
 Web
 ------
-* PHP version 7.1 or newer.
+* PHP version 7.2 or newer.
 * GD PHP
 * OpenSSL PHP
 * CURL PHP
+* Intl PHP
+* GMP PHP
+
 
 Dedicated Server (Linux)
 ------
@@ -77,7 +82,5 @@ Friends with
 TODO
 ------
 
-- [ ] Multilang. Russian language
-- [ ] Checking OS and autoinstall server part (GameAP Daemon)
 - [ ] Sheldules
 - [ ] Autoconverting from old GameAP versions

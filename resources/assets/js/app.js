@@ -13,33 +13,62 @@ import FileManager from 'gameap-file-manager'
 
 Vue.use(Vuex);
 const store = new Vuex.Store();
-Vue.use(FileManager, {store});
+Vue.use(FileManager, {store, lang: document.documentElement.lang});
+
+import vSelect from 'vue-select';
+
+import Progressbar from './components/Progressbar.vue';
+import InputTextList from './components/InputTextList.vue';
+import InputManyList from './components/InputManyList.vue';
+import ServerStatus from './components/ServerStatus.vue';
+import ServerConsole from './components/ServerConsole.vue';
+
+import UserServerPrivileges from './components/servers/UserServerPrivileges.vue';
 
 var vm = new Vue({
     el: "#app",
     data: {
         actionConfirmed: false
     },
-    components: {'progressbar': require('./components/progressbar.vue'), 'input-text-list': require('./components/input-text-list.vue')},
+    components: {
+        'v-select': vSelect,
+        'progressbar': Progressbar,
+        'input-text-list': InputTextList,
+        'input-many-list': InputManyList,
+        'server-status': ServerStatus,
+        'server-console': ServerConsole,
+
+        'user-server-privileges': UserServerPrivileges,
+    },
     methods: {
-        alert: function(message) {
-            bootbox.alert(message);
-        },
-        confirm: function(message, callback) {
-            bootbox.confirm(message, function(result) {
-                if (result) {
+        alert: function(message, callback) {
+            bootbox.alert(message, function() {
+                if (typeof callback === "function") {
                     callback();
                 }
             });
         },
+        confirm: function(message, callback) {
+            bootbox.confirm({
+                message: message,
+                buttons: {
+                    confirm: {
+                        label: this.trans('main.yes'),
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: this.trans('main.no'),
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function(result) {
+                    if (result) {
+                        callback();
+                    }
+                }
+            });
+        },
         confirmAction: function (e, message) {
-            /*
-            // Default
-            if (!confirm(message)) {
-                event.preventDefault();
-            }
-            */
-
             if (!this.actionConfirmed) {
                 e.preventDefault();
 

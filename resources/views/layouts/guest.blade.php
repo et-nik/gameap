@@ -74,6 +74,8 @@
     </div>
 
     <!-- Scripts -->
+    <script src="{{ URL::asset('/js/lang/' . app()->getLocale() . '.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('footer-scripts')
 </body>
 </html>

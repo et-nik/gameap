@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'main'              => 'Главная',
+    'logs'              => 'Логи',
+    'files'             => 'Файлы',
+    'profile'           => 'Профиль',
+    'admin'             => 'Администрирование',
+    'servers'           => 'Серверы',
+    'dedicated_servers' => 'Выделенные серверы',
+    'game_servers'      => 'Игровые серверы',
+    'games'             => 'Игры',
+    'game_mods'         => 'Моды',
+    'gdaemon_tasks'     => 'GDaemon задания',
+    'users'             => 'Пользователи',
+    'add_user'          => 'Добавить пользователя',
+    'modules'           => 'Модули',
+    'control_modules'   => '- Управление модулями -',
+    'gameap'            => 'GameAP',
+    'documentation'     => 'Документация',
+    'update'            => 'Проверить обновления',
+    'error_report'      => 'Сообщить о баге',
+    'help'              => 'Помощь',
+    'donate'            => 'Помочь проекту',
+    'sign_out'          => 'Выйти',
+    'panel_logs'        => 'Логи GameAP',
+];

@@ -2,18 +2,21 @@ if( document.getElementById("serverControl") ) {
     Vue.mixin({
         data: function () {
             return {
-                serverId: 0,
+                // serverId: 0,
                 watchTaskId: 0,
                 watchTaskData: {},
                 watchTaskProgress: null,
-                callbackTaskComplete: null,
+                callbackTaskComplete: function() {
+                    gameap.closeProgressModal();
+                    gameap.alert(i18n.servers.task_success_msg);
+                },
                 progressModal: null
             };
         },
         methods: {
             serverCommand: function(command, serverId) {
                 if ($.inArray(command, ['start', 'stop', 'restart', 'update']) != -1) {
-                    gameap.confirm('Are you sure?', function() {
+                    gameap.confirm(i18n.main.confirm_message, function() {
                         axios.post('/api/servers/' + command + '/' + gameap.serverId)
                             .then(function (response) {
                                 gameap.watchTaskId = response.data.gdaemonTaskId;
@@ -21,11 +24,11 @@ if( document.getElementById("serverControl") ) {
                                 gameap.watchTask();
                             }).catch(function (error) {
                                 console.log(error);
-                                gameap.alert(error.response.data.message);
+                                gameap.alert(error.response.data.message, function() { location.reload()});
                             });
                     });
                 } else {
-                    gameap.alert('Unknown server command: ' + command);
+                    gameap.alert(i18n.servers.unknown_command_msg + ': ' + command);
                 }
             },
             startServer: function(serverId) {
@@ -36,9 +39,9 @@ if( document.getElementById("serverControl") ) {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
                         if (serverStatus == true) {
-                            gameap.alert('Server started');
+                            gameap.alert(i18n.servers.start_success_msg, function() { location.reload()});
                         } else {
-                            gameap.alert('Server not started');
+                            gameap.alert(i18n.servers.start_fail_msg);
                         }
                     });
                 };
@@ -51,9 +54,9 @@ if( document.getElementById("serverControl") ) {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
                         if (serverStatus == false) {
-                            gameap.alert('Server stopped');
+                            gameap.alert(i18n.servers.stop_success_msg, function() { location.reload()});
                         } else {
-                            gameap.alert('Server not stopped');
+                            gameap.alert(i18n.servers.stop_fail_msg);
                         }
                     });
                 };
@@ -66,9 +69,9 @@ if( document.getElementById("serverControl") ) {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
                         if (serverStatus == true) {
-                            gameap.alert('Server restarted');
+                            gameap.alert(i18n.servers.restart_success_msg, function() { location.reload()});
                         } else {
-                            gameap.alert('Server not restarted');
+                            gameap.alert(i18n.servers.restart_success_msg);
                         }
                     });
                 };
@@ -79,7 +82,7 @@ if( document.getElementById("serverControl") ) {
             },
             openProgressModal: function() {
                 this.progressModal = bootbox.dialog({
-                    message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i> Please wait while we do something...</p><div id="progressbar"></div>',
+                    message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i> ' + i18n.main.wait + '</p><div id="progressbar"></div>',
                     callback: function(result) {
                         gameap.watchTaskId = 0;
                     }

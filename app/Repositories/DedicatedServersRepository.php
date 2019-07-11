@@ -3,15 +3,31 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
+use Gameap\Models\ClientCertificate;
 use Gameap\Http\Requests\DedicatedServerRequest;
+use Gameap\Repositories\ClientCertificateRepository;
+use Gameap\Services\CertificateService;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DedicatedServersRepository
 {
+    /**
+     * @var DedicatedServer
+     */
     protected $model;
 
-    public function __construct(DedicatedServer $dedicatedServer)
-    {
+    /**
+     * @var \Gameap\Repositories\ClientCertificateRepository
+     */
+    protected $clientCertificateRepository;
+
+    public function __construct(
+        DedicatedServer $dedicatedServer,
+        ClientCertificateRepository $clientCertificateRepository
+    ) {
         $this->model = $dedicatedServer;
+        $this->clientCertificateRepository = $clientCertificateRepository;
     }
 
     public function getAll($perPage = 20)
@@ -33,6 +49,7 @@ class DedicatedServersRepository
 
     /**
      * @param array $attributes
+     * @return DedicatedServer
      */
     public function store(array $attributes)
     {
@@ -40,7 +57,42 @@ class DedicatedServersRepository
             return !empty($value);
         });
 
-        DedicatedServer::create($attributes);
+        if (empty($attributes['client_certificate_id'])) {
+            $clientCertificate = $this->clientCertificateRepository->getFirstOrGenerate();
+            $attributes['client_certificate_id'] = $clientCertificate->id;
+        }
+
+        $attributes['gdaemon_api_key'] = Str::random(64);
+
+        $attributes['enabled'] = $attributes['enabled'] ?? 1;
+        $attributes['os'] = $attributes['os'] ?? 'linux';
+
+        return DedicatedServer::create($attributes);
+    }
+
+    /**
+     * @param DedicatedServer $dedicatedServer
+     * @throws \Exception
+     */
+    public function destroy(DedicatedServer $dedicatedServer)
+    {
+        if ($dedicatedServer->gdaemon_server_cert != CertificateService::ROOT_CA_CERT &&
+            Storage::disk('local')->exists($dedicatedServer->gdaemon_server_cert)
+        ) {
+            // TODO: Not working =(
+            // Storage::disk('local')->delete($dedicatedServer->gdaemon_server_cert);
+
+            $certificateFile = Storage::disk('local')
+                ->getDriver()
+                ->getAdapter()
+                ->applyPathPrefix($dedicatedServer->gdaemon_server_cert);
+
+            if (file_exists($certificateFile)) {
+                unlink($certificateFile);
+            }
+        }
+
+        $dedicatedServer->delete();
     }
 
     /**

@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LANG', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -124,6 +124,14 @@ return [
     'log' => env('APP_LOG', 'single'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | GameAP API
+    |--------------------------------------------------------------------------
+    |
+    */
+    'global_api' => 'https://api.gameap.ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -183,16 +191,13 @@ return [
          * Generators
          */
         Collective\Html\HtmlServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
-        Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        \InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
-        \InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
-        \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
 
         /*
          * Storages
          */
         Gameap\Providers\GdaemonFilesServiceProvider::class,
+
+        Mavinoo\LaravelBatch\LaravelBatchServiceProvider::class,
     ],
 
     /*
@@ -246,6 +251,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
 
+        'Batch' => Mavinoo\LaravelBatch\LaravelBatchFacade::class,
 
     ],
 

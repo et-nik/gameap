@@ -1,12 +1,12 @@
-@php($title = "Edit User")
+@php($title = __('users.title_edit'))
 
 @extends('layouts.main')
 
 @section('breadclumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
-        <li class="breadcrumb-item active">Edit User</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('users.users') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('users.title_edit') }}</li>
     </ol>
 @endsection
 
@@ -14,21 +14,42 @@
     @include('components.form.errors_block')
 
     {!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update', $user->id]]) !!}
-    <div class="col-md-6">
-        {{ Form::bsText('login') }}
-        {{ Form::bsEmail('email') }}
-        {{ Form::bsText('name') }}
+        <div class="row mt-2 mb-2">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
 
-        <div class='form-group'>
-            {{ Form::label('roles', 'Roles', ['class' => 'control-label']) }}
-            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
-        </div>
-    </div>
+                        {{ Form::bsText('login') }}
+                        {{ Form::bsEmail('email') }}
+                        {{ Form::bsText('name') }}
 
-    <div class="col-md-12">
-        <div class="form-group">
-            {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                        <div class='form-group'>
+                            {{ Form::label('roles', __('users.roles'), ['class' => 'control-label']) }}
+                            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
+                        </div>
+
+                        {{ Form::bsPassword('password') }}
+                        {{ Form::bsPassword('password_confirmation') }}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">{{ __('users.servers') }}</div>
+                    <div class="card-body">
+
+                        <user-server-privileges :initial-items="{{ $user->servers }}"></user-server-privileges>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
+            </div>
+        </div>
     {!! Form::close() !!}
 @endsection

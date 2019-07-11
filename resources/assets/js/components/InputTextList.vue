@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <a class="btn btn-sm btn-success" v-on:click="addItem">+</a>
+            <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span></button>
         </div>
 
         <div class="form-group" v-for="(item, index) in items">
@@ -10,7 +10,9 @@
                     <input type="text" v-model="items[index]" v-bind:name="name + '[]'" v-bind:id="name + '_' + index" class="form-control">
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(index)">X</a>
+                    <button class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(index)">
+                        <span class="fa fa-times"></span>
+                    </button>
                 </div>
             </div>
         </div>

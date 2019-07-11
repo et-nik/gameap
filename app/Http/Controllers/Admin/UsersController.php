@@ -32,7 +32,7 @@ class UsersController extends AuthController
     /**
      * Display a listing of the users.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -56,22 +56,22 @@ class UsersController extends AuthController
     /**
      * Store a newly created user in storage.
      *
-     * @param  \Gameap\Http\Requests\UserRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param UserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
-        $this->repository->store($request);
+        $this->repository->store($request->all());
 
         return redirect()->route('admin.users.index')
-            ->with('success','User created successfully');
+            ->with('success', __('users.create_success_msg'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(User $user)
     {
@@ -81,8 +81,8 @@ class UsersController extends AuthController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $user)
     {
@@ -95,26 +95,29 @@ class UsersController extends AuthController
      *
      * @param  \Gameap\Http\Requests\UserRequest  $request
      * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserRequest $request, User $user)
     {
-        $this->repository->update($request->all(), $user);
-
-        return redirect()->route('admin.users.index')
-            ->with('success','User updated successfully');
+        if ($this->repository->update($user, $request->all())) {
+            return redirect()->route('admin.users.index')
+                ->with('success', __('users.update_success_msg'));
+        } else {
+            return redirect()->route('admin.users.index')
+                ->with($user->getValidationErrors()->all());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \Gameap\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('admin.users.index')
-            ->with('success','User deleted successfully');
+            ->with('success', __('users.delete_success_msg'));
     }
 }

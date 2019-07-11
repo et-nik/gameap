@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ServersTableSeeder extends Seeder
 {
@@ -11,12 +12,14 @@ class ServersTableSeeder extends Seeder
      */
     public function run()
     {
+        $uuid = Str::orderedUuid();
         DB::table('servers')->insert([
+            'uuid' => $uuid,
+            'uuid_short' => Str::substr($uuid, 0, 8),
             'enabled' => 1,
             'installed' => 1,
             'blocked' => 0,
             'name' => 'Example Game Server',
-            'code_name' => 'random_C0de',
             'game_id' => 'valve',
             'ds_id' => 1,
             'game_mod_id' => 1,

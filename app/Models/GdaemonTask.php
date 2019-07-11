@@ -37,12 +37,14 @@ class GdaemonTask extends Model
     const STATUS_WORKING        = 'working';
     const STATUS_ERROR          = 'error';
     const STATUS_SUCCESS        = 'success';
+    const STATUS_CANCELED       = 'canceled';
 
     const NUM_STATUSES = [
         self::STATUS_WAITING => 1,
         self::STATUS_WORKING => 2,
         self::STATUS_ERROR => 3,
         self::STATUS_SUCCESS => 4,
+        self::STATUS_CANCELED => 5,
     ];
 
 

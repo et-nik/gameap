@@ -5,7 +5,7 @@ namespace Gameap\Http\Controllers\Admin;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameRepository;
-use Gameap\Http\Requests\GameRequest;
+use Gameap\Http\Requests\Admin\GameRequest;
 
 class GamesController extends AuthController
 {
@@ -23,19 +23,20 @@ class GamesController extends AuthController
      */
     public function __construct(GameRepository $repository)
     {
-
         $this->repository = $repository;
+
+        parent::__construct();
     }
 
     /**
      * Display a listing of the games.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
         return view('admin.games.list',[
-            'games' => $this->repository->getAll()
+            'games' => $this->repository->allWith('mods')
         ]);
     }
 
@@ -52,22 +53,22 @@ class GamesController extends AuthController
     /**
      * Store a newly created game in storage.
      *
-     * @param  \Gameap\Http\Requests\GameRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Gameap\Http\Requests\Admin\GameRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(GameRequest $request)
     {
         Game::create($request->all());
 
         return redirect()->route('admin.games.index')
-            ->with('success','Game created successfully');
+            ->with('success', __('games.create_success_msg'));
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(Game $game)
     {
@@ -78,7 +79,7 @@ class GamesController extends AuthController
      * Show the form for editing the specified resource.
      *
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Game $game)
     {
@@ -88,28 +89,46 @@ class GamesController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\GameRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\GameRequest  $request
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(GameRequest $request, Game $game)
     {
         $game->update($request->all());
 
         return redirect()->route('admin.games.index')
-            ->with('success','Games updated successfully');
+            ->with('success', __('games.update_success_msg'));
+    }
+
+    /**
+     * Upgrade games and game mods from GameAP Repository
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function upgrade()
+    {
+        $result = $this->repository->upgradeFromRepo();
+
+        if ($result) {
+            return redirect()->route('admin.games.index')
+                ->with('success', __('games.upgrade_success_msg'));
+        } else {
+            return redirect()->route('admin.games.index')
+                ->with('error', __('games.upgrade_fail_msg'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \Gameap\Models\Game  $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Game $game)
     {
         $game->delete();
         return redirect()->route('admin.games.index')
-            ->with('success','Game deleted successfully');
+            ->with('success', __('games.delete_success_msg'));
     }
 }

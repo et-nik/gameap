@@ -6,7 +6,7 @@
         @endforeach
 
         @if (isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
-            <td>Actions</td>
+            <td>{{ __('main.actions') }}</td>
         @endif
     </tr>
     </thead>
@@ -30,12 +30,26 @@
                             @php($cellValue = $model->{$params[0]} . $params[1] . $model->{$params[2]})
                         @endif
                     @elseif (is_string($attr))
+                        @if (is_array($model))
+                            @php($model = (object)$model)
+                        @endif
+
                         @if (is_array($model->{$attr}))
                             @foreach ($model->{$attr} as $val)
                                 @php($cellValue .= "<p>{$val}</p>")
                             @endforeach
                         @else
-                            @php($cellValue = $model->{$attr})
+                            @if(strpos($attr, '.') !== false)
+                                @php($ex = explode('.', $attr, 2))
+
+                                @if (isset($model->{$ex[0]}))
+                                    @php($cellValue = $model->{$ex[0]}->{$ex[1]})
+                                @else
+                                    @php($cellValue = '')
+                                @endif
+                            @else
+                                @php($cellValue = $model->{$attr})
+                            @endif
                         @endif
                     @endif
 
@@ -45,17 +59,31 @@
                 @if (isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
                     <td>
                         @if (isset($viewRoute))
-                            <a class="btn btn-small btn-success btn-sm" href="{{ route($viewRoute, $model->getKey()) }}">View</a>
+                            <a class="btn btn-small btn-success btn-sm btn-view" href="{{ route($viewRoute, $model->getKey()) }}">
+                                <i class="fas fa-eye"></i> {{ __('main.view') }}
+                            </a>
                         @endif
 
                         @if (isset($editRoute))
-                            <a class="btn btn-small btn-info btn-sm" href="{{ route($editRoute, $model->getKey()) }}">Edit</a>
+                            <a class="btn btn-small btn-info btn-sm btn-edit" href="{{ route($editRoute, $model->getKey()) }}">
+                                <i class="fas fa-edit"></i> {{ __('main.edit') }}
+                            </a>
                         @endif
 
                         @if (isset($destroyRoute))
-                            {{ Form::open(array('url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline')) }}
+                            {{ Form::open(['id' => 'form-destroy-' . $model->getKey(), 'url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline']) }}
                             {{ Form::hidden('_method', 'DELETE') }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger btn-sm', 'v-on:click' => 'confirmAction($event, \'Are you sure?\')')) }}
+                            
+                            {{ Form::button( '<i class="fas fa-trash"></i>&nbsp;' . __('main.delete'), 
+                                [
+                                    'class' => 'btn btn-danger btn-sm btn-delete',
+                                    'v-on:click' => !isset($destroyConfirmAction)
+                                        ? 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
+                                        : $destroyConfirmAction,
+                                    'type' => 'submit'
+                                ]
+                                ) }}
+                            
                             {{ Form::close() }}
                         @endif
                     </td>

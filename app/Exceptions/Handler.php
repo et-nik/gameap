@@ -42,37 +42,60 @@ class Handler extends ExceptionHandler
 
     /**
      * Render an exception into an HTTP response.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param Exception                $exception
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
         if ($request->expectsJson() || $request->isJson()) {
-            if ($exception instanceof \Gameap\Exceptions\Repositories\RecordExistExceptions) {
-                    return response()->json([
-                        'message' => $exception->getMessage(),
-                        'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
-                ], Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
+            return $this->renderJson($request, $exception);
+        } else {
+            if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidSetupTokenExeption) {
+                if (app()->has('debugbar')) {
+                    app('debugbar')->disable();
+                }
 
-            // Gdaemon API
-            if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidApiKeyException
-                || $exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption
-            ) {
-                return response()->json([
-                    'message' => $exception->getMessage(),
-                    'http_code' => Response::HTTP_UNAUTHORIZED
-                ], Response::HTTP_UNAUTHORIZED);
-            } else if ($exception instanceof \Illuminate\Validation\ValidationException) {
-                return response()->json([
-                    'message' => $exception->getMessage() . ' ' . $exception->validator->errors()->first(),
-                    'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
-                ], Response::HTTP_UNPROCESSABLE_ENTITY);
+                // Return bash
+                return response()->make('echo "' . $exception->getMessage() . '"', 401);
             }
         }
         
+        return parent::render($request, $exception);
+    }
+
+    /**
+     * @param           $request
+     * @param Exception $exception
+     *
+     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function renderJson($request, Exception $exception)
+    {
+        if ($exception instanceof \Gameap\Exceptions\Repositories\RecordExistExceptions) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // Gdaemon API
+        if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidApiKeyException
+            || $exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption
+        ) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'http_code' => Response::HTTP_UNAUTHORIZED
+            ], Response::HTTP_UNAUTHORIZED);
+        } else if ($exception instanceof \Illuminate\Validation\ValidationException) {
+            return response()->json([
+                'message' => $exception->getMessage() . ' ' . $exception->validator->errors()->first(),
+                'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         return parent::render($request, $exception);
     }
 }

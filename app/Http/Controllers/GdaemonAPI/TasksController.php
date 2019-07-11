@@ -7,7 +7,6 @@ use Gameap\Models\GdaemonTask;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -50,23 +49,37 @@ class TasksController extends Controller
      */
     public function update(GdaemonTask $gdaemonTask)
     {
-        $gdaemonTask->status = request()->status;
+        $status = request()->status;
+
+        if (is_null($status)) {
+            return response()->json(['message' => 'Empty status'], Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!in_array($status, GdaemonTask::NUM_STATUSES)) {
+            return response()->json(['message' => 'Invalid status'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $gdaemonTask->status = is_integer($status)
+            ? array_flip(GdaemonTask::NUM_STATUSES)[$status]
+            : $status;
+
         $gdaemonTask->update();
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
 
     /**
-     * Append output
-     *
-     * @param GdaemonTask $gdaemonTask
+     * @param Request $request
+     * @param int $gdaemonTaskId
+     * @return \Illuminate\Http\JsonResponse
      */
     public function output(Request $request, int $gdaemonTaskId)
     {
         if (GdaemonTask::where('id', $gdaemonTaskId)->count()) {
-            $gdaemonTask = GdaemonTask::find($gdaemonTaskId);
 
-            $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), '{$request->output}')")]);
+            $gdaemonTask = GdaemonTask::find($gdaemonTaskId);
+            $this->repository->concatOutput($gdaemonTask, $request->output);
+
             $response = response()->json(['message' => 'success'], Response::HTTP_OK);
         } else {
             $response = response()->json(['message' => 'Task does not exist'], Response::HTTP_NOT_FOUND);

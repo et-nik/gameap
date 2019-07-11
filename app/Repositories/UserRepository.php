@@ -45,12 +45,22 @@ class UserRepository
      */
     public function update(User $user, array $fields)
     {
-        $user->update($fields);
+        if (!$user->update($fields)) {
+            return false;
+        }
+
+        if (isset($fields['servers'])) {
+            $user->servers()->sync($fields['servers']);
+        } else {
+            $user->servers()->detach();
+        }
 
         if (isset($fields['roles'])) {
             $user->roles()->sync($fields['roles']);
         } else {
             $user->roles()->detach();
         }
+
+        return true;
     }
 }

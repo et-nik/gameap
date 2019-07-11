@@ -13,6 +13,15 @@ try {
     require('bootstrap');
 } catch (e) {}
 
+Vue.prototype.trans = (string, args) => {
+    let value = _.get(window.i18n, string);
+
+    _.eachRight(args, (paramVal, paramKey) => {
+        value = _.replace(value, `:${paramKey}`, paramVal);
+    });
+    return value;
+};
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

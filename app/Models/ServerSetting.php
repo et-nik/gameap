@@ -8,10 +8,16 @@ class ServerSetting extends Model
 {
     public $table = 'servers_settings';
     public $timestamps = false;
+    
+    public $fillable = [
+        'server_id',
+        'name',
+        'value',
+    ];
 
     public function server()
     {
-        return $this->belongsTo(Server::class, 'server_id');
+        return $this->belongsTo(Server::class);
     }
 
 

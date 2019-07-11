@@ -11,13 +11,61 @@ class GameModsTableSeeder extends Seeder
      */
     public function run()
     {
+        $defaultGoldSourceFastRcon = [
+            [
+                'info' => 'Status',
+                'command' => 'status',
+            ],
+            [
+                'info' => 'Stats',
+                'command' => 'stats',
+            ],
+        ];
+
+        $defaultGoldSourceAmxFastRcon = array_merge(
+            $defaultGoldSourceFastRcon, [
+                [
+                    'info' => 'Last disconnect players',
+                    'command' => 'amx_last',
+                ],
+                [
+                    'info' => 'Admins on servers',
+                    'command' => 'amx_who',
+                ],
+            ]
+        );
+
+        $defaultGoldSourceVars = [
+            [
+                'var' => 'default_map',
+                'default' => 'crossfire',
+                'info' => 'Default Map',
+                'admin_var' => false,
+            ],
+            [
+                'var' => 'fps',
+                'default' => 500,
+                'info' => 'Server FPS (tickrate)',
+                'admin_var' => true,
+            ],
+            [
+                'var' => 'maxplayers',
+                'default' => 32,
+                'info' => 'Maximum players on server',
+                'admin_var' => false,
+            ],
+        ];
+
+        /* Half-Life 1 */
         DB::table('game_mods')->insert([
             'game_code' => 'valve',
             'name' => 'Classic (Standart)',
-            'fast_rcon' => '[{"desc":"\u0421\u0442\u0430\u0442\u0443\u0441 \u0441\u0435\u0440\u0432\u0435\u0440\u0430","rcon_command":"status"},{"desc":"\u041e\u0442\u043a\u043b\u044e\u0447\u0438\u0432\u0448\u0438\u0435\u0441\u044f \u0438\u0433\u0440\u043e\u043a\u0438","rcon_command":"amx_last"},{"desc":"Amx Who","rcon_command":"amx_who"},{"desc":"Stats","rcon_command":"stats"}]',
-            'vars' => '[{"alias":"default_map","desc":"\u041a\u0430\u0440\u0442\u0430 \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e","default_value":"","only_admins":false},{"alias":"fps","desc":"\u0421\u0435\u0440\u0432\u0435\u0440\u043d\u044b\u0439 FPS","default_value":"","only_admins":true},{"alias":"maxplayers","desc":"\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0438\u0433\u0440\u043e\u043a\u043e\u0432","default_value":"","only_admins":false}]',
+            'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
-            'remote_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/half-life/amxx.tar.xz',
+            'default_start_cmd_linux' => './hlds_run -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'amx_say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -30,10 +78,12 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'valve',
             'name' => 'No AMX MOD X',
-            'fast_rcon' => '[{"desc":"\u0421\u0442\u0430\u0442\u0443\u0441 \u0441\u0435\u0440\u0432\u0435\u0440\u0430","rcon_command":"status"},{"desc":"\u041e\u0442\u043a\u043b\u044e\u0447\u0438\u0432\u0448\u0438\u0435\u0441\u044f \u0438\u0433\u0440\u043e\u043a\u0438","rcon_command":"amx_last"},{"desc":"Amx Who","rcon_command":"amx_who"},{"desc":"Stats","rcon_command":"amx_who"}]',
-            'vars' => '[{"alias":"default_map","desc":"\u041a\u0430\u0440\u0442\u0430 \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e","only_admins":false},{"alias":"fps","desc":"\u0421\u0435\u0440\u0432\u0435\u0440\u043d\u044b\u0439 FPS","only_admins":false},{"alias":"hl_exec","desc":"\u0418\u0441\u043f\u043e\u043b\u043d\u044f\u0435\u043c\u044b\u0439 \u0444\u0430\u0439\u043b \u0438\u0433\u0440\u043e\u0432\u043e\u0433\u043e \u0441\u0435\u0440\u0432\u0435\u0440\u0430 (\u043e\u0431\u044b\u0447\u043d\u043e hlds_run \u0438\u043b\u0438 hlds.exe)","only_admins":true},{"alias":"maxplayers","desc":"\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0438\u0433\u0440\u043e\u043a\u043e\u0432","only_admins":false}]',
+            'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
             'local_repository' => '',
             'remote_repository' => '',
+            'default_start_cmd_linux' => './hlds_run -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -41,6 +91,149 @@ class GameModsTableSeeder extends Seeder
             'chname_cmd' => '',
             'ban_cmd' => '',
             'kick_cmd' => 'kick #{id}',
+        ]);
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'valve',
+            'name' => 'ReHLDS',
+            'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
+            'local_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/half-life/rehlds-amxx-reunion.tar.xz',
+            'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
+        /* Counter-Strike 1.6 */
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'cstrike',
+            'name' => 'Classic (Standart)',
+            'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
+            'local_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/cstrike-1.6/amxx.tar.xz',
+            'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'amx_say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => 'amx_nick #{id} {name}',
+            'ban_cmd' => 'amx_ban "{name}" {time} "{reason}"',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'cstrike',
+            'name' => 'No AMX MOD X',
+            'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
+            'local_repository' => '',
+            'remote_repository' => '',
+            'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'cstrike',
+            'name' => 'ReHLDS',
+            'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
+            'vars' => json_encode($defaultGoldSourceVars),
+            'local_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/cstrike-1.6/rehlds-amxx-reunion.tar.xz',
+            'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'default_start_cmd_windows' => 'hlds.exe -console -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
+        /* Minecraft */
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'minecraft',
+            'name' => 'Multicore',
+            'fast_rcon' => '',
+            'vars' => '[{"var":"version","default":"1.14.3","info":"Minecraft version"},{"var":"core_mod","default":"vanilla","info":"Core"},{"var":"core_mod_version","default":null,"info":"Core mod version"}]',
+            'local_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/minecraft/minecraft-runner.tar.gz',
+            'default_start_cmd_linux' => './mcrun.sh run --version={version} --core-mod={core_mod} --core-mod-version={core_mod_version} --ip={ip} --port={port} --query-port={query_port} --rcon-port={rcon_port}',
+            'passwd_cmd' => '',
+            'sendmsg_cmd' => '',
+            'chmap_cmd' => '',
+            'srestart_cmd' => '',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => '',
+        ]);
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'minecraft',
+            'name' => 'Vanilla',
+            'fast_rcon' => '',
+            'vars' => '',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => '',
+            'sendmsg_cmd' => '',
+            'chmap_cmd' => '',
+            'srestart_cmd' => '',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => '',
+        ]);
+
+        // Rust
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'rust',
+            'name' => 'Vanilla',
+            'fast_rcon' => '',
+            'vars' => '',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => '',
+            'sendmsg_cmd' => '',
+            'chmap_cmd' => '',
+            'srestart_cmd' => '',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => '',
+        ]);
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'rust',
+            'name' => 'Oxide',
+            'fast_rcon' => '',
+            'vars' => '',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => '',
+            'sendmsg_cmd' => '',
+            'chmap_cmd' => '',
+            'srestart_cmd' => '',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => '',
         ]);
     }
 }

@@ -26,13 +26,13 @@ class CreateDedicatedServersTable extends Migration
             $table->string('work_path');
             $table->string('steamcmd_path')->nullable();
             $table->string('gdaemon_host');
-            $table->string('gdaemon_login');
-            $table->string('gdaemon_password');
-            $table->string('gdaemon_privkey');
-            $table->string('gdaemon_pubkey');
-            $table->string('gdaemon_keypass');
+            $table->integer('gdaemon_port')->unsigned()->default(31717);
             $table->string('gdaemon_api_key');
             $table->char('gdaemon_api_token', 64)->nullable();
+            $table->string('gdaemon_login')->nullable();
+            $table->string('gdaemon_password')->nullable();
+            $table->string('gdaemon_server_cert');
+            $table->integer('client_certificate_id')->unsigned();
             $table->enum('prefer_install_method', ['auto', 'copy', 'download', 'script', 'steam', 'none'])->default('auto');
             $table->text('script_install')->nullable();
             $table->text('script_reinstall')->nullable();
@@ -44,6 +44,7 @@ class CreateDedicatedServersTable extends Migration
             $table->text('script_kill')->nullable();
             $table->text('script_restart')->nullable();
             $table->text('script_status')->nullable();
+            $table->text('script_stats')->nullable();
             $table->text('script_get_console')->nullable();
             $table->text('script_send_command')->nullable();
             $table->text('script_delete')->nullable();

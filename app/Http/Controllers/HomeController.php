@@ -3,6 +3,11 @@
 namespace Gameap\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Illuminate\Http\Response;
+use Gameap\Services\InfoService;
+use Gameap\Services\GlobalApi;
+use Gameap\Http\Requests\SendBugRequest;
+use Cache;
 
 class HomeController extends Controller
 {
@@ -19,10 +24,63 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('home');
+        $latestVersion = Cache::remember('latestVersion', 3600, function () {
+            return InfoService::latestRelease();
+        });
+
+        $modules = app()['modules']->getCached();
+        
+        return view('home', compact('latestVersion', 'modules'));
+    }
+
+    /**
+     * Show help information (GameAP resources etc)
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function help()
+    {
+        return view('help');
+    }
+
+    /**
+     * Report a bug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function reportBug()
+    {
+        $extensions = get_loaded_extensions();
+        return view('report_bug', compact('extensions'));
+    }
+
+    /**
+     * Send bug
+     * 
+     * @param SendBugRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Gameap\Exceptions\Services\GlobalApiException
+     */
+    public function sendBug(SendBugRequest $request)
+    {
+        GlobalApi::sendBug(
+            $request->input('summary'),
+            $request->input('description')
+        );
+
+        return redirect()->route('report_bug')
+            ->with('success', __('home.send_bug_success_msg'));
+    }
+
+    /**
+     * Upgrade panel page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function update()
+    {
+        $latestVersion = InfoService::latestRelease();
+        return view('update', compact('latestVersion'));
     }
 }
