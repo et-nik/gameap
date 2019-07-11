@@ -13,6 +13,8 @@ class AddForeignKeys extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::table('ds_stats', function(Blueprint $table)
         {
             $table->foreign('dedicated_server_id')->references('id')->on('dedicated_servers')->onDelete('cascade');
@@ -48,6 +50,8 @@ class AddForeignKeys extends Migration
             $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -57,6 +61,8 @@ class AddForeignKeys extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::table('ds_stats', function(Blueprint $table)
         {
             $table->dropForeign('dedicated_server_id');
@@ -92,5 +98,7 @@ class AddForeignKeys extends Migration
             $table->dropForeign('server_id');
             $table->dropForeign('user_id');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 }
