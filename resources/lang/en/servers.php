@@ -24,6 +24,7 @@ return [
     'stop'          => 'Stop',
     'control'       => 'Control',
     'update'        => 'Update',
+    'reinstall'     => 'Reinstall',
     'status'        => 'Status',
     'commands'      => 'Commands',
     'ip_port'       => 'IP:Port',

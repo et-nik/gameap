@@ -51,6 +51,9 @@ class ServersController extends AuthController
      * @param Server $server
      *
      * @return array
+     *
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function start(Server $server)
     {
@@ -65,6 +68,9 @@ class ServersController extends AuthController
      * @param Server $server
      *
      * @return array
+     *
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function stop(Server $server)
     {
@@ -78,6 +84,9 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return array
+     *
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function restart(Server $server)
     {
@@ -91,6 +100,9 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return array
+     *
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Server $server)
     {
@@ -102,9 +114,29 @@ class ServersController extends AuthController
     }
 
     /**
+     * @param Server $server
+     * @return array
+     *
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function reinstall(Server $server)
+    {
+        $this->authorize('server-control', $server);
+
+        $deleteTaskId = $this->gdaemonTaskRepository->addServerDelete($server);
+
+        return [
+            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerUpdate($server, $deleteTaskId)
+        ];
+    }
+
+    /**
      * Get server status
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function getStatus(Server $server)
     {
@@ -118,6 +150,8 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function query(Server $server)
     {
@@ -130,6 +164,8 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function consoleLog(Server $server)
     {
@@ -143,6 +179,8 @@ class ServersController extends AuthController
      * @param ServerConsoleCommandRequest $request
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function sendCommand(ServerConsoleCommandRequest $request, Server $server)
     {
@@ -158,6 +196,8 @@ class ServersController extends AuthController
      * @param Request $request
      *
      * TODO: Create admin part and move this
+     *
+     * @return mixed
      */
     public function search(Request $request)
     {

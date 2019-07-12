@@ -107,6 +107,8 @@ class GdaemonTaskRepository
     }
 
     /**
+     * Remove server files
+     *
      * @param Server $server
      * @param int    $runAftId
      * @return int Gdaemon Task ID

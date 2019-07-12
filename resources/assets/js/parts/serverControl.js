@@ -15,7 +15,7 @@ if( document.getElementById("serverControl") ) {
         },
         methods: {
             serverCommand: function(command, serverId) {
-                if ($.inArray(command, ['start', 'stop', 'restart', 'update']) != -1) {
+                if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'reinstall']) != -1) {
                     gameap.confirm(i18n.main.confirm_message, function() {
                         axios.post('/api/servers/' + command + '/' + gameap.serverId)
                             .then(function (response) {
@@ -53,7 +53,7 @@ if( document.getElementById("serverControl") ) {
                 this.callbackTaskComplete = function() {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
-                        if (serverStatus == false) {
+                        if (serverStatus === false) {
                             gameap.alert(i18n.servers.stop_success_msg, function() { location.reload()});
                         } else {
                             gameap.alert(i18n.servers.stop_fail_msg);
@@ -68,7 +68,7 @@ if( document.getElementById("serverControl") ) {
                 this.callbackTaskComplete = function() {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
-                        if (serverStatus == true) {
+                        if (serverStatus === true) {
                             gameap.alert(i18n.servers.restart_success_msg, function() { location.reload()});
                         } else {
                             gameap.alert(i18n.servers.restart_success_msg);
@@ -79,6 +79,10 @@ if( document.getElementById("serverControl") ) {
             updateServer: function(serverId) {
                 this.serverId = serverId;
                 this.serverCommand('update', serverId);
+            },
+            reinstallServer: function(serverId) {
+                this.serverId = serverId;
+                this.serverCommand('reinstall', serverId);
             },
             openProgressModal: function() {
                 this.progressModal = bootbox.dialog({
@@ -101,15 +105,15 @@ if( document.getElementById("serverControl") ) {
 
                 this.getTask();
 
-                if ($.isEmptyObject(this.watchTaskData) == false) {
-                    if (this.watchTaskData.status == 'waiting') {
+                if ($.isEmptyObject(this.watchTaskData) === false) {
+                    if (this.watchTaskData.status === 'waiting') {
                         this.watchTaskProgress.progress = 10;
-                    } else if (this.watchTaskData.status == 'working') {
+                    } else if (this.watchTaskData.status === 'working') {
                         this.watchTaskProgress.progress = 40;
-                    } else if (this.watchTaskData.status == 'success') {
+                    } else if (this.watchTaskData.status === 'success') {
                         this.watchTaskProgress.progress = 80;
                         this.setTaskSuccess();
-                    } else if (this.watchTaskData.status == 'error') {
+                    } else if (this.watchTaskData.status === 'error') {
                         this.watchTaskProgress.progress = 100;
                         this.setTaskError('Task completed with an error');
                     }

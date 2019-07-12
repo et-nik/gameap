@@ -55,6 +55,7 @@ Route::group(['prefix' => 'api'], function() {
     Route::name('api.servers.stop')->post('servers/stop/{server}', 'API\\ServersController@stop');
     Route::name('api.servers.restart')->post('servers/restart/{server}', 'API\\ServersController@restart');
     Route::name('api.servers.update')->post('servers/update/{server}', 'API\\ServersController@update');
+    Route::name('api.servers.reinstall')->post('servers/reinstall/{server}', 'API\\ServersController@reinstall');
     Route::name('api.servers.get_status')->get('servers/get_status/{server}', 'API\\ServersController@getStatus');
     Route::name('api.servers.query')->get('servers/query/{server}', 'API\\ServersController@query');
     Route::name('api.servers.console')->get('servers/console/{server}', 'API\\ServersController@consoleLog');
