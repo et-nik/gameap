@@ -294,7 +294,7 @@ class GameModsTableSeeder extends Seeder
             'default_start_cmd_linux' => './fivem_run.sh --ip={ip} --port={port} --hostname="{hostname}" --rcon-password="{rcon_password}" --license-key="{license_key}"',
             'default_start_cmd_windows' => 'run.cmd +exec server.cfg',
             'local_repository' => '',
-            'remote_repository' => 'http://files.gameap.ru/fivem/fivem.tar.xz',
+            'remote_repository' => '',
 
             'passwd_cmd' => '',
             'sendmsg_cmd' => 'say {msg}',
