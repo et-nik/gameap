@@ -44,12 +44,8 @@ class GameRepository
         $apiGames = GlobalApi::games();
 
         foreach ($apiGames as $gameData) {
-            $game = Game::firstOrCreate([
-                'code' => $gameData['code'],
-                'start_code' => $gameData['start_code'],
-                'name' => $gameData['name'],
-                'engine' => $gameData['engine'],
-            ]);
+            $game = Game::find($gameData['code']) ?? new Game();
+
 
             $game->fill($gameData);
             $game->save();
