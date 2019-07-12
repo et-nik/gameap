@@ -75,7 +75,7 @@ class TasksController extends Controller
      */
     public function output(Request $request, int $gdaemonTaskId)
     {
-        if (GdaemonTask::where('id', $gdaemonTaskId)->count()) {
+        if (GdaemonTask::where('id', $gdaemonTaskId)->exists()) {
 
             $gdaemonTask = GdaemonTask::find($gdaemonTaskId);
             $this->repository->concatOutput($gdaemonTask, $request->output);
