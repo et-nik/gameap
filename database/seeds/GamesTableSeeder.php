@@ -320,5 +320,12 @@ class GamesTableSeeder extends Seeder
             'engine' => 'TheForest',
             'steam_app_id' => 556450,
         ]);
+
+        DB::table('games')->insert([
+            'code' => 'fivem',
+            'start_code' => 'fivem',
+            'name' => 'FiveM',
+            'engine' => 'fivem',
+        ]);
     }
 }

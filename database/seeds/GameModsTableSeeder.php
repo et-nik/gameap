@@ -270,5 +270,40 @@ class GameModsTableSeeder extends Seeder
             'ban_cmd' => '',
             'kick_cmd' => 'kick #{id}',
         ]);
+
+        /* FiveM */
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'fivem',
+            'name' => 'Vanilla',
+            'fast_rcon' => '',
+            'vars' => json_encode([
+                [
+                    'var' => 'hostname',
+                    'default' => 'GameAP FiveM Server',
+                    'info' => 'Server Hostname',
+                    'admin_var' => false,
+                ],
+                [
+                    'var' => 'license_key',
+                    'default' => 'changeme',
+                    'info' => 'License key from https://keymaster.fivem.net',
+                    'admin_var' => true,
+                ],
+            ]),
+            'default_start_cmd_linux' => './fivem_run.sh --ip={ip} --port={port} --hostname="{hostname}" --rcon-password="{rcon_password}" --license-key="{license_key}"',
+            'default_start_cmd_windows' => 'run.cmd +exec server.cfg',
+            'local_repository' => '',
+            'remote_repository' => 'http://files.gameap.ru/fivem/fivem.tar.xz',
+
+            'passwd_cmd' => '',
+            'sendmsg_cmd' => 'say {msg}',
+            'chmap_cmd' => '',
+            'srestart_cmd' => '',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'clientkick {id}',
+        ]);
+
     }
 }

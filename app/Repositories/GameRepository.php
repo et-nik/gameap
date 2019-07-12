@@ -31,7 +31,7 @@ class GameRepository
      * @param int $perPage
      * @return mixed
      */
-    public function allWith($with, $perPage = 20)
+    public function allWith($with, $perPage = 50)
     {
         return Game::orderBy('name')->with($with)->paginate($perPage);
     }
