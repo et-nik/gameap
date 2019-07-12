@@ -130,6 +130,10 @@ class GdaemonTaskRepository
      */
     public function concatOutput(GdaemonTask $gdaemonTask, string $output)
     {
+        if (empty($output)) {
+            return;
+        }
+
         $qoutedOutput = DB::connection()->getPdo()->quote($output);
 
         $dbDriver = DB::connection()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
