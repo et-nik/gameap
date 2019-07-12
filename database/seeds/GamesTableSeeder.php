@@ -325,7 +325,7 @@ class GamesTableSeeder extends Seeder
             'code' => 'fivem',
             'start_code' => 'fivem',
             'name' => 'FiveM',
-            'engine' => 'fivem',
+            'engine' => 'Gta5m',
             'remote_repository' => 'http://files.gameap.ru/fivem/fivem.tar.xz',
         ]);
     }
