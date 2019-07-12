@@ -22,6 +22,7 @@ import InputTextList from './components/InputTextList.vue';
 import InputManyList from './components/InputManyList.vue';
 import ServerStatus from './components/ServerStatus.vue';
 import ServerConsole from './components/ServerConsole.vue';
+import TaskOutput from './components/TaskOutput.vue';
 
 import UserServerPrivileges from './components/servers/UserServerPrivileges.vue';
 
@@ -37,6 +38,7 @@ var vm = new Vue({
         'input-many-list': InputManyList,
         'server-status': ServerStatus,
         'server-console': ServerConsole,
+        'task-output': TaskOutput,
 
         'user-server-privileges': UserServerPrivileges,
     },

@@ -28,6 +28,7 @@ class GdaemonTasksController extends AuthController
 
     /**
      * @param GdaemonTask $gdaemonTask
+     * @return array
      */
     public function get(GdaemonTask $gdaemonTask)
     {
@@ -38,6 +39,19 @@ class GdaemonTasksController extends AuthController
             'updated_at' => $gdaemonTask->updated_at->toDateTimeString(),
             'server_id' => $gdaemonTask->server_id,
             'task' => $gdaemonTask->task,
+            'status' => $gdaemonTask->status,
+        ];
+    }
+
+    /**
+     * @param GdaemonTask $gdaemonTask
+     * @return array
+     */
+    public function output(GdaemonTask $gdaemonTask)
+    {
+        return [
+            'id' => $gdaemonTask->id,
+            'output' => $gdaemonTask->output,
             'status' => $gdaemonTask->status,
         ];
     }

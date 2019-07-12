@@ -65,6 +65,7 @@ Route::group(['prefix' => 'api'], function() {
 
     // Gdaemon tasks
     Route::name('api.gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemon_task}', 'API\\GdaemonTasksController@get');
+    Route::name('api.gdaemon_tasks.output')->get('gdaemon_tasks/output/{gdaemon_task}', 'API\\GdaemonTasksController@output');
 });
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
