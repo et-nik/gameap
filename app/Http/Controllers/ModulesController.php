@@ -18,6 +18,7 @@ class ModulesController extends AuthController
 
     public function migrate()
     {
+        Artisan::call('migrate');
         Artisan::call('module:migrate');
 
         return redirect('modules')->with('success', __('modules.migrate_success_msg'));
