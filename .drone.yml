@@ -22,6 +22,7 @@ steps:
       - php artisan key:generate --force
       - php artisan migrate:fresh --seed
       - vendor/bin/phpunit --verbose
+      - mv .env .env.example
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
