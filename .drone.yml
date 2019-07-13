@@ -23,6 +23,7 @@ steps:
       - php artisan migrate:fresh --seed
       - vendor/bin/phpunit --verbose
       - mv .env .env.example
+      - rm -rf storage/app/certs
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
