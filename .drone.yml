@@ -24,6 +24,9 @@ steps:
       - vendor/bin/phpunit --verbose
       - mv .env .env.example
       - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
