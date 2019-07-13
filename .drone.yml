@@ -49,8 +49,8 @@ steps:
       - mv .env .env.example
       - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
       - unzip -o shared-build-artifacts.zip -d gameap-shared
-      - cd gameap-shared \
-        && mv upload/gameap.sql gameap.sql \
+      - cd gameap-shared
+        && mv upload/gameap.sql gameap.sql
         && zip -r "../publish/gameap-3.0.0-beta-shared.zip" ./
 
   - name: publish
