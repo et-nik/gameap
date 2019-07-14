@@ -33,6 +33,10 @@ steps:
     commands:
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
       - composer install --no-dev --optimize-autoloader
+    when:
+      branch:
+        - master
+        - develop
 
   - name: archive
     image: debian:buster
@@ -42,6 +46,10 @@ steps:
       - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
       - mkdir "publish"
       - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
+    when:
+      branch:
+        - master
+        - develop
 
   - name: archive-shared
     image: knik/php:7.2-fpm-stretch
@@ -56,6 +64,10 @@ steps:
       - cd gameap-shared
         && mv upload/gameap.sql gameap.sql
         && zip -r "../publish/gameap-3.0.0-beta-shared.zip" ./
+    when:
+      branch:
+        - master
+        - develop
 
   - name: publish
     image: cschlosser/drone-ftps
@@ -74,6 +86,10 @@ steps:
       include:
         - ^.*tar\.gz$
         - ^.*zip$
+    when:
+      branch:
+        - master
+        - develop
 
 services:
     - name: db
