@@ -23,6 +23,7 @@ steps:
       - php artisan migrate:fresh --seed
       - vendor/bin/phpunit --verbose
       - mv .env .env.example
+      - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
