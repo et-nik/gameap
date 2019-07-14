@@ -262,7 +262,7 @@ class GamesTableSeeder extends Seeder
             'code' => 'bms',
             'start_code' => 'bms',
             'name' => 'Black Mesa: Deathmatch',
-            'engine' => 'cod4',
+            'engine' => 'Source',
             'engine_version' => '4',
             'steam_app_id' => 346680,
         ]);
