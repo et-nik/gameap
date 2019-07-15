@@ -13,4 +13,6 @@ return [
     'profile'           => 'Профиль',
     'view_profile'      => 'Просмотр профиля',
     'support'           => 'Поддержка',
+
+    'servers'      => 'Серверы',
 ];

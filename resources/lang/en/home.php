@@ -27,4 +27,10 @@ return [
     'documentation'     => 'Documentation',
     'report_bug'        => 'Report a bug',
     'update'            => 'Check for updates',
+
+    'd_report_bug'      => 'Please check the PHP version and the availability of the necessary PHP extensions.
+                        PHP versions should be no lower than the minimum recommended.
+                        Some functions of the panel will not work correctly without the necessary extensions',
+
+    'send_bug_success_msg' => 'Error message sent successfully',
 ];

@@ -28,8 +28,8 @@ script:
   - vendor/bin/phpunit --verbose
 
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+  - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
 
 matrix:
   fast_finish: true

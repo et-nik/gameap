@@ -22,6 +22,7 @@ import InputTextList from './components/InputTextList.vue';
 import InputManyList from './components/InputManyList.vue';
 import ServerStatus from './components/ServerStatus.vue';
 import ServerConsole from './components/ServerConsole.vue';
+import TaskOutput from './components/TaskOutput.vue';
 
 import UserServerPrivileges from './components/servers/UserServerPrivileges.vue';
 
@@ -37,6 +38,7 @@ var vm = new Vue({
         'input-many-list': InputManyList,
         'server-status': ServerStatus,
         'server-console': ServerConsole,
+        'task-output': TaskOutput,
 
         'user-server-privileges': UserServerPrivileges,
     },
@@ -49,9 +51,22 @@ var vm = new Vue({
             });
         },
         confirm: function(message, callback) {
-            bootbox.confirm(message, function(result) {
-                if (result) {
-                    callback();
+            bootbox.confirm({
+                message: message,
+                buttons: {
+                    confirm: {
+                        label: this.trans('main.yes'),
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: this.trans('main.no'),
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function(result) {
+                    if (result) {
+                        callback();
+                    }
                 }
             });
         },

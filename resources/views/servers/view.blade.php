@@ -27,8 +27,13 @@
                         <a class="btn btn-large btn-warning" href="#" @click="restartServer({{ $server->id }})">
                             <span class="fas fa-redo"></span>&nbsp;{{ __('servers.restart') }}
                         </a>
+
                         <a class="btn btn-large btn-info" href="#" @click="updateServer({{ $server->id }})">
                             <span class="fas fa-sync"></span>&nbsp;{{ __('servers.update') }}
+                        </a>
+
+                        <a class="btn btn-large btn-dark" href="#" @click="reinstallServer({{ $server->id }})">
+                            <span class="fas fa-reply-all"></span>&nbsp;{{ __('servers.reinstall') }}
                         </a>
                     </div>
                 </div>

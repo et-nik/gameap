@@ -24,6 +24,7 @@ return [
     'stop'          => 'Stop',
     'control'       => 'Control',
     'update'        => 'Update',
+    'reinstall'     => 'Reinstall',
     'status'        => 'Status',
     'commands'      => 'Commands',
     'ip_port'       => 'IP:Port',
@@ -92,5 +93,11 @@ return [
     
     'unknown_command_msg' => 'Unknown server command',
 
-    'd_dir' => 'Path relative to the working directory of the dedicated server. <br> Example: <strong>servers/my_server</strong>',
+    'd_dir' => 'Leave blank to set automatically. 
+        Path relative to the working directory of the dedicated server. 
+        <br> Example: <strong>servers/my_server</strong>',
+
+    'delete_confirm_msg' => 'Are you sure to delete game server?',
+
+    'delete_files' => 'Delete files',
 ];

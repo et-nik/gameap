@@ -14,6 +14,8 @@ use Gameap\Exceptions\Services\ServerInactiveException;
 
 class ServerService
 {
+    const CONSOLE_MAX_SYMBOLS = 10000;
+
     /**
      * @var GameQ
      */
@@ -163,6 +165,14 @@ class ServerService
             $this->registerDisk($server);
             $result = Storage::disk('server')->get('output.txt');
         }
+
+        if (mb_strlen($result) > self::CONSOLE_MAX_SYMBOLS) {
+            $result = mb_substr($result, mb_strlen($result) - self::CONSOLE_MAX_SYMBOLS, self::CONSOLE_MAX_SYMBOLS);
+        }
+
+        // Fix
+        // Malformed UTF-8 characters, possibly incorrectly encoded
+        $result = mb_convert_encoding($result, 'UTF-8', 'UTF-8');
         
         return $result;
     }

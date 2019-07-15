@@ -7,7 +7,7 @@ use Gameap\Http\Requests\Request;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Http\Requests\DedicatedServerRequest;
+use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -65,7 +65,7 @@ class DedicatedServersController extends AuthController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Gameap\Http\Requests\DedicatedServerRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\DedicatedServerRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(DedicatedServerRequest $request)
@@ -110,7 +110,7 @@ class DedicatedServersController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\DedicatedServerRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\DedicatedServerRequest  $request
      * @param  \Gameap\Models\DedicatedServer  $dedicatedServer
      * @return \Illuminate\Http\RedirectResponse
      */

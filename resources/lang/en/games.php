@@ -15,6 +15,8 @@ return [
     'add'                 => 'Add Game',
     'add_mod'             => 'Add Mod',
     'add_first_mod'       => 'Add first mod',
+
+    'upgrade'             => 'Upgrade Games',
     
     'name'                => 'Name',
     'code'                => 'Code',
@@ -40,6 +42,8 @@ return [
     'd_chmap_cmd'         => 'Shortcodes: {map}',
     'd_sendmsg_cmd'       => 'Shortcodes: {msg} -- message',
     'd_passwd_cmd'        => 'Shortcodes: {msg} -- message',
+
+    'd_upgrade_confirm'   => 'This action will upgrade games and game mods. Some of the data you have changed may be overwritten. Continue?',
     
     'var'                 => 'Var',
     'default'             => 'Default',
@@ -56,4 +60,7 @@ return [
     'mod_create_success_msg' => 'Game Modification created successfully',
     'mod_update_success_msg' => 'Game Modification updated successfully',
     'mod_delete_success_msg' => 'Game Modification deleted successfully',
+
+    'upgrade_success_msg'    => 'Games upgraded sucessfully',
+    'upgrade_fail_msg'       => 'Unable to upgrade Games',
 ];

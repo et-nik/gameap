@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="d-flex flex-nowrap">
                     <div class="p-2 mb-3 text-center menu-item">
-                        <a class="btn btn-block btn-lg btn-outline-dark rounded" href="/servers">
+                        <a class="btn btn-block btn-lg btn-outline-dark rounded" href="{{ route('servers') }}">
                             <i class="fas fa-server fa-5x m-1"></i>
                             <h5>{{ __('home.servers_list') }}</h5>
                         </a>

@@ -5,7 +5,7 @@ namespace Gameap\Http\Controllers\Admin;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameRepository;
-use Gameap\Http\Requests\GameRequest;
+use Gameap\Http\Requests\Admin\GameRequest;
 
 class GamesController extends AuthController
 {
@@ -36,7 +36,7 @@ class GamesController extends AuthController
     public function index()
     {
         return view('admin.games.list',[
-            'games' => $this->repository->getAll()
+            'games' => $this->repository->allWith('mods')
         ]);
     }
 
@@ -53,7 +53,7 @@ class GamesController extends AuthController
     /**
      * Store a newly created game in storage.
      *
-     * @param  \Gameap\Http\Requests\GameRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\GameRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(GameRequest $request)
@@ -89,7 +89,7 @@ class GamesController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\GameRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\GameRequest  $request
      * @param  \Gameap\Models\Game  $game
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -99,6 +99,24 @@ class GamesController extends AuthController
 
         return redirect()->route('admin.games.index')
             ->with('success', __('games.update_success_msg'));
+    }
+
+    /**
+     * Upgrade games and game mods from GameAP Repository
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function upgrade()
+    {
+        $result = $this->repository->upgradeFromRepo();
+
+        if ($result) {
+            return redirect()->route('admin.games.index')
+                ->with('success', __('games.upgrade_success_msg'));
+        } else {
+            return redirect()->route('admin.games.index')
+                ->with('error', __('games.upgrade_fail_msg'));
+        }
     }
 
     /**

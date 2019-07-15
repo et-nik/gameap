@@ -6,7 +6,7 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameModRepository;
 use Gameap\Models\GameMod;
-use Gameap\Http\Requests\GameModRequest;
+use Gameap\Http\Requests\Admin\GameModRequest;
 
 class GameModsController extends AuthController
 {

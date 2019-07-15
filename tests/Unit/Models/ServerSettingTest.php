@@ -10,8 +10,10 @@ class ServerSettingTest extends TestCase
 {
     public function testServer()
     {
-        factory(ServerSetting::class, 1)->create();
-        $serverSetting = ServerSetting::first();
+        factory(Server::class, 1)->create();
+        $results = factory(ServerSetting::class, 1)->create();
+
+        $serverSetting = $results->first();
 
         $this->assertInstanceOf(Server::class, $serverSetting->server);
     }

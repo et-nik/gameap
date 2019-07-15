@@ -107,10 +107,12 @@ class GdaemonTaskRepository
     }
 
     /**
+     * Remove server files
+     *
      * @param Server $server
      * @param int    $runAftId
-     *
      * @return int Gdaemon Task ID
+     * @throws RecordExistExceptions
      */
     public function addServerDelete(Server $server, int $runAftId = 0)
     {
@@ -130,6 +132,10 @@ class GdaemonTaskRepository
      */
     public function concatOutput(GdaemonTask $gdaemonTask, string $output)
     {
+        if (empty($output)) {
+            return;
+        }
+
         $qoutedOutput = DB::connection()->getPdo()->quote($output);
 
         $dbDriver = DB::connection()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);

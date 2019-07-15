@@ -49,7 +49,12 @@
     
     <div class="row">
         <div class="col-md-12">
-            <pre class="console">{!! $gdaemonTask->output !!}</pre>
+            @if ($gdaemonTask->status == 'working')
+                <task-output :task-id="{{ $gdaemonTask->id }}"></task-output>
+            @else
+                <pre class="console">{!! $gdaemonTask->output !!}</pre>
+            @endif
+
         </div>
     </div>
 @endsection

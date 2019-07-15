@@ -89,7 +89,7 @@ class ServerTest extends TestCase
     
     public function testGetAliasesAttribute()
     {
-        $server = Server::first();
+        $server = Server::where('game_id', 'cstrike')->first();
         $this->assertIsArray($server->aliases);
         $this->arrayHasKey('ip', $server->aliases);
         $this->arrayHasKey('port', $server->aliases);

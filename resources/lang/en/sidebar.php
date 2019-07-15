@@ -13,4 +13,6 @@ return [
     'profile'           => 'Profile',
     'view_profile'      => 'View profile',
     'support'           => 'Support',
+
+    'servers'      => 'Servers',
 ];
