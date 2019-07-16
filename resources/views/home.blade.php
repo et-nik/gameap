@@ -69,7 +69,7 @@
         </div>
 
         <div class="col-4">
-            <a href="https://docs.gameap.ru" class="btn btn-block btn-lg btn-info rounded">
+            <a target="_blank" href="https://docs.gameap.ru" class="btn btn-block btn-lg btn-info rounded">
                 <i class="fas fa-book"></i> {{ __('home.documentation') }}
             </a>
         </div>
