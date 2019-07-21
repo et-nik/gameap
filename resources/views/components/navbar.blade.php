@@ -1,10 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-black">
-    <a class="navbar-brand" href="#">GameAP</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-black">
+    <a class="navbar-brand" href="/"><img src="/images/gap_logo_white.png" class="logo"></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-menu" aria-controls="left-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <div class="collapse navbar-collapse bg-black" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('navbar.main') }}</a></li>
             @can('admin roles & permissions')
@@ -17,7 +18,7 @@
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.gdaemon_tasks.index') }}">{{ __('navbar.gdaemon_tasks') }}</a></li>
                     </ul>
                 </li>
-    
+
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.users') }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -26,34 +27,26 @@
                     </ul>
                 </li>
             @endcan
-    
-            <li class="nav-item"><a class="nav-link" href="{{ route('profile') }}">{{ __('navbar.profile') }}</a></li>
-    
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.gameap') }}<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li class="dropdown-item"><a class="dropdown-item" href="https://docs.gameap.ru/">{{ __('navbar.documentation') }}</a></li>
+        </ul>
 
-                    @can('admin roles & permissions')
-                        <li class="dropdown-item"><a class="dropdown-item" href="{{ route('modules') }}">{{ __('navbar.modules') }}</a></li>
-                    @endcan
+        <ul class="navbar-nav">
+            <li class="nav-item mr-4">
+                <a class="btn btn-dark navbar-btn" href="{{ route('profile') }}"><i class="fas fa-user"></i>&nbsp;{{ Auth::user()->name }}</a>
+            </li>
 
-                    <li class="dropdown-item"><a class="dropdown-item" href="{{ route('update') }}">{{ __('navbar.update') }}</a></li>
-                    <li class="dropdown-item"><a class="dropdown-item" href="{{ route('report_bug') }}">{{ __('navbar.error_report') }}</a></li>
-                    <li class="dropdown-item"><a class="dropdown-item" href="{{ route('help') }}">{{ __('navbar.help') }}</a></li>
-                </ul>
+            <li class="nav-item">
+                {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'style'=>'display:inline']) }}
+                    {{ csrf_field() }}
+                    {{ Form::button( '<i class="fas fa-sign-out-alt"></i>&nbsp;' . __('navbar.sign_out') ,
+                    [
+                        'class' => 'btn btn-danger navbar-btn',
+                        'v-on:click' => !isset($destroyConfirmAction)
+                            ? 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
+                            : $destroyConfirmAction,
+                        'type' => 'submit'
+                    ]
+                    ) }}
             </li>
         </ul>
-    
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            {{ csrf_field() }}
-        </form>
-    
-        <button
-                class="btn btn-danger navbar-btn"
-                href="{{ route('logout') }}"
-                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-            {{ __('navbar.sign_out') }}
-        </button>
     </div>
 </nav>

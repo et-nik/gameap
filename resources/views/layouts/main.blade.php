@@ -28,16 +28,14 @@
 
 <div id="app">
     <div class="container-fluid">
-        <!--div class="row">
-            @include("components.navbar")
-        </div-->
+        @include("components.navbar")
 
-        <div class="row row-eq content-wrapper">
-            <div class="col-sm-12 col-md-3 col-lg-2 left-menu" id="left-menu">
-                @include("components.sidebar")
-            </div>
-            
-            <div class="col-sm-12 col-md-9 col-lg-10 p-3 content">
+        <div class="collapse navbar-collapse left-menu d-md-block" id="left-menu">
+            @include("components.sidebar")
+        </div>
+
+        <div class="content-wrapper">
+            <div class="p-3 content">
 
                 @yield('breadclumbs')
 
