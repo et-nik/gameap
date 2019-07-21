@@ -15,7 +15,7 @@ return [
     'logout'            => 'Logout',
 
     'admin'             => 'Administration',
-    'dedicated_servers' => 'Dedicated server',
+    'dedicated_servers' => 'Dedicated servers',
     'game_servers'      => 'Game servers',
     'games'             => 'Games',
     'gdaemon_tasks'     => 'GDaemon tasks',
