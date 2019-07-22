@@ -46,6 +46,7 @@
                         'type' => 'submit'
                     ]
                     ) }}
+                {{ Form::close() }}
             </li>
         </ul>
     </div>
