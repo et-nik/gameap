@@ -37,12 +37,13 @@
 
     <li>
         {{ Form::open(['id' => 'logout-form-sm', 'url' => route('logout'), 'style'=>'display:inline']) }}
-        {{ csrf_field() }}
-        {{ Form::button( '<i class="fas fa-sign-out-alt"></i>&nbsp;' . __('navbar.sign_out') ,
-        [
-            'class' => 'btn btn-danger navbar-btn',
-            'type' => 'submit'
-        ]
-        ) }}
+            {{ csrf_field() }}
+            {{ Form::button( '<i class="fas fa-sign-out-alt"></i>&nbsp;' . __('navbar.sign_out') ,
+            [
+                'class' => 'btn btn-danger navbar-btn',
+                'type' => 'submit'
+            ]
+            ) }}
+        {{ Form::close() }}
     </li>
 </ul>

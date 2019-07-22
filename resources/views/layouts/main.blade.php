@@ -9,9 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ isset($title) ? $title : "GameAP" }}</title>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @yield('header-scripts')
 
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/app.css') }}">
