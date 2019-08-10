@@ -12,7 +12,24 @@ return [
 
     'profile'           => 'Профиль',
     'view_profile'      => 'Просмотр профиля',
-    'support'           => 'Поддержка',
+    'logout'            => 'Выход',
 
-    'servers'      => 'Серверы',
+    'admin'             => 'Администрирование',
+    'dedicated_servers' => 'Выделенные серверы',
+    'game_servers'      => 'Игровые серверы',
+    'games'             => 'Игры',
+    'gdaemon_tasks'     => 'GDaemon задания',
+    'users'             => 'Пользователи',
+
+    'control'           => 'Управление',
+    'servers'           => 'Серверы',
+
+    'gameap'            => 'Gameap',
+    'modules'           => 'Модули',
+    'update'            => 'Обновление',
+
+    'support'           => 'Поддержка',
+    'documentation'     => 'Документация',
+    'help'              => 'Помощь',
+    'report_bug'        => 'Сообщить об ошибке',
 ];

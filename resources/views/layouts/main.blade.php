@@ -9,9 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ isset($title) ? $title : "GameAP" }}</title>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @yield('header-scripts')
 
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/app.css') }}">
@@ -22,30 +19,32 @@
 
 @yield('page-data')
 
+<div class="left-menu-btn" id="left-menu-btn">
+    <i class="fas fa-ellipsis-v"></i>
+</div>
+
 <div id="app">
     <div class="container-fluid">
-        <div class="row">
-            @include("components.navbar")
+        @include("components.navbar")
+
+        <div class="collapse navbar-collapse left-menu d-md-block" id="left-menu">
+            @include("components.sidebar")
         </div>
 
-        <div class="row content-wrapper mt-5">
-            <div class="d-none d-md-block col-md-2 col-lg-2 left-menu">
-                @include("components.sidebar")
-            </div>
-            
-            <div class="col-sm-12 col-md-10 col-lg-10 p-3 content">
+        <div class="content-wrapper">
+            <div class="p-3 content">
 
                 @yield('breadclumbs')
 
                 @include('components.messages')
 
                 @yield('content')
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <p class="copyright">Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br> Developer: knik</p>
+                <div class="copyright">
+                    Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br>
+                    Developer: <a href="https://github.com/et-nik" target="_blank">knik</a>
+                </div>
+
             </div>
         </div>
     </div>

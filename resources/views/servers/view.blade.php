@@ -13,26 +13,26 @@
                 <div class="card-body">
                     <div id="serverControl">
                         @if (!$server->processActive())
-                            <a class="btn btn-large btn-success" href="#" @click="startServer({{ $server->id }})">
+                            <a class="btn btn-large btn-success m-1" href="#" @click="startServer({{ $server->id }})">
                                 <span class="fas fa-play"></span>&nbsp;{{ __('servers.start') }}
                             </a>
                         @endif
 
                         @if ($server->processActive())
-                            <a class="btn btn-large btn-danger" href="#" @click="stopServer({{ $server->id }})">
+                            <a class="btn btn-large btn-danger m-1" href="#" @click="stopServer({{ $server->id }})">
                                 <span class="fas fa-stop"></span>&nbsp;{{ __('servers.stop') }}
                             </a>
                         @endif
 
-                        <a class="btn btn-large btn-warning" href="#" @click="restartServer({{ $server->id }})">
+                        <a class="btn btn-large btn-warning m-1" href="#" @click="restartServer({{ $server->id }})">
                             <span class="fas fa-redo"></span>&nbsp;{{ __('servers.restart') }}
                         </a>
 
-                        <a class="btn btn-large btn-info" href="#" @click="updateServer({{ $server->id }})">
+                        <a class="btn btn-large btn-info m-1" href="#" @click="updateServer({{ $server->id }})">
                             <span class="fas fa-sync"></span>&nbsp;{{ __('servers.update') }}
                         </a>
 
-                        <a class="btn btn-large btn-dark" href="#" @click="reinstallServer({{ $server->id }})">
+                        <a class="btn btn-large btn-dark m-1" href="#" @click="reinstallServer({{ $server->id }})">
                             <span class="fas fa-reply-all"></span>&nbsp;{{ __('servers.reinstall') }}
                         </a>
                     </div>
