@@ -2,6 +2,7 @@
 
 namespace Gameap\Repositories;
 
+use Gameap\Exceptions\Repositories\GdaemonTaskRepositoryException;
 use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\DedicatedServer;
@@ -147,6 +148,20 @@ class GdaemonTaskRepository
         } else {
             $gdaemonTask->update(['output' => $gdaemonTask->output . $output]);
         }
+    }
+
+    /**
+     * @param GdaemonTask $gdaemonTask
+     * @throws GdaemonTaskRepositoryException
+     */
+    public function cancel(GdaemonTask $gdaemonTask)
+    {
+        if ($gdaemonTask->status != GdaemonTask::STATUS_WAITING) {
+            throw new GdaemonTaskRepositoryException(__('gdaemon_tasks.cancel_fail_cannot_be_canceled'));
+        }
+
+        $gdaemonTask->status = GdaemonTask::STATUS_CANCELED;
+        $gdaemonTask->save();
     }
 
     /**
