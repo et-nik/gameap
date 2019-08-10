@@ -305,5 +305,15 @@ class GameModsTableSeeder extends Seeder
             'kick_cmd' => 'clientkick {id}',
         ]);
 
+        /* 7 Day to Die */
+
+        DB::table('game_mods')->insert([
+            'game_code' => '7d2d',
+            'name' => 'Default',
+
+            'default_start_cmd_linux' => './startserver.sh -configfile=serverconfig.xml',
+            'default_start_cmd_windows' => 'startdedicated.bat',
+        ]);
+
     }
 }
