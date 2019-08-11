@@ -5,12 +5,13 @@
 }
 
 .logo {
-    width: 100%;
     max-width: 300px;
+    max-height: 35px;
+    margin-left: 30px;
 }
 
-.content {
-    padding-top: 10px;
+.content-wrapper {
+    margin-top: 62px;
 }
 
 .left-menu-btn {
@@ -19,9 +20,10 @@
 
 .left-menu {
     padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
     background: #222;
     color: #ccc;
-    min-height: 100vh;
 }
 
 .left-menu a {
@@ -142,6 +144,9 @@ input.terminal-input {
     min-width: 180px;
 }
 
+.navbar {
+    height: 62px;
+}
 
 /*
  *  Tablet (sm)
@@ -162,16 +167,20 @@ input.terminal-input {
         border-radius: 0 4px 4px 0;
     }
 
-    .left-menu {
-        position: fixed;
-        z-index: 10;
-        height: 100vh;
-        overflow-y: scroll;
-        display: none;
-    }
-
     .left-menu-active {
         display: block;
     }
+}
 
+@media (min-width: 767px) {
+    .left-menu {
+        margin-left: -15px;
+        width: 245px;
+        position: fixed;
+        min-height: 100vh;
+    }
+
+    .content-wrapper {
+        margin-left: 230px;
+    }
 }

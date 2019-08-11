@@ -7,6 +7,7 @@ require('./bootstrap');
 
 require('./parts/adminServerForm');
 require('./parts/serverControl');
+require('./parts/leftMenu');
 
 import Vuex from 'vuex';
 import FileManager from 'gameap-file-manager'
