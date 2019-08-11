@@ -37,8 +37,8 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                            @if(env('APP_ALLOW_REGISTRATION'))
-                            <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                            @if(config('app.allow_registration'))
+                                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                             @endif
                         @else
                             <li class="dropdown">

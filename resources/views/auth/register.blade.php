@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <div class="card mb-3 mt-3">
-                @if(env('APP_ALLOW_REGISTRATION'))
+                @if(config('app.allow_registration'))
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
@@ -79,7 +79,7 @@
                     </form>
                 @else
                     <div class="card-body">
-                        <p>{{ __('auth.not_allowed') }}</p>
+                        <p>{{ __('auth.registration_not_allowed') }}</p>
                     </div>
                 @endif
             </div>
