@@ -12,18 +12,13 @@
 @endsection
 
 @section('content')
-    <div class="col-md-6">
-        {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers_settings.update', $server->id], 'id' => 'adminServerForm']) !!}
+    <div class="col-md-12">
+        {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers_settings.update', $server->id]]) !!}
 
-        @foreach($settings as $setting)
-            <div class="form-group">
-                @if (strlen($setting->value) < 128)
-                    {{ Form::bsText("value[{$setting->id}]", $setting->value, $setting->name) }}
-                @else
-                    {{ Form::bsTextArea("value[{$setting->id}]", $setting->value, $setting->name) }}
-                @endif
-            </div>
-        @endforeach
+        <settings-parameters
+                :initial-items="{{ $settings->toJson() }}"
+                input-name="settings">
+        </settings-parameters>
 
         <div class="col-md-12">
             <div class="form-group">
