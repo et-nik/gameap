@@ -321,10 +321,12 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'mta',
             'name' => 'DeathMatch Default',
             'vars' => json_encode([
-                'var' => 'maxplayers',
-                'default' => 32,
-                'info' => 'Maximum players on server',
-                'admin_var' => false,
+                [
+                    'var' => 'maxplayers',
+                    'default' => 32,
+                    'info' => 'Maximum players on server',
+                    'admin_var' => false,
+                ]
             ]),
             'default_start_cmd_linux' => './mta-server64 -t -n --ip {ip} --port {port} --maxplayers {maxplayers}',
             'default_start_cmd_windows' => '',
