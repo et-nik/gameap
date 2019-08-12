@@ -16,43 +16,40 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/gameap.css') }}">
 </head>
 <body>
+    @yield('page-data')
 
-@yield('page-data')
+    <div id="app">
+        <div class="container-fluid">
+            @include("components.navbar")
 
-<div class="left-menu-btn" id="left-menu-btn">
-    <i class="fas fa-ellipsis-v"></i>
-</div>
-
-<div id="app">
-    <div class="container-fluid">
-        @include("components.navbar")
-
-        <div class="collapse navbar-collapse left-menu d-md-block" id="left-menu">
-            @include("components.sidebar")
-        </div>
-
-        <div class="content-wrapper">
-            <div class="p-3 content">
-
-                @yield('breadclumbs')
-
-                @include('components.messages')
-
-                @yield('content')
-
-                <div class="copyright">
-                    Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br>
-                    Developer: <a href="https://github.com/et-nik" target="_blank">knik</a>
+            <div id="main-section" class="main-section">
+                <div class="collapse navbar-collapse left-menu d-md-block" id="left-menu">
+                    @include("components.sidebar")
                 </div>
 
+                <div class="content-wrapper">
+                    <div class="p-3 content">
+
+                        @yield('breadclumbs')
+
+                        @include('components.messages')
+
+                        @yield('content')
+
+                        <div class="copyright">
+                            Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br>
+                            Developer: <a href="https://github.com/et-nik" target="_blank">knik</a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
-</div>
 
-<script src="{{ URL::asset('/js/lang/' . app()->getLocale() . '.js') }}"></script>
-<script src="{{ URL::asset('/js/app.js') }}"></script>
-@yield('footer-scripts')
+    <script src="{{ URL::asset('/js/lang/' . app()->getLocale() . '.js') }}"></script>
+    <script src="{{ URL::asset('/js/app.js') }}"></script>
+    @yield('footer-scripts')
 </body>
-
 </html>

@@ -4,10 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 require('./bootstrap');
-
+require('./parts/leftMenu');
 require('./parts/adminServerForm');
 require('./parts/serverControl');
-require('./parts/leftMenu');
 
 import Vuex from 'vuex';
 import FileManager from 'gameap-file-manager'

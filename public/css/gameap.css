@@ -19,9 +19,7 @@
 }
 
 .left-menu {
-    padding-top: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 10px 5px;
     background: #222;
     color: #ccc;
 }
@@ -148,10 +146,24 @@ input.terminal-input {
     height: 62px;
 }
 
+.btn-logout {
+    width: 100%;
+}
+
+.left-menu-mini-btn {
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
 /*
  *  Tablet (sm)
  */
 @media (max-width: 767px) {
+    .left-menu-mini-btn {
+        display: none;
+    }
 
     .left-menu-btn {
         position: fixed;
@@ -173,11 +185,28 @@ input.terminal-input {
 }
 
 @media (min-width: 767px) {
+
     .left-menu {
         margin-left: -15px;
         width: 245px;
         position: fixed;
         min-height: 100vh;
+    }
+
+    .small-menu .left-menu {
+        width: 52px;
+    }
+
+    .small-menu .left-menu .left-menu-group{
+        display: none;
+    }
+
+    .small-menu .left-menu .menu-item-label {
+        display: none;
+    }
+
+    .small-menu .content-wrapper {
+        margin-left: 52px;
     }
 
     .content-wrapper {

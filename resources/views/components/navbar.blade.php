@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-black">
+    <span id="left-menu-mini-btn" class="left-menu-mini-btn"><i class="fas fa-ellipsis-v"></i></span>
     <a class="navbar-brand" href="/"><img src="/images/gap_logo_white.png" class="logo"></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-menu" aria-controls="left-menu" aria-expanded="false" aria-label="Toggle navigation">
