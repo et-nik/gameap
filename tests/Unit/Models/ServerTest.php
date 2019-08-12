@@ -14,7 +14,7 @@ class ServerTest extends TestCase
 {
     public function testProcessActive()
     {
-        factory(Server::class, 10)->create();
+        factory(Server::class, 100)->create();
         $server = Server::first();
         
         $this->assertIsBool($server->processActive());
