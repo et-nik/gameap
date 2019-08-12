@@ -315,5 +315,21 @@ class GameModsTableSeeder extends Seeder
             'default_start_cmd_windows' => 'startdedicated.bat',
         ]);
 
+        /* Multi Theft Auto (MTA) */
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'mta',
+            'name' => 'DeathMatch Default',
+            'vars' => json_encode([
+                'var' => 'maxplayers',
+                'default' => 32,
+                'info' => 'Maximum players on server',
+                'admin_var' => false,
+            ]),
+            'default_start_cmd_linux' => './mta-server64 -t -n --ip {ip} --port {port} --maxplayers {maxplayers}',
+            'default_start_cmd_windows' => '',
+
+            'remote_repository' => 'http://files.gameap.ru/mta/default-deathmatch.tar.xz',
+        ]);
     }
 }
