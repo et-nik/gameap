@@ -33,10 +33,8 @@
 
                     <div class="card-footer text-muted">
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-default">
-                                    {{ __('auth.send_reset_link') }}
-                                </button>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-light">{{ __('auth.send_reset_link') }}</button>
                             </div>
                         </div>
                     </div>
