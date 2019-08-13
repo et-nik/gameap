@@ -2,8 +2,9 @@
 $(function() {
 
     if(localStorage.getItem('leftMenuState') === 'small'){
-        $('#main-section').addClass('small-menu');
         $('.left-menu [data-toggle="tooltip"]').tooltip('enable');
+    }else{
+        $('#main-section').removeClass('small-menu');
     }
 
     $(document).on('click', '#left-menu-mini-btn', function () {

@@ -22,7 +22,7 @@
         <div class="container-fluid">
             @include("components.navbar")
 
-            <div id="main-section" class="main-section">
+            <div id="main-section" class="main-section small-menu">
                 <div class="collapse navbar-collapse left-menu d-md-block" id="left-menu">
                     @include("components.sidebar")
                 </div>
@@ -48,6 +48,12 @@
         </div>
     </div>
 
+    <script type="application/javascript">
+        if(localStorage.getItem('leftMenuState') !== 'small'){
+            var mainsection = document.getElementById('main-section');
+            mainsection.classList.remove("small-menu");
+        }
+    </script>
     <script src="{{ URL::asset('/js/lang/' . app()->getLocale() . '.js') }}"></script>
     <script src="{{ URL::asset('/js/app.js') }}"></script>
     @yield('footer-scripts')

@@ -198,7 +198,8 @@ input.terminal-input {
     }
 
     .small-menu .left-menu .left-menu-group{
-        display: none;
+        /*display: none;*/
+        visibility: hidden;
     }
 
     .small-menu .left-menu .menu-item-label {
