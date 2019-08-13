@@ -73,7 +73,10 @@ Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorB
 Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
 Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');
 
-Auth::routes();
+Auth::routes([
+    'register' => config('app.allow_registration'),
+]);
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/help', 'HomeController@help')->name('help');
 Route::get('/report_bug', 'HomeController@reportBug')->name('report_bug');

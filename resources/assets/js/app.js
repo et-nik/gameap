@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 require('./bootstrap');
 require('./parts/leftMenu');
 require('./parts/adminServerForm');
@@ -10,10 +11,6 @@ require('./parts/serverControl');
 
 import Vuex from 'vuex';
 import FileManager from 'gameap-file-manager'
-
-Vue.use(Vuex);
-const store = new Vuex.Store();
-Vue.use(FileManager, {store, lang: document.documentElement.lang});
 
 import vSelect from 'vue-select';
 
@@ -23,8 +20,13 @@ import InputManyList from './components/InputManyList.vue';
 import ServerStatus from './components/ServerStatus.vue';
 import ServerConsole from './components/ServerConsole.vue';
 import TaskOutput from './components/TaskOutput.vue';
+import SettingsParameters from "./components/SettingsParameters";
 
 import UserServerPrivileges from './components/servers/UserServerPrivileges.vue';
+
+Vue.use(Vuex);
+const store = new Vuex.Store();
+Vue.use(FileManager, {store, lang: document.documentElement.lang});
 
 var vm = new Vue({
     el: "#app",
@@ -41,6 +43,7 @@ var vm = new Vue({
         'task-output': TaskOutput,
 
         'user-server-privileges': UserServerPrivileges,
+        'settings-parameters': SettingsParameters,
     },
     methods: {
         alert: function(message, callback) {
