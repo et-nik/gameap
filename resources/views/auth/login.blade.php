@@ -64,9 +64,11 @@
                                     <div class="col-md-12">
                                         <a class="btn btn-link float-left" href="{{ route('password.request') }}">{{ __('auth.forgot_password') }}</a>
                                     </div>
-                                    <div class="col-md-12">
-                                        <a class="btn btn-link float-left" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a>
-                                    </div>
+                                    @if(config('app.allow_registration'))
+                                        <div class="col-md-12">
+                                            <a class="btn btn-link float-left" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

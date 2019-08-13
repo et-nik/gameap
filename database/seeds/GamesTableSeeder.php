@@ -279,7 +279,8 @@ class GamesTableSeeder extends Seeder
             'code' => 'mta',
             'start_code' => 'mta',
             'name' => 'GTA: Multi Theft Auto',
-            'engine' => 'mta'
+            'engine' => 'mta',
+            'remote_repository' => 'http://files.gameap.ru/mta/mta.tar.xz',
         ]);
         
         DB::table('games')->insert([
