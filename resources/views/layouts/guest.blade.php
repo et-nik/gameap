@@ -36,15 +36,9 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-<<<<<<< HEAD
                             <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('auth.sign_in') }}</a></li>
-                            @if(env('APP_ALLOW_REGISTRATION'))
-                            <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a></li>
-=======
-                            <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                             @if(config('app.allow_registration'))
-                                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
->>>>>>> develop
+                                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a></li>
                             @endif
                         @else
                             <li class="dropdown">
@@ -77,7 +71,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="copyright">Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br> Developer: knik</p>
+                    <p class="copyright">
+                        Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br>
+                        Developer: <a href="https://github.com/et-nik" target="_blank">knik</a>
+                    </p>
                 </div>
             </div>
         </div>
