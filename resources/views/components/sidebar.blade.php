@@ -1,6 +1,6 @@
 <p class="left-menu-group">{{ __('sidebar.control') }}</p>
 <ul class="page-sidebar-menu">
-    <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.servers') }}">
+    <li title="{{ __('sidebar.servers') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
         <a href="{{ route('servers') }}">
             <i class="fas fa-server"></i>
             <span class="menu-item-label">{{ __('sidebar.servers') }}</span>
@@ -11,31 +11,31 @@
 @can('admin roles & permissions')
     <p class="left-menu-group">{{ __('sidebar.admin') }}</p>
     <ul class="page-sidebar-menu">
-        <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.dedicated_servers') }}">
+        <li title="{{ __('sidebar.dedicated_servers') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
             <a href="{{ route('admin.dedicated_servers.index') }}">
                 <i class="fas fa-hdd"></i>
                 <span class="menu-item-label">{{ __('sidebar.dedicated_servers') }}</span>
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.game_servers') }}">
+        <li title="{{ __('sidebar.game_servers') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
             <a href="{{ route('admin.servers.index') }}">
                 <i class="fas fa-server"></i>
                 <span class="menu-item-label">{{ __('sidebar.game_servers') }}</span>
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.games') }}">
+        <li title="{{ __('sidebar.games') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
             <a href="{{ route('admin.games.index') }}">
                 <i class="fas fa-gamepad"></i>
                 <span class="menu-item-label">{{ __('sidebar.games') }}</span>
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.gdaemon_tasks') }}">
+        <li title="{{ __('sidebar.gdaemon_tasks') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
             <a href="{{ route('admin.gdaemon_tasks.index') }}">
                 <i class="fas fa-tasks"></i>
                 <span class="menu-item-label">{{ __('sidebar.gdaemon_tasks') }}</span>
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.users') }}">
+        <li title="{{ __('sidebar.users') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
             <a href="{{ route('admin.users.index') }}">
                 <i class="fas fa-users"></i>
                 <span class="menu-item-label">{{ __('sidebar.users') }}</span>
@@ -47,13 +47,13 @@
 @can('admin roles & permissions')
     <p class="left-menu-group">{{ __('sidebar.gameap') }}</p>
     <ul class="page-sidebar-menu">
-        <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.modules') }}">
+        <li title="{{ __('sidebar.modules') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
             <a href="{{ route('modules') }}">
                 <i class="fas fa-puzzle-piece"></i>
                 <span class="menu-item-label">{{ __('sidebar.modules') }}</span>
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.update') }}">
+        <li title="{{ __('sidebar.update') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
             <a href="{{ route('update') }}">
                 <i class="fas fa-sync"></i>
                 <span class="menu-item-label">{{ __('sidebar.update') }}</span>
@@ -64,19 +64,19 @@
 
 <p class="left-menu-group">{{ __('sidebar.support') }}</p>
 <ul class="page-sidebar-menu">
-    <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.documentation') }}">
+    <li title="{{ __('sidebar.documentation') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
         <a target="_blank" href="http://docs.gameap.ru">
             <i class="fab fa-wikipedia-w"></i>
             <span class="menu-item-label">{{ __('sidebar.documentation') }}</span>
         </a>
     </li>
-    <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.help') }}">
+    <li title="{{ __('sidebar.help') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
         <a href="{{ route('help') }}">
             <i class="fas fa-question"></i>
             <span class="menu-item-label">{{ __('sidebar.help') }}</span>
         </a>
     </li>
-    <li data-toggle="tooltip" data-placement="right" title="{{ __('sidebar.report_bug') }}">
+    <li title="{{ __('sidebar.report_bug') }}" data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
         <a href="{{ route('report_bug') }}">
             <i class="fas fa-bug"></i>
             <span class="menu-item-label">{{ __('sidebar.report_bug') }}</span>
@@ -94,13 +94,23 @@
     </li>
     <li>
         {{ Form::open(['id' => 'logout-form-sm', 'url' => route('logout'), 'style'=>'display:inline']) }}
-            {{ csrf_field() }}
-            {{ Form::button( '<i class="fas fa-sign-out-alt"></i><span class="menu-item-label">' . __('navbar.sign_out') . '</span>' ,
-            [
-                'class' => 'btn btn-danger btn-logout navbar-btn',
-                'type' => 'submit'
-            ]
-            ) }}
+        {{ csrf_field() }}
+        {{ Form::button( '<i class="fas fa-sign-out-alt"></i><span class="menu-item-label">' . __('navbar.sign_out') . '</span>' ,
+        [
+            'class' => 'btn btn-danger btn-logout navbar-btn',
+            'type' => 'submit'
+        ]
+        ) }}
         {{ Form::close() }}
+    </li>
+</ul>
+
+<p class="left-menu-group d-sm-none d-md-block">&nbsp;</p>
+<ul class="page-sidebar-menu d-sm-none d-md-block">
+    <li title="{{ __('sidebar.maximize') }}" id="left-menu-mini-btn"  data-toggle="tooltip" data-placement="right" data-container="#left-menu-tooltips">
+        <a href="#">
+            <i class="fas fa-compress"></i>
+            <span class="menu-item-label">{{ __('sidebar.minimize') }}</span>
+        </a>
     </li>
 </ul>

@@ -23,8 +23,10 @@
             @include("components.navbar")
 
             <div id="main-section" class="main-section small-menu">
-                <div class="collapse navbar-collapse left-menu d-md-block" id="left-menu">
-                    @include("components.sidebar")
+                <div id="left-menu" class="collapse navbar-collapse left-menu d-md-block">
+                    <div id="left-menu-content" class="left-menu-content">
+                        @include("components.sidebar")
+                    </div>
                 </div>
 
                 <div class="content-wrapper">
@@ -47,6 +49,8 @@
 
         </div>
     </div>
+
+    <div id="left-menu-tooltips" class="left-menu-tooltips"></div>
 
     <script type="application/javascript">
         if(localStorage.getItem('leftMenuState') !== 'small'){
