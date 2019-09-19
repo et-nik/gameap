@@ -46,7 +46,7 @@
     
         <div class="col-md-12 mt-4">
             <div class="form-group">
-                {{ Form::submit('Create', ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
             </div>
         </div>
     {!! Form::close() !!}
