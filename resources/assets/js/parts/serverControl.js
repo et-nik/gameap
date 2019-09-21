@@ -1,4 +1,8 @@
 if( document.getElementById("serverControl") ) {
+    const WATCH_TASK_TIMEOUT = 2000; // 2 sec
+    const CLEAR_VARS_TIMEOUT = 1000; // 1 sec
+    const LONG_WAITING_TIME = 20000; // 20 sec
+
     Vue.mixin({
         data: function () {
             return {
@@ -6,6 +10,7 @@ if( document.getElementById("serverControl") ) {
                 watchTaskId: 0,
                 watchTaskData: {},
                 watchTaskProgress: null,
+                watchTaskStartedTime: 0,
                 callbackTaskComplete: function() {
                     gameap.closeProgressModal();
                     gameap.alert(i18n.servers.task_success_msg);
@@ -21,7 +26,7 @@ if( document.getElementById("serverControl") ) {
                             .then(function (response) {
                                 gameap.watchTaskId = response.data.gdaemonTaskId;
                                 gameap.openProgressModal();
-                                gameap.watchTask();
+                                gameap.startWatchTask();
                             }).catch(function (error) {
                                 console.log(error);
                                 gameap.alert(error.response.data.message, function() { location.reload()});
@@ -38,7 +43,7 @@ if( document.getElementById("serverControl") ) {
                 this.callbackTaskComplete = function() {
                     gameap.getServerStatus(function(serverStatus) {
                         gameap.closeProgressModal();
-                        if (serverStatus == true) {
+                        if (serverStatus === true) {
                             gameap.alert(i18n.servers.start_success_msg, function() { location.reload()});
                         } else {
                             gameap.alert(i18n.servers.start_fail_msg);
@@ -86,7 +91,10 @@ if( document.getElementById("serverControl") ) {
             },
             openProgressModal: function() {
                 this.progressModal = bootbox.dialog({
-                    message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i> ' + i18n.main.wait + '</p><div id="progressbar"></div>',
+                    message: '<p class="text-center">' +
+                        '<i class="fa fa-spin fa-spinner"></i> ' + i18n.main.wait + '</p>' +
+                        '<p id="additional-info"></p>' +
+                        '<div id="progressbar"></div>',
                     callback: function(result) {
                         gameap.watchTaskId = 0;
                     }
@@ -98,6 +106,11 @@ if( document.getElementById("serverControl") ) {
             closeProgressModal: function() {
                 this.progressModal.modal('hide');
             },
+            startWatchTask: function() {
+                this.hideAdditionalInfo();
+                this.watchTaskStartedTime = (new Date()).getTime();
+                this.watchTask();
+            },
             watchTask: function() {
                 if (this.watchTaskId <= 0) {
                     return;
@@ -108,29 +121,58 @@ if( document.getElementById("serverControl") ) {
                 if ($.isEmptyObject(this.watchTaskData) === false) {
                     if (this.watchTaskData.status === 'waiting') {
                         this.watchTaskProgress.progress = 10;
+                        this.checkLongWaiting();
                     } else if (this.watchTaskData.status === 'working') {
                         this.watchTaskProgress.progress = 40;
+                        this.hideAdditionalInfo();
                     } else if (this.watchTaskData.status === 'success') {
                         this.watchTaskProgress.progress = 80;
                         this.setTaskSuccess();
+                    } else if (this.watchTaskData.status === 'canceled') {
+                        this.watchTaskProgress.progress = 0;
+                        this.setTaskError(i18n.gdaemon_tasks.common_canceled_msg);
                     } else if (this.watchTaskData.status === 'error') {
                         this.watchTaskProgress.progress = 100;
-                        this.setTaskError('Task completed with an error');
+                        this.setTaskError(i18n.gdaemon_tasks.common_error_msg);
+                    } else {
+                        this.watchTaskProgress.progress = 100;
+                        this.setTaskError(i18n.gdaemon_tasks.common_error_msg);
                     }
                 }
 
-                setTimeout(this.watchTask, 2000);
+                setTimeout(this.watchTask, WATCH_TASK_TIMEOUT);
+            },
+            checkLongWaiting: function() {
+                if ((new Date()).getTime() - this.watchTaskStartedTime > LONG_WAITING_TIME) {
+                    this.showAdditionalInfo(i18n.gdaemon_tasks.long_waiting_doc);
+                }
+            },
+            showAdditionalInfo: function(text = '') {
+                let additionalInfo = $('#additional-info');
+
+                if (additionalInfo.is(':hidden')) {
+                    additionalInfo.html(text);
+                    additionalInfo.show();
+                }
+            },
+            hideAdditionalInfo: function() {
+                let additionalInfo = $('#additional-info');
+                additionalInfo.hide();
             },
             setTaskError: function(errorMsg) {
                 this.watchTaskId = 0;
+                this.watchTaskStartedTime = 0;
+                this.hideAdditionalInfo();
                 this.closeProgressModal();
                 gameap.alert(errorMsg);
-                setTimeout(this.clearVars, 1000);
+                setTimeout(this.clearVars, CLEAR_VARS_TIMEOUT);
             },
             setTaskSuccess: function() {
                 this.watchTaskId = 0;
+                this.watchTaskStartedTime = 0;
+                this.hideAdditionalInfo();
                 this.callbackTaskComplete();
-                setTimeout(this.clearVars, 1000);
+                setTimeout(this.clearVars, CLEAR_VARS_TIMEOUT);
             },
             getTask: function() {
                 axios.get('/api/gdaemon_tasks/get/' + this.watchTaskId)

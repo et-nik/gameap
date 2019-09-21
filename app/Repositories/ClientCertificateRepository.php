@@ -9,14 +9,9 @@ use Gameap\Services\CertificateService;
 use Gameap\Http\Requests\ClientCertificatesRequest;
 use Gameap\Exceptions\GameapException;
 
-class ClientCertificateRepository
+class ClientCertificateRepository extends Repository
 {
     const STORAGE_CERTS_PATH = 'certs/client';
-
-    /**
-     * @var ClientCertificate
-     */
-    protected $model;
 
     /**
      * ClientCertificateRepository constructor.

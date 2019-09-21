@@ -5,12 +5,8 @@ namespace Gameap\Repositories;
 use Gameap\Models\Server;
 use Gameap\Models\ServerSetting;
 
-class ServerSettingsRepository
+class ServerSettingsRepository extends Repository
 {
-    protected $model;
-
-    protected $gdaemonTaskRepository;
-
     public function __construct(Server $server)
     {
         $this->model = $server;
