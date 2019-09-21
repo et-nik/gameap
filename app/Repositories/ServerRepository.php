@@ -78,6 +78,7 @@ class ServerRepository
      * Get Servers list for Dedicated server
      *
      * @param int $dedicatedServerId
+     * @return mixed
      */
     public function getServersListForDedicatedServer(int $dedicatedServerId)
     {
@@ -160,6 +161,11 @@ class ServerRepository
         $server->update($request->only($only));
     }
 
+    /**
+     * @param $path
+     * @param $dsWorkPath
+     * @return string
+     */
     private function fixPath($path, $dsWorkPath)
     {
         if (substr($path, 0, strlen($dsWorkPath)) == $dsWorkPath) {

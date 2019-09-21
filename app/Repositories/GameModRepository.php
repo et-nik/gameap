@@ -4,10 +4,8 @@ namespace Gameap\Repositories;
 
 use Gameap\Models\GameMod;
 
-class GameModRepository
+class GameModRepository extends Repository
 {
-    protected $model;
-
     public function __construct(GameMod $gameMod)
     {
         $this->model = $gameMod;

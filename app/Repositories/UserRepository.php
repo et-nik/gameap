@@ -3,14 +3,10 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\User;
-use Gameap\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
-class UserRepository
+class UserRepository extends Repository
 {
-    protected $model;
-
     public function __construct(User $model)
     {
         $this->model = $model;

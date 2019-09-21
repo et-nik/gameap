@@ -8,10 +8,8 @@ use Gameap\Services\GlobalApi;
 use Symfony\Component\Finder\Glob;
 use Illuminate\Support\Arr;
 
-class GameRepository
+class GameRepository extends Repository
 {
-    protected $model;
-
     public function __construct(Game $game)
     {
         $this->model = $game;

@@ -45,6 +45,8 @@ class ServersController extends AuthController
      *
      * @param  \Gameap\Models\Server  $server
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Server $server)
     {
@@ -58,6 +60,8 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function filemanager(Server $server)
     {
@@ -69,6 +73,8 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function settings(Server $server)
     {
@@ -81,6 +87,8 @@ class ServersController extends AuthController
      * @param ServerVarsRequest $request
      * @param Server $server
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function updateSettings(ServerVarsRequest $request, Server $server)
     {

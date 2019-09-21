@@ -10,13 +10,8 @@ use Gameap\Services\CertificateService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class DedicatedServersRepository
+class DedicatedServersRepository extends Repository
 {
-    /**
-     * @var DedicatedServer
-     */
-    protected $model;
-
     /**
      * @var \Gameap\Repositories\ClientCertificateRepository
      */
