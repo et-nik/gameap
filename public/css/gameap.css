@@ -164,6 +164,15 @@ input.terminal-input {
     overflow-y: scroll;
 }
 
+.left-menu-scrolled::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.left-menu-scrolled::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
 .left-menu-tooltips .tooltip {
     pointer-events: none;
 }
