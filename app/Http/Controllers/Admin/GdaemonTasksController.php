@@ -2,7 +2,7 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
-use Gameap\Exceptions\Repositories\GdaemonTaskRepositoryException;
+use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
 use \Gameap\Http\Controllers\AuthController;
 use \Gameap\Repositories\GdaemonTaskRepository;
 use \Gameap\Models\GdaemonTask;

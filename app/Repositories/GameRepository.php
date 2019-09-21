@@ -44,9 +44,11 @@ class GameRepository extends Repository
         foreach ($apiGames as $gameData) {
             $game = Game::find($gameData['code']) ?? new Game();
 
-
             $game->fill($gameData);
-            $game->save();
+
+            if (!$game->save()) {
+                return false;
+            }
 
             if (!empty($gameData['mods'])) {
                 foreach ($gameData['mods'] as $gameModData) {

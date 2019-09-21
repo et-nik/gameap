@@ -281,7 +281,7 @@ class ServersController extends AuthController
         if (Auth::user()->can('admin roles & permissions')) {
             $extraMessage = $this->getDocMessage($exception);
         } else {
-            $extraMessage = __('main.common_admin_error');
+            $extraMessage = (string)__('main.common_admin_error');
         }
 
         return $this->makeErrorResponse($exception->getMessage() . $extraMessage);
@@ -299,7 +299,7 @@ class ServersController extends AuthController
             $msg = __('gdaemon_tasks.empty_server_start_command_doc');
         }
 
-        return $msg;
+        return is_string($msg) ? $msg : '';
     }
 
     /**
@@ -311,7 +311,7 @@ class ServersController extends AuthController
     {
         return response()->json([
             'message' => $message,
-            'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
-        ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            'http_code' => $code
+        ], $code);
     }
 }
