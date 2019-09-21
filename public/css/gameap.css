@@ -10,6 +10,12 @@
     margin-left: 30px;
 }
 
+.logo-mini {
+    max-width: 35px;
+    max-height: 35px;
+    margin-right: 10px;
+}
+
 .content-wrapper {
     margin-top: 62px;
 }
@@ -46,6 +52,11 @@
     text-align: center;
     margin-bottom: 0.2rem;
     font-weight: bold;
+}
+
+.left-menu-group-mini {
+    display: none;
+    margin-bottom: 0.2rem;
 }
 
 .left-menu .fa,
@@ -218,16 +229,24 @@ input.terminal-input {
         width: 56px;
     }
 
-    .left-menu-tooltips .tooltip{
+    .left-menu-tooltips .tooltip {
         position: fixed;
         margin-left: 14px;
+    }
+
+    .small-menu .left-menu-group-mini {
+        display: inline;
+        padding-left: 18px;
+        text-align: center;
+        margin-bottom: 0.3rem;
+        font-weight: bold;
     }
 
     .small-menu .left-menu ul li {
         text-align: center;
     }
 
-    .small-menu .left-menu .left-menu-group{
+    .small-menu .left-menu .left-menu-group {
         display: none;
     }
 

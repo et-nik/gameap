@@ -53,11 +53,18 @@
     <div id="left-menu-tooltips" class="left-menu-tooltips"></div>
 
     <script type="application/javascript">
-        if(localStorage.getItem('leftMenuState') !== 'small'){
-            var mainsection = document.getElementById('main-section');
-            mainsection.classList.remove("small-menu");
+        if (localStorage.getItem('leftMenuState') !== 'small') {
+            document.getElementById('main-section').classList.remove("small-menu");
+        } else {
+            document.getElementById('brand-link').classList.remove('navbar-brand');
+
+            document.getElementById('brand-logo').classList.remove('logo');
+            document.getElementById('brand-logo').classList.add('logo-mini');
+
+            document.getElementById('brand-logo').setAttribute('src', '/images/gap_logo_white_mini.png');
         }
     </script>
+
     <script src="{{ URL::asset('/js/lang/' . app()->getLocale() . '.js') }}"></script>
     <script src="{{ URL::asset('/js/app.js') }}"></script>
     @yield('footer-scripts')
