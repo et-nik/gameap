@@ -10,6 +10,12 @@
     margin-left: 30px;
 }
 
+.logo-mini {
+    max-width: 35px;
+    max-height: 35px;
+    margin-right: 10px;
+}
+
 .content-wrapper {
     margin-top: 62px;
 }
@@ -19,9 +25,6 @@
 }
 
 .left-menu {
-    padding-top: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
     background: #222;
     color: #ccc;
 }
@@ -51,11 +54,20 @@
     font-weight: bold;
 }
 
+.left-menu-group-mini {
+    display: none;
+    margin-bottom: 0.2rem;
+}
+
 .left-menu .fa,
 .left-menu .fab,
 .left-menu .fas {
     width: 15px;
     margin: 0 5px;
+}
+
+.left-menu-content {
+    padding: 5px;
 }
 
 .page-sidebar-menu {
@@ -148,10 +160,41 @@ input.terminal-input {
     height: 62px;
 }
 
+.btn-logout {
+    width: 100%;
+}
+
+.left-menu-mini-btn {
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.left-menu-scrolled {
+    overflow-y: scroll;
+}
+
+.left-menu-scrolled::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.left-menu-scrolled::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+.left-menu-tooltips .tooltip {
+    pointer-events: none;
+}
+
 /*
  *  Tablet (sm)
  */
 @media (max-width: 767px) {
+    .left-menu-mini-btn {
+        display: none;
+    }
 
     .left-menu-btn {
         position: fixed;
@@ -173,11 +216,46 @@ input.terminal-input {
 }
 
 @media (min-width: 767px) {
+
     .left-menu {
-        margin-left: -15px;
+        height: calc(100vh - 62px);
         width: 245px;
         position: fixed;
-        min-height: 100vh;
+        z-index: 5;
+        margin-left: -15px;
+    }
+
+    .small-menu .left-menu {
+        width: 56px;
+    }
+
+    .left-menu-tooltips .tooltip {
+        position: fixed;
+        margin-left: 14px;
+    }
+
+    .small-menu .left-menu-group-mini {
+        display: inline;
+        padding-left: 18px;
+        text-align: center;
+        margin-bottom: 0.3rem;
+        font-weight: bold;
+    }
+
+    .small-menu .left-menu ul li {
+        text-align: center;
+    }
+
+    .small-menu .left-menu .left-menu-group {
+        display: none;
+    }
+
+    .small-menu .left-menu .menu-item-label {
+        display: none;
+    }
+
+    .small-menu .content-wrapper {
+        margin-left: 56px;
     }
 
     .content-wrapper {

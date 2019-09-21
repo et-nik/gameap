@@ -32,4 +32,7 @@ return [
     'documentation'     => 'Documentation',
     'help'              => 'Help',
     'report_bug'        => 'Report bug',
+
+    'maximize'          => 'Maximize',
+    'minimize'          => 'Minimize',
 ];

@@ -32,4 +32,7 @@ return [
     'documentation'     => 'Документация',
     'help'              => 'Помощь',
     'report_bug'        => 'Сообщить об ошибке',
+
+    'maximize'          => 'Развернуть',
+    'minimize'          => 'Свернуть',
 ];
