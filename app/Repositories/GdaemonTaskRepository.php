@@ -86,7 +86,7 @@ class GdaemonTaskRepository extends Repository
     public function addServerRestart(Server $server, int $runAftId = 0)
     {
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_RESTART, 'Server restart task is already exists');
-        $this->serverCommandCorrectOrFail();
+        $this->serverCommandCorrectOrFail($server);
 
         return GdaemonTask::create([
             'run_aft_id' => $runAftId,
