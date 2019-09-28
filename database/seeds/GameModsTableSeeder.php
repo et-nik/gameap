@@ -333,5 +333,44 @@ class GameModsTableSeeder extends Seeder
 
             'remote_repository' => 'http://files.gameap.ru/mta/default-deathmatch.tar.xz',
         ]);
+
+        /* Black Mesa: Deathmatch */
+        DB::table('game_mods')->insert([
+            'game_code' => 'bms',
+            'name' => 'Default',
+            'fast_rcon' => '',
+            'vars' => json_encode($defaultSourceVars),
+            'default_start_cmd_linux' => './srcds_run -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
+            'default_start_cmd_windows' => 'srcds.exe -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
+        /* Garry's Mod */
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'bms',
+            'name' => 'Default',
+            'fast_rcon' => '',
+            'vars' => json_encode($defaultSourceVars),
+            'default_start_cmd_linux' => './srcds_run -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
+            'default_start_cmd_windows' => 'srcds.exe -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
+            'local_repository' => '',
+            'remote_repository' => '',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'chname_cmd' => '',
+            'ban_cmd' => '',
+            'kick_cmd' => 'kick #{id}',
+        ]);
     }
 }

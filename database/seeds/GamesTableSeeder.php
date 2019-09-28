@@ -271,7 +271,7 @@ class GamesTableSeeder extends Seeder
             'code' => 'ark',
             'start_code' => 'ark',
             'name' => 'ARK: Survival Evolved',
-            'engine' => 'ark',
+            'engine' => 'Source',
             'steam_app_id' => 376030,
         ]);
         
