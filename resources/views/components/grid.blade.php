@@ -13,6 +13,13 @@
 
     <tbody>
         @foreach($modelsList as $key => $model)
+
+            @if (method_exists($model, 'getKey'))
+                @php($modelKey = $model->getKey())
+            @else
+                @php ($modelKey = is_array($model) ? $model['id'] : $model->id)
+            @endif
+
             <tr>
                 @foreach ($attributes as $attr)
                     @php($cellValue = '')
@@ -61,7 +68,7 @@
                             @if (isset($viewRoute))
                                 <a class="btn btn-small btn-success btn-sm btn-view"
                                    title="{{ __('main.view') }}"
-                                   href="{{ route($viewRoute, $model->getKey()) }}">
+                                   href="{{ route($viewRoute, $modelKey) }}">
 
                                     <i class="fas fa-eye"></i> <span class="d-none d-xl-inline">&nbsp;{{ __('main.view') }}</span>
                                 </a>
@@ -70,14 +77,14 @@
                             @if (isset($editRoute))
                                 <a class="btn btn-small btn-info btn-sm btn-edit"
                                    title="{{ __('main.edit') }}"
-                                   href="{{ route($editRoute, $model->getKey()) }}">
+                                   href="{{ route($editRoute, $modelKey) }}">
 
                                     <i class="fas fa-edit"></i><span class="d-none d-xl-inline">&nbsp;{{ __('main.edit') }}</span>
                                 </a>
                             @endif
 
                             @if (isset($destroyRoute))
-                                {{ Form::open(['id' => 'form-destroy-' . $model->getKey(), 'url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline']) }}
+                                {{ Form::open(['id' => 'form-destroy-' . $modelKey, 'url' => route($destroyRoute, $modelKey), 'style'=>'display:inline']) }}
                                 {{ Form::hidden('_method', 'DELETE') }}
 
                                 {{ Form::button( '<i class="fas fa-trash"></i><span class="d-none d-xl-inline">&nbsp;' . __('main.delete') . '</span>',
