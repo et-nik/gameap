@@ -17,6 +17,11 @@ class DedicatedServersRepository extends Repository
      */
     protected $clientCertificateRepository;
 
+    /**
+     * DedicatedServersRepository constructor.
+     * @param DedicatedServer $dedicatedServer
+     * @param \Gameap\Repositories\ClientCertificateRepository $clientCertificateRepository
+     */
     public function __construct(
         DedicatedServer $dedicatedServer,
         ClientCertificateRepository $clientCertificateRepository
@@ -25,6 +30,10 @@ class DedicatedServersRepository extends Repository
         $this->clientCertificateRepository = $clientCertificateRepository;
     }
 
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
     public function getAll($perPage = 20)
     {
         return DedicatedServer::orderBy('id')->withCount('servers')->paginate($perPage);

@@ -3,11 +3,13 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
+use Gameap\Models\Game;
 use Gameap\Models\Server;
 use Gameap\Models\GameMod;
 use Illuminate\Support\Str;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ServerRepository
 {
@@ -15,12 +17,21 @@ class ServerRepository
 
     protected $gdaemonTaskRepository;
 
+    /**
+     * ServerRepository constructor.
+     * @param Server $server
+     * @param GdaemonTaskRepository $gdaemonTaskRepository
+     */
     public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
     {
         $this->model = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
     public function getAll($perPage = 20)
     {
         $servers = Server::orderBy('id')->with('game')->paginate($perPage);
@@ -30,8 +41,9 @@ class ServerRepository
 
     /**
      * Store server
-     * 
+     *
      * @param array $attributes
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
      */
     public function store(array $attributes)
     {
@@ -111,6 +123,28 @@ class ServerRepository
         } else {
             return Auth::user()->servers;
         }
+    }
+
+    /**
+     * @param array $engines
+     * @param array $dedicatedServers
+     * @return \Illuminate\Support\Collection
+     */
+    public function getServersForEngine(array $engines, array $dedicatedServers = [])
+    {
+        $query = DB::table($this->model->getTable())
+            ->whereIn('game_id', function($query) use ($engines)
+            {
+                $query->select('code')
+                    ->from((new Game)->getTable())
+                    ->whereIn('engine', $engines);
+            });
+
+        if (!empty($dedicatedServers)) {
+            $query->whereIn('ds_id', $dedicatedServers);
+        }
+
+        return $query->get();
     }
 
     /**
