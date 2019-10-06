@@ -138,6 +138,22 @@ class GdaemonTaskRepository extends Repository
     }
 
     /**
+     * @param $cmd
+     * @param $dedicatedServerId
+     * @param int $runAftId
+     * @return mixed
+     */
+    public function addCmd($cmd, $dedicatedServerId, int $runAftId = 0)
+    {
+        return GdaemonTask::create([
+            'run_aft_id' => $runAftId,
+            'dedicated_server_id' => $dedicatedServerId,
+            'task' => GdaemonTask::TASK_CMD_EXEC,
+            'cmd' => $cmd,
+        ])->id;
+    }
+
+    /**
      * @param int $serverId
      * @param string|array $task
      * @param string|array $status

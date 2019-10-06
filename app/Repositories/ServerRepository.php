@@ -127,21 +127,33 @@ class ServerRepository
 
     /**
      * @param array $engines
-     * @param array $dedicatedServers
+     * @param int|array $dedicatedServers
      * @return \Illuminate\Support\Collection
      */
-    public function getServersForEngine(array $engines, array $dedicatedServers = [])
+    public function getServersForEngine(array $engines, $dedicatedServers = [], $excludeIds = [])
     {
-        $query = DB::table($this->model->getTable())
-            ->whereIn('game_id', function($query) use ($engines)
-            {
+        if (is_int($dedicatedServers)) {
+            $dedicatedServers = [$dedicatedServers];
+        }
+
+        $serversTable = $this->model->getTable();
+        $gamesTable = (new Game)->getTable();
+
+        $query = DB::table($serversTable)
+            ->selectRaw("{$serversTable}.*, {$gamesTable}.name as game_name")
+            ->whereIn('game_id', function($query) use ($engines, $serversTable, $gamesTable) {
                 $query->select('code')
-                    ->from((new Game)->getTable())
+                    ->from($gamesTable)
                     ->whereIn('engine', $engines);
-            });
+            })
+            ->join($gamesTable, "{$serversTable}.game_id", '=', "{$gamesTable}.code");
 
         if (!empty($dedicatedServers)) {
             $query->whereIn('ds_id', $dedicatedServers);
+        }
+
+        if (!empty($excludeIds)) {
+            $query->whereNotIn('id', $excludeIds);
         }
 
         return $query->get();
