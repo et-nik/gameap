@@ -36,12 +36,12 @@
         "phpseclib/phpseclib": "~2.0",
         "sofa/eloquence-validable": "^5.5",
         "spatie/laravel-permission": "^2.7",
-        "spatie/laravel-query-builder": "^1.10"
+        "spatie/laravel-query-builder": "^1.10",
+        "fzaninotto/faker": "~1.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.*",
         "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~7.0",
         "infyomlabs/laravel-generator": "5.8.x-dev",
