@@ -16,7 +16,7 @@
 
             @if (method_exists($model, 'getKey'))
                 @php($modelKey = $model->getKey())
-            @else
+            @elseif (array_key_exists('id', $model))
                 @php ($modelKey = is_array($model) ? $model['id'] : $model->id)
             @endif
 
@@ -63,7 +63,7 @@
                     <td>{!! $cellValue !!}</td>
                 @endforeach
 
-                @if (isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
+                @if (isset($modelKey) && isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
                     <td class="text-nowrap">
                             @if (isset($viewRoute))
                                 <a class="btn btn-small btn-success btn-sm btn-view"
