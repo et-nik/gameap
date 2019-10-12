@@ -2,7 +2,9 @@
 
 namespace Gameap\Services;
 
+use Gameap\Exceptions\GameapException;
 use Gameap\Models\DedicatedServer;
+use http\Exception\RuntimeException;
 use Knik\Gameap\GdaemonCommands;
 
 abstract class GdaemonCommandsService
@@ -25,11 +27,18 @@ abstract class GdaemonCommandsService
     /**
      * Setting up gdaemon commands configuration
      *
-     * @param int
+     * @param int|DedicatedServer
+     * @throws GameapException
      */
-    protected function configureGdaemon($dsId)
+    protected function configureGdaemon($ds)
     {
-        $dedicatedServer = DedicatedServer::findOrFail($dsId);
+        if (is_int($ds)) {
+            $dedicatedServer = DedicatedServer::findOrFail($ds);
+        } else if ($ds instanceof DedicatedServer) {
+            $dedicatedServer = $ds;
+        } else {
+            throw new GameapException('Invalid type');
+        }
 
         $this->gdaemonCommands->setConfig(
             $dedicatedServer->gdaemonSettings()
