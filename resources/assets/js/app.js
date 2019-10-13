@@ -14,14 +14,14 @@ import vSelect from 'vue-select';
 
 import FileManager from 'gameap-file-manager';
 
-const Progressbar = () => import('./components/Progressbar' /* webpackChunkName: "components/progressbar" */);
+import Progressbar from './components/Progressbar';
+
 const InputTextList = () => import('./components/InputTextList' /* webpackChunkName: "components/input-text-list" */);
 const InputManyList = () => import('./components/InputManyList' /* webpackChunkName: "components/input-many-list" */);
 const ServerStatus = () => import('./components/ServerStatus' /* webpackChunkName: "components/server-status" */);
 const ServerConsole = () => import('./components/ServerConsole' /* webpackChunkName: "components/server-console" */);
 const TaskOutput = () => import('./components/TaskOutput' /* webpackChunkName: "components/task-output" */);
 const UserServerPrivileges = () => import('./components/servers/UserServerPrivileges' /* webpackChunkName: "components/user-server-privileges" */);
-
 const SettingsParameters = () => import('./components/SettingsParameters' /* webpackChunkName: "components/user-server-privileges" */);
 
 Vue.use(Vuex);

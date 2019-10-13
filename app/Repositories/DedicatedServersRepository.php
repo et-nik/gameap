@@ -52,6 +52,36 @@ class DedicatedServersRepository extends Repository
     }
 
     /**
+     * Get all busy ports for dedicated servers. Group by ip
+     *
+     * @param int $id
+     * @return \Illuminate\Support\Collection|array
+     */
+    public function getBusyPorts(int $id)
+    {
+        /** @var DedicatedServer $dedicatedServer */
+        $dedicatedServer = $this->model->select('id')->where('id', '=', $id)->first();
+        $result = collect();
+
+        foreach ($dedicatedServer->servers as $server) {
+            if (!$result->has($server->server_ip)) {
+                $result->put($server->server_ip, collect([
+                    $server->server_port,
+                    $server->query_port,
+                    $server->rcon_port
+                ]));
+            } else {
+                $result[$server->server_ip]
+                    ->push($server->server_port)
+                    ->push($server->query_port)
+                    ->push($server->rcon_port);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * @param array $attributes
      * @return DedicatedServer
      */
