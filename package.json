@@ -16,7 +16,7 @@
     "bootstrap": "^4.1.3",
     "bootstrap-select": "^1.13.10",
     "cross-env": "^5.1.4",
-    "gameap-file-manager": "^2.0.13",
+    "gameap-file-manager": "^2.0.14",
     "jquery": "^3.3.1",
     "laravel-mix": "^4.0.7",
     "lodash": "^4.17.14",
