@@ -1,8 +1,16 @@
 if( document.getElementById("serverControl") ) {
     const WATCH_TASK_TIMEOUT            = 2000; // 2 sec
-    const CHECK_SERVER_STATUS_TIMEOUT   = 2000; // 2 sec
     const CLEAR_VARS_TIMEOUT            = 2000; // 2 sec
     const LONG_WAITING_TIME             = 20000; // 20 sec
+
+    const PROGRESS_PERCENT_NULL = 10;
+    const PROGRESS_PERCENT_WAITING = 10;
+    const PROGRESS_PERCENT_WORKING = 40;
+    const PROGRESS_PERCENT_TASK_SUCCESS = 80;
+    const PROGRESS_PERCENT_COMPLETE = 100;
+
+    const CHECK_SERVER_STATUS_TRIES = 10;
+    const CHECK_SERVER_STATUS_TIMEOUT   = 2000; // 2 sec
 
     Vue.mixin({
         data: function () {
@@ -16,7 +24,13 @@ if( document.getElementById("serverControl") ) {
                     gameap.closeProgressModal();
                     gameap.alert(i18n.servers.task_success_msg);
                 },
-                progressModal: null
+                progressModal: null,
+                complete: false,
+                statusTries: CHECK_SERVER_STATUS_TRIES,
+
+                checkServerStatusAfterTask: false,
+                serverStatus: false,
+                expectedStatus: false,
             };
         },
         methods: {
@@ -39,55 +53,57 @@ if( document.getElementById("serverControl") ) {
             },
             startServer: function(serverId) {
                 this.serverId = serverId;
+                this.expectedStatus = true;
+                this.checkServerStatusAfterTask = true;
                 this.serverCommand('start', serverId);
 
-                this.callbackTaskComplete = function() {
-                    gameap.getServerStatus(function(serverStatus) {
-                        gameap.closeProgressModal();
-                        if (serverStatus === true) {
-                            gameap.alert(i18n.servers.start_success_msg, function() { location.reload()});
-                        } else {
-                            gameap.alert(i18n.servers.start_fail_msg);
-                        }
-                    });
+                this.callbackTaskComplete = () => {
+                    this.closeProgressModal();
+                    if (this.serverStatus === this.expectedStatus) {
+                        gameap.alert(i18n.servers.start_success_msg, function() { location.reload()});
+                    } else {
+                        gameap.alert(i18n.servers.start_fail_msg);
+                    }
                 };
             },
             stopServer: function(serverId) {
                 this.serverId = serverId;
+                this.expectedStatus = false;
+                this.checkServerStatusAfterTask = true;
                 this.serverCommand('stop', serverId);
 
                 this.callbackTaskComplete = function() {
-                    gameap.getServerStatus(function(serverStatus) {
-                        gameap.closeProgressModal();
-                        if (serverStatus === false) {
-                            gameap.alert(i18n.servers.stop_success_msg, function() { location.reload()});
-                        } else {
-                            gameap.alert(i18n.servers.stop_fail_msg);
-                        }
-                    });
+                    gameap.closeProgressModal();
+                    if (this.serverStatus === this.expectedStatus) {
+                        gameap.alert(i18n.servers.stop_success_msg, function() { location.reload()});
+                    } else {
+                        gameap.alert(i18n.servers.stop_fail_msg);
+                    }
                 };
             },
             restartServer: function(serverId) {
                 this.serverId = serverId;
+                this.expectedStatus = true;
+                this.checkServerStatusAfterTask = true;
                 this.serverCommand('restart', serverId);
 
                 this.callbackTaskComplete = function() {
-                    gameap.getServerStatus(function(serverStatus) {
-                        gameap.closeProgressModal();
-                        if (serverStatus === true) {
-                            gameap.alert(i18n.servers.restart_success_msg, function() { location.reload()});
-                        } else {
-                            gameap.alert(i18n.servers.restart_success_msg);
-                        }
-                    });
+                    gameap.closeProgressModal();
+                    if (this.serverStatus === this.expectedStatus) {
+                        gameap.alert(i18n.servers.restart_success_msg, function() { location.reload()});
+                    } else {
+                        gameap.alert(i18n.servers.restart_success_msg);
+                    }
                 };
             },
             updateServer: function(serverId) {
                 this.serverId = serverId;
+                this.checkServerStatusAfterTask = false;
                 this.serverCommand('update', serverId);
             },
             reinstallServer: function(serverId) {
                 this.serverId = serverId;
+                this.checkServerStatusAfterTask = false;
                 this.serverCommand('reinstall', serverId);
             },
             openProgressModal: function() {
@@ -121,27 +137,41 @@ if( document.getElementById("serverControl") ) {
 
                 if ($.isEmptyObject(this.watchTaskData) === false) {
                     if (this.watchTaskData.status === 'waiting') {
-                        this.watchTaskProgress.progress = 10;
+                        this.watchTaskProgress.progress = PROGRESS_PERCENT_WAITING;
                         this.checkLongWaiting();
                     } else if (this.watchTaskData.status === 'working') {
-                        this.watchTaskProgress.progress = 40;
+                        this.watchTaskProgress.progress = PROGRESS_PERCENT_WORKING;
                         this.hideAdditionalInfo();
                     } else if (this.watchTaskData.status === 'success') {
-                        this.watchTaskProgress.progress = 80;
+                        this.watchTaskProgress.progress = PROGRESS_PERCENT_TASK_SUCCESS;
                         this.setTaskSuccess();
                     } else if (this.watchTaskData.status === 'canceled') {
-                        this.watchTaskProgress.progress = 0;
+                        this.watchTaskProgress.progress = PROGRESS_PERCENT_NULL;
                         this.setTaskError(i18n.gdaemon_tasks.common_canceled_msg);
                     } else if (this.watchTaskData.status === 'error') {
-                        this.watchTaskProgress.progress = 100;
+                        this.watchTaskProgress.progress = PROGRESS_PERCENT_COMPLETE;
                         this.setTaskError(i18n.gdaemon_tasks.common_error_msg);
                     } else {
-                        this.watchTaskProgress.progress = 100;
+                        this.watchTaskProgress.progress = PROGRESS_PERCENT_COMPLETE;
                         this.setTaskError(i18n.gdaemon_tasks.common_error_msg);
                     }
                 }
 
                 setTimeout(this.watchTask, WATCH_TASK_TIMEOUT);
+            },
+            watchServerStatus: function() {
+                this.getServerStatus((serverStatus) => {
+                    this.serverStatus = serverStatus;
+
+                    if (this.serverStatus === this.expectedStatus || this.statusTries <= 0) {
+                        this.callbackTaskComplete();
+                        setTimeout(this.clearVars, CLEAR_VARS_TIMEOUT);
+                    } else {
+                        this.statusTries--;
+                        this.watchTaskProgress.progress++;
+                        setTimeout(this.watchServerStatus, CHECK_SERVER_STATUS_TIMEOUT);
+                    }
+                });
             },
             checkLongWaiting: function() {
                 if ((new Date()).getTime() - this.watchTaskStartedTime > LONG_WAITING_TIME) {
@@ -172,8 +202,13 @@ if( document.getElementById("serverControl") ) {
                 this.watchTaskId = 0;
                 this.watchTaskStartedTime = 0;
                 this.hideAdditionalInfo();
-                setTimeout(this.callbackTaskComplete, CHECK_SERVER_STATUS_TIMEOUT);
-                setTimeout(this.clearVars, CLEAR_VARS_TIMEOUT);
+
+                if (this.checkServerStatusAfterTask) {
+                    setTimeout(this.watchServerStatus, CHECK_SERVER_STATUS_TIMEOUT);
+                } else {
+                    this.callbackTaskComplete();
+                    setTimeout(this.clearVars, CLEAR_VARS_TIMEOUT);
+                }
             },
             getTask: function() {
                 axios.get('/api/gdaemon_tasks/get/' + this.watchTaskId)
@@ -192,6 +227,16 @@ if( document.getElementById("serverControl") ) {
             clearVars: function() {
                 this.watchTaskProgress.progress = 0;
                 this.watchTaskData = {};
+                this.serverStatus = false;
+                this.expectedStatus = false;
+                this.statusTries = CHECK_SERVER_STATUS_TRIES;
+
+                this.checkServerStatusAfterTask = false;
+
+                this.callbackTaskComplete = () => {
+                    gameap.closeProgressModal();
+                    gameap.alert(i18n.servers.task_success_msg);
+                };
             }
         }
     });
