@@ -1,7 +1,8 @@
 if( document.getElementById("serverControl") ) {
-    const WATCH_TASK_TIMEOUT = 2000; // 2 sec
-    const CLEAR_VARS_TIMEOUT = 1000; // 1 sec
-    const LONG_WAITING_TIME = 20000; // 20 sec
+    const WATCH_TASK_TIMEOUT            = 2000; // 2 sec
+    const CHECK_SERVER_STATUS_TIMEOUT   = 2000; // 2 sec
+    const CLEAR_VARS_TIMEOUT            = 2000; // 2 sec
+    const LONG_WAITING_TIME             = 20000; // 20 sec
 
     Vue.mixin({
         data: function () {
@@ -20,7 +21,7 @@ if( document.getElementById("serverControl") ) {
         },
         methods: {
             serverCommand: function(command, serverId) {
-                if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'reinstall']) != -1) {
+                if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'reinstall']) !== -1) {
                     gameap.confirm(i18n.main.confirm_message, function() {
                         axios.post('/api/servers/' + command + '/' + gameap.serverId)
                             .then(function (response) {
@@ -171,7 +172,7 @@ if( document.getElementById("serverControl") ) {
                 this.watchTaskId = 0;
                 this.watchTaskStartedTime = 0;
                 this.hideAdditionalInfo();
-                this.callbackTaskComplete();
+                setTimeout(this.callbackTaskComplete, CHECK_SERVER_STATUS_TIMEOUT);
                 setTimeout(this.clearVars, CLEAR_VARS_TIMEOUT);
             },
             getTask: function() {
