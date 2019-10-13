@@ -69,12 +69,14 @@ class DedicatedServersRepository extends Repository
                     $server->server_port,
                     $server->query_port,
                     $server->rcon_port
-                ]));
+                ])->unique());
             } else {
                 $result[$server->server_ip]
                     ->push($server->server_port)
                     ->push($server->query_port)
                     ->push($server->rcon_port);
+
+                $result[$server->server_ip] = $result[$server->server_ip]->unique();
             }
         }
 

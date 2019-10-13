@@ -6,11 +6,11 @@
 
 require('./bootstrap');
 require('./parts/leftMenu');
-require('./parts/adminServerForm');
-require('./parts/serverControl');
 
 import Vuex from 'vuex';
 import vSelect from 'vue-select';
+
+import store from './store'
 
 import FileManager from 'gameap-file-manager';
 
@@ -22,11 +22,17 @@ const ServerStatus = () => import('./components/ServerStatus' /* webpackChunkNam
 const ServerConsole = () => import('./components/ServerConsole' /* webpackChunkName: "components/server-console" */);
 const TaskOutput = () => import('./components/TaskOutput' /* webpackChunkName: "components/task-output" */);
 const UserServerPrivileges = () => import('./components/servers/UserServerPrivileges' /* webpackChunkName: "components/user-server-privileges" */);
+const GameModSelector = () => import('./components/servers/GameModSelector' /* webpackChunkName: "components/game-mod-selector" */);
+const DsIpSelector = () => import('./components/servers/DsIpSelector' /* webpackChunkName: "components/game-mod-selector" */);
+const SmartPortSelector = () => import('./components/servers/SmartPortSelector' /* webpackChunkName: "components/smart-port-selector" */);
+
 const SettingsParameters = () => import('./components/SettingsParameters' /* webpackChunkName: "components/user-server-privileges" */);
 
 Vue.use(Vuex);
-const store = new Vuex.Store();
-Vue.use(FileManager, {store, lang: document.documentElement.lang});
+
+Vue.use(FileManager, {store: store, lang: document.documentElement.lang});
+
+require('./parts/serverControl');
 
 var vm = new Vue({
     el: "#app",
@@ -43,7 +49,10 @@ var vm = new Vue({
         'task-output': TaskOutput,
 
         'user-server-privileges': UserServerPrivileges,
+        'smart-port-selector': SmartPortSelector,
         'settings-parameters': SettingsParameters,
+        'game-mod-selector': GameModSelector,
+        'ds-ip-selector': DsIpSelector,
     },
     methods: {
         alert: function(message, callback) {
@@ -95,6 +104,17 @@ var vm = new Vue({
             var componentInstance = new component().$mount();
             $(appendPoint).append(componentInstance.$el);
             return componentInstance;
+        },
+        increment () {
+            store.commit('increment')
+        },
+        decrement () {
+            store.commit('decrement')
+        }
+    },
+    computed: {
+        count () {
+            return store.state.count
         }
     },
     store

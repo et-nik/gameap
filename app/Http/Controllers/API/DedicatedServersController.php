@@ -27,10 +27,20 @@ class DedicatedServersController extends AuthController
     }
 
     /**
-     * @param integer  $id
+     * @param int $id
+     * @return array
      */
     public function getIpList(int $id)
     {
         return $this->repository->getIpList($id);
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getBusyPorts(int $id)
+    {
+        return $this->repository->getBusyPorts($id);
     }
 }

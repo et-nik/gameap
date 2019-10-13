@@ -48,7 +48,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
 });
 
 Route::group(['prefix' => 'api'], function() {
-    Route::name('api.dedicated_servers.get_ip_list')->get('dedicated_servers/get_ip_list/{dedicated_server}', 'API\\DedicatedServersController@getIpList');
+    Route::name('api.dedicated_servers.ip_list')
+        ->get('dedicated_servers/{dedicated_server}/ip_list', 'API\\DedicatedServersController@getIpList');
+
+    Route::name('api.dedicated_servers.busy_ports')
+        ->get('dedicated_servers/{dedicated_server}/busy_ports', 'API\\DedicatedServersController@getBusyPorts');
+
     Route::name('api.game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', 'API\\GameModsController@getListForGame');
 
     // Servers
