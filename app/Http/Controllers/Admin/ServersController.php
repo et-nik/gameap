@@ -69,8 +69,9 @@ class ServersController extends AuthController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Gameap\Http\Requests\Admin\ServerCreateRequest  $request
+     * @param \Gameap\Http\Requests\Admin\ServerCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws RecordExistExceptions
      */
     public function store(ServerCreateRequest $request)
     {

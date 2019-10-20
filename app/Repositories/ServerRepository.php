@@ -13,8 +13,16 @@ use Illuminate\Support\Facades\DB;
 
 class ServerRepository
 {
+    const DEFAULT_RCON_PASSWORD_LENGTH = 10;
+
+    /**
+     * @var Server
+     */
     protected $model;
 
+    /**
+     * @var GdaemonTaskRepository
+     */
     protected $gdaemonTaskRepository;
 
     /**
@@ -59,6 +67,10 @@ class ServerRepository
             $addInstallTask = true;
 
             unset($attributes['install']);
+        }
+
+        if (empty($attributes['rcon'])) {
+             $attributes['rcon'] = Str::random(self::DEFAULT_RCON_PASSWORD_LENGTH);
         }
 
         $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
