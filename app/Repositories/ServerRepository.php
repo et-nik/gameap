@@ -195,7 +195,9 @@ class ServerRepository
         $attributes['blocked'] = (bool)array_key_exists('blocked', $attributes);
         $attributes['installed'] = (bool)array_key_exists('installed', $attributes);
 
-        $server->ds_id = $attributes['ds_id'];
+        if (isset($attributes['ds_id'])) {
+            $server->ds_id = $attributes['ds_id'];
+        }
 
         // Fix path. Remove absolute dedicated server path
         $attributes['dir'] = $this->fixPath($attributes['dir'], $server->dedicatedServer->work_path);
