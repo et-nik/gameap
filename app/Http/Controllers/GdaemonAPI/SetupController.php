@@ -47,7 +47,7 @@ class SetupController extends BaseController
 
         return "export createToken={$gdaemonCreateToken};
             export panelHost=" . url('/') . ";
-            curl -sL https://raw.githubusercontent.com/gameap/auto-install-scripts/master/debian/install-gdaemon-en.sh | bash --";
+            curl -sL https://raw.githubusercontent.com/gameap/auto-install-scripts/master/install-gdaemon.sh | bash --";
     }
 
     /**
