@@ -2,14 +2,14 @@
     <div>
         <div id="dedicatedServerForm" class="form-group">
             <label for="ds_id" class="control-label">{{ trans('labels.ds_id') }}</label>
-            <select id="ds_id" name="ds_id" class="form-control" v-model="selectedDs">
+            <select id="ds_id" v-bind:name="dsIdFieldName" class="form-control" v-model="selectedDs">
                 <option v-for="(dsName, dsId) in dsList" v-bind:value="dsId">{{ dsName }}</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="server_ip" class="control-label">{{ trans('labels.server_ip') }}</label>
-            <select id="server_ip" name="server_ip" class="form-control" v-model="selectedIp">
+            <select id="server_ip" v-bind:name="serverIpFieldName" class="form-control" v-model="selectedIp">
                 <option v-for="ip in ipList" v-bind:value="ip">{{ ip }}</option>
             </select>
         </div>
@@ -25,6 +25,14 @@
             dsList: Object,
             initialDsId: Number,
             initialIp: String,
+            serverIpFieldName: {
+                type: String,
+                default: 'server_ip',
+            },
+            dsIdFieldName: {
+                type: String,
+                default: 'ds_id',
+            }
         },
         mounted() {
             this.selectedDs = this.initialDsId || -1;
