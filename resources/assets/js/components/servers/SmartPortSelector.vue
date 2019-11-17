@@ -36,6 +36,7 @@
         'rust': 28015,
         'minecraft': 25565,
         'rok': 7350,
+        'teamspeak3': 9987,
         'default': 27015,
     };
 
@@ -53,6 +54,7 @@
         'rust': [0, 1],
         'minecraft': [0, 1],
         'rok': [0, 0],
+        'teamspeak3': [24, 0], // Default port 9987, query 10011
         'default': [0, 0],
     };
 
