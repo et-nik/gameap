@@ -26,13 +26,9 @@
             initialGame: String,
             initialMod: String,
         },
-        data: function() {
-            return {
-                selectedMod: this.initialMod,
-            };
-        },
         mounted() {
             this.selectedGameCode = this.initialGame;
+            this.selectedMod = this.initialMod;
         },
         computed: {
             ...mapState({
@@ -42,13 +38,21 @@
                 get() { return this.$store.state.games.gameCode; },
                 set(gameCode) { this.$store.dispatch('games/setGameCode', gameCode) },
             },
+            selectedMod: {
+                get() { return this.$store.state.gameMods.gameMod; },
+                set(gameMod) { this.$store.dispatch('gameMods/setGameMod', gameMod) },
+            }
         },
         watch: {
             selectedGameCode(gameCode) {
                 this.$store.dispatch('gameMods/fetchGameModsList', gameCode);
             },
             gameModsList(val) {
-                this.selectedMod = val.length > 1 ? val[0].id : '';
+                if (this.initialGame !== this.selectedGameCode) {
+                    this.selectedMod = val.length > 0 ? val[0].id : '';
+                } else {
+                    this.selectedMod = this.initialMod;
+                }
             },
         }
     }

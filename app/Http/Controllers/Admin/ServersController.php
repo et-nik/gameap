@@ -2,6 +2,7 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
+use Exception;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\ServerCreateRequest;
@@ -10,15 +11,18 @@ use Gameap\Http\Requests\Admin\ServerUpdateRequest;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
 use Gameap\Models\DedicatedServer;
+use Gameap\Repositories\GameModRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ServersController extends AuthController
 {
     /**
      * The ServerRepository instance.
      *
-     * @var \Gameap\Repositories\ServerRepository
+     * @var ServerRepository
      */
     protected $repository;
 
@@ -32,11 +36,14 @@ class ServersController extends AuthController
     /**
      * Create a new ServersController instance.
      *
-     * @param  \Gameap\Repositories\ServerRepository $repository
+     * @param ServerRepository $repository
+     * @param GdaemonTaskRepository $gdaemonTaskRepository
+     * @param GameModRepository $gameModRepository
      */
     public function __construct(ServerRepository $repository, GdaemonTaskRepository $gdaemonTaskRepository)
     {
         parent::__construct();
+
         $this->repository = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
@@ -44,7 +51,7 @@ class ServersController extends AuthController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index()
     {
@@ -56,7 +63,7 @@ class ServersController extends AuthController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create()
     {
@@ -69,8 +76,8 @@ class ServersController extends AuthController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Gameap\Http\Requests\Admin\ServerCreateRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param ServerCreateRequest $request
+     * @return RedirectResponse
      * @throws RecordExistExceptions
      */
     public function store(ServerCreateRequest $request)
@@ -84,8 +91,8 @@ class ServersController extends AuthController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\View\View
+     * @param Server $server
+     * @return View
      */
     public function edit(Server $server)
     {
@@ -97,9 +104,9 @@ class ServersController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\Admin\ServerUpdateRequest  $request
-     * @param  \Gameap\Models\Server  $server
-     * @return \Illuminate\Http\RedirectResponse
+     * @param ServerUpdateRequest $request
+     * @param Server $server
+     * @return RedirectResponse
      */
     public function update(ServerUpdateRequest $request, Server $server)
     {
@@ -113,8 +120,8 @@ class ServersController extends AuthController
      * Remove the specified resource from storage.
      * 
      * @param Server $server
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(ServerDestroyRequest $request, Server $server)
     {

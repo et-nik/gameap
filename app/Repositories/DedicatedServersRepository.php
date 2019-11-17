@@ -61,23 +61,21 @@ class DedicatedServersRepository extends Repository
     {
         /** @var DedicatedServer $dedicatedServer */
         $dedicatedServer = $this->model->select('id')->where('id', '=', $id)->first();
-        $result = collect();
+        $result = [];
 
         foreach ($dedicatedServer->servers as $server) {
-            if (!$result->has($server->server_ip)) {
-                $result->put($server->server_ip, collect([
-                    $server->server_port,
-                    $server->query_port,
-                    $server->rcon_port
-                ])->unique());
-            } else {
-                $result[$server->server_ip]
-                    ->push($server->server_port)
-                    ->push($server->query_port)
-                    ->push($server->rcon_port);
-
-                $result[$server->server_ip] = $result[$server->server_ip]->unique();
+            if (!array_key_exists($server->server_ip, $result)) {
+                $result[$server->server_ip] = [];
             }
+
+            array_push($result[$server->server_ip], $server->server_port);
+            array_push($result[$server->server_ip], $server->query_port);
+            array_push($result[$server->server_ip], $server->rcon_port);
+        }
+
+        // Unique
+        foreach ($result as &$ipList) {
+            $ipList = array_values(array_unique($ipList, SORT_NUMERIC));
         }
 
         return $result;

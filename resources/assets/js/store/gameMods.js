@@ -1,4 +1,5 @@
 const state = {
+    gameMod: Number,
     gameModsList: [],
 };
 
@@ -12,12 +13,20 @@ const actions = {
             commit('setModsList', response.data);
         }.bind(this));
     },
+
+    setGameMod({commit}, gameMod) {
+        commit('setGameMod', gameMod);
+    }
 };
 
 const mutations = {
     setModsList (state, modsList) {
         state.gameModsList = modsList;
     },
+
+    setGameMod(state, gameMod) {
+        state.gameMod = gameMod;
+    }
 };
 
 export default {

@@ -2,13 +2,13 @@
 
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
+use Gameap\Exceptions\GameapException;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Models\DedicatedServer;
 use Gameap\Http\Requests\GdaemonAPI\DedicatedServerRequest;
 use Gameap\Services\CertificateService;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -57,8 +57,11 @@ class SetupController extends BaseController
      * Return signed client certificate and signed server certificate
      *
      * @param string $token
-     * @param DedicatedServerRequest $request
+     * @param Request $request
      * @return string
+     *
+     * @throws GameapException
+     * @throws FileNotFoundException
      */
     public function create(string $token, Request $request)
     {
