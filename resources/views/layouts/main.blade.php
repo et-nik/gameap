@@ -61,7 +61,7 @@
             document.getElementById('brand-logo').classList.remove('logo');
             document.getElementById('brand-logo').classList.add('logo-mini');
 
-            document.getElementById('brand-logo').setAttribute('src', '/images/gap_logo_white_mini.png');
+            document.getElementById('brand-logo').setAttribute('src', '{{ URL::asset('/images/gap_logo_white_mini.png') }}');
         }
     </script>
 
