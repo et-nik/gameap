@@ -1,6 +1,6 @@
 <nav id="top-menu" class="navbar navbar-expand-md navbar-dark fixed-top bg-black">
     <a id="brand-link" class="navbar-brand" href="/">
-        <img id="brand-logo" src="/images/gap_logo_white.png" class="logo">
+        <img id="brand-logo" src="{{ URL::asset('/images/gap_logo_white.png') }}" class="logo">
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-menu" aria-controls="left-menu" aria-expanded="false" aria-label="Toggle navigation">
