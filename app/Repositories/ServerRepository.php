@@ -158,6 +158,7 @@ class ServerRepository
                     ->from($gamesTable)
                     ->whereIn('engine', $engines);
             })
+            ->where('deleted_at', null)
             ->join($gamesTable, "{$serversTable}.game_id", '=', "{$gamesTable}.code");
 
         if (!empty($dedicatedServers)) {
