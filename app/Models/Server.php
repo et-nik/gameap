@@ -3,6 +3,8 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
@@ -107,16 +109,25 @@ class Server extends Model
         return false;
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function dedicatedServer()
     {
         return $this->belongsTo(DedicatedServer::class, 'ds_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function game()
     {
         return $this->belongsTo(Game::class, 'game_id', 'code');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function gameMod()
     {
         return $this->belongsTo(GameMod::class, 'game_mod_id');
@@ -166,11 +177,17 @@ class Server extends Model
         return $fileManagerDisks;
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
 
+    /**
+     * @return array
+     */
     public function getAliasesAttribute()
     {
         $aliases = [
@@ -183,11 +200,13 @@ class Server extends Model
             'uuid_short' => $this->uuid_short,
         ];
 
-        foreach ($this->gameMod->vars as $var) {
-            $varname = $var['var'];
-            $aliases[ $varname ] = isset($this->vars[$varname])
-                ? $this->vars[$varname]
-                : $var['default'];
+        if ($this->gameMod != null && is_array($this->gameMod->vars)) {
+            foreach ($this->gameMod->vars as $var) {
+                $varname = $var['var'];
+                $aliases[ $varname ] = isset($this->vars[$varname])
+                    ? $this->vars[$varname]
+                    : $var['default'];
+            }
         }
 
         return $aliases;
