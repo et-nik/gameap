@@ -4,9 +4,9 @@
 
 @section('content')
     @include('components.grid', [
-         'modelsList' => $servers,
-         'labels' => [__('servers.name'), __('servers.ip_port'), __('servers.status'), __('servers.commands')],
-         'attributes' => [
+        'modelsList' => $servers,
+        'labels' => [__('servers.name'), __('servers.ip_port'), __('servers.status'), __('servers.commands')],
+        'attributes' => [
             'name',
             ['twoSeparatedValues', ['server_ip', ':', 'server_port']],
             ['lambda', function ($serverModel) {
@@ -65,6 +65,8 @@
 
                 return '<div id="serverControl">' . $buttons . '</div>';
             }]
-         ],
-     ])
+        ],
+    ])
+
+    {!! $servers->links() !!}
 @endsection
