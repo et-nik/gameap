@@ -15,6 +15,8 @@ class ServerRepository
 {
     const DEFAULT_RCON_PASSWORD_LENGTH = 10;
 
+    const DEFAULT_PER_PAGE = 20;
+
     /**
      * @var Server
      */
@@ -40,7 +42,7 @@ class ServerRepository
      * @param int $perPage
      * @return mixed
      */
-    public function getAll($perPage = 20)
+    public function getAll($perPage = self::DEFAULT_PER_PAGE)
     {
         $servers = Server::orderBy('id')->with('game')->paginate($perPage);
 
@@ -133,7 +135,7 @@ class ServerRepository
         if (Auth::user()->can('admin roles & permissions')) {
             return $this->getAll();
         } else {
-            return Auth::user()->servers;
+            return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
         }
     }
 
