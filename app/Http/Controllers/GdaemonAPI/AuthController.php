@@ -4,6 +4,7 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Illuminate\Support\Str;
 use Illuminate\Routing\Controller as BaseController;
+use Carbon\Carbon;
 use Gameap\Models\DedicatedServer;
 
 class AuthController extends BaseController
@@ -22,7 +23,8 @@ class AuthController extends BaseController
         $dedicatedServer->update();
 
         return response()->json([
-            'token' => $dedicatedServer->gdaemon_api_token
+            'token' => $dedicatedServer->gdaemon_api_token,
+            'timestamp' => Carbon::now()->timestamp,
         ]);
     }
 }
