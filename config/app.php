@@ -205,7 +205,14 @@ return [
          */
         Gameap\Providers\GdaemonFilesServiceProvider::class,
 
+        /*
+         * Other packages
+         */
         Mavinoo\LaravelBatch\LaravelBatchServiceProvider::class,
+        Silber\Bouncer\BouncerServiceProvider::class,
+
+        // TODO: Do not forget remove this
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
@@ -260,7 +267,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
 
         'Batch' => Mavinoo\LaravelBatch\LaravelBatchFacade::class,
-
+        'Bouncer' => Silber\Bouncer\BouncerFacade::class,
     ],
 
 ];

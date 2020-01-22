@@ -17,6 +17,7 @@
         "ext-openssl": "*",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
+        "fzaninotto/faker": "~1.4",
         "gameap/gameap-file-manager": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
         "infyomlabs/generator-builder": "dev-master",
@@ -34,18 +35,19 @@
         "moontoast/math": "^1.1",
         "nwidart/laravel-modules": "^5.0",
         "phpseclib/phpseclib": "~2.0",
+        "silber/bouncer": "v1.0.0-rc.6",
         "sofa/eloquence-validable": "^5.5",
         "spatie/laravel-permission": "^2.7",
-        "spatie/laravel-query-builder": "^1.10",
-        "fzaninotto/faker": "~1.4"
+        "spatie/laravel-query-builder": "^1.10"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.*",
+        "barryvdh/laravel-ide-helper": "^2.6",
         "filp/whoops": "~2.0",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~7.0",
+        "infyomlabs/adminlte-templates": "5.8.x-dev",
         "infyomlabs/laravel-generator": "5.8.x-dev",
-        "infyomlabs/adminlte-templates": "5.8.x-dev"
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~7.0"
     },
     "autoload": {
         "classmap": [
