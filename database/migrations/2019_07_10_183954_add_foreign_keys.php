@@ -65,38 +65,33 @@ class AddForeignKeys extends Migration
 
         Schema::table('ds_stats', function(Blueprint $table)
         {
-            $table->dropForeign('dedicated_server_id');
+            $table->dropForeign('ds_stats_dedicated_server_id_foreign');
         });
 
         Schema::table('game_mods', function(Blueprint $table)
         {
-            $table->dropForeign('game_code');
-        });
-
-        Schema::table('gdaemon_tasks', function(Blueprint $table)
-        {
-            $table->dropForeign('server_id');
+            $table->dropForeign('game_mods_game_code_foreign');
         });
 
         Schema::table('ds_users', function(Blueprint $table)
         {
-            $table->dropForeign('dedicated_server_id');
+            $table->dropForeign('ds_users_dedicated_server_id_foreign');
         });
 
         Schema::table('servers_settings', function(Blueprint $table)
         {
-            $table->dropForeign('server_id');
+            $table->dropForeign('servers_settings_server_id_foreign');
         });
 
         Schema::table('servers_stats', function(Blueprint $table)
         {
-            $table->dropForeign('server_id');
+            $table->dropForeign('servers_stats_server_id_foreign');
         });
 
         Schema::table('server_user', function(Blueprint $table)
         {
-            $table->dropForeign('server_id');
-            $table->dropForeign('user_id');
+            $table->dropForeign('server_user_server_id_foreign');
+            $table->dropForeign('server_user_user_id_foreign');
         });
 
         Schema::enableForeignKeyConstraints();

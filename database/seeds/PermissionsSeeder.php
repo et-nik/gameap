@@ -1,9 +1,11 @@
 <?php
 
+use Gameap\Models\ClientCertificate;
+use Gameap\Models\DedicatedServer;
+use Gameap\Models\Game;
+use Gameap\Models\GameMod;
+use Gameap\Models\Server;
 use Illuminate\Database\Seeder;
-
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Gameap\Models\User;
 
 class PermissionsSeeder extends Seeder
@@ -16,43 +18,123 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         // Roles
-        $roleAdmin = Role::create(['name' => 'admin']);
-        $roleUser = Role::create(['name' => 'user']);
+        if (Bouncer::role()->where(['name' => 'admin'])->exists()) {
+            $roleAdmin = Bouncer::role()->firstOrCreate([
+                'name' => 'admin',
+            ]);
+        } else {
+            $roleAdmin = Bouncer::role()->firstOrCreate([
+                'name' => 'admin',
+                'title' => 'Administrator',
+            ]);
+        }
 
-        // User permissions
-        $roleUser->givePermissionTo(Permission::create(['name' => 'start game server']));
-        $roleUser->givePermissionTo(Permission::create(['name' => 'stop game server']));
-        $roleUser->givePermissionTo(Permission::create(['name' => 'restart  server']));
-        $roleUser->givePermissionTo(Permission::create(['name' => 'update game server']));
+        if (Bouncer::role()->where(['name' => 'user'])->exists()) {
+            $roleUser = Bouncer::role()->firstOrCreate([
+                'name' => 'user',
+            ]);
+        } else {
+            $roleUser = Bouncer::role()->firstOrCreate([
+                'name' => 'user',
+                'title' => 'User',
+            ]);
+        }
+
+        // Game Servers permissions
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-servers-common',
+            'title' => 'Common Game Server Ability',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-start',
+            'title' => 'Start Game Server',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-stop',
+            'title' => 'Stop Game Server',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-restart',
+            'title' => 'Restart Server',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-pause',
+            'title' => 'Pause Game Server',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-update',
+            'title' => 'Update Game Server',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-console-view',
+            'title' => 'Access to read server console',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-console-send',
+            'title' => 'Access to send console commands',
+            'entity_type' => Server::class,
+        ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-files',
+            'title' => 'Access to server filemanager',
+            'entity_type' => Server::class,
+        ]));
 
         // Admin permissions
-        $roleAdmin->givePermissionTo($roleUser->permissions);
+        Bouncer::allow($roleAdmin)->to([
+            'game-servers-common',
+            'game-server-start',
+            'game-server-stop',
+            'game-server-restart',
+            'game-server-pause',
+            'game-server-update',
+            'game-server-console-view',
+            'game-server-console-send',
+            'game-server-files',
+        ]);
 
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'admin roles & permissions']));
+        Bouncer::ability()->firstOrCreate([
+            'name' => 'create',
+            'title' => 'Create New Item Permission',
+        ]);
 
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'add dedicated server']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'edit dedicated server']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'delete dedicated server']));
+        Bouncer::ability()->firstOrCreate([
+            'name' => 'view',
+            'title' => 'View Items Permission',
+        ]);
 
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'add game server']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'edit game server']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'delete game server']));
+        Bouncer::ability()->firstOrCreate([
+            'name' => 'edit',
+            'title' => 'Edit Items Permission',
+        ]);
 
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'add game']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'edit game']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'delete game']));
+        Bouncer::ability()->firstOrCreate([
+            'name' => 'delete',
+            'title' => 'Delete Items Permission',
+        ]);
 
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'add game mod']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'edit game mod']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'delete game mod']));
+        Bouncer::allow($roleAdmin)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'admin roles & permissions',
+            'title' => 'Common Admininstator Permissions',
+        ]));
 
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'gdaemon task view']));
-
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'add user']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'edit user']));
-        $roleAdmin->givePermissionTo(Permission::create(['name' => 'delete user']));
+        Bouncer::allow($roleAdmin)->to(['create', 'view', 'edit', 'delete']);
+        Bouncer::allow($roleAdmin)->to(['create', 'view', 'edit', 'delete'], Server::class);
+        Bouncer::allow($roleAdmin)->to(['create', 'view', 'edit', 'delete'], ClientCertificate::class);
+        Bouncer::allow($roleAdmin)->to(['create', 'view', 'edit', 'delete'], DedicatedServer::class);
+        Bouncer::allow($roleAdmin)->to(['create', 'view', 'edit', 'delete'], Game::class);
+        Bouncer::allow($roleAdmin)->to(['create', 'view', 'edit', 'delete'], GameMod::class);
+        Bouncer::allow($roleAdmin)->to(['create', 'view', 'edit', 'delete'], User::class);
 
         $admin = User::Find(1);
-        $admin->assignRole('admin');
+        Bouncer::assign('admin')->to($admin);
+        Bouncer::assign('user')->to($admin);
     }
 }

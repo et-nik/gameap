@@ -23,7 +23,13 @@
 
         <div class='form-group'>
             {{ Form::label('roles', __('users.roles'), ['class' => 'control-label']) }}
-            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
+
+            {{ Form::select(
+                'roles[]',
+                $roles->pluck('title', 'name'),
+                null,
+                ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']
+            ) }}
         </div>
     </div>
 

@@ -2,11 +2,15 @@
 
 namespace Gameap\Repositories;
 
+use Bouncer;
 use Gameap\Models\User;
-use Spatie\Permission\Models\Role;
 
 class UserRepository extends Repository
 {
+    /**
+     * UserRepository constructor.
+     * @param User $model
+     */
     public function __construct(User $model)
     {
         $this->model = $model;
@@ -30,14 +34,18 @@ class UserRepository extends Repository
 
         if (isset($attributes['roles'])) {
             foreach ($attributes['roles'] as &$role) {
-                $user->assignRole(Role::where('id', '=', $role)->firstOrFail());
+                if (Bouncer::role()->where(['name' => $role])->exists()) {
+                    $user->assign($role);
+                }
             }
+            Bouncer::refresh();
         }
     }
 
     /**
      * @param array $fields
      * @param User $user
+     * @return bool
      */
     public function update(User $user, array $fields)
     {
@@ -52,10 +60,12 @@ class UserRepository extends Repository
         }
 
         if (isset($fields['roles'])) {
-            $user->roles()->sync($fields['roles']);
+            $user->assign($fields['roles']);
         } else {
-            $user->roles()->detach();
+            $user->retract(Bouncer::role()->all());
         }
+
+        Bouncer::refresh();
 
         return true;
     }

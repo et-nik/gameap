@@ -2,6 +2,7 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
+use Bouncer;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
@@ -48,7 +49,7 @@ class UsersController extends AuthController
      */
     public function create()
     {
-        $roles = Role::get();
+        $roles = Bouncer::role()->all();
         
         return view('admin.users.create', compact('roles'));
     }
@@ -86,7 +87,7 @@ class UsersController extends AuthController
      */
     public function edit(User $user)
     {
-        $roles = Role::get();
+        $roles = Bouncer::role()->all();
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
@@ -111,8 +112,9 @@ class UsersController extends AuthController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Gameap\Models\User  $user
+     * @param \Gameap\Models\User $user
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(User $user)
     {

@@ -4,15 +4,15 @@ namespace Gameap\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 use Sofa\Eloquence\Validable;
 use Sofa\Eloquence\Contracts\Validable as ValidableContract;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable implements ValidableContract
 {
     use Notifiable;
-    use HasRoles;
     use Validable;
+    use HasRolesAndAbilities;
 
     /**
      * The attributes that are mass assignable.

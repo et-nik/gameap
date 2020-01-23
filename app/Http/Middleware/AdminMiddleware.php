@@ -4,6 +4,7 @@ namespace Gameap\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Bouncer;
 
 class AdminMiddleware
 {
@@ -16,7 +17,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->hasPermissionTo('admin roles & permissions')) {
+        if (!Bouncer::can('admin roles & permissions')) {
             abort('403', 'Access Denied');
         }
 
