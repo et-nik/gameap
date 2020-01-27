@@ -21,8 +21,8 @@ before_install:
 before_script:
     - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - cp .env.travis .env
-    - if [ "$TRAVIS_PHP_VERSION" -eq "nightly" ]; then travis_retry composer update --no-interaction --prefer-stable --no-suggest --ignore-platform-reqs; fi
-    - if [ "$TRAVIS_PHP_VERSION" -ne "nightly" ]; then travis_retry composer update --no-interaction --prefer-stable --no-suggest; fi
+    - if [ "$TRAVIS_PHP_VERSION" = "nightly" ]; then travis_retry composer update --no-interaction --prefer-stable --no-suggest --ignore-platform-reqs; fi
+    - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then travis_retry composer update --no-interaction --prefer-stable --no-suggest; fi
     - ./artisan migrate --seed
 
 script:
