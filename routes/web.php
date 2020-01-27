@@ -33,18 +33,28 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
 
-    Route::name('admin.games.upgrade')->patch('games/upgrade', 'Admin\\GamesController@upgrade', ['as' => 'admin']);
+    Route::name('admin.games.upgrade')->patch('games/upgrade', 'Admin\\GamesController@upgrade');
     Route::resource('games','Admin\\GamesController', ['as' => 'admin']);
-    Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
-    Route::resource('game_mods','Admin\\GameModsController', ['as' => 'admin']);
-    Route::name('admin.game_mods.create')->get('game_mods/create/{game}', 'Admin\\GameModsController@create', ['as' => 'admin']);
-    
-    Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', 'Admin\\GdaemonTasksController@index', ['as' => 'admin']);
-    Route::name('admin.gdaemon_tasks.show')->get('gdaemon_tasks/{gdaemon_task}', 'Admin\\GdaemonTasksController@show', ['as' => 'admin']);
-    Route::name('admin.gdaemon_tasks.cancel')->post('gdaemon_tasks/{gdaemon_task}/cancel', 'Admin\\GdaemonTasksController@cancel', ['as' => 'admin']);
 
-    Route::name('admin.servers_settings.edit')->get('servers/{server}/settings', 'Admin\\ServersSettingsController@edit', ['as' => 'admin']);
-    Route::name('admin.servers_settings.update')->patch('servers/{server}/settings', 'Admin\\ServersSettingsController@update', ['as' => 'admin']);
+    Route::name('admin.users.edit_server_permissions')->get(
+        'users/{user}/servers/{server}/edit',
+        'Admin\\UsersServersPermsController@editPermissions'
+    );
+    Route::name('admin.users.update_server_permissions')->patch(
+        'users/{user}/servers/{server}/edit',
+        'Admin\\UsersServersPermsController@updatePermissions'
+    );
+    Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
+
+    Route::resource('game_mods','Admin\\GameModsController', ['as' => 'admin']);
+    Route::name('admin.game_mods.create')->get('game_mods/create/{game}', 'Admin\\GameModsController@create');
+    
+    Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', 'Admin\\GdaemonTasksController@index');
+    Route::name('admin.gdaemon_tasks.show')->get('gdaemon_tasks/{gdaemon_task}', 'Admin\\GdaemonTasksController@show');
+    Route::name('admin.gdaemon_tasks.cancel')->post('gdaemon_tasks/{gdaemon_task}/cancel', 'Admin\\GdaemonTasksController@cancel');
+
+    Route::name('admin.servers_settings.edit')->get('servers/{server}/settings', 'Admin\\ServersSettingsController@edit');
+    Route::name('admin.servers_settings.update')->patch('servers/{server}/settings', 'Admin\\ServersSettingsController@update');
 });
 
 Route::group(['prefix' => 'api'], function() {
@@ -88,8 +98,8 @@ Route::get('/report_bug', 'HomeController@reportBug')->name('report_bug');
 Route::post('/report_bug', 'HomeController@sendBug')->name('send_bug');
 Route::get('/update', 'HomeController@update')->name('update');
 
-Route::get('/modules', 'ModulesController@index', ['middleware' => 'isAdmin'])->name('modules');
-Route::get('/modules/migrate', 'ModulesController@migrate', ['middleware' => 'isAdmin'])->name('modules.migrate');
+Route::get('/modules', 'ModulesController@index')->name('modules')->middleware('isAdmin');
+Route::get('/modules/migrate', 'ModulesController@migrate')->name('modules.migrate')->middleware('isAdmin');
 
 Route::name('gdaemon.setup')->get('gdaemon/setup/{token}', 'GdaemonAPI\SetupController@setup')->middleware('gdaemonVerifySetupToken');
 Route::name('gdaemon.create')->post('gdaemon/create/{token}', 'GdaemonAPI\SetupController@create')->middleware('gdaemonVerifyCreateToken');

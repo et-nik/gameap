@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('users.servers') }}</div>
                     <div class="card-body">
-                        <user-server-privileges :initial-items="{{ $user->servers }}"></user-server-privileges>
+                        <user-server-privileges :initial-items="{{ $user->servers }}" :user-id="{{ $user->id }}"></user-server-privileges>
                     </div>
                 </div>
             </div>

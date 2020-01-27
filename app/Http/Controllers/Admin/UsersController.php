@@ -7,8 +7,6 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
 use Gameap\Http\Requests\UserRequest;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class UsersController extends AuthController
 {
