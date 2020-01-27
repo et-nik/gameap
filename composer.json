@@ -43,7 +43,7 @@
         "barryvdh/laravel-debugbar": "3.*",
         "filp/whoops": "~2.0",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~7.0",
+        "phpunit/phpunit": "~8",
         "infyomlabs/laravel-generator": "5.8.x-dev",
         "infyomlabs/adminlte-templates": "5.8.x-dev"
     },
