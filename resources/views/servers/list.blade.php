@@ -38,30 +38,34 @@
                 $buttons = '';
 
                 if ($serverModel->installed === $serverModel::INSTALLED) {
-                    if (!$serverModel->processActive()) {
+                    if (!$serverModel->processActive() && Auth::user()->can('server-start', $serverModel)) {
                         $buttons .= '<a class="btn btn-small btn-success btn-sm" href="#" @click="startServer(' . $serverModel->id . ')">
                                 <span class="fa fa-play"></span>&nbsp;' . __('servers.start') . '
                             </a>&nbsp;';
                     }
 
-                    if ($serverModel->processActive()) {
+                    if ($serverModel->processActive() && Auth::user()->can('server-stop', $serverModel)) {
                         $buttons .= '<a class="btn btn-small btn-danger btn-sm" href="#" @click="stopServer(' . $serverModel->id . ')">
                                 <span class="fa fa-stop"></span>&nbsp;' . __('servers.stop') . '
                             </a>&nbsp;';
                     }
 
-                    $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="restartServer(' . $serverModel->id . ')">
-                            <span class="fa fa-redo"></span>&nbsp;' . __('servers.restart') . '
-                        </a>&nbsp;';
-                } else if ($serverModel->installed === $serverModel::NOT_INSTALLED) {
+                    if (Auth::user()->can('server-restart', $serverModel)) {
+                        $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="restartServer(' . $serverModel->id . ')">
+                                <span class="fa fa-redo"></span>&nbsp;' . __('servers.restart') . '
+                            </a>&nbsp;';
+                    }
+                } else if ($serverModel->installed === $serverModel::NOT_INSTALLED && Auth::user()->can('server-update', $serverModel)) {
                     $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="updateServer(' . $serverModel->id . ')">
                             <span class="fas fa-download"></span>&nbsp;' . __('servers.install') . '
                         </a>&nbsp;';
                 }
 
-                $buttons .= '<a class="btn btn-small btn-primary btn-sm" href="/servers/' . $serverModel->id . '">' . __('servers.control') . '&nbsp;
+                if (Auth::user()->can('control', $serverModel)) {
+                    $buttons .= '<a class="btn btn-small btn-primary btn-sm" href="/servers/' . $serverModel->id . '">' . __('servers.control') . '&nbsp;
                             <span class="fa fa-angle-double-right"></span>
                         </a>&nbsp;';
+                }
 
                 return '<div id="serverControl">' . $buttons . '</div>';
             }]

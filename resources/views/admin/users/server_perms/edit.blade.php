@@ -32,7 +32,7 @@
                     <div class="card-body">
                         @foreach ($allPermissions as $permission)
                             <div class="custom-control custom-switch m-3">
-                                {{ Form::checkbox("permissions[{$permission}]", 'on', in_array($permission, $checkedPermissions), ['id' => $permission, 'class' => 'custom-control-input']) }}
+                                {{ Form::checkbox("permissions[{$permission}]", 'disallow', !in_array($permission, $checkedPermissions), ['id' => $permission, 'class' => 'custom-control-input']) }}
                                 {{ Form::label($permission, __('users.permission_names.' . $permission), ['class' => 'custom-control-label']) }}
                             </div>
                         @endforeach

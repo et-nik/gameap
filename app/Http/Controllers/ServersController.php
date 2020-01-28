@@ -66,6 +66,7 @@ class ServersController extends AuthController
     public function filemanager(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-files', $server);
 
         return view('servers.filemanager', compact('server'));
     }
@@ -78,7 +79,7 @@ class ServersController extends AuthController
      */
     public function settings(Server $server)
     {
-        $this->authorize('server-control', $server);
+        $this->authorize('server-settings', $server);
 
         return view('servers.settings', compact('server'));
     }
@@ -93,6 +94,7 @@ class ServersController extends AuthController
     public function updateSettings(ServerVarsRequest $request, Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-settings', $server);
 
         $this->repository->updateVars($server, $request);
 

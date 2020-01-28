@@ -18,7 +18,7 @@ return [
     'servers' => 'Servers',
 
     'permission_names' => [
-        'game-servers-common'       => 'Common Game Server Ability',
+        'game-server-common'        => 'Common Game Server Ability',
         'game-server-start'         => 'Start Game Server',
         'game-server-stop'          => 'Stop Game Server',
         'game-server-restart'       => 'Restart Game Server',
@@ -27,6 +27,7 @@ return [
         'game-server-console-view'  => 'Access to read server console',
         'game-server-console-send'  => 'Access to send console commands',
         'game-server-files'         => 'Access to filemanager',
+        'game-server-settings'      => 'Access to settings',
     ],
 
     'server_permission_edit' => 'Edit Server Permission',

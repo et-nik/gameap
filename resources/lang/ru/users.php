@@ -18,7 +18,7 @@ return [
     'servers' => 'Серверы',
 
     'permission_names' => [
-        'game-servers-common'       => 'Базовые привилегии',
+        'game-server-common'        => 'Базовые привилегии',
         'game-server-start'         => 'Запуск игрового сервера',
         'game-server-stop'          => 'Остановка игрового сервера',
         'game-server-restart'       => 'Перезагрузка игрового сервера',
@@ -27,6 +27,7 @@ return [
         'game-server-console-view'  => 'Чтение консоли',
         'game-server-console-send'  => 'Отправка комманд в консоль',
         'game-server-files'         => 'Доступ к файловому менеджеру',
+        'game-server-settings'         => 'Доступ к настройкам',
     ],
 
     'server_permission_edit' => 'Привилегии сервера',

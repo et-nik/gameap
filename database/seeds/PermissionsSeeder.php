@@ -42,7 +42,7 @@ class PermissionsSeeder extends Seeder
 
         // Game Servers permissions
         Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
-            'name' => 'game-servers-common',
+            'name' => 'game-server-common',
             'title' => 'Common Game Server Ability',
             'entity_type' => Server::class,
         ]));
@@ -86,10 +86,15 @@ class PermissionsSeeder extends Seeder
             'title' => 'Access to server filemanager',
             'entity_type' => Server::class,
         ]));
+        Bouncer::allow($roleUser)->to(Bouncer::ability()->firstOrCreate([
+            'name' => 'game-server-settings',
+            'title' => 'Access to server settings',
+            'entity_type' => Server::class,
+        ]));
 
         // Admin permissions
         Bouncer::allow($roleAdmin)->to([
-            'game-servers-common',
+            'game-server-common',
             'game-server-start',
             'game-server-stop',
             'game-server-restart',
@@ -98,6 +103,7 @@ class PermissionsSeeder extends Seeder
             'game-server-console-view',
             'game-server-console-send',
             'game-server-files',
+            'game-server-settings',
         ]);
 
         Bouncer::ability()->firstOrCreate([

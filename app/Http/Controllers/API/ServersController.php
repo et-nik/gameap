@@ -65,6 +65,7 @@ class ServersController extends AuthController
     public function start(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-start', $server);
 
         try {
             $gdaemonTaskId = $this->gdaemonTaskRepository->addServerStart($server);
@@ -96,6 +97,7 @@ class ServersController extends AuthController
     public function stop(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-stop', $server);
 
         try {
             $gdaemonTaskId = $this->gdaemonTaskRepository->addServerStop($server);
@@ -125,6 +127,7 @@ class ServersController extends AuthController
     public function restart(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-restart', $server);
 
         try {
             $gdaemonTaskId = $this->gdaemonTaskRepository->addServerRestart($server);
@@ -155,6 +158,7 @@ class ServersController extends AuthController
     public function update(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-update', $server);
 
         try {
             $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server);
@@ -184,6 +188,7 @@ class ServersController extends AuthController
     public function reinstall(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-update', $server);
 
         try {
             $deleteTaskId = $this->gdaemonTaskRepository->addServerDelete($server);
@@ -236,6 +241,8 @@ class ServersController extends AuthController
     public function consoleLog(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-console-view', $server);
+
         return [
             'console' => $this->serverService->getConsoleLog($server)
         ];
@@ -251,6 +258,7 @@ class ServersController extends AuthController
     public function sendCommand(ServerConsoleCommandRequest $request, Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-console-send', $server);
 
         $command = $request->input('command');
         $this->serverService->sendConsoleCommand($server, $command);

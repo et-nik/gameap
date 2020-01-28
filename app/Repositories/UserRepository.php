@@ -64,7 +64,7 @@ class UserRepository extends Repository
                     $query->select('id')
                         ->from('abilities')
                         ->where('entity_type', '=', Server::class)
-                        ->where('entity_id', '=', $fields['servers']);
+                        ->whereIn('entity_id', $fields['servers']);
                 })
                 ->delete();
         } else {
@@ -94,9 +94,9 @@ class UserRepository extends Repository
     {
         foreach (ServerPermissionHelper::getAllPermissions() as $pname) {
             if (isset($permissions[$pname]) && $permissions[$pname]) {
-                $user->allow($pname, $server);
+                Bouncer::forbid($user)->to($pname, $server);
             } else {
-                $user->disallow($pname, $server);
+                $user->allow($pname, $server);
             }
         }
 
