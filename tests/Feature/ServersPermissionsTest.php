@@ -15,7 +15,7 @@ use Illuminate\Http\Response;
 class ServersPermissionsTest extends TestCase
 {
     /** @var User */
-    protected static $user;
+    protected $user;
 
     /** @var Server */
     protected $server;
@@ -27,37 +27,20 @@ class ServersPermissionsTest extends TestCase
     {
         parent::setUp();
 
-        $factoryResult = factory(Server::class, 1)->create();
-        $this->server = $factoryResult->first();
+        $this->server = factory(Server::class)->create();
+        $this->user = factory(User::class)->create();
 
-        // TODO: Fix Error: Cannot use object of type Illuminate\Support\Facades\Config as array
-        // I don’t know how to fix the problem differently. I used a static $user variable.
-        // See https://stackoverflow.com/questions/27590818/cannot-use-object-of-type-illuminate-support-facades-config-as-array-in-fram
-        if (is_null(self::$user)) {
-            $factoryResult = factory(User::class)->create([
-                'login' => 'user_permission',
-                'email' => 'up@gameap.io',
-                'password' => bcrypt("123")
-            ]);
+        $this->userRepository = new UserRepository($this->user);
 
-            if ($factoryResult instanceof Collection) {
-                self::$user = $factoryResult->first();
-            } else {
-                self::$user = $factoryResult;
-            }
-        }
-
-        $this->userRepository = new UserRepository(self::$user);
-
-        Bouncer::sync(self::$user)->roles(['user']);
+        Bouncer::sync($this->user)->roles(['user']);
         Bouncer::refresh();
 
-        $this->be(self::$user);
+        $this->be($this->user);
     }
 
     public function testCommonAllow()
     {
-        $this->userRepository->updateServerPermission(self::$user, $this->server, []);
+        $this->userRepository->updateServerPermission($this->user, $this->server, []);
 
         $response = $this->get(route('servers.control', $this->server->id));
         $response->assertStatus(Response::HTTP_OK);
@@ -65,7 +48,7 @@ class ServersPermissionsTest extends TestCase
 
     public function testCommonForbidden()
     {
-        $this->userRepository->updateServerPermission(self::$user, $this->server, [
+        $this->userRepository->updateServerPermission($this->user, $this->server, [
             'game-server-common' => 'disallow',
         ]);
 
@@ -75,8 +58,8 @@ class ServersPermissionsTest extends TestCase
 
     public function testFileManagerAllow()
     {
-        $this->userRepository->update(self::$user, ['servers' => [$this->server->id]]);
-        $this->userRepository->updateServerPermission(self::$user, $this->server, []);
+        $this->userRepository->update($this->user, ['servers' => [$this->server->id]]);
+        $this->userRepository->updateServerPermission($this->user, $this->server, []);
 
         $response = $this->get(route('servers.filemanager', $this->server->id));
         $response->assertStatus(Response::HTTP_OK);
@@ -84,11 +67,11 @@ class ServersPermissionsTest extends TestCase
 
     public function testFileManagerForbiddenNotRelation()
     {
-        $this->userRepository->updateServerPermission(self::$user, $this->server, [
+        $this->userRepository->updateServerPermission($this->user, $this->server, [
             'game-server-common' => 'disallow',
             'game-server-files' => 'disallow',
         ]);
-        $this->userRepository->update(self::$user, []);
+        $this->userRepository->update($this->user, []);
 
         $response = $this->get(route('servers.filemanager', $this->server->id));
         $response->assertStatus(Response::HTTP_FORBIDDEN);
@@ -97,33 +80,35 @@ class ServersPermissionsTest extends TestCase
     /**
      * @return array
      */
-    public function twoFalseDataProvider()
+    public function twoTrueDataProvider()
     {
         return [
-            ['first' => false, 'second' => false],
+            ['first' => true, 'second' => true],
             ['first' => true, 'second' => false],
             ['first' => false, 'second' => true],
         ];
     }
 
     /**
-     * @dataProvider twoFalseDataProvider
+     * @dataProvider twoTrueDataProvider
+     * @param bool $first
+     * @param bool $second
      */
-//    public function testFileManagerForbidden(bool $first, bool $second)
-//    {
-//        $this->userRepository->updateServerPermission(self::$user, $this->server, [
-//            'game-server-common' => $first,
-//            'game-server-files' => $second,
-//        ]);
-//
-//        $response = $this->get(route('servers.filemanager', $this->server->id));
-//        $response->assertStatus(Response::HTTP_FORBIDDEN);
-//    }
+    public function testFileManagerForbidden(bool $first, bool $second)
+    {
+        $this->userRepository->updateServerPermission($this->user, $this->server, [
+            'game-server-common' => $first,
+            'game-server-files' => $second,
+        ]);
+
+        $response = $this->get(route('servers.filemanager', $this->server->id));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
 
     public function testSettingsAllow()
     {
-        $this->userRepository->update(self::$user, ['servers' => [$this->server->id]]);
-        $this->userRepository->updateServerPermission(self::$user, $this->server, []);
+        $this->userRepository->update($this->user, ['servers' => [$this->server->id]]);
+        $this->userRepository->updateServerPermission($this->user, $this->server, []);
 
         $response = $this->get(route('servers.settings', $this->server->id));
         $response->assertStatus(Response::HTTP_OK);
@@ -131,8 +116,8 @@ class ServersPermissionsTest extends TestCase
 
     public function testSettingsForbidden()
     {
-        $this->userRepository->update(self::$user, ['servers' => [$this->server->id]]);
-        $this->userRepository->updateServerPermission(self::$user, $this->server, [
+        $this->userRepository->update($this->user, ['servers' => [$this->server->id]]);
+        $this->userRepository->updateServerPermission($this->user, $this->server, [
             'game-server-common' => 'disallow',
             'game-server-settings' => 'disallow',
         ]);
