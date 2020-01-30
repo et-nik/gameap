@@ -6,7 +6,8 @@ use Bouncer;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
-use Gameap\Http\Requests\UserRequest;
+use Gameap\Http\Requests\Admin\UserCreateRequest;
+use Gameap\Http\Requests\Admin\UserUpdateRequest;
 
 class UsersController extends AuthController
 {
@@ -55,10 +56,10 @@ class UsersController extends AuthController
     /**
      * Store a newly created user in storage.
      *
-     * @param UserRequest $request
+     * @param UserCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request)
+    public function store(UserCreateRequest $request)
     {
         $this->repository->store($request->all());
 
@@ -92,11 +93,11 @@ class UsersController extends AuthController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\UserRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\UserUpdateRequest  $request
      * @param  \Gameap\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         if ($this->repository->update($user, $request->all())) {
             return redirect()->route('admin.users.index')

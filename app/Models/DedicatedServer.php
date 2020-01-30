@@ -50,10 +50,8 @@ use Storage;
  * @property Server[] $servers
  * @property ClientCertificate $clientCertificate
  */
-class DedicatedServer extends Model implements ValidableContract
+class DedicatedServer extends Model
 {
-    use Validable;
-    
     /**
      * The attributes that are mass assignable.
      *

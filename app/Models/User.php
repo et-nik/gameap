@@ -8,10 +8,9 @@ use Sofa\Eloquence\Validable;
 use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
-class User extends Authenticatable implements ValidableContract
+class User extends Authenticatable
 {
     use Notifiable;
-    use Validable;
     use HasRolesAndAbilities;
 
     /**
@@ -40,9 +39,6 @@ class User extends Authenticatable implements ValidableContract
     protected static $rules = [
         'login'     => 'sometimes|string|max:255|unique:users',
         'email'     => 'sometimes|string|email|max:255|unique:users',
-
-        // TODO: Fix sofa/eloquence-validable bug with password confirmation
-        // https://github.com/et-nik/gameap/issues/2
         //'password'  => 'sometimes|string|min:6|confirmed',
         'password'  => 'nullable|sometimes|string|min:6',
         'name'      => 'string|nullable|max:255',

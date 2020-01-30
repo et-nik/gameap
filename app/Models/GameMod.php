@@ -27,10 +27,8 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $sendmsg_cmd
  * @property string $passwd_cmd
  */
-class GameMod extends Model implements ValidableContract
+class GameMod extends Model
 {
-    use Validable;
-
     /**
      * @var bool
      */

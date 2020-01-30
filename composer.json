@@ -36,7 +36,6 @@
         "nwidart/laravel-modules": "^5.0",
         "phpseclib/phpseclib": "~2.0",
         "silber/bouncer": "v1.0.0-rc.6",
-        "sofa/eloquence-validable": "^5.5",
         "spatie/laravel-query-builder": "^1.10"
     },
     "require-dev": {
