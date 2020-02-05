@@ -62,9 +62,11 @@
                         </a>
                     @endcan
 
-                    <a class="btn btn-large btn-light m-1" href="{{ route('servers.settings', ['server' => $server->id]) }}">
-                        <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
-                    </a>
+                    @can('server-settings', $server)
+                        <a class="btn btn-large btn-light m-1" href="{{ route('servers.settings', ['server' => $server->id]) }}">
+                            <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
+                        </a>
+                    @endcan
 
                     @can('admin roles & permissions')
                         <a class="btn btn-large btn-danger m-1" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
