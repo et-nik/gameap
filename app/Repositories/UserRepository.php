@@ -90,12 +90,14 @@ class UserRepository extends Repository
         return true;
     }
 
-    public function updateServerPermission(User $user, Server $server, array $permissions)
+    public function updateServerPermission(User $user, Server $server, ?array $disabledPermissions)
     {
         foreach (ServerPermissionHelper::getAllPermissions() as $pname) {
-            if (isset($permissions[$pname]) && $permissions[$pname]) {
+            if (isset($disabledPermissions[$pname]) && $disabledPermissions[$pname]) {
                 Bouncer::forbid($user)->to($pname, $server);
+                $user->disallow($pname, $server);
             } else {
+                Bouncer::unforbid($user)->to($pname, $server);
                 $user->allow($pname, $server);
             }
         }

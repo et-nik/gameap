@@ -31,9 +31,11 @@
                 <div class="card">
                     <div class="card-body">
                         @foreach ($allPermissions as $permission)
-                            <div class="custom-control custom-switch m-3">
-                                {{ Form::checkbox("permissions[{$permission}]", 'disallow', !in_array($permission, $checkedPermissions), ['id' => $permission, 'class' => 'custom-control-input']) }}
-                                {{ Form::label($permission, __('users.permission_names.' . $permission), ['class' => 'custom-control-label']) }}
+                            <div class="form-group m-3">
+                                <span class="switch switch-success switch-checked-danger">
+                                    {{ Form::checkbox("permissions[{$permission}]", 'disallow', !in_array($permission, $checkedPermissions), ['id' => $permission, 'class' => 'switch']) }}
+                                    {{ Form::label($permission, __('users.permission_names.' . $permission)) }}
+                                </span>
                             </div>
                         @endforeach
                     </div>
