@@ -1,4 +1,13 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/chunks/components/game-mod-selector.js?a25305c950f1cf54c92a": "/js/chunks/components/game-mod-selector.js?a25305c950f1cf54c92a",
+    "/js/chunks/components/input-many-list.js?797f423a3d29cd71271a": "/js/chunks/components/input-many-list.js?797f423a3d29cd71271a",
+    "/js/chunks/components/input-text-list.js?d4315e2d49233c11919c": "/js/chunks/components/input-text-list.js?d4315e2d49233c11919c",
+    "/js/chunks/components/server-console.js?1718ad2e9ee2f512f464": "/js/chunks/components/server-console.js?1718ad2e9ee2f512f464",
+    "/js/chunks/components/server-status.js?3d5c93a47931ae934448": "/js/chunks/components/server-status.js?3d5c93a47931ae934448",
+    "/js/chunks/components/smart-port-selector.js?e164400197b890203085": "/js/chunks/components/smart-port-selector.js?e164400197b890203085",
+    "/js/chunks/components/task-output.js?3233a4007e2978d60918": "/js/chunks/components/task-output.js?3233a4007e2978d60918",
+    "/js/chunks/components/user-server-privileges.js?1f504c4f486f07c83ba6": "/js/chunks/components/user-server-privileges.js?1f504c4f486f07c83ba6",
+    "/js/chunks/vendors~js/file-manager.js?258c7add2b1dad8cdabd": "/js/chunks/vendors~js/file-manager.js?258c7add2b1dad8cdabd"
 }

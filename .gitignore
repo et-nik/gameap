@@ -14,3 +14,7 @@ npm-debug.log
 yarn-error.log
 .env
 /modules/*
+/_ide_helper.php
+/config/ide-helper.php
+/public/js/chunks/
+/.phpstorm.meta.php
