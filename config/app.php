@@ -210,9 +210,6 @@ return [
          */
         Mavinoo\LaravelBatch\LaravelBatchServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
-
-        // TODO: Do not forget remove this
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
