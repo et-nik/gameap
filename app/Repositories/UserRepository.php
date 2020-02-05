@@ -64,7 +64,7 @@ class UserRepository extends Repository
                     $query->select('id')
                         ->from('abilities')
                         ->where('entity_type', '=', Server::class)
-                        ->whereIn('entity_id', $fields['servers']);
+                        ->whereNotIn('entity_id', $fields['servers']);
                 })
                 ->delete();
         } else {
