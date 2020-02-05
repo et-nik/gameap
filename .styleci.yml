@@ -1,4 +1,4 @@
-preset: laravel
+preset: recommended
 
 enabled:
   - concat_with_spaces
