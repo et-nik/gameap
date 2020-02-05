@@ -18,3 +18,4 @@ yarn-error.log
 /config/ide-helper.php
 /public/js/chunks/
 /.phpstorm.meta.php
+/tests/Unit/_output/

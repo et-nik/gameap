@@ -148,10 +148,10 @@ class ServerServiceTest extends TestCase
      * @param $mock
      * @param $server
      *
-     * @expectedException \Gameap\Exceptions\Services\ServerInactiveException
      */
     public function testGetConsoleLogInactiveServer($serverService, $mock, $server)
     {
+        $this->expectException(\Gameap\Exceptions\Services\ServerInactiveException::class);
         $server->process_active = false;
 
         $mock->shouldReceive('exec')->andReturn("command result");
@@ -197,11 +197,10 @@ class ServerServiceTest extends TestCase
      * @param $serverService
      * @param $mock
      * @param $server
-     *
-     * @expectedException \Gameap\Exceptions\Services\ServerInactiveException
      */
     public function testSendConsoleCommandInactive($serverService, $mock, $server)
     {
+        $this->expectException(\Gameap\Exceptions\Services\ServerInactiveException::class);
         $server->process_active = false;
         $mock->shouldReceive('exec')->andReturn("command result");
         $serverService->sendConsoleCommand($server, 'ban knik');
@@ -213,6 +212,9 @@ class ServerServiceTest extends TestCase
      * @param ServerService $serverService
      * @param $mock
      * @param Server $server
+     *
+     * @throws \Gameap\Exceptions\Services\EmptyCommandException
+     * @throws \Gameap\Exceptions\Services\InvalidCommandException
      */
     public function testGetCommand($serverService, $mock, $server)
     {
@@ -251,10 +253,12 @@ class ServerServiceTest extends TestCase
      * @param $mock
      * @param Server $server
      *
-     * @expectedException \Gameap\Exceptions\Services\InvalidCommandException
+     * @throws \Gameap\Exceptions\Services\EmptyCommandException
+     * @throws \Gameap\Exceptions\Services\InvalidCommandException
      */
     public function testGetCommandInvalidCommand($serverService, $mock, $server)
     {
+        $this->expectException(\Gameap\Exceptions\Services\InvalidCommandException::class);
         $serverService->getCommand($server, 'invalid_command');
     }
 }
