@@ -108,3 +108,11 @@ enabled:
   - unary_operator_spaces
   - unix_line_endings
   - whitespace_after_comma_in_array
+
+disabled:
+  - phpdoc_annotation_without_dot
+  - phpdoc_order
+  - phpdoc_scalar
+  - single_class_element_per_statement
+  - no_trailing_comma_in_list_call
+  - no_trailing_comma_in_singleline_array
