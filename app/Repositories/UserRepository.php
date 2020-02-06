@@ -79,10 +79,10 @@ class UserRepository extends Repository
                 ->delete();
         }
 
+        $user->retract(Bouncer::role()->all());
+
         if (isset($fields['roles'])) {
             $user->assign($fields['roles']);
-        } else {
-            $user->retract(Bouncer::role()->all());
         }
 
         Bouncer::refresh();
