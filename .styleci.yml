@@ -71,6 +71,7 @@ enabled:
   - normalize_index_brace
   - object_operator_without_whitespace
   - phpdoc_align
+  - phpdoc_annotation_without_dot
   - phpdoc_indent
   - phpdoc_inline_tag
   - phpdoc_no_access
@@ -108,11 +109,3 @@ enabled:
   - unary_operator_spaces
   - unix_line_endings
   - whitespace_after_comma_in_array
-
-disabled:
-  - phpdoc_annotation_without_dot
-  - phpdoc_order
-  - phpdoc_scalar
-  - single_class_element_per_statement
-  - no_trailing_comma_in_list_call
-  - no_trailing_comma_in_singleline_array
