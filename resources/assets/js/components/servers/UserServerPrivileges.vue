@@ -30,7 +30,12 @@
 
         <div class="form-group">
             <div class="col-12">
-                <v-select v-model="selectedServer" v-bind:options="serversListOptions" @search="onSearch">
+                <v-select
+                        v-model="selectedServer"
+                        v-bind:options="serversListOptions"
+                        @search="onSearch"
+                        :placeholder="trans('users.servers_privileges_placeholder')"
+                >
                     <template slot="option" slot-scope="option">
                         <div class="row">
                             <div class="col-5">{{ option.label }}</div>

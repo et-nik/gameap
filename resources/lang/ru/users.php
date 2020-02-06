@@ -16,6 +16,7 @@ return [
     'create' => 'Создать пользователя',
 
     'servers' => 'Серверы',
+    'servers_privileges_placeholder' => 'Начните вводить имя сервера',
 
     'permission_names' => [
         'game-server-common'        => 'Базовые привилегии',

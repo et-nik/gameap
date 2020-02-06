@@ -16,6 +16,7 @@ return [
     'create' => 'Create User',
     
     'servers' => 'Servers',
+    'servers_privileges_placeholder' => 'Start typing the server name',
 
     'permission_names' => [
         'game-server-common'        => 'Common Game Server Ability',
