@@ -59,10 +59,7 @@ class GameRepository extends Repository
                     ]);
 
                     $gameMod->fill($gameModData);
-
-                    if ($gameMod->isValid()) {
-                        $gameMod->save();
-                    }
+                    $gameMod->save();
                 }
             }
         }
