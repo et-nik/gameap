@@ -144,6 +144,14 @@ class Server extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks()
+    {
+        return $this->hasMany(ServerTask::class);
+    }
+
+    /**
      * @return string
      */
     public function getFullPathAttribute()
