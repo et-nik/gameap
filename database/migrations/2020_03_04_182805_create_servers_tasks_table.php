@@ -25,7 +25,7 @@ class CreateServersTasksTable extends Migration
             $table->integer('repeat_period')->default(0);
             $table->unsignedInteger('counter')->default(0);
             $table->timestamp('execute_date')->index();
-            $table->longText('payload');
+            $table->longText('payload')->nullable();
             $table->timestamps();
         });
     }
