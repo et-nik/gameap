@@ -57,33 +57,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::name('admin.servers_settings.update')->patch('servers/{server}/settings', 'Admin\\ServersSettingsController@update');
 });
 
-Route::group(['prefix' => 'api'], function() {
-    Route::name('api.dedicated_servers.ip_list')
-        ->get('dedicated_servers/{dedicated_server}/ip_list', 'API\\DedicatedServersController@getIpList');
-
-    Route::name('api.dedicated_servers.busy_ports')
-        ->get('dedicated_servers/{dedicated_server}/busy_ports', 'API\\DedicatedServersController@getBusyPorts');
-
-    Route::name('api.game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', 'API\\GameModsController@getListForGame');
-
-    // Servers
-    Route::name('api.servers.start')->post('servers/start/{server}', 'API\\ServersController@start');
-    Route::name('api.servers.stop')->post('servers/stop/{server}', 'API\\ServersController@stop');
-    Route::name('api.servers.restart')->post('servers/restart/{server}', 'API\\ServersController@restart');
-    Route::name('api.servers.update')->post('servers/update/{server}', 'API\\ServersController@update');
-    Route::name('api.servers.reinstall')->post('servers/reinstall/{server}', 'API\\ServersController@reinstall');
-    Route::name('api.servers.get_status')->get('servers/get_status/{server}', 'API\\ServersController@getStatus');
-    Route::name('api.servers.query')->get('servers/query/{server}', 'API\\ServersController@query');
-    Route::name('api.servers.console')->get('servers/console/{server}', 'API\\ServersController@consoleLog');
-    Route::name('api.servers.send_command')->post('servers/console/{server}', 'API\\ServersController@sendCommand');
-
-    Route::name('api.servers.search')->get('servers/search', 'API\\ServersController@search')->middleware('isAdmin');
-
-    // Gdaemon tasks
-    Route::name('api.gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemon_task}', 'API\\GdaemonTasksController@get');
-    Route::name('api.gdaemon_tasks.output')->get('gdaemon_tasks/output/{gdaemon_task}', 'API\\GdaemonTasksController@output');
-});
-
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
 Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
 Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');
