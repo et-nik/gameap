@@ -12,14 +12,17 @@ import vSelect from 'vue-select';
 
 import store from './store'
 
-import FileManager from 'gameap-file-manager';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/locale/ru';
 
+import FileManager from 'gameap-file-manager';
 import Progressbar from './components/Progressbar';
 
 const InputTextList = () => import('./components/InputTextList' /* webpackChunkName: "components/input-text-list" */);
 const InputManyList = () => import('./components/InputManyList' /* webpackChunkName: "components/input-many-list" */);
 const ServerStatus = () => import('./components/ServerStatus' /* webpackChunkName: "components/server-status" */);
 const ServerConsole = () => import('./components/ServerConsole' /* webpackChunkName: "components/server-console" */);
+const ServerTasks = () => import('./components/ServerTasks' /* webpackChunkName: "components/server-tasks" */);
 const TaskOutput = () => import('./components/TaskOutput' /* webpackChunkName: "components/task-output" */);
 const UserServerPrivileges = () => import('./components/servers/UserServerPrivileges' /* webpackChunkName: "components/user-server-privileges" */);
 const GameModSelector = () => import('./components/servers/GameModSelector' /* webpackChunkName: "components/game-mod-selector" */);
@@ -46,6 +49,7 @@ var vm = new Vue({
         'input-many-list': InputManyList,
         'server-status': ServerStatus,
         'server-console': ServerConsole,
+        'server-tasks': ServerTasks,
         'task-output': TaskOutput,
 
         'user-server-privileges': UserServerPrivileges,
@@ -53,6 +57,8 @@ var vm = new Vue({
         'settings-parameters': SettingsParameters,
         'game-mod-selector': GameModSelector,
         'ds-ip-selector': DsIpSelector,
+
+        'date-picker': DatePicker,
     },
     methods: {
         alert: function(message, callback) {
