@@ -34,6 +34,14 @@ class ServerTask extends Model
         'counter'       => 'integer',
     ];
 
+    protected $fillable = [
+        'task',
+        'server_id',
+        'repeat',
+        'repeat_period',
+        'execute_date',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

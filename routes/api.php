@@ -36,6 +36,11 @@ Route::name('api.servers.query')->get('servers/query/{server}', 'ServersControll
 Route::name('api.servers.console')->get('servers/console/{server}', 'ServersController@consoleLog');
 Route::name('api.servers.send_command')->post('servers/console/{server}', 'ServersController@sendCommand');
 
+Route::name('api.servers.get_tasks')->get('servers/{server}/tasks', 'ServersTasksController@getList');
+Route::name('api.servers.add_task')->post('servers/{server}/tasks', 'ServersTasksController@store');
+Route::name('api.servers.update_task')->put('servers/{server}/tasks/{server_task}', 'ServersTasksController@update');
+Route::name('api.servers.delete_task')->delete('servers/{server}/tasks/{server_task}', 'ServersTasksController@destroy');
+
 Route::name('api.servers.search')->get('servers/search', 'ServersController@search')->middleware('isAdmin');
 
 // Gdaemon tasks

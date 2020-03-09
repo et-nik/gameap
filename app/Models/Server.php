@@ -51,6 +51,7 @@ use Carbon\Carbon;
  * @property GameMod $gameMod
  * @property ServerSetting[] $settings
  * @property User[] $users
+ * @property ServerTask[] $tasks
  */
 class Server extends Model
 {
