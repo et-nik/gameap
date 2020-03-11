@@ -1,0 +1,156 @@
+openapi: 3.0.0
+
+info:
+  title: "GameAP Daemon API"
+  version: "1.0.0"
+
+servers:
+  - url: "{gameap-host}/gdaemon_api"
+    variables:
+      gameap-host:
+        default: https://demo.gameap.ru
+        description: GameAP Host
+
+paths:
+  /get_token:
+    get:
+      summary: 'Get Token'
+      tags:
+        - 'initial'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /dedicated_servers/get_init_data/{dedicated_server}:
+    parameters:
+      - name: dedicated_server
+        in: path
+        required: true
+        description: 'Dedicated Server ID'
+        schema:
+          type: integer
+    get:
+      summary: 'Get Initial Dedicated Server Data'
+      tags:
+        - 'initial'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers:
+    get:
+      summary: 'Get Game Servers list'
+      tags:
+        - 'servers'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+    patch:
+      summary: 'Bulk Game Server Update'
+      tags:
+        - 'servers'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/{server}:
+    parameters:
+      - name: server
+        in: path
+        required: true
+        description: 'Game Server ID'
+        schema:
+          type: integer
+    get:
+      summary: 'Get Game Server Information'
+      tags:
+        - 'servers'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+    put:
+      summary: 'Update Game Server'
+      tags:
+        - 'servers'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /tasks:
+    get:
+      summary: 'Get Tasks'
+      tags:
+        - 'tasks'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /tasks/{gdaemon_task}:
+    parameters:
+      - name: gdaemon_task
+        in: path
+        required: true
+        description: 'GDaemon Task ID'
+        schema:
+          type: integer
+    put:
+      summary: 'Update Task'
+      tags:
+        - 'tasks'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /tasks/{gdaemon_task}/output:
+    parameters:
+      - name: gdaemon_task
+        in: path
+        required: true
+        description: 'GDaemon Task ID'
+        schema:
+          type: integer
+    put:
+      summary: 'Append Task Output'
+      tags:
+        - 'tasks'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+components:
+
+  responses:
+    CommonSuccessResponse:
+      description: 'Success Response'
+      content:
+        application/json:
+          schema:
+            type: object
+
+    CommonErrorResponse:
+      description: "Common Error Response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
