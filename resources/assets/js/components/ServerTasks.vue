@@ -96,27 +96,39 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="repeat_period" class="control-label">Period</label>
+                                <label class="control-label">Period</label>
 
-                                <select
-                                        v-model="taskRepeatPeriod"
-                                        :disabled="repeat === 1"
-                                        id="repeat_period"
-                                        name="repeat_period"
-                                        class="custom-select">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input v-model="taskRepeatPeriod"
+                                               :disabled="repeat === 1"
+                                               id="repeat_period"
+                                               name="repeat_period"
+                                               type="number"
+                                               :min="repeatMin"
+                                               class="form-control">
+                                    </div>
 
-                                    <option value="30 minutes">30 min</option>
-                                    <option value="1 hour">One hour</option>
-                                    <option value="6 hours">6 hours</option>
-                                    <option value="12 hours">12 hours</option>
-                                    <option value="1 day">One day</option>
-                                    <option value="1 week">One week</option>
-                                </select>
+                                    <div class="col-md-8">
+                                        <select
+                                                v-model="taskRepeatUnit"
+                                                :disabled="repeat === 1"
+                                                class="custom-select">
+                                            <option value="minutes">munutes</option>
+                                            <option value="hours">hours</option>
+                                            <option value="days">days</option>
+                                            <option value="weeks">weeks</option>
+                                            <option value="month">months</option>
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <span v-if="errors['taskRepeatPeriod']" class="help-block">
                                     <strong class="text-danger">{{ errors['taskRepeatPeriod'] }}</strong>
                                 </span>
+
                             </div>
+
                         </form>
                     </div>
 
@@ -151,6 +163,7 @@
                 taskRepeatInput: 1,
                 taskRepeatRadio: 0,
                 taskRepeatPeriod: 0,
+                taskRepeatUnit: 'hours',
                 selectedTaskIndex: null,
 
                 errors: {},
@@ -163,7 +176,8 @@
                 this.task = null;
                 this.taskDate = null;
                 this.taskRepeatInput = 1;
-                this.taskRepeatPeriod = 24;
+                this.taskRepeatPeriod = 1;
+                this.taskRepeatUnit = 'hours';
 
                 this.selectedTaskIndex = null;
 
@@ -176,7 +190,12 @@
                 this.taskDate = this.tasks[index].execute_date;
                 this.taskRepeatInput = '';
                 this.repeat = this.tasks[index].repeat;
-                this.taskRepeatPeriod = this.tasks[index].repeat_period;
+
+                const repeat = this.tasks[index].repeat_period.split(' ');
+                console.log(repeat);
+
+                this.taskRepeatPeriod = repeat[0];
+                this.taskRepeatUnit = this.repeatUnitPlural(repeat[1]);
 
                 this.selectedTaskIndex = index;
 
@@ -197,8 +216,8 @@
                 };
 
                 form.repeat_period = form.repeat !== 1
-                    ? this.taskRepeatPeriod
-                    : 0;
+                    ? this.taskRepeatPeriod + ' ' + this.taskRepeatUnit
+                    : '';
 
                 if (this.selectedTaskIndex === null) {
                     this.$store.dispatch('servers/storeTask', form)
@@ -243,9 +262,17 @@
                     this.errors.taskRepeatInput = 'Invalid Repeat value';
                 }
 
-                if (this.repeat !== REPEAT_ONCE && !this.taskRepeatPeriod) {
-                    error = true;
-                    this.errors.taskRepeatPeriod = 'Empty Task Repeat Period';
+                if (this.repeat !== REPEAT_ONCE) {
+                    if (!this.taskRepeatUnit) {
+                        error = true;
+                        this.errors.taskRepeatPeriod = 'Empty Task Repeat Unit';
+                    } else if (!this.taskRepeatPeriod) {
+                        error = true;
+                        this.errors.taskRepeatPeriod = 'Empty Task Repeat Period';
+                    } else if (this.taskRepeatUnit === 'minutes' && this.taskRepeatPeriod < 10) {
+                        error = true;
+                        this.errors.taskRepeatPeriod = '10 minutes is minimum period';
+                    }
                 }
 
                 return !error;
@@ -274,6 +301,35 @@
                 }
 
                 return repeatInt;
+            },
+            repeatUnitPlural(unit) {
+                switch (unit) {
+                    case 'm':
+                    case 'min':
+                    case 'minute':
+                        return 'minutes';
+
+                    case 'h':
+                    case 'hour':
+                        return 'hours';
+
+                    case 'd':
+                    case 'day':
+                        return 'days';
+
+                    case 'w':
+                    case 'week':
+                        return 'weeks';
+
+                    case 'month':
+                        return 'months';
+
+                    case 'y':
+                    case 'year':
+                        return 'years';
+                }
+
+                return unit;
             },
             showModal() {
                 this.resetErrors();
@@ -305,7 +361,16 @@
                         this.taskRepeatInput = repeat;
                     }
                 }
-            }
+            },
+            repeatMin: {
+                get() {
+                    if (this.taskRepeatUnit === 'minutes') {
+                        return 10;
+                    } else {
+                        return 1;
+                    }
+                }
+            },
         },
         mounted() {
             this.$store.dispatch('servers/setServerId', this.serverId);
