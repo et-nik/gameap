@@ -113,12 +113,9 @@
                                         <select
                                                 v-model="taskRepeatUnit"
                                                 :disabled="repeat === 1"
-                                                class="custom-select">
-                                            <option value="minutes">munutes</option>
-                                            <option value="hours">hours</option>
-                                            <option value="days">days</option>
-                                            <option value="weeks">weeks</option>
-                                            <option value="month">months</option>
+                                                class="custom-select"
+                                                >
+                                            <option v-for="(value, key) in unitOptions" :value="key">{{ value }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -371,6 +368,18 @@
                     }
                 }
             },
+            unitOptions: {
+                get() {
+                    return {
+                        'minutes': this.pluralize('minute', parseInt(this.taskRepeatPeriod)),
+                        'hours': this.pluralize('hour', parseInt(this.taskRepeatPeriod)),
+                        'days': this.pluralize('day', parseInt(this.taskRepeatPeriod)),
+                        'weeks': this.pluralize('week', parseInt(this.taskRepeatPeriod)),
+                        'month': this.pluralize('month', parseInt(this.taskRepeatPeriod)),
+                        'years': this.pluralize('year', parseInt(this.taskRepeatPeriod)),
+                    };
+                }
+            }
         },
         mounted() {
             this.$store.dispatch('servers/setServerId', this.serverId);
