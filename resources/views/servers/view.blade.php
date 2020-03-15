@@ -115,7 +115,7 @@
         @endif
     </div>
 
-    @can('game-server-console-view', $server)
+    @can('server-console-view', $server)
         @if ($server->processActive())
             <div class="row mt-2">
                 <div class="col-12">
