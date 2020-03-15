@@ -9,7 +9,6 @@
         <div class="form-group">
             <label for="query_port" class="control-label">{{ trans('labels.query_port') }}</label>
             <input class="form-control" name="query_port" type="number" id="query_port" min="1024" max="65535" v-model="queryPort">
-
         </div>
 
         <div class="form-group">
@@ -62,16 +61,16 @@
         name: "SmartPortSelector",
         props: {
             initialServerIp: String,
-            initialServerPort: Number,
-            initialQueryPort: Number,
-            initialRconPort: Number,
+            initialServerPort: String,
+            initialQueryPort: String,
+            initialRconPort: String,
             game: ''
         },
         data: function() {
             return {
-                serverPort: this.initialServerPort || 27015,
-                queryPort: this.initialQueryPort || 27015,
-                rconPort: this.initialRconPort || 27015,
+                serverPort: parseInt(this.initialServerPort) || 27015,
+                queryPort: parseInt(this.initialQueryPort) || 27015,
+                rconPort: parseInt(this.initialRconPort) || 27015,
                 serverPortWarning: '',
             }
         },

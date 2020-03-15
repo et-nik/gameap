@@ -106,9 +106,9 @@
 
                         <smart-port-selector
                                 initial-server-ip="{{ $server->server_ip }}"
-                                :initial-server-port="{{ $server->server_port }}"
-                                :initial-query-port="{{ $server->query_port }}"
-                                :initial-rcon-port="{{ $server->rcon_port }}">
+                                initial-server-port="{{ $server->server_port }}"
+                                initial-query-port="{{ $server->query_port }}"
+                                initial-rcon-port="{{ $server->rcon_port }}">
                         </smart-port-selector>
                     </div>
                 </div>
