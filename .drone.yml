@@ -37,7 +37,6 @@ steps:
     when:
       branch:
         - master
-        - develop
 
   - name: archive
     image: debian:buster
@@ -50,7 +49,6 @@ steps:
     when:
       branch:
         - master
-        - develop
 
   - name: archive-shared
     image: knik/php:7.2-fpm-stretch
@@ -71,7 +69,6 @@ steps:
     when:
       branch:
         - master
-        - develop
 
   - name: publish
     image: cschlosser/drone-ftps
@@ -93,7 +90,6 @@ steps:
     when:
       branch:
         - master
-        - develop
 
 services:
     - name: db
