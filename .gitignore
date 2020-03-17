@@ -19,3 +19,4 @@ yarn-error.log
 /public/js/chunks/
 /.phpstorm.meta.php
 /tests/Unit/_output/
+/public/mix-manifest.json
