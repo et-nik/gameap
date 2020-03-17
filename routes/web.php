@@ -77,27 +77,6 @@ Route::get('/modules/migrate', 'ModulesController@migrate')->name('modules.migra
 Route::name('gdaemon.setup')->get('gdaemon/setup/{token}', 'GdaemonAPI\SetupController@setup')->middleware('gdaemonVerifySetupToken');
 Route::name('gdaemon.create')->post('gdaemon/create/{token}', 'GdaemonAPI\SetupController@create')->middleware('gdaemonVerifyCreateToken');
 
-Route::group(['prefix' => 'gdaemon_api'], function() {
-
-    Route::name('gdaemon_api.get_token')->get('get_token', 'GdaemonAPI\AuthController@getToken');
-    // Dedicated servers
-    Route::name('gdaemon_api.dedicated_servers.get_init_data')->get('dedicated_servers/get_init_data/{dedicated_server}', 'GdaemonAPI\DedicatedServersController@getInitData');
-    
-    // Servers
-    Route::name('gdaemon_api.servers')->get('servers', 'GdaemonAPI\ServersController@index');
-    Route::name('gdaemon_api.servers.server')->get('servers/{anyserver}', 'GdaemonAPI\ServersController@server');
-    Route::name('gdaemon_api.servers.update')->put('servers/{anyserver}', 'GdaemonAPI\ServersController@update');
-    Route::name('gdaemon_api.servers.bulk_update')->patch('servers', 'GdaemonAPI\ServersController@updateBulk');
-
-    // GDaemon tasks
-    Route::name('gdaemon_api.tasks')->get('tasks', 'GdaemonAPI\TasksController@index');
-    Route::name('gdaemon_api.tasks.update')->put('tasks/{gdaemon_task}', 'GdaemonAPI\TasksController@update');
-    Route::name('gdaemon_api.tasks.output')->put('tasks/{gdaemon_task}/output', 'GdaemonAPI\TasksController@output');
-
-    // DS Stats
-    Route::name('gdaemon_api.ds_stats.store')->post('ds_stats', 'GdaemonAPI\DsStatsController@store');
-});
-
 Route::get('/js/lang/{lang}.js', function ($lang) {
     $strings = Cache::rememberForever('lang/' . $lang . '.js', function () use ($lang) {
         if (!file_exists(resource_path('lang/' . $lang))) {

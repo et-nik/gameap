@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -39,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapGdaemonApiRoutes();
     }
 
     /**
@@ -52,8 +50,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -70,5 +68,18 @@ class RouteServiceProvider extends ServiceProvider
             ->as('api.')
             ->namespace($this->namespace . "\\API")
             ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "gdaemon_api" routes for the application
+     *
+     * @return void
+     */
+    protected function mapGdaemonApiRoutes()
+    {
+        Route::prefix('gdaemon_api')
+            ->as('gdaemon_api.')
+            ->namespace($this->namespace . "\\GdaemonAPI")
+            ->group(base_path('routes/gdaemon_api.php'));
     }
 }
