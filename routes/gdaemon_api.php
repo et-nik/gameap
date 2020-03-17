@@ -15,9 +15,9 @@ Route::name('servers.update')->put('servers/{anyserver}', 'ServersController@upd
 Route::name('gservers.bulk_update')->patch('servers', 'ServersController@updateBulk');
 
 // Servers Tasks
-Route::name('servers')->get('servers_tasks', 'ServersTasksController@getList');
-Route::name('servers')->put('servers_tasks/{task}', 'ServersTasksController@incrementCounter');
-Route::name('servers')->post('servers_tasks/{task}/fail', 'ServersTasksController@fail');
+Route::name('servers_tasks')->get('servers_tasks', 'ServersTasksController@getList');
+Route::name('servers_tasks.update')->put('servers_tasks/{task}', 'ServersTasksController@update');
+Route::name('servers_tasks.fail')->post('servers_tasks/{task}/fail', 'ServersTasksController@fail');
 
 // GDaemon tasks
 Route::name('tasks')->get('tasks', 'TasksController@index');
