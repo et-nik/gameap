@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use GameQ\GameQ;
+use Knik\Gameap\GdaemonCommands;
 use Mockery\MockInterface;
 use Tests\TestCase;
 use Mockery;
@@ -166,6 +167,9 @@ class ServerServiceTest extends TestCase
 
     /**
      * @dataProvider adapterProviderGdaemon
+     * @param ServerService $serverService
+     * @param GdaemonCommands|MockInterface $mock
+     * @param Server $server
      */
     public function testGetConsoleLog($serverService, $mock, $server)
     {
