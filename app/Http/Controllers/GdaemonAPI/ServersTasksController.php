@@ -3,6 +3,7 @@
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Http\Requests\GdaemonAPI\ServerTaskUpdateRequest;
+use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
 use Gameap\Repositories\ServersTasksRepository;
@@ -22,9 +23,10 @@ class ServersTasksController extends Controller
      * @param int $serverId
      * @return
      */
-    public function getList(int $serverId)
+    public function getList(DedicatedServer $dedicatedServer)
     {
-        return ServerTask::where('server_id', $serverId)->get();
+        $serverIds = Server::select('id')->where('ds_id', $dedicatedServer->id)->get()->pluck('id');
+        return ServerTask::where('server_id', $serverIds)->get();
     }
 
     /**

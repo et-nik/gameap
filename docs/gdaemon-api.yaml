@@ -139,10 +139,22 @@ paths:
           $ref: '#/components/responses/CommonSuccessResponse'
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
+  /servers_tasks:
+    get:
+      summary: 'Get Game Servers Tasks'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
 
   /tasks:
     get:
-      summary: 'Get Tasks'
+      summary: 'Get GDaemon Tasks'
       tags:
         - 'tasks'
       security:
@@ -162,7 +174,7 @@ paths:
         schema:
           type: integer
     put:
-      summary: 'Update Task'
+      summary: 'Update GDaemon Task'
       tags:
         - 'tasks'
       security:
