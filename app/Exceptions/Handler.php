@@ -5,6 +5,7 @@ namespace Gameap\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Gameap\Exceptions\Repositories\RepositoryValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -74,6 +75,13 @@ class Handler extends ExceptionHandler
      */
     public function renderJson($request, Exception $exception)
     {
+        if ($exception instanceof RepositoryValidationException) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'http_code' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         if ($exception instanceof \Gameap\Exceptions\Repositories\RecordExistExceptions) {
             return response()->json([
                 'message' => $exception->getMessage(),

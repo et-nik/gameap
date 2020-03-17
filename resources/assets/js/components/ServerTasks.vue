@@ -4,10 +4,10 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <td>Task name</td>
-                <td>Date</td>
-                <td>Repeat</td>
-                <td>Actions</td>
+                <td>{{ trans('servers_tasks.task') }}</td>
+                <td>{{ trans('servers_tasks.date') }}</td>
+                <td>{{ trans('servers_tasks.repeat') }}</td>
+                <td>{{ trans('main.actions') }}</td>
             </tr>
             </thead>
             <tbody v-for="(value, key) in tasks">
@@ -27,7 +27,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Create Server Task</h5>
+                        <h5 class="modal-title">{{ modalTitle }}</h5>
                         <button type="button" class="close" data-dismiss="modal" :aria-label="trans('main.close')">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -36,9 +36,14 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="task" class="control-label">Task</label>
+                                <label for="task" class="control-label">{{ trans('servers_tasks.task') }}</label>
 
-                                <select id="task" class="custom-select" name="task" v-model="task">
+                                <select
+                                        id="task"
+                                        class="custom-select"
+                                        name="task"
+                                        v-model="task"
+                                        v-on:change="formChange">
                                     <option value="restart">{{ trans('servers.restart') }}</option>
                                     <option value="start">{{ trans('servers.start') }}</option>
                                     <option value="stop">{{ trans('servers.stop') }}</option>
@@ -52,7 +57,13 @@
                             </div>
 
                             <div class="form-group">
-                                <date-picker type="datetime" v-model="taskDate" valueType="format"></date-picker><br>
+                                <date-picker
+                                        type="datetime"
+                                        v-model="taskDate"
+                                        valueType="format"
+                                        v-on:change="formChange">
+                                </date-picker><br>
+
                                 <span v-if="errors['taskDate']" class="help-block">
                                     <strong class="text-danger">{{ errors['taskDate'] }}</strong>
                                 </span>
@@ -60,29 +71,44 @@
 
                             <div class="form-check">
                                 <label class="control-label">
-                                    <input v-model="taskRepeatRadio" type="radio" name="repeat" value="1">
-                                    Do not repeat
+                                    <input
+                                            v-model="taskRepeatRadio"
+                                            v-on:change="formChange"
+                                            type="radio"
+                                            name="repeat"
+                                            value="1">
+                                    {{ trans('servers_tasks.no_repeat') }}
                                 </label>
                             </div>
 
                             <div class="form-check">
                                 <label class="control-label">
-                                    <input v-model="taskRepeatRadio" type="radio" name="repeat" value="0">
-                                    Repeat Endlessly
+                                    <input
+                                            v-model="taskRepeatRadio"
+                                            v-on:change="formChange"
+                                            type="radio"
+                                            name="repeat"
+                                            value="0">
+                                    {{ trans('servers_tasks.endlessly_repeat') }}
                                 </label>
                             </div>
 
                             <div class="form-check">
                                 <label class="control-label">
-                                    <input v-model="taskRepeatRadio" type="radio" name="repeat" value="">
-                                    Custom
+                                    <input
+                                            v-model="taskRepeatRadio"
+                                            v-on:change="formChange"
+                                            type="radio"
+                                            name="repeat"
+                                            value="">
+                                    {{ trans('servers_tasks.custom_repeat') }}
                                 </label>
                             </div>
 
                             <div class="form-group">
-                                <label for="repeat" class="control-label">Repeat</label>
+                                <label for="repeat" class="control-label">{{ trans('servers_tasks.repeat_num') }}</label>
                                 <input
-                                        v-model="taskRepeatInput"
+                                        v-model.number="taskRepeatInput"
                                         :disabled="taskRepeatRadio !== ''"
                                         id="repeat"
                                         type="number"
@@ -96,12 +122,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">Period</label>
+                                <label class="control-label">{{ trans('servers_tasks.repeat_period') }}</label>
 
                                 <div class="row">
                                     <div class="col-md-4">
                                         <input v-model="taskRepeatPeriod"
                                                :disabled="repeat === 1"
+                                               v-on:change="formChange"
                                                id="repeat_period"
                                                name="repeat_period"
                                                type="number"
@@ -113,6 +140,7 @@
                                         <select
                                                 v-model="taskRepeatUnit"
                                                 :disabled="repeat === 1"
+                                                v-on:change="formChange"
                                                 class="custom-select"
                                                 >
                                             <option v-for="(value, key) in unitOptions" :value="key">{{ value }}</option>
@@ -161,10 +189,11 @@
                 taskRepeatRadio: 0,
                 taskRepeatPeriod: 0,
                 taskRepeatUnit: 'hours',
-                selectedTaskIndex: null,
 
+                selectedTaskIndex: null,
                 errors: {},
 
+                modalTitle: '',
                 buttonName: this.trans('main.create'),
             }
         },
@@ -179,6 +208,7 @@
                 this.selectedTaskIndex = null;
 
                 this.buttonName = this.trans('main.create');
+                this.modalTitle = this.trans('servers_tasks.new_task');
 
                 this.showModal();
             },
@@ -189,7 +219,6 @@
                 this.repeat = this.tasks[index].repeat;
 
                 const repeat = this.tasks[index].repeat_period.split(' ');
-                console.log(repeat);
 
                 this.taskRepeatPeriod = repeat[0];
                 this.taskRepeatUnit = this.repeatUnitPlural(repeat[1]);
@@ -197,6 +226,7 @@
                 this.selectedTaskIndex = index;
 
                 this.buttonName = this.trans('main.save');
+                this.modalTitle = this.trans('servers_tasks.edit_task');
 
                 this.showModal();
             },
@@ -222,7 +252,10 @@
                             this.hideModal();
                         }).catch((e) => {
                             this.hideModal();
-                            gameap.alert('Error');
+
+                            _.has(e, 'response.data.message')
+                                ? gameap.alert(e.response.data.message)
+                                : gameap.alert(e);
                         });
                 } else {
                     this.$store.dispatch('servers/updateTask', {
@@ -232,7 +265,10 @@
                             this.hideModal();
                         }).catch((e) => {
                             this.hideModal();
-                            gameap.alert(e);
+
+                            _.has(e, 'response.data.message')
+                                ? gameap.alert(e.response.data.message)
+                                : gameap.alert(e);
                         });
                 }
             },
@@ -242,12 +278,12 @@
 
                 if (!this.task) {
                     error = true;
-                    this.errors.task = 'Empty Task';
+                    this.errors.task = this.trans('servers_tasks.errors.empty_task');
                 }
 
                 if (!this.taskDate) {
                     error = true;
-                    this.errors.taskDate = 'Empty Task Execute Date';
+                    this.errors.taskDate = this.trans('servers_tasks.errors.empty_task_date');
                 }
 
                 if (this.taskRepeatRadio === RADIO_REPEAT_CUSTOM
@@ -256,19 +292,19 @@
                         || this.taskRepeatInput > 255)
                 ) {
                     error = true;
-                    this.errors.taskRepeatInput = 'Invalid Repeat value';
+                    this.errors.taskRepeatInput = this.trans('servers_tasks.errors.invalid_repeat_value');
                 }
 
                 if (this.repeat !== REPEAT_ONCE) {
                     if (!this.taskRepeatUnit) {
                         error = true;
-                        this.errors.taskRepeatPeriod = 'Empty Task Repeat Unit';
+                        this.errors.taskRepeatPeriod = this.trans('servers_tasks.errors.empty_period_unit');
                     } else if (!this.taskRepeatPeriod) {
                         error = true;
-                        this.errors.taskRepeatPeriod = 'Empty Task Repeat Period';
+                        this.errors.taskRepeatPeriod = this.trans('servers_tasks.errors.empty_period');
                     } else if (this.taskRepeatUnit === 'minutes' && this.taskRepeatPeriod < 10) {
                         error = true;
-                        this.errors.taskRepeatPeriod = '10 minutes is minimum period';
+                        this.errors.taskRepeatPeriod = this.trans('servers_tasks.errors.minimum_period');
                     }
                 }
 
@@ -283,18 +319,21 @@
                     taskRepeatPeriod: null,
                 };
             },
+            formChange() {
+                this.resetErrors();
+            },
             deleteTask(taskIndex) {
-                gameap.confirm('Are you sure?', () => {
+                gameap.confirm(this.trans('servers_tasks.confirm_remove'), () => {
                     this.$store.dispatch('servers/destroyTask', taskIndex);
                 })
             },
             humanRepeatText(repeatInt) {
                 if (repeatInt === REPEAT_ENDLESSLY) {
-                    return 'endlessly';
+                    return this.trans('servers_tasks.endlessly');
                 }
 
                 if (repeatInt === REPEAT_ONCE) {
-                    return 'once';
+                    return this.trans('servers_tasks.once');
                 }
 
                 return repeatInt;

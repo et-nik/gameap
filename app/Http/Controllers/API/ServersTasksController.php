@@ -2,6 +2,7 @@
 
 namespace Gameap\Http\Controllers\API;
 
+use Gameap\Exceptions\Repositories\RepositoryValidationException;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\API\ServerTaskCreateRequest;
 use Gameap\Models\Server;
@@ -15,6 +16,7 @@ class ServersTasksController extends AuthController
 
     public function __construct(ServersTasksRepository $serversTasksRepository)
     {
+        parent::__construct();
         $this->repository = $serversTasksRepository;
     }
 
@@ -30,6 +32,7 @@ class ServersTasksController extends AuthController
     /**
      * @param ServerTaskCreateRequest $request
      * @return string[]
+     * @throws RepositoryValidationException
      */
     public function store(ServerTaskCreateRequest $request)
     {
@@ -42,8 +45,11 @@ class ServersTasksController extends AuthController
 
     /**
      * @param ServerTaskCreateRequest $request
+     * @param Server $server
      * @param ServerTask $serverTask
      * @return string[]
+     * @throws RepositoryValidationException
+     * @noinspection PhpUnusedParameterInspection
      */
     public function update(ServerTaskCreateRequest $request, Server $server, ServerTask $serverTask)
     {
@@ -57,6 +63,7 @@ class ServersTasksController extends AuthController
      * @param ServerTask $serverTask
      * @return string[]
      * @throws \Exception
+     * @noinspection PhpUnusedParameterInspection
      */
     public function destroy(Server $server, ServerTask $serverTask)
     {

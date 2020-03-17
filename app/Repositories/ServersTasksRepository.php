@@ -3,11 +3,13 @@
 namespace Gameap\Repositories;
 
 use Carbon\CarbonInterval;
-use Gameap\Exceptions\GameapException;
+use Gameap\Exceptions\Repositories\RepositoryValidationException;
 use Gameap\Models\ServerTask;
 
 class ServersTasksRepository
 {
+    const MIN_PERIOD_IN_SECONDS = 600;
+
     /** @var ServerTask */
     protected $model;
 
@@ -48,41 +50,64 @@ class ServersTasksRepository
     /**
      * @param array $task
      * @return int
-     * @throws GameapException
+     * @throws RepositoryValidationException
      */
     public function store(array $task): int
     {
-        if (!empty($task)) {
-            throw new GameapException('Empty task');
-        }
+        $this->validate($task);
+        $convertedTask = $this->convert($task);
 
-        if (empty($task['repeat_period'])) {
-            throw new GameapException('Empty repeat period');
-        }
-
-        $serverTask = ServerTask::create($this->convert($task));
+        $serverTask = ServerTask::create($convertedTask);
 
         return $serverTask->id;
     }
 
     /**
      * @param array $task
+     * @throws RepositoryValidationException
      */
     public function update(int $taskId, array $task)
     {
-        ServerTask::where('id', $taskId)->update($this->convert($task));
+        $this->validate($task);
+        $convertedTask = $this->convert($task);
+
+        ServerTask::where('id', $taskId)->update($convertedTask);
     }
 
     /**
      * @param array $task
      * @return array
+     * @throws RepositoryValidationException
      */
     private function convert(array $task) {
-        $task['repeat_period'] = CarbonInterval::fromString($task['repeat_period'])
-            ->locale('en')
-            ->cascade()
-            ->totalSeconds;
+
+        if ($task['repeat'] != 1) {
+            if (empty($task['repeat_period'])) {
+                throw new RepositoryValidationException(__('servers_tasks.errors.empty_period'));
+            }
+
+            $task['repeat_period'] = CarbonInterval::fromString($task['repeat_period'])
+                ->locale('en')
+                ->cascade()
+                ->totalSeconds;
+
+            if ($task['repeat_period'] < self::MIN_PERIOD_IN_SECONDS) {
+                throw new RepositoryValidationException(__('servers_tasks.errors.minimum_period'));
+            }
+        } else {
+            $task['repeat_period'] = 0;
+        }
 
         return $task;
+    }
+
+    /**
+     * @param array $task
+     * @throws RepositoryValidationException
+     */
+    private function validate(array $task) {
+        if (empty($task)) {
+            throw new RepositoryValidationException(__('servers_tasks.errors.empty_task'));
+        }
     }
 }
