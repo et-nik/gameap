@@ -17,6 +17,8 @@ paths:
       summary: 'Get Token'
       tags:
         - 'initial'
+      security:
+        - BearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -35,6 +37,8 @@ paths:
       summary: 'Get Initial Dedicated Server Data'
       tags:
         - 'initial'
+      security:
+        - ApiKeyAuth: []
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -46,6 +50,8 @@ paths:
       summary: 'Get Game Servers list'
       tags:
         - 'servers'
+      security:
+        - ApiKeyAuth: []
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -55,6 +61,31 @@ paths:
       summary: 'Bulk Game Server Update'
       tags:
         - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  installed:
+                    type: integer
+                    nullable: true
+                    minimum: 0
+                    maximum: 9
+                  process_active:
+                    type: integer
+                    nullable: true
+                    minimum: 0
+                    maximum: 1
+                  last_process_check:
+                    type: string
+                    format: date-time
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -73,6 +104,8 @@ paths:
       summary: 'Get Game Server Information'
       tags:
         - 'servers'
+      security:
+        - ApiKeyAuth: []
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -82,6 +115,25 @@ paths:
       summary: 'Update Game Server'
       tags:
         - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                installed:
+                  type: integer
+                  minimum: 0
+                  maximum: 9
+                process_active:
+                  type: integer
+                  minimum: 0
+                  maximum: 1
+                last_process_check:
+                  type: string
+                  format: date-time
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -93,6 +145,8 @@ paths:
       summary: 'Get Tasks'
       tags:
         - 'tasks'
+      security:
+        - ApiKeyAuth: []
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -111,6 +165,18 @@ paths:
       summary: 'Update Task'
       tags:
         - 'tasks'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -129,6 +195,51 @@ paths:
       summary: 'Append Task Output'
       tags:
         - 'tasks'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                output:
+                  type: string
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+  /ds_stats:
+    post:
+      summary: 'Insert dedicated servers stats'
+      tags:
+        - 'stats'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  time:
+                    type: string
+                    format: date-time
+                  loa:
+                    type: string
+                  ram:
+                    type: string
+                  cpu:
+                    type: string
+                  ifstat:
+                    type: string
+                  ping:
+                    type: string
+                  drvspace:
+                    type: string
       responses:
         200:
           $ref: '#/components/responses/CommonSuccessResponse'
@@ -136,6 +247,15 @@ paths:
           $ref: '#/components/responses/CommonErrorResponse'
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
 
   responses:
     CommonSuccessResponse:
