@@ -1,0 +1,340 @@
+openapi: 3.0.0
+
+info:
+  title: "GameAP Web API"
+  version: "1.0.0"
+
+servers:
+  - url: "{gameap-host}/api"
+    variables:
+      gameap-host:
+        default: https://demo.gameap.ru
+        description: GameAP Host
+
+security:
+  - cookieAuth: []
+
+paths:
+  /dedicated_servers/{dedicated_server}/ip_list:
+    get:
+      summary: Get IP list
+      tags:
+        - 'dedicated servers'
+      parameters:
+        - name: dedicated_server
+          in: path
+          required: true
+          description: 'Dedicated Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /dedicated_servers/{dedicated_server}/busy_ports:
+    get:
+      summary: Get Busy Ports
+      tags:
+        - 'dedicated servers'
+      parameters:
+        - name: dedicated_server
+          in: path
+          required: true
+          description: 'Dedicated Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /game_mods/get_list_for_game/{game}:
+    get:
+      summary: Get Game mod list for Game
+      tags:
+        - 'games'
+      parameters:
+        - name: game
+          in: path
+          required: true
+          description: 'Game Code'
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/start/{server}:
+    post:
+      summary: Start Game Server
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/stop/{server}:
+    post:
+      summary: Stop Game Server
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/restart/{server}:
+    post:
+      summary: Restart Game Server
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/update/{server}:
+    post:
+      summary: Update Game Server
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/reinstall/{server}:
+    post:
+      summary: Reinstall Game Server
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/get_status/{server}:
+    get:
+      summary: Get Server Status
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/query/{server}:
+    get:
+      summary: Get Query Server Information
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/console/{server}:
+    get:
+      summary: Get Server Console
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+    post:
+      summary: Input command into Game Server
+      tags:
+        - 'servers'
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: 'Game Server ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/search:
+    get:
+      summary: Search Game Server
+      tags:
+        - 'servers'
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /gdaemon_tasks/get/{gdaemon_task}:
+    get:
+      summary: Get GDaemon Task Information
+      tags:
+        - 'gdaemon tasks'
+      parameters:
+        - name: gdaemon_task
+          in: path
+          required: true
+          description: 'GDaemon Task ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /gdaemon_tasks/output/{gdaemon_task}:
+    get:
+      summary: Get GDaemon Task Output
+      tags:
+        - 'gdaemon tasks'
+      parameters:
+        - name: gdaemon_task
+          in: path
+          required: true
+          description: 'GDaemon Task ID'
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+components:
+  securitySchemes:
+    cookieAuth:
+      description: Auth Cookies
+      type: apiKey
+      in: cookie
+      name: laravel_session
+
+  requestBodies:
+    CommonRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+
+  responses:
+    CommonSuccessResponse:
+      description: 'Success'
+      content:
+        application/json:
+          schema:
+            type: object
+
+    CommonErrorResponse:
+      description: "Common API ErrorResponse"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

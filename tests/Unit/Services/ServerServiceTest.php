@@ -4,6 +4,8 @@ namespace Tests\Unit;
 
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
+use GameQ\GameQ;
+use Mockery\MockInterface;
 use Tests\TestCase;
 use Mockery;
 use Gameap\Services\ServerService;
@@ -58,15 +60,19 @@ class ServerServiceTest extends TestCase
 
     /**
      * @dataProvider adapterProviderGameQ
+     * @param ServerService $serverService
+     * @param GameQ|MockInterface $mock
+     * @param Server $server
      */
     public function testQuery($serverService, $mock, $server)
     {
+        $host = "{$server->server_ip}:{$server->query_port}";
         $mock->shouldReceive('process')->andReturn([
-            "{$server->server_ip}:{$server->query_port}" => [
+            $host => [
                 'gq_online' => false,
             ]
         ], [
-            "{$server->server_ip}:{$server->query_port}" => [
+            $host => [
                 'gq_online' => true,
                 'gq_hostname' => 'test',
                 'gq_mapname' => 'mapa',
@@ -93,6 +99,34 @@ class ServerServiceTest extends TestCase
         ], $query);
     }
 
+    /**
+     * @dataProvider adapterProviderGameQ
+     * @param ServerService $serverService
+     * @param GameQ|MockInterface $mock
+     * @param Server $server
+     */
+    public function testQueryInvalid($serverService, $mock, $server)
+    {
+        $mock->shouldReceive('process')->andReturn([
+            '1.3.3.7:27015' => [
+                'gq_online' => true,
+                'gq_hostname' => 'test',
+                'gq_mapname' => 'mapa',
+                'gq_numplayers' => 4,
+                'gq_maxplayers' => 32,
+                'version' => 'test',
+                'gq_password' => false,
+                'gq_joinlink' => 'steam://127.0.0.1:1337',
+            ]
+        ]);
+
+        $query = $serverService->query($server);
+        $this->assertEquals(['status' => 'offline'], $query);
+    }
+
+    /**
+     * @return array[]
+     */
     public function adapterProviderGdaemon()
     {
         $clientCertificate = new ClientCertificate();
