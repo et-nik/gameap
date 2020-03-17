@@ -22,7 +22,7 @@ class ServersTasksRepository
      * @param int $serverId
      * @return array
      */
-    public function getTask(int $serverId): array
+    public function getTasks(int $serverId): array
     {
         $tasks = [];
 

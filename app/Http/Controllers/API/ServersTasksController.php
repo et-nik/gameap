@@ -26,7 +26,7 @@ class ServersTasksController extends AuthController
      */
     public function getList(Server $server)
     {
-        return $this->repository->getTask($server->id);
+        return $this->repository->getTasks($server->id);
     }
 
     /**
