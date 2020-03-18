@@ -78,6 +78,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapGdaemonApiRoutes()
     {
         Route::prefix('gdaemon_api')
+            ->middleware('api')
             ->as('gdaemon_api.')
             ->namespace($this->namespace . "\\GdaemonAPI")
             ->group(base_path('routes/gdaemon_api.php'));

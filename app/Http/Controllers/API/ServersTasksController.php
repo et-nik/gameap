@@ -8,6 +8,8 @@ use Gameap\Http\Requests\API\ServerTaskCreateRequest;
 use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
 use Gameap\Repositories\ServersTasksRepository;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class ServersTasksController extends AuthController
 {
@@ -31,23 +33,24 @@ class ServersTasksController extends AuthController
 
     /**
      * @param ServerTaskCreateRequest $request
-     * @return string[]
+     * @return JsonResponse
      * @throws RepositoryValidationException
      */
     public function store(ServerTaskCreateRequest $request)
     {
         $serverTaskId = $this->repository->store($request->all());
 
-        return [
-            'serverTaskId' => $serverTaskId
-        ];
+        return response()->json([
+            'message' => 'success',
+            'serverTaskId' => $serverTaskId,
+        ], Response::HTTP_CREATED);
     }
 
     /**
      * @param ServerTaskCreateRequest $request
      * @param Server $server
      * @param ServerTask $serverTask
-     * @return string[]
+     * @return JsonResponse
      * @throws RepositoryValidationException
      * @noinspection PhpUnusedParameterInspection
      */
@@ -55,19 +58,19 @@ class ServersTasksController extends AuthController
     {
         $this->repository->update($serverTask->id, $request->all());
 
-        return ['success'];
+        return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
 
     /**
      * @param Server $server
      * @param ServerTask $serverTask
-     * @return string[]
+     * @return JsonResponse
      * @throws \Exception
      * @noinspection PhpUnusedParameterInspection
      */
     public function destroy(Server $server, ServerTask $serverTask)
     {
         $serverTask->delete();
-        return ['success'];
+        return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
 }

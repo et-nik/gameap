@@ -83,7 +83,6 @@ class ServersControllerTest extends TestCase
 
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertNotEmpty($result->getData()->message);
-        // $this->assertEquals(__('main.common_admin_error'), $result->getData()->message);
     }
 
 }

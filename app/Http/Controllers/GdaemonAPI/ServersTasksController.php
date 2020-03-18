@@ -2,26 +2,19 @@
 
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
+use Gameap\Http\Requests\GdaemonAPI\ServerTaskFailRequest;
 use Gameap\Http\Requests\GdaemonAPI\ServerTaskUpdateRequest;
 use Gameap\Models\DedicatedServer;
-use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
-use Gameap\Repositories\ServersTasksRepository;
+use Gameap\Models\ServerTaskFail;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class ServersTasksController extends Controller
 {
-    /** @var ServersTasksRepository */
-    protected $repository;
-
-    public function __construct(ServersTasksRepository $serversTasksRepository)
-    {
-        parent::__construct();
-        $this->repository = $serversTasksRepository;
-    }
-
     /**
-     * @param int $serverId
-     * @return
+     * @param DedicatedServer $dedicatedServer
+     * @return mixed
      */
     public function getList(DedicatedServer $dedicatedServer)
     {
@@ -34,12 +27,32 @@ class ServersTasksController extends Controller
 
     /**
      * @param ServerTaskUpdateRequest $request
-     * @param int $serverId
-     * @param int $taskId
-     * @noinspection PhpUnusedParameterInspection
+     * @param ServerTask $serverTask
+     * @return JsonResponse
      */
-    public function update(ServerTaskUpdateRequest $request, int $serverId, int $taskId)
+    public function update(ServerTaskUpdateRequest $request, ServerTask $serverTask)
     {
-        ServerTask::where('id', $taskId)->update($request->all());
+        $serverTask->counter++;
+
+        return $serverTask->update($request->all())
+            ? response()->json(['message' => 'success'], Response::HTTP_OK)
+            : response()->json(['message' => 'fail'], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * @param ServerTaskFailRequest $request
+     * @param ServerTask $serverTask
+     * @return JsonResponse
+     */
+    public function fail(ServerTaskFailRequest $request, ServerTask $serverTask)
+    {
+        $serverTaskFail = new ServerTaskFail();
+
+        $serverTaskFail->server_task_id = $serverTask->id;
+        $serverTaskFail->output = $request->get('output');
+
+        return $serverTaskFail->save()
+            ? response()->json(['message' => 'success'], Response::HTTP_OK)
+            : response()->json(['message' => 'fail'], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

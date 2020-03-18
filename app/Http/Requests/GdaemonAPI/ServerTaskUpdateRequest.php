@@ -7,9 +7,8 @@ class ServerTaskUpdateRequest extends JsonRequest
     public function rules()
     {
         return [
-            'task'              => 'required|string|max:16',
-            'repeat'            => 'required|numeric|digits_between:1,255',
-            'repeat_period'     => 'required|numeric',
+            'repeat'            => 'nullable|integer|digits_between:1,255',
+            'repeat_period'     => 'nullable|integer',
             'execute_date'      => 'required',
         ];
     }

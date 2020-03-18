@@ -152,6 +152,74 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
+  /servers_tasks/{server_task}:
+    parameters:
+      - name: server_task
+        in: path
+        required: true
+        description: 'Server Task ID'
+        schema:
+          type: integer
+    put:
+      summary: 'Update Server Task'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                repeat:
+                  type: integer
+                  nullable: true
+                  minimum: 1
+                  maximum: 255
+                repeat_period:
+                  type: integer
+                  nullable: true
+                execute_date:
+                  type: string
+                  format: date-time
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers_tasks/{server_task}/fail:
+    parameters:
+      - name: server_task
+        in: path
+        required: true
+        description: 'Server Task ID'
+        schema:
+          type: integer
+    post:
+      summary: 'Insert task fail'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                output:
+                  type: string
+                  nullable: true
+                  minimum: 1
+                  maximum: 255
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
   /tasks:
     get:
       summary: 'Get GDaemon Tasks'
