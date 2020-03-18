@@ -63,6 +63,7 @@ class ServersTasksRepository
     }
 
     /**
+     * @param int $taskId
      * @param array $task
      * @throws RepositoryValidationException
      */

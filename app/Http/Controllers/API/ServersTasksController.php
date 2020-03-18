@@ -5,6 +5,7 @@ namespace Gameap\Http\Controllers\API;
 use Gameap\Exceptions\Repositories\RepositoryValidationException;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\API\ServerTaskCreateRequest;
+use Gameap\Http\Requests\API\ServerTaskUpdateRequest;
 use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
 use Gameap\Repositories\ServersTasksRepository;
@@ -24,7 +25,7 @@ class ServersTasksController extends AuthController
 
     /**
      * @param Server $server
-     * @return ServerTask[]
+     * @return array
      */
     public function getList(Server $server)
     {
@@ -47,14 +48,14 @@ class ServersTasksController extends AuthController
     }
 
     /**
-     * @param ServerTaskCreateRequest $request
+     * @param ServerTaskUpdateRequest $request
      * @param Server $server
      * @param ServerTask $serverTask
      * @return JsonResponse
      * @throws RepositoryValidationException
      * @noinspection PhpUnusedParameterInspection
      */
-    public function update(ServerTaskCreateRequest $request, Server $server, ServerTask $serverTask)
+    public function update(ServerTaskUpdateRequest $request, Server $server, ServerTask $serverTask)
     {
         $this->repository->update($serverTask->id, $request->all());
 
