@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Controllers\API;
 
-use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommandException;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
 use Gameap\Http\Controllers\API\ServersController;
 use Gameap\Models\Server;
@@ -11,11 +10,9 @@ use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\ServerService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Testing\WithFaker;
-use Mockery;
 use Tests\TestCase;
+use Mockery;
+use Bouncer;
 
 /**
  * @covers \Gameap\Http\Controllers\API\ServersController
@@ -72,17 +69,20 @@ class ServersControllerTest extends TestCase
      */
     public function testStartFailRepositoryException(): void
     {
-        $this->be(User::find(1));
+        $user = factory(User::class)->create();
+        Bouncer::sync($user)->roles(['admin']);
+        $this->be($user);
 
         $this->controller->method('authorize')->willReturn(true);
         $this->gdaemonTaskRepositoryMock
             ->shouldReceive('addServerStart')
-            ->andThrow(new EmptyServerStartCommandException('Test Exception'));
+            ->andThrow(new GdaemonTaskRepositoryException('Test Exception'));
 
         $result = $this->controller->start(new Server());
 
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertNotEmpty($result->getData()->message);
+        $this->assertEquals('Test Exception', $result->getData()->message);
     }
 
 }
