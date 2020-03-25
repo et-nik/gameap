@@ -5,6 +5,7 @@ steps:
   - name: composer
     image: knik/php:7.2-fpm-stretch
     commands:
+      - apt -y update && apt install git
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
       - composer install
 
