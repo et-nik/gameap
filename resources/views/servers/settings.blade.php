@@ -19,7 +19,7 @@
                 <div class="card-body">
                     {!! Form::model($server, ['method' => 'PATCH', 'route' => ['servers.updateSettings', $server->id], 'id' => 'adminServerForm']) !!}
 
-                        @if(empty(!$server->gameMod->vars))
+                        @if(!empty(!$server->gameMod->vars))
                             @foreach ($server->gameMod->vars as $var)
                                 @if (isset($var['admin_var']) && $var['admin_var'])
                                     @cannot('admin roles & permissions')
