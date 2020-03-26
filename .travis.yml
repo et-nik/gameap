@@ -24,6 +24,7 @@ before_script:
     - if [ "$TRAVIS_PHP_VERSION" = "nightly" ]; then travis_retry composer update --no-interaction --prefer-stable --no-suggest --ignore-platform-reqs; fi
     - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then travis_retry composer update --no-interaction --prefer-stable --no-suggest; fi
     - ./artisan migrate --seed
+    - mkdir ./tests/_output
 
 script:
   - vendor/bin/phpunit --verbose
