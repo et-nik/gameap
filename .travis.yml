@@ -36,3 +36,13 @@ matrix:
   fast_finish: true
   allow_failures:
     - php: nightly
+
+addons:
+  artifacts:
+    paths:
+      - ./tests/_output
+      - ./storage/logs
+    target_paths: $TRAVIS_BUILD_NUMBER/$TRAVIS_PHP_VERSION
+    working_dir: WORKING_DIR
+    bucket: travistests
+    s3_region: us-east-1
