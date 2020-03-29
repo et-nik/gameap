@@ -20,6 +20,7 @@
                             <p>You can get community help</p>
                         </div>
 
+                        <div class="col-6"><i class="fas fa-comment-alt"></i> Forum: <a target="_blank" href="https://forum.gameap.ru">https://forum.gameap.ru</a></div>
                         <div class="col-6"><i class="fab fa-vk"></i> VK Group (Russian): <a target="_blank" href="https://vk.com/gameap_group">https://vk.com/gameap_group</a></div>
                         <div class="col-6"><i class="fab fa-discord"></i> Discord <a href="https://discord.gg/SqtHpZc">https://discord.gg/SqtHpZc</a></div>
                         <div class="col-6"><i class="fab fa-telegram-plane"></i> Telegram chat: <a href="http://t.me/game_admin_panel">http://t.me/game_admin_panel</a></div>
@@ -49,7 +50,8 @@
                         <div class="col-12">
                             <p>Вы можете получить помощь у сообщества</p>
                         </div>
-                        
+
+                        <div class="col-6"><i class="fas fa-comment-alt"></i> Форум: <a target="_blank" href="https://forum.gameap.ru">https://forum.gameap.ru</a></div>
                         <div class="col-6"><i class="fab fa-vk"></i> Группа ВК: <a target="_blank" href="https://vk.com/gameap_group">https://vk.com/gameap_group</a></div>
                         <div class="col-6"><i class="fab fa-discord"></i> Канал Discord <a href="https://discord.gg/SqtHpZc">https://discord.gg/SqtHpZc</a></div>
                         <div class="col-6"><i class="fab fa-telegram-plane"></i> Чат Telegram: <a href="http://t.me/game_admin_panel">http://t.me/game_admin_panel</a></div>

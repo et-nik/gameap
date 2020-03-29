@@ -72,8 +72,14 @@
 <p class="left-menu-group-mini">—</p>
 
 <ul class="page-sidebar-menu">
+    <li title="{{ __('sidebar.forum') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
+        <a target="_blank" href="https://forum.gameap.ru">
+            <i class="fas fa-comment-alt"></i>
+            <span class="menu-item-label">{{ __('sidebar.forum') }}</span>
+        </a>
+    </li>
     <li title="{{ __('sidebar.documentation') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a target="_blank" href="http://docs.gameap.ru">
+        <a target="_blank" href="https://docs.gameap.ru">
             <i class="fab fa-wikipedia-w"></i>
             <span class="menu-item-label">{{ __('sidebar.documentation') }}</span>
         </a>

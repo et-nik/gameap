@@ -29,6 +29,7 @@ return [
     'update'            => 'Update',
 
     'support'           => 'Support',
+    'forum'             => 'Forum',
     'documentation'     => 'Documentation',
     'help'              => 'Help',
     'report_bug'        => 'Report bug',
