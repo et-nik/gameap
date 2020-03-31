@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package Gameap\Models
  *
  * @property integer $id
- * @property string $task
+ * @property string $command
  * @property integer $server_id
  * @property integer $repeat
  * @property integer $repeat_period
@@ -35,7 +35,7 @@ class ServerTask extends Model
     ];
 
     protected $fillable = [
-        'task',
+        'command',
         'server_id',
         'repeat',
         'repeat_period',

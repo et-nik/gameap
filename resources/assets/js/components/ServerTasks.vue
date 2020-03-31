@@ -12,7 +12,7 @@
             </thead>
             <tbody v-for="(value, key) in tasks">
             <tr>
-                <td>{{ value.task }}</td>
+                <td>{{ value.command }}</td>
                 <td>{{ value.execute_date }}</td>
                 <td>{{ humanRepeatText(value.repeat) }}</td>
                 <td>
@@ -39,10 +39,10 @@
                                 <label for="task" class="control-label">{{ trans('servers_tasks.task') }}</label>
 
                                 <select
-                                        id="task"
+                                        id="command"
                                         class="custom-select"
-                                        name="task"
-                                        v-model="task"
+                                        name="command"
+                                        v-model="command"
                                         v-on:change="formChange">
                                     <option value="restart">{{ trans('servers.restart') }}</option>
                                     <option value="start">{{ trans('servers.start') }}</option>
@@ -51,8 +51,8 @@
                                     <option value="reinstall">{{ trans('servers.reinstall') }}</option>
                                 </select>
 
-                                <span v-if="errors['task']" class="help-block">
-                                    <strong class="text-danger">{{ errors['task'] }}</strong>
+                                <span v-if="errors['command']" class="help-block">
+                                    <strong class="text-danger">{{ errors['command'] }}</strong>
                                 </span>
                             </div>
 
@@ -183,7 +183,7 @@
         },
         data: function () {
             return {
-                task: '',
+                command: '',
                 taskDate: '',
                 taskRepeatInput: 1,
                 taskRepeatRadio: 0,
@@ -199,7 +199,7 @@
         },
         methods: {
             createTask() {
-                this.task = null;
+                this.command = null;
                 this.taskDate = null;
                 this.taskRepeatInput = 1;
                 this.taskRepeatPeriod = 1;
@@ -213,7 +213,7 @@
                 this.showModal();
             },
             editTask(index) {
-                this.task = this.tasks[index].task;
+                this.command = this.tasks[index].command;
                 this.taskDate = this.tasks[index].execute_date;
                 this.taskRepeatInput = '';
                 this.repeat = this.tasks[index].repeat;
@@ -237,7 +237,7 @@
 
                 const form = {
                     server_id: this.serverId,
-                    task: this.task,
+                    command: this.command,
                     execute_date: this.taskDate,
                     repeat: this.repeat,
                 };
@@ -276,9 +276,9 @@
                 this.resetErrors();
                 let error = false;
 
-                if (!this.task) {
+                if (!this.command) {
                     error = true;
-                    this.errors.task = this.trans('servers_tasks.errors.empty_task');
+                    this.errors.task = this.trans('servers_tasks.errors.empty_task_command');
                 }
 
                 if (!this.taskDate) {
@@ -312,7 +312,7 @@
             },
             resetErrors() {
                 this.errors = {
-                    task: null,
+                    command: null,
                     taskDate: null,
                     taskRepeatRadio: null,
                     taskRepeatInput: null,
@@ -414,7 +414,7 @@
                         'hours': this.pluralize('hour', parseInt(this.taskRepeatPeriod)),
                         'days': this.pluralize('day', parseInt(this.taskRepeatPeriod)),
                         'weeks': this.pluralize('week', parseInt(this.taskRepeatPeriod)),
-                        'month': this.pluralize('month', parseInt(this.taskRepeatPeriod)),
+                        'months': this.pluralize('month', parseInt(this.taskRepeatPeriod)),
                         'years': this.pluralize('year', parseInt(this.taskRepeatPeriod)),
                     };
                 }

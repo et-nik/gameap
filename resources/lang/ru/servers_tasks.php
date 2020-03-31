@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'tasks_title'           => 'Задания',
     'new_task'              => 'Новое задание',
     'edit_task'             => 'Редактирование',
 
@@ -19,7 +20,7 @@ return [
     'repeat_period'         => 'Период повтора',
 
     'errors' => [
-        'empty_task'            => 'Не указано задание',
+        'empty_command'         => 'Не указано задание',
         'empty_task_date'       => 'Не указана дата',
         'empty_period'          => 'Не указан период',
         'empty_period_unit'     => 'Некорректное значение величины',

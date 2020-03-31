@@ -15,7 +15,7 @@ class CreateServersTasksTable extends Migration
     {
         Schema::create('servers_tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('task', 16);
+            $table->string('command', 16);
             $table->integer('server_id')->index();
 
             // 0:      repeat endlessly

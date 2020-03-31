@@ -64,7 +64,7 @@ class ServersTasksControllerTest extends TestCase
         $this->controller->method('authorize')->willReturn(true);
         $task = [
             'id'            => '1',
-            'task'          => 'restart',
+            'command'          => 'restart',
             'server_id'     => 1,
             'repeat'        => 0,
             'repeat_period' => '10 minutes',

@@ -30,7 +30,7 @@ class ServersTasksRepository
         foreach (ServerTask::where('server_id', $serverId)->get() as $task) {
             $tasks[] = [
                 'id'            => $task->id,
-                'task'          => $task->task,
+                'command'       => $task->command,
                 'server_id'     => $task->server_id,
                 'repeat'        => $task->repeat,
                 'repeat_period' => CarbonInterval::seconds($task->repeat_period)
@@ -107,8 +107,8 @@ class ServersTasksRepository
      * @throws RepositoryValidationException
      */
     private function validate(array $task) {
-        if (empty($task) || empty($task['task'])) {
-            throw new RepositoryValidationException(__('servers_tasks.errors.empty_task'));
+        if (empty($task) || empty($task['command'])) {
+            throw new RepositoryValidationException(__('servers_tasks.errors.empty_command'));
         }
     }
 }

@@ -141,7 +141,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    Задания
+                    {{ __('servers_tasks.tasks_title') }}
                 </div>
 
                 <div class="card-body">

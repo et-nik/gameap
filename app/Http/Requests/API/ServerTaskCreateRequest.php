@@ -10,7 +10,7 @@ class ServerTaskCreateRequest extends Request
     {
         return [
             'server_id'         => 'required|numeric|exists:servers,id',
-            'task'              => 'required|string|max:16',
+            'command'           => 'required|string|max:16',
             'repeat'            => 'required|numeric|digits_between:1,255',
             'repeat_period'     => 'required_unless:repeat,1|nullable|regex:/^\d+\s\w+$/si',
             'execute_date'      => 'required',

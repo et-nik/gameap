@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'tasks_title'           => 'Tasks',
     'new_task'              => 'New Task',
     'edit_task'             => 'Edit Task',
 
@@ -19,7 +20,7 @@ return [
     'repeat_period'         => 'Repeat Period',
 
     'errors' => [
-        'empty_task'            => 'Empty task',
+        'empty_command'         => 'Empty task command',
         'empty_task_date'       => 'Empty date',
         'empty_period'          => 'Empty task period',
         'empty_period_unit'     => 'Incorrect period unit',
