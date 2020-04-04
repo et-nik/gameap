@@ -26,6 +26,15 @@ class ServersTasksController extends Controller
     }
 
     /**
+     * @param int $serverTaskId
+     * @return ServerTask
+     */
+    public function get(int $serverTaskId)
+    {
+        return ServerTask::find($serverTaskId);
+    }
+
+    /**
      * @param ServerTaskUpdateRequest $request
      * @param ServerTask $serverTask
      * @return JsonResponse

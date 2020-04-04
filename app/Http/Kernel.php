@@ -44,6 +44,11 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+
+        'gdaemon_api' => [
+            'throttle:120,1',
+            'bindings'
+        ],
     ];
 
     /**

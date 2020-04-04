@@ -16,6 +16,7 @@ Route::name('gservers.bulk_update')->patch('servers', 'ServersController@updateB
 
 // Servers Tasks
 Route::name('servers_tasks')->get('servers_tasks', 'ServersTasksController@getList');
+Route::name('servers_tasks.get')->get('servers_tasks/{server_task}', 'ServersTasksController@get');
 Route::name('servers_tasks.fail')->post('servers_tasks/{server_task}/fail', 'ServersTasksController@fail');
 Route::name('servers_tasks.update')->put('servers_tasks/{server_task}', 'ServersTasksController@update');
 

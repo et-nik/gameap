@@ -28,23 +28,19 @@ class ServersTasksRepository
 
         /** @var ServerTask $task */
         foreach (ServerTask::where('server_id', $serverId)->get() as $task) {
-            $tasks[] = [
-                'id'            => $task->id,
-                'command'       => $task->command,
-                'server_id'     => $task->server_id,
-                'repeat'        => $task->repeat,
-                'repeat_period' => CarbonInterval::seconds($task->repeat_period)
-                    ->locale('en')
-                    ->cascade()
-                    ->forHumans(),
-                'execute_date'  => $task->execute_date,
-                'payload'       => $task->payload,
-                'created_at'    => $task->created_at,
-                'updated_at'    => $task->updated_at
-            ];
+            $tasks[] = $this->convertModelToArray($task);
         }
 
         return $tasks;
+    }
+
+    /**
+     * @param int $taskId
+     * @return array
+     */
+    public function get(int $taskId): array
+    {
+        return $this->convertModelToArray(ServerTask::find($taskId));
     }
 
     /**
@@ -110,5 +106,27 @@ class ServersTasksRepository
         if (empty($task) || empty($task['command'])) {
             throw new RepositoryValidationException(__('servers_tasks.errors.empty_command'));
         }
+    }
+
+    /**
+     * @param ServerTask $task
+     * @return array
+     */
+    private function convertModelToArray(ServerTask $task)
+    {
+        return [
+            'id'            => $task->id,
+            'command'       => $task->command,
+            'server_id'     => $task->server_id,
+            'repeat'        => $task->repeat,
+            'repeat_period' => CarbonInterval::seconds($task->repeat_period)
+                ->locale('en')
+                ->cascade()
+                ->forHumans(),
+            'execute_date'  => $task->execute_date,
+            'payload'       => $task->payload,
+            'created_at'    => $task->created_at,
+            'updated_at'    => $task->updated_at
+        ];
     }
 }
