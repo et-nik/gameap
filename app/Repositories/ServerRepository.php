@@ -6,6 +6,7 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
 use Gameap\Models\GameMod;
+use Gameap\Models\ServerSetting;
 use Illuminate\Support\Str;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Illuminate\Support\Facades\Auth;
@@ -224,6 +225,31 @@ class ServerRepository
         }
 
         $server->update($request->only($only));
+    }
+
+    /**
+     * @param Server $server
+     * @param bool $autostart
+     */
+    public function updateAutostart(Server $server, bool $autostart)
+    {
+        $autostartSetting = $server->settings->where('name', 'autostart')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart',
+            ]);
+
+        $autostartSetting->value = $autostart;
+        $autostartSetting->save();
+
+        $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart_current',
+            ]);
+
+        $autostartCurrentSetting->value = $autostart;
+        $autostartCurrentSetting->save();
     }
 
     /**

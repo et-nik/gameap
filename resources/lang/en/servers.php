@@ -48,6 +48,8 @@ return [
     'files'         => 'Files',
     'admin'         => 'Admin',
 
+    'autostart_setting' => 'Autostart on crash',
+
     'process_status' => 'Proccess status',
     'active'        => 'active',
     'inactive'      => 'inactive',

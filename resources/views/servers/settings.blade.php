@@ -19,7 +19,15 @@
                 <div class="card-body">
                     {!! Form::model($server, ['method' => 'PATCH', 'route' => ['servers.updateSettings', $server->id], 'id' => 'adminServerForm']) !!}
 
-                        @if(!empty(!$server->gameMod->vars))
+                        <div class="col-md-12">
+                            <div class="form-check mt-4 mb-4">
+                                {{ Form::checkbox('autostart', true, $autostart, ['id' => 'autostart', 'class' => 'form-check-input']) }}
+                                {{ Form::label('autostart', __('servers.autostart_setting'), ['class' => 'form-check-label']) }}
+                            </div>
+                        </div>
+
+
+                        @if(!empty($server->gameMod->vars))
                             @foreach ($server->gameMod->vars as $var)
                                 @if (isset($var['admin_var']) && $var['admin_var'])
                                     @cannot('admin roles & permissions')
@@ -27,7 +35,7 @@
                                     @endcannot
                                 @endif
 
-                                <div class="col-12">
+                                <div class="col-md-12">
                                     {{ Form::bsText(
                                             'vars[' . $var['var'] . ']',
                                             (isset($server->vars[ $var['var'] ]))

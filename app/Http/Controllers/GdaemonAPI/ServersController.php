@@ -50,6 +50,7 @@ class ServersController extends Controller
         // Get Relations
         $server->getRelationValue('game');
         $server->getRelationValue('gameMod');
+        $server->getRelationValue('settings');
 
         return response()->json($server);
     }

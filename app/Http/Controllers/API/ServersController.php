@@ -11,6 +11,7 @@ use Gameap\Repositories\ServerRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
+use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
 use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Illuminate\Http\Request;
@@ -34,10 +35,11 @@ class ServersController extends AuthController
      */
     public $gdaemonTaskRepository;
 
-    /**
-     * @var \Gameap\Services\ServerService
-     */
+    /** @var \Gameap\Services\ServerService  */
     public $serverService;
+
+    /** @var \Gameap\Services\ServerControlService */
+    public $serverControlService;
 
     /**
      * ServersController constructor.
@@ -46,13 +48,15 @@ class ServersController extends AuthController
     public function __construct(
         ServerRepository $repository,
         GdaemonTaskRepository $gdaemonTaskRepository,
-        ServerService $serverService
+        ServerService $serverService,
+        ServerControlService $serverControlService
     ) {
         parent::__construct();
 
         $this->repository = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
         $this->serverService = $serverService;
+        $this->serverControlService = $serverControlService;
     }
 
     /**
@@ -68,7 +72,7 @@ class ServersController extends AuthController
         $this->authorize('server-start', $server);
 
         try {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->addServerStart($server);
+            $gdaemonTaskId = $this->serverControlService->start($server);
         } catch (GdaemonTaskRepositoryException $exception) {
             return $this->handleException($exception);
         } catch (RecordExistExceptions $exception) {
@@ -100,7 +104,7 @@ class ServersController extends AuthController
         $this->authorize('server-stop', $server);
 
         try {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->addServerStop($server);
+            $gdaemonTaskId = $this->serverControlService->stop($server);
         } catch (RecordExistExceptions $exception) {
             $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
                 $server->id,
@@ -130,7 +134,7 @@ class ServersController extends AuthController
         $this->authorize('server-restart', $server);
 
         try {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->addServerRestart($server);
+            $gdaemonTaskId = $this->serverControlService->restart($server);
         } catch (GdaemonTaskRepositoryException $exception) {
             return $this->handleException($exception);
         } catch (RecordExistExceptions $exception) {
@@ -161,7 +165,7 @@ class ServersController extends AuthController
         $this->authorize('server-update', $server);
 
         try {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server);
+            $gdaemonTaskId = $this->serverControlService->update($server);
         } catch (RecordExistExceptions $exception) {
             $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
                 $server->id,
