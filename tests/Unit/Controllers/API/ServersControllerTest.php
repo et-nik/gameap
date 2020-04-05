@@ -8,6 +8,7 @@ use Gameap\Models\Server;
 use Gameap\Models\User;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
+use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
 use Illuminate\Http\JsonResponse;
 use Tests\TestCase;
@@ -46,7 +47,8 @@ class ServersControllerTest extends TestCase
         $this->controller->__construct(
             $this->serverRepositoryMock,
             $this->gdaemonTaskRepositoryMock,
-            $this->serverServiceMock
+            $this->serverServiceMock,
+            new ServerControlService($this->gdaemonTaskRepositoryMock)
         );
     }
 
