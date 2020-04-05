@@ -137,4 +137,18 @@
         @endif
     @endcan
 
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('servers_tasks.tasks_title') }}
+                </div>
+
+                <div class="card-body">
+                    <server-tasks :server-id="{{ $server->id }}"></server-tasks>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
