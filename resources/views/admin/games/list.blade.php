@@ -41,7 +41,7 @@
                 $modLinks = '';
                 foreach ($gameModel->mods as $mod) {
 
-                    $destroyButton = Form::open(array('url' => route('admin.game_mods.destroy', ['gameMod' => $mod->getKey()]), 'style'=>'display:inline'));
+                    $destroyButton = Form::open(array('url' => route('admin.game_mods.destroy', ['game_mod' => $mod->getKey()]), 'style'=>'display:inline'));
                     $destroyButton .= Form::hidden('_method', 'DELETE');
                     $destroyButton .= Form::button('<span class="fa fa-times"></span>', [
                         'class' => 'btn btn-link btn-sm text-danger',

@@ -47,7 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('users','Admin\\UsersController', ['as' => 'admin']);
 
     Route::resource('game_mods','Admin\\GameModsController', ['as' => 'admin']);
-    Route::name('admin.game_mods.create')->get('game_mods/create/{game}', 'Admin\\GameModsController@create');
+    Route::name('admin.game_mods.create')->get('game_mods/create/{game?}', 'Admin\\GameModsController@create');
     
     Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', 'Admin\\GdaemonTasksController@index');
     Route::name('admin.gdaemon_tasks.show')->get('gdaemon_tasks/{gdaemon_task}', 'Admin\\GdaemonTasksController@show');
