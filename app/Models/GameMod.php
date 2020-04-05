@@ -109,6 +109,12 @@ class GameMod extends Model
             return [];
         }
 
-        return parent::castAttribute($key, $value);
+        $castValue = parent::castAttribute($key, $value);
+
+        if ($this->getCastType($key) == 'array' && !is_array($castValue)) {
+            return [];
+        }
+
+        return $castValue;
     }
 }

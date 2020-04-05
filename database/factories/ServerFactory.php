@@ -3,7 +3,6 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use Gameap\Models\Server;
-use Gameap\Models\Game;
 use Gameap\Models\GameMod;
 use Gameap\Models\DedicatedServer;
 use Faker\Generator as Faker;
