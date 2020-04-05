@@ -57,7 +57,7 @@ class ServersTasksRepositoryTest extends TestCase
     public function testStore()
     {
         $this->repository->store([
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat_period' => '10 minutes',
             'repeat'        => 0,
@@ -66,7 +66,7 @@ class ServersTasksRepositoryTest extends TestCase
 
         $serverTask = ServerTask::where('server_id', $this->server->id)->first();
 
-        $this->assertEquals('start', $serverTask->task);
+        $this->assertEquals('start', $serverTask->command);
         $this->assertEquals(0, $serverTask->repeat);
         $this->assertEquals(600, $serverTask->repeat_period);
     }
@@ -74,7 +74,7 @@ class ServersTasksRepositoryTest extends TestCase
     public function testStoreRepeatOnce()
     {
         $this->repository->store([
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat_period' => '10 minutes',
             'repeat'        => 1,
@@ -83,15 +83,15 @@ class ServersTasksRepositoryTest extends TestCase
 
         $serverTask = ServerTask::where('server_id', $this->server->id)->first();
 
-        $this->assertEquals('start', $serverTask->task);
+        $this->assertEquals('start', $serverTask->command);
         $this->assertEquals(1, $serverTask->repeat);
         $this->assertEquals(0, $serverTask->repeat_period);
     }
 
-    public function testStoreEmptyTaskFail()
+    public function testStoreEmptyCommandFail()
     {
         $this->expectException(RepositoryValidationException::class);
-        $this->expectExceptionMessage(__('servers_tasks.errors.empty_task'));
+        $this->expectExceptionMessage(__('servers_tasks.errors.empty_command'));
         $this->repository->store([]);
     }
 
@@ -100,7 +100,7 @@ class ServersTasksRepositoryTest extends TestCase
         $this->expectException(RepositoryValidationException::class);
         $this->expectExceptionMessage(__('servers_tasks.errors.empty_period'));
         $this->repository->store([
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat'        => 0,
             'execute_date'  => date('Y-m-d H:i:s'),
@@ -112,7 +112,7 @@ class ServersTasksRepositoryTest extends TestCase
         $this->expectException(RepositoryValidationException::class);
         $this->expectExceptionMessage(__('servers_tasks.errors.minimum_period'));
         $this->repository->store([
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat'        => 0,
             'repeat_period' => '1 minute',
@@ -128,7 +128,7 @@ class ServersTasksRepositoryTest extends TestCase
         ]);
 
         $this->repository->update($this->serverTask->id, [
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat_period' => '10 minutes',
             'repeat'        => 0,
@@ -137,7 +137,7 @@ class ServersTasksRepositoryTest extends TestCase
 
         $serverTask = ServerTask::where('server_id', $this->server->id)->first();
 
-        $this->assertEquals('start', $serverTask->task);
+        $this->assertEquals('start', $serverTask->command);
         $this->assertEquals(0, $serverTask->repeat);
         $this->assertEquals(600, $serverTask->repeat_period);
     }
@@ -150,7 +150,7 @@ class ServersTasksRepositoryTest extends TestCase
         ]);
 
         $this->repository->update($this->serverTask->id, [
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat_period' => '10 minutes',
             'repeat'        => 1,
@@ -159,7 +159,7 @@ class ServersTasksRepositoryTest extends TestCase
 
         $serverTask = ServerTask::where('server_id', $this->server->id)->first();
 
-        $this->assertEquals('start', $serverTask->task);
+        $this->assertEquals('start', $serverTask->command);
         $this->assertEquals(1, $serverTask->repeat);
         $this->assertEquals(0, $serverTask->repeat_period);
     }
@@ -169,7 +169,7 @@ class ServersTasksRepositoryTest extends TestCase
         $this->serverTask = factory(ServerTask::class)->create();
 
         $this->expectException(RepositoryValidationException::class);
-        $this->expectExceptionMessage(__('servers_tasks.errors.empty_task'));
+        $this->expectExceptionMessage(__('servers_tasks.errors.empty_command'));
         $this->repository->update($this->serverTask->id, []);
     }
 
@@ -180,7 +180,7 @@ class ServersTasksRepositoryTest extends TestCase
         $this->expectException(RepositoryValidationException::class);
         $this->expectExceptionMessage(__('servers_tasks.errors.empty_period'));
         $this->repository->update($this->serverTask->id, [
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat'        => 0,
             'execute_date'  => date('Y-m-d H:i:s'),
@@ -194,7 +194,7 @@ class ServersTasksRepositoryTest extends TestCase
         $this->expectException(RepositoryValidationException::class);
         $this->expectExceptionMessage(__('servers_tasks.errors.minimum_period'));
         $this->repository->update($this->serverTask->id, [
-            'task'          => 'start',
+            'command'       => 'start',
             'server_id'     => $this->server->id,
             'repeat'        => 0,
             'repeat_period' => '1 minute',

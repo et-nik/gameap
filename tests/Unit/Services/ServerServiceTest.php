@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Carbon\Carbon;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use GameQ\GameQ;
@@ -148,7 +149,7 @@ class ServerServiceTest extends TestCase
         $server->query_port = 1337;
         $server->rcon_port = 1337;
         $server->dir = 'server01';
-        $server->last_process_check = date('Y-m-d H:i:s', time());
+        $server->last_process_check = Carbon::now()->toDateTimeString();
         $server->process_active = true;
 
         $server->dedicatedServer = $dedicatedServer;

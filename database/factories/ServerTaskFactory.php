@@ -7,7 +7,7 @@ use Gameap\Models\Server;
 
 $factory->define(Gameap\Models\ServerTask::class, function (Faker $faker) {
     return [
-        'task'          => $faker->randomElement(['start', 'stop', 'restart', 'update']),
+        'command'       => $faker->randomElement(['start', 'stop', 'restart', 'update']),
         'server_id'     => Server::all()->random()->id,
         'repeat'        => rand(0, 255),
         'repeat_period' => rand(600, 36000),
