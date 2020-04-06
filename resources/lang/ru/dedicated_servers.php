@@ -35,6 +35,14 @@ return [
 
     'ip_list'           => 'Список IP',
     'gdaemon_api_key'   => 'Ключ GDaemon API',
+    'gdaemon_version'   => 'Версия GameAP Daemon',
+    'gdaemon_uptime'    => 'GameAP Daemon uptime',
+
+    'gdaemon_online_servers_count'   => 'Игровых серверов онлайн',
+    'gdaemon_working_tasks_count'    => 'GDaemon заданий выполняется',
+    'gdaemon_waiting_tasks_count'    => 'GDaemon заданий ожидает',
+
+    'gdaemon_empty_info' => 'Не удалось получить информацию',
 
     /* Shortcodes description */
     'game_server_shortcodes'    => 'Шорткоды игрового сервера',

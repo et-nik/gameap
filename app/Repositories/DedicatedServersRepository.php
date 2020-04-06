@@ -3,9 +3,6 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
-use Gameap\Models\ClientCertificate;
-use Gameap\Http\Requests\DedicatedServerRequest;
-use Gameap\Repositories\ClientCertificateRepository;
 use Gameap\Services\CertificateService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
