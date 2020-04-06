@@ -9,6 +9,7 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
 use Illuminate\Container\Container;
 use Illuminate\Http\Response;
+use Knik\Gameap\GdaemonStatus;
 use Mockery;
 use Tests\TestCase;
 
@@ -51,7 +52,20 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testShow()
     {
-        $response = $this->controller->show(Mockery::mock(DedicatedServer::class));
+        $gdaemonStatus = Mockery::mock(GdaemonStatus::class)->makePartial();
+        $dedicatedServer = Mockery::mock(DedicatedServer::class);
+
+        $gdaemonStatus->shouldReceive('setConfig')->andReturnNull();
+        $gdaemonStatus->shouldReceive('version')->andReturn([]);
+        $gdaemonStatus->shouldReceive('infoBase')->andReturn([]);
+
+        $dedicatedServer->shouldReceive('gdaemonSettings')->andReturn([]);
+
+        $response = $this->controller->show(
+            $dedicatedServer,
+            $gdaemonStatus
+        );
+
         $this->assertInstanceOf(\Illuminate\View\View::class, $response);
     }
 
