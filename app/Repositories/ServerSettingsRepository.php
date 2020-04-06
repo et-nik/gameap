@@ -26,17 +26,15 @@ class ServerSettingsRepository extends Repository
 
         $saveSettings = [];
         foreach ($settings as $setting) {
-            if (empty($setting['name']) || empty($setting['value'])) {
+            if (empty($setting['name']) || !isset($setting['value'])) {
                 continue;
             }
 
             $saveSettings[$setting['name']] = $setting['value'];
 
             if (array_key_exists($setting['name'], $existsSettings)) {
-                if (!empty($setting['value'])) {
-                    $existsSettings[$setting['name']]->value = $setting['value'];
-                    $existsSettings[$setting['name']]->save();
-                }
+                $existsSettings[$setting['name']]->value = $setting['value'];
+                $existsSettings[$setting['name']]->save();
             } else {
                 $serverSetting = new ServerSetting();
 
