@@ -34,7 +34,7 @@
                             </a>
                         @endcan
 
-                        @can('server-restart', $server)
+                        @can('server-update', $server)
                             <a class="btn btn-large btn-info m-1" href="#" @click="updateServer({{ $server->id }})">
                                 <span class="fas fa-sync"></span>&nbsp;{{ __('servers.update') }}
                             </a>
