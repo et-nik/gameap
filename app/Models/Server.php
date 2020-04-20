@@ -3,6 +3,8 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
@@ -49,6 +51,7 @@ use Carbon\Carbon;
  * @property GameMod $gameMod
  * @property ServerSetting[] $settings
  * @property User[] $users
+ * @property ServerTask[] $tasks
  */
 class Server extends Model
 {
@@ -97,8 +100,13 @@ class Server extends Model
         if (empty($this->last_process_check)) {
             return false;
         }
-        
-        $lastProcessCheck = Carbon::createFromFormat('Y-m-d H:i:s' , $this->last_process_check)->timestamp;
+
+        $lastProcessCheck = Carbon::createFromDate(
+            $this->last_process_check,
+            null,
+            null,
+            'UTC'
+        )->timestamp;
 
         if ($this->process_active && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK) {
             return true;
@@ -107,16 +115,25 @@ class Server extends Model
         return false;
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function dedicatedServer()
     {
         return $this->belongsTo(DedicatedServer::class, 'ds_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function game()
     {
         return $this->belongsTo(Game::class, 'game_id', 'code');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function gameMod()
     {
         return $this->belongsTo(GameMod::class, 'game_mod_id');
@@ -130,6 +147,14 @@ class Server extends Model
     public function settings()
     {
         return $this->hasMany(ServerSetting::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks()
+    {
+        return $this->hasMany(ServerTask::class);
     }
 
     /**
@@ -166,11 +191,17 @@ class Server extends Model
         return $fileManagerDisks;
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
 
+    /**
+     * @return array
+     */
     public function getAliasesAttribute()
     {
         $aliases = [
@@ -183,11 +214,13 @@ class Server extends Model
             'uuid_short' => $this->uuid_short,
         ];
 
-        foreach ($this->gameMod->vars as $var) {
-            $varname = $var['var'];
-            $aliases[ $varname ] = isset($this->vars[$varname])
-                ? $this->vars[$varname]
-                : $var['default'];
+        if ($this->gameMod != null && is_array($this->gameMod->vars)) {
+            foreach ($this->gameMod->vars as $var) {
+                $varname = $var['var'];
+                $aliases[ $varname ] = isset($this->vars[$varname])
+                    ? $this->vars[$varname]
+                    : $var['default'];
+            }
         }
 
         return $aliases;

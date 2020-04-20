@@ -2,12 +2,12 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
+use Bouncer;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
-use Gameap\Http\Requests\UserRequest;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use Gameap\Http\Requests\Admin\UserCreateRequest;
+use Gameap\Http\Requests\Admin\UserUpdateRequest;
 
 class UsersController extends AuthController
 {
@@ -48,7 +48,7 @@ class UsersController extends AuthController
      */
     public function create()
     {
-        $roles = Role::get();
+        $roles = Bouncer::role()->all();
         
         return view('admin.users.create', compact('roles'));
     }
@@ -56,10 +56,10 @@ class UsersController extends AuthController
     /**
      * Store a newly created user in storage.
      *
-     * @param UserRequest $request
+     * @param UserCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request)
+    public function store(UserCreateRequest $request)
     {
         $this->repository->store($request->all());
 
@@ -86,18 +86,18 @@ class UsersController extends AuthController
      */
     public function edit(User $user)
     {
-        $roles = Role::get();
+        $roles = Bouncer::role()->all();
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Gameap\Http\Requests\UserRequest  $request
+     * @param  \Gameap\Http\Requests\Admin\UserUpdateRequest  $request
      * @param  \Gameap\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         if ($this->repository->update($user, $request->all())) {
             return redirect()->route('admin.users.index')
@@ -111,8 +111,9 @@ class UsersController extends AuthController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Gameap\Models\User  $user
+     * @param \Gameap\Models\User $user
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(User $user)
     {

@@ -36,7 +36,7 @@ class ServersController extends Controller
      */
     public function index(DedicatedServer $dedicatedServer)
     {
-        return QueryBuilder::for(Server::where('ds_id', $dedicatedServer->id))
+        return QueryBuilder::for(Server::where('ds_id', '=', $dedicatedServer->id))
             ->allowedFilters('id')
             ->get();
     }
@@ -50,6 +50,7 @@ class ServersController extends Controller
         // Get Relations
         $server->getRelationValue('game');
         $server->getRelationValue('gameMod');
+        $server->getRelationValue('settings');
 
         return response()->json($server);
     }

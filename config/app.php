@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -110,28 +110,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => env('APP_LOG', 'single'),
-
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
-
-    /*
-    |--------------------------------------------------------------------------
     | GameAP API
     |--------------------------------------------------------------------------
     |
     */
     'global_api' => 'https://api.gameap.ru',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allow new user registration
+    |--------------------------------------------------------------------------
+    |
+    */
+    'allow_registration' => env('APP_ALLOW_REGISTRATION', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -197,7 +188,11 @@ return [
          */
         Gameap\Providers\GdaemonFilesServiceProvider::class,
 
+        /*
+         * Other packages
+         */
         Mavinoo\LaravelBatch\LaravelBatchServiceProvider::class,
+        Silber\Bouncer\BouncerServiceProvider::class,
     ],
 
     /*
@@ -252,7 +247,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
 
         'Batch' => Mavinoo\LaravelBatch\LaravelBatchFacade::class,
-
+        'Bouncer' => Silber\Bouncer\BouncerFacade::class,
     ],
 
 ];

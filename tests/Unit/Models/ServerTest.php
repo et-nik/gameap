@@ -14,7 +14,7 @@ class ServerTest extends TestCase
 {
     public function testProcessActive()
     {
-        factory(Server::class, 10)->create();
+        factory(Server::class, 100)->create();
         $server = Server::first();
         
         $this->assertIsBool($server->processActive());
@@ -89,7 +89,22 @@ class ServerTest extends TestCase
     
     public function testGetAliasesAttribute()
     {
-        $server = Server::where('game_id', 'cstrike')->first();
+        $gameMod = factory(GameMod::class)->create([
+            'vars' => [
+                [
+                    'var'       => 'example',
+                    'default'   => 'def_value',
+                    'info'      => 'Example value',
+                    'admin_var' => false,
+                ]
+            ],
+        ]);
+
+        $server = factory(Server::class)->create([
+            'game_id'       => $gameMod->game_code,
+            'game_mod_id'   => $gameMod->id,
+        ]);
+
         $this->assertIsArray($server->aliases);
         $this->arrayHasKey('ip', $server->aliases);
         $this->arrayHasKey('port', $server->aliases);

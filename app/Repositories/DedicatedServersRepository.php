@@ -3,25 +3,22 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
-use Gameap\Models\ClientCertificate;
-use Gameap\Http\Requests\DedicatedServerRequest;
-use Gameap\Repositories\ClientCertificateRepository;
 use Gameap\Services\CertificateService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class DedicatedServersRepository
+class DedicatedServersRepository extends Repository
 {
-    /**
-     * @var DedicatedServer
-     */
-    protected $model;
-
     /**
      * @var \Gameap\Repositories\ClientCertificateRepository
      */
     protected $clientCertificateRepository;
 
+    /**
+     * DedicatedServersRepository constructor.
+     * @param DedicatedServer $dedicatedServer
+     * @param \Gameap\Repositories\ClientCertificateRepository $clientCertificateRepository
+     */
     public function __construct(
         DedicatedServer $dedicatedServer,
         ClientCertificateRepository $clientCertificateRepository
@@ -30,6 +27,10 @@ class DedicatedServersRepository
         $this->clientCertificateRepository = $clientCertificateRepository;
     }
 
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
     public function getAll($perPage = 20)
     {
         return DedicatedServer::orderBy('id')->withCount('servers')->paginate($perPage);
@@ -45,6 +46,36 @@ class DedicatedServersRepository
             ->where('id', '=', $id)
             ->first()
             ->ip;
+    }
+
+    /**
+     * Get all busy ports for dedicated servers. Group by ip
+     *
+     * @param int $id
+     * @return \Illuminate\Support\Collection|array
+     */
+    public function getBusyPorts(int $id)
+    {
+        /** @var DedicatedServer $dedicatedServer */
+        $dedicatedServer = $this->model->select('id')->where('id', '=', $id)->first();
+        $result = [];
+
+        foreach ($dedicatedServer->servers as $server) {
+            if (!array_key_exists($server->server_ip, $result)) {
+                $result[$server->server_ip] = [];
+            }
+
+            array_push($result[$server->server_ip], $server->server_port);
+            array_push($result[$server->server_ip], $server->query_port);
+            array_push($result[$server->server_ip], $server->rcon_port);
+        }
+
+        // Unique
+        foreach ($result as &$ipList) {
+            $ipList = array_values(array_unique($ipList, SORT_NUMERIC));
+        }
+
+        return $result;
     }
 
     /**

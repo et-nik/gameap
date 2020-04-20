@@ -8,10 +8,8 @@ use Gameap\Services\GlobalApi;
 use Symfony\Component\Finder\Glob;
 use Illuminate\Support\Arr;
 
-class GameRepository
+class GameRepository extends Repository
 {
-    protected $model;
-
     public function __construct(Game $game)
     {
         $this->model = $game;
@@ -31,7 +29,7 @@ class GameRepository
      * @param int $perPage
      * @return mixed
      */
-    public function allWith($with, $perPage = 20)
+    public function allWith($with, $perPage = 50)
     {
         return Game::orderBy('name')->with($with)->paginate($perPage);
     }
@@ -44,15 +42,13 @@ class GameRepository
         $apiGames = GlobalApi::games();
 
         foreach ($apiGames as $gameData) {
-            $game = Game::firstOrCreate([
-                'code' => $gameData['code'],
-                'start_code' => $gameData['start_code'],
-                'name' => $gameData['name'],
-                'engine' => $gameData['engine'],
-            ]);
+            $game = Game::find($gameData['code']) ?? new Game();
 
             $game->fill($gameData);
-            $game->save();
+
+            if (!$game->save()) {
+                return false;
+            }
 
             if (!empty($gameData['mods'])) {
                 foreach ($gameData['mods'] as $gameModData) {
@@ -63,10 +59,7 @@ class GameRepository
                     ]);
 
                     $gameMod->fill($gameModData);
-
-                    if ($gameMod->isValid()) {
-                        $gameMod->save();
-                    }
+                    $gameMod->save();
                 }
             }
         }

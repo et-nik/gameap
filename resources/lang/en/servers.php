@@ -24,6 +24,7 @@ return [
     'stop'          => 'Stop',
     'control'       => 'Control',
     'update'        => 'Update',
+    'reinstall'     => 'Reinstall',
     'status'        => 'Status',
     'commands'      => 'Commands',
     'ip_port'       => 'IP:Port',
@@ -46,6 +47,8 @@ return [
     'tools'         => 'Tools',
     'files'         => 'Files',
     'admin'         => 'Admin',
+
+    'autostart_setting' => 'Autostart on crash',
 
     'process_status' => 'Proccess status',
     'active'        => 'active',
@@ -70,7 +73,8 @@ return [
     'settings'      => 'Settings',
     
     'install'       => 'Install server',
-    
+
+    'server_info' => 'Server Info',
     'basic_info'    => 'Basic Info',
     'ds_ip_ports'    => 'Dedicated server, IP, ports',
     'dedicated_server' => 'Dedicated Server',

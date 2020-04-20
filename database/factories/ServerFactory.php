@@ -3,7 +3,6 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use Gameap\Models\Server;
-use Gameap\Models\Game;
 use Gameap\Models\GameMod;
 use Gameap\Models\DedicatedServer;
 use Faker\Generator as Faker;
@@ -17,7 +16,7 @@ $factory->define(Server::class, function (Faker $faker) {
         'enabled' => $faker->numberBetween(0, 1),
         'installed' => $faker->numberBetween(0, 1),
         'blocked' => $faker->numberBetween(0, 1),
-        'name' => $faker->name,
+        'name' => $randomGameMod->game->name . ' ' . $randomGameMod->name,
         'uuid' => $uuid,
         'uuid_short' => substr($uuid, 0, 8),
         'game_id' => $randomGameMod->game_code,

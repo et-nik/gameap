@@ -1,0 +1,13 @@
+preset: recommended
+
+enabled:
+  - concat_with_spaces
+
+disabled:
+  - concat_without_spaces
+  - phpdoc_annotation_without_dot
+  - phpdoc_order
+  - phpdoc_scalar
+  - single_class_element_per_statement
+  - no_trailing_comma_in_list_call
+  - no_trailing_comma_in_singleline_array

@@ -11,6 +11,19 @@
 @endsection
 
 @section('content')
+    @if ($gdaemonTask->status == 'waiting')
+        {{ Form::open(['id' => 'form-destroy-' . $gdaemonTask->getKey(), 'url' => route('admin.gdaemon_tasks.cancel', $gdaemonTask->getKey()), 'style'=>'display:inline']) }}
+            {{ Form::button( '<i class="fas fa-ban"></i>&nbsp;' . __('gdaemon_tasks.cancel'),
+                [
+                    'class' => 'btn btn-danger',
+                    'v-on:click' => 'confirmAction($event, \'' . __('main.confirm_message'). '\')',
+                    'type' => 'submit'
+                ]
+            ) }}
+        {{ Form::close() }}
+    @endif
+    <hr>
+
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped table-bordered detail-view">
@@ -49,7 +62,12 @@
     
     <div class="row">
         <div class="col-md-12">
-            <pre class="console">{!! $gdaemonTask->output !!}</pre>
+            @if ($gdaemonTask->status == 'working')
+                <task-output :task-id="{{ $gdaemonTask->id }}"></task-output>
+            @else
+                <pre class="console">{!! $gdaemonTask->output !!}</pre>
+            @endif
+
         </div>
     </div>
 @endsection

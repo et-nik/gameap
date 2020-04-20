@@ -23,20 +23,7 @@
                     <div class="card-body">
                         {{ Form::bsText('name') }}
 
-                        <div class="form-group">
-                            {{ Form::label('game_id', 'Game', ['class' => 'control-label']) }}
-                            {{ Form::select('game_id', $games, null, ['class' => 'form-control', 'v-on:change' => 'gameChangeHandler', 'v-model' => 'gameId']) }}
-                        </div>
-
-                        <div class="form-group">
-                            <template id="game-mod-list-template">
-                                {{ Form::label('game_mod_id', 'Game Mod', ['class' => 'control-label']) }}
-
-                                <select class="form-control" id="game_mod_id" name="game_mod_id">
-                                    <option :value="gameMod.id" v-for="gameMod in gameModsList">@{{gameMod.name}}</option>
-                                </select>
-                            </template>
-                        </div>
+                        <game-mod-selector :games="{{ $games }}"></game-mod-selector>
 
                         <div class="form-check mt-4 mb-4">
                             {{ Form::checkbox('install', true, true, ['id' => 'install', 'class' => 'form-check-input']) }}
@@ -81,24 +68,8 @@
                         {{ __('servers.ds_ip_ports') }}
                     </div>
                     <div class="card-body">
-                        <div class="form-group" id="dedicatedServerForm">
-                            {{ Form::label('ds_id', 'Dedicated server', ['class' => 'control-label']) }}
-                            {{ Form::select('ds_id', $dedicatedServers, null, ['class' => 'form-control', 'v-on:change' => 'dsChangeHandler', 'v-model' => 'dsId']) }}
-                        </div>
-
-                        <div class="form-group">
-                            <template id="ip-list-template">
-                                {{ Form::label('server_ip', 'IP', ['class' => 'control-label']) }}
-
-                                <select class='form-control' id='server_ip' name='server_ip'>
-                                    <option :value="ip" v-for="ip in ipList">@{{ip}}</option>
-                                </select>
-                            </template>
-                        </div>
-
-                        {{ Form::bsText('server_port') }}
-                        {{ Form::bsText('query_port') }}
-                        {{ Form::bsText('rcon_port') }}
+                        <ds-ip-selector :ds-list="{{ $dedicatedServers }}"></ds-ip-selector>
+                        <smart-port-selector></smart-port-selector>
                     </div>
                 </div>
             </div>

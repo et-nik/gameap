@@ -11,3 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
+
+// Fix calling ./artisan route:list
+namespace App\Http\Controllers;
+class Controller extends \Gameap\Http\Controllers\Controller {}

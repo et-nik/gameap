@@ -50,10 +50,8 @@ use Storage;
  * @property Server[] $servers
  * @property ClientCertificate $clientCertificate
  */
-class DedicatedServer extends Model implements ValidableContract
+class DedicatedServer extends Model
 {
-    use Validable;
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -143,8 +141,12 @@ class DedicatedServer extends Model implements ValidableContract
      */
     public function gdaemonSettings($storageDisk = 'local')
     {
+        $gdaemonHost = filter_var($this->gdaemon_host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)
+            ? '[' . $this->gdaemon_host . ']'
+            : $this->gdaemon_host;
+
         return [
-            'host' => $this->gdaemon_host,
+            'host' => $gdaemonHost,
             'port' => $this->gdaemon_port,
             'username' => $this->gdaemon_login,
             'password' => $this->gdaemon_password,

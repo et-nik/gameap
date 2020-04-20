@@ -17,21 +17,24 @@ class ServerUpdateRequest extends Request
                 ->where(function ($query) {
                     return $query
                         ->where('ds_id', $this->ds_id)
-                        ->where('server_ip', $this->server_ip);
+                        ->where('server_ip', $this->server_ip)
+                        ->whereNull('deleted_at');
             }),
             Rule::unique('servers', 'query_port')
                 ->ignore($this->route('server'))
                 ->where(function ($query) {
                     return $query
                         ->where('ds_id', $this->ds_id)
-                        ->where('server_ip', $this->server_ip);
+                        ->where('server_ip', $this->server_ip)
+                        ->whereNull('deleted_at');
             }),
             Rule::unique('servers', 'rcon_port')
                 ->ignore($this->route('server'))
                 ->where(function ($query) {
                     return $query
                         ->where('ds_id', $this->ds_id)
-                        ->where('server_ip', $this->server_ip);
+                        ->where('server_ip', $this->server_ip)
+                        ->whereNull('deleted_at');
             }),
         ];
 

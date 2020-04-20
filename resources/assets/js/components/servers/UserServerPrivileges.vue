@@ -6,7 +6,7 @@
                 <tr>
                     <td>{{ trans('servers.name') }}</td>
                     <td>{{ trans('servers.ip_port') }}</td>
-                    <td>{{ trans('servers.revoke') }}</td>
+                    <td>&nbsp;</td>
                 </tr>
                 </thead>
 
@@ -15,9 +15,12 @@
                     <td><a v-bind:href="'/admin/servers/' + server.id + '/edit'">{{ server.name }}</a></td>
                     <td>{{ server.server_ip }}:{{ server.server_port }}</td>
                     <td>
+                        <a class="btn btn-sm btn-info" v-bind:href="'/admin/users/' + userId + '/servers/' + server.id + '/edit'">
+                            <i class="fas fa-lock"></i>
+                        </a>
                         <input type="hidden" v-model="server.id" v-bind:name="'servers[]'">
                         <button class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(itemIndex)">
-                            <span class="fa fa-times"></span>
+                            <i class="fa fa-times"></i>
                         </button>
                     </td>
                 </tr>
@@ -27,7 +30,12 @@
 
         <div class="form-group">
             <div class="col-12">
-                <v-select v-model="selectedServer" v-bind:options="serversListOptions" @search="onSearch">
+                <v-select
+                        v-model="selectedServer"
+                        v-bind:options="serversListOptions"
+                        @search="onSearch"
+                        :placeholder="trans('users.servers_privileges_placeholder')"
+                >
                     <template slot="option" slot-scope="option">
                         <div class="row">
                             <div class="col-5">{{ option.label }}</div>
@@ -38,7 +46,7 @@
                 </v-select>
             </div>
 
-            <div class="col-1 offset-6 centered mt-2">
+            <div class="col-2 offset-5 centered mt-2">
                 <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
             </div>
         </div>
@@ -51,6 +59,7 @@
     export default {
         props: {
             initialItems: Array,
+            userId: Number,
         },
         components: {
             'v-select': vSelect,

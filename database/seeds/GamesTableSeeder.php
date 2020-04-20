@@ -262,7 +262,7 @@ class GamesTableSeeder extends Seeder
             'code' => 'bms',
             'start_code' => 'bms',
             'name' => 'Black Mesa: Deathmatch',
-            'engine' => 'cod4',
+            'engine' => 'Source',
             'engine_version' => '4',
             'steam_app_id' => 346680,
         ]);
@@ -271,7 +271,7 @@ class GamesTableSeeder extends Seeder
             'code' => 'ark',
             'start_code' => 'ark',
             'name' => 'ARK: Survival Evolved',
-            'engine' => 'ark',
+            'engine' => 'Source',
             'steam_app_id' => 376030,
         ]);
         
@@ -279,7 +279,8 @@ class GamesTableSeeder extends Seeder
             'code' => 'mta',
             'start_code' => 'mta',
             'name' => 'GTA: Multi Theft Auto',
-            'engine' => 'mta'
+            'engine' => 'mta',
+            'remote_repository' => 'http://files.gameap.ru/mta/mta.tar.xz',
         ]);
         
         DB::table('games')->insert([
@@ -319,6 +320,14 @@ class GamesTableSeeder extends Seeder
             'name' => 'The Forest',
             'engine' => 'TheForest',
             'steam_app_id' => 556450,
+        ]);
+
+        DB::table('games')->insert([
+            'code' => 'fivem',
+            'start_code' => 'fivem',
+            'name' => 'FiveM',
+            'engine' => 'Gta5m',
+            'remote_repository' => 'http://files.gameap.ru/fivem/fivem.tar.xz',
         ]);
     }
 }

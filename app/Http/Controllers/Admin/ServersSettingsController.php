@@ -6,25 +6,33 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\Server;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Http\Requests\ServersSettingsRequest;
+use Gameap\Repositories\ServerSettingsRepository;
 
 class ServersSettingsController extends AuthController
 {
     /**
-     * The DedicatedServersRepository instance.
+     * The ServersRepository instance.
      *
      * @var \Gameap\Repositories\ServerRepository
      */
     protected $serverRepository;
+
+    /**
+     * @var \Gameap\Repositories\ServerSettingsRepository
+     */
+    protected $serverSettingsRepository;
     
     /**
      * ServersSettingsController constructor.
      *
      * @param ServerRepository $serverRepository
      */
-    public function __construct(ServerRepository $serverRepository)
+    public function __construct(ServerRepository $serverRepository, ServerSettingsRepository $serverSettingsRepository)
     {
         parent::__construct();
+
         $this->serverRepository = $serverRepository;
+        $this->serverSettingsRepository = $serverSettingsRepository;
     }
 
     /**
@@ -38,24 +46,24 @@ class ServersSettingsController extends AuthController
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update server setting
      *
      * @param ServersSettingsRequest $request
      * @param Server $server
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function update(ServersSettingsRequest $request, Server $server)
     {
-        $all = $request->all();
+        $all = $request->only('settings');
 
-        foreach ($server->settings as $setting) {
-            if (isset($all['value'][$setting->id])) {
-                $setting->value = $all['value'][$setting->id];
-                $setting->save();
-            }
+        if (!empty($all['settings'])) {
+            $this->serverSettingsRepository->saveSettings($server, $all['settings']);
+        } else {
+            // TODO: Remove all settings?
         }
 
-        return redirect()->route('admin.servers.index')
+        return redirect()->route('admin.servers.edit', [$server->id])
             ->with('success', __('servers.settings_update_success_msg'));
     }
 }

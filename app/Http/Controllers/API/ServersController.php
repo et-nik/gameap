@@ -2,13 +2,22 @@
 
 namespace Gameap\Http\Controllers\API;
 
+use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommandException;
+use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
+use Gameap\Exceptions\Repositories\GdaemonTaskRepository\InvalidServerStartCommandException;
+use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Models\Server;
+use Gameap\Models\GdaemonTask;
+use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
 use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ServersController extends AuthController
 {
@@ -26,10 +35,11 @@ class ServersController extends AuthController
      */
     public $gdaemonTaskRepository;
 
-    /**
-     * @var \Gameap\Services\ServerService
-     */
+    /** @var \Gameap\Services\ServerService  */
     public $serverService;
+
+    /** @var \Gameap\Services\ServerControlService */
+    public $serverControlService;
 
     /**
      * ServersController constructor.
@@ -38,66 +48,161 @@ class ServersController extends AuthController
     public function __construct(
         ServerRepository $repository,
         GdaemonTaskRepository $gdaemonTaskRepository,
-        ServerService $serverService
+        ServerService $serverService,
+        ServerControlService $serverControlService
     ) {
         parent::__construct();
 
         $this->repository = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
         $this->serverService = $serverService;
+        $this->serverControlService = $serverControlService;
     }
 
     /**
      * @param Server $server
      *
-     * @return array
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function start(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-start', $server);
+
+        try {
+            $gdaemonTaskId = $this->serverControlService->start($server);
+        } catch (GdaemonTaskRepositoryException $exception) {
+            return $this->handleException($exception);
+        } catch (RecordExistExceptions $exception) {
+            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+                $server->id,
+                GdaemonTask::TASK_SERVER_START
+            );
+
+            if (!$gdaemonTaskId) {
+                return $this->makeErrorResponse($exception->getMessage());
+            }
+        }
 
         return [
-            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerStart($server)
+            'gdaemonTaskId' => $gdaemonTaskId
         ];
     }
 
     /**
      * @param Server $server
      *
-     * @return array
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function stop(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-stop', $server);
+
+        try {
+            $gdaemonTaskId = $this->serverControlService->stop($server);
+        } catch (RecordExistExceptions $exception) {
+            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+                $server->id,
+                GdaemonTask::TASK_SERVER_STOP
+            );
+
+            if (!$gdaemonTaskId) {
+                return $this->makeErrorResponse($exception->getMessage());
+            }
+        }
 
         return [
-            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerStop($server)
+            'gdaemonTaskId' => $gdaemonTaskId
         ];
     }
 
     /**
      * @param Server $server
-     * @return array
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function restart(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-restart', $server);
+
+        try {
+            $gdaemonTaskId = $this->serverControlService->restart($server);
+        } catch (GdaemonTaskRepositoryException $exception) {
+            return $this->handleException($exception);
+        } catch (RecordExistExceptions $exception) {
+            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+                $server->id,
+                GdaemonTask::TASK_SERVER_RESTART
+            );
+
+            if (!$gdaemonTaskId) {
+                return $this->makeErrorResponse($exception->getMessage());
+            }
+        }
 
         return [
-            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerRestart($server)
+            'gdaemonTaskId' => $gdaemonTaskId
         ];
     }
 
     /**
      * @param Server $server
-     * @return array
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-update', $server);
+
+        try {
+            $gdaemonTaskId = $this->serverControlService->update($server);
+        } catch (RecordExistExceptions $exception) {
+            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+                $server->id,
+                GdaemonTask::TASK_SERVER_UPDATE
+            );
+
+            if (!$gdaemonTaskId) {
+                return $this->makeErrorResponse($exception->getMessage());
+            }
+        }
 
         return [
-            'gdaemonTaskId' => $this->gdaemonTaskRepository->addServerUpdate($server)
+            'gdaemonTaskId' => $gdaemonTaskId
+        ];
+    }
+
+    /**
+     * @param Server $server
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function reinstall(Server $server)
+    {
+        $this->authorize('server-control', $server);
+        $this->authorize('server-update', $server);
+
+        try {
+            $deleteTaskId = $this->gdaemonTaskRepository->addServerDelete($server);
+            $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server, $deleteTaskId);
+        } catch (RecordExistExceptions $exception) {
+            return $this->makeErrorResponse($exception->getMessage());
+        }
+
+        return [
+            'gdaemonTaskId' => $gdaemonTaskId
         ];
     }
 
@@ -105,6 +210,8 @@ class ServersController extends AuthController
      * Get server status
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function getStatus(Server $server)
     {
@@ -118,6 +225,8 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function query(Server $server)
     {
@@ -130,10 +239,14 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function consoleLog(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-console-view', $server);
+
         return [
             'console' => $this->serverService->getConsoleLog($server)
         ];
@@ -143,10 +256,13 @@ class ServersController extends AuthController
      * @param ServerConsoleCommandRequest $request
      * @param Server $server
      * @return array
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function sendCommand(ServerConsoleCommandRequest $request, Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-console-send', $server);
 
         $command = $request->input('command');
         $this->serverService->sendConsoleCommand($server, $command);
@@ -158,10 +274,56 @@ class ServersController extends AuthController
      * @param Request $request
      *
      * TODO: Create admin part and move this
+     *
+     * @return mixed
      */
     public function search(Request $request)
     {
         $query = $request->input('q');
         return $this->repository->search($query);
+    }
+
+    /**
+     * @param Exception $exception
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function handleException(Exception $exception)
+    {
+        if (Auth::user()->can('admin roles & permissions')) {
+            $extraMessage = $this->getDocMessage($exception);
+        } else {
+            $extraMessage = (string)__('main.common_admin_error');
+        }
+
+        return $this->makeErrorResponse($exception->getMessage() . $extraMessage);
+    }
+
+    /**
+     * @param Exception $exception
+     * @return string
+     */
+    private function getDocMessage(Exception $exception)
+    {
+        $msg = '';
+
+        if ($exception instanceof EmptyServerStartCommandException) {
+            $msg = __('gdaemon_tasks.empty_server_start_command_doc');
+        }
+
+        return is_string($msg) ? $msg : '';
+    }
+
+    /**
+     * @param $message
+     * @param int $code
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function makeErrorResponse($message, $code = Response::HTTP_UNPROCESSABLE_ENTITY)
+    {
+        return response()->json([
+            'message' => $message,
+            'http_code' => $code
+        ], $code);
     }
 }

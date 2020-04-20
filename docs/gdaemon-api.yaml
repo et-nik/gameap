@@ -1,0 +1,356 @@
+openapi: 3.0.0
+
+info:
+  title: "GameAP Daemon API"
+  version: "1.0.0"
+
+servers:
+  - url: "{gameap-host}/gdaemon_api"
+    variables:
+      gameap-host:
+        default: https://demo.gameap.ru
+        description: GameAP Host
+
+paths:
+  /get_token:
+    get:
+      summary: 'Get Token'
+      tags:
+        - 'initial'
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /dedicated_servers/get_init_data/{dedicated_server}:
+    parameters:
+      - name: dedicated_server
+        in: path
+        required: true
+        description: 'Dedicated Server ID'
+        schema:
+          type: integer
+    get:
+      summary: 'Get Initial Dedicated Server Data'
+      tags:
+        - 'initial'
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers:
+    get:
+      summary: 'Get Game Servers list'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+    patch:
+      summary: 'Bulk Game Server Update'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  installed:
+                    type: integer
+                    nullable: true
+                    minimum: 0
+                    maximum: 9
+                  process_active:
+                    type: integer
+                    nullable: true
+                    minimum: 0
+                    maximum: 1
+                  last_process_check:
+                    type: string
+                    format: date-time
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers/{server}:
+    parameters:
+      - name: server
+        in: path
+        required: true
+        description: 'Game Server ID'
+        schema:
+          type: integer
+    get:
+      summary: 'Get Game Server Information'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+    put:
+      summary: 'Update Game Server'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                installed:
+                  type: integer
+                  minimum: 0
+                  maximum: 9
+                process_active:
+                  type: integer
+                  minimum: 0
+                  maximum: 1
+                last_process_check:
+                  type: string
+                  format: date-time
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+  /servers_tasks:
+    get:
+      summary: 'Get Game Servers Tasks'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers_tasks/{server_task}:
+    parameters:
+      - name: server_task
+        in: path
+        required: true
+        description: 'Server Task ID'
+        schema:
+          type: integer
+    put:
+      summary: 'Update Server Task'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                repeat:
+                  type: integer
+                  nullable: true
+                  minimum: 1
+                  maximum: 255
+                repeat_period:
+                  type: integer
+                  nullable: true
+                execute_date:
+                  type: string
+                  format: date-time
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /servers_tasks/{server_task}/fail:
+    parameters:
+      - name: server_task
+        in: path
+        required: true
+        description: 'Server Task ID'
+        schema:
+          type: integer
+    post:
+      summary: 'Insert task fail'
+      tags:
+        - 'servers'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                output:
+                  type: string
+                  nullable: true
+                  minimum: 1
+                  maximum: 255
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /tasks:
+    get:
+      summary: 'Get GDaemon Tasks'
+      tags:
+        - 'tasks'
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /tasks/{gdaemon_task}:
+    parameters:
+      - name: gdaemon_task
+        in: path
+        required: true
+        description: 'GDaemon Task ID'
+        schema:
+          type: integer
+    put:
+      summary: 'Update GDaemon Task'
+      tags:
+        - 'tasks'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+  /tasks/{gdaemon_task}/output:
+    parameters:
+      - name: gdaemon_task
+        in: path
+        required: true
+        description: 'GDaemon Task ID'
+        schema:
+          type: integer
+    put:
+      summary: 'Append Task Output'
+      tags:
+        - 'tasks'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                output:
+                  type: string
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+  /ds_stats:
+    post:
+      summary: 'Insert dedicated servers stats'
+      tags:
+        - 'stats'
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  time:
+                    type: string
+                    format: date-time
+                  loa:
+                    type: string
+                  ram:
+                    type: string
+                  cpu:
+                    type: string
+                  ifstat:
+                    type: string
+                  ping:
+                    type: string
+                  drvspace:
+                    type: string
+      responses:
+        200:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+
+  responses:
+    CommonSuccessResponse:
+      description: 'Success Response'
+      content:
+        application/json:
+          schema:
+            type: object
+
+    CommonErrorResponse:
+      description: "Common Error Response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

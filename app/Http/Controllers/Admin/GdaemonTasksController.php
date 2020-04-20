@@ -2,6 +2,7 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
+use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
 use \Gameap\Http\Controllers\AuthController;
 use \Gameap\Repositories\GdaemonTaskRepository;
 use \Gameap\Models\GdaemonTask;
@@ -48,5 +49,23 @@ class GdaemonTasksController extends AuthController
     public function show(GdaemonTask $gdaemonTask)
     {
         return view('admin.gdaemon_tasks.view', compact('gdaemonTask'));
+    }
+
+    /**
+     * @param GdaemonTask $gdaemonTask
+     */
+    public function cancel(GdaemonTask $gdaemonTask)
+    {
+        try {
+            $this->repository->cancel($gdaemonTask);
+        } catch (GdaemonTaskRepositoryException $exception) {
+            return redirect()->route('admin.gdaemon_tasks.show', $gdaemonTask->getKey())
+                ->with('error', __('gdaemon_tasks.canceled_fail_msg', [
+                    'error' => $exception->getMessage(),
+                ]));
+        }
+
+        return redirect()->route('admin.gdaemon_tasks.show', $gdaemonTask->getKey())
+            ->with('success', __('gdaemon_tasks.canceled_success_msg'));
     }
 }

@@ -4,6 +4,7 @@ namespace Gameap\Http\Controllers;
 
 use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\Server;
+use Gameap\Models\ServerSetting;
 use Gameap\Repositories\ServerRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,8 @@ class ServersController extends AuthController
      *
      * @param  \Gameap\Models\Server  $server
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Server $server)
     {
@@ -58,10 +61,13 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function filemanager(Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-files', $server);
 
         return view('servers.filemanager', compact('server'));
     }
@@ -69,23 +75,38 @@ class ServersController extends AuthController
     /**
      * @param Server $server
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function settings(Server $server)
     {
-        $this->authorize('server-control', $server);
+        $this->authorize('server-settings', $server);
 
-        return view('servers.settings', compact('server'));
+        $autostartSetting = $server->settings->where('name', 'autostart')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart',
+                'value'     => true,
+            ]);
+
+        $autostart = $autostartSetting->value;
+
+        return view('servers.settings', compact('server', 'autostart'));
     }
 
     /**
      * @param ServerVarsRequest $request
      * @param Server $server
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function updateSettings(ServerVarsRequest $request, Server $server)
     {
         $this->authorize('server-control', $server);
+        $this->authorize('server-settings', $server);
 
+        $this->repository->updateAutostart($server, ($request->get('autostart') == true));
         $this->repository->updateVars($server, $request);
 
         return redirect()->route('servers.settings', ['server' => $server->id])

@@ -5,8 +5,9 @@ steps:
   - name: composer
     image: knik/php:7.2-fpm-stretch
     commands:
+      - apt -y update && apt install -y git
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-      - composer install --no-dev --optimize-autoloader
+      - composer install
 
   - name: npm
     image: node
@@ -14,14 +15,61 @@ steps:
       - npm install
       - npm run prod
 
+  - name: tests
+    image: knik/php:7.2-fpm-stretch
+    commands:
+      - mv .env.example .env
+      - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
+      - php artisan key:generate --force
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
+      - mv .env .env.example
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+
+  - name: composer-production
+    image: knik/php:7.2-fpm-stretch
+    commands:
+      - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      - composer install --no-dev --optimize-autoloader
+    when:
+      branch:
+        - master
+
   - name: archive
-    image: debian:stretch
+    image: debian:buster
     commands:
       - apt update && apt -y install rsync
       - mkdir gameap
       - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
       - mkdir "publish"
       - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
+    when:
+      branch:
+        - master
+
+  - name: archive-shared
+    image: knik/php:7.2-fpm-stretch
+    commands:
+      - apt update && apt -y install default-mysql-client zip unzip rsync
+      - mkdir -p gameap-shared/upload
+      - mv .env.example .env
+      - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
+      - php artisan migrate:fresh --seed --force
+      - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
+      - mysqldump -h db -u homestead -p --password=secret homestead > gameap.sql
+      - curl -O http://packages.gameap.ru/gameap/shared-build-artifacts.zip
+      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
+      - unzip -o shared-build-artifacts.zip -d gameap-shared
+      - cd gameap-shared
+        && mv upload/gameap.sql gameap.sql
+        && zip -r "../publish/gameap-3.0.0-beta-shared.zip" ./
+    when:
+      branch:
+        - master
 
   - name: publish
     image: cschlosser/drone-ftps
@@ -39,3 +87,16 @@ steps:
       chmod: false
       include:
         - ^.*tar\.gz$
+        - ^.*zip$
+    when:
+      branch:
+        - master
+
+services:
+    - name: db
+      image: mysql:5.6
+      environment:
+        MYSQL_ROOT_PASSWORD: userpass
+        MYSQL_DATABASE: homestead
+        MYSQL_USER: homestead
+        MYSQL_PASSWORD: secret

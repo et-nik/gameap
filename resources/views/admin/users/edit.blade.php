@@ -25,7 +25,7 @@
 
                         <div class='form-group'>
                             {{ Form::label('roles', __('users.roles'), ['class' => 'control-label']) }}
-                            {{ Form::select('roles[]', $roles->pluck('name', 'id'), null, ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
+                            {{ Form::select('roles[]', $roles->pluck('title', 'name'), $user->getRoles(), ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
                         </div>
 
                         {{ Form::bsPassword('password') }}
@@ -39,8 +39,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('users.servers') }}</div>
                     <div class="card-body">
-
-                        <user-server-privileges :initial-items="{{ $user->servers }}"></user-server-privileges>
+                        <user-server-privileges :initial-items="{{ $user->servers }}" :user-id="{{ $user->id }}"></user-server-privileges>
                     </div>
                 </div>
             </div>

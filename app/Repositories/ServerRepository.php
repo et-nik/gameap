@@ -3,25 +3,47 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
+use Gameap\Models\Game;
 use Gameap\Models\Server;
 use Gameap\Models\GameMod;
+use Gameap\Models\ServerSetting;
 use Illuminate\Support\Str;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ServerRepository
 {
+    const DEFAULT_RCON_PASSWORD_LENGTH = 10;
+
+    const DEFAULT_PER_PAGE = 20;
+
+    /**
+     * @var Server
+     */
     protected $model;
 
+    /**
+     * @var GdaemonTaskRepository
+     */
     protected $gdaemonTaskRepository;
 
+    /**
+     * ServerRepository constructor.
+     * @param Server $server
+     * @param GdaemonTaskRepository $gdaemonTaskRepository
+     */
     public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
     {
         $this->model = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
-    public function getAll($perPage = 20)
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
+    public function getAll($perPage = self::DEFAULT_PER_PAGE)
     {
         $servers = Server::orderBy('id')->with('game')->paginate($perPage);
 
@@ -30,8 +52,9 @@ class ServerRepository
 
     /**
      * Store server
-     * 
+     *
      * @param array $attributes
+     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
      */
     public function store(array $attributes)
     {
@@ -47,6 +70,10 @@ class ServerRepository
             $addInstallTask = true;
 
             unset($attributes['install']);
+        }
+
+        if (empty($attributes['rcon'])) {
+             $attributes['rcon'] = Str::random(self::DEFAULT_RCON_PASSWORD_LENGTH);
         }
 
         $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
@@ -78,6 +105,7 @@ class ServerRepository
      * Get Servers list for Dedicated server
      *
      * @param int $dedicatedServerId
+     * @return mixed
      */
     public function getServersListForDedicatedServer(int $dedicatedServerId)
     {
@@ -108,8 +136,43 @@ class ServerRepository
         if (Auth::user()->can('admin roles & permissions')) {
             return $this->getAll();
         } else {
-            return Auth::user()->servers;
+            return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
         }
+    }
+
+    /**
+     * @param array $engines
+     * @param int|array $dedicatedServers
+     * @return \Illuminate\Support\Collection
+     */
+    public function getServersForEngine(array $engines, $dedicatedServers = [], $excludeIds = [])
+    {
+        if (is_int($dedicatedServers)) {
+            $dedicatedServers = [$dedicatedServers];
+        }
+
+        $serversTable = $this->model->getTable();
+        $gamesTable = (new Game)->getTable();
+
+        $query = DB::table($serversTable)
+            ->selectRaw("{$serversTable}.*, {$gamesTable}.name as game_name")
+            ->whereIn('game_id', function($query) use ($engines, $serversTable, $gamesTable) {
+                $query->select('code')
+                    ->from($gamesTable)
+                    ->whereIn('engine', $engines);
+            })
+            ->where('deleted_at', null)
+            ->join($gamesTable, "{$serversTable}.game_id", '=', "{$gamesTable}.code");
+
+        if (!empty($dedicatedServers)) {
+            $query->whereIn('ds_id', $dedicatedServers);
+        }
+
+        if (!empty($excludeIds)) {
+            $query->whereNotIn('id', $excludeIds);
+        }
+
+        return $query->get();
     }
 
     /**
@@ -136,9 +199,13 @@ class ServerRepository
         $attributes['blocked'] = (bool)array_key_exists('blocked', $attributes);
         $attributes['installed'] = (bool)array_key_exists('installed', $attributes);
 
+        if (isset($attributes['ds_id'])) {
+            $server->ds_id = $attributes['ds_id'];
+        }
+
         // Fix path. Remove absolute dedicated server path
         $attributes['dir'] = $this->fixPath($attributes['dir'], $server->dedicatedServer->work_path);
-        
+
         $server->update($attributes);
     }
 
@@ -160,6 +227,36 @@ class ServerRepository
         $server->update($request->only($only));
     }
 
+    /**
+     * @param Server $server
+     * @param bool $autostart
+     */
+    public function updateAutostart(Server $server, bool $autostart)
+    {
+        $autostartSetting = $server->settings->where('name', 'autostart')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart',
+            ]);
+
+        $autostartSetting->value = $autostart;
+        $autostartSetting->save();
+
+        $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart_current',
+            ]);
+
+        $autostartCurrentSetting->value = $autostart;
+        $autostartCurrentSetting->save();
+    }
+
+    /**
+     * @param $path
+     * @param $dsWorkPath
+     * @return string
+     */
     private function fixPath($path, $dsWorkPath)
     {
         if (substr($path, 0, strlen($dsWorkPath)) == $dsWorkPath) {

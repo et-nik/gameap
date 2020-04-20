@@ -65,7 +65,7 @@ class AddGdaemonTaskCanceledStatus extends Migration
             $table->enum('status', ['waiting', 'working', 'error', 'success'])->default('waiting');
         });
 
-        DB::statement("INSERT INTO gdaemon_tasks_new SELECT * FROM gdaemon_tasks;");
+        DB::statement("INSERT INTO gdaemon_tasks_tmp SELECT * FROM gdaemon_tasks;");
 
         Schema::dropIfExists('gdaemon_tasks');
         Schema::rename('gdaemon_tasks_tmp', 'gdaemon_tasks');

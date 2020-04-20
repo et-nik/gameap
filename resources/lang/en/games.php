@@ -38,10 +38,10 @@ return [
     'd_kick_cmd'          => 'Shortcodes: {id} -- player id, {name} -- player name',
     'd_ban_cmd'           => 'Shortcodes: {id} -- player id, {name} -- player name, {time} -- time, {reason}',
     'd_srestart_cmd'      => '',
-    'd_chname_cmd'        => 'Shortcodes: {id} -- player id, {name} -- player name, {time} -- time, {reason}',
+    'd_chname_cmd'        => 'Shortcodes: {id} -- player id, {name} -- current player name, {new_name} -- new player name, {time} -- time, {reason}',
     'd_chmap_cmd'         => 'Shortcodes: {map}',
     'd_sendmsg_cmd'       => 'Shortcodes: {msg} -- message',
-    'd_passwd_cmd'        => 'Shortcodes: {msg} -- message',
+    'd_passwd_cmd'        => 'Shortcodes: {password} -- password',
 
     'd_upgrade_confirm'   => 'This action will upgrade games and game mods. Some of the data you have changed may be overwritten. Continue?',
     

@@ -11,6 +11,8 @@ use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Knik\Gameap\GdaemonStatus;
+use RuntimeException;
 
 class DedicatedServersController extends AuthController
 {
@@ -87,12 +89,29 @@ class DedicatedServersController extends AuthController
     /**
      * Display the specified resource.
      *
-     * @param  \Gameap\Models\DedicatedServer  $dedicatedServer
+     * @param \Gameap\Models\DedicatedServer $dedicatedServer
+     * @param GdaemonStatus $gdaemonStatus
      * @return \Illuminate\View\View
      */
-    public function show(DedicatedServer $dedicatedServer)
+    public function show(DedicatedServer $dedicatedServer, GdaemonStatus $gdaemonStatus)
     {
-        return view('admin.dedicated_servers.view', compact('dedicatedServer'));
+        $gdaemonStatus->setConfig($dedicatedServer->gdaemonSettings());
+
+        try {
+            $gdaemonVersion = $gdaemonStatus->version();
+            $baseInfo = $gdaemonStatus->infoBase();
+        } catch (RuntimeException $e) {
+            $gdaemonVersion = [];
+            $baseInfo = [];
+        }
+
+        return view('admin.dedicated_servers.view',
+            compact(
+                'dedicatedServer',
+                'gdaemonVersion',
+                'baseInfo'
+            )
+        );
     }
 
     /**

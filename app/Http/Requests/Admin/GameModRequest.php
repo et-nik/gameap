@@ -14,8 +14,20 @@ class GameModRequest extends Request
      */
     public function rules()
     {
-        return ($this->method() === self::METHOD_PATCH)
-            ? GameMod::getUpdateRulesForId($this->route()->parameter('game_mod')->id)
-            : GameMod::getCreateRules();
+        return [
+            'name'      => 'required|string|max:255',
+            'game_code' => 'sometimes|string|max:255|exists:games,code',
+
+            'default_start_cmd_linux' => 'nullable|string|max:1000',
+            'default_start_cmd_windows' => 'nullable|string|max:1000',
+
+            'vars.*.var' => 'max:16',
+            'vars.*.default' => 'max:64',
+            'vars.*.info' => 'max:128',
+            'vars.*.admin_var' => 'max:128',
+
+            'fast_rcon.*.info' => 'max:32',
+            'fast_rcon.*.command' => 'max:128',
+        ];
     }
 }

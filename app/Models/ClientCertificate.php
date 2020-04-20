@@ -16,10 +16,8 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property string $private_key
  * @property string $private_key_pass
  */
-class ClientCertificate extends Model implements ValidableContract
+class ClientCertificate extends Model
 {
-    use Validable;
-
     /**
      * @var bool
      */

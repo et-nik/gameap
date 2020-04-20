@@ -12,24 +12,37 @@
 
                 <div class="card-body">
                     <div id="serverControl">
-                        @if (!$server->processActive())
-                            <a class="btn btn-large btn-success" href="#" @click="startServer({{ $server->id }})">
-                                <span class="fas fa-play"></span>&nbsp;{{ __('servers.start') }}
-                            </a>
-                        @endif
+                        @can('server-start', $server)
+                            @if (!$server->processActive())
+                                <a class="btn btn-large btn-success m-1" href="#" @click="startServer({{ $server->id }})">
+                                    <span class="fas fa-play"></span>&nbsp;{{ __('servers.start') }}
+                                </a>
+                            @endif
+                        @endcan
 
-                        @if ($server->processActive())
-                            <a class="btn btn-large btn-danger" href="#" @click="stopServer({{ $server->id }})">
-                                <span class="fas fa-stop"></span>&nbsp;{{ __('servers.stop') }}
-                            </a>
-                        @endif
+                        @can('server-stop', $server)
+                            @if ($server->processActive())
+                                <a class="btn btn-large btn-danger m-1" href="#" @click="stopServer({{ $server->id }})">
+                                    <span class="fas fa-stop"></span>&nbsp;{{ __('servers.stop') }}
+                                </a>
+                            @endif
+                        @endcan
 
-                        <a class="btn btn-large btn-warning" href="#" @click="restartServer({{ $server->id }})">
-                            <span class="fas fa-redo"></span>&nbsp;{{ __('servers.restart') }}
-                        </a>
-                        <a class="btn btn-large btn-info" href="#" @click="updateServer({{ $server->id }})">
-                            <span class="fas fa-sync"></span>&nbsp;{{ __('servers.update') }}
-                        </a>
+                        @can('server-restart', $server)
+                            <a class="btn btn-large btn-warning m-1" href="#" @click="restartServer({{ $server->id }})">
+                                <span class="fas fa-redo"></span>&nbsp;{{ __('servers.restart') }}
+                            </a>
+                        @endcan
+
+                        @can('server-update', $server)
+                            <a class="btn btn-large btn-info m-1" href="#" @click="updateServer({{ $server->id }})">
+                                <span class="fas fa-sync"></span>&nbsp;{{ __('servers.update') }}
+                            </a>
+
+                            <a class="btn btn-large btn-dark m-1" href="#" @click="reinstallServer({{ $server->id }})">
+                                <span class="fas fa-reply-all"></span>&nbsp;{{ __('servers.reinstall') }}
+                            </a>
+                        @endcan
                     </div>
                 </div>
                 
@@ -43,13 +56,17 @@
                 </div>
                 
                 <div class="card-body">
-                    <a class="btn btn-large btn-light m-1" href="{{ route('servers.filemanager', ['server' => $server->id]) }}">
-                        <span class="fa fa-folder-open"></span>&nbsp;{{ __('servers.files') }}
-                    </a>
+                    @can('server-files', $server)
+                        <a class="btn btn-large btn-light m-1" href="{{ route('servers.filemanager', ['server' => $server->id]) }}">
+                            <span class="fa fa-folder-open"></span>&nbsp;{{ __('servers.files') }}
+                        </a>
+                    @endcan
 
-                    <a class="btn btn-large btn-light m-1" href="{{ route('servers.settings', ['server' => $server->id]) }}">
-                        <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
-                    </a>
+                    @can('server-settings', $server)
+                        <a class="btn btn-large btn-light m-1" href="{{ route('servers.settings', ['server' => $server->id]) }}">
+                            <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
+                        </a>
+                    @endcan
 
                     @can('admin roles & permissions')
                         <a class="btn btn-large btn-danger m-1" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
@@ -98,24 +115,40 @@
         @endif
     </div>
 
-    @if ($server->processActive())
-        <div class="row mt-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>{{ __('servers.console') }}</h3>
-                    </div>
-
-                    <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}">
-                        <div class="d-flex justify-content-center">
-                            <div class="fa-3x">
-                                <i class="fas fa-spinner fa-spin"></i>
-                            </div>
+    @can('server-console-view', $server)
+        @if ($server->processActive())
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>{{ __('servers.console') }}</h3>
                         </div>
-                    </server-console>
+
+                        <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}">
+                            <div class="d-flex justify-content-center">
+                                <div class="fa-3x">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </div>
+                            </div>
+                        </server-console>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endcan
+
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('servers_tasks.tasks_title') }}
+                </div>
+
+                <div class="card-body">
+                    <server-tasks :server-id="{{ $server->id }}"></server-tasks>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
 
 @endsection

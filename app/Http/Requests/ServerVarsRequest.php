@@ -8,7 +8,8 @@ class ServerVarsRequest extends Request
     public function rules()
     {
         return [
-            'vars' => 'required|array',
+            'vars'      => 'required|array',
+            'autostart' => 'nullable|boolean',
         ];
     }
 }

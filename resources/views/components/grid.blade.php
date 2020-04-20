@@ -13,6 +13,13 @@
 
     <tbody>
         @foreach($modelsList as $key => $model)
+
+            @if (method_exists($model, 'getKey'))
+                @php($modelKey = $model->getKey())
+            @elseif (array_key_exists('id', $model))
+                @php ($modelKey = is_array($model) ? $model['id'] : $model->id)
+            @endif
+
             <tr>
                 @foreach ($attributes as $attr)
                     @php($cellValue = '')
@@ -56,36 +63,44 @@
                     <td>{!! $cellValue !!}</td>
                 @endforeach
 
-                @if (isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
-                    <td>
-                        @if (isset($viewRoute))
-                            <a class="btn btn-small btn-success btn-sm btn-view" href="{{ route($viewRoute, $model->getKey()) }}">
-                                <i class="fas fa-eye"></i> {{ __('main.view') }}
-                            </a>
-                        @endif
+                @if (isset($modelKey) && isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
+                    <td class="text-nowrap">
+                            @if (isset($viewRoute))
+                                <a class="btn btn-small btn-success btn-sm btn-view"
+                                   title="{{ __('main.view') }}"
+                                   href="{{ route($viewRoute, $modelKey) }}">
 
-                        @if (isset($editRoute))
-                            <a class="btn btn-small btn-info btn-sm btn-edit" href="{{ route($editRoute, $model->getKey()) }}">
-                                <i class="fas fa-edit"></i> {{ __('main.edit') }}
-                            </a>
-                        @endif
+                                    <i class="fas fa-eye"></i> <span class="d-none d-xl-inline">&nbsp;{{ __('main.view') }}</span>
+                                </a>
+                            @endif
 
-                        @if (isset($destroyRoute))
-                            {{ Form::open(['id' => 'form-destroy-' . $model->getKey(), 'url' => route($destroyRoute, $model->getKey()), 'style'=>'display:inline']) }}
-                            {{ Form::hidden('_method', 'DELETE') }}
-                            
-                            {{ Form::button( '<i class="fas fa-trash"></i>&nbsp;' . __('main.delete'), 
-                                [
-                                    'class' => 'btn btn-danger btn-sm btn-delete',
-                                    'v-on:click' => !isset($destroyConfirmAction)
-                                        ? 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
-                                        : $destroyConfirmAction,
-                                    'type' => 'submit'
-                                ]
-                                ) }}
-                            
-                            {{ Form::close() }}
-                        @endif
+                            @if (isset($editRoute))
+                                <a class="btn btn-small btn-info btn-sm btn-edit"
+                                   title="{{ __('main.edit') }}"
+                                   href="{{ route($editRoute, $modelKey) }}">
+
+                                    <i class="fas fa-edit"></i><span class="d-none d-xl-inline">&nbsp;{{ __('main.edit') }}</span>
+                                </a>
+                            @endif
+
+                            @if (isset($destroyRoute))
+                                {{ Form::open(['id' => 'form-destroy-' . $modelKey, 'url' => route($destroyRoute, $modelKey), 'style'=>'display:inline']) }}
+                                {{ Form::hidden('_method', 'DELETE') }}
+
+                                {{ Form::button( '<i class="fas fa-trash"></i><span class="d-none d-xl-inline">&nbsp;' . __('main.delete') . '</span>',
+                                    [
+                                        'class' => 'btn btn-danger btn-sm btn-delete',
+                                        'title' => __('main.delete'),
+                                        'v-on:click' => !isset($destroyConfirmAction)
+                                            ? 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
+                                            : $destroyConfirmAction,
+                                        'type' => 'submit'
+                                    ]
+                                    ) }}
+
+                                {{ Form::close() }}
+                            @endif
+                        </div>
                     </td>
                 @endif
             </tr>

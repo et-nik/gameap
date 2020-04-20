@@ -5,6 +5,7 @@ namespace Gameap\Services;
 use \Illuminate\Http\Response;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 
 class InfoService
 {
@@ -20,7 +21,7 @@ class InfoService
         // TODO: Remove before beta
         try {
             $res = $client->get('http://www.gameap.ru/gameap_version.txt');
-        } catch (ClientException $e) {
+        } catch (RequestException $e) {
             return '';
         }
 
@@ -34,7 +35,11 @@ class InfoService
         
         // GitHub
         // TODO: Replace before beta
-        $res = $client->get('https://api.github.com/repos/et-nik/gameap/releases/latest');
+        try {
+            $res = $client->get('https://api.github.com/repos/et-nik/gameap/releases/latest');
+        } catch (RequestException $e) {
+            return '';
+        }
 
         if ($res->getStatusCode() == Response::HTTP_OK) {
             $result = json_decode($res->getBody()->getContents());

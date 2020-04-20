@@ -36,7 +36,14 @@ return [
 
     'ip_list'           => 'IP List',
     'gdaemon_api_key'   => 'GDaemon API Key',
+    'gdaemon_version'   => 'GameAP Daemon version',
+    'gdaemon_uptime'    => 'GameAP Daemon uptime',
 
+    'gdaemon_online_servers_count'    => 'GameAP Daemon servers',
+    'gdaemon_working_tasks_count'    => 'GameAP Daemon working tasks',
+    'gdaemon_waiting_tasks_count'    => 'GameAP Daemon waiting tasks',
+
+    'gdaemon_empty_info'        => 'Failed to get information',
 
     /* Shortcodes description */
     'game_server_shortcodes'    => 'Game Server Shortcodes',

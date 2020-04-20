@@ -63,16 +63,17 @@ class ServerService
      */
     public function query(Server $server)
     {
+        $host = "{$server->server_ip}:{$server->query_port}";
         $query = $this->gameq->setOption('timeout', 5)
             ->addServer([
                 'type' => $server->game->engine,
-                'host' => "{$server->server_ip}:{$server->query_port}",
+                'host' => $host,
             ])
             ->process();
 
-        $serverResult = $query["{$server->server_ip}:{$server->query_port}"];
+        $serverResult = $query[$host] ?? null;
 
-        if ($serverResult['gq_online']) {
+        if (!empty($serverResult['gq_online'])) {
             $result = [
                 'status' => $serverResult['gq_online'] ? 'online' : 'offline',
                 'hostname' => $serverResult['gq_hostname'],

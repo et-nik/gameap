@@ -2,15 +2,18 @@
 
 namespace Gameap\Repositories;
 
+use Bouncer;
+use DB;
+use Gameap\Helpers\ServerPermissionHelper;
 use Gameap\Models\User;
-use Gameap\Http\Requests\UserRequest;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use Gameap\Models\Server;
 
-class UserRepository
+class UserRepository extends Repository
 {
-    protected $model;
-
+    /**
+     * UserRepository constructor.
+     * @param User $model
+     */
     public function __construct(User $model)
     {
         $this->model = $model;
@@ -34,14 +37,18 @@ class UserRepository
 
         if (isset($attributes['roles'])) {
             foreach ($attributes['roles'] as &$role) {
-                $user->assignRole(Role::where('id', '=', $role)->firstOrFail());
+                if (Bouncer::role()->where(['name' => $role])->exists()) {
+                    $user->assign($role);
+                }
             }
+            Bouncer::refresh();
         }
     }
 
     /**
      * @param array $fields
      * @param User $user
+     * @return bool
      */
     public function update(User $user, array $fields)
     {
@@ -51,16 +58,52 @@ class UserRepository
 
         if (isset($fields['servers'])) {
             $user->servers()->sync($fields['servers']);
+            DB::table('permissions')
+                ->where('entity_id', '=', $user->id)
+                ->whereIn('ability_id', function ($query) use ($fields) {
+                    $query->select('id')
+                        ->from('abilities')
+                        ->where('entity_type', '=', Server::class)
+                        ->whereNotIn('entity_id', $fields['servers']);
+                })
+                ->delete();
         } else {
             $user->servers()->detach();
+            DB::table('permissions')
+                ->where('entity_id', '=', $user->id)
+                ->whereIn('ability_id', function ($query) {
+                    $query->select('id')
+                        ->from('abilities')
+                        ->where('entity_type', '=', Server::class);
+                })
+                ->delete();
         }
+
+        $user->retract(Bouncer::role()->all());
 
         if (isset($fields['roles'])) {
-            $user->roles()->sync($fields['roles']);
-        } else {
-            $user->roles()->detach();
+            $user->assign($fields['roles']);
         }
 
+        Bouncer::refresh();
+
         return true;
+    }
+
+    public function updateServerPermission(User $user, Server $server, ?array $disabledPermissions)
+    {
+        foreach (ServerPermissionHelper::getAllPermissions() as $pname) {
+            if (isset($disabledPermissions[$pname]) && $disabledPermissions[$pname]) {
+                Bouncer::forbid($user)->to($pname, $server);
+                $user->disallow($pname, $server);
+            } else {
+                Bouncer::unforbid($user)->to($pname, $server);
+                $user->allow($pname, $server);
+            }
+        }
+
+        $user->servers()->syncWithoutDetaching([$server->id]);
+
+        Bouncer::refresh();
     }
 }

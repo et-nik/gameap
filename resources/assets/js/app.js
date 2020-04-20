@@ -3,27 +3,39 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-require('./bootstrap');
 
-require('./parts/adminServerForm');
-require('./parts/serverControl');
+require('./bootstrap');
+require('./parts/leftMenu');
 
 import Vuex from 'vuex';
-import FileManager from 'gameap-file-manager'
-
-Vue.use(Vuex);
-const store = new Vuex.Store();
-Vue.use(FileManager, {store, lang: document.documentElement.lang});
-
 import vSelect from 'vue-select';
 
-import Progressbar from './components/Progressbar.vue';
-import InputTextList from './components/InputTextList.vue';
-import InputManyList from './components/InputManyList.vue';
-import ServerStatus from './components/ServerStatus.vue';
-import ServerConsole from './components/ServerConsole.vue';
+import store from './store'
 
-import UserServerPrivileges from './components/servers/UserServerPrivileges.vue';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/locale/ru';
+
+import FileManager from 'gameap-file-manager';
+import Progressbar from './components/Progressbar';
+
+const InputTextList = () => import('./components/InputTextList' /* webpackChunkName: "components/input-text-list" */);
+const InputManyList = () => import('./components/InputManyList' /* webpackChunkName: "components/input-many-list" */);
+const ServerStatus = () => import('./components/ServerStatus' /* webpackChunkName: "components/server-status" */);
+const ServerConsole = () => import('./components/ServerConsole' /* webpackChunkName: "components/server-console" */);
+const ServerTasks = () => import('./components/ServerTasks' /* webpackChunkName: "components/server-tasks" */);
+const TaskOutput = () => import('./components/TaskOutput' /* webpackChunkName: "components/task-output" */);
+const UserServerPrivileges = () => import('./components/servers/UserServerPrivileges' /* webpackChunkName: "components/user-server-privileges" */);
+const GameModSelector = () => import('./components/servers/GameModSelector' /* webpackChunkName: "components/game-mod-selector" */);
+const DsIpSelector = () => import('./components/servers/DsIpSelector' /* webpackChunkName: "components/game-mod-selector" */);
+const SmartPortSelector = () => import('./components/servers/SmartPortSelector' /* webpackChunkName: "components/smart-port-selector" */);
+
+const SettingsParameters = () => import('./components/SettingsParameters' /* webpackChunkName: "components/user-server-privileges" */);
+
+Vue.use(Vuex);
+
+Vue.use(FileManager, {store: store, lang: document.documentElement.lang});
+
+require('./parts/serverControl');
 
 var vm = new Vue({
     el: "#app",
@@ -37,8 +49,16 @@ var vm = new Vue({
         'input-many-list': InputManyList,
         'server-status': ServerStatus,
         'server-console': ServerConsole,
+        'server-tasks': ServerTasks,
+        'task-output': TaskOutput,
 
         'user-server-privileges': UserServerPrivileges,
+        'smart-port-selector': SmartPortSelector,
+        'settings-parameters': SettingsParameters,
+        'game-mod-selector': GameModSelector,
+        'ds-ip-selector': DsIpSelector,
+
+        'date-picker': DatePicker,
     },
     methods: {
         alert: function(message, callback) {
@@ -90,6 +110,17 @@ var vm = new Vue({
             var componentInstance = new component().$mount();
             $(appendPoint).append(componentInstance.$el);
             return componentInstance;
+        },
+        increment () {
+            store.commit('increment')
+        },
+        decrement () {
+            store.commit('decrement')
+        }
+    },
+    computed: {
+        count () {
+            return store.state.count
         }
     },
     store

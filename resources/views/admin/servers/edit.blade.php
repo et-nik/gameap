@@ -56,27 +56,17 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
                         </div>
-                        
+
                         {{ Form::bsText('uuid', null, null, ['disabled' => 'disabled']) }}
                         {{ Form::bsText('name') }}
 
-                        <div class="form-group">
-                            {{ Form::label('game_id', __('servers.game'), ['class' => 'control-label']) }}
-                            {{ Form::select('game_id', $games, null, ['class' => 'form-control', 'v-on:change' => 'gameChangeHandler', 'v-model' => 'gameId']) }}
-                        </div>
-
-                        <div class="form-group">
-                            <template id="game-mod-list-template">
-                                {{ Form::label('game_mod_id', __('servers.game_mod'), ['class' => 'control-label']) }}
-
-                                <select class="form-control" id="game_mod_id" name="game_mod_id">
-                                    <option :value="gameMod.id" :selected="gameMod.id == {{ $server->game_mod_id }}" v-for="gameMod in gameModsList">@{{gameMod.name}}</option>
-                                </select>
-                            </template>
-                        </div>
+                        <game-mod-selector
+                                :games="{{ $games }}"
+                                initial-game="{{ $server->game_id }}"
+                                initial-mod="{{ $server->game_mod_id }}">
+                        </game-mod-selector>
 
                         <div class="form-group{{ $errors->has('rcon') ? ' has-error' : '' }}">
                             {{ Form::label('rcon', null, ['class' => 'control-label']) }}
@@ -108,24 +98,18 @@
                         {{ __('servers.ds_ip_ports') }}
                     </div>
                     <div class="card-body">
-                        <div class="form-group" id="dedicatedServerForm">
-                            {{ Form::label('ds_id', __('servers.dedicated_server'), ['class' => 'control-label']) }}
-                            {{ Form::select('ds_id', $dedicatedServers, null, ['class' => 'form-control', 'v-on:change' => 'dsChangeHandler', 'v-model' => 'dsId']) }}
-                        </div>
+                        <ds-ip-selector
+                                :ds-list="{{ $dedicatedServers }}"
+                                :initial-ds-id="{{ $server->ds_id }}"
+                                initial-ip="{{ $server->server_ip }}">
+                        </ds-ip-selector>
 
-                        <div class="form-group">
-                            <template id="ip-list-template">
-                                {{ Form::label('server_ip', 'IP', ['class' => 'control-label']) }}
-
-                                <select class='form-control' id='server_ip' name='server_ip'>
-                                    <option :value="ip" :selected="ip == '{{ $server->server_ip }}'" v-for="ip in ipList">@{{ip}}</option>
-                                </select>
-                            </template>
-                        </div>
-
-                        {{ Form::bsText('server_port') }}
-                        {{ Form::bsText('query_port') }}
-                        {{ Form::bsText('rcon_port') }}
+                        <smart-port-selector
+                                initial-server-ip="{{ $server->server_ip }}"
+                                initial-server-port="{{ $server->server_port }}"
+                                initial-query-port="{{ $server->query_port }}"
+                                initial-rcon-port="{{ $server->rcon_port }}">
+                        </smart-port-selector>
                     </div>
                 </div>
             </div>

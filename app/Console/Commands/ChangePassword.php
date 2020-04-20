@@ -5,6 +5,7 @@ namespace Gameap\Console\Commands;
 use Illuminate\Console\Command;
 use Gameap\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\Console\Input\InputArgument;
 
 class ChangePassword extends Command
 {
