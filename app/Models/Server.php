@@ -100,8 +100,13 @@ class Server extends Model
         if (empty($this->last_process_check)) {
             return false;
         }
-        
-        $lastProcessCheck = Carbon::createFromDate($this->last_process_check)->timestamp;
+
+        $lastProcessCheck = Carbon::createFromDate(
+            $this->last_process_check,
+            null,
+            null,
+            'UTC'
+        )->timestamp;
 
         if ($this->process_active && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK) {
             return true;
