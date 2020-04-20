@@ -39,9 +39,9 @@ return [
     'gdaemon_version'   => 'GameAP Daemon version',
     'gdaemon_uptime'    => 'GameAP Daemon uptime',
 
-    'gdaemon_online_servers_count'    => 'GameAP Daemon uptime',
-    'gdaemon_working_tasks_count'    => 'GameAP Daemon uptime',
-    'gdaemon_waiting_tasks_count'    => 'GameAP Daemon uptime',
+    'gdaemon_online_servers_count'    => 'GameAP Daemon servers',
+    'gdaemon_working_tasks_count'    => 'GameAP Daemon working tasks',
+    'gdaemon_waiting_tasks_count'    => 'GameAP Daemon waiting tasks',
 
     'gdaemon_empty_info'        => 'Failed to get information',
 
