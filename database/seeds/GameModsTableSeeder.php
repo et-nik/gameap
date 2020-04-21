@@ -364,7 +364,7 @@ class GameModsTableSeeder extends Seeder
                 'info' => 'Maximum players on server',
                 'admin_var' => false,
             ],
-        ]
+        ];
     }
 
     /**
