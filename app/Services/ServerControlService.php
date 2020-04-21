@@ -91,11 +91,21 @@ class ServerControlService
      */
     public function restart(Server $server)
     {
-        $autostartSetting = $server->settings->where('name', 'autostart')->first();
+        $autostartSetting = $server->settings->where('name', 'autostart')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart',
+                'value'     => true,
+            ]);
 
         if ($autostartSetting->value == true) {
-            $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first();
-            $autostartCurrentSetting->value = true;
+            $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
+                ?? new ServerSetting([
+                    'server_id' => $server->id,
+                    'name'      => 'autostart_current',
+                    'value'     => true,
+                ]);
+
             $autostartCurrentSetting->save();
         }
 
