@@ -53,8 +53,17 @@ class ServersController extends AuthController
     {
         $this->authorize('server-control', $server);
 
+        $autostartSetting = $server->settings->where('name', 'autostart')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart',
+                'value'     => true,
+            ]);
+
+        $autostart = $autostartSetting->value;
+
         return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
-            view('servers.view', compact('server'))
+            view('servers.view', compact('server', 'autostart'))
             : view('servers.not_active', compact('server'));
     }
 

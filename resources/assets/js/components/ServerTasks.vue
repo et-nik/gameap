@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button class="btn btn-sm btn-success m-1" data-toggle="modal" v-on:click="createTask()">{{ trans('main.add')}}</button>
+        <button class="btn btn-success m-1" data-toggle="modal" v-on:click="createTask()">{{ trans('main.add')}}</button>
+        <hr>
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
