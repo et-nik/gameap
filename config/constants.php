@@ -3,5 +3,5 @@
 
 return [
     'AP_VERSION' => '3.0.0-beta2',
-    'AP_DATE' => '20.04.2020'
+    'AP_DATE' => '01.05.2020'
 ];
