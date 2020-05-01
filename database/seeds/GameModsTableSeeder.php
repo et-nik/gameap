@@ -35,48 +35,12 @@ class GameModsTableSeeder extends Seeder
             ]
         );
 
-        $defaultGoldSourceVars = [
-            [
-                'var' => 'default_map',
-                'default' => 'crossfire',
-                'info' => 'Default Map',
-                'admin_var' => false,
-            ],
-            [
-                'var' => 'fps',
-                'default' => 500,
-                'info' => 'Server FPS (tickrate)',
-                'admin_var' => true,
-            ],
-            [
-                'var' => 'maxplayers',
-                'default' => 32,
-                'info' => 'Maximum players on server',
-                'admin_var' => false,
-            ],
-        ];
-
-        $defaultSourceVars = [
-            [
-                'var' => 'default_map',
-                'default' => 'crossfire',
-                'info' => 'Default Map',
-                'admin_var' => false,
-            ],
-            [
-                'var' => 'maxplayers',
-                'default' => 32,
-                'info' => 'Maximum players on server',
-                'admin_var' => false,
-            ],
-        ];
-
         /* Half-Life 1 */
         DB::table('game_mods')->insert([
             'game_code' => 'valve',
             'name' => 'Classic (Standart)',
             'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
-            'vars' => json_encode($defaultGoldSourceVars),
+            'vars' => json_encode(self::getDefaultGoldSourceVars()),
             'local_repository' => '',
             'remote_repository' => 'http://files.gameap.ru/half-life/amxx.tar.xz',
             'default_start_cmd_linux' => './hlds_run -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
@@ -94,7 +58,7 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'valve',
             'name' => 'No AMX MOD X',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
-            'vars' => json_encode($defaultGoldSourceVars),
+            'vars' => json_encode(self::getDefaultGoldSourceVars()),
             'local_repository' => '',
             'remote_repository' => '',
             'default_start_cmd_linux' => './hlds_run -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
@@ -112,7 +76,7 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'valve',
             'name' => 'ReHLDS',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
-            'vars' => json_encode($defaultGoldSourceVars),
+            'vars' => json_encode(self::getDefaultGoldSourceVars()),
             'local_repository' => '',
             'remote_repository' => 'http://files.gameap.ru/half-life/rehlds-amxx-reunion.tar.xz',
             'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
@@ -132,7 +96,7 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'cstrike',
             'name' => 'Classic (Standart)',
             'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
-            'vars' => json_encode($defaultGoldSourceVars),
+            'vars' => json_encode(self::getDefaultGoldSourceVars('de_dust2')),
             'local_repository' => '',
             'remote_repository' => 'http://files.gameap.ru/cstrike-1.6/amxx.tar.xz',
             'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
@@ -150,7 +114,7 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'cstrike',
             'name' => 'No AMX MOD X',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
-            'vars' => json_encode($defaultGoldSourceVars),
+            'vars' => json_encode(self::getDefaultGoldSourceVars('de_dust2')),
             'local_repository' => '',
             'remote_repository' => '',
             'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
@@ -168,7 +132,7 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'cstrike',
             'name' => 'ReHLDS',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
-            'vars' => json_encode($defaultGoldSourceVars),
+            'vars' => json_encode(self::getDefaultGoldSourceVars('de_dust2')),
             'local_repository' => '',
             'remote_repository' => 'http://files.gameap.ru/cstrike-1.6/rehlds-amxx-reunion.tar.xz',
             'default_start_cmd_linux' => './hlds_run -game cstrike +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps}',
@@ -257,7 +221,7 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'csgo',
             'name' => 'Classic',
             'fast_rcon' => '',
-            'vars' => json_encode($defaultSourceVars),
+            'vars' => json_encode(self::getDefaultSourceVars('de_dust2')),
             'default_start_cmd_linux' => './srcds_run -game csgo -console -usercon +game_type 0 +game_mode 0 +ip {ip} +port {port} +maxplayers {maxplayers} +mapgroup mg_active +map {default_map}',
             'default_start_cmd_windows' => 'srcds.exe -game csgo -console -usercon +game_type 0 +game_mode 0 +ip {ip} +port {port} +maxplayers {maxplayers} +mapgroup mg_active +map {default_map}',
             'local_repository' => '',
@@ -335,11 +299,12 @@ class GameModsTableSeeder extends Seeder
         ]);
 
         /* Black Mesa: Deathmatch */
+
         DB::table('game_mods')->insert([
             'game_code' => 'bms',
             'name' => 'Default',
             'fast_rcon' => '',
-            'vars' => json_encode($defaultSourceVars),
+            'vars' => json_encode(self::getDefaultSourceVars()),
             'default_start_cmd_linux' => './srcds_run -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
             'default_start_cmd_windows' => 'srcds.exe -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
             'local_repository' => '',
@@ -359,7 +324,7 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'bms',
             'name' => 'Default',
             'fast_rcon' => '',
-            'vars' => json_encode($defaultSourceVars),
+            'vars' => json_encode(self::getDefaultGoldSourceVars('gm_flatgrass')),
             'default_start_cmd_linux' => './srcds_run -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
             'default_start_cmd_windows' => 'srcds.exe -game bms -console -usercon +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map}',
             'local_repository' => '',
@@ -372,5 +337,55 @@ class GameModsTableSeeder extends Seeder
             'ban_cmd' => '',
             'kick_cmd' => 'kick #{id}',
         ]);
+    }
+
+    /**
+     * @param string $defaultMap
+     * @return array[]
+     */
+    private static function getDefaultGoldSourceVars($defaultMap = 'crossfire')
+    {
+        return [
+            [
+                'var' => 'default_map',
+                'default' => $defaultMap,
+                'info' => 'Default Map',
+                'admin_var' => false,
+            ],
+            [
+                'var' => 'fps',
+                'default' => 500,
+                'info' => 'Server FPS (tickrate)',
+                'admin_var' => true,
+            ],
+            [
+                'var' => 'maxplayers',
+                'default' => 32,
+                'info' => 'Maximum players on server',
+                'admin_var' => false,
+            ],
+        ];
+    }
+
+    /**
+     * @param string $defaultMap
+     * @return array[]
+     */
+    private static function getDefaultSourceVars($defaultMap = 'crossfire')
+    {
+        return [
+            [
+                'var' => 'default_map',
+                'default' => $defaultMap,
+                'info' => 'Default Map',
+                'admin_var' => false,
+            ],
+            [
+                'var' => 'maxplayers',
+                'default' => 32,
+                'info' => 'Maximum players on server',
+                'admin_var' => false,
+            ],
+        ];
     }
 }
