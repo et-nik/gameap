@@ -73,7 +73,13 @@ class ServerControlService
      */
     public function stop(Server $server)
     {
-        $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first();
+        $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
+            ?? new ServerSetting([
+                'server_id' => $server->id,
+                'name'      => 'autostart_current',
+                'value'     => true,
+            ]);
+
         $autostartCurrentSetting->value = false;
         $autostartCurrentSetting->save();
 
