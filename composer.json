@@ -18,6 +18,8 @@
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
         "fzaninotto/faker": "~1.4",
+        "gameap/fastdl-module": "dev-master",
+        "gameap/ftp-module": "dev-master",
         "gameap/gameap-file-manager": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "infyomlabs/generator-builder": "dev-master",
