@@ -46,9 +46,7 @@
             </a>
         </li>
     </ul>
-@endcan
 
-@can('admin roles & permissions')
     <p class="left-menu-group">{{ __('sidebar.gameap') }}</p>
     <p class="left-menu-group-mini">—</p>
 
@@ -90,12 +88,15 @@
             <span class="menu-item-label">{{ __('sidebar.help') }}</span>
         </a>
     </li>
-    <li title="{{ __('sidebar.report_bug') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a href="{{ route('report_bug') }}">
-            <i class="fas fa-bug"></i>
-            <span class="menu-item-label">{{ __('sidebar.report_bug') }}</span>
-        </a>
-    </li>
+
+    @can('admin roles & permissions')
+        <li title="{{ __('sidebar.report_bug') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
+            <a href="{{ route('report_bug') }}">
+                <i class="fas fa-bug"></i>
+                <span class="menu-item-label">{{ __('sidebar.report_bug') }}</span>
+            </a>
+        </li>
+    @endcan
 </ul>
 
 <p class="left-menu-group d-md-none">{{ __('sidebar.profile') }}</p>
