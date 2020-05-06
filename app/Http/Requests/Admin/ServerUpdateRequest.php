@@ -55,7 +55,8 @@ class ServerUpdateRequest extends Request
             'dir' => ['required', 'string', Rule::unique('servers', 'dir')
                 ->ignore($this->route('server'))
                 ->where(function ($query) {
-                return $query->where('ds_id', $this->ds_id);
+                return $query->where('ds_id', $this->ds_id)
+                    ->whereNull('deleted_at');
             })]
         ];
     }

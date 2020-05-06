@@ -31,7 +31,6 @@ class ServerPolicy
         $exists = $user->servers()
             ->where('id', $server->id)
             ->exists();
-        $can = $user->can('game-server-common', $server);
         return $exists && $user->can('game-server-common', $server);
     }
 
@@ -42,7 +41,7 @@ class ServerPolicy
      */
     public function start(User $user, Server $server)
     {
-        return $user->can('game-server-start', $server);
+        return $user->can(['game-server-common', 'game-server-start'], $server);
     }
 
     /**
@@ -52,7 +51,7 @@ class ServerPolicy
      */
     public function stop(User $user, Server $server)
     {
-        return $user->can('game-server-stop', $server);
+        return $user->can(['game-server-common', 'game-server-stop'], $server);
     }
 
     /**
@@ -62,7 +61,7 @@ class ServerPolicy
      */
     public function restart(User $user, Server $server)
     {
-        return $user->can('game-server-restart', $server);
+        return $user->can(['game-server-common', 'game-server-restart'], $server);
     }
 
     /**
@@ -72,7 +71,7 @@ class ServerPolicy
      */
     public function pause(User $user, Server $server)
     {
-        return $user->can('game-server-pause', $server);
+        return $user->can(['game-server-common', 'game-server-pause'], $server);
     }
 
     /**
@@ -82,7 +81,7 @@ class ServerPolicy
      */
     public function update(User $user, Server $server)
     {
-        return $user->can('game-server-update', $server);
+        return $user->can(['game-server-common', 'game-server-update'], $server);
     }
 
     /**
@@ -92,7 +91,7 @@ class ServerPolicy
      */
     public function consoleView(User $user, Server $server)
     {
-        return $user->can('game-server-console-view', $server);
+        return $user->can(['game-server-common', 'game-server-console-view'], $server);
     }
 
     /**
@@ -102,7 +101,7 @@ class ServerPolicy
      */
     public function consoleSend(User $user, Server $server)
     {
-        return $user->can('game-server-console-send', $server);
+        return $user->can(['game-server-common', 'game-server-console-send'], $server);
     }
 
     /**
@@ -112,7 +111,7 @@ class ServerPolicy
      */
     public function files(User $user, Server $server)
     {
-        return $user->can('game-server-files', $server);
+        return $user->can(['game-server-common', 'game-server-files'], $server);
     }
 
     /**
@@ -122,6 +121,6 @@ class ServerPolicy
      */
     public function settings(User $user, Server $server)
     {
-        return $user->can('game-server-settings', $server);
+        return $user->can(['game-server-common', 'game-server-settings'], $server);
     }
 }
