@@ -98,6 +98,76 @@ class UsersTests extends DuskTestCase
         });
     }
 
+    public function testPasswordChanging()
+    {
+        $this->browse(function (Browser $admin, Browser $user) {
+            // Change password to 11111122
+            $admin->loginAs(User::find(1))
+                ->visit('/admin/users')
+                ->click('table.table-grid-models > tbody > tr:last-child > td.text-nowrap > a.btn.btn-edit')
+                ->type('password', '11111122')
+                ->type('password_confirmation', '11111122')
+                ->scrollIntoView('input[type=submit]')
+                ->press(__('main.save'))
+                ->assertPathIs('/admin/users')
+                ->assertSee(__('users.update_success_msg'));
+
+            // Login with password 11111122
+            $user->visit('/login')
+                ->assertPathIs('/login')
+                ->type('login', 'br_test_user')
+                ->type('password', '11111122')
+                ->press('Login')
+                ->assertPathIs('/home')
+                ->logout();
+
+            // Change password to 12345678
+            $admin->visit('/admin/users')
+                ->click('table.table-grid-models > tbody > tr:last-child > td.text-nowrap > a.btn.btn-edit')
+                ->type('password', '12345678')
+                ->type('password_confirmation', '12345678')
+                ->scrollIntoView('input[type=submit]')
+                ->press(__('main.save'))
+                ->assertPathIs('/admin/users')
+                ->assertSee(__('users.update_success_msg'));
+
+            // Try to login with 11111122 password
+            $user->visit('/login')
+                ->assertPathIs('/login')
+                ->type('login', 'br_test_user')
+                ->type('password', '11111122')
+                ->press('Login')
+                ->assertPathIs('/login')
+                ->assertSee('These credentials do not match our records.');
+
+            // Login with 12345678 password
+            $user->visit('/login')
+                ->assertPathIs('/login')
+                ->type('login', 'br_test_user')
+                ->type('password', '12345678')
+                ->press('Login')
+                ->assertPathIs('/home')
+                ->logout();
+
+            // Update user without password changing
+            $admin->visit('/admin/users')
+                ->click('table.table-grid-models > tbody > tr:last-child > td.text-nowrap > a.btn.btn-edit')
+                ->scrollIntoView('input[type=submit]')
+                ->press(__('main.save'))
+                ->assertPathIs('/admin/users')
+                ->assertSee(__('users.update_success_msg'));
+
+            // Login with 12345678 password
+            $user->visit('/login')
+                ->assertPathIs('/login')
+                ->type('login', 'br_test_user')
+                ->type('password', '12345678')
+                ->press('Login')
+                ->assertPathIs('/home')
+                ->logout();
+        });
+    }
+
     public function testServerPermission()
     {
         $this->browse(function (Browser $admin, Browser $user) {
