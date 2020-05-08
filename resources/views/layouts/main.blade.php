@@ -16,6 +16,13 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/gameap.css') }}">
 </head>
 <body>
+    <script type="application/javascript">
+        window.user = {
+            login: "{{ Auth::user()->login }}",
+            roles: {!! Auth::user()->getRoles() !!}
+        };
+    </script>
+
     @yield('page-data')
 
     <div id="app">
