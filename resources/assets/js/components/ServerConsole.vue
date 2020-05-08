@@ -73,6 +73,7 @@
                         this.inputText = '';
                         this.lock = false;
                         this.updateConsole = true;
+                        setTimeout(this.getConsole, 1000);
                     }.bind(this)).catch(function (error) {
                         this.lock = false;
                         console.log(error);

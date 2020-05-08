@@ -67,9 +67,9 @@ Auth::routes([
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/help', 'HomeController@help')->name('help');
-Route::get('/report_bug', 'HomeController@reportBug')->name('report_bug');
-Route::post('/report_bug', 'HomeController@sendBug')->name('send_bug');
-Route::get('/update', 'HomeController@update')->name('update');
+Route::get('/report_bug', 'HomeController@reportBug')->name('report_bug')->middleware('isAdmin');
+Route::post('/report_bug', 'HomeController@sendBug')->name('send_bug')->middleware('isAdmin');
+Route::get('/update', 'HomeController@update')->name('update')->middleware('isAdmin');
 
 Route::get('/modules', 'ModulesController@index')->name('modules')->middleware('isAdmin');
 Route::get('/modules/migrate', 'ModulesController@migrate')->name('modules.migrate')->middleware('isAdmin');

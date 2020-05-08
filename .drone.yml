@@ -7,7 +7,8 @@ steps:
     commands:
       - apt -y update && apt install -y git
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-      - composer install
+      - composer install --no-ansi
+      - touch composer_installed
 
   - name: npm
     image: node
@@ -30,11 +31,26 @@ steps:
       - rm -rf storage/framework/sessions/*
       - rm -rf storage/framework/views/*
 
+  - name: browser-tests
+    image: knik/php:7.2-fpm-stretch
+    environment:
+      SELENIUM_URL: http://selenium:4444/wd/hub
+    commands:
+      - mv .env.example .env
+      - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
+      - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/webserver/" .env
+      - ./artisan migrate:fresh --seed
+      - ./artisan dusk
+      - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/localhost/" .env
+      - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
+      - mv .env .env.example
+
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
     commands:
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-      - composer install --no-dev --optimize-autoloader
+      - composer install --no-dev --optimize-autoloader --no-ansi
+      - rm composer_installed
     when:
       branch:
         - master
@@ -92,11 +108,40 @@ steps:
       branch:
         - master
 
+  - name: artifacts
+    image: plugins/s3
+    failure: ignore
+    settings:
+      endpoint:
+        from_secret: s3_endpoint
+      bucket: gameap-drone-tests
+      access_key:
+        from_secret: s3_access_key
+      secret_key:
+        from_secret: s3_secret_key
+      source: tests/Browser/screenshots/*
+      target: /${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}
+      path_style: true
+    when:
+      status:
+        - failure
+
 services:
-    - name: db
-      image: mysql:5.6
-      environment:
-        MYSQL_ROOT_PASSWORD: userpass
-        MYSQL_DATABASE: homestead
-        MYSQL_USER: homestead
-        MYSQL_PASSWORD: secret
+  - name: db
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: userpass
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+
+  - name: webserver
+    image: knik/php:7.4-cli-alpine
+    commands:
+      - while [[ ! -f composer_installed ]]; do sleep 2; echo "Waiting composer..."; done;
+      - ./artisan serve --host=webserver --port=80
+
+  - name: selenium
+    image: selenium/standalone-chrome:3.11.0-antimony
+    environment:
+      HUB_PORT: 4444

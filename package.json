@@ -17,7 +17,7 @@
     "bootstrap-select": "^1.13.10",
     "cross-env": "^7.0",
     "gameap-file-manager": "^2.0.14",
-    "jquery": "3.4.1",
+    "jquery": "^3.5.1",
     "laravel-mix": "^5.0.1",
     "lodash": "^4.17.14",
     "popper.js": "^1.15.0",

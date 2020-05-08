@@ -3,9 +3,11 @@
 namespace Gameap\Services;
 
 use GameQ\GameQ;
+use GameQ\Exception\Server as GameqServerException;
+use GameQ\Exception\Query as GameqQueryException;
+use GameQ\Exception\Protocol as GameqProtocolException;
 use Gameap\Models\Server;
 use Knik\Gameap\GdaemonCommands;
-
 use Html;
 use Storage;
 use Gameap\Exceptions\Services\InvalidCommandException;
@@ -59,17 +61,26 @@ class ServerService
 
     /**
      * @param Server $server
-     * @return array
+     * @return array|string[]
+     * @throws \Exception
      */
     public function query(Server $server)
     {
         $host = "{$server->server_ip}:{$server->query_port}";
-        $query = $this->gameq->setOption('timeout', 5)
-            ->addServer([
-                'type' => $server->game->engine,
-                'host' => $host,
-            ])
-            ->process();
+
+        try {
+            $query = $this->gameq->setOption('timeout', 5)
+                ->addServer([
+                    'type' => $server->game->engine,
+                    'host' => $host,
+                ])
+                ->process();
+        } catch (GameqServerException | GameqQueryException | GameqProtocolException $exception) {
+            return [
+                'status' => 'query not supported for this game',
+            ];
+        }
+
 
         $serverResult = $query[$host] ?? null;
 

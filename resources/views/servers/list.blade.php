@@ -3,6 +3,9 @@
 @extends('layouts.main')
 
 @section('content')
+    <?php //TODO: Remove after fixing serverControl js?>
+    <div id="serverControl"></div>
+
     @include('components.grid', [
         'modelsList' => $servers,
         'labels' => [__('servers.name'), __('servers.ip_port'), __('servers.status'), __('servers.commands')],
@@ -67,7 +70,7 @@
                         </a>&nbsp;';
                 }
 
-                return '<div id="serverControl">' . $buttons . '</div>';
+                return '<div class="server-control">' . $buttons . '</div>';
             }]
         ],
     ])

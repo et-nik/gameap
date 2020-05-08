@@ -31,10 +31,15 @@ if( document.getElementById("serverControl") ) {
                 checkServerStatusAfterTask: false,
                 serverStatus: false,
                 expectedStatus: false,
+                detailError: false,
             };
         },
         methods: {
             serverCommand: function(command, serverId) {
+                if ($.inArray('admin', window.user.roles) !== -1) {
+                    this.detailError = true;
+                }
+
                 if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'reinstall']) !== -1) {
                     gameap.confirm(i18n.main.confirm_message, function() {
                         axios.post('/api/servers/' + command + '/' + gameap.serverId)
@@ -62,7 +67,7 @@ if( document.getElementById("serverControl") ) {
                     if (this.serverStatus === this.expectedStatus) {
                         gameap.alert(i18n.servers.start_success_msg, function() { location.reload()});
                     } else {
-                        gameap.alert(i18n.servers.start_fail_msg);
+                        this.setTaskError(i18n.servers.start_fail_msg);
                     }
                 };
             },
@@ -72,12 +77,12 @@ if( document.getElementById("serverControl") ) {
                 this.checkServerStatusAfterTask = true;
                 this.serverCommand('stop', serverId);
 
-                this.callbackTaskComplete = function() {
-                    gameap.closeProgressModal();
+                this.callbackTaskComplete = () => {
+                    this.closeProgressModal();
                     if (this.serverStatus === this.expectedStatus) {
-                        gameap.alert(i18n.servers.stop_success_msg, function() { location.reload()});
+                        this.alert(i18n.servers.stop_success_msg, function() { location.reload()});
                     } else {
-                        gameap.alert(i18n.servers.stop_fail_msg);
+                        this.setTaskError(i18n.servers.stop_fail_msg);
                     }
                 };
             },
@@ -87,12 +92,12 @@ if( document.getElementById("serverControl") ) {
                 this.checkServerStatusAfterTask = true;
                 this.serverCommand('restart', serverId);
 
-                this.callbackTaskComplete = function() {
-                    gameap.closeProgressModal();
+                this.callbackTaskComplete = () => {
+                    this.closeProgressModal();
                     if (this.serverStatus === this.expectedStatus) {
-                        gameap.alert(i18n.servers.restart_success_msg, function() { location.reload()});
+                        this.alert(i18n.servers.restart_success_msg, function() { location.reload()});
                     } else {
-                        gameap.alert(i18n.servers.restart_success_msg);
+                        this.setTaskError(i18n.servers.restart_fail_msg);
                     }
                 };
             },
@@ -191,17 +196,26 @@ if( document.getElementById("serverControl") ) {
                 additionalInfo.hide();
             },
             setTaskError: function(errorMsg) {
+                if (this.detailError) {
+                    gameap.alert(errorMsg + '<br><br>' +
+                        this.trans('servers.task_see_log', {
+                            link: '/admin/gdaemon_tasks/' + this.watchTaskData.id
+                        })
+                    );
+                } else {
+                    gameap.alert(errorMsg);
+                }
+
                 this.watchTaskId = 0;
                 this.watchTaskStartedTime = 0;
                 this.hideAdditionalInfo();
                 this.closeProgressModal();
-                gameap.alert(errorMsg);
                 setTimeout(this.clearVars, CLEAR_VARS_TIMEOUT);
             },
             setTaskSuccess: function() {
+                this.hideAdditionalInfo();
                 this.watchTaskId = 0;
                 this.watchTaskStartedTime = 0;
-                this.hideAdditionalInfo();
 
                 if (this.checkServerStatusAfterTask) {
                     setTimeout(this.watchServerStatus, CHECK_SERVER_STATUS_TIMEOUT);
