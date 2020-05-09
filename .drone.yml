@@ -30,6 +30,8 @@ steps:
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
       - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
 
   - name: browser-tests
     image: knik/php:7.2-fpm-stretch
@@ -44,6 +46,12 @@ steps:
       - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/localhost/" .env
       - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
       - mv .env .env.example
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
@@ -59,9 +67,6 @@ steps:
     image: debian:buster
     commands:
       - apt update && apt -y install rsync
-      - rm ./storage/app/certs/root.crt
-      - rm ./storage/app/certs/root.key
-      - rm ./storage/app/certs/client/*
       - mkdir gameap
       - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
       - mkdir "publish"
@@ -74,6 +79,12 @@ steps:
     image: knik/php:7.2-fpm-stretch
     commands:
       - apt update && apt -y install default-mysql-client zip unzip rsync
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
       - mkdir -p gameap-shared/upload
       - mv .env.example .env
       - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
