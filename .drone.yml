@@ -30,6 +30,8 @@ steps:
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
       - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
 
   - name: browser-tests
     image: knik/php:7.2-fpm-stretch
@@ -44,6 +46,12 @@ steps:
       - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/localhost/" .env
       - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
       - mv .env .env.example
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
@@ -60,7 +68,6 @@ steps:
     commands:
       - apt update && apt -y install rsync
       - mkdir gameap
-      - rm storage/app/certs/root.crt && rm storage/app/certs/root.key && rm storage/app/certs/client/*
       - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
       - mkdir "publish"
       - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
@@ -72,6 +79,12 @@ steps:
     image: knik/php:7.2-fpm-stretch
     commands:
       - apt update && apt -y install default-mysql-client zip unzip rsync
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
       - mkdir -p gameap-shared/upload
       - mv .env.example .env
       - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
@@ -79,7 +92,7 @@ steps:
       - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
       - mysqldump -h db -u homestead -p --password=secret homestead > gameap.sql
       - curl -O http://packages.gameap.ru/gameap/shared-build-artifacts.zip
-      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
+      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/publish --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
       - unzip -o shared-build-artifacts.zip -d gameap-shared
       - cd gameap-shared
         && mv upload/gameap.sql gameap.sql
