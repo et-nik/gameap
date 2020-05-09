@@ -93,7 +93,8 @@ return [
     'settings_update_success_msg' => 'Game Server Settings updated successfully',
 
     'task_success_msg' => 'Task completed successfully',
-    
+    'task_see_log'     => 'See <a href=:link>task log</a> for details.',
+
     'unknown_command_msg' => 'Unknown server command',
 
     'd_dir' => 'Leave blank to set automatically. 

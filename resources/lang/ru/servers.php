@@ -93,6 +93,7 @@ return [
     'settings_update_success_msg' => 'Настройки игрового сервера успешно обновлены',
 
     'task_success_msg' => 'Задача успешно выполнена',
+    'task_see_log'     => 'Подробности смотрите в <a href=:link>логе задачи</a>.',
 
     'unknown_command_msg' => 'Неизвестная команда',
 

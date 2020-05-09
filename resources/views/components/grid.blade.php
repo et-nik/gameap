@@ -1,4 +1,4 @@
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered table-grid-models">
     <thead>
     <tr>
         @foreach ($labels as $label)

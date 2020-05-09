@@ -13,10 +13,8 @@ class DatabaseSeeder extends Seeder
     {
          $this->call([
              ClientCertificatesTableSeeder::class,
-             DedicatedServersTableSeeder::class,
              GamesTableSeeder::class,
              GameModsTableSeeder::class,
-             ServersTableSeeder::class,
              UsersTableSeeder::class,
              PermissionsSeeder::class,
          ]);
