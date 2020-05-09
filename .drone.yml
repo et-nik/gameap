@@ -60,6 +60,7 @@ steps:
     commands:
       - apt update && apt -y install rsync
       - mkdir gameap
+      - rm storage/app/certs/root.crt && rm storage/app/certs/root.key && rm storage/app/certs/client/*
       - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
       - mkdir "publish"
       - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
