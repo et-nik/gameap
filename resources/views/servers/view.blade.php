@@ -2,37 +2,57 @@
 
 @extends('layouts.main')
 
+@section('breadclumbs')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('servers') }}">{{ __('servers.game_servers') }}</a></li>
+        <li class="breadcrumb-item">{{ $server->name }}&nbsp;&nbsp;<span class="text-muted">{{ $server->game->name }}</span></li>
+    </ol>
+@endsection
+
 @section('content')
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs large mt-4">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#main">Control</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#schedules">Schedules</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#files">
-                <i class="fa fa-folder-open"></i>
-                File Manager
+            <a class="nav-link active" data-toggle="tab" data-tab="main" href="#main">
+                <i class="fas fa-play"></i>
+                {{ __('servers.control') }}
             </a>
         </li>
 
+        @can('server-files', $server)
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-tab="filemanager" href="#filemanager">
+                    <i class="fa fa-folder-open"></i>
+                    {{ __('servers.files') }}
+                </a>
+            </li>
+        @endcan
+
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#settings">
-                <i class="fa fa-cogs"></i>
-                Settings
+            <a class="nav-link" data-toggle="tab" data-tab="schedules" href="#schedules">
+                <i class="far fa-calendar-alt"></i>
+                {{ __('servers.task_scheduler') }}
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#settings">FastDL</a>
-        </li>
+        @can('server-settings', $server)
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-tab="settings" href="#settings">
+                    <i class="fa fa-cogs"></i>
+                    {{ __('servers.settings') }}
+                </a>
+            </li>
+        @endcan
 
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#settings">FTP</a>
-        </li>
+        @can('admin roles & permissions')
+            <li class="nav-item ml-auto">
+                <a class="nav-link text-danger" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
+                    <i class="fa fa-hammer"></i>
+                    {{ __('servers.admin') }}
+                </a>
+            </li>
+        @endcan
+
     </ul>
 
     <div class="tab-content">
@@ -80,40 +100,9 @@
                                 @endcan
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>{{ __('servers.tools') }}</h3>
-                        </div>
-
-                        <div class="card-body">
-                            @can('server-files', $server)
-                                <a class="btn btn-large btn-light m-1" href="{{ route('servers.filemanager', ['server' => $server->id]) }}">
-                                    <span class="fa fa-folder-open"></span>&nbsp;{{ __('servers.files') }}
-                                </a>
-                            @endcan
-
-                            @can('server-settings', $server)
-                                <a class="btn btn-large btn-light m-1" href="{{ route('servers.settings', ['server' => $server->id]) }}">
-                                    <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
-                                </a>
-                            @endcan
-
-                            @can('admin roles & permissions')
-                                <a class="btn btn-large btn-danger m-1" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
-                                    <span class="fa fa-hammer"></span>&nbsp;{{ __('servers.admin') }}
-                                </a>
-                            @endcan
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-2">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
@@ -131,7 +120,9 @@
 
                     </div>
                 </div>
+            </div>
 
+            <div class="row mt-2">
                 @if ($server->processActive())
                     <div class="col-6">
                         <div class="card">
@@ -176,15 +167,15 @@
         <div class="row tab-pane container-fluid fade" id="schedules">
             <div class="row mt-2">
                 <div class="col-12">
-                    <server-tasks :server-id="{{ $server->id }}"></server-tasks>
+                    <server-tasks v-if="activeTab === 'schedules'" :server-id="{{ $server->id }}"></server-tasks>
                 </div>
             </div>
         </div>
 
-        <div class="row tab-pane container-fluid fade" id="files">
+        <div class="row tab-pane container-fluid fade" id="filemanager">
             <div class="row mt-2">
                 <div class="col-12">
-                    <file-manager server-id="{{ $server->id }}"></file-manager>
+                    <file-manager v-if="activeTab === 'filemanager'" server-id="{{ $server->id }}"></file-manager>
                 </div>
             </div>
         </div>
@@ -202,7 +193,6 @@
                                     {{ Form::label('autostart', __('servers.autostart_setting'), ['class' => 'form-check-label']) }}
                                 </div>
                             </div>
-
 
                             @if(!empty($server->gameMod->vars))
                                 @foreach ($server->gameMod->vars as $var)
@@ -240,4 +230,12 @@
         </div>
     </div>
 
+@endsection
+
+@section('footer-scripts')
+    <script>
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            window.gameap.activeTab = $(e.target).data('tab');
+        })
+    </script>
 @endsection

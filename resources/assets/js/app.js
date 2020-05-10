@@ -111,17 +111,15 @@ var vm = new Vue({
             $(appendPoint).append(componentInstance.$el);
             return componentInstance;
         },
-        increment () {
-            store.commit('increment')
-        },
-        decrement () {
-            store.commit('decrement')
+        setActiveTab () {
+            store.commit('activeTab');
         }
     },
     computed: {
-        count () {
-            return store.state.count
-        }
+        activeTab: {
+            get() { return this.$store.state.activeTab.name; },
+            set(tab) { this.$store.dispatch('activeTab/setName', tab) },
+        },
     },
     store
 });

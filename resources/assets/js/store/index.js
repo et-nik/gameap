@@ -6,6 +6,8 @@ import servers from './servers';
 import games from './games';
 import gameMods from './gameMods';
 
+import activeTab from './activeTab';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -14,5 +16,7 @@ export default new Vuex.Store({
         servers,
         games,
         gameMods,
+
+        activeTab,
     },
 })
