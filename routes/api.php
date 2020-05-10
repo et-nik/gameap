@@ -41,6 +41,15 @@ Route::name('api.servers.add_task')->post('servers/{server}/tasks', 'ServersTask
 Route::name('api.servers.update_task')->put('servers/{server}/tasks/{server_task}', 'ServersTasksController@update');
 Route::name('api.servers.delete_task')->delete('servers/{server}/tasks/{server_task}', 'ServersTasksController@destroy');
 
+// Rcon
+Route::name('api.server.rcon.features')->get('servers/{server}/rcon/features', 'ServersRconController@supportedFeatures');
+Route::name('api.server.rcon')->post('servers/{server}/rcon', 'ServersRconController@sendCommand');
+Route::name('api.server.rcon.players')->get('servers/{server}/rcon/players', 'ServersRconController@getPlayers');
+Route::name('api.server.rcon.players.change_name')->post('servers/{server}/rcon/players/change_name', 'ServersRconController@changeName');
+Route::name('api.server.rcon.players.message')->post('servers/{server}/rcon/players/message', 'ServersRconController@message');
+Route::name('api.server.rcon.players.kick')->post('servers/{server}/rcon/players/kick', 'ServersRconController@kick');
+Route::name('api.server.rcon.players.band')->post('servers/{server}/rcon/players/ban', 'ServersRconController@ban');
+
 Route::name('api.servers.search')->get('servers/search', 'ServersController@search')->middleware('isAdmin');
 
 // Gdaemon tasks

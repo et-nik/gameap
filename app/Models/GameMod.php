@@ -13,7 +13,7 @@ use Sofa\Eloquence\Contracts\Validable as ValidableContract;
  * @property integer $id
  * @property string $game_code
  * @property string $name
- * @property string $fast_rcon
+ * @property array $fast_rcon
  * @property array $vars
  * @property string $remote_repository
  * @property string $local_repository

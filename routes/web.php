@@ -20,8 +20,6 @@ Route::post('profile', 'ProfileController@changePassword')->name('profile.change
 
 Route::get('servers', 'ServersController@index')->name('servers');
 Route::get('servers/{server}', 'ServersController@show')->name('servers.control');
-Route::get('servers/{server}/filemanager', 'ServersController@filemanager')->name('servers.filemanager');
-Route::get('servers/{server}/settings', 'ServersController@settings')->name('servers.settings');
 Route::patch('servers/{server}/settings', 'ServersController@updateSettings')->name('servers.updateSettings');
 
 Route::bind('anyserver', function ($id) {

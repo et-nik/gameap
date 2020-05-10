@@ -24,6 +24,7 @@
         "infyomlabs/generator-builder": "dev-master",
         "joshbrw/laravel-module-installer": "^0.1.4",
         "knik/flysystem-gameap": "*",
+        "knik/g-rcon": "*",
         "knik/gameap-daemon-client": "^0.4",
         "knik/gameq": "^3.0",
         "knik/x509": "^0.6.2",

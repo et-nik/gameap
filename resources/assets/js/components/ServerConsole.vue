@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="terminal-box p-3 m-2">
-            <div id="terminalConsole" ref="terminalConsole" class="terminal">
-                {{ console }}
-            </div>
+            <div id="terminalConsole" ref="terminalConsole" class="terminal">{{ console }}</div>
             <div class="form-group m-0">
                 <div class="input-group">
                     <div class="terminal-input">

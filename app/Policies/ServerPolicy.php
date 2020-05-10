@@ -123,4 +123,24 @@ class ServerPolicy
     {
         return $user->can(['game-server-common', 'game-server-settings'], $server);
     }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
+    public function tasks(User $user, Server $server)
+    {
+        return $user->can(['game-server-common', 'game-server-tasks'], $server);
+    }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
+    public function rcon(User $user, Server $server)
+    {
+        return $user->can(['game-server-common', 'game-server-rcon'], $server);
+    }
 }

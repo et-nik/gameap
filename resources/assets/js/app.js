@@ -29,6 +29,9 @@ const GameModSelector = () => import('./components/servers/GameModSelector' /* w
 const DsIpSelector = () => import('./components/servers/DsIpSelector' /* webpackChunkName: "components/game-mod-selector" */);
 const SmartPortSelector = () => import('./components/servers/SmartPortSelector' /* webpackChunkName: "components/smart-port-selector" */);
 
+const RconPlayers = () => import('./components/rcon/RconPlayers' /* webpackChunkName: "components/rcon-players" */);
+const RconConsole = () => import('./components/rcon/RconConsole' /* webpackChunkName: "components/rcon-console" */);
+
 const SettingsParameters = () => import('./components/SettingsParameters' /* webpackChunkName: "components/user-server-privileges" */);
 
 Vue.use(Vuex);
@@ -51,6 +54,9 @@ var vm = new Vue({
         'server-console': ServerConsole,
         'server-tasks': ServerTasks,
         'task-output': TaskOutput,
+
+        'rcon-players': RconPlayers,
+        'rcon-console': RconConsole,
 
         'user-server-privileges': UserServerPrivileges,
         'smart-port-selector': SmartPortSelector,

@@ -36,5 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('server-console-send', 'Gameap\Policies\ServerPolicy@consoleSend');
         Gate::define('server-files', 'Gameap\Policies\ServerPolicy@files');
         Gate::define('server-settings', 'Gameap\Policies\ServerPolicy@settings');
+
+        Gate::define('server-rcon', 'Gameap\Policies\ServerPolicy@rcon');
     }
 }

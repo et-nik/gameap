@@ -8,6 +8,10 @@ import gameMods from './gameMods';
 
 import activeTab from './activeTab';
 
+// Rcon
+import rconConsole from './rcon/console'
+import rconPlayers from './rcon/players'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -18,5 +22,9 @@ export default new Vuex.Store({
         gameMods,
 
         activeTab,
+
+        // Rcon
+        rconConsole,
+        rconPlayers,
     },
 })

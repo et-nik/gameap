@@ -18,10 +18,17 @@ class ServerPermissionHelper
         'game-server-restart',
         'game-server-pause',
         'game-server-update',
-        'game-server-console-view',
-        'game-server-console-send',
         'game-server-files',
         'game-server-settings',
+
+        // Console
+        'game-server-console-view',
+        'game-server-console-send',
+
+        // RCON
+        'game-server-rcon-console',
+        'game-server-rcon-fast',
+        'game-server-rcon-players',
     ];
 
     public static function getAllPermissions()
