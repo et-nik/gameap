@@ -24,6 +24,10 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
+    const ACTIVE_CONSOLE_TABS = ['main', ''];
+
     export default {
         props: {
             serverId: Number,
@@ -43,10 +47,13 @@
                 if (this.autoScroll) {
                     this.$refs.terminalConsole.scrollTop = this.$refs.terminalConsole.scrollHeight;
                 }
-                
             },
             getConsole() {
                 if (!this.updateConsole) {
+                    return;
+                }
+
+                if (!ACTIVE_CONSOLE_TABS.includes(this.activeTabName)) {
                     return;
                 }
                 
@@ -78,6 +85,11 @@
                         gameap.alert(error.response.data.message);
                 }.bind(this));
             },
+        },
+        computed: {
+            ...mapState({
+                activeTabName: state => state.activeTab.name,
+            }),
         },
         mounted() {
             this.getConsole();
