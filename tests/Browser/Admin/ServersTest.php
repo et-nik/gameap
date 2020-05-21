@@ -179,7 +179,7 @@ class ServersTest extends DuskTestCase
                 ->assertPathIs('/servers/*');
 
             $admin->clickLink('Files')
-                ->assertPathIs('/servers/*/filemanager');
+                ->assertPathIs('/servers/*');
 
             $admin->waitFor('div.fm-content-body', 10);
             sleep(3);
