@@ -4,6 +4,7 @@ namespace Gameap\Services;
 
 use Gameap\Models\Server;
 use Knik\GRcon\EasyGRcon;
+use Knik\GRcon\Exceptions\GRconException;
 
 class RconService
 {
@@ -25,14 +26,22 @@ class RconService
     /**
      * @param Server $server
      * @return array
-     * @throws \Knik\GRcon\Exceptions\ProtocolNotSupportedException
      */
     public function supportedFeatures(Server $server)
     {
-        $this->setRconOptions($server);
-        return [
-            'playersManage' => $this->rcon->isPlayersManageSupported()
-        ];
+        try {
+            $this->setRconOptions($server);
+
+            return [
+                'rcon'          => true,
+                'playersManage' => $this->rcon->isPlayersManageSupported()
+            ];
+        } catch (GRconException $exception) {
+            return [
+                'rcon'          => false,
+                'playersManage' => false
+            ];
+        }
     }
 
     /**

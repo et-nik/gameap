@@ -64,13 +64,8 @@ class ServersController extends AuthController
 
         $autostart = $autostartSetting->value;
 
-        // TODO: Remove try catch
-        try {
-            $rconSupported = true;
-            $rconSupportedFeatures = $rconService->supportedFeatures($server);
-        } catch (GRconException $exception) {
-            $rconSupported = false;
-        }
+        $rconSupportedFeatures = $rconService->supportedFeatures($server);
+        $rconSupported = $rconSupportedFeatures['rcon'];
 
         return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
             view('servers.view', compact('server', 'autostart', 'rconSupportedFeatures', 'rconSupported'))
