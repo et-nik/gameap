@@ -27,7 +27,6 @@ class ServerPermissionHelper
 
         // RCON
         'game-server-rcon-console',
-        'game-server-rcon-fast',
         'game-server-rcon-players',
     ];
 

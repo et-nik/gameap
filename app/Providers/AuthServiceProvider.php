@@ -37,6 +37,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('server-files', 'Gameap\Policies\ServerPolicy@files');
         Gate::define('server-settings', 'Gameap\Policies\ServerPolicy@settings');
 
+        // RCON
         Gate::define('server-rcon', 'Gameap\Policies\ServerPolicy@rcon');
+        Gate::define('server-rcon-console', 'Gameap\Policies\ServerPolicy@rconConsole');
+        Gate::define('server-rcon-players', 'Gameap\Policies\ServerPolicy@rconPlayers');
     }
 }

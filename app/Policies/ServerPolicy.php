@@ -135,12 +135,44 @@ class ServerPolicy
     }
 
     /**
+     * Main Rcon
+     *
      * @param User $user
      * @param Server $server
      * @return bool
      */
     public function rcon(User $user, Server $server)
     {
-        return $user->can(['game-server-common', 'game-server-rcon'], $server);
+        if (!$user->can('game-server-common', $server)) {
+            return false;
+        }
+
+        return $user->can('game-server-rcon-console', $server)
+            || $user->can('game-server-rcon-players', $server);
+    }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
+    public function rconConsole(User $user, Server $server)
+    {
+        return $user->can(['game-server-common', 'game-server-rcon-console'], $server);
+    }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
+    public function rconPlayers(User $user, Server $server)
+    {
+        if (!$user->can('game-server-common', $server)) {
+            return false;
+        }
+
+        return $user->can('game-server-rcon-console')
+            || $user->can('game-server-rcon-players', $server);
     }
 }

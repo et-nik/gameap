@@ -32,6 +32,8 @@ class ServersRconController extends AuthController
      */
     public function sendCommand(CommandRequest $request, RconService $rconService, Server $server)
     {
+        $this->authorize('server-rcon-console', $server);
+
         return [
             'output' => $server->processActive()
                 ? $rconService->sendCommand($server, $request->post('command'))
@@ -49,6 +51,8 @@ class ServersRconController extends AuthController
      */
     public function getPlayers(RconService $rconService, Server $server)
     {
+        $this->authorize('server-rcon-players', $server);
+
         if (!$server->processActive()) {
             return [];
         }
@@ -67,6 +71,8 @@ class ServersRconController extends AuthController
      */
     public function kick(KickRequest $request, RconService $rconService, Server $server)
     {
+        $this->authorize('server-rcon-players', $server);
+
         if (!$server->processActive()) {
             return 'Server is offline';
         }
@@ -86,6 +92,8 @@ class ServersRconController extends AuthController
      */
     public function ban(BanRequest $request, RconService $rconService, Server $server)
     {
+        $this->authorize('server-rcon-players', $server);
+
         if (!$server->processActive()) {
             return 'Server is offline';
         }
@@ -100,6 +108,8 @@ class ServersRconController extends AuthController
 
     public function message(RconService $rconService, Server $server)
     {
+        $this->authorize('server-rcon-players', $server);
+
         if ($server->processActive()) {
             return 'Server is offline';
         }
