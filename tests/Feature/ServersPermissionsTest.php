@@ -56,27 +56,6 @@ class ServersPermissionsTest extends TestCase
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function testFileManagerAllow()
-    {
-        $this->userRepository->update($this->user, ['servers' => [$this->server->id]]);
-        $this->userRepository->updateServerPermission($this->user, $this->server, []);
-
-        $response = $this->get(route('servers.filemanager', $this->server->id));
-        $response->assertStatus(Response::HTTP_OK);
-    }
-
-    public function testFileManagerForbiddenNotRelation()
-    {
-        $this->userRepository->updateServerPermission($this->user, $this->server, [
-            'game-server-common' => 'disallow',
-            'game-server-files' => 'disallow',
-        ]);
-        $this->userRepository->update($this->user, []);
-
-        $response = $this->get(route('servers.filemanager', $this->server->id));
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-    }
-
     /**
      * @return array
      */
@@ -87,42 +66,5 @@ class ServersPermissionsTest extends TestCase
             ['first' => true, 'second' => false],
             ['first' => false, 'second' => true],
         ];
-    }
-
-    /**
-     * @dataProvider twoTrueDataProvider
-     * @param bool $first
-     * @param bool $second
-     */
-    public function testFileManagerForbidden(bool $first, bool $second)
-    {
-        $this->userRepository->updateServerPermission($this->user, $this->server, [
-            'game-server-common' => $first,
-            'game-server-files' => $second,
-        ]);
-
-        $response = $this->get(route('servers.filemanager', $this->server->id));
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-    }
-
-    public function testSettingsAllow()
-    {
-        $this->userRepository->update($this->user, ['servers' => [$this->server->id]]);
-        $this->userRepository->updateServerPermission($this->user, $this->server, []);
-
-        $response = $this->get(route('servers.settings', $this->server->id));
-        $response->assertStatus(Response::HTTP_OK);
-    }
-
-    public function testSettingsForbidden()
-    {
-        $this->userRepository->update($this->user, ['servers' => [$this->server->id]]);
-        $this->userRepository->updateServerPermission($this->user, $this->server, [
-            'game-server-common' => 'disallow',
-            'game-server-settings' => 'disallow',
-        ]);
-
-        $response = $this->get(route('servers.settings', $this->server->id));
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
