@@ -8,7 +8,6 @@ use Gameap\Http\Requests\API\Rcon\CommandRequest;
 use Gameap\Http\Requests\API\Rcon\KickRequest;
 use Gameap\Models\Server;
 use Gameap\Services\RconService;
-use Knik\GRcon\EasyGRcon;
 
 class ServersRconController extends AuthController
 {
