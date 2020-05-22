@@ -55,10 +55,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::name('admin.servers_settings.update')->patch('servers/{server}/settings', 'Admin\\ServersSettingsController@update');
 });
 
-Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
-Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
-Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');
-
 Auth::routes([
     'register' => config('app.allow_registration'),
 ]);
