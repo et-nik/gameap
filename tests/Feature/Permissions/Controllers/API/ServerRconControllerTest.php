@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Permissions\Controllers\API;
 
+use Gameap\Models\GameMod;
 use Gameap\Models\Server;
 use Gameap\Models\User;
 use Illuminate\Http\Response;
@@ -29,7 +30,12 @@ class ServerRconControllerTest extends TestCase
     public function testForbidden()
     {
         Bouncer::sync($this->user)->roles(['user']);
-        $server = factory(Server::class)->create();
+
+        $server = factory(Server::class)->create([
+            'game_id' => 'cstrike',
+            'game_mod_id' => GameMod::select('id')->where(['game_code' => 'cstrike'])->first(),
+            'process_active' => false,
+        ]);
 
         // sendCommand
         $response = $this->post(route('api.server.rcon', $server->id), ['command' => 'test']);
@@ -62,7 +68,12 @@ class ServerRconControllerTest extends TestCase
     public function testAllow()
     {
         Bouncer::sync($this->user)->roles(['user']);
-        $server = factory(Server::class)->create();
+
+        $server = factory(Server::class)->create([
+            'game_id' => 'cstrike',
+            'game_mod_id' => GameMod::select('id')->where(['game_code' => 'cstrike'])->first(),
+            'process_active' => false,
+        ]);
 
         $this->user->allow('server-rcon-console', $server);
         $this->user->allow('server-rcon-players', $server);
@@ -98,7 +109,12 @@ class ServerRconControllerTest extends TestCase
     public function testAllowAdmin()
     {
         Bouncer::sync($this->user)->roles(['admin']);
-        $server = factory(Server::class)->create();
+
+        $server = factory(Server::class)->create([
+            'game_id' => 'cstrike',
+            'game_mod_id' => GameMod::select('id')->where(['game_code' => 'cstrike'])->first(),
+            'process_active' => false,
+        ]);
 
         // sendCommand
         $response = $this->post(route('api.server.rcon', $server->id), ['command' => 'test']);
