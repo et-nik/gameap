@@ -6,7 +6,9 @@ use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\Server;
 use Gameap\Models\ServerSetting;
 use Gameap\Repositories\ServerRepository;
+use Gameap\Services\RconService;
 use Illuminate\Support\Facades\Auth;
+use Knik\GRcon\Exceptions\GRconException;
 
 class ServersController extends AuthController
 {
@@ -44,12 +46,12 @@ class ServersController extends AuthController
     /**
      * Display the specified resource.
      *
-     * @param  \Gameap\Models\Server  $server
+     * @param RconService $rconService
+     * @param \Gameap\Models\Server $server
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Server $server)
+    public function show(RconService $rconService, Server $server)
     {
         $this->authorize('server-control', $server);
 
@@ -57,50 +59,17 @@ class ServersController extends AuthController
             ?? new ServerSetting([
                 'server_id' => $server->id,
                 'name'      => 'autostart',
-                'value'     => true,
+                'value'     => false,
             ]);
 
         $autostart = $autostartSetting->value;
+
+        $rconSupportedFeatures = $rconService->supportedFeatures($server);
+        $rconSupported = $rconSupportedFeatures['rcon'];
 
         return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
-            view('servers.view', compact('server', 'autostart'))
+            view('servers.view', compact('server', 'autostart', 'rconSupportedFeatures', 'rconSupported'))
             : view('servers.not_active', compact('server'));
-    }
-
-    /**
-     * @param Server $server
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function filemanager(Server $server)
-    {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-files', $server);
-
-        return view('servers.filemanager', compact('server'));
-    }
-
-    /**
-     * @param Server $server
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function settings(Server $server)
-    {
-        $this->authorize('server-settings', $server);
-
-        $autostartSetting = $server->settings->where('name', 'autostart')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart',
-                'value'     => true,
-            ]);
-
-        $autostart = $autostartSetting->value;
-
-        return view('servers.settings', compact('server', 'autostart'));
     }
 
     /**
@@ -118,7 +87,7 @@ class ServersController extends AuthController
         $this->repository->updateAutostart($server, ($request->get('autostart') == true));
         $this->repository->updateVars($server, $request);
 
-        return redirect()->route('servers.settings', ['server' => $server->id])
+        return redirect()->to(route('servers.control', ['server' => $server->id]) . '#settings')
             ->with('success', __('servers.update_success_msg'));
     }
 }
