@@ -1,25 +1,26 @@
 <template>
-    <div>
-        <button class="btn btn-sm btn-success m-1" data-toggle="modal" v-on:click="createTask()">{{ trans('main.add')}}</button>
+    <div id="server-task-component">
+        <button class="btn btn-success m-1" data-toggle="modal" v-on:click="createTask()">{{ trans('main.add')}}</button>
+        <hr>
         <table class="table table-striped table-bordered">
             <thead>
-            <tr>
-                <td>{{ trans('servers_tasks.task') }}</td>
-                <td>{{ trans('servers_tasks.date') }}</td>
-                <td>{{ trans('servers_tasks.repeat') }}</td>
-                <td>{{ trans('main.actions') }}</td>
-            </tr>
+                <tr>
+                    <td>{{ trans('servers_tasks.task') }}</td>
+                    <td>{{ trans('servers_tasks.date') }}</td>
+                    <td>{{ trans('servers_tasks.repeat') }}</td>
+                    <td>{{ trans('main.actions') }}</td>
+                </tr>
             </thead>
             <tbody v-for="(value, key) in tasks">
-            <tr>
-                <td>{{ value.command }}</td>
-                <td>{{ value.execute_date }}</td>
-                <td>{{ humanRepeatText(value.repeat) }}</td>
-                <td>
-                    <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">{{ trans('main.edit') }}</button>
-                    <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">{{ trans('main.delete') }}</button>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ value.command }}</td>
+                    <td>{{ value.execute_date }}</td>
+                    <td>{{ humanRepeatText(value.repeat) }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">{{ trans('main.edit') }}</button>
+                        <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">{{ trans('main.delete') }}</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
 

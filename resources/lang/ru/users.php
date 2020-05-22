@@ -28,7 +28,11 @@ return [
         'game-server-console-view'  => 'Чтение консоли',
         'game-server-console-send'  => 'Отправка комманд в консоль',
         'game-server-files'         => 'Доступ к файловому менеджеру',
-        'game-server-settings'         => 'Доступ к настройкам',
+        'game-server-settings'      => 'Доступ к настройкам',
+
+        // RCON
+        'game-server-rcon-console'  => 'RCON консоль',
+        'game-server-rcon-players'  => 'RCON управление игроками',
     ],
 
     'server_permission_edit' => 'Привилегии сервера',

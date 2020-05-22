@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "gicon";
+  src: url('gicon.eot?t=1589226378465'); /* IE9*/
+  src: url('gicon.eot?t=1589226378465#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("gicon.woff2?t=1589226378465") format("woff2"),
+  url("gicon.woff?t=1589226378465") format("woff"),
+  url('gicon.ttf?t=1589226378465') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('gicon.svg?t=1589226378465#gicon') format('svg'); /* iOS 4.1- */
+}
+
+[class^="gicon-"], [class*=" gicon-"] {
+  font-family: 'gicon' !important;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.gicon-headshot:before { content: "\ea01"; }
+.gicon-kick:before { content: "\ea02"; }

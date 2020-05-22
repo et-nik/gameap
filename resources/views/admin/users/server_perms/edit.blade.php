@@ -25,7 +25,7 @@
 
 @section('content')
     @include('components.form.errors_block')
-    {!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update_server_permissions', $user->id, $server->id]]) !!}
+    {!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update_server_permissions', [$user->id, $server->id]]]) !!}
         <div class="row mt-2 mb-2">
             <div class="col-md-6">
                 <div class="card">

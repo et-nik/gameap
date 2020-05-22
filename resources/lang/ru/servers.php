@@ -48,6 +48,8 @@ return [
     'files'         => 'Файлы',
     'admin'         => 'Администрирование',
 
+    'task_scheduler' => 'Планировщик задач',
+
     'autostart_setting' => 'Автозапуск в случае падения',
 
     'process_status' => 'Статус процесса',
