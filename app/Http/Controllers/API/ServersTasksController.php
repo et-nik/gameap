@@ -26,6 +26,7 @@ class ServersTasksController extends AuthController
     /**
      * @param Server $server
      * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function getList(Server $server)
     {
@@ -37,7 +38,7 @@ class ServersTasksController extends AuthController
     /**
      * @param ServerTaskCreateRequest $request
      * @return JsonResponse
-     * @throws RepositoryValidationException
+     * @throws RepositoryValidationException|\Illuminate\Auth\Access\AuthorizationException
      */
     public function store(ServerTaskCreateRequest $request)
     {
@@ -61,14 +62,12 @@ class ServersTasksController extends AuthController
      * @param Server $server
      * @param ServerTask $serverTask
      * @return JsonResponse
-     * @throws RepositoryValidationException
+     * @throws RepositoryValidationException|\Illuminate\Auth\Access\AuthorizationException
      * @noinspection PhpUnusedParameterInspection
      */
     public function update(ServerTaskUpdateRequest $request, Server $server, ServerTask $serverTask)
     {
         $fields = $request->all();
-
-        $server = Server::findOrFail($fields['server_id']);
 
         $this->authorize('server-tasks', $server);
         $this->commandAuthorize($fields['command'], $server);
