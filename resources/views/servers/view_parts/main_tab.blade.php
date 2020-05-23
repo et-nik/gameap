@@ -1,5 +1,18 @@
-<div class="row mt-2">
+{{--@if ($server->processActive())--}}
+    <div class="row mt-2">
+        <div class="col-md-12">
 
+            <div class="card">
+                <div class="card-body">
+                    <server-status :server-id="{{ $server->id }}"></server-status>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{{--@endif--}}
+
+<div class="row mt-2">
     @canany(['server-start', 'server-stop', 'server-restart', 'server-update'], $server)
         <div class="col-md-6">
             <div class="card">
@@ -63,23 +76,6 @@
 
         </div>
     </div>
-
-    @if ($server->processActive())
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3>{{ __('servers.query') }}</h3>
-                </div>
-                <server-status :server-id="{{ $server->id }}">
-                    <div class="d-flex justify-content-center">
-                        <div class="fa-3x">
-                            <i class="fas fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </server-status>
-            </div>
-        </div>
-    @endif
 </div>
 
 @can('server-console-view', $server)

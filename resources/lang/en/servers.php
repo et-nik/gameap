@@ -58,6 +58,8 @@ return [
     'last_check'    => 'Last check',
 
     'query'         => 'Query',
+    'query_players' => 'Players',
+    'query_map'     => 'Map',
 
     'console'       => 'Console',
 

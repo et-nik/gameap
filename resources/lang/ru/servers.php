@@ -58,6 +58,8 @@ return [
     'last_check'    => 'Последняя проверка',
 
     'query'         => 'Query',
+    'query_players' => 'Игроков',
+    'query_map'     => 'Карта',
 
     'console'       => 'Консоль',
 
