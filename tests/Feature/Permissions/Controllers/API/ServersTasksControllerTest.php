@@ -6,6 +6,7 @@ use Gameap\Models\GameMod;
 use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
 use Gameap\Models\User;
+use Gameap\Repositories\UserRepository;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Bouncer;
@@ -20,20 +21,29 @@ class ServersTasksControllerTest extends TestCase
      */
     protected $user;
 
+    /** @var UserRepository */
+    protected $userRepository;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
         $this->be($this->user);
+
+        $this->userRepository = new UserRepository($this->user);
     }
 
     public function testForbidden()
     {
         Bouncer::sync($this->user)->roles(['user']);
+        Bouncer::refresh();
 
         /** @var Server $server */
         $server = factory(Server::class)->create();
+        $this->userRepository->updateServerPermission($this->user, $server, [
+            'game-server-tasks' => 'disallow'
+        ]);
 
         // getList
         $response = $this->get(route('api.servers.get_tasks', $server->id));
@@ -69,9 +79,11 @@ class ServersTasksControllerTest extends TestCase
     public function testAllow()
     {
         Bouncer::sync($this->user)->roles(['user']);
+        Bouncer::refresh();
 
         /** @var Server $server */
         $server = factory(Server::class)->create();
+        $this->userRepository->updateServerPermission($this->user, $server, []);
 
         $this->user->allow('server-tasks', $server);
         $this->user->allow('server-start', $server);
@@ -123,6 +135,7 @@ class ServersTasksControllerTest extends TestCase
     public function testForbiddenCommands($command, $ability)
     {
         Bouncer::sync($this->user)->roles(['user']);
+        Bouncer::refresh();
 
         /** @var Server $server */
         $server = factory(Server::class)->create();
@@ -134,7 +147,7 @@ class ServersTasksControllerTest extends TestCase
         $this->user->allow('server-restart', $server);
         $this->user->allow('server-update', $server);
 
-        $this->user->disallow($ability, $server);
+        $this->user->forbid($ability, $server);
 
         // store
         $response = $this->post(route('api.servers.add_task', $server->id), [
@@ -162,6 +175,7 @@ class ServersTasksControllerTest extends TestCase
     public function testAllowAdmin()
     {
         Bouncer::sync($this->user)->roles(['admin']);
+        Bouncer::refresh();
 
         /** @var Server $server */
         $server = factory(Server::class)->create();
