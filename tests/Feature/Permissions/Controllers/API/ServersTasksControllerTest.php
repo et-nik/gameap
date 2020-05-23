@@ -129,10 +129,12 @@ class ServersTasksControllerTest extends TestCase
 
         $this->user->allow('server-tasks', $server);
 
-        $ability == 'server-start'      || $this->user->allow('server-start', $server);
-        $ability == 'server-stop'       || $this->user->allow('server-stop', $server);
-        $ability == 'server-restart'    || $this->user->allow('server-restart', $server);
-        $ability == 'server-update'     || $this->user->allow('server-update', $server);
+        $this->user->allow('server-start', $server);
+        $this->user->allow('server-stop', $server);
+        $this->user->allow('server-restart', $server);
+        $this->user->allow('server-update', $server);
+
+        $this->user->disallow($ability, $server);
 
         // store
         $response = $this->post(route('api.servers.add_task', $server->id), [
