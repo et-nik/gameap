@@ -89,6 +89,22 @@ class ServerPolicy
      * @param Server $server
      * @return bool
      */
+    public function tasks(User $user, Server $server)
+    {
+        return $user->can(['game-server-common', 'game-server-tasks'], $server)
+            && (
+                $this->start($user, $server)
+                || $this->stop($user, $server)
+                || $this->restart($user, $server)
+                || $this->update($user, $server)
+            );
+    }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
     public function consoleView(User $user, Server $server)
     {
         return $user->can(['game-server-common', 'game-server-console-view'], $server);
@@ -122,16 +138,6 @@ class ServerPolicy
     public function settings(User $user, Server $server)
     {
         return $user->can(['game-server-common', 'game-server-settings'], $server);
-    }
-
-    /**
-     * @param User $user
-     * @param Server $server
-     * @return bool
-     */
-    public function tasks(User $user, Server $server)
-    {
-        return $user->can(['game-server-common', 'game-server-tasks'], $server);
     }
 
     /**

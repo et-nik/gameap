@@ -45,11 +45,11 @@
                                         name="command"
                                         v-model="command"
                                         v-on:change="formChange">
-                                    <option value="restart">{{ trans('servers.restart') }}</option>
-                                    <option value="start">{{ trans('servers.start') }}</option>
-                                    <option value="stop">{{ trans('servers.stop') }}</option>
-                                    <option value="update">{{ trans('servers.update') }}</option>
-                                    <option value="reinstall">{{ trans('servers.reinstall') }}</option>
+                                    <option v-if="privileges.restart" value="restart">{{ trans('servers.restart') }}</option>
+                                    <option v-if="privileges.start" value="start">{{ trans('servers.start') }}</option>
+                                    <option v-if="privileges.stop" value="stop">{{ trans('servers.stop') }}</option>
+                                    <option v-if="privileges.update" value="update">{{ trans('servers.update') }}</option>
+                                    <option v-if="privileges.update" value="reinstall">{{ trans('servers.reinstall') }}</option>
                                 </select>
 
                                 <span v-if="errors['command']" class="help-block">
@@ -180,7 +180,13 @@
     export default {
         components: { DatePicker },
         props: {
-            serverId: Number
+            serverId: Number,
+            privileges: {
+                start: true,
+                stop: true,
+                restart: true,
+                update: true
+            }
         },
         data: function () {
             return {

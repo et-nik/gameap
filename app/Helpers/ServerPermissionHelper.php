@@ -19,6 +19,7 @@ class ServerPermissionHelper
         'game-server-pause',
         'game-server-update',
         'game-server-files',
+        'game-server-tasks',
         'game-server-settings',
 
         // Console

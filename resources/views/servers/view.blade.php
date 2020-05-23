@@ -39,12 +39,14 @@
             </li>
         @endcan
 
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" data-tab="schedules" href="#schedules">
-                <i class="far fa-calendar-alt"></i>
-                {{ __('servers.task_scheduler') }}
-            </a>
-        </li>
+        @can('server-tasks', $server)
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-tab="schedules" href="#schedules">
+                    <i class="far fa-calendar-alt"></i>
+                    {{ __('servers.task_scheduler') }}
+                </a>
+            </li>
+        @endcan
 
         @can('server-settings', $server)
             <li class="nav-item">
