@@ -121,8 +121,7 @@ class ServersTest extends DuskTestCase
                 ->select('command', $command)
                 ->type('date', '2020-05-26 00:00:00');
             $user->driver->getKeyboard()->sendKeys(WebDriverKeys::ENTER);
-            $user->radio('repeat', '0')
-                ->press(__('main.create'));
+            $user->press(__('main.create'));
             sleep(1);
             $user->assertSee('2020-05-26 00:00:00');
 
@@ -144,8 +143,7 @@ class ServersTest extends DuskTestCase
                 ->select('command', $command)
                 ->type('date', '2020-05-27 00:00:00');
             $user->driver->getKeyboard()->sendKeys(WebDriverKeys::ENTER);
-            $user->radio('repeat', '0')
-                ->press(__('main.create'));
+            $user->press(__('main.create'));
 
             sleep(1);
             $user->assertSee('This action is unauthorized.')
