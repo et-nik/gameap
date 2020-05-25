@@ -31,7 +31,6 @@ abstract class DuskTestCase extends BaseTestCase
     {
         $options = (new ChromeOptions)->addArguments([
             '--disable-gpu',
-            '--disable-dev-shm-usage',
             '--headless',
             '--no-sandbox',
         ]);
