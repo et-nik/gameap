@@ -31,13 +31,14 @@ abstract class DuskTestCase extends BaseTestCase
     {
         $options = (new ChromeOptions)->addArguments([
             '--disable-gpu',
+            '--disable-dev-shm-usage',
             '--headless',
             '--no-sandbox',
         ]);
 
         return RemoteWebDriver::create(
             env('SELENIUM_URL', 'http://127.0.0.1:4444/wd/hub'),
-            DesiredCapabilities::chrome()->setCapability(ChromeOptions::CAPABILITY_W3C, $options)
+            DesiredCapabilities::chrome()->setCapability(ChromeOptions::CAPABILITY, $options)
         );
     }
 }
