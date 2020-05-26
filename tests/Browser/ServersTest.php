@@ -54,16 +54,6 @@ class ServersTest extends DuskTestCase
         ]);
 
         $this->userRepository = new UserRepository($this->userModel);
-
-        // Test might not work without it
-        // I faced this problem and couldn't resolve:
-        // * https://github.com/laravel/dusk/issues/105
-        // * https://github.com/chilio/laravel-dusk-ci/issues/38
-        // * https://github.com/laravel/dusk/issues/588
-        // * https://github.com/SeleniumHQ/selenium/issues/4818
-        // Testing and working on selenium/standalone-chrome:3.141.59-zirconium image
-        // Might not work on latest image. Sometimes tests pass sometimes not.
-        sleep(1);
     }
 
     public function testTasksView()
@@ -118,7 +108,6 @@ class ServersTest extends DuskTestCase
         $this->userRepository->updateServerPermission($this->userModel, $this->server, []);
 
         $this->browse(function (Browser $admin, Browser $user) use ($command, $ability) {
-            sleep(1);
             $admin->loginAs($this->adminModel);
             $user->loginAs($this->userModel);
 
@@ -156,7 +145,7 @@ class ServersTest extends DuskTestCase
             $user->driver->getKeyboard()->sendKeys(WebDriverKeys::ENTER);
             $user->press(__('main.create'));
 
-            sleep(2);
+            sleep(1);
             $user->assertSee('This action is unauthorized.')
                 ->press('OK');
         });
