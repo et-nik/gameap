@@ -25,10 +25,17 @@ return [
         'game-server-restart'       => 'Restart Game Server',
         'game-server-pause'         => 'Pause Game Server',
         'game-server-update'        => 'Update Game Server',
+        'game-server-files'         => 'Access to filemanager',
+        'game-server-tasks'         => 'Access to task scheduler',
+        'game-server-settings'      => 'Access to settings',
+
+        // Console
         'game-server-console-view'  => 'Access to read server console',
         'game-server-console-send'  => 'Access to send console commands',
-        'game-server-files'         => 'Access to filemanager',
-        'game-server-settings'      => 'Access to settings',
+
+        // RCON
+        'game-server-rcon-console'  => 'RCON console',
+        'game-server-rcon-players'  => 'RCON players manage',
     ],
 
     'server_permission_edit' => 'Edit Server Permission',

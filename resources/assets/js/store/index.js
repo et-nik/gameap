@@ -6,6 +6,12 @@ import servers from './servers';
 import games from './games';
 import gameMods from './gameMods';
 
+import activeTab from './activeTab';
+
+// Rcon
+import rconConsole from './rcon/console'
+import rconPlayers from './rcon/players'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -14,5 +20,11 @@ export default new Vuex.Store({
         servers,
         games,
         gameMods,
+
+        activeTab,
+
+        // Rcon
+        rconConsole,
+        rconPlayers,
     },
 })

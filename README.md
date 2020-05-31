@@ -45,14 +45,17 @@ Supported OS
 |                       |   2016    | ✅        |
 |                       |   2012    | ✅        |
 |                       |   2008    | ✅        |
-| Debian                | 9 / stretch| ✅       |
+| Debian                | 10 / buster| ✅       |
+|                       | 9 / stretch| ✅       |
 |                       | 8 / jessie | ✅       |
 |                       | 7 / wheezy | ✅       |
-| Ubuntu                | 18.04     | ✅       |
+| Ubuntu                | 20.04     | ✅       |
+|                       | 18.04     | ✅       |
 |                       | 16.04     | ✅       |
 |                       | 14.04     | ✅       |
 |                       | 12.04     | ✅       |
-| CentOS                | 7         | ✅       |
+| CentOS                | 8         | ✅       |
+|                       | 7         | ✅       |
 |                       | 6         | ✅       |
 
 Supported games
@@ -82,5 +85,4 @@ Friends with
 TODO
 ------
 
-- [ ] Sheldules
 - [ ] Autoconverting from old GameAP versions

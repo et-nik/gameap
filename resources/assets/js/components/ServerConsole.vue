@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="terminal-box p-3 m-2">
-            <div id="terminalConsole" ref="terminalConsole" class="terminal">
-                {{ console }}
-            </div>
+            <div id="terminalConsole" ref="terminalConsole" class="terminal">{{ console }}</div>
             <div class="form-group m-0">
                 <div class="input-group">
                     <div class="terminal-input">
@@ -26,6 +24,10 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
+    const ACTIVE_CONSOLE_TABS = ['main', ''];
+
     export default {
         props: {
             serverId: Number,
@@ -45,10 +47,13 @@
                 if (this.autoScroll) {
                     this.$refs.terminalConsole.scrollTop = this.$refs.terminalConsole.scrollHeight;
                 }
-                
             },
             getConsole() {
                 if (!this.updateConsole) {
+                    return;
+                }
+
+                if (!ACTIVE_CONSOLE_TABS.includes(this.activeTabName)) {
                     return;
                 }
                 
@@ -80,6 +85,11 @@
                         gameap.alert(error.response.data.message);
                 }.bind(this));
             },
+        },
+        computed: {
+            ...mapState({
+                activeTabName: state => state.activeTab.name,
+            }),
         },
         mounted() {
             this.getConsole();

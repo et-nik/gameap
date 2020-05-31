@@ -45,7 +45,12 @@ class ServersTasksControllerTest extends TestCase
         $this->repositoryMock->shouldReceive('update')->andReturnNull();
 
         $requestMock = Mockery::mock(ServerTaskUpdateRequest::class);
-        $requestMock->shouldReceive('all')->andReturn([]);
+        $requestMock->shouldReceive('all')->andReturn([
+            'command'       => 'start',
+            'repeat'        => '0',
+            'repeat_period' => '1 day',
+            'execute_date'  => '2020-05-23 00:00:00',
+        ]);
 
         $serverTask = new ServerTask();
         $serverTask->id = 1337;
@@ -87,7 +92,13 @@ class ServersTasksControllerTest extends TestCase
     public function testStore()
     {
         $requestMock = Mockery::mock(ServerTaskCreateRequest::class);
-        $requestMock->shouldReceive('all')->andReturn([]);
+        $requestMock->shouldReceive('all')->andReturn([
+            'server_id'     => Server::all()->random()->id,
+            'command'       => 'start',
+            'repeat'        => '0',
+            'repeat_period' => '1 day',
+            'execute_date'  => '2020-05-23 00:00:00',
+        ]);
 
         $this->repositoryMock->shouldReceive('store')->andReturn(1337);
 

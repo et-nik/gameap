@@ -1,25 +1,26 @@
 <template>
-    <div>
-        <button class="btn btn-sm btn-success m-1" data-toggle="modal" v-on:click="createTask()">{{ trans('main.add')}}</button>
+    <div id="server-task-component">
+        <button class="btn btn-success m-1" data-toggle="modal" v-on:click="createTask()">{{ trans('main.add')}}</button>
+        <hr>
         <table class="table table-striped table-bordered">
             <thead>
-            <tr>
-                <td>{{ trans('servers_tasks.task') }}</td>
-                <td>{{ trans('servers_tasks.date') }}</td>
-                <td>{{ trans('servers_tasks.repeat') }}</td>
-                <td>{{ trans('main.actions') }}</td>
-            </tr>
+                <tr>
+                    <td>{{ trans('servers_tasks.task') }}</td>
+                    <td>{{ trans('servers_tasks.date') }}</td>
+                    <td>{{ trans('servers_tasks.repeat') }}</td>
+                    <td>{{ trans('main.actions') }}</td>
+                </tr>
             </thead>
             <tbody v-for="(value, key) in tasks">
-            <tr>
-                <td>{{ value.command }}</td>
-                <td>{{ value.execute_date }}</td>
-                <td>{{ humanRepeatText(value.repeat) }}</td>
-                <td>
-                    <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">{{ trans('main.edit') }}</button>
-                    <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">{{ trans('main.delete') }}</button>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ value.command }}</td>
+                    <td>{{ value.execute_date }}</td>
+                    <td>{{ humanRepeatText(value.repeat) }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">{{ trans('main.edit') }}</button>
+                        <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">{{ trans('main.delete') }}</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
@@ -44,11 +45,11 @@
                                         name="command"
                                         v-model="command"
                                         v-on:change="formChange">
-                                    <option value="restart">{{ trans('servers.restart') }}</option>
-                                    <option value="start">{{ trans('servers.start') }}</option>
-                                    <option value="stop">{{ trans('servers.stop') }}</option>
-                                    <option value="update">{{ trans('servers.update') }}</option>
-                                    <option value="reinstall">{{ trans('servers.reinstall') }}</option>
+                                    <option v-if="privileges.restart" value="restart">{{ trans('servers.restart') }}</option>
+                                    <option v-if="privileges.start" value="start">{{ trans('servers.start') }}</option>
+                                    <option v-if="privileges.stop" value="stop">{{ trans('servers.stop') }}</option>
+                                    <option v-if="privileges.update" value="update">{{ trans('servers.update') }}</option>
+                                    <option v-if="privileges.update" value="reinstall">{{ trans('servers.reinstall') }}</option>
                                 </select>
 
                                 <span v-if="errors['command']" class="help-block">
@@ -179,7 +180,13 @@
     export default {
         components: { DatePicker },
         props: {
-            serverId: Number
+            serverId: Number,
+            privileges: {
+                start: true,
+                stop: true,
+                restart: true,
+                update: true
+            }
         },
         data: function () {
             return {

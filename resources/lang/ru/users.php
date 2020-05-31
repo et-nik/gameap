@@ -26,9 +26,16 @@ return [
         'game-server-pause'         => 'Пауза игрового сервера',
         'game-server-update'        => 'Обновление игрового сервера',
         'game-server-console-view'  => 'Чтение консоли',
+        'game-server-tasks'         => 'Доступ к заданиям сервера',
+        'game-server-settings'      => 'Доступ к настройкам',
+
+        // Console
         'game-server-console-send'  => 'Отправка комманд в консоль',
         'game-server-files'         => 'Доступ к файловому менеджеру',
-        'game-server-settings'         => 'Доступ к настройкам',
+
+        // RCON
+        'game-server-rcon-console'  => 'RCON консоль',
+        'game-server-rcon-players'  => 'RCON управление игроками',
     ],
 
     'server_permission_edit' => 'Привилегии сервера',

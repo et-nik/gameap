@@ -48,6 +48,8 @@ return [
     'files'         => 'Files',
     'admin'         => 'Admin',
 
+    'task_scheduler' => 'Task Scheduler',
+
     'autostart_setting' => 'Autostart on crash',
 
     'process_status' => 'Proccess status',
@@ -56,6 +58,8 @@ return [
     'last_check'    => 'Last check',
 
     'query'         => 'Query',
+    'query_players' => 'Players',
+    'query_map'     => 'Map',
 
     'console'       => 'Console',
 

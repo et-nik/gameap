@@ -89,6 +89,22 @@ class ServerPolicy
      * @param Server $server
      * @return bool
      */
+    public function tasks(User $user, Server $server)
+    {
+        return $user->can(['game-server-common', 'game-server-tasks'], $server)
+            && (
+                $this->start($user, $server)
+                || $this->stop($user, $server)
+                || $this->restart($user, $server)
+                || $this->update($user, $server)
+            );
+    }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
     public function consoleView(User $user, Server $server)
     {
         return $user->can(['game-server-common', 'game-server-console-view'], $server);
@@ -122,5 +138,47 @@ class ServerPolicy
     public function settings(User $user, Server $server)
     {
         return $user->can(['game-server-common', 'game-server-settings'], $server);
+    }
+
+    /**
+     * Main Rcon
+     *
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
+    public function rcon(User $user, Server $server)
+    {
+        if (!$user->can('game-server-common', $server)) {
+            return false;
+        }
+
+        return $user->can('game-server-rcon-console', $server)
+            || $user->can('game-server-rcon-players', $server);
+    }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
+    public function rconConsole(User $user, Server $server)
+    {
+        return $user->can(['game-server-common', 'game-server-rcon-console'], $server);
+    }
+
+    /**
+     * @param User $user
+     * @param Server $server
+     * @return bool
+     */
+    public function rconPlayers(User $user, Server $server)
+    {
+        if (!$user->can('game-server-common', $server)) {
+            return false;
+        }
+
+        return $user->can('game-server-rcon-console')
+            || $user->can('game-server-rcon-players', $server);
     }
 }

@@ -26,19 +26,29 @@ class ServersTasksController extends AuthController
     /**
      * @param Server $server
      * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function getList(Server $server)
     {
+        $this->authorize('server-tasks', $server);
+
         return $this->repository->getTasks($server->id);
     }
 
     /**
      * @param ServerTaskCreateRequest $request
      * @return JsonResponse
-     * @throws RepositoryValidationException
+     * @throws RepositoryValidationException|\Illuminate\Auth\Access\AuthorizationException
      */
     public function store(ServerTaskCreateRequest $request)
     {
+        $fields = $request->all();
+
+        $server = Server::findOrFail($fields['server_id']);
+        $this->authorize('server-tasks', $server);
+
+        $this->commandAuthorize($fields['command'], $server);
+
         $serverTaskId = $this->repository->store($request->all());
 
         return response()->json([
@@ -52,12 +62,17 @@ class ServersTasksController extends AuthController
      * @param Server $server
      * @param ServerTask $serverTask
      * @return JsonResponse
-     * @throws RepositoryValidationException
+     * @throws RepositoryValidationException|\Illuminate\Auth\Access\AuthorizationException
      * @noinspection PhpUnusedParameterInspection
      */
     public function update(ServerTaskUpdateRequest $request, Server $server, ServerTask $serverTask)
     {
-        $this->repository->update($serverTask->id, $request->all());
+        $fields = $request->all();
+
+        $this->authorize('server-tasks', $server);
+        $this->commandAuthorize($fields['command'], $server);
+
+        $this->repository->update($serverTask->id, $fields);
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
@@ -71,7 +86,36 @@ class ServersTasksController extends AuthController
      */
     public function destroy(Server $server, ServerTask $serverTask)
     {
+        $this->authorize('server-tasks', $server);
+
         $serverTask->delete();
         return response()->json(['message' => 'success'], Response::HTTP_OK);
+    }
+
+    /**
+     * @param string $command
+     * @param Server $server
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    private function commandAuthorize(string $command, Server $server): void
+    {
+        switch ($command) {
+            case 'start':
+                $this->authorize('server-start', $server);
+                break;
+
+            case 'stop':
+                $this->authorize('server-stop', $server);
+                break;
+
+            case 'restart':
+                $this->authorize('server-restart', $server);
+                break;
+
+            case 'update':
+            case 'reinstall':
+                $this->authorize('server-update', $server);
+                break;
+        }
     }
 }
