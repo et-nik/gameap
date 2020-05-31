@@ -155,7 +155,7 @@ class GameModsTableSeeder extends Seeder
             'vars' => '[{"var":"version","default":"1.14.3","info":"Minecraft version"},{"var":"core_mod","default":"vanilla","info":"Core"},{"var":"core_mod_version","default":null,"info":"Core mod version"}]',
             'local_repository' => '',
             'remote_repository' => 'http://files.gameap.ru/minecraft/minecraft-runner.tar.gz',
-            'default_start_cmd_linux' => './mcrun.sh run --version={version} --core-mod={core_mod} --core-mod-version={core_mod_version} --ip={ip} --port={port} --query-port={query_port} --rcon-port={rcon_port}',
+            'default_start_cmd_linux' => './mcrun.sh run --version={version} --core-mod={core_mod} --core-mod-version={core_mod_version} --ip={ip} --port={port} --query-port={query_port} --rcon-port={rcon_port} --rcon-password={rcon_password}',
             'passwd_cmd' => '',
             'sendmsg_cmd' => '',
             'chmap_cmd' => '',

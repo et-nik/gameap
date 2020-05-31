@@ -287,7 +287,7 @@ class GamesTableSeeder extends Seeder
             'code' => 'samp',
             'start_code' => 'samp',
             'name' => 'GTA: San-Andreas Multiplayer',
-            'engine' => 'mta'
+            'engine' => 'samp`'
         ]);
         
         DB::table('games')->insert([
