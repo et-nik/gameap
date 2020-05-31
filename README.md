@@ -54,7 +54,8 @@ Supported OS
 |                       | 16.04     | ✅       |
 |                       | 14.04     | ✅       |
 |                       | 12.04     | ✅       |
-| CentOS                | 7         | ✅       |
+| CentOS                | 8         | ✅       |
+|                       | 7         | ✅       |
 |                       | 6         | ✅       |
 
 Supported games
@@ -84,5 +85,4 @@ Friends with
 TODO
 ------
 
-- [ ] Sheldules
 - [ ] Autoconverting from old GameAP versions
