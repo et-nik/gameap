@@ -21,7 +21,7 @@
         "fzaninotto/faker": "~1.4",
         "gameap/gameap-file-manager": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
-        "joshbrw/laravel-module-installer": "^0.1.4",
+        "joshbrw/laravel-module-installer": "^1.0.1",
         "knik/flysystem-gameap": "*",
         "knik/g-rcon": "*",
         "knik/gameap-daemon-client": "^0.4",
