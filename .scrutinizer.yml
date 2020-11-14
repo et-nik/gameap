@@ -32,3 +32,7 @@ tools:
     php_cpd:
         enabled: true
         excluded_dirs: [vendor, spec, stubs]
+build:
+    dependencies:
+        before:
+            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/scrutinizer/bin --filename=composer
