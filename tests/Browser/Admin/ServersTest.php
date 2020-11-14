@@ -54,13 +54,20 @@ class ServersTest extends DuskTestCase
 
             $this->assertDatabaseHas('servers', [
                 'name'              => 'Test',
-                'game_id'           => 'test'
+                'game_id'           => 'test',
+                'installed'         => 1,
             ]);
         });
     }
 
     public function testEdit()
     {
+        $this->assertDatabaseHas('servers', [
+            'name'              => 'Test',
+            'game_id'           => 'test',
+            'installed'         => 1,
+        ]);
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
                 ->visit('/home')
@@ -112,6 +119,12 @@ class ServersTest extends DuskTestCase
 
     public function testConsole()
     {
+        $this->assertDatabaseHas('servers', [
+            'name'              => 'Test Edited',
+            'game_id'           => 'test',
+            'installed'         => 1,
+        ]);
+
         $this->browse(function (Browser $admin) {
             $admin->loginAs(User::find(1));
 
@@ -150,6 +163,12 @@ class ServersTest extends DuskTestCase
 
       public function testStop()
       {
+          $this->assertDatabaseHas('servers', [
+              'name'              => 'Test Edited',
+              'game_id'           => 'test',
+              'installed'         => 1,
+          ]);
+
           $this->browse(function (Browser $admin) {
               $admin->loginAs(User::find(1));
 
@@ -178,6 +197,12 @@ class ServersTest extends DuskTestCase
 
     public function testFilemanager()
     {
+        $this->assertDatabaseHas('servers', [
+            'name'              => 'Test Edited',
+            'game_id'           => 'test',
+            'installed'         => 1,
+        ]);
+
         $this->browse(function (Browser $admin) {
             $admin->loginAs(User::find(1));
 
