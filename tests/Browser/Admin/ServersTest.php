@@ -78,12 +78,19 @@ class ServersTest extends DuskTestCase
 
         $this->assertDatabaseHas('servers', [
             'name'              => 'Test Edited',
-            'game_id'           => 'test'
+            'game_id'           => 'test',
+            'installed'         => 1,
         ]);
     }
 
     public function testStart()
     {
+        $this->assertDatabaseHas('servers', [
+            'name'              => 'Test Edited',
+            'game_id'           => 'test',
+            'installed'         => 1,
+        ]);
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
                 ->visit('/home')
