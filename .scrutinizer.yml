@@ -33,6 +33,5 @@ tools:
         enabled: true
         excluded_dirs: [vendor, spec, stubs]
 build:
-    dependencies:
-        before:
-            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/scrutinizer/bin --filename=composer
+    environment:
+        composer: 2.0.7
