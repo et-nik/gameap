@@ -52,6 +52,11 @@ class ServersTest extends DuskTestCase
 
             $browser->assertSee('Exited with 0');
 
+            $browser->screenshot("testCreate-gdaemonTask");
+
+            $browser->visit('/servers');
+            $browser->screenshot("testCreate-mainServersList");
+
             $this->assertDatabaseHas('servers', [
                 'name'              => 'Test',
                 'game_id'           => 'test',
