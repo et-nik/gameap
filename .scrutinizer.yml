@@ -35,5 +35,4 @@ tools:
 build:
     dependencies:
         override:
-            - composer self-update --2
-
+            - sudo composer self-update --2
