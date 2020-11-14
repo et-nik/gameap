@@ -34,5 +34,5 @@ tools:
         excluded_dirs: [vendor, spec, stubs]
 build:
     dependencies:
-        override:
-            - sudo composer self-update --2
+        before:
+            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/scrutinizer/bin --filename=composer
