@@ -36,3 +36,4 @@ build:
     dependencies:
         override:
             - composer self-update --2
+
