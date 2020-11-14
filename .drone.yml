@@ -42,7 +42,7 @@ steps:
       - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
       - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/webserver/" .env
       - ./artisan migrate:fresh --seed
-      - ./artisan dusk
+      - ./artisan dusk --debug
       - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/localhost/" .env
       - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
       - mv .env .env.example
