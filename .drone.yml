@@ -137,6 +137,7 @@ steps:
       secret_key:
         from_secret: s3_secret_key
       source:
+        - tests/Browser/Pages/*
         - tests/Browser/screenshots/*
         - /var/logs/gameap-daemon/*
       target: /${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}
