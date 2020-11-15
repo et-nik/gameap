@@ -52,6 +52,7 @@ class ServersTest extends DuskTestCase
 
             $browser->assertSee('Exited with 0');
 
+            $browser->resize(1100, 2500);
             $browser->screenshot("testCreate-gdaemonTask");
 
             $browser->visit('/servers');
