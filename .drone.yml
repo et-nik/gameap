@@ -139,12 +139,12 @@ steps:
       source:
         - tests/Browser/Pages/*
         - tests/Browser/screenshots/*
-        - /var/logs/gameap-daemon/*
+        - tests/logs/gameap-daemon/*
       target: /${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}
       path_style: true
     volumes:
       - name: daemon_logs
-        path: /var/log/gameap-daemon
+        path: tests/log/gameap-daemon
     when:
       status:
         - failure
