@@ -2,31 +2,51 @@ version: "3"
 services:
   mysql:
     image: mariadb:latest
-    container_name: gameap.db
+    container_name: gameap_db
     hostname: gameap.db
+    ports:
+      - "127.0.0.1:13306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=gameapdbsuperduperpass
       - MYSQL_DATABASE=gameap
       - MYSQL_USER=gameap
       - MYSQL_PASSWORD=gameap
     restart: always
-  web:
+  nginx:
     image: nginx:latest
-    container_name: gameap.web
+    container_name: gameap_nginx
     hostname: gameap.web
     ports:
-      - "127.0.0.1:80:80"
-      - "127.0.0.1:443:443"
+      - "127.0.0.1:2080:80"
     volumes:
       - ./:/var/www
       - ./.dev/nginx-configs/default.conf:/etc/nginx/conf.d/default.conf
     restart: always
   php:
-    image: knik/php:7.2-fpm-stretch
-    container_name: gameap.php
+    build: ./.dev/docker/php
+    container_name: gameap_php
     hostname: gameap.php
     volumes:
       - ./:/var/www
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_DATABASE: gameap
+      DB_USERNAME: gameap
+      DB_PASSWORD: gameap
+      XDEBUG_CONFIG: remote_enable=1 remote_mode=req remote_port=9001 remote_host=172.17.0.1
+      ADMIN_PASSWORD: fpwPOuZD
+      DAEMON_SETUP_TOKEN: test_auto_setup_token
     links:
       - mysql:db
     restart: always
+  daemon:
+    build: ./.dev/docker/gdaemon
+    container_name: gameap_daemon
+    ports:
+      - "127.0.0.1:2022:22"
+    cap_add:
+      - sys_ptrace
+    restart: always
+    links:
+      - nginx:gameap

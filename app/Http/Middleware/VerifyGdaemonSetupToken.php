@@ -11,7 +11,11 @@ class VerifyGdaemonSetupToken
 {
     public function handle($request, Closure $next)
     {
-        $autoSetupToken = Cache::get('gdaemonAutoSetupToken');
+        $autoSetupToken = env('DAEMON_SETUP_TOKEN');
+
+        if (empty($autoSetupToken)) {
+            $autoSetupToken = Cache::get('gdaemonAutoSetupToken');
+        }
 
         if ($request->route('token') != $autoSetupToken) {
             throw new InvalidSetupTokenExeption("Invalid token");
