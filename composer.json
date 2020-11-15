@@ -33,7 +33,7 @@
         "laravel/tinker": "~2.0",
         "laravelcollective/html": "^6",
         "league/flysystem": "^1.0",
-        "mavinoo/laravel-batch": "2.1.4",
+        "mavinoo/laravel-batch": "2.2.2",
         "moontoast/math": "^1.1",
         "nwidart/laravel-modules": "^6.0",
         "phpseclib/phpseclib": "~2.0",
