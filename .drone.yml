@@ -52,6 +52,8 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+      - mkdir tests/daemon-logs
+      - cp /var/log/gameap-daemon/* tests/daemon-logs/
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
@@ -135,6 +137,7 @@ steps:
         from_secret: s3_secret_key
       source:
         - tests/Browser/screenshots/*
+        - tests/daemon-logs/*
       target: /${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}
       path_style: true
     when:
