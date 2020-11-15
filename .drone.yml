@@ -52,7 +52,6 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
-      - cp /var/log/gameap-daemon
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
