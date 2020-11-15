@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce0bc6bfe586cf85144e11646d8879ab",
+    "content-hash": "15fdb7a60d920d6b6025a1751cd4d842",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -658,16 +658,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.23",
+            "version": "2.1.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "5fa792ad1853ae2bc60528dd3e5cbf4542d3c1df"
+                "reference": "ca90a3291eee1538cd48ff25163240695bd95448"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/5fa792ad1853ae2bc60528dd3e5cbf4542d3c1df",
-                "reference": "5fa792ad1853ae2bc60528dd3e5cbf4542d3c1df",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/ca90a3291eee1538cd48ff25163240695bd95448",
+                "reference": "ca90a3291eee1538cd48ff25163240695bd95448",
                 "shasum": ""
             },
             "require": {
@@ -714,9 +714,15 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/2.1.23"
+                "source": "https://github.com/egulias/EmailValidator/tree/2.1.24"
             },
-            "time": "2020-10-31T20:37:35+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/egulias",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-11-14T15:56:27+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -2673,32 +2679,35 @@
         },
         {
             "name": "mavinoo/laravel-batch",
-            "version": "v2.1.4",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mavinoo/laravelBatch.git",
-                "reference": "f751568dda810dca76aa28f5115860e16adb600e"
+                "reference": "c6949ca4ce60712389cd405b8717c9732ed3018a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mavinoo/laravelBatch/zipball/f751568dda810dca76aa28f5115860e16adb600e",
-                "reference": "f751568dda810dca76aa28f5115860e16adb600e",
+                "url": "https://api.github.com/repos/mavinoo/laravelBatch/zipball/c6949ca4ce60712389cd405b8717c9732ed3018a",
+                "reference": "c6949ca4ce60712389cd405b8717c9732ed3018a",
                 "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3@dev"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Mavinoo\\LaravelBatch\\LaravelBatchServiceProvider"
+                        "Mavinoo\\Batch\\BatchServiceProvider"
                     ],
                     "aliases": {
-                        "Batch": "Mavinoo\\LaravelBatch\\LaravelBatchFacade"
+                        "Batch": "Mavinoo\\Batch\\BatchFacade"
                     }
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Mavinoo\\LaravelBatch\\": "src/"
+                    "Mavinoo\\Batch\\": "src/"
                 },
                 "files": [
                     "src/Common/Helpers.php"
@@ -2711,15 +2720,15 @@
             "authors": [
                 {
                     "name": "Mohammad Ghanbari",
-                    "email": "wordpress.iran@gmail.com"
+                    "email": "mavin.developer@gmail.com"
                 }
             ],
             "description": "Insert and update batch (bulk) in laravel",
             "support": {
                 "issues": "https://github.com/mavinoo/laravelBatch/issues",
-                "source": "https://github.com/mavinoo/laravelBatch/tree/master"
+                "source": "https://github.com/mavinoo/laravelBatch/tree/v2.2.2"
             },
-            "time": "2020-01-13T12:12:46+00:00"
+            "time": "2020-09-15T13:56:00+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3097,16 +3106,16 @@
         },
         {
             "name": "nyholm/psr7",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nyholm/psr7.git",
-                "reference": "21b71a31eab5c0c2caf967b9c0fd97020254ed75"
+                "reference": "a272953743c454ac4af9626634daaf5ab3ce1173"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/21b71a31eab5c0c2caf967b9c0fd97020254ed75",
-                "reference": "21b71a31eab5c0c2caf967b9c0fd97020254ed75",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/a272953743c454ac4af9626634daaf5ab3ce1173",
+                "reference": "a272953743c454ac4af9626634daaf5ab3ce1173",
                 "shasum": ""
             },
             "require": {
@@ -3120,9 +3129,9 @@
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "http-interop/http-factory-tests": "dev-master",
+                "http-interop/http-factory-tests": "^0.8",
                 "php-http/psr7-integration-tests": "^1.0",
-                "phpunit/phpunit": "^7.5",
+                "phpunit/phpunit": "^7.5 || 8.5 || 9.4",
                 "symfony/error-handler": "^4.4"
             },
             "type": "library",
@@ -3151,14 +3160,14 @@
                 }
             ],
             "description": "A fast PHP7 implementation of PSR-7",
-            "homepage": "http://tnyholm.se",
+            "homepage": "https://tnyholm.se",
             "keywords": [
                 "psr-17",
                 "psr-7"
             ],
             "support": {
                 "issues": "https://github.com/Nyholm/psr7/issues",
-                "source": "https://github.com/Nyholm/psr7/tree/1.3.1"
+                "source": "https://github.com/Nyholm/psr7/tree/1.3.2"
             },
             "funding": [
                 {
@@ -3170,7 +3179,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-06-13T15:59:10+00:00"
+            "time": "2020-11-14T17:35:34+00:00"
         },
         {
             "name": "opis/closure",

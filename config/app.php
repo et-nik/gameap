@@ -191,7 +191,7 @@ return [
         /*
          * Other packages
          */
-        Mavinoo\LaravelBatch\LaravelBatchServiceProvider::class,
+        Mavinoo\Batch\BatchServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
     ],
 
@@ -246,7 +246,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
 
-        'Batch' => Mavinoo\LaravelBatch\LaravelBatchFacade::class,
+        'Batch' => Mavinoo\Batch\BatchFacade::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
     ],
 
