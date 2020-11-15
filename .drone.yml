@@ -54,7 +54,7 @@ steps:
       - rm -rf storage/logs/*
     volumes:
       - name: daemon_logs
-        path: /var/logs/gameap-daemon
+        path: /var/log/gameap-daemon
 
   - name: composer-production
     image: knik/php:7.2-fpm-stretch
@@ -143,7 +143,7 @@ steps:
       path_style: true
     volumes:
       - name: daemon_logs
-        path: /var/logs/gameap-daemon
+        path: /var/log/gameap-daemon
     when:
       status:
         - failure
