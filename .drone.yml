@@ -137,14 +137,13 @@ steps:
       secret_key:
         from_secret: s3_secret_key
       source:
-        - tests/Browser/Pages/*
         - tests/Browser/screenshots/*
-        - tests/logs/gameap-daemon/*
+        - /var/log/gameap-daemon/*
       target: /${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}
       path_style: true
     volumes:
       - name: daemon_logs
-        path: tests/log/gameap-daemon
+        path: /var/log/gameap-daemon
     when:
       status:
         - failure
