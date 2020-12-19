@@ -17,7 +17,7 @@ steps:
       - npm run prod
 
   - name: tests
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - mv .env.example .env
       - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
