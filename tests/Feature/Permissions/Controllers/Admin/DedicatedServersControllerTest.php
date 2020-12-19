@@ -23,58 +23,91 @@ class DedicatedServersControllerTest extends TestCase
         $this->be($this->user);
     }
 
-    public function testAllow()
+    public function testAllowIndex()
     {
         Bouncer::sync($this->user)->roles(['admin']);
 
-        // Index
         $response = $this->get(route('admin.dedicated_servers.index'));
+
         $response->assertStatus(Response::HTTP_OK);
         $response->assertViewIs('admin.dedicated_servers.list');
+    }
 
-        // Show
+    public function testAllowShow()
+    {
+        Bouncer::sync($this->user)->roles(['admin']);
+
         $response = $this->get(route('admin.dedicated_servers.show', 1));
+
         $response->assertStatus(Response::HTTP_OK);
         $response->assertViewIs('admin.dedicated_servers.view');
+    }
 
-        // Edit
+    public function testAllowEdit()
+    {
+        Bouncer::sync($this->user)->roles(['admin']);
+
         $response = $this->get(route('admin.dedicated_servers.edit', 1));
+
         $response->assertStatus(Response::HTTP_OK);
         $response->assertViewIs('admin.dedicated_servers.edit');
     }
 
-    public function testForbidden()
+    public function testForbiddenIndex()
     {
         Bouncer::sync($this->user)->roles(['admin']);
         Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
 
-        // Index
         $response = $this->get(route('admin.dedicated_servers.index'));
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
 
-        // Show
-        $response = $this->get(route('admin.dedicated_servers.show', 1));
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        // Edit
-        $response = $this->get(route('admin.dedicated_servers.edit', 1));
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function testForbiddenUser()
+    public function testForbiddenShow()
+    {
+        Bouncer::sync($this->user)->roles(['admin']);
+        Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+
+        $response = $this->get(route('admin.dedicated_servers.show', 1));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testForbiddenEdit()
+    {
+        Bouncer::sync($this->user)->roles(['admin']);
+        Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+
+        $response = $this->get(route('admin.dedicated_servers.edit', 1));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testForbiddenUserIndex()
     {
         Bouncer::sync($this->user)->roles(['user']);
 
-        // Index
         $response = $this->get(route('admin.dedicated_servers.index'));
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
 
-        // Show
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testForbiddenUserShow()
+    {
+        Bouncer::sync($this->user)->roles(['user']);
+
         $response = $this->get(route('admin.dedicated_servers.show', 1));
+
         $response->assertStatus(Response::HTTP_FORBIDDEN);
 
-        // Edit
+    }
+
+    public function testForbiddenUserEdit()
+    {
+        Bouncer::sync($this->user)->roles(['user']);
+
         $response = $this->get(route('admin.dedicated_servers.edit', 1));
+
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
