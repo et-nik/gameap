@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Bouncer;
 use DB;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
