@@ -9,6 +9,7 @@ cache:
 php:
   - 7.3
   - 7.4
+  - 8
   - nightly
 
 services:
@@ -29,8 +30,8 @@ script:
   - vendor/bin/phpunit --verbose
 
 after_script:
-  - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
 
 matrix:
   fast_finish: true
