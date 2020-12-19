@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
+use DB;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 use Gameap\Services\CertificateService;
 use Gameap\Repositories\ClientCertificateRepository;
 

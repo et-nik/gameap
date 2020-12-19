@@ -1,12 +1,15 @@
 <?php
 
+namespace Database\Seeders;
+
+use DB;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\GameMod;
 use Gameap\Models\Server;
-use Illuminate\Database\Seeder;
 use Gameap\Models\User;
+use Illuminate\Database\Seeder;
 
 class PermissionsSeeder extends Seeder
 {
