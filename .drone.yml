@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: composer
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - apt -y update && apt install -y git
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -34,7 +34,7 @@ steps:
       - rm -rf storage/logs/*
 
   - name: browser-tests
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     environment:
       SELENIUM_URL: http://selenium:4444/wd/hub
     commands:
@@ -57,7 +57,7 @@ steps:
         path: /var/log/gameap-daemon
 
   - name: composer-production
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
       - composer install --no-dev --optimize-autoloader --no-ansi
@@ -79,7 +79,7 @@ steps:
         - master
 
   - name: archive-shared
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - apt update && apt -y install default-mysql-client zip unzip rsync
       - rm -rf storage/app/certs
