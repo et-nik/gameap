@@ -1,4 +1,4 @@
-FROM knik/php:7.2-fpm-alpine
+FROM knik/php:7.3-fpm-alpine
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000

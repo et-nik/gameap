@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Factories;
+
 use Faker\Generator as Faker;
+use Gameap\Models\User;
 use Illuminate\Support\Str;
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
@@ -16,7 +19,7 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Gameap\Models\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     static $password;
 
     return [

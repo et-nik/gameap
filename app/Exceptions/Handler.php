@@ -3,9 +3,9 @@
 namespace Gameap\Exceptions;
 
 use Exception;
+use Gameap\Exceptions\Repositories\RepositoryValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
-use Gameap\Exceptions\Repositories\RepositoryValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(\Throwable $exception)
     {
         parent::report($exception);
     }
@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, \Throwable $exception)
     {
         if ($request->expectsJson() || $request->isJson()) {
             return $this->renderJson($request, $exception);
