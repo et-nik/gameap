@@ -1,25 +1,28 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Services\Unit;
 
 use Carbon\Carbon;
+use GameQ\GameQ;
+use Gameap\Exceptions\Services\InvalidCommandException;
+use Gameap\Exceptions\Services\ServerInactiveException;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
-use GameQ\GameQ;
-use Knik\Gameap\GdaemonCommands;
-use Mockery\MockInterface;
-use Tests\TestCase;
-use Mockery;
-use Gameap\Services\ServerService;
-use Gameap\Models\Server;
 use Gameap\Models\Game;
+use Gameap\Models\Server;
+use Gameap\Services\ServerService;
+use Knik\Gameap\GdaemonCommands;
+use Mockery;
+use Mockery\MockInterface;
+use PHPUnit\Framework\Assert;
+use Tests\TestCase;
 
 /**
  * @covers \Gameap\Services\ServerService <extended>
  */
 class ServerServiceTest extends TestCase
 {
-    public function adapterProviderGameQ()
+    public function adapterProviderGameQ(): array
     {
         $mockGameQ = Mockery::mock('GameQ\GameQ');
         $mockGameQ->shouldReceive('setOption')->andReturnSelf();
@@ -45,7 +48,7 @@ class ServerServiceTest extends TestCase
         ];
     }
 
-    public function testCreateService()
+    public function testCreateService(): void
     {
         $mockGameQ = Mockery::mock('GameQ\GameQ');
         $mockGameQ->shouldReceive('setOption')->andReturnSelf();
@@ -65,8 +68,9 @@ class ServerServiceTest extends TestCase
      * @param ServerService $serverService
      * @param GameQ|MockInterface $mock
      * @param Server $server
+     * @throws \Exception
      */
-    public function testQuery($serverService, $mock, $server)
+    public function testQuery(ServerService $serverService, $mock, Server $server): void
     {
         $host = "{$server->server_ip}:{$server->query_port}";
         $mock->shouldReceive('process')->andReturn([
@@ -106,8 +110,9 @@ class ServerServiceTest extends TestCase
      * @param ServerService $serverService
      * @param GameQ|MockInterface $mock
      * @param Server $server
+     * @throws \Exception
      */
-    public function testQueryInvalid($serverService, $mock, $server)
+    public function testQueryInvalid(ServerService $serverService, $mock, Server $server): void
     {
         $mock->shouldReceive('process')->andReturn([
             '1.3.3.7:27015' => [
@@ -129,7 +134,7 @@ class ServerServiceTest extends TestCase
     /**
      * @return array[]
      */
-    public function adapterProviderGdaemon()
+    public function adapterProviderGdaemon(): array
     {
         $clientCertificate = new ClientCertificate();
         $clientCertificate->id = 1;
@@ -149,7 +154,7 @@ class ServerServiceTest extends TestCase
         $server->query_port = 1337;
         $server->rcon_port = 1337;
         $server->dir = 'server01';
-        $server->last_process_check = Carbon::now()->toDateTimeString();
+        $server->last_process_check = Carbon::now()->utc()->toDateTimeString();
         $server->process_active = true;
 
         $server->dedicatedServer = $dedicatedServer;
@@ -172,11 +177,12 @@ class ServerServiceTest extends TestCase
      * @param GdaemonCommands|MockInterface $mock
      * @param Server $server
      */
-    public function testGetConsoleLog($serverService, $mock, $server)
+    public function testGetConsoleLog(ServerService $serverService, $mock, Server $server): void
     {
         $mock->shouldReceive('exec')->andReturn("command result");
 
         $consoleLog = $serverService->getConsoleLog($server);
+
         $this->assertEquals('command result', $consoleLog);
     }
 
@@ -188,47 +194,14 @@ class ServerServiceTest extends TestCase
      * @param $server
      *
      */
-    public function testGetConsoleLogInactiveServer($serverService, $mock, $server)
+    public function testGetConsoleLogInactiveServer(ServerService $serverService, $mock, $server): void
     {
-        $this->expectException(\Gameap\Exceptions\Services\ServerInactiveException::class);
+        $this->expectException(ServerInactiveException::class);
         $server->process_active = false;
 
         $mock->shouldReceive('exec')->andReturn("command result");
+
         $serverService->getConsoleLog($server);
-    }
-
-    /**
-     * @dataProvider adapterProviderGdaemon
-     */
-    public function testSendConsoleCommand($serverService, $mock, $server)
-    {
-        $mock->shouldReceive('exec')
-            ->andReturnUsing(function($command, &$exitCode) {
-                $exitCode = 0;
-                return "command result";
-        });
-
-        $exitCode = null;
-        $result = $serverService->sendConsoleCommand($server, 'ban knik');
-
-        $this->assertTrue($result);
-    }
-
-    /**
-     * @dataProvider adapterProviderGdaemon
-     */
-    public function testSendConsoleCommandFail($serverService, $mock, $server)
-    {
-        $mock->shouldReceive('exec')
-            ->andReturnUsing(function($command, &$exitCode) {
-                $exitCode = 1;
-                return "command result";
-            });
-
-        $exitCode = null;
-        $result = $serverService->sendConsoleCommand($server, 'ban knik');
-
-        $this->assertFalse($result);
     }
 
     /**
@@ -237,9 +210,46 @@ class ServerServiceTest extends TestCase
      * @param $mock
      * @param $server
      */
-    public function testSendConsoleCommandInactive($serverService, $mock, $server)
+    public function testSendConsoleCommand(ServerService $serverService, $mock, $server): void
     {
-        $this->expectException(\Gameap\Exceptions\Services\ServerInactiveException::class);
+        $mock->shouldReceive('exec')
+            ->andReturnUsing(function($command, &$exitCode) {
+                $exitCode = 0;
+                return "command result";
+        });
+        $exitCode = null;
+
+        $result = $serverService->sendConsoleCommand($server, 'ban knik');
+
+        Assert::assertTrue($result);
+    }
+
+    /**
+     * @dataProvider adapterProviderGdaemon
+     */
+    public function testSendConsoleCommandFail(ServerService $serverService, $gdaemonMock, $server): void
+    {
+        $gdaemonMock->shouldReceive('exec')
+            ->andReturnUsing(function($command, &$exitCode) {
+                $exitCode = 1;
+                return "command result";
+            });
+        $exitCode = null;
+
+        $result = $serverService->sendConsoleCommand($server, 'ban knik');
+
+        Assert::assertFalse($result);
+    }
+
+    /**
+     * @dataProvider adapterProviderGdaemon
+     * @param $serverService
+     * @param $mock
+     * @param $server
+     */
+    public function testSendConsoleCommandInactive(ServerService $serverService, $mock, $server)
+    {
+        $this->expectException(ServerInactiveException::class);
         $server->process_active = false;
         $mock->shouldReceive('exec')->andReturn("command result");
         $serverService->sendConsoleCommand($server, 'ban knik');
@@ -253,9 +263,9 @@ class ServerServiceTest extends TestCase
      * @param Server $server
      *
      * @throws \Gameap\Exceptions\Services\EmptyCommandException
-     * @throws \Gameap\Exceptions\Services\InvalidCommandException
+     * @throws InvalidCommandException
      */
-    public function testGetCommand($serverService, $mock, $server)
+    public function testGetCommand(ServerService $serverService, $mock, $server)
     {
         $command = $serverService->getCommand($server, 'get_console');
 
@@ -269,7 +279,7 @@ class ServerServiceTest extends TestCase
      * @param $mock
      * @param Server $server
      */
-    public function testReplaceShortCodes($serverService, $mock, $server)
+    public function testReplaceShortCodes(ServerService $serverService, $mock, $server)
     {
         $extra = ['extra' => 'azaza'];
         $command = $serverService->replaceShortCodes($server, './script.sh {extra}', $extra);
@@ -293,11 +303,11 @@ class ServerServiceTest extends TestCase
      * @param Server $server
      *
      * @throws \Gameap\Exceptions\Services\EmptyCommandException
-     * @throws \Gameap\Exceptions\Services\InvalidCommandException
+     * @throws InvalidCommandException
      */
-    public function testGetCommandInvalidCommand($serverService, $mock, $server)
+    public function testGetCommandInvalidCommand(ServerService $serverService, $mock, $server)
     {
-        $this->expectException(\Gameap\Exceptions\Services\InvalidCommandException::class);
+        $this->expectException(InvalidCommandException::class);
         $serverService->getCommand($server, 'invalid_command');
     }
 }
