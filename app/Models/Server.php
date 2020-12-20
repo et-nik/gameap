@@ -2,6 +2,7 @@
 
 namespace Gameap\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -95,16 +96,15 @@ class Server extends Model
      *
      * @return bool
      */
-    public function processActive()
+    public function processActive(): bool
     {
         if (empty($this->last_process_check)) {
             return false;
         }
 
-        $lastProcessCheck = Carbon::createFromDate(
+        $lastProcessCheck = Carbon::createFromFormat(
+            Carbon::DEFAULT_TO_STRING_FORMAT,
             $this->last_process_check,
-            null,
-            null,
             'UTC'
         )->timestamp;
 

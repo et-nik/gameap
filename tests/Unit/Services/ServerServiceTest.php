@@ -17,9 +17,7 @@ use Mockery\MockInterface;
 use PHPUnit\Framework\Assert;
 use Tests\TestCase;
 
-/**
- * @covers \Gameap\Services\ServerService <extended>
- */
+/** @covers \Gameap\Services\ServerService */
 class ServerServiceTest extends TestCase
 {
     public function adapterProviderGameQ(): array
@@ -154,7 +152,7 @@ class ServerServiceTest extends TestCase
         $server->query_port = 1337;
         $server->rcon_port = 1337;
         $server->dir = 'server01';
-        $server->last_process_check = Carbon::now()->utc()->toDateTimeString();
+        $server->last_process_check = Carbon::now('UTC')->toDateTimeString();
         $server->process_active = true;
 
         $server->dedicatedServer = $dedicatedServer;

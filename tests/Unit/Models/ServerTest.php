@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use Carbon\Carbon;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\GameMod;
@@ -12,23 +13,42 @@ use Tests\TestCase;
 
 class ServerTest extends TestCase
 {
-    public function testProcessActive()
+    protected function setUp(): void
     {
-        factory(Server::class, 100)->create();
-        $server = Server::first();
-        
-        $this->assertIsBool($server->processActive());
-        
-        $server->last_process_check = null;
-        $this->assertFalse($server->processActive());
-        
-        $server->last_process_check = date('Y-m-d H:i:s', time());
-        $server->process_active = true;
-        $this->assertTrue($server->processActive());
+        parent::setUp();
 
-        $server->last_process_check = date('Y-m-d H:i:s', 0);
+        factory(Server::class, 1)->create();
+    }
+
+    public function testProcessActive_emptyLastProcessCheck(): void
+    {
+        $server = new Server();
+
+        $result = $server->processActive();
+
+        $this->assertFalse($result);
+    }
+
+    public function testProcessActive_active(): void
+    {
+        $server = new Server();
+        $server->last_process_check = Carbon::now('UTC')->toDateTimeString();
         $server->process_active = true;
-        $this->assertFalse($server->processActive());
+
+        $result = $server->processActive();
+
+        $this->assertTrue($result);
+    }
+
+    public function testProcessActive_lastProcessCheckOverdue(): void
+    {
+        $server = new Server();
+        $server->last_process_check = Carbon::createFromTimestamp(0)->utc()->toDateTimeString();
+        $server->process_active = true;
+
+        $result = $server->processActive();
+
+        $this->assertFalse($result);
     }
     
     public function testDedicatedServer()
