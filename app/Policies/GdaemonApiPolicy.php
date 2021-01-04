@@ -4,7 +4,8 @@ namespace Gameap\Policies;
 
 use Gameap\Models\DedicatedServer;
 
-class GdaemonApiPolicy {
+class GdaemonApiPolicy
+{
 
     public function before(DedicatedServer $dedicatedServer): void
     {

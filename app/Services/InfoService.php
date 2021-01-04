@@ -45,12 +45,12 @@ class InfoService
 
             if (!empty($result->tag_name)) {
                 return $result->tag_name;
-            } else {
+            }  
                 return '';
-            }
-        } else {
+            
+        }  
             return '';
-        }
+        
     }
 
     /**

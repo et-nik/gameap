@@ -113,10 +113,10 @@ class GamesController extends AuthController
         if ($result) {
             return redirect()->route('admin.games.index')
                 ->with('success', __('games.upgrade_success_msg'));
-        } else {
+        }  
             return redirect()->route('admin.games.index')
                 ->with('error', __('games.upgrade_fail_msg'));
-        }
+        
     }
 
     /**

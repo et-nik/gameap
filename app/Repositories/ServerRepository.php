@@ -135,9 +135,9 @@ class ServerRepository
     {
         if (Auth::user()->can('admin roles & permissions')) {
             return $this->getAll();
-        } else {
+        }  
             return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
-        }
+        
     }
 
     /**
@@ -152,7 +152,7 @@ class ServerRepository
         }
 
         $serversTable = $this->model->getTable();
-        $gamesTable = (new Game)->getTable();
+        $gamesTable = (new Game())->getTable();
 
         $query = DB::table($serversTable)
             ->selectRaw("{$serversTable}.*, {$gamesTable}.name as game_name")

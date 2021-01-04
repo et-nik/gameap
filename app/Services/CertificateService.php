@@ -43,7 +43,7 @@ class CertificateService
         
         $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
         
-        $name = Name::fromString("CN=GameAP CA, O=GameAP, C=RU");
+        $name = Name::fromString('CN=GameAP CA, O=GameAP, C=RU');
         
         $validity = Validity::fromStrings('now', 'now + ' . self::CERT_YEARS . ' years');
 

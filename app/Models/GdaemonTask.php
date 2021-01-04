@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GdaemonTask extends Model
 {
-    public $table = 'gdaemon_tasks';
     
     public const CREATED_AT = 'created_at';
     public const UPDATED_AT = 'updated_at';
@@ -46,6 +45,7 @@ class GdaemonTask extends Model
         self::STATUS_SUCCESS => 4,
         self::STATUS_CANCELED => 5,
     ];
+    public $table = 'gdaemon_tasks';
 
 
     public $hidden = [
@@ -64,6 +64,15 @@ class GdaemonTask extends Model
     ];
 
     /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        
+    ];
+
+    /**
      * The attributes that should be casted to native types.
      *
      * @var array
@@ -78,15 +87,6 @@ class GdaemonTask extends Model
         'cmd' => 'string',
         'output' => 'string',
         'status' => 'string',
-    ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static $rules = [
-        
     ];
 
     public function getStatusNumAttribute()

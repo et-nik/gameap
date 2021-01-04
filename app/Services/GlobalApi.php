@@ -50,7 +50,7 @@ class GlobalApi
     {
         $version = Config::get('constants.AP_VERSION') . ' [' . Config::get('constants.AP_DATE') . ']';
 
-        $environment .= 'PHP version: ' . phpversion() . "\n";
+        $environment .= 'PHP version: ' . PHP_VERSION . "\n";
         $environment .= php_uname() . "\n";
 
         $ar = compact('version', 'summary', 'description', 'environment');

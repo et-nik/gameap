@@ -77,7 +77,7 @@ class ServersController extends Controller
             return Arr::only($v, ['id', 'installed', 'process_active', 'last_process_check']);
         }, $request->json()->all());
 
-        Batch::update(new Server, $values, 'id');
+        Batch::update(new Server(), $values, 'id');
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }

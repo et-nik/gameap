@@ -76,7 +76,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         // SetList::SPACES,
         // SetList::ARRAY,
         // SetList::DOCBLOCK,
-        // SetList::CONTROL_STRUCTURES,
+        SetList::CONTROL_STRUCTURES,
         // SetList::CLEAN_CODE,
         // SetList::PSR_12,
         SetList::PHP_71,

@@ -31,13 +31,13 @@ class VerifyGdaemonApiToken
         $authToken = $request->header('X-Auth-Token');
 
         if (is_null($authToken)) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, "Token not set", null, ['X-Auth-Token']);
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Token not set', null, ['X-Auth-Token']);
         }
 
         try {
             $dedicatedServer = DedicatedServer::where('gdaemon_api_token', '=', $authToken)->firstOrFail();
         } catch (ModelNotFoundException $exception) {
-            throw new InvalidTokenExeption("Invalid api token");
+            throw new InvalidTokenExeption('Invalid api token');
         }
 
         app()->instance(DedicatedServer::class, $dedicatedServer);

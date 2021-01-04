@@ -34,19 +34,6 @@ class ChangePassword extends Command
     }
 
     /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the job.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -59,13 +46,26 @@ class ChangePassword extends Command
         try {
             $user = User::where(['login' => $userLogin])->firstOrFail();
         } catch (ModelNotFoundException $e) {
-            $this->error("User not found");
+            $this->error('User not found');
             return 1;
         }
 
         $user->password = $userPassword;
         $user->save();
 
-        $this->info("Password changed");
+        $this->info('Password changed');
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['name', InputArgument::REQUIRED, 'The name of the job.'],
+            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
+        ];
     }
 }

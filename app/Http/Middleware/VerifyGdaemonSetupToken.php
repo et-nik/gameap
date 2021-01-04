@@ -17,7 +17,7 @@ class VerifyGdaemonSetupToken
         }
 
         if ($request->route('token') != $autoSetupToken) {
-            throw new InvalidSetupTokenExeption("Invalid token");
+            throw new InvalidSetupTokenExeption('Invalid token');
         }
 
         return $next($request);

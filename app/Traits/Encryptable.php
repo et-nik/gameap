@@ -14,7 +14,7 @@ trait Encryptable
             try {
                 $value = Crypt::decrypt($value);
             } catch (\Throwable $exception) {
-                $value = "";
+                $value = '';
             }
 
         }

@@ -18,7 +18,7 @@ class ServersTasksController extends Controller
      */
     public function getList(DedicatedServer $dedicatedServer)
     {
-        return ServerTask::whereIn("server_id", function ($query) use ($dedicatedServer): void {
+        return ServerTask::whereIn('server_id', function ($query) use ($dedicatedServer): void {
             $query->select('id')
                 ->from('servers')
                 ->where('ds_id', $dedicatedServer->id);

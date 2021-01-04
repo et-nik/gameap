@@ -103,10 +103,10 @@ class UsersController extends AuthController
         if ($this->repository->update($user, $request->all())) {
             return redirect()->route('admin.users.index')
                 ->with('success', __('users.update_success_msg'));
-        } else {
+        }  
             return redirect()->route('admin.users.index')
                 ->with($user->getValidationErrors()->all());
-        }
+        
     }
 
     /**

@@ -45,8 +45,8 @@ class SetupController extends BaseController
         Cache::put('gdaemonAutoCreateToken', $gdaemonCreateToken, 1800);
 
         return "export createToken={$gdaemonCreateToken};
-            export panelHost=" . url('/') . ";
-            curl -sL https://raw.githubusercontent.com/gameap/auto-install-scripts/master/install-gdaemon.sh | bash --";
+            export panelHost=" . url('/') . ';
+            curl -sL https://raw.githubusercontent.com/gameap/auto-install-scripts/master/install-gdaemon.sh | bash --';
     }
 
     /**
@@ -74,7 +74,7 @@ class SetupController extends BaseController
             $csr = $request->file('gdaemon_server_cert')->get();
             $serverSignedCertificate = CertificateService::signCsr($csr);
         } else {
-            return "Error Empty GDdaemon server certificate";
+            return 'Error Empty GDdaemon server certificate';
         }
         
         $attributes['gdaemon_server_cert'] = CertificateService::ROOT_CA_CERT;

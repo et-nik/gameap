@@ -59,9 +59,9 @@ class ServersSettingsController extends AuthController
 
         if (!empty($all['settings'])) {
             $this->serverSettingsRepository->saveSettings($server, $all['settings']);
-        } else {
+        }  
             // TODO: Remove all settings?
-        }
+        
 
         return redirect()->route('admin.servers.edit', [$server->id])
             ->with('success', __('servers.settings_update_success_msg'));

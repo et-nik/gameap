@@ -66,7 +66,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->as('api.')
-            ->namespace($this->namespace . "\\API")
+            ->namespace($this->namespace . '\\API')
             ->group(base_path('routes/api.php'));
     }
 
@@ -80,7 +80,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('gdaemon_api')
             ->middleware('gdaemon_api')
             ->as('gdaemon_api.')
-            ->namespace($this->namespace . "\\GdaemonAPI")
+            ->namespace($this->namespace . '\\GdaemonAPI')
             ->group(base_path('routes/gdaemon_api.php'));
     }
 }

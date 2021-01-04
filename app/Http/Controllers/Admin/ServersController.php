@@ -19,12 +19,6 @@ use Illuminate\View\View;
 
 class ServersController extends AuthController
 {
-    /**
-     * The ServerRepository instance.
-     *
-     * @var ServerRepository
-     */
-    protected $repository;
 
     /**
      * The GdaemonTaskRepository instance.
@@ -32,6 +26,12 @@ class ServersController extends AuthController
      * @var GdaemonTaskRepository
      */
     public $gdaemonTaskRepository;
+    /**
+     * The ServerRepository instance.
+     *
+     * @var ServerRepository
+     */
+    protected $repository;
 
     /**
      * Create a new ServersController instance.

@@ -29,13 +29,13 @@ class GdaemonApiAuth
         $bearerToken = $request->bearerToken();
         
         if (is_null($bearerToken)) {
-            throw new HttpException(401, "Bearer token not set", null, ['WWW-Authenticate' => 'Bearer']);
+            throw new HttpException(401, 'Bearer token not set', null, ['WWW-Authenticate' => 'Bearer']);
         }
 
         try {
             $dedicatedServer = DedicatedServer::where('gdaemon_api_key', '=', $bearerToken)->firstOrFail();
         } catch (ModelNotFoundException $exception) {
-            throw new InvalidApiKeyException("Invalid api token");
+            throw new InvalidApiKeyException('Invalid api token');
         }
 
         app()->instance(DedicatedServer::class, $dedicatedServer);
