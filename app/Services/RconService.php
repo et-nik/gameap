@@ -103,9 +103,9 @@ class RconService
     private function setRconOptions(Server $server): void
     {
         $this->rcon->setProtocol(strtolower($server->game->engine), [
-            'host'      => $server->server_ip,
-            'port'      => $server->rcon_port,
-            'password'  => $server->rcon,
+            'host'     => $server->server_ip,
+            'port'     => $server->rcon_port,
+            'password' => $server->rcon,
         ]);
     }
 }

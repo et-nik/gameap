@@ -48,12 +48,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'login' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'login'    => 'required|string|max:255|unique:users',
+            'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'name' => 'string|max:255',
+            'name'     => 'string|max:255',
 
-            'g-recaptcha-response' =>  env('GOOGLE_RECAPTCHA_SECRET')
+            'g-recaptcha-response' => env('GOOGLE_RECAPTCHA_SECRET')
                 ? 'required|recaptcha'
                 : '',
         ]);
@@ -70,7 +70,7 @@ class RegisterController extends Controller
         return User::create([
             'login' => $data['login'],
             'email' => $data['email'],
-//            'password' => bcrypt($data['password'])
+            // 'password' => bcrypt($data['password'])
             'password' => $data['password'],
         ]);
     }

@@ -10,10 +10,11 @@ class ReCaptcha
     {
         $client = new Client();
 
-        $response = $client->post('https://www.google.com/recaptcha/api/siteverify',
-            ['form_params'=>
+        $response = $client->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            ['form_params' =>
                 [
-                    'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+                    'secret'   => env('GOOGLE_RECAPTCHA_SECRET'),
                     'response' => $value,
                 ],
             ]

@@ -10,21 +10,21 @@ class UserUpdateRequest extends Request
     public function rules()
     {
         return [
-            'login'     => [
+            'login' => [
                 'sometimes',
                 'string',
                 'max:255',
                 Rule::unique('users')->ignore($this->route('user')),
             ],
-            'email'     => [
+            'email' => [
                 'sometimes',
                 'string',
                 'email',
                 'max:255',
                 Rule::unique('users')->ignore($this->route('user')),
             ],
-            'password'  => 'nullable|string|min:6|confirmed',
-            'name'      => 'string|nullable|max:255',
+            'password' => 'nullable|string|min:6|confirmed',
+            'name'     => 'string|nullable|max:255',
         ];
     }
 }

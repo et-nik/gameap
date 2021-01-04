@@ -59,16 +59,16 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \Gameap\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'isAdmin' => \Gameap\Http\Middleware\AdminMiddleware::class,
-        'gdaemonApiAuth' => \Gameap\Http\Middleware\GdaemonApiAuth::class,
-        'gdaemonVerifyApiToken' => \Gameap\Http\Middleware\VerifyGdaemonApiToken::class,
-        'gdaemonVerifySetupToken' => \Gameap\Http\Middleware\VerifyGdaemonSetupToken::class,
+        'auth'                     => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth.basic'               => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'                 => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can'                      => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'                    => \Gameap\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'                 => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'isAdmin'                  => \Gameap\Http\Middleware\AdminMiddleware::class,
+        'gdaemonApiAuth'           => \Gameap\Http\Middleware\GdaemonApiAuth::class,
+        'gdaemonVerifyApiToken'    => \Gameap\Http\Middleware\VerifyGdaemonApiToken::class,
+        'gdaemonVerifySetupToken'  => \Gameap\Http\Middleware\VerifyGdaemonSetupToken::class,
         'gdaemonVerifyCreateToken' => \Gameap\Http\Middleware\VerifyGdaemonCreateToken::class,
     ];
 }

@@ -94,6 +94,6 @@ class ClientCertificatesController extends AuthController
         $this->repository->destroy($clientCertificate);
 
         return redirect()->route('admin.client_certificates.index')
-            ->with('success',  __('client_certificates.delete_success_msg'));
+            ->with('success', __('client_certificates.delete_success_msg'));
     }
 }

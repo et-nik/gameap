@@ -14,8 +14,10 @@ use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
+use PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer;
 use PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
+use PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer;
 use SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff;
 use SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UselessAliasSniff;
@@ -71,14 +73,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ReturnTypeDeclarationFixer::class);
     $services->set(ReferenceThrowableOnlySniff::class);
 
+    $services->set(ArrayIndentationFixer::class);
+
     $parameters->set(Option::SETS, [
-        // run and fix, one by one
-        // SetList::SPACES,
-        // SetList::ARRAY,
-        // SetList::DOCBLOCK,
         SetList::CONTROL_STRUCTURES,
-        // SetList::CLEAN_CODE,
-        // SetList::PSR_12,
+        SetList::PSR_12,
         SetList::PHP_71,
+        SetList::PHP_73_MIGRATION,
     ]);
+
+    $services->set(BinaryOperatorSpacesFixer::class)
+        ->call('configure', [[
+            'align_double_arrow' => true,
+        ]]);
 };

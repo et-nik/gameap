@@ -17,5 +17,7 @@ class Controller extends BaseController
 // Fix calling ./artisan route:list
 
 namespace App\Http\Controllers;
+
 class Controller extends \Gameap\Http\Controllers\Controller
-{}
+{
+}

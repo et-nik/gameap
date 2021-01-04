@@ -33,13 +33,13 @@ class GdaemonTasksController extends AuthController
     public function get(GdaemonTask $gdaemonTask)
     {
         return [
-            'id' => $gdaemonTask->id,
+            'id'         => $gdaemonTask->id,
             'run_aft_id' => $gdaemonTask->id,
             'created_at' => $gdaemonTask->created_at->toDateTimeString(),
             'updated_at' => $gdaemonTask->updated_at->toDateTimeString(),
-            'server_id' => $gdaemonTask->server_id,
-            'task' => $gdaemonTask->task,
-            'status' => $gdaemonTask->status,
+            'server_id'  => $gdaemonTask->server_id,
+            'task'       => $gdaemonTask->task,
+            'status'     => $gdaemonTask->status,
         ];
     }
 
@@ -50,7 +50,7 @@ class GdaemonTasksController extends AuthController
     public function output(GdaemonTask $gdaemonTask)
     {
         return [
-            'id' => $gdaemonTask->id,
+            'id'     => $gdaemonTask->id,
             'output' => $gdaemonTask->output,
             'status' => $gdaemonTask->status,
         ];

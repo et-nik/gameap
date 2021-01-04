@@ -66,14 +66,14 @@ class ServerRepository
 
         $addInstallTask = false;
         if (isset($attributes['install'])) {
-            $attributes['installed'] = ! $attributes['install'];
+            $attributes['installed'] = !$attributes['install'];
             $addInstallTask = true;
 
             unset($attributes['install']);
         }
 
         if (empty($attributes['rcon'])) {
-             $attributes['rcon'] = Str::random(self::DEFAULT_RCON_PASSWORD_LENGTH);
+            $attributes['rcon'] = Str::random(self::DEFAULT_RCON_PASSWORD_LENGTH);
         }
 
         $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
@@ -135,9 +135,8 @@ class ServerRepository
     {
         if (Auth::user()->can('admin roles & permissions')) {
             return $this->getAll();
-        }  
-            return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
-        
+        }
+        return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
     }
 
     /**
@@ -156,7 +155,7 @@ class ServerRepository
 
         $query = DB::table($serversTable)
             ->selectRaw("{$serversTable}.*, {$gamesTable}.name as game_name")
-            ->whereIn('game_id', function($query) use ($engines, $serversTable, $gamesTable): void {
+            ->whereIn('game_id', function ($query) use ($engines, $serversTable, $gamesTable): void {
                 $query->select('code')
                     ->from($gamesTable)
                     ->whereIn('engine', $engines);
@@ -182,8 +181,8 @@ class ServerRepository
     public function search($query)
     {
         return $this->model->select(['id', 'name', 'server_ip', 'server_port', 'game_id', 'game_mod_id'])
-            ->with(['game' => function($query): void {
-                $query->select('code','name');
+            ->with(['game' => function ($query): void {
+                $query->select('code', 'name');
             }])
             ->where('name', 'LIKE', '%' . $query . '%')
             ->get();

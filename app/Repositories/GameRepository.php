@@ -50,9 +50,8 @@ class GameRepository extends Repository
 
             if (!empty($gameData['mods'])) {
                 foreach ($gameData['mods'] as $gameModData) {
-
                     $gameMod = GameMod::firstOrCreate([
-                        'name' => $gameModData['name'],
+                        'name'      => $gameModData['name'],
                         'game_code' => $gameData['code'],
                     ]);
 

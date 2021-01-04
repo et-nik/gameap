@@ -31,15 +31,15 @@ class User extends Authenticatable
 
     /**
      * Validation rules
-     * 
+     *
      * @var array
      */
     protected static $rules = [
-        'login'     => 'sometimes|string|max:255|unique:users',
-        'email'     => 'sometimes|string|email|max:255|unique:users',
+        'login' => 'sometimes|string|max:255|unique:users',
+        'email' => 'sometimes|string|email|max:255|unique:users',
         //'password'  => 'sometimes|string|min:6|confirmed',
-        'password'  => 'nullable|sometimes|string|min:6',
-        'name'      => 'string|nullable|max:255',
+        'password' => 'nullable|sometimes|string|min:6',
+        'name'     => 'string|nullable|max:255',
     ];
 
     /**

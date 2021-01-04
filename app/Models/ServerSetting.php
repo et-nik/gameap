@@ -30,6 +30,4 @@ class ServerSetting extends Model
     {
         return $this->belongsTo(Server::class);
     }
-
-
 }

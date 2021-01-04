@@ -21,7 +21,6 @@ use X509\Certificate\Validity;
 use X509\CertificationRequest\CertificationRequest;
 use X509\CertificationRequest\CertificationRequestInfo;
 
-
 class CertificateService
 {
     public const ROOT_CA_CERT = 'certs/root.crt';
@@ -39,7 +38,7 @@ class CertificateService
     {
         $privateKey = (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
         
-        $privateKeyInfo = PrivateKeyInfo::fromPEM(PEM::fromString( $privateKey));
+        $privateKeyInfo = PrivateKeyInfo::fromPEM(PEM::fromString($privateKey));
         
         $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
         
@@ -53,8 +52,11 @@ class CertificateService
         $tbsCert = $tbsCert->withRandomSerialNumber()->withAdditionalExtensions(
             new BasicConstraintsExtension(true, true),
             new SubjectKeyIdentifierExtension(false, $publicKeyInfo->keyIdentifier()),
-            new KeyUsageExtension(true,
-                KeyUsageExtension::DIGITAL_SIGNATURE | KeyUsageExtension::KEY_CERT_SIGN));
+            new KeyUsageExtension(
+                true,
+                KeyUsageExtension::DIGITAL_SIGNATURE | KeyUsageExtension::KEY_CERT_SIGN
+            )
+        );
 
         // sign certificate with private key
         $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
@@ -70,7 +72,7 @@ class CertificateService
 
     /**
      * Generate key and certificate. Sign certificate
-     * 
+     *
      * @param $certificatePath string   path to certificate in storage
      * @param $keyPath string   path to key in storage
      *
@@ -85,7 +87,8 @@ class CertificateService
         $privateKey = (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
 
         $privateKeyInfo = PrivateKeyInfo::fromPEM(
-            PEM::fromString($privateKey));
+            PEM::fromString($privateKey)
+        );
 
         // extract public key from private key
         $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
@@ -98,7 +101,9 @@ class CertificateService
 
         // sign certificate request with private key
         $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
-            $privateKeyInfo->algorithmIdentifier(), new SHA256AlgorithmIdentifier());
+            $privateKeyInfo->algorithmIdentifier(),
+            new SHA256AlgorithmIdentifier()
+        );
         
         $csr = $cri->sign($algo, $privateKeyInfo);
         
@@ -147,7 +152,9 @@ class CertificateService
         
         // sign certificate with issuer's private key
         $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
-            $privateKeyInfo->algorithmIdentifier(), new SHA256AlgorithmIdentifier());
+            $privateKeyInfo->algorithmIdentifier(),
+            new SHA256AlgorithmIdentifier()
+        );
 
         $cert = $tbsCert->sign($algo, $privateKeyInfo);
         return $cert;
@@ -178,21 +185,21 @@ class CertificateService
 
             'signature_type' => $parsed['signatureTypeSN'],
 
-            'country' => $parsed['subject']['C'] ?? '',
-            'state' => $parsed['subject']['ST'] ?? '',
-            'locality' => $parsed['subject']['L'] ?? '',
-            'organization' => $parsed['subject']['O'] ?? '',
+            'country'             => $parsed['subject']['C'] ?? '',
+            'state'               => $parsed['subject']['ST'] ?? '',
+            'locality'            => $parsed['subject']['L'] ?? '',
+            'organization'        => $parsed['subject']['O'] ?? '',
             'organizational_unit' => $parsed['subject']['OU'] ?? '',
-            'common_name' => $parsed['subject']['CN'] ?? '',
-            'email' => $parsed['subject']['emailAddress'] ?? '',
+            'common_name'         => $parsed['subject']['CN'] ?? '',
+            'email'               => $parsed['subject']['emailAddress'] ?? '',
 
-            'issuer_country' => $parsed['issuer']['C'] ?? '',
-            'issuer_state' => $parsed['issuer']['ST'] ?? '',
-            'issuer_locality' => $parsed['issuer']['L'] ?? '',
-            'issuer_organization' => $parsed['issuer']['O'] ?? '',
+            'issuer_country'             => $parsed['issuer']['C'] ?? '',
+            'issuer_state'               => $parsed['issuer']['ST'] ?? '',
+            'issuer_locality'            => $parsed['issuer']['L'] ?? '',
+            'issuer_organization'        => $parsed['issuer']['O'] ?? '',
             'issuer_organizational_unit' => $parsed['issuer']['OU'] ?? '',
-            'issuer_common_name' => $parsed['issuer']['CN'] ?? '',
-            'issuer_email' => $parsed['issuer']['emailAddress'] ?? '',
+            'issuer_common_name'         => $parsed['issuer']['CN'] ?? '',
+            'issuer_email'               => $parsed['issuer']['emailAddress'] ?? '',
         ];
     }
 }

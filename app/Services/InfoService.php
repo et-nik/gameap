@@ -2,15 +2,15 @@
 
 namespace Gameap\Services;
 
-use \Illuminate\Http\Response;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\Response;
 
 class InfoService
 {
     /**
      * Get GameAP Latest Release
-     * 
+     *
      * @return string
      */
     public static function latestRelease()
@@ -25,11 +25,11 @@ class InfoService
         }
 
         if ($res->getStatusCode() == Response::HTTP_OK) {
-             $lines = explode("\n", $res->getBody()->getContents());
-             $parts = explode(': ', $lines[0]);
-             $latest = $parts[1];
+            $lines = explode("\n", $res->getBody()->getContents());
+            $parts = explode(': ', $lines[0]);
+            $latest = $parts[1];
              
-             return $latest;
+            return $latest;
         }
         
         // GitHub
@@ -45,12 +45,10 @@ class InfoService
 
             if (!empty($result->tag_name)) {
                 return $result->tag_name;
-            }  
-                return '';
-            
-        }  
+            }
             return '';
-        
+        }
+        return '';
     }
 
     /**
@@ -58,6 +56,6 @@ class InfoService
      */
 //    static public function sendBugReport($report)
 //    {
-//        
+//
 //    }
 }

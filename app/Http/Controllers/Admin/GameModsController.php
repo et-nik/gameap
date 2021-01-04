@@ -41,7 +41,7 @@ class GameModsController extends AuthController
     public function create($game = null)
     {
         return view('admin.game_mods.create', [
-            'game' => $game,
+            'game'     => $game,
             'gameList' => Game::all()->pluck('name', 'code'),
         ]);
     }

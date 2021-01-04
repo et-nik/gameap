@@ -79,15 +79,15 @@ class Server extends Model
     ];
 
     protected $casts = [
-        'vars' => 'array',
-        'enabled' => 'boolean',
-        'installed' => 'integer',
-        'blocked' => 'boolean',
-        'ds_id' => 'integer',
-        'game_mod_id' => 'integer',
-        'server_port' => 'integer',
-        'query_port' => 'integer',
-        'rcon_port' => 'integer',
+        'vars'           => 'array',
+        'enabled'        => 'boolean',
+        'installed'      => 'integer',
+        'blocked'        => 'boolean',
+        'ds_id'          => 'integer',
+        'game_mod_id'    => 'integer',
+        'server_port'    => 'integer',
+        'query_port'     => 'integer',
+        'rcon_port'      => 'integer',
         'process_active' => 'boolean',
     ];
 
@@ -168,13 +168,13 @@ class Server extends Model
     public function getAliasesAttribute(): array
     {
         $aliases = [
-            'ip' => $this->server_ip,
-            'port' => $this->server_port,
-            'query_port' => $this->query_port,
-            'rcon_port' => $this->rcon_port,
+            'ip'            => $this->server_ip,
+            'port'          => $this->server_port,
+            'query_port'    => $this->query_port,
+            'rcon_port'     => $this->rcon_port,
             'rcon_password' => $this->rcon,
-            'uuid' => $this->uuid,
-            'uuid_short' => $this->uuid_short,
+            'uuid'          => $this->uuid,
+            'uuid_short'    => $this->uuid_short,
         ];
 
         if ($this->gameMod !== null && is_array($this->gameMod->vars)) {

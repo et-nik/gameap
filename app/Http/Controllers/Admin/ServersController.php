@@ -19,7 +19,6 @@ use Illuminate\View\View;
 
 class ServersController extends AuthController
 {
-
     /**
      * The GdaemonTaskRepository instance.
      *
@@ -55,7 +54,7 @@ class ServersController extends AuthController
      */
     public function index()
     {
-        return view('admin.servers.list',[
+        return view('admin.servers.list', [
             'servers' => $this->repository->getAll(),
         ]);
     }
@@ -69,7 +68,7 @@ class ServersController extends AuthController
     {
         return view('admin.servers.create', [
             'dedicatedServers' => DedicatedServer::all()->pluck('name', 'id'),
-            'games' => Game::orderBy('name')->get()->pluck('name', 'code'),
+            'games'            => Game::orderBy('name')->get()->pluck('name', 'code'),
         ]);
     }
 
@@ -118,7 +117,7 @@ class ServersController extends AuthController
 
     /**
      * Remove the specified resource from storage.
-     * 
+     *
      * @param Server $server
      * @return RedirectResponse
      * @throws Exception

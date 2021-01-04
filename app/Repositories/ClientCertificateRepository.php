@@ -43,13 +43,15 @@ class ClientCertificateRepository extends Repository
         
         if ($request->hasFile('certificate')) {
             $attributes['certificate'] = $request->file('certificate')->store(
-                self::STORAGE_CERTS_PATH, 'local'
+                self::STORAGE_CERTS_PATH,
+                'local'
             );
         }
 
         if ($request->hasFile('private_key')) {
             $attributes['private_key'] = $request->file('private_key')->store(
-                self::STORAGE_CERTS_PATH, 'local'
+                self::STORAGE_CERTS_PATH,
+                'local'
             );
         }
         
@@ -76,13 +78,15 @@ class ClientCertificateRepository extends Repository
 
         if ($request->hasFile('certificate')) {
             $attributes['gdaemon_server_cert'] = $request->file('certificate')->store(
-                self::STORAGE_CERTS_PATH, 'local'
+                self::STORAGE_CERTS_PATH,
+                'local'
             );
         }
 
         if ($request->hasFile('gdaemon_server_cert')) {
             $attributes['gdaemon_server_cert'] = $request->file('private_key')->store(
-                self::STORAGE_CERTS_PATH, 'local'
+                self::STORAGE_CERTS_PATH,
+                'local'
             );
         }
         
@@ -141,7 +145,7 @@ class ClientCertificateRepository extends Repository
         } else {
             // Fix. If client certificate exists in database but not exists certificates files.
             // Delete invalid files. Generate new certificates.
-            if (! Storage::exists($clientCertificate->certificate) || ! Storage::exists($clientCertificate->private_key)) {
+            if (!Storage::exists($clientCertificate->certificate) || !Storage::exists($clientCertificate->private_key)) {
                 if (Storage::exists($clientCertificate->certificate)) {
                     Storage::delete($clientCertificate->certificate);
                 }
@@ -180,10 +184,10 @@ class ClientCertificateRepository extends Repository
         $info = CertificateService::certificateInfo($certificateName);
 
         return [
-            'fingerprint' => CertificateService::fingerprintString($certificateName),
-            'expires'     => $info['expires'],
-            'certificate' => $certificateName,
-            'private_key' => $privateKeyName,
+            'fingerprint'      => CertificateService::fingerprintString($certificateName),
+            'expires'          => $info['expires'],
+            'certificate'      => $certificateName,
+            'private_key'      => $privateKeyName,
             'private_key_pass' => '',
         ];
     }

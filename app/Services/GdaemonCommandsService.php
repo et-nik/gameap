@@ -39,7 +39,7 @@ abstract class GdaemonCommandsService
     {
         if (is_int($ds)) {
             $dedicatedServer = DedicatedServer::findOrFail($ds);
-        } else if ($ds instanceof DedicatedServer) {
+        } elseif ($ds instanceof DedicatedServer) {
             $dedicatedServer = $ds;
         } else {
             throw new GameapException('Invalid type');

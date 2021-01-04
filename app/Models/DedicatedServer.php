@@ -56,16 +56,16 @@ class DedicatedServer extends Model
      * @var array
      */
     protected $fillable = [
-        'enabled', 
-        'name', 
+        'enabled',
+        'name',
         'os',
-        'location', 
-        'provider', 
+        'location',
+        'provider',
         'ip',
         'ram',
-        'cpu', 
+        'cpu',
         'work_path',
-        'steamcmd_path', 
+        'steamcmd_path',
         'gdaemon_host',
         'gdaemon_port',
         'gdaemon_login',
@@ -80,8 +80,8 @@ class DedicatedServer extends Model
         'script_start',
         'script_pause',
         'script_unpause',
-        'script_stop', 
-        'script_kill', 
+        'script_stop',
+        'script_kill',
         'script_restart',
         'script_status',
         'script_stats',
@@ -91,9 +91,9 @@ class DedicatedServer extends Model
     ];
 
     protected $casts = [
-        'ip' => 'array',
-        'enabled' => 'boolean',
-        'gdaemon_port' => 'integer',
+        'ip'                    => 'array',
+        'enabled'               => 'boolean',
+        'gdaemon_port'          => 'integer',
         'client_certificate_id' => 'integer',
     ];
 
@@ -102,16 +102,16 @@ class DedicatedServer extends Model
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|max:128',
-        'location' => 'required|max:128',
-        'ip' => 'required',
-        'work_path' => 'required|max:128',
-        'gdaemon_host' => 'required|max:128',
-        'gdaemon_port' => 'required|numeric|digits_between:1,65535',
-        'gdaemon_login' => 'max:128',
-        'gdaemon_password' => 'max:128',
-        'gdaemon_api_key' => '',
-        'gdaemon_server_cert' => 'sometimes',
+        'name'                  => 'required|max:128',
+        'location'              => 'required|max:128',
+        'ip'                    => 'required',
+        'work_path'             => 'required|max:128',
+        'gdaemon_host'          => 'required|max:128',
+        'gdaemon_port'          => 'required|numeric|digits_between:1,65535',
+        'gdaemon_login'         => 'max:128',
+        'gdaemon_password'      => 'max:128',
+        'gdaemon_api_key'       => '',
+        'gdaemon_server_cert'   => 'sometimes',
         'client_certificate_id' => 'numeric|exists:client_certificates,id',
     ];
 
@@ -144,8 +144,8 @@ class DedicatedServer extends Model
             : $this->gdaemon_host;
 
         return [
-            'host' => $gdaemonHost,
-            'port' => $this->gdaemon_port,
+            'host'     => $gdaemonHost,
+            'port'     => $this->gdaemon_port,
             'username' => $this->gdaemon_login,
             'password' => $this->gdaemon_password,
 
@@ -165,8 +165,8 @@ class DedicatedServer extends Model
                 ->applyPathPrefix($this->clientCertificate->private_key),
 
             'privateKeyPass' => $this->clientCertificate->private_key_pass,
-            'workDir' => $this->work_path,
-            'timeout' => 10,
+            'workDir'        => $this->work_path,
+            'timeout'        => 10,
         ];
     }
 

@@ -37,7 +37,7 @@ class UsersController extends AuthController
      */
     public function index()
     {
-        return view('admin.users.list',[
+        return view('admin.users.list', [
             'users' => $this->repository->getAll(),
         ]);
     }
@@ -103,10 +103,9 @@ class UsersController extends AuthController
         if ($this->repository->update($user, $request->all())) {
             return redirect()->route('admin.users.index')
                 ->with('success', __('users.update_success_msg'));
-        }  
-            return redirect()->route('admin.users.index')
+        }
+        return redirect()->route('admin.users.index')
                 ->with($user->getValidationErrors()->all());
-        
     }
 
     /**

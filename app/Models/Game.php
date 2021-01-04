@@ -52,7 +52,7 @@ class Game extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'start_code', 'name', 
+        'code', 'start_code', 'name',
         'engine', 'engine_version',
         'steam_app_id', 'steam_app_set_config',
         'local_repository', 'remote_repository',

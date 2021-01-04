@@ -6,5 +6,4 @@ use Illuminate\Validation\ValidationException as Exception;
 
 class ValidationException extends Exception
 {
-
 }

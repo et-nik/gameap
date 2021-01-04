@@ -17,7 +17,7 @@ class DsStatsController extends Controller
      */
     public function store(DsStatsRequest $request, DedicatedServer $dedicatedServer)
     {
-        $values = array_map(function($v) use ($dedicatedServer) {
+        $values = array_map(function ($v) use ($dedicatedServer) {
             $arr = Arr::only($v, ['time', 'loa', 'ram', 'cpu', 'ifstat', 'ping', 'drvspace']);
             $arr['dedicated_server_id'] = $dedicatedServer->id;
             return $arr;

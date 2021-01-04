@@ -46,7 +46,7 @@ class ServerService
 
     /**
      * Add default server disk
-     * 
+     *
      * @param Server $server
      */
     public function registerDisk(Server $server): void
@@ -85,11 +85,11 @@ class ServerService
 
         if (!empty($serverResult['gq_online'])) {
             $result = [
-                'status' => $serverResult['gq_online'] ? 'online' : 'offline',
+                'status'   => $serverResult['gq_online'] ? 'online' : 'offline',
                 'hostname' => $serverResult['gq_hostname'],
-                'map' => $serverResult['gq_mapname'],
-                'players' => $serverResult['gq_numplayers'] . '/' . $serverResult['gq_maxplayers'],
-                'version' => $serverResult['version'] ?? null,
+                'map'      => $serverResult['gq_mapname'],
+                'players'  => $serverResult['gq_numplayers'] . '/' . $serverResult['gq_maxplayers'],
+                'version'  => $serverResult['version'] ?? null,
                 'password' => $serverResult['gq_password'] ? 'yes' : 'no',
                 'joinlink' => $serverResult['gq_joinlink'],
             ];
@@ -115,15 +115,15 @@ class ServerService
         }
 
         $replaceArray = [
-            'host' => $server->server_ip,
-            'port' => $server->server_port,
+            'host'       => $server->server_ip,
+            'port'       => $server->server_port,
             'query_port' => $server->query_port,
-            'rcon_port' => $server->rcon_port,
-            'dir' => $server->full_path,
-            'uuid' => $server->uuid,
+            'rcon_port'  => $server->rcon_port,
+            'dir'        => $server->full_path,
+            'uuid'       => $server->uuid,
             'uuid_short' => $server->uuid_short,
-            'game' => $server->game_id,
-            'user' => $server->su_user,
+            'game'       => $server->game_id,
+            'user'       => $server->su_user,
         ];
 
         foreach ($replaceArray as $key => $value) {

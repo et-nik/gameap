@@ -46,7 +46,10 @@ abstract class JsonRequest extends Request
         }
 
         return $factory->make(
-            $this->json()->all(), $this->container->call([$this, 'rules']), $this->messages(), $this->attributes()
+            $this->json()->all(),
+            $this->container->call([$this, 'rules']),
+            $this->messages(),
+            $this->attributes()
         );
     }
 }

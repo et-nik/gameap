@@ -46,10 +46,10 @@ class UsersServersPermsController extends AuthController
         $checkedPermissions = $permissions->pluck('name')->toArray();
 
         return view('admin.users.server_perms.edit', [
-            'permissions' => $permissions,
-            'allPermissions' => $allPermissions,
-            'user' => $user,
-            'server' => $server,
+            'permissions'        => $permissions,
+            'allPermissions'     => $allPermissions,
+            'user'               => $user,
+            'server'             => $server,
             'checkedPermissions' => $checkedPermissions,
         ]);
     }

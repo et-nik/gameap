@@ -35,8 +35,8 @@ class ClientCertificate extends Model
      * @var array
      */
     protected static $rules = [
-        'certificate' => 'required',
-        'private_key' => 'required',
+        'certificate'      => 'required',
+        'private_key'      => 'required',
         'private_key_pass' => '',
     ];
 

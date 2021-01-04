@@ -56,7 +56,7 @@ class HomeController extends Controller
 
     /**
      * Send bug
-     * 
+     *
      * @param SendBugRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Gameap\Exceptions\Services\GlobalApiException

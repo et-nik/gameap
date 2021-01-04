@@ -62,7 +62,6 @@ class TasksController extends Controller
     public function output(Request $request, int $gdaemonTaskId): JsonResponse
     {
         if (GdaemonTask::where('id', $gdaemonTaskId)->exists()) {
-
             $gdaemonTask = GdaemonTask::findOrFail($gdaemonTaskId);
             $this->repository->concatOutput($gdaemonTask, $request->output);
 

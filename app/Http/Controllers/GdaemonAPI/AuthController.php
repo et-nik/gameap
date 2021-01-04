@@ -23,7 +23,7 @@ class AuthController extends BaseController
         $dedicatedServer->update();
 
         return response()->json([
-            'token' => $dedicatedServer->gdaemon_api_token,
+            'token'     => $dedicatedServer->gdaemon_api_token,
             'timestamp' => Carbon::now()->timestamp,
         ]);
     }

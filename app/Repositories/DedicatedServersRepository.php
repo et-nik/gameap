@@ -84,7 +84,7 @@ class DedicatedServersRepository extends Repository
      */
     public function store(array $attributes)
     {
-        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+        $attributes['ip'] = array_filter($attributes['ip'], function ($value) {
             return !empty($value);
         });
 
@@ -132,7 +132,7 @@ class DedicatedServersRepository extends Repository
      */
     public function update(DedicatedServer $dedicatedServer, array $attributes): void
     {
-        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+        $attributes['ip'] = array_filter($attributes['ip'], function ($value) {
             return !empty($value);
         });
 

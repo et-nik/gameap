@@ -16,7 +16,6 @@ trait Encryptable
             } catch (\Throwable $exception) {
                 $value = '';
             }
-
         }
 
         return $value;

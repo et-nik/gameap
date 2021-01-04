@@ -73,7 +73,7 @@ class ServersController extends Controller
      */
     public function updateBulk(ServerBulkRequest $request)
     {
-        $values = array_map(function($v) {
+        $values = array_map(function ($v) {
             return Arr::only($v, ['id', 'installed', 'process_active', 'last_process_check']);
         }, $request->json()->all());
 

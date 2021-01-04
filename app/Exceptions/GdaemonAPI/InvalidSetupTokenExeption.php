@@ -6,5 +6,4 @@ use Gameap\Exceptions\GameapException;
 
 class InvalidSetupTokenExeption extends GameapException
 {
-
 }

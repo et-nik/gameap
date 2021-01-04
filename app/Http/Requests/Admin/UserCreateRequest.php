@@ -9,10 +9,10 @@ class UserCreateRequest extends Request
     public function rules()
     {
         return [
-            'login'     => 'sometimes|string|max:255|unique:users',
-            'email'     => 'sometimes|string|email|max:255|unique:users',
-            'password'  => 'sometimes|string|min:6|confirmed',
-            'name'      => 'string|nullable|max:255',
+            'login'    => 'sometimes|string|max:255|unique:users',
+            'email'    => 'sometimes|string|email|max:255|unique:users',
+            'password' => 'sometimes|string|min:6|confirmed',
+            'name'     => 'string|nullable|max:255',
         ];
     }
 }

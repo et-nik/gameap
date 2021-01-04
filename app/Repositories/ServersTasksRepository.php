@@ -76,8 +76,8 @@ class ServersTasksRepository
      * @return array
      * @throws RepositoryValidationException
      */
-    private function convert(array $task) {
-
+    private function convert(array $task)
+    {
         if ($task['repeat'] != 1) {
             if (empty($task['repeat_period'])) {
                 throw new RepositoryValidationException(__('servers_tasks.errors.empty_period'));
@@ -102,7 +102,8 @@ class ServersTasksRepository
      * @param array $task
      * @throws RepositoryValidationException
      */
-    private function validate(array $task): void {
+    private function validate(array $task): void
+    {
         if (empty($task) || empty($task['command'])) {
             throw new RepositoryValidationException(__('servers_tasks.errors.empty_command'));
         }
@@ -123,10 +124,10 @@ class ServersTasksRepository
                 ->locale('en')
                 ->cascade()
                 ->forHumans(),
-            'execute_date'  => $task->execute_date,
-            'payload'       => $task->payload,
-            'created_at'    => $task->created_at,
-            'updated_at'    => $task->updated_at,
+            'execute_date' => $task->execute_date,
+            'payload'      => $task->payload,
+            'created_at'   => $task->created_at,
+            'updated_at'   => $task->updated_at,
         ];
     }
 }

@@ -321,7 +321,7 @@ class ServersController extends AuthController
     private function makeErrorResponse($message, $code = Response::HTTP_UNPROCESSABLE_ENTITY)
     {
         return response()->json([
-            'message' => $message,
+            'message'   => $message,
             'http_code' => $code,
         ], $code);
     }

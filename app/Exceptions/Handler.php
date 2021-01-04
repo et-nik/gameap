@@ -43,7 +43,7 @@ class Handler extends ExceptionHandler
 
     /**
      * Render an exception into an HTTP response.
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param Exception                $exception
      *
@@ -53,15 +53,15 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson() || $request->isJson()) {
             return $this->renderJson($request, $exception);
-        }  
-            if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidSetupTokenExeption) {
-                if (app()->has('debugbar')) {
-                    app('debugbar')->disable();
-                }
-
-                // Return bash
-                return response()->make('echo "' . $exception->getMessage() . '"', 401);
+        }
+        if ($exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidSetupTokenExeption) {
+            if (app()->has('debugbar')) {
+                app('debugbar')->disable();
             }
+
+            // Return bash
+            return response()->make('echo "' . $exception->getMessage() . '"', 401);
+        }
         
         
         return parent::render($request, $exception);
@@ -77,14 +77,14 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof RepositoryValidationException) {
             return response()->json([
-                'message' => $exception->getMessage(),
+                'message'   => $exception->getMessage(),
                 'http_code' => Response::HTTP_BAD_REQUEST,
             ], Response::HTTP_BAD_REQUEST);
         }
 
         if ($exception instanceof \Gameap\Exceptions\Repositories\RecordExistExceptions) {
             return response()->json([
-                'message' => $exception->getMessage(),
+                'message'   => $exception->getMessage(),
                 'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -94,12 +94,12 @@ class Handler extends ExceptionHandler
             || $exception instanceof \Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption
         ) {
             return response()->json([
-                'message' => $exception->getMessage(),
+                'message'   => $exception->getMessage(),
                 'http_code' => Response::HTTP_UNAUTHORIZED,
             ], Response::HTTP_UNAUTHORIZED);
-        } else if ($exception instanceof \Illuminate\Validation\ValidationException) {
+        } elseif ($exception instanceof \Illuminate\Validation\ValidationException) {
             return response()->json([
-                'message' => $exception->getMessage() . ' ' . $exception->validator->errors()->first(),
+                'message'   => $exception->getMessage() . ' ' . $exception->validator->errors()->first(),
                 'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

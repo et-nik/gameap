@@ -79,7 +79,8 @@ class DedicatedServersController extends AuthController
 
         if ($request->hasFile('gdaemon_server_cert')) {
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
-                'certs/server', 'local'
+                'certs/server',
+                'local'
             );
         }
 
@@ -108,7 +109,8 @@ class DedicatedServersController extends AuthController
             $baseInfo = [];
         }
 
-        return view('admin.dedicated_servers.view',
+        return view(
+            'admin.dedicated_servers.view',
             compact(
                 'dedicatedServer',
                 'gdaemonVersion',
@@ -142,7 +144,8 @@ class DedicatedServersController extends AuthController
         
         if ($request->hasFile('gdaemon_server_cert')) {
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
-                'certs/server', 'local'
+                'certs/server',
+                'local'
             );
 
             $certificateFile = Storage::disk('local')
@@ -158,7 +161,7 @@ class DedicatedServersController extends AuthController
         $this->repository->update($dedicatedServer, $attributes);
 
         return redirect()->route('admin.dedicated_servers.index')
-            ->with('success',  __('dedicated_servers.update_success_msg'));
+            ->with('success', __('dedicated_servers.update_success_msg'));
     }
 
     /**
@@ -172,6 +175,6 @@ class DedicatedServersController extends AuthController
         $this->repository->destroy($dedicatedServer);
 
         return redirect()->route('admin.dedicated_servers.index')
-            ->with('success',  __('dedicated_servers.delete_success_msg'));
+            ->with('success', __('dedicated_servers.delete_success_msg'));
     }
 }

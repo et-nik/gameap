@@ -63,7 +63,7 @@ class ServersTasksController extends AuthController
         $serverTaskId = $this->repository->store($fields);
 
         return response()->json([
-            'message' => 'success',
+            'message'      => 'success',
             'serverTaskId' => $serverTaskId,
         ], Response::HTTP_CREATED);
     }
@@ -147,5 +147,4 @@ class ServersTasksController extends AuthController
 
         return $convertedDate->toDateTimeString();
     }
-
 }

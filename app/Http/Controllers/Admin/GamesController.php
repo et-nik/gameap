@@ -35,7 +35,7 @@ class GamesController extends AuthController
      */
     public function index()
     {
-        return view('admin.games.list',[
+        return view('admin.games.list', [
             'games' => $this->repository->allWith('mods'),
         ]);
     }
@@ -113,10 +113,9 @@ class GamesController extends AuthController
         if ($result) {
             return redirect()->route('admin.games.index')
                 ->with('success', __('games.upgrade_success_msg'));
-        }  
-            return redirect()->route('admin.games.index')
+        }
+        return redirect()->route('admin.games.index')
                 ->with('error', __('games.upgrade_fail_msg'));
-        
     }
 
     /**
