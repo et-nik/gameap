@@ -2,12 +2,12 @@
 
 namespace Gameap\Models;
 
-use DateTimeInterface;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 /**
  * Server model
@@ -61,9 +61,9 @@ class Server extends Model
     const TIME_EXPIRE_PROCESS_CHECK = 120;
 
     // Installed statuses
-    const NOT_INSTALLED              = 0;
-    const INSTALLED                  = 1;
-    const INSTALLATION_PROCESS       = 2;
+    const NOT_INSTALLED = 0;
+    const INSTALLED = 1;
+    const INSTALLATION_PROCESS = 2;
 
     protected $fillable = [
         'uuid', 'uuid_short',
@@ -108,11 +108,8 @@ class Server extends Model
             'UTC'
         )->timestamp;
 
-        if ($this->process_active && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK) {
-            return true;
-        }
-
-        return false;
+        return $this->process_active
+            && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK;
     }
 
     /**
@@ -142,17 +139,17 @@ class Server extends Model
     /**
      * One to many relation
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function settings()
+    public function settings(): HasMany
     {
         return $this->hasMany(ServerSetting::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function tasks()
+    public function tasks(): HasMany
     {
         return $this->hasMany(ServerTask::class);
     }
@@ -160,7 +157,7 @@ class Server extends Model
     /**
      * @return string
      */
-    public function getFullPathAttribute()
+    public function getFullPathAttribute(): string
     {
         return rtrim($this->dedicatedServer->work_path, '/') . '/' . ltrim($this->dir, '/');
     }
@@ -168,7 +165,7 @@ class Server extends Model
     /**
      * @return array
      */
-    public function getFileManagerDisksAttribute()
+    public function getFileManagerDisksAttribute(): array
     {
         $fileManagerDisks = [
             "server" => array_merge(
@@ -194,7 +191,7 @@ class Server extends Model
     /**
      * @return BelongsToMany
      */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
@@ -202,7 +199,7 @@ class Server extends Model
     /**
      * @return array
      */
-    public function getAliasesAttribute()
+    public function getAliasesAttribute(): array
     {
         $aliases = [
             'ip' => $this->server_ip,
@@ -214,12 +211,10 @@ class Server extends Model
             'uuid_short' => $this->uuid_short,
         ];
 
-        if ($this->gameMod != null && is_array($this->gameMod->vars)) {
+        if ($this->gameMod !== null && is_array($this->gameMod->vars)) {
             foreach ($this->gameMod->vars as $var) {
                 $varname = $var['var'];
-                $aliases[ $varname ] = isset($this->vars[$varname])
-                    ? $this->vars[$varname]
-                    : $var['default'];
+                $aliases[$varname] = $this->vars[$varname] ?? $var['default'];
             }
         }
 

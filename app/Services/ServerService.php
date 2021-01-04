@@ -2,17 +2,17 @@
 
 namespace Gameap\Services;
 
-use GameQ\GameQ;
-use GameQ\Exception\Server as GameqServerException;
-use GameQ\Exception\Query as GameqQueryException;
 use GameQ\Exception\Protocol as GameqProtocolException;
-use Gameap\Models\Server;
-use Knik\Gameap\GdaemonCommands;
-use Html;
-use Storage;
-use Gameap\Exceptions\Services\InvalidCommandException;
+use GameQ\Exception\Query as GameqQueryException;
+use GameQ\Exception\Server as GameqServerException;
+use GameQ\GameQ;
 use Gameap\Exceptions\Services\EmptyCommandException;
+use Gameap\Exceptions\Services\InvalidCommandException;
 use Gameap\Exceptions\Services\ServerInactiveException;
+use Gameap\Models\Server;
+use Html;
+use Knik\Gameap\GdaemonCommands;
+use Storage;
 
 class ServerService
 {
@@ -50,7 +50,7 @@ class ServerService
      * 
      * @param Server $server
      */
-    public function registerDisk(Server $server)
+    public function registerDisk(Server $server): void
     {
         foreach ($server->file_manager_disks as $diskName => $diskConfig) {
             if (empty(config("filesystems.disks.{$diskName}"))) {
@@ -64,7 +64,7 @@ class ServerService
      * @return array|string[]
      * @throws \Exception
      */
-    public function query(Server $server)
+    public function query(Server $server): array
     {
         $host = "{$server->server_ip}:{$server->query_port}";
 
@@ -109,7 +109,7 @@ class ServerService
      * @param array $extraData
      * @return string
      */
-    public function replaceShortCodes(Server $server, string $command, array $extraData = [])
+    public function replaceShortCodes(Server $server, string $command, array $extraData = []): string
     {
         foreach ($extraData as $key => $value) {
             $command = str_replace('{' . $key . '}', $value, $command);
@@ -143,7 +143,7 @@ class ServerService
      * @throws InvalidCommandException
      * @throws EmptyCommandException
      */
-    public function getCommand(Server $server, string $command, array $extraData = [])
+    public function getCommand(Server $server, string $command, array $extraData = []): string
     {
         $property = 'script_' . $command;
         $attributes = $server->dedicatedServer->getAttributes();
@@ -164,8 +164,9 @@ class ServerService
     /**
      * @param Server $server
      * @return string
+     * @throws ServerInactiveException|InvalidCommandException
      */
-    public function getConsoleLog(Server $server)
+    public function getConsoleLog(Server $server): string
     {
         $this->checkServer($server);
         $this->configureGdaemon($server);
@@ -193,8 +194,11 @@ class ServerService
      * @param Server $server
      * @param string $command
      * @return bool
+     *
+     * @throws InvalidCommandException
+     * @throws ServerInactiveException
      */
-    public function sendConsoleCommand(Server $server, string $command)
+    public function sendConsoleCommand(Server $server, string $command): bool
     {
         $this->checkServer($server);
         $this->configureGdaemon($server);
@@ -222,7 +226,7 @@ class ServerService
      *
      * @param Server $server
      */
-    private function configureGdaemon(Server $server)
+    private function configureGdaemon(Server $server): void
     {
         $this->gdaemonCommands->setConfig(
             $server->dedicatedServer->gdaemonSettings($this->storageDisk)
@@ -233,7 +237,7 @@ class ServerService
      * @param Server $server
      * @throws ServerInactiveException
      */
-    private function checkServer(Server $server)
+    private function checkServer(Server $server): void
     {
         if ($server->processActive() === false) {
             throw new ServerInactiveException('Server is down');
