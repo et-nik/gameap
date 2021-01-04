@@ -21,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url): void
     {
+        Paginator::useBootstrap();
+
         if (strtolower(substr(config('app.url'), 0, 5)) == 'https') {
             $url->forceScheme('https');
         }
