@@ -22,9 +22,7 @@ use SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff;
 use SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UselessAliasSniff;
 use SlevomatCodingStandard\Sniffs\PHP\UselessSemicolonSniff;
-use SlevomatCodingStandard\Sniffs\Whitespaces\DuplicateSpacesSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
 use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -85,5 +83,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(BinaryOperatorSpacesFixer::class)
         ->call('configure', [[
             'align_double_arrow' => true,
+            'align_equals'       => true,
         ]]);
 };

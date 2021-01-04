@@ -4,6 +4,6 @@ namespace Gameap\Exceptions\Services;
 
 use Gameap\Exceptions\GameapException;
 
-class GlobalApiException extends GameapException
+class ResponseException extends GameapException
 {
 }

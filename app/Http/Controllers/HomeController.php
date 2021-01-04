@@ -59,7 +59,7 @@ class HomeController extends Controller
      *
      * @param SendBugRequest $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Gameap\Exceptions\Services\GlobalApiException
+     * @throws \Gameap\Exceptions\Services\ResponseException
      */
     public function sendBug(SendBugRequest $request)
     {

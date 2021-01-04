@@ -13,9 +13,9 @@
     ],
     "require": {
         "php": "^7.2.5|^8.0",
-        "ext-pdo": "*",
         "ext-json": "*",
         "ext-openssl": "*",
+        "ext-pdo": "*",
         "ext-zip": "*",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
@@ -40,7 +40,8 @@
         "nwidart/laravel-modules": "^6.0",
         "phpseclib/phpseclib": "~2.0",
         "silber/bouncer": "v1.0.0-rc.10",
-        "spatie/laravel-query-builder": "^2.5"
+        "spatie/laravel-query-builder": "^2.5",
+        "splitbrain/php-archive": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.*",

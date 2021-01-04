@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bd523689e3066db51a8fc40540eb95a",
+    "content-hash": "54359a4500d677e83980a6cf59353884",
     "packages": [
         {
             "name": "brick/math",
@@ -4191,6 +4191,64 @@
                 }
             ],
             "time": "2020-09-08T22:41:35+00:00"
+        },
+        {
+            "name": "splitbrain/php-archive",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/splitbrain/php-archive.git",
+                "reference": "d4cf2d9a2d82548b7e4f1dc04802c526eba68b65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/splitbrain/php-archive/zipball/d4cf2d9a2d82548b7e4f1dc04802c526eba68b65",
+                "reference": "d4cf2d9a2d82548b7e4f1dc04802c526eba68b65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "ext-bz2": "*",
+                "ext-zip": "*",
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^4.8"
+            },
+            "suggest": {
+                "ext-iconv": "Used for proper filename encode handling",
+                "ext-mbstring": "Can be used alternatively for handling filename encoding"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "splitbrain\\PHPArchive\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Gohr",
+                    "email": "andi@splitbrain.org"
+                }
+            ],
+            "description": "Pure-PHP implementation to read and write TAR and ZIP archives",
+            "keywords": [
+                "archive",
+                "extract",
+                "tar",
+                "unpack",
+                "unzip",
+                "zip"
+            ],
+            "support": {
+                "issues": "https://github.com/splitbrain/php-archive/issues",
+                "source": "https://github.com/splitbrain/php-archive/tree/1.2.0"
+            },
+            "time": "2020-10-13T12:41:15+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -12478,9 +12536,9 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.2.5|^8.0",
-        "ext-pdo": "*",
         "ext-json": "*",
         "ext-openssl": "*",
+        "ext-pdo": "*",
         "ext-zip": "*"
     },
     "platform-dev": [],

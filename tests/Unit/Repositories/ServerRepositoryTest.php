@@ -4,6 +4,7 @@ namespace Tests\Unit\Repositories;
 
 use Gameap\Repositories\ServerRepository;
 use Illuminate\Container\Container;
+use PHPUnit\Framework\Assert;
 use Tests\TestCase;
 
 class ServerRepositoryTest extends TestCase
@@ -23,6 +24,6 @@ class ServerRepositoryTest extends TestCase
     {
         $servers = $this->repository->getAll();
         $serversCollection = $servers->items();
-        $this->assertNotNull($serversCollection);
+        Assert::assertNotNull($serversCollection);
     }
 }

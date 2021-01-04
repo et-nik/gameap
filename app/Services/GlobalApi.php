@@ -3,7 +3,7 @@
 namespace Gameap\Services;
 
 use Config;
-use Gameap\Exceptions\Services\GlobalApiException;
+use Gameap\Exceptions\Services\ResponseException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
@@ -11,29 +11,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GlobalApi
 {
+    private const CONFIG_GLOBAL_API_NAME = 'app.global_api';
+
     /**
      * @return array
-     * @throws GlobalApiException
+     * @throws ResponseException|\GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonException
      */
     public static function games()
     {
         try {
             $client = new Client(['headers' => ['Accept: application/json']]);
-            $res = $client->get(config('app.global_api') . '/games');
+            $res = $client->get(config(self::CONFIG_GLOBAL_API_NAME) . '/games');
             $status = $res->getStatusCode();
         } catch (ClientException $e) {
-            throw new GlobalApiException($e->getMessage());
+            throw new ResponseException($e->getMessage());
         }
 
-        if ($status != Response::HTTP_OK) {
-            throw new GlobalApiException('Unexpected HTTP status code: ' . $status);
+        if ($status !== Response::HTTP_OK) {
+            throw new ResponseException('Unexpected HTTP status code: ' . $status);
         }
 
         $json = $res->getBody()->getContents();
-        $results = json_decode($json, true);
+        $results = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
-        if (empty($results['success']) || $results['success'] != true) {
-            throw new GlobalApiException('API Error');
+        if (empty($results['success']) || $results['success'] !== true) {
+            throw new ResponseException('API Error');
         }
 
         return $results['data'];
@@ -44,7 +47,7 @@ class GlobalApi
      * @param $description
      * @param $environment
      * @return bool
-     * @throws GlobalApiException
+     * @throws ResponseException
      */
     public static function sendBug($summary, $description, $environment = '')
     {
@@ -53,7 +56,6 @@ class GlobalApi
         $environment .= 'PHP version: ' . PHP_VERSION . "\n";
         $environment .= php_uname() . "\n";
 
-        $ar = compact('version', 'summary', 'description', 'environment');
         try {
             $client = new Client(['headers' => ['Accept' => 'application/json']]);
 
@@ -66,11 +68,11 @@ class GlobalApi
 
             $status = $res->getStatusCode();
         } catch (ClientException $e) {
-            throw new GlobalApiException($e->getMessage());
+            throw new ResponseException($e->getMessage());
         }
 
-        if ($status != Response::HTTP_CREATED) {
-            throw new GlobalApiException('Unexpected HTTP status code: ' . $status);
+        if ($status !== Response::HTTP_CREATED) {
+            throw new ResponseException('Unexpected HTTP status code: ' . $status);
         }
 
         return true;

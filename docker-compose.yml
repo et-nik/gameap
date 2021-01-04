@@ -28,13 +28,16 @@ services:
     hostname: gameap.php
     volumes:
       - ./:/var/www
+      - ./.dev/docker/php/zzz-config.ini:/usr/local/etc/php/conf.d/zzz-config.ini
     environment:
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_DATABASE: gameap
       DB_USERNAME: gameap
       DB_PASSWORD: gameap
-      XDEBUG_CONFIG: remote_enable=1 remote_mode=req remote_port=9001 remote_host=172.17.0.1
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: "client_port=9001 client_host=172.17.0.1 mode=debug start_with_request=yes idekey=PHPSTORM"
+      PHP_IDE_CONFIG: "serverName=gameap-develop"
       ADMIN_PASSWORD: fpwPOuZD
       DAEMON_SETUP_TOKEN: test_auto_setup_token
     links:
