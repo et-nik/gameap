@@ -3,29 +3,24 @@
 namespace Gameap\Repositories;
 
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommandException;
-use Gameap\Exceptions\Repositories\GdaemonTaskRepository\InvalidServerStartCommandException;
-use Gameap\Models\Server;
-use Gameap\Models\GdaemonTask;
-use Gameap\Models\DedicatedServer;
-use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
+use Gameap\Exceptions\Repositories\GdaemonTaskRepository\InvalidServerStartCommandException;
+use Gameap\Exceptions\Repositories\RecordExistExceptions;
+use Gameap\Models\GdaemonTask;
+use Gameap\Models\Server;
 use Illuminate\Support\Facades\DB;
 use PDO;
 
-/**
- * Class GdaemonTaskRepository
-*/
 class GdaemonTaskRepository extends Repository
 {
     public function __construct(GdaemonTask $gdaemonTask)
     {
         $this->model = $gdaemonTask;
     }
-    
+
     public function getAll($perPage = 20)
     {
-        $gdaemonTasks = GdaemonTask::orderBy('id', 'DESC')->paginate($perPage);
-        return $gdaemonTasks;
+        return GdaemonTask::orderBy('id', 'DESC')->paginate($perPage);
     }
 
     /**
@@ -208,9 +203,9 @@ class GdaemonTaskRepository extends Repository
 
         $dbDriver = DB::connection()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
 
-        if ($dbDriver == 'mysql') {
+        if ($dbDriver === 'mysql') {
             $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), {$qoutedOutput})")]);
-        } else if ($dbDriver == 'sqlite' || $dbDriver == 'pgsql') {
+        } else if ($dbDriver === 'sqlite' || $dbDriver === 'pgsql') {
             $gdaemonTask->update(['output' => DB::raw("COALESCE(output, '') || {$qoutedOutput}")]);
         } else {
             $gdaemonTask->update(['output' => $gdaemonTask->output . $output]);
