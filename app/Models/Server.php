@@ -91,11 +91,6 @@ class Server extends Model
         'process_active' => 'boolean',
     ];
 
-    /**
-     * Get server status
-     *
-     * @return bool
-     */
     public function processActive(): bool
     {
         if (empty($this->last_process_check)) {
@@ -112,59 +107,36 @@ class Server extends Model
             && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK;
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function dedicatedServer()
+    public function dedicatedServer(): BelongsTo
     {
         return $this->belongsTo(DedicatedServer::class, 'ds_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function game()
+    public function game(): BelongsTo
     {
         return $this->belongsTo(Game::class, 'game_id', 'code');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function gameMod()
+    public function gameMod(): BelongsTo
     {
         return $this->belongsTo(GameMod::class, 'game_mod_id');
     }
 
-    /**
-     * One to many relation
-     *
-     * @return HasMany
-     */
     public function settings(): HasMany
     {
         return $this->hasMany(ServerSetting::class);
     }
 
-    /**
-     * @return HasMany
-     */
     public function tasks(): HasMany
     {
         return $this->hasMany(ServerTask::class);
     }
 
-    /**
-     * @return string
-     */
     public function getFullPathAttribute(): string
     {
         return rtrim($this->dedicatedServer->work_path, '/') . '/' . ltrim($this->dir, '/');
     }
 
-    /**
-     * @return array
-     */
     public function getFileManagerDisksAttribute(): array
     {
         $fileManagerDisks = [
@@ -188,17 +160,11 @@ class Server extends Model
         return $fileManagerDisks;
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    /**
-     * @return array
-     */
     public function getAliasesAttribute(): array
     {
         $aliases = [

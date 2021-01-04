@@ -7,22 +7,9 @@ use Gameap\Models\ServerSetting;
 
 class ServerSettingsRepository extends Repository
 {
-    public function __construct(Server $server)
+    public function saveSettings(Server $server, array $settings): void
     {
-        $this->model = $server;
-    }
-
-    /**
-     * @param Server $server
-     * @param array $settings
-     * @throws \Exception
-     */
-    public function saveSettings(Server $server, array $settings)
-    {
-        $existsSettings = [];
-        foreach ($server->settings as $setting) {
-            $existsSettings[$setting->name] = $setting;
-        }
+        $existsSettings = $this->getExistsSettings($server);
 
         $saveSettings = [];
         foreach ($settings as $setting) {
@@ -46,12 +33,25 @@ class ServerSettingsRepository extends Repository
             }
         }
 
-        // Remove items
+        $this->removeSettingItems($server, $saveSettings);
+    }
+
+    private function getExistsSettings(Server $server): array
+    {
+        $existsSettings = [];
         foreach ($server->settings as $setting) {
-            if (!array_key_exists($setting['name'], $saveSettings)) {
+            $existsSettings[$setting->name] = $setting;
+        }
+
+        return $existsSettings;
+    }
+
+    private function removeSettingItems(Server $server, $settings): void
+    {
+        foreach ($server->settings as $setting) {
+            if (!array_key_exists($setting['name'], $settings)) {
                 $setting->delete();
             }
         }
     }
-
 }
