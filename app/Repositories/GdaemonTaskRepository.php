@@ -193,7 +193,7 @@ class GdaemonTaskRepository extends Repository
      * @param GdaemonTask $gdaemonTask
      * @param string $output
      */
-    public function concatOutput(GdaemonTask $gdaemonTask, string $output)
+    public function concatOutput(GdaemonTask $gdaemonTask, string $output): void
     {
         if (empty($output)) {
             return;
@@ -217,7 +217,7 @@ class GdaemonTaskRepository extends Repository
      *
      * @throws GdaemonTaskRepositoryException
      */
-    public function cancel(GdaemonTask $gdaemonTask)
+    public function cancel(GdaemonTask $gdaemonTask): void
     {
         if ($gdaemonTask->status != GdaemonTask::STATUS_WAITING) {
             throw new GdaemonTaskRepositoryException(__('gdaemon_tasks.cancel_fail_cannot_be_canceled'));
@@ -234,7 +234,7 @@ class GdaemonTaskRepository extends Repository
      *
      * @throws RecordExistExceptions
      */
-    private function workingTaskNotExistOrFail(Server $server, $task, $failMsg = 'Task is already exists')
+    private function workingTaskNotExistOrFail(Server $server, $task, $failMsg = 'Task is already exists'): void
     {
         if (is_array($task)) {
             $taskQuery = GdaemonTask::whereIn(['task', $task])->where([['server_id', '=', $server->id]]);
@@ -262,7 +262,7 @@ class GdaemonTaskRepository extends Repository
      * @throws InvalidServerStartCommandException
      * @throws EmptyServerStartCommandException
      */
-    private function serverCommandCorrectOrFail(Server $server)
+    private function serverCommandCorrectOrFail(Server $server): void
     {
         if (empty($server->start_command)) {
             throw new EmptyServerStartCommandException(__('gdaemon_tasks.empty_server_start_command'));

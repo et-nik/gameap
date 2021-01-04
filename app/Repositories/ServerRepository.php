@@ -14,9 +14,9 @@ use Illuminate\Support\Str;
 
 class ServerRepository
 {
-    const DEFAULT_RCON_PASSWORD_LENGTH = 10;
+    public const DEFAULT_RCON_PASSWORD_LENGTH = 10;
 
-    const DEFAULT_PER_PAGE = 20;
+    public const DEFAULT_PER_PAGE = 20;
 
     /**
      * @var Server
@@ -56,7 +56,7 @@ class ServerRepository
      * @param array $attributes
      * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
      */
-    public function store(array $attributes)
+    public function store(array $attributes): void
     {
         $attributes['uuid'] = Str::orderedUuid()->toString();
         $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
@@ -156,7 +156,7 @@ class ServerRepository
 
         $query = DB::table($serversTable)
             ->selectRaw("{$serversTable}.*, {$gamesTable}.name as game_name")
-            ->whereIn('game_id', function($query) use ($engines, $serversTable, $gamesTable) {
+            ->whereIn('game_id', function($query) use ($engines, $serversTable, $gamesTable): void {
                 $query->select('code')
                     ->from($gamesTable)
                     ->whereIn('engine', $engines);
@@ -182,7 +182,7 @@ class ServerRepository
     public function search($query)
     {
         return $this->model->select(['id', 'name', 'server_ip', 'server_port', 'game_id', 'game_mod_id'])
-            ->with(['game' => function($query) {
+            ->with(['game' => function($query): void {
                 $query->select('code','name');
             }])
             ->where('name', 'LIKE', '%' . $query . '%')
@@ -193,7 +193,7 @@ class ServerRepository
      * @param Server $server
      * @param array  $attributes
      */
-    public function update(Server $server, array $attributes)
+    public function update(Server $server, array $attributes): void
     {
         $attributes['enabled'] = (bool)array_key_exists('enabled', $attributes);
         $attributes['blocked'] = (bool)array_key_exists('blocked', $attributes);
@@ -213,7 +213,7 @@ class ServerRepository
      * @param Server            $server
      * @param ServerVarsRequest $request
      */
-    public function updateVars(Server $server, ServerVarsRequest $request)
+    public function updateVars(Server $server, ServerVarsRequest $request): void
     {
         $only = [];
         foreach ($server->gameMod->vars as $var) {
@@ -231,7 +231,7 @@ class ServerRepository
      * @param Server $server
      * @param bool $autostart
      */
-    public function updateAutostart(Server $server, bool $autostart)
+    public function updateAutostart(Server $server, bool $autostart): void
     {
         $autostartSetting = $server->settings->where('name', 'autostart')->first()
             ?? new ServerSetting([

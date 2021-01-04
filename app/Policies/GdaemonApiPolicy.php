@@ -6,7 +6,7 @@ use Gameap\Models\DedicatedServer;
 
 class GdaemonApiPolicy {
 
-    public function before(DedicatedServer $dedicatedServer)
+    public function before(DedicatedServer $dedicatedServer): void
     {
 
     }

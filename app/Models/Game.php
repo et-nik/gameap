@@ -44,7 +44,7 @@ class Game extends Model
      *
      * @var bool
      */
-    public  $incrementing = false;
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.

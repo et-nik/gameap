@@ -15,7 +15,7 @@ use Storage;
 
 class ServerService
 {
-    const CONSOLE_MAX_SYMBOLS = 10000;
+    public const CONSOLE_MAX_SYMBOLS = 10000;
 
     /**
      * @var GameQ
@@ -89,7 +89,7 @@ class ServerService
                 'hostname' => $serverResult['gq_hostname'],
                 'map' => $serverResult['gq_mapname'],
                 'players' => $serverResult['gq_numplayers'] . '/' . $serverResult['gq_maxplayers'],
-                'version' => isset($serverResult['version']) ? $serverResult['version'] : null,
+                'version' => $serverResult['version'] ?? null,
                 'password' => $serverResult['gq_password'] ? 'yes' : 'no',
                 'joinlink' => $serverResult['gq_joinlink'],
             ];

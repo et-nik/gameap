@@ -26,7 +26,7 @@ abstract class JsonRequest extends Request
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator): void
     {
         throw (new ValidationException($validator))
             ->errorBag($this->errorBag);

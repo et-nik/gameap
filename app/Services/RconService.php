@@ -100,7 +100,7 @@ class RconService
      * @param Server $server
      * @throws \Knik\GRcon\Exceptions\ProtocolNotSupportedException
      */
-    private function setRconOptions(Server $server)
+    private function setRconOptions(Server $server): void
     {
         $this->rcon->setProtocol(strtolower($server->game->engine), [
             'host'      => $server->server_ip,

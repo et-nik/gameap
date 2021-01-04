@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      * @param UrlGenerator $url
      * @return void
      */
-    public function boot(UrlGenerator $url)
+    public function boot(UrlGenerator $url): void
     {
         if (strtolower(substr(config('app.url'), 0, 5)) == 'https') {
             $url->forceScheme('https');
@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }

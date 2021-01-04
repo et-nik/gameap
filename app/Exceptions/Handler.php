@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(\Throwable $exception)
+    public function report(\Throwable $exception): void
     {
         parent::report($exception);
     }
@@ -73,7 +73,7 @@ class Handler extends ExceptionHandler
      *
      * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function renderJson($request, Exception $exception)
+    public function renderJson($request, \Throwable $exception)
     {
         if ($exception instanceof RepositoryValidationException) {
             return response()->json([

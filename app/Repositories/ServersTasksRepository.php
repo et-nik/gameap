@@ -8,7 +8,7 @@ use Gameap\Models\ServerTask;
 
 class ServersTasksRepository
 {
-    const MIN_PERIOD_IN_SECONDS = 600;
+    public const MIN_PERIOD_IN_SECONDS = 600;
 
     /** @var ServerTask */
     protected $model;
@@ -63,7 +63,7 @@ class ServersTasksRepository
      * @param array $task
      * @throws RepositoryValidationException
      */
-    public function update(int $taskId, array $task)
+    public function update(int $taskId, array $task): void
     {
         $this->validate($task);
         $convertedTask = $this->convert($task);
@@ -102,7 +102,7 @@ class ServersTasksRepository
      * @param array $task
      * @throws RepositoryValidationException
      */
-    private function validate(array $task) {
+    private function validate(array $task): void {
         if (empty($task) || empty($task['command'])) {
             throw new RepositoryValidationException(__('servers_tasks.errors.empty_command'));
         }

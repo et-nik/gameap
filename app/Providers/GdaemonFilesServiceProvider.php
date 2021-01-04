@@ -14,7 +14,7 @@ class GdaemonFilesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Storage::extend('gameap', function($app, $config) {
             return new Filesystem(new GameapAdapter($config));
@@ -26,7 +26,7 @@ class GdaemonFilesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }

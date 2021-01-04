@@ -105,7 +105,7 @@ class DedicatedServersRepository extends Repository
      * @param DedicatedServer $dedicatedServer
      * @throws \Exception
      */
-    public function destroy(DedicatedServer $dedicatedServer)
+    public function destroy(DedicatedServer $dedicatedServer): void
     {
         if ($dedicatedServer->gdaemon_server_cert != CertificateService::ROOT_CA_CERT &&
             Storage::disk('local')->exists($dedicatedServer->gdaemon_server_cert)
@@ -130,7 +130,7 @@ class DedicatedServersRepository extends Repository
      * @param array $fields
      * @param DedicatedServer        $dedicatedServer
      */
-    public function update(DedicatedServer $dedicatedServer, array $attributes)
+    public function update(DedicatedServer $dedicatedServer, array $attributes): void
     {
         $attributes['ip'] = array_filter($attributes['ip'], function($value) {
             return !empty($value);

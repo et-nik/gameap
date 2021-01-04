@@ -287,7 +287,7 @@ class ServersController extends AuthController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function handleException(Exception $exception)
+    private function handleException(\Throwable $exception)
     {
         if (Auth::user()->can('admin roles & permissions')) {
             $extraMessage = $this->getDocMessage($exception);
@@ -302,7 +302,7 @@ class ServersController extends AuthController
      * @param Exception $exception
      * @return string
      */
-    private function getDocMessage(Exception $exception)
+    private function getDocMessage(\Throwable $exception)
     {
         $msg = '';
 

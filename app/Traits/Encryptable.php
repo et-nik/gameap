@@ -13,7 +13,7 @@ trait Encryptable
         if (in_array($key, $this->encryptable)) {
             try {
                 $value = Crypt::decrypt($value);
-            } catch (\Exception $exception) {
+            } catch (\Throwable $exception) {
                 $value = "";
             }
 

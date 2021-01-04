@@ -24,18 +24,18 @@ use X509\CertificationRequest\CertificationRequestInfo;
 
 class CertificateService
 {
-    const ROOT_CA_CERT = 'certs/root.crt';
-    const ROOT_CA_KEY = 'certs/root.key';
+    public const ROOT_CA_CERT = 'certs/root.crt';
+    public const ROOT_CA_KEY = 'certs/root.key';
 
-    const PRIVATE_KEY_BITS = 2048;
+    public const PRIVATE_KEY_BITS = 2048;
     
-    const CERT_YEARS = 10;
+    public const CERT_YEARS = 10;
     
     /**
      * Generate CA root key and certificate.
      * Write root key and certificate to a Storage.
      */
-    static public function generateRoot()
+    public static function generateRoot(): void
     {
         $privateKey = (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
         
@@ -76,7 +76,7 @@ class CertificateService
      *
      * @throws GameapException
      */
-    static public function generate($certificatePath, $keyPath)
+    public static function generate($certificatePath, $keyPath): void
     {
         if (!Storage::exists(self::ROOT_CA_CERT)) {
             self::generateRoot();
@@ -114,7 +114,7 @@ class CertificateService
      * @return string  PEM certificate
      * @throws GameapException
      */
-    static public function signCsr(string $csr)
+    public static function signCsr(string $csr)
     {
         if (!Storage::exists(self::ROOT_CA_CERT)) {
             self::generateRoot();
@@ -158,7 +158,7 @@ class CertificateService
      *
      * @return string
      */
-    static public function fingerprintString($certificatePath)
+    public static function fingerprintString($certificatePath)
     {
         $fingerprint = openssl_x509_fingerprint(Storage::get($certificatePath), 'sha256');
         return strtoupper(implode(':', str_split($fingerprint, 2)));
@@ -169,7 +169,7 @@ class CertificateService
      *
      * @return array
      */
-    static public function certificateInfo($certificatePath)
+    public static function certificateInfo($certificatePath)
     {
         $parsed = openssl_x509_parse(Storage::get($certificatePath));
 

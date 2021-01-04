@@ -13,7 +13,7 @@ class InfoService
      * 
      * @return string
      */
-    static public function latestRelease()
+    public static function latestRelease()
     {
         $client = new Client();
         

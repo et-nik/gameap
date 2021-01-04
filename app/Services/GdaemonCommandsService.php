@@ -35,7 +35,7 @@ abstract class GdaemonCommandsService
      * @param int|DedicatedServer
      * @throws GameapException
      */
-    protected function configureGdaemon($ds)
+    protected function configureGdaemon($ds): void
     {
         if (is_int($ds)) {
             $dedicatedServer = DedicatedServer::findOrFail($ds);

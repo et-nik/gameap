@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ClientCertificateRepository extends Repository
 {
-    const STORAGE_CERTS_PATH = 'certs/client';
+    public const STORAGE_CERTS_PATH = 'certs/client';
 
     /**
      * ClientCertificateRepository constructor.
@@ -70,7 +70,7 @@ class ClientCertificateRepository extends Repository
      * @param ClientCertificate $clientCertificate
      * @param ClientCertificatesRequest $request
      */
-    public function update(ClientCertificate $clientCertificate, array $request)
+    public function update(ClientCertificate $clientCertificate, array $request): void
     {
         $attributes = $request->all();
 
@@ -93,7 +93,7 @@ class ClientCertificateRepository extends Repository
      * @param ClientCertificate $clientCertificate
      * @throws \Exception
      */
-    public function destroy(ClientCertificate $clientCertificate)
+    public function destroy(ClientCertificate $clientCertificate): void
     {
         if (Storage::disk('local')->exists($clientCertificate->certificate)) {
             // TODO: Not working =(
