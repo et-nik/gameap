@@ -55,7 +55,7 @@ class Game extends Model
         'code', 'start_code', 'name', 
         'engine', 'engine_version',
         'steam_app_id', 'steam_app_set_config',
-        'local_repository', 'remote_repository'
+        'local_repository', 'remote_repository',
     ];
 
     /**

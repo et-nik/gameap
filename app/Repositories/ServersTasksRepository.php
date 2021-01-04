@@ -126,7 +126,7 @@ class ServersTasksRepository
             'execute_date'  => $task->execute_date,
             'payload'       => $task->payload,
             'created_at'    => $task->created_at,
-            'updated_at'    => $task->updated_at
+            'updated_at'    => $task->updated_at,
         ];
     }
 }

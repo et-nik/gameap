@@ -9,7 +9,7 @@ class CommandRequest extends Request
     public function rules()
     {
         return [
-            'command' => 'required|string|max:127'
+            'command' => 'required|string|max:127',
         ];
     }
 }

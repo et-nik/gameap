@@ -86,7 +86,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -116,7 +116,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -148,7 +148,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -177,7 +177,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -201,7 +201,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -217,7 +217,7 @@ class ServersController extends AuthController
         $this->authorize('server-control', $server);
 
         return [
-            'processActive' => $server->processActive()
+            'processActive' => $server->processActive(),
         ];
     }
 
@@ -247,7 +247,7 @@ class ServersController extends AuthController
         $this->authorize('server-console-view', $server);
 
         return [
-            'console' => $this->serverService->getConsoleLog($server)
+            'console' => $this->serverService->getConsoleLog($server),
         ];
     }
 
@@ -322,7 +322,7 @@ class ServersController extends AuthController
     {
         return response()->json([
             'message' => $message,
-            'http_code' => $code
+            'http_code' => $code,
         ], $code);
     }
 }

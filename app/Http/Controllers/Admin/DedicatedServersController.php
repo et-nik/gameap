@@ -44,7 +44,7 @@ class DedicatedServersController extends AuthController
         $dedicatedServers = $this->repository->getAll();
 
         return view('admin.dedicated_servers.list', [
-            'dedicatedServers' => $dedicatedServers
+            'dedicatedServers' => $dedicatedServers,
         ]);
     }
 

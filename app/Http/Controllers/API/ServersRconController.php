@@ -36,7 +36,7 @@ class ServersRconController extends AuthController
         return [
             'output' => $server->processActive()
                 ? $rconService->sendCommand($server, $request->post('command'))
-                : 'Server is offline'
+                : 'Server is offline',
         ];
     }
 

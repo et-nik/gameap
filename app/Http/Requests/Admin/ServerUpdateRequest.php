@@ -56,7 +56,7 @@ class ServerUpdateRequest extends Request
                 ->where(function ($query) {
                 return $query->where('ds_id', $this->ds_id)
                     ->whereNull('deleted_at');
-            })]
+            }), ],
         ];
     }
 }

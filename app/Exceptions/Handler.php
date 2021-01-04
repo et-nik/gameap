@@ -78,14 +78,14 @@ class Handler extends ExceptionHandler
         if ($exception instanceof RepositoryValidationException) {
             return response()->json([
                 'message' => $exception->getMessage(),
-                'http_code' => Response::HTTP_BAD_REQUEST
+                'http_code' => Response::HTTP_BAD_REQUEST,
             ], Response::HTTP_BAD_REQUEST);
         }
 
         if ($exception instanceof \Gameap\Exceptions\Repositories\RecordExistExceptions) {
             return response()->json([
                 'message' => $exception->getMessage(),
-                'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
+                'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -95,12 +95,12 @@ class Handler extends ExceptionHandler
         ) {
             return response()->json([
                 'message' => $exception->getMessage(),
-                'http_code' => Response::HTTP_UNAUTHORIZED
+                'http_code' => Response::HTTP_UNAUTHORIZED,
             ], Response::HTTP_UNAUTHORIZED);
         } else if ($exception instanceof \Illuminate\Validation\ValidationException) {
             return response()->json([
                 'message' => $exception->getMessage() . ' ' . $exception->validator->errors()->first(),
-                'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY
+                'http_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

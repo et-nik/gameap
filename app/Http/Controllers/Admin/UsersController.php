@@ -26,6 +26,7 @@ class UsersController extends AuthController
     public function __construct(UserRepository $repository)
     {
         parent::__construct();
+
         $this->repository = $repository;
     }
 
@@ -37,7 +38,7 @@ class UsersController extends AuthController
     public function index()
     {
         return view('admin.users.list',[
-            'users' => $this->repository->getAll()
+            'users' => $this->repository->getAll(),
         ]);
     }
 

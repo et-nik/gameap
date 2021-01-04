@@ -42,7 +42,7 @@ class GameMod extends Model
         'fast_rcon', 'vars',
         'remote_repository', 'local_repository',
         'default_start_cmd_linux', 'default_start_cmd_windows',
-        'kick_cmd', 'ban_cmd', 'chname_cmd', 'srestart_cmd', 'chmap_cmd', 'sendmsg_cmd', 'passwd_cmd'
+        'kick_cmd', 'ban_cmd', 'chname_cmd', 'srestart_cmd', 'chmap_cmd', 'sendmsg_cmd', 'passwd_cmd',
     ];
 
     /**

@@ -162,7 +162,7 @@ class GdaemonTaskRepository extends Repository
         } else {
             $taskQuery = GdaemonTask::where([
                 ['task', '=', $task],
-                ['server_id', '=', $serverId]
+                ['server_id', '=', $serverId],
             ]);
         }
 
@@ -242,13 +242,13 @@ class GdaemonTaskRepository extends Repository
             $taskQuery = GdaemonTask::where([
                 ['task', '=', $task],
                 ['server_id', '=', $server->id],
-                ['dedicated_server_id', '=', $server->ds_id]
+                ['dedicated_server_id', '=', $server->ds_id],
             ]);
         }
 
         $taskExist = $taskQuery->whereIn('status', [
             GdaemonTask::STATUS_WAITING, 
-            GdaemonTask::STATUS_WORKING
+            GdaemonTask::STATUS_WORKING,
         ])->exists();
 
         if ($taskExist) {

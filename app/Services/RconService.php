@@ -34,12 +34,12 @@ class RconService
 
             return [
                 'rcon'          => true,
-                'playersManage' => $this->rcon->isPlayersManageSupported()
+                'playersManage' => $this->rcon->isPlayersManageSupported(),
             ];
         } catch (GRconException $exception) {
             return [
                 'rcon'          => false,
-                'playersManage' => false
+                'playersManage' => false,
             ];
         }
     }
@@ -105,7 +105,7 @@ class RconService
         $this->rcon->setProtocol(strtolower($server->game->engine), [
             'host'      => $server->server_ip,
             'port'      => $server->rcon_port,
-            'password'  => $server->rcon
+            'password'  => $server->rcon,
         ]);
     }
 }

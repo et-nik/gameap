@@ -143,7 +143,7 @@ class Server extends Model
             "server" => array_merge(
                 $this->dedicatedServer->gdaemonSettings('local'),
                 ['driver' => 'gameap', 'workDir' => $this->full_path, 'root' => $this->full_path]
-            )
+            ),
         ];
 
         $setting = $this->settings()->where('name', 'file-manager')->first();

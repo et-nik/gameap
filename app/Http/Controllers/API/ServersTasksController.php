@@ -21,6 +21,7 @@ class ServersTasksController extends AuthController
     public function __construct(ServersTasksRepository $serversTasksRepository)
     {
         parent::__construct();
+
         $this->repository = $serversTasksRepository;
     }
 

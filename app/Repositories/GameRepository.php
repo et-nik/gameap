@@ -53,7 +53,7 @@ class GameRepository extends Repository
 
                     $gameMod = GameMod::firstOrCreate([
                         'name' => $gameModData['name'],
-                        'game_code' => $gameData['code']
+                        'game_code' => $gameData['code'],
                     ]);
 
                     $gameMod->fill($gameModData);

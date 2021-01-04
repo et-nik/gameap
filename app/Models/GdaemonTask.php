@@ -60,7 +60,7 @@ class GdaemonTask extends Model
         'data',
         'cmd',
         'output',
-        'status'
+        'status',
     ];
 
     /**
@@ -77,7 +77,7 @@ class GdaemonTask extends Model
         'data' => 'string',
         'cmd' => 'string',
         'output' => 'string',
-        'status' => 'string'
+        'status' => 'string',
     ];
 
     /**

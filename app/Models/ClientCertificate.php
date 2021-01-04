@@ -28,7 +28,7 @@ class ClientCertificate extends Model
      * @var array
      */
     protected $fillable = [
-        'fingerprint', 'expires', 'certificate', 'private_key', 'private_key_pass'
+        'fingerprint', 'expires', 'certificate', 'private_key', 'private_key_pass',
     ];
 
     /**

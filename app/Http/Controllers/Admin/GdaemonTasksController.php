@@ -36,7 +36,7 @@ class GdaemonTasksController extends AuthController
     public function index()
     {
         return view('admin.gdaemon_tasks.list',[
-            'gdaemonTasks' => $this->repository->getAll()
+            'gdaemonTasks' => $this->repository->getAll(),
         ]);
     }
 

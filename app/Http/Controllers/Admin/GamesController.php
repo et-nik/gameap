@@ -36,7 +36,7 @@ class GamesController extends AuthController
     public function index()
     {
         return view('admin.games.list',[
-            'games' => $this->repository->allWith('mods')
+            'games' => $this->repository->allWith('mods'),
         ]);
     }
 

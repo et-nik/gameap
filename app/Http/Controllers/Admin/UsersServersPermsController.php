@@ -25,6 +25,7 @@ class UsersServersPermsController extends AuthController
     public function __construct(UserRepository $repository)
     {
         parent::__construct();
+
         $this->repository = $repository;
     }
 
