@@ -7,9 +7,9 @@ use Gameap\Models\GdaemonTask;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TasksController extends Controller
 {

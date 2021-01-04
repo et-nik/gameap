@@ -4,9 +4,9 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Exceptions\GameapException;
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\ClientCertificatesRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Repositories\ClientCertificateRepository;
-use Gameap\Http\Requests\ClientCertificatesRequest;
 
 class ClientCertificatesController extends AuthController
 {

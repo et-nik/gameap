@@ -2,10 +2,10 @@
 
 namespace Gameap\Http\Controllers\Auth;
 
-use Gameap\Models\User;
 use Gameap\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Gameap\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {

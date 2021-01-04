@@ -5,8 +5,6 @@ namespace Gameap\Repositories;
 use Gameap\Models\Game;
 use Gameap\Models\GameMod;
 use Gameap\Services\GlobalApi;
-use Symfony\Component\Finder\Glob;
-use Illuminate\Support\Arr;
 
 class GameRepository extends Repository
 {

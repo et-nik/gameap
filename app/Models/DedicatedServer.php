@@ -3,8 +3,6 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Validable;
-use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 use Storage;
 
 /**

@@ -3,9 +3,9 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\ServersSettingsRequest;
 use Gameap\Models\Server;
 use Gameap\Repositories\ServerRepository;
-use Gameap\Http\Requests\ServersSettingsRequest;
 use Gameap\Repositories\ServerSettingsRepository;
 
 class ServersSettingsController extends AuthController

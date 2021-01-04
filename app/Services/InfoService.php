@@ -4,7 +4,6 @@ namespace Gameap\Services;
 
 use \Illuminate\Http\Response;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 
 class InfoService

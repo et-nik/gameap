@@ -8,12 +8,12 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\ServerCreateRequest;
 use Gameap\Http\Requests\Admin\ServerDestroyRequest;
 use Gameap\Http\Requests\Admin\ServerUpdateRequest;
+use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
-use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\GameModRepository;
-use Gameap\Repositories\ServerRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
+use Gameap\Repositories\ServerRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

@@ -2,9 +2,9 @@
 
 namespace Gameap\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Gameap\Http\Requests\ProfileChangePasswordRequest;
 use Hash;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends AuthController
 {

@@ -2,21 +2,20 @@
 
 namespace Gameap\Http\Controllers\API;
 
+use Exception;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommandException;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
-use Gameap\Exceptions\Repositories\GdaemonTaskRepository\InvalidServerStartCommandException;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Repositories\ServerRepository;
-use Gameap\Repositories\GdaemonTaskRepository;
-use Gameap\Models\Server;
+use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Gameap\Models\GdaemonTask;
+use Gameap\Models\Server;
+use Gameap\Repositories\GdaemonTaskRepository;
+use Gameap\Repositories\ServerRepository;
 use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
-use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class ServersController extends AuthController

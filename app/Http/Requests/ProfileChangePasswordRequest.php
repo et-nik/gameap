@@ -1,7 +1,7 @@
 <?php
+
 namespace Gameap\Http\Requests;
 
-use Gameap\Models\User;
 
 class ProfileChangePasswordRequest extends Request
 {

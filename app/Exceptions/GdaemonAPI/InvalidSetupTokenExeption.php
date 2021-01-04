@@ -1,4 +1,5 @@
 <?php
+
 namespace Gameap\Exceptions\GdaemonAPI;
 
 use Gameap\Exceptions\GameapException;

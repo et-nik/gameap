@@ -2,7 +2,7 @@
 
 namespace Gameap\Models;
 
-use Illuminate\Database\Eloquent\Model as Model;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class GdaemonTask

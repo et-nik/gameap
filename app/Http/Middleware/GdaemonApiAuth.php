@@ -3,10 +3,10 @@
 namespace Gameap\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Gameap\Exceptions\GdaemonAPI\InvalidApiKeyException;
 use Gameap\Models\DedicatedServer;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GdaemonApiAuth
 {

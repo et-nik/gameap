@@ -4,10 +4,10 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Bouncer;
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Models\User;
-use Gameap\Repositories\UserRepository;
 use Gameap\Http\Requests\Admin\UserCreateRequest;
 use Gameap\Http\Requests\Admin\UserUpdateRequest;
+use Gameap\Models\User;
+use Gameap\Repositories\UserRepository;
 
 class UsersController extends AuthController
 {

@@ -5,7 +5,6 @@ namespace Gameap\Http\Requests\Admin;
 use Gameap\Http\Requests\Request;
 use Illuminate\Validation\Rule;
 
-use Illuminate\Support\Facades\Route;
 
 class ServerUpdateRequest extends Request
 {

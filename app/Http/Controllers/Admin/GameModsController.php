@@ -3,10 +3,10 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Models\Game;
-use Gameap\Repositories\GameModRepository;
-use Gameap\Models\GameMod;
 use Gameap\Http\Requests\Admin\GameModRequest;
+use Gameap\Models\Game;
+use Gameap\Models\GameMod;
+use Gameap\Repositories\GameModRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;

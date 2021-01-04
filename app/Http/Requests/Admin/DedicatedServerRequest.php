@@ -2,7 +2,6 @@
 
 namespace Gameap\Http\Requests\Admin;
 
-use Gameap\Models\DedicatedServer;
 use Gameap\Http\Requests\Request;
 
 class DedicatedServerRequest extends Request

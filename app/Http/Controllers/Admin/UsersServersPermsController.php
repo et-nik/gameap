@@ -4,9 +4,8 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Helpers\ServerPermissionHelper;
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Models\User;
 use Gameap\Models\Server;
-use Bouncer;
+use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
 use Illuminate\Http\Request;
 

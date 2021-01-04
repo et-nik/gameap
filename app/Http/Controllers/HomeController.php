@@ -2,12 +2,10 @@
 
 namespace Gameap\Http\Controllers;
 
-use Illuminate\Http\Request;
-use \Illuminate\Http\Response;
-use Gameap\Services\InfoService;
-use Gameap\Services\GlobalApi;
-use Gameap\Http\Requests\SendBugRequest;
 use Cache;
+use Gameap\Http\Requests\SendBugRequest;
+use Gameap\Services\GlobalApi;
+use Gameap\Services\InfoService;
 
 class HomeController extends Controller
 {

@@ -3,8 +3,8 @@
 namespace Gameap\Http\Controllers\API;
 
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Models\GdaemonTask;
+use Gameap\Repositories\GdaemonTaskRepository;
 
 class GdaemonTasksController extends AuthController
 {

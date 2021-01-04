@@ -4,8 +4,8 @@ namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
 use Gameap\Services\CertificateService;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DedicatedServersRepository extends Repository
 {

@@ -3,6 +3,10 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
+use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
+use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
+use SlevomatCodingStandard\Sniffs\Namespaces\UselessAliasSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -20,12 +24,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/tests',
     ]);
 
+    // Namespaces
+    $services->set(UselessAliasSniff::class);
+    $services->set(NoUnusedImportsFixer::class);
+    $services->set(OrderedImportsFixer::class);
+    $services->set(SingleBlankLineBeforeNamespaceFixer::class);
+
     $parameters->set(Option::SETS, [
         // run and fix, one by one
         // SetList::SPACES,
         // SetList::ARRAY,
         // SetList::DOCBLOCK,
-        // SetList::NAMESPACES,
         // SetList::CONTROL_STRUCTURES,
         // SetList::CLEAN_CODE,
         // SetList::PSR_12,

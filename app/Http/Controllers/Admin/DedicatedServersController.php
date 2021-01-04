@@ -3,14 +3,13 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Http\Requests\Request;
+use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Knik\Gameap\GdaemonStatus;
 use RuntimeException;
 

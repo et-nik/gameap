@@ -5,8 +5,8 @@ namespace Gameap\Repositories;
 use Bouncer;
 use DB;
 use Gameap\Helpers\ServerPermissionHelper;
-use Gameap\Models\User;
 use Gameap\Models\Server;
+use Gameap\Models\User;
 
 class UserRepository extends Repository
 {

@@ -2,14 +2,12 @@
 
 namespace Gameap\Services;
 
-use Gameap\Models\Game;
-use Gameap\Models\GameMod;
+use Config;
 use Gameap\Exceptions\Services\GlobalApiException;
 use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\RequestOptions;
 use Symfony\Component\HttpFoundation\Response;
-use Config;
 
 class GlobalApi
 {

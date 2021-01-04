@@ -2,7 +2,6 @@
 
 namespace Gameap\Http\Requests\Admin;
 
-use Gameap\Models\GameMod;
 use Gameap\Http\Requests\Request;
 
 class GameModRequest extends Request

@@ -1,12 +1,12 @@
 <?php
+
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
-use Gameap\Models\DsStats;
-use Gameap\Models\DedicatedServer;
 use Gameap\Http\Requests\GdaemonAPI\DsStatsRequest;
+use Gameap\Models\DedicatedServer;
+use Gameap\Models\DsStats;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Batch;
 
 class DsStatsController extends Controller
 {

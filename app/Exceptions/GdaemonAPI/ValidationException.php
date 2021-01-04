@@ -1,4 +1,5 @@
 <?php
+
 namespace Gameap\Exceptions\GdaemonAPI;
 
 use Illuminate\Validation\ValidationException as Exception;

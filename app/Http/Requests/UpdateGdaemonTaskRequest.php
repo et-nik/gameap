@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Gameap\Models\GdaemonTask;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateGdaemonTaskRequest extends FormRequest
 {

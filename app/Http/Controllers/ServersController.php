@@ -7,8 +7,6 @@ use Gameap\Models\Server;
 use Gameap\Models\ServerSetting;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\RconService;
-use Illuminate\Support\Facades\Auth;
-use Knik\GRcon\Exceptions\GRconException;
 
 class ServersController extends AuthController
 {

@@ -2,10 +2,10 @@
 
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
-use Illuminate\Support\Str;
-use Illuminate\Routing\Controller as BaseController;
 use Carbon\Carbon;
 use Gameap\Models\DedicatedServer;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Str;
 
 class AuthController extends BaseController
 {

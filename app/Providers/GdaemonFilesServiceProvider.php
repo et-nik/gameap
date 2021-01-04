@@ -3,9 +3,9 @@
 namespace Gameap\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Storage;
-use League\Flysystem\Filesystem;
 use Knik\Flysystem\Gameap\GameapAdapter;
+use League\Flysystem\Filesystem;
+use Storage;
 
 class GdaemonFilesServiceProvider extends ServiceProvider
 {

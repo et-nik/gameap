@@ -2,9 +2,7 @@
 
 namespace Gameap\Helpers;
 
-use Bouncer;
 use Gameap\Models\Server;
-use Gameap\Models\User;
 
 class ServerPermissionHelper
 {

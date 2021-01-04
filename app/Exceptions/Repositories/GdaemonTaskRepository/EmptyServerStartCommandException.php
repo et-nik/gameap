@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Gameap\Exceptions\Repositories\GdaemonTaskRepository;
 
 

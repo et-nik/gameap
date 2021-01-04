@@ -2,8 +2,8 @@
 
 namespace Gameap\Console\Commands;
 
-use Illuminate\Console\Command;
 use Gameap\Models\User;
+use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\Console\Input\InputArgument;
 

@@ -4,14 +4,13 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Exceptions\GameapException;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Http\Requests\GdaemonAPI\DedicatedServerRequest;
 use Gameap\Services\CertificateService;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SetupController extends BaseController
 {

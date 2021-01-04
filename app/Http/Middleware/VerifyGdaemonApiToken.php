@@ -1,12 +1,13 @@
 <?php
+
 namespace Gameap\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption;
+use Gameap\Models\DedicatedServer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
-use Gameap\Models\DedicatedServer;
-use Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class VerifyGdaemonApiToken
 {

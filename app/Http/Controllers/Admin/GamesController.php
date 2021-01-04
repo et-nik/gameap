@@ -3,9 +3,9 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\Admin\GameRequest;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameRepository;
-use Gameap\Http\Requests\Admin\GameRequest;
 
 class GamesController extends AuthController
 {

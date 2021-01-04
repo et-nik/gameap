@@ -3,9 +3,8 @@
 namespace Gameap\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Cache;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Gameap\Exceptions\GdaemonAPI\InvalidSetupTokenExeption;
+use Illuminate\Support\Facades\Cache;
 
 class VerifyGdaemonSetupToken
 {

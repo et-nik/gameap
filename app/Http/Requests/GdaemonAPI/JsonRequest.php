@@ -1,9 +1,10 @@
-<?php namespace Gameap\Http\Requests\GdaemonAPI;
+<?php
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
+namespace Gameap\Http\Requests\GdaemonAPI;
+
 use Gameap\Exceptions\GdaemonAPI\ValidationException;
 use Gameap\Http\Requests\Request;
+use Illuminate\Contracts\Validation\Validator;
 
 abstract class JsonRequest extends Request
 {

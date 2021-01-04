@@ -2,8 +2,8 @@
 
 namespace Gameap\Policies;
 
-use Gameap\Models\User;
 use Gameap\Models\Server;
+use Gameap\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ServerPolicy
