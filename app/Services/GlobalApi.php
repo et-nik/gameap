@@ -22,7 +22,7 @@ class GlobalApi
     {
         try {
             $client = new Client(['headers' => ['Accept: application/json']]);
-            $res = $client->get(config(self::CONFIG_GLOBAL_API_NAME) . '/games');
+            $res    = $client->get(config(self::CONFIG_GLOBAL_API_NAME) . '/games');
             $status = $res->getStatusCode();
         } catch (ClientException $e) {
             throw new ResponseException($e->getMessage());
@@ -32,7 +32,7 @@ class GlobalApi
             throw new ResponseException('Unexpected HTTP status code: ' . $status);
         }
 
-        $json = $res->getBody()->getContents();
+        $json    = $res->getBody()->getContents();
         $results = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
         if (empty($results['success']) || $results['success'] !== true) {

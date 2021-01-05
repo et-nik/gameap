@@ -25,8 +25,8 @@ class InfoService
         }
 
         if ($res->getStatusCode() == Response::HTTP_OK) {
-            $lines = explode("\n", $res->getBody()->getContents());
-            $parts = explode(': ', $lines[0]);
+            $lines  = explode("\n", $res->getBody()->getContents());
+            $parts  = explode(': ', $lines[0]);
             $latest = $parts[1];
              
             return $latest;

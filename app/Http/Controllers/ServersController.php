@@ -63,7 +63,7 @@ class ServersController extends AuthController
         $autostart = $autostartSetting->value;
 
         $rconSupportedFeatures = $rconService->supportedFeatures($server);
-        $rconSupported = $rconSupportedFeatures['rcon'];
+        $rconSupported         = $rconSupportedFeatures['rcon'];
 
         return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
             view('servers.view', compact('server', 'autostart', 'rconSupportedFeatures', 'rconSupported'))

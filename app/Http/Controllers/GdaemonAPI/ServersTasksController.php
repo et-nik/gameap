@@ -58,7 +58,7 @@ class ServersTasksController extends Controller
         $serverTaskFail = new ServerTaskFail();
 
         $serverTaskFail->server_task_id = $serverTask->id;
-        $serverTaskFail->output = $request->get('output');
+        $serverTaskFail->output         = $request->get('output');
 
         return $serverTaskFail->save()
             ? response()->json(['message' => 'success'], Response::HTTP_OK)

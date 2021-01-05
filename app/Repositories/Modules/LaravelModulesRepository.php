@@ -23,7 +23,7 @@ class LaravelModulesRepository
         $modules = [];
         /** @var Module $module */
         foreach ($this->getNvidardRepository()->all() as $module) {
-            $attributes = $module->json()->getAttributes();
+            $attributes                       = $module->json()->getAttributes();
             $modules[$module->getLowerName()] = $attributes['version'] ?? '';
         }
 
@@ -57,10 +57,10 @@ class LaravelModulesRepository
     {
         $laravelModule = new LaravelModule();
 
-        $laravelModule->id = $module['alias'];
-        $laravelModule->name = $module['name'];
+        $laravelModule->id          = $module['alias'];
+        $laravelModule->name        = $module['name'];
         $laravelModule->description = $module['description'];
-        $laravelModule->tags = $module['keywords'];
+        $laravelModule->tags        = $module['keywords'];
 
         return $laravelModule;
     }

@@ -24,7 +24,7 @@ use X509\CertificationRequest\CertificationRequestInfo;
 class CertificateService
 {
     public const ROOT_CA_CERT = 'certs/root.crt';
-    public const ROOT_CA_KEY = 'certs/root.key';
+    public const ROOT_CA_KEY  = 'certs/root.key';
 
     public const PRIVATE_KEY_BITS = 2048;
     

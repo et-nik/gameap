@@ -26,8 +26,8 @@ class ServerSettingsRepository extends Repository
                 $serverSetting = new ServerSetting();
 
                 $serverSetting->server_id = $server->id;
-                $serverSetting->name = $setting['name'];
-                $serverSetting->value = $setting['value'];
+                $serverSetting->name      = $setting['name'];
+                $serverSetting->value     = $setting['value'];
                 $serverSetting->save();
                 $existsSettings[$setting['name']] = $serverSetting;
             }

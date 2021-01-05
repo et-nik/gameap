@@ -52,10 +52,10 @@ class ServersController extends AuthController
     ) {
         parent::__construct();
 
-        $this->repository = $repository;
+        $this->repository            = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
-        $this->serverService = $serverService;
-        $this->serverControlService = $serverControlService;
+        $this->serverService         = $serverService;
+        $this->serverControlService  = $serverControlService;
     }
 
     /**
@@ -194,7 +194,7 @@ class ServersController extends AuthController
         $this->authorize('server-update', $server);
 
         try {
-            $deleteTaskId = $this->gdaemonTaskRepository->addServerDelete($server);
+            $deleteTaskId  = $this->gdaemonTaskRepository->addServerDelete($server);
             $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server, $deleteTaskId);
         } catch (RecordExistExceptions $exception) {
             return $this->makeErrorResponse($exception->getMessage());

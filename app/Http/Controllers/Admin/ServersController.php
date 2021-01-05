@@ -43,7 +43,7 @@ class ServersController extends AuthController
     {
         parent::__construct();
 
-        $this->repository = $repository;
+        $this->repository            = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
@@ -96,7 +96,7 @@ class ServersController extends AuthController
     public function edit(Server $server)
     {
         $dedicatedServers = DedicatedServer::all(['id', 'name'])->pluck('name', 'id');
-        $games = Game::orderBy('name')->get()->pluck('name', 'code');
+        $games            = Game::orderBy('name')->get()->pluck('name', 'code');
         return view('admin.servers.edit', compact('server', 'dedicatedServers', 'games'));
     }
 

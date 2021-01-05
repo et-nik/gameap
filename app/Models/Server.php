@@ -61,8 +61,8 @@ class Server extends Model
     public const TIME_EXPIRE_PROCESS_CHECK = 120;
 
     // Installed statuses
-    public const NOT_INSTALLED = 0;
-    public const INSTALLED = 1;
+    public const NOT_INSTALLED        = 0;
+    public const INSTALLED            = 1;
     public const INSTALLATION_PROCESS = 2;
 
     protected $fillable = [
@@ -179,7 +179,7 @@ class Server extends Model
 
         if ($this->gameMod !== null && is_array($this->gameMod->vars)) {
             foreach ($this->gameMod->vars as $var) {
-                $varname = $var['var'];
+                $varname           = $var['var'];
                 $aliases[$varname] = $this->vars[$varname] ?? $var['default'];
             }
         }

@@ -71,7 +71,7 @@ class SetupController extends BaseController
         $attributes = $request->all();
 
         if ($request->hasFile('gdaemon_server_cert')) {
-            $csr = $request->file('gdaemon_server_cert')->get();
+            $csr                     = $request->file('gdaemon_server_cert')->get();
             $serverSignedCertificate = CertificateService::signCsr($csr);
         } else {
             return 'Error Empty GDdaemon server certificate';
@@ -80,7 +80,7 @@ class SetupController extends BaseController
         $attributes['gdaemon_server_cert'] = CertificateService::ROOT_CA_CERT;
         
         $dedicatedServer = $this->repository->store($attributes);
-        $certificate = Storage::get(CertificateService::ROOT_CA_CERT);
+        $certificate     = Storage::get(CertificateService::ROOT_CA_CERT);
         
         Cache::forget('gdaemonCreateToken');
         

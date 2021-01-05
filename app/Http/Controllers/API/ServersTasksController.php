@@ -38,7 +38,7 @@ class ServersTasksController extends AuthController
 
         foreach ($this->repository->getTasks($server->id) as $task) {
             $task['execute_date'] = $this->convertDateToLocal($task['execute_date']);
-            $tasks[] = $task;
+            $tasks[]              = $task;
         }
 
         return $tasks;

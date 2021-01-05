@@ -35,7 +35,7 @@ class ServerRepository
      */
     public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
     {
-        $this->model = $server;
+        $this->model                 = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
@@ -58,7 +58,7 @@ class ServerRepository
      */
     public function store(array $attributes): void
     {
-        $attributes['uuid'] = Str::orderedUuid()->toString();
+        $attributes['uuid']       = Str::orderedUuid()->toString();
         $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
         
         $attributes['enabled'] = true;
@@ -67,7 +67,7 @@ class ServerRepository
         $addInstallTask = false;
         if (isset($attributes['install'])) {
             $attributes['installed'] = !$attributes['install'];
-            $addInstallTask = true;
+            $addInstallTask          = true;
 
             unset($attributes['install']);
         }
@@ -151,7 +151,7 @@ class ServerRepository
         }
 
         $serversTable = $this->model->getTable();
-        $gamesTable = (new Game())->getTable();
+        $gamesTable   = (new Game())->getTable();
 
         $query = DB::table($serversTable)
             ->selectRaw("{$serversTable}.*, {$gamesTable}.name as game_name")
@@ -194,8 +194,8 @@ class ServerRepository
      */
     public function update(Server $server, array $attributes): void
     {
-        $attributes['enabled'] = (bool)array_key_exists('enabled', $attributes);
-        $attributes['blocked'] = (bool)array_key_exists('blocked', $attributes);
+        $attributes['enabled']   = (bool)array_key_exists('enabled', $attributes);
+        $attributes['blocked']   = (bool)array_key_exists('blocked', $attributes);
         $attributes['installed'] = (bool)array_key_exists('installed', $attributes);
 
         if (isset($attributes['ds_id'])) {

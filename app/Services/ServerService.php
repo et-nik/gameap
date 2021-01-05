@@ -40,7 +40,7 @@ class ServerService
      */
     public function __construct(GameQ $gameq, GdaemonCommands $gdaemonCommands)
     {
-        $this->gameq = $gameq;
+        $this->gameq           = $gameq;
         $this->gdaemonCommands = $gdaemonCommands;
     }
 
@@ -144,7 +144,7 @@ class ServerService
      */
     public function getCommand(Server $server, string $command, array $extraData = []): string
     {
-        $property = 'script_' . $command;
+        $property   = 'script_' . $command;
         $attributes = $server->dedicatedServer->getAttributes();
 
         if (array_key_exists($property, $attributes)) {
@@ -172,7 +172,7 @@ class ServerService
 
         try {
             $command = $this->getCommand($server, 'get_console');
-            $result = $this->gdaemonCommands->exec($command, $exitCode);
+            $result  = $this->gdaemonCommands->exec($command, $exitCode);
         } catch (EmptyCommandException $e) {
             $this->registerDisk($server);
             $result = Storage::disk('server')->get('output.txt');

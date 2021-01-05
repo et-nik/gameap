@@ -61,8 +61,8 @@ class ClientCertificateRepository extends Repository
 
         $info = CertificateService::certificateInfo($attributes['certificate']);
 
-        $attributes['expires'] = $info['expires'];
-        $attributes['fingerprint'] = CertificateService::fingerprintString($attributes['certificate'], 'sha1');
+        $attributes['expires']          = $info['expires'];
+        $attributes['fingerprint']      = CertificateService::fingerprintString($attributes['certificate'], 'sha1');
         $attributes['private_key_pass'] = '';
         
         return ClientCertificate::create($attributes);
@@ -140,7 +140,7 @@ class ClientCertificateRepository extends Repository
         $clientCertificate = ClientCertificate::select()->first();
 
         if (empty($clientCertificate)) {
-            $attributes = $this->generate();
+            $attributes        = $this->generate();
             $clientCertificate = ClientCertificate::create($attributes);
         } else {
             // Fix. If client certificate exists in database but not exists certificates files.
@@ -156,10 +156,10 @@ class ClientCertificateRepository extends Repository
 
                 $attributes = $this->generate();
 
-                $clientCertificate->fingerprint = $attributes['fingerprint'];
-                $clientCertificate->expires = $attributes['expires'];
-                $clientCertificate->certificate = $attributes['certificate'];
-                $clientCertificate->private_key = $attributes['private_key'];
+                $clientCertificate->fingerprint      = $attributes['fingerprint'];
+                $clientCertificate->expires          = $attributes['expires'];
+                $clientCertificate->certificate      = $attributes['certificate'];
+                $clientCertificate->private_key      = $attributes['private_key'];
                 $clientCertificate->private_key_pass = $attributes['private_key_pass'];
                 $clientCertificate->save();
             }
@@ -176,9 +176,9 @@ class ClientCertificateRepository extends Repository
      */
     private function generate()
     {
-        $timestamp = time();
+        $timestamp       = time();
         $certificateName = self::STORAGE_CERTS_PATH . "/client_{$timestamp}.crt";
-        $privateKeyName = self::STORAGE_CERTS_PATH . "/client_{$timestamp}.key";
+        $privateKeyName  = self::STORAGE_CERTS_PATH . "/client_{$timestamp}.key";
 
         CertificateService::generate($certificateName, $privateKeyName);
         $info = CertificateService::certificateInfo($certificateName);

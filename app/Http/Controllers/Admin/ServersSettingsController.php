@@ -31,7 +31,7 @@ class ServersSettingsController extends AuthController
     {
         parent::__construct();
 
-        $this->serverRepository = $serverRepository;
+        $this->serverRepository         = $serverRepository;
         $this->serverSettingsRepository = $serverSettingsRepository;
     }
 

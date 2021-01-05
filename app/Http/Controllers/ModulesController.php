@@ -2,14 +2,14 @@
 
 namespace Gameap\Http\Controllers;
 
-use Gameap\Repositories\Modules\LaravelModulesRepository;
-use Illuminate\Support\Facades\Artisan;
 use Gameap\Http\Requests\Modules\InstallModuleRequest;
+use Gameap\Repositories\Modules\LaravelModulesRepository;
 use Gameap\Repositories\Modules\MarketplaceModulesRepository;
 use Gameap\Services\Modules\Installer;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
 
 class ModulesController extends AuthController
@@ -31,8 +31,8 @@ class ModulesController extends AuthController
         parent::__construct();
 
         $this->marketplaceModulesRepository = $modulesRepository;
-        $this->laravelModulesRepository = $laravelModulesRepository;
-        $this->modulesInstaller  = $modulesInstaller;
+        $this->laravelModulesRepository     = $laravelModulesRepository;
+        $this->modulesInstaller             = $modulesInstaller;
     }
 
     /**
@@ -48,7 +48,7 @@ class ModulesController extends AuthController
     public function marketplace()
     {
         $installedModules = $this->laravelModulesRepository->getModulesVersions();
-        $modules = $this->marketplaceModulesRepository->getAll();
+        $modules          = $this->marketplaceModulesRepository->getAll();
 
         return view('modules/marketplace', compact('modules', 'installedModules'));
     }

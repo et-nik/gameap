@@ -103,10 +103,10 @@ class DedicatedServersController extends AuthController
 
         try {
             $gdaemonVersion = $gdaemonStatus->version();
-            $baseInfo = $gdaemonStatus->infoBase();
+            $baseInfo       = $gdaemonStatus->infoBase();
         } catch (RuntimeException $e) {
             $gdaemonVersion = [];
-            $baseInfo = [];
+            $baseInfo       = [];
         }
 
         return view(

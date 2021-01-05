@@ -23,7 +23,7 @@ class DedicatedServersRepository extends Repository
         DedicatedServer $dedicatedServer,
         ClientCertificateRepository $clientCertificateRepository
     ) {
-        $this->model = $dedicatedServer;
+        $this->model                       = $dedicatedServer;
         $this->clientCertificateRepository = $clientCertificateRepository;
     }
 
@@ -58,7 +58,7 @@ class DedicatedServersRepository extends Repository
     {
         /** @var DedicatedServer $dedicatedServer */
         $dedicatedServer = $this->model->select('id')->where('id', '=', $id)->first();
-        $result = [];
+        $result          = [];
 
         foreach ($dedicatedServer->servers as $server) {
             if (!array_key_exists($server->server_ip, $result)) {
@@ -89,14 +89,14 @@ class DedicatedServersRepository extends Repository
         });
 
         if (empty($attributes['client_certificate_id'])) {
-            $clientCertificate = $this->clientCertificateRepository->getFirstOrGenerate();
+            $clientCertificate                   = $this->clientCertificateRepository->getFirstOrGenerate();
             $attributes['client_certificate_id'] = $clientCertificate->id;
         }
 
         $attributes['gdaemon_api_key'] = Str::random(64);
 
         $attributes['enabled'] = $attributes['enabled'] ?? 1;
-        $attributes['os'] = $attributes['os'] ?? 'linux';
+        $attributes['os']      = $attributes['os'] ?? 'linux';
 
         return DedicatedServer::create($attributes);
     }

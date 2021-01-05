@@ -19,7 +19,7 @@ class Installer
     public function __construct(MarketplaceService $marketplaceService, Archiver $archiver)
     {
         $this->marketplaceService = $marketplaceService;
-        $this->archiver = $archiver;
+        $this->archiver           = $archiver;
     }
 
     /**
@@ -31,7 +31,7 @@ class Installer
      */
     public function install(string $moduleID, string $version = ''): void
     {
-        $modulesPath = Config::get(self::CONFIG_MODULES_PATH_NAME);
+        $modulesPath     = Config::get(self::CONFIG_MODULES_PATH_NAME);
         $destinationPath = $modulesPath . '/' . ucfirst($moduleID);
 
         if (!is_writable($modulesPath)) {

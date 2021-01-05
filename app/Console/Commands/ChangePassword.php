@@ -40,7 +40,7 @@ class ChangePassword extends Command
      */
     public function handle()
     {
-        $userLogin = $this->argument('login');
+        $userLogin    = $this->argument('login');
         $userPassword = $this->argument('password');
 
         try {
