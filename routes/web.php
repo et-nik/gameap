@@ -71,7 +71,7 @@ Route::get('/update', 'HomeController@update')->name('update')->middleware('isAd
 
 Route::get('/modules', 'ModulesController@index')->name('modules')->middleware('isAdmin');
 Route::get('/modules/marketplace', 'ModulesController@marketplace')->name('modules.marketplace')->middleware('isAdmin');
-Route::get('/modules/migrate', 'ModulesController@migrate')->name('modules.migrate')->middleware('isAdmin');
+Route::post('/modules/migrate', 'ModulesController@migrate')->name('modules.migrate')->middleware('isAdmin');
 Route::post('/modules/install', 'ModulesController@install')->name('modules.install')->middleware('isAdmin');
 Route::delete('/modules/{module}', 'ModulesController@destroy')->name('modules.destroy')->middleware('isAdmin');
 
