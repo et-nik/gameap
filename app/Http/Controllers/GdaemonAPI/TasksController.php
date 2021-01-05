@@ -32,7 +32,7 @@ class TasksController extends Controller
      */
     public function index(DedicatedServer $dedicatedServer)
     {
-        return QueryBuilder::for(GdaemonTask::where('dedicated_server_id', $dedicatedServer->id))
+        return QueryBuilder::for (GdaemonTask::where('dedicated_server_id', $dedicatedServer->id))
             ->allowedFilters('status')
             ->allowedAppends('status_num')
             ->get();

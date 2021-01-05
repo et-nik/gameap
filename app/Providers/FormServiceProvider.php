@@ -14,7 +14,7 @@ class FormServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer('*', function (): void {
+        view()->composer('*', function(): void {
             Form::component(
                 'bsInput',
                 'components.form.input',
