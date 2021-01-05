@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $infoService   = $this->infoService;
-        $latestVersion = Cache::remember('latestVersion', 3600, static function () use ($infoService) {
+        $latestVersion = Cache::remember('latestVersion', 3600, static function() use ($infoService) {
             return $infoService->latestRelease();
         });
 
