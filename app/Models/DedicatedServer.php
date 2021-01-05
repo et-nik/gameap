@@ -3,7 +3,9 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Storage;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class DedicatedServer
@@ -50,11 +52,8 @@ use Storage;
  */
 class DedicatedServer extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public const LINUX_DISTRIBUTIONS = ['linux', 'debian', 'ubuntu', 'centos', 'gentoo', 'opensuse'];
+
     protected $fillable = [
         'enabled',
         'name',
@@ -97,10 +96,6 @@ class DedicatedServer extends Model
         'client_certificate_id' => 'integer',
     ];
 
-    /**
-     * Validation rules
-     * @var array
-     */
     protected static $rules = [
         'name'                  => 'required|max:128',
         'location'              => 'required|max:128',
@@ -115,29 +110,17 @@ class DedicatedServer extends Model
         'client_certificate_id' => 'numeric|exists:client_certificates,id',
     ];
 
-    /**
-     * One to many relation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function servers()
+    public function servers(): HasMany
     {
         return $this->hasMany(Server::class, 'ds_id');
     }
 
-    /**
-     * One to one relation
-     */
-    public function clientCertificate()
+    public function clientCertificate(): BelongsTo
     {
         return $this->belongsTo(ClientCertificate::class);
     }
 
-    /**
-     * @param $storageDisk
-     * @return array
-     */
-    public function gdaemonSettings($storageDisk = 'local')
+    public function gdaemonSettings($storageDisk = 'local'): array
     {
         $gdaemonHost = filter_var($this->gdaemon_host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)
             ? '[' . $this->gdaemon_host . ']'
@@ -170,21 +153,8 @@ class DedicatedServer extends Model
         ];
     }
 
-    /**
-     * @return bool
-     */
-    public function isLinux()
+    public function isLinux(): bool
     {
-        switch (strtolower($this->os)) {
-            case 'linux':
-            case 'debian':
-            case 'ubuntu':
-            case 'centos':
-            case 'gentoo':
-            case 'opensuse':
-                return true;
-        }
-
-        return false;
+        return in_array(strtolower($this->os), self::LINUX_DISTRIBUTIONS);
     }
 }

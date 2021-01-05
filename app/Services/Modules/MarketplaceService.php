@@ -4,6 +4,7 @@ namespace Gameap\Services\Modules;
 
 use Gameap\Exceptions\GameapException;
 use Gameap\Exceptions\InvalidArgumentValueException;
+use Gameap\Exceptions\NotFoundException;
 use Gameap\Exceptions\Services\ResponseException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -58,6 +59,10 @@ class MarketplaceService
     public function downloadModule(string $moduleID, string $version): string
     {
         $module = $this->findModule($moduleID);
+
+        if ($module === null) {
+            throw new NotFoundException('Module not found');
+        }
 
         if (!array_key_exists($version, $module['versions'])) {
             throw new InvalidArgumentValueException('Invalid module version');

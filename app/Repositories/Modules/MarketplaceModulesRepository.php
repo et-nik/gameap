@@ -16,7 +16,7 @@ class MarketplaceModulesRepository
         $this->marketplaceService = $marketplaceService;
     }
 
-    /** @return []Module */
+    /** @return MarketplaceModule[] */
     public function getAll(): iterable
     {
         $modules = [];

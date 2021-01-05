@@ -5,7 +5,7 @@
 @section('content')
     @include('components.form.errors_block')
 
-    <a class='btn btn-success' href="{{ route('modules.migrate') }}"><i class="fas fa-redo"></i>&nbsp;{{ __('modules.migrate') }}</a>
+    @include('modules.migrate_button')
     <hr>
 
     <ul class="nav nav-tabs">

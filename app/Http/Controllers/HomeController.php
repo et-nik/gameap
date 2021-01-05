@@ -2,21 +2,21 @@
 
 namespace Gameap\Http\Controllers;
 
-use Cache;
 use Gameap\Http\Requests\SendBugRequest;
 use Gameap\Services\GlobalApi;
 use Gameap\Services\InfoService;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    /** @var InfoService */
+    private $infoService;
+
+    public function __construct(InfoService $infoService)
     {
         $this->middleware('auth');
+
+        $this->infoService = $infoService;
     }
 
     /**
@@ -26,8 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latestVersion = Cache::remember('latestVersion', 3600, function () {
-            return InfoService::latestRelease();
+        $infoService   = $this->infoService;
+        $latestVersion = Cache::remember('latestVersion', 3600, static function () use ($infoService) {
+            return $infoService->latestRelease();
         });
 
         $modules = app()['modules']->getCached();
@@ -78,7 +79,7 @@ class HomeController extends Controller
      */
     public function update()
     {
-        $latestVersion = InfoService::latestRelease();
+        $latestVersion = $this->infoService->latestRelease();
         return view('update', compact('latestVersion'));
     }
 }
