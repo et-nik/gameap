@@ -12,7 +12,7 @@ class ServerUpdateRequest extends Request
         $portRules = ['nullable', 'numeric', 'digits_between:1,65535',
             Rule::unique('servers', 'server_port')
                 ->ignore($this->route('server'))
-                ->where(function($query) {
+                ->where(function ($query) {
                     return $query
                         ->where('ds_id', $this->ds_id)
                         ->where('server_ip', $this->server_ip)
@@ -20,7 +20,7 @@ class ServerUpdateRequest extends Request
                 }),
             Rule::unique('servers', 'query_port')
                 ->ignore($this->route('server'))
-                ->where(function($query) {
+                ->where(function ($query) {
                     return $query
                         ->where('ds_id', $this->ds_id)
                         ->where('server_ip', $this->server_ip)
@@ -28,7 +28,7 @@ class ServerUpdateRequest extends Request
                 }),
             Rule::unique('servers', 'rcon_port')
                 ->ignore($this->route('server'))
-                ->where(function($query) {
+                ->where(function ($query) {
                     return $query
                         ->where('ds_id', $this->ds_id)
                         ->where('server_ip', $this->server_ip)
@@ -52,7 +52,7 @@ class ServerUpdateRequest extends Request
 
             'dir' => ['required', 'string', Rule::unique('servers', 'dir')
                 ->ignore($this->route('server'))
-                ->where(function($query) {
+                ->where(function ($query) {
                     return $query->where('ds_id', $this->ds_id)
                     ->whereNull('deleted_at');
                 }), ],

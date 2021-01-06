@@ -3,6 +3,7 @@
 namespace Gameap\Http\Controllers;
 
 use Gameap\Http\Requests\Modules\InstallModuleRequest;
+use Gameap\Http\Requests\Modules\ModuleActionRequest;
 use Gameap\Repositories\Modules\LaravelModulesRepository;
 use Gameap\Repositories\Modules\MarketplaceModulesRepository;
 use Gameap\Services\Modules\Installer;
@@ -71,6 +72,24 @@ class ModulesController extends AuthController
         Artisan::call('module:migrate ' . $moduleID);
 
         return redirect(route('modules.marketplace'))->with('success', __('modules.install_success_msg'));
+    }
+
+    public function enable(ModuleActionRequest $request): RedirectResponse
+    {
+        $moduleID = $request->input('module');
+
+        Artisan::call('module:enable ' . $moduleID);
+
+        return redirect(route('modules'))->with('success', __('modules.enable_success_msg'));
+    }
+
+    public function disable(ModuleActionRequest $request): RedirectResponse
+    {
+        $moduleID = $request->input('module');
+
+        Artisan::call('module:disable ' . $moduleID);
+
+        return redirect(route('modules'))->with('success', __('modules.disable_success_msg'));
     }
 
     public function destroy(string $moduleId): RedirectResponse

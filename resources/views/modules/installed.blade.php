@@ -1,3 +1,9 @@
+@php
+/**
+* @var $modules \Gameap\Models\Modules\LaravelModule[]
+**/
+@endphp
+
 @php($title = __('modules.title'))
 
 @extends('layouts.main')
@@ -26,6 +32,31 @@
                         'labels' => [__('modules.name'), __('modules.description'), __('modules.tags')],
                         'attributes' => ['name', 'description', 'tags'],
                         'destroyRoute' => 'modules.destroy',
+                        'customActionsBefore' => static function(string $modelKey, \Gameap\Models\Modules\LaravelModule $model) {
+                            $buttons = '';
+
+                            if ($model->isEnabled) {
+                                $buttons .= Form::submitButton([
+                                    'id'    => 'enable-module-' . $modelKey,
+                                    'route' => route('modules.disable'),
+                                    'data'  => ['module' => $modelKey],
+                                    'icon'  => '<i class="fas fa-times-circle"></i>',
+                                    'text'  => __('modules.disable'),
+                                    'class' => 'btn btn-dark btn-sm'
+                                ]);
+                            } else {
+                                $buttons .= Form::submitButton([
+                                    'id'    => 'enable-module-' . $modelKey,
+                                    'route' => route('modules.enable'),
+                                    'data'  => ['module' => $modelKey],
+                                    'icon'  => '<i class="fas fa-check-circle"></i>',
+                                    'text'  => __('modules.enable'),
+                                    'class' => 'btn btn-success btn-sm'
+                                ]);
+                            }
+
+                            return $buttons;
+                        }
                     ])
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace Gameap\Http\Controllers;
 
 use Gameap\Http\Requests\SendBugRequest;
+use Gameap\Repositories\Modules\LaravelModulesRepository;
 use Gameap\Services\GlobalApi;
 use Gameap\Services\InfoService;
 use Illuminate\Support\Facades\Cache;
@@ -12,11 +13,15 @@ class HomeController extends Controller
     /** @var InfoService */
     private $infoService;
 
-    public function __construct(InfoService $infoService)
+    /** @var LaravelModulesRepository */
+    private $laravelModulesRepository;
+
+    public function __construct(InfoService $infoService, LaravelModulesRepository $laravelModulesRepository)
     {
         $this->middleware('auth');
 
-        $this->infoService = $infoService;
+        $this->infoService              = $infoService;
+        $this->laravelModulesRepository = $laravelModulesRepository;
     }
 
     /**
@@ -27,11 +32,11 @@ class HomeController extends Controller
     public function index()
     {
         $infoService   = $this->infoService;
-        $latestVersion = Cache::remember('latestVersion', 3600, static function() use ($infoService) {
+        $latestVersion = Cache::remember('latestVersion', 3600, static function () use ($infoService) {
             return $infoService->latestRelease();
         });
 
-        $modules = app()['modules']->getCached();
+        $modules = $this->laravelModulesRepository->getCachedEnabled();
         
         return view('home', compact('latestVersion', 'modules'));
     }

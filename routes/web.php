@@ -73,6 +73,8 @@ Route::get('/modules', 'ModulesController@index')->name('modules')->middleware('
 Route::get('/modules/marketplace', 'ModulesController@marketplace')->name('modules.marketplace')->middleware('isAdmin');
 Route::post('/modules/migrate', 'ModulesController@migrate')->name('modules.migrate')->middleware('isAdmin');
 Route::post('/modules/install', 'ModulesController@install')->name('modules.install')->middleware('isAdmin');
+Route::post('/modules/enable', 'ModulesController@enable')->name('modules.enable')->middleware('isAdmin');
+Route::post('/modules/disable', 'ModulesController@disable')->name('modules.disable')->middleware('isAdmin');
 Route::delete('/modules/{module}', 'ModulesController@destroy')->name('modules.destroy')->middleware('isAdmin');
 
 Route::name('gdaemon.setup')->get('gdaemon/setup/{token}', 'GdaemonAPI\SetupController@setup')->middleware('gdaemonVerifySetupToken');

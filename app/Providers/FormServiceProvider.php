@@ -14,7 +14,7 @@ class FormServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer('*', function(): void {
+        view()->composer('*', function (): void {
             Form::component(
                 'bsInput',
                 'components.form.input',
@@ -43,6 +43,12 @@ class FormServiceProvider extends ServiceProvider
                 'bsPassword',
                 'components.form.password',
                 ['name', 'label' => null, 'attributes' => []]
+            );
+
+            Form::component(
+                'submitButton',
+                'components.form.submit_button',
+                ['options' => []],
             );
         });
     }

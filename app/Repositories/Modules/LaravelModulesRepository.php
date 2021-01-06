@@ -32,9 +32,20 @@ class LaravelModulesRepository
 
     public function getCached(): array
     {
-        $modules = [];
-        foreach ($this->getNvidardRepository()->getCached() as $module) {
-            $modules[] = $this->denormalizeLaravelModule($module);
+        $modules    = [];
+        $repository = $this->getNvidardRepository();
+        foreach ($repository->getCached() as $module) {
+            $modules[] = $this->denormalizeLaravelModule($module, $repository->isEnabled($module['name']));
+        }
+        return $modules;
+    }
+
+    public function getCachedEnabled(): array
+    {
+        $modules    = [];
+        $repository = $this->getNvidardRepository();
+        foreach ($repository->allEnabled() as $module) {
+            $modules[] = $this->denormalizeLaravelModule($module, true);
         }
         return $modules;
     }
@@ -53,7 +64,7 @@ class LaravelModulesRepository
         return $this->laravel->get('modules');
     }
 
-    private function denormalizeLaravelModule(array $module): LaravelModule
+    private function denormalizeLaravelModule(array $module, bool $isEnabled): LaravelModule
     {
         $laravelModule = new LaravelModule();
 
@@ -61,6 +72,7 @@ class LaravelModulesRepository
         $laravelModule->name        = $module['name'];
         $laravelModule->description = $module['description'];
         $laravelModule->tags        = $module['keywords'];
+        $laravelModule->isEnabled   = $isEnabled;
 
         return $laravelModule;
     }

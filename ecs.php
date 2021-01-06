@@ -9,6 +9,7 @@ use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;
 use PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer;
 use PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer;
 use PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer;
+use PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer;
 use PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
@@ -72,6 +73,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ReferenceThrowableOnlySniff::class);
 
     $services->set(ArrayIndentationFixer::class);
+    $services->set(NoSpacesAfterFunctionNameFixer::class);
 
     $parameters->set(Option::SETS, [
         SetList::CONTROL_STRUCTURES,

@@ -15,4 +15,7 @@ class LaravelModule
 
     /** @var string[] */
     public $tags;
+
+    /** @var bool */
+    public $isEnabled;
 }

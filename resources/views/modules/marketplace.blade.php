@@ -1,9 +1,9 @@
-{{--
+@php
 /**
-* @var $modules \Gameap\Models\Module[]
+* @var $modules \Gameap\Models\Modules\MarketplaceModule[]
 * @var $installedModules array
 **/
---}}
+@endphp
 
 @php($title = __('modules.marketplace'))
 
@@ -30,7 +30,7 @@
                 <div class="col-md-12">
                     @include('components.grid', [
                         'modelsList' => $modules,
-                        'labels' => [__('modules.name'), __('modules.description'), __('modules.tags'), __('main.actions')],
+                        'labels' => [__('modules.name'), __('modules.description'), __('modules.tags')],
                         'attributes' => [
                             'name',
                             'summary',
@@ -40,40 +40,38 @@
                                     return implode(', ', $module->tags);
                                 }
                             ],
-                            [
-                                'lambda',
-                                static function(\Gameap\Models\Modules\MarketplaceModule $module) use ($installedModules) {
-                                    $buttons = '';
-
-                                    // Install Button
-                                    if (!array_key_exists($module->id, $installedModules)) {
-                                        $buttons .= Form::open([
-                                            'url' => route('modules.install'),
-                                            'style'=>'display:inline']
-                                        );
-                                        $buttons .= Form::hidden('_method', 'POST');
-                                        $buttons .= Form::hidden('module', $module->id);
-                                        $buttons .= Form::hidden('version', $module->latestVersion);
-                                        $buttons .= Form::button(
-                                            '<i class="fas fa-download"></i><span class="d-none d-xl-inline">&nbsp;' . __('modules.install') . '</span>',
-                                            [
-                                                'class' => 'btn btn-success btn-sm',
-                                                'v-on:click' => 'confirmAction($event, \'' . __('main.confirm_message'). '\')',
-                                                'type' => 'submit',
-                                            ]
-                                        );
-
-                                        $buttons .= Form::close();
-                                    } else {
-                                        $buttons .= '<a class="btn btn-small btn-light btn-sm disabled" title="' . __('modules.already_installed') . '" href="#">';
-                                        $buttons .= '<i class="fas fa-download"></i><span class="d-none d-xl-inline">&nbsp;' . __('modules.already_installed') . '</span>';
-                                        $buttons .= '</a>';
-                                    }
-
-                                    return $buttons;
-                                }
-                            ],
                         ],
+                        'customActionsBefore' => static function(string $modelKey, \Gameap\Models\Modules\MarketplaceModule $module) use ($installedModules) {
+                            $buttons = '';
+
+                            if (!array_key_exists($module->id, $installedModules)) {
+                                // Install Button
+                                $buttons .= Form::submitButton([
+                                    'id'    => 'install-module-' . $module->id,
+                                    'route' => route('modules.install'),
+                                    'data'  => ['module' => $module->id, 'version' => $module->latestVersion],
+                                    'icon'  => '<i class="fas fa-download"></i>',
+                                    'text'  => __('modules.install'),
+                                    'class' => 'btn btn-success btn-sm'
+                                ]);
+                            } else if (version_compare($module->latestVersion, $installedModules[$module->id], '>')) {
+                                // Update Button
+                                $buttons .= Form::submitButton([
+                                    'id'    => 'update-module-' . $module->id,
+                                    'route' => route('modules.install'),
+                                    'data'  => ['module' => $module->id, 'version' => $module->latestVersion],
+                                    'icon'  => '<i class="far fa-arrow-alt-circle-up"></i>',
+                                    'text'  => __('modules.update'),
+                                    'class' => 'btn btn-warning btn-sm'
+                                ]);
+                            } else {
+                                $buttons .= '<a class="btn btn-small btn-light btn-sm disabled" title="' . __('modules.already_installed') . '" href="#">';
+                                $buttons .= '<i class="fas fa-download"></i><span class="d-none d-xl-inline">&nbsp;' . __('modules.already_installed') . '</span>';
+                                $buttons .= '</a>';
+                            }
+
+                            return $buttons;
+                        }
                     ])
                 </div>
             </div>
