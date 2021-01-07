@@ -18,4 +18,10 @@ class LaravelModule
 
     /** @var bool */
     public $isEnabled;
+
+    /** @var null|string */
+    public $icon;
+
+    /** @var null|string */
+    public $mainRoute;
 }

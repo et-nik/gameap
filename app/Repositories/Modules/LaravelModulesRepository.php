@@ -45,7 +45,7 @@ class LaravelModulesRepository
         $modules    = [];
         $repository = $this->getNvidardRepository();
         foreach ($repository->allEnabled() as $module) {
-            $modules[] = $this->denormalizeLaravelModule($module, true);
+            $modules[] = $this->convertNwidardModuleToLaravelModule($module);
         }
         return $modules;
     }
@@ -64,15 +64,34 @@ class LaravelModulesRepository
         return $this->laravel->get('modules');
     }
 
+    private function convertNwidardModuleToLaravelModule(Module $module): LaravelModule
+    {
+        $moduleJson = $module->json();
+
+        $laravelModule = new LaravelModule();
+
+        $laravelModule->id          = $module->getAlias();
+        $laravelModule->name        = $module->getName();
+        $laravelModule->description = $module->getDescription();
+        $laravelModule->tags        = $moduleJson->get('keywords', []);
+        $laravelModule->isEnabled   = $module->isEnabled();
+        $laravelModule->icon        = $moduleJson->get('icon');
+        $laravelModule->mainRoute   = $moduleJson->get('main-route');
+
+        return $laravelModule;
+    }
+
     private function denormalizeLaravelModule(array $module, bool $isEnabled): LaravelModule
     {
         $laravelModule = new LaravelModule();
 
-        $laravelModule->id          = $module['alias'];
-        $laravelModule->name        = $module['name'];
-        $laravelModule->description = $module['description'];
-        $laravelModule->tags        = $module['keywords'];
+        $laravelModule->id          = $module['alias'] ?? '';
+        $laravelModule->name        = $module['name'] ?? '';
+        $laravelModule->description = $module['description'] ?? '';
+        $laravelModule->tags        = $module['keywords'] ?? [];
         $laravelModule->isEnabled   = $isEnabled;
+        $laravelModule->icon        = $module['icon'] ?? null;
+        $laravelModule->mainRoute   = $module['main-route'] ?? null;
 
         return $laravelModule;
     }
