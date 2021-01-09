@@ -42,9 +42,8 @@
                     {{ Form::button( '<i class="fas fa-sign-out-alt"></i>&nbsp;' . __('navbar.sign_out') ,
                     [
                         'class' => 'btn btn-danger navbar-btn',
-                        'v-on:click' => !isset($destroyConfirmAction)
-                            ? 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
-                            : $destroyConfirmAction,
+                        'v-on:click' => $destroyConfirmAction
+                            ?? 'confirmAction($event, \'' . __('main.confirm_message'). '\')',
                         'type' => 'submit'
                     ]
                     ) }}

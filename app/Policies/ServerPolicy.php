@@ -12,36 +12,28 @@ class ServerPolicy
 
     public function before(?User $user, $ability)
     {
-        if ($user->can('admin roles & permissions')) {
+        if ($user !== null && $user->can('admin roles & permissions')) {
             return true;
         }
 
         return null;
     }
 
-    /**
-     * Determine whether the user can view the server.
-     *
-     * @param User $user
-     * @param Server $server
-     * @return mixed
-     */
-    public function control(?User $user, Server $server)
+    public function control(?User $user, Server $server): bool
     {
+        if ($user === null) {
+            return false;
+        }
+
         $exists = $user->servers()
             ->where('id', $server->id)
             ->exists();
         return $exists && $user->can('game-server-common', $server);
     }
 
-    /**
-     * @param User $user
-     * @param Server $server
-     * @return bool
-     */
-    public function start(User $user, Server $server)
+    public function start(User $user, Server $server): bool
     {
-        return $user->can(['game-server-common', 'game-server-start'], $server);
+        return $user !== null && $user->can(['game-server-common', 'game-server-start'], $server);
     }
 
     /**
