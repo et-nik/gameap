@@ -2,23 +2,26 @@
 
 namespace Gameap\Http\Controllers;
 
-use Illuminate\Http\Request;
-use \Illuminate\Http\Response;
-use Gameap\Services\InfoService;
-use Gameap\Services\GlobalApi;
 use Gameap\Http\Requests\SendBugRequest;
-use Cache;
+use Gameap\Repositories\Modules\LaravelModulesRepository;
+use Gameap\Services\GlobalApi;
+use Gameap\Services\InfoService;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    /** @var InfoService */
+    private $infoService;
+
+    /** @var LaravelModulesRepository */
+    private $laravelModulesRepository;
+
+    public function __construct(InfoService $infoService, LaravelModulesRepository $laravelModulesRepository)
     {
         $this->middleware('auth');
+
+        $this->infoService              = $infoService;
+        $this->laravelModulesRepository = $laravelModulesRepository;
     }
 
     /**
@@ -28,11 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latestVersion = Cache::remember('latestVersion', 3600, function () {
-            return InfoService::latestRelease();
+        $infoService   = $this->infoService;
+        $latestVersion = Cache::remember('latestVersion', 3600, static function () use ($infoService) {
+            return $infoService->latestRelease();
         });
 
-        $modules = app()['modules']->getCached();
+        $modules = $this->laravelModulesRepository->getCachedEnabled();
         
         return view('home', compact('latestVersion', 'modules'));
     }
@@ -58,10 +62,10 @@ class HomeController extends Controller
 
     /**
      * Send bug
-     * 
+     *
      * @param SendBugRequest $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Gameap\Exceptions\Services\GlobalApiException
+     * @throws \Gameap\Exceptions\Services\ResponseException
      */
     public function sendBug(SendBugRequest $request)
     {
@@ -80,7 +84,7 @@ class HomeController extends Controller
      */
     public function update()
     {
-        $latestVersion = InfoService::latestRelease();
+        $latestVersion = $this->infoService->latestRelease();
         return view('update', compact('latestVersion'));
     }
 }

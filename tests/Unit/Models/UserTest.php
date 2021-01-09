@@ -10,11 +10,6 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-//    public function setUp(): void
-//    {
-//        factory(User::class, 1)->create();
-//    }
-    
     public function testSetPasswordAttribute()
     {
         $user = User::where(['id' => 1])->first();

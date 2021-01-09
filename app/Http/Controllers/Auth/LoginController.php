@@ -4,7 +4,7 @@ namespace Gameap\Http\Controllers\Auth;
 
 use Gameap\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {

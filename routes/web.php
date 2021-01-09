@@ -11,6 +11,10 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return redirect('home');
 })->middleware('auth');
@@ -66,7 +70,12 @@ Route::post('/report_bug', 'HomeController@sendBug')->name('send_bug')->middlewa
 Route::get('/update', 'HomeController@update')->name('update')->middleware('isAdmin');
 
 Route::get('/modules', 'ModulesController@index')->name('modules')->middleware('isAdmin');
-Route::get('/modules/migrate', 'ModulesController@migrate')->name('modules.migrate')->middleware('isAdmin');
+Route::get('/modules/marketplace', 'ModulesController@marketplace')->name('modules.marketplace')->middleware('isAdmin');
+Route::post('/modules/migrate', 'ModulesController@migrate')->name('modules.migrate')->middleware('isAdmin');
+Route::post('/modules/install', 'ModulesController@install')->name('modules.install')->middleware('isAdmin');
+Route::post('/modules/enable', 'ModulesController@enable')->name('modules.enable')->middleware('isAdmin');
+Route::post('/modules/disable', 'ModulesController@disable')->name('modules.disable')->middleware('isAdmin');
+Route::delete('/modules/{module}', 'ModulesController@destroy')->name('modules.destroy')->middleware('isAdmin');
 
 Route::name('gdaemon.setup')->get('gdaemon/setup/{token}', 'GdaemonAPI\SetupController@setup')->middleware('gdaemonVerifySetupToken');
 Route::name('gdaemon.create')->post('gdaemon/create/{token}', 'GdaemonAPI\SetupController@create')->middleware('gdaemonVerifyCreateToken');

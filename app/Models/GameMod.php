@@ -3,8 +3,6 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Validable;
-use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 
 /**
  * Class GameMod
@@ -44,7 +42,7 @@ class GameMod extends Model
         'fast_rcon', 'vars',
         'remote_repository', 'local_repository',
         'default_start_cmd_linux', 'default_start_cmd_windows',
-        'kick_cmd', 'ban_cmd', 'chname_cmd', 'srestart_cmd', 'chmap_cmd', 'sendmsg_cmd', 'passwd_cmd'
+        'kick_cmd', 'ban_cmd', 'chname_cmd', 'srestart_cmd', 'chmap_cmd', 'sendmsg_cmd', 'passwd_cmd',
     ];
 
     /**
@@ -56,15 +54,15 @@ class GameMod extends Model
         'name'      => 'required|string|max:255',
         'game_code' => 'sometimes|string|max:255|exists:games,code',
 
-        'default_start_cmd_linux' => 'nullable|string|max:1000',
+        'default_start_cmd_linux'   => 'nullable|string|max:1000',
         'default_start_cmd_windows' => 'nullable|string|max:1000',
 
-        'vars.*.var' => 'max:16',
-        'vars.*.default' => 'max:64',
-        'vars.*.info' => 'max:128',
+        'vars.*.var'       => 'max:16',
+        'vars.*.default'   => 'max:64',
+        'vars.*.info'      => 'max:128',
         'vars.*.admin_var' => 'max:128',
 
-        'fast_rcon.*.info' => 'max:32',
+        'fast_rcon.*.info'    => 'max:32',
         'fast_rcon.*.command' => 'max:128',
     ];
 
@@ -72,7 +70,7 @@ class GameMod extends Model
      * @var array
      */
     protected $casts = [
-        'vars' => 'array',
+        'vars'      => 'array',
         'fast_rcon' => 'array',
     ];
 

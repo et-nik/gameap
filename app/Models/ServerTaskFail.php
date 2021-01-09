@@ -21,8 +21,8 @@ class ServerTaskFail extends Model
     public $table = 'servers_tasks_fails';
 
     protected $casts = [
-        'id'                => 'integer',
-        'server_task_id'    => 'integer',
+        'id'             => 'integer',
+        'server_task_id' => 'integer',
     ];
 
     /**

@@ -26,6 +26,13 @@ class Game extends Model
     public $timestamps = false;
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * The primary key for the model.
      *
      * @var string
@@ -40,22 +47,15 @@ class Game extends Model
     protected $keyType = 'string';
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public  $incrementing = false;
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'code', 'start_code', 'name', 
+        'code', 'start_code', 'name',
         'engine', 'engine_version',
         'steam_app_id', 'steam_app_set_config',
-        'local_repository', 'remote_repository'
+        'local_repository', 'remote_repository',
     ];
 
     /**

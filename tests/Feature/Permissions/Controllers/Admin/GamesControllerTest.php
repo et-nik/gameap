@@ -10,9 +10,7 @@ use Tests\TestCase;
 /** @covers \Gameap\Http\Controllers\Admin\GamesController */
 class GamesControllerTest extends TestCase
 {
-    /**
-     * @var User
-     */
+    /** @var User */
     protected $user;
 
     public function setUp(): void
@@ -23,32 +21,33 @@ class GamesControllerTest extends TestCase
         $this->be($this->user);
     }
 
-    public function testAllow()
+    public function testAllowIndex()
     {
         Bouncer::sync($this->user)->roles(['admin']);
 
-        // Index
         $response = $this->get(route('admin.games.index'));
+
         $response->assertStatus(Response::HTTP_OK);
         $response->assertViewIs('admin.games.list');
     }
 
-    public function testForbidden()
+    public function testForbiddenIndex()
     {
         Bouncer::sync($this->user)->roles(['admin']);
         Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
 
-        // Index
         $response = $this->get(route('admin.games.index'));
+
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function testForbiddenUser()
+    public function testForbiddenUserIndex()
     {
         Bouncer::sync($this->user)->roles(['user']);
 
         // Index
         $response = $this->get(route('admin.games.index'));
+
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

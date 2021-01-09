@@ -1,7 +1,6 @@
 <?php
-namespace Gameap\Http\Requests;
 
-use Gameap\Models\User;
+namespace Gameap\Http\Requests;
 
 class ProfileChangePasswordRequest extends Request
 {
@@ -13,7 +12,7 @@ class ProfileChangePasswordRequest extends Request
     public function rules()
     {
         return [
-            'password'  => 'sometimes|string|min:6|confirmed',
+            'password' => 'sometimes|string|min:6|confirmed',
         ];
     }
 }

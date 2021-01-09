@@ -1,3 +1,10 @@
+@php
+/**
+ * @var $modules \Gameap\Models\Modules\LaravelModule[]
+**/
+@endphp
+
+
 @extends('layouts.main')
 
 @section('content')
@@ -18,18 +25,18 @@
                 </div>
 
                 @foreach ($modules as $module)
-                    @if (!empty($module["main-route"]))
+                    @if (!empty($module->mainRoute))
                         <div class="d-flex flex-nowrap">
                             <div class="p-2 mb-3 text-center menu-item">
-                                <a class="btn btn-block btn-lg btn-outline-dark rounded" href="{{ $module["main-route"] }}">
+                                <a class="btn btn-block btn-lg btn-outline-dark rounded" href="{{ $module->mainRoute }}">
 
-                                    @if (!empty($module["icon"]))
-                                        {!! $module["icon"] !!}
+                                    @if (!empty($module->icon))
+                                        {!! $module->icon !!}
                                     @else
                                         <i class="fas fa-server fa-5x m-1"></i>
                                     @endif
 
-                                    <h5>{{ $module["name"] }}</h5>
+                                    <h5>{{ $module->name }}</h5>
                                 </a>
                             </div>
                         </div>

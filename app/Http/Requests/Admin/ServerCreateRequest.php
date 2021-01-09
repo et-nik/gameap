@@ -37,25 +37,25 @@ class ServerCreateRequest extends Request
         ];
 
         return [
-            'enabled' => '',
-            'blocked' => '',
-            'installed' => '',
-            'name' => 'required|max:128',
-            'game_id' => 'required',
-            'ds_id' => 'required',
+            'enabled'     => '',
+            'blocked'     => '',
+            'installed'   => '',
+            'name'        => 'required|max:128',
+            'game_id'     => 'required',
+            'ds_id'       => 'required',
             'game_mod_id' => 'required|exists:game_mods,id',
-            'server_ip' => 'required',
+            'server_ip'   => 'required',
 
             'server_port' => array_merge(['required'], $portRules),
-            'query_port' => array_merge(['nullable'], $portRules),
-            'rcon_port' => array_merge(['nullable'], $portRules),
+            'query_port'  => array_merge(['nullable'], $portRules),
+            'rcon_port'   => array_merge(['nullable'], $portRules),
 
             'dir' => ['nullable', 'string', Rule::unique('servers', 'dir')
                 ->ignore($this->route('server'))
                 ->where(function ($query) {
                     return $query->where('ds_id', $this->ds_id)
                         ->whereNull('deleted_at');
-                })]
+                }), ],
         ];
     }
 }

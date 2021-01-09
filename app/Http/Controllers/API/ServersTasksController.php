@@ -2,6 +2,7 @@
 
 namespace Gameap\Http\Controllers\API;
 
+use Carbon\Carbon;
 use Gameap\Exceptions\Repositories\RepositoryValidationException;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\API\ServerTaskCreateRequest;
@@ -20,6 +21,7 @@ class ServersTasksController extends AuthController
     public function __construct(ServersTasksRepository $serversTasksRepository)
     {
         parent::__construct();
+
         $this->repository = $serversTasksRepository;
     }
 
@@ -32,7 +34,14 @@ class ServersTasksController extends AuthController
     {
         $this->authorize('server-tasks', $server);
 
-        return $this->repository->getTasks($server->id);
+        $tasks = [];
+
+        foreach ($this->repository->getTasks($server->id) as $task) {
+            $task['execute_date'] = $this->convertDateToLocal($task['execute_date']);
+            $tasks[]              = $task;
+        }
+
+        return $tasks;
     }
 
     /**
@@ -49,10 +58,12 @@ class ServersTasksController extends AuthController
 
         $this->commandAuthorize($fields['command'], $server);
 
-        $serverTaskId = $this->repository->store($request->all());
+        $fields['execute_date'] = $this->convertDateToUTC($fields['execute_date']);
+
+        $serverTaskId = $this->repository->store($fields);
 
         return response()->json([
-            'message' => 'success',
+            'message'      => 'success',
             'serverTaskId' => $serverTaskId,
         ], Response::HTTP_CREATED);
     }
@@ -71,6 +82,8 @@ class ServersTasksController extends AuthController
 
         $this->authorize('server-tasks', $server);
         $this->commandAuthorize($fields['command'], $server);
+
+        $fields['execute_date'] = $this->convertDateToUTC($fields['execute_date']);
 
         $this->repository->update($serverTask->id, $fields);
 
@@ -117,5 +130,21 @@ class ServersTasksController extends AuthController
                 $this->authorize('server-update', $server);
                 break;
         }
+    }
+
+    private function convertDateToUTC(string $date): string
+    {
+        $convertedDate = Carbon::createFromFormat(Carbon::DEFAULT_TO_STRING_FORMAT, $date, config('timezone'));
+        $convertedDate->setTimezone('UTC');
+
+        return $convertedDate->toDateTimeString();
+    }
+
+    private function convertDateToLocal(string $date): string
+    {
+        $convertedDate = Carbon::createFromFormat(Carbon::DEFAULT_TO_STRING_FORMAT, $date, 'UTC');
+        $convertedDate->setTimezone(config('timezone'));
+
+        return $convertedDate->toDateTimeString();
     }
 }

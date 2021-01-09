@@ -3,9 +3,9 @@
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Validable;
-use Sofa\Eloquence\Contracts\Validable as ValidableContract;
-use Storage;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class DedicatedServer
@@ -52,22 +52,19 @@ use Storage;
  */
 class DedicatedServer extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public const LINUX_DISTRIBUTIONS = ['linux', 'debian', 'ubuntu', 'centos', 'gentoo', 'opensuse'];
+
     protected $fillable = [
-        'enabled', 
-        'name', 
+        'enabled',
+        'name',
         'os',
-        'location', 
-        'provider', 
+        'location',
+        'provider',
         'ip',
         'ram',
-        'cpu', 
+        'cpu',
         'work_path',
-        'steamcmd_path', 
+        'steamcmd_path',
         'gdaemon_host',
         'gdaemon_port',
         'gdaemon_login',
@@ -82,8 +79,8 @@ class DedicatedServer extends Model
         'script_start',
         'script_pause',
         'script_unpause',
-        'script_stop', 
-        'script_kill', 
+        'script_stop',
+        'script_kill',
         'script_restart',
         'script_status',
         'script_stats',
@@ -93,61 +90,45 @@ class DedicatedServer extends Model
     ];
 
     protected $casts = [
-        'ip' => 'array',
-        'enabled' => 'boolean',
-        'gdaemon_port' => 'integer',
+        'ip'                    => 'array',
+        'enabled'               => 'boolean',
+        'gdaemon_port'          => 'integer',
         'client_certificate_id' => 'integer',
     ];
 
-    /**
-     * Validation rules
-     * @var array
-     */
     protected static $rules = [
-        'name' => 'required|max:128',
-        'location' => 'required|max:128',
-        'ip' => 'required',
-        'work_path' => 'required|max:128',
-        'gdaemon_host' => 'required|max:128',
-        'gdaemon_port' => 'required|numeric|digits_between:1,65535',
-        'gdaemon_login' => 'max:128',
-        'gdaemon_password' => 'max:128',
-        'gdaemon_api_key' => '',
-        'gdaemon_server_cert' => 'sometimes',
+        'name'                  => 'required|max:128',
+        'location'              => 'required|max:128',
+        'ip'                    => 'required',
+        'work_path'             => 'required|max:128',
+        'gdaemon_host'          => 'required|max:128',
+        'gdaemon_port'          => 'required|numeric|digits_between:1,65535',
+        'gdaemon_login'         => 'max:128',
+        'gdaemon_password'      => 'max:128',
+        'gdaemon_api_key'       => '',
+        'gdaemon_server_cert'   => 'sometimes',
         'client_certificate_id' => 'numeric|exists:client_certificates,id',
     ];
 
-    /**
-     * One to many relation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function servers()
+    public function servers(): HasMany
     {
         return $this->hasMany(Server::class, 'ds_id');
     }
 
-    /**
-     * One to one relation
-     */
-    public function clientCertificate()
+    public function clientCertificate(): BelongsTo
     {
         return $this->belongsTo(ClientCertificate::class);
     }
 
-    /**
-     * @param $storageDisk
-     * @return array
-     */
-    public function gdaemonSettings($storageDisk = 'local')
+    public function gdaemonSettings($storageDisk = 'local'): array
     {
         $gdaemonHost = filter_var($this->gdaemon_host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)
             ? '[' . $this->gdaemon_host . ']'
             : $this->gdaemon_host;
 
         return [
-            'host' => $gdaemonHost,
-            'port' => $this->gdaemon_port,
+            'host'     => $gdaemonHost,
+            'port'     => $this->gdaemon_port,
             'username' => $this->gdaemon_login,
             'password' => $this->gdaemon_password,
 
@@ -167,26 +148,13 @@ class DedicatedServer extends Model
                 ->applyPathPrefix($this->clientCertificate->private_key),
 
             'privateKeyPass' => $this->clientCertificate->private_key_pass,
-            'workDir' => $this->work_path,
-            'timeout' => 10,
+            'workDir'        => $this->work_path,
+            'timeout'        => 10,
         ];
     }
 
-    /**
-     * @return bool
-     */
-    public function isLinux()
+    public function isLinux(): bool
     {
-        switch (strtolower($this->os)) {
-            case 'linux':
-            case 'debian':
-            case 'ubuntu':
-            case 'centos':
-            case 'gentoo':
-            case 'opensuse':
-                return true;
-        }
-
-        return false;
+        return in_array(strtolower($this->os), self::LINUX_DISTRIBUTIONS);
     }
 }

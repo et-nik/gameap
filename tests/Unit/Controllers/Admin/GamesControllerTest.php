@@ -14,7 +14,7 @@ use Gameap\Http\Requests\Admin\GameRequest;
 use Mockery;
 
 /**
- * @covers \Gameap\Http\Controllers\Admin\GamesController<extended>
+ * @covers \Gameap\Http\Controllers\Admin\GamesController
  */
 class GamesControllerTest extends TestCase
 {

@@ -2,15 +2,15 @@
 
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
-use Gameap\Models\Server;
-use Gameap\Models\DedicatedServer;
-use Gameap\Repositories\ServerRepository;
-use Spatie\QueryBuilder\QueryBuilder;
-use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
+use Batch;
 use Gameap\Http\Requests\GdaemonAPI\ServerBulkRequest;
+use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
+use Gameap\Models\DedicatedServer;
+use Gameap\Models\Server;
+use Gameap\Repositories\ServerRepository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Batch;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ServersController extends Controller
 {
@@ -73,11 +73,11 @@ class ServersController extends Controller
      */
     public function updateBulk(ServerBulkRequest $request)
     {
-        $values = array_map(function($v) {
+        $values = array_map(function ($v) {
             return Arr::only($v, ['id', 'installed', 'process_active', 'last_process_check']);
         }, $request->json()->all());
 
-        Batch::update(new Server, $values, 'id');
+        Batch::update(new Server(), $values, 'id');
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }

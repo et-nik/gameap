@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: composer
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - apt -y update && apt install -y git
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -17,7 +17,7 @@ steps:
       - npm run prod
 
   - name: tests
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - mv .env.example .env
       - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
@@ -34,7 +34,7 @@ steps:
       - rm -rf storage/logs/*
 
   - name: browser-tests
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     environment:
       SELENIUM_URL: http://selenium:4444/wd/hub
     commands:
@@ -42,7 +42,7 @@ steps:
       - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
       - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/webserver/" .env
       - ./artisan migrate:fresh --seed
-      - ./artisan dusk
+      - ./artisan dusk --debug
       - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/localhost/" .env
       - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
       - mv .env .env.example
@@ -52,9 +52,12 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+    volumes:
+      - name: daemon_logs
+        path: /var/log/gameap-daemon
 
   - name: composer-production
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
       - composer install --no-dev --optimize-autoloader --no-ansi
@@ -76,7 +79,7 @@ steps:
         - master
 
   - name: archive-shared
-    image: knik/php:7.2-fpm-stretch
+    image: knik/php:7.3-fpm-stretch
     commands:
       - apt update && apt -y install default-mysql-client zip unzip rsync
       - rm -rf storage/app/certs
@@ -123,7 +126,7 @@ steps:
         - master
 
   - name: artifacts
-    image: plugins/s3
+    image: knik/drone-s3-plugin
     failure: ignore
     settings:
       endpoint:
@@ -133,9 +136,14 @@ steps:
         from_secret: s3_access_key
       secret_key:
         from_secret: s3_secret_key
-      source: tests/Browser/screenshots/*
+      source:
+        - tests/Browser/screenshots/*
+        - /var/log/gameap-daemon/*
       target: /${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}
       path_style: true
+    volumes:
+      - name: daemon_logs
+        path: /var/log/gameap-daemon
     when:
       status:
         - failure
@@ -159,3 +167,7 @@ services:
     image: selenium/standalone-chrome:3.141.59-zirconium
     environment:
       HUB_PORT: 4444
+
+volumes:
+  - name: daemon_logs
+    temp: {}

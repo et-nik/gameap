@@ -3,9 +3,9 @@
 namespace Gameap\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Storage;
-use League\Flysystem\Filesystem;
 use Knik\Flysystem\Gameap\GameapAdapter;
+use League\Flysystem\Filesystem;
+use Storage;
 
 class GdaemonFilesServiceProvider extends ServiceProvider
 {
@@ -14,9 +14,9 @@ class GdaemonFilesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        Storage::extend('gameap', function($app, $config) {
+        Storage::extend('gameap', function ($app, $config) {
             return new Filesystem(new GameapAdapter($config));
         });
     }
@@ -26,7 +26,7 @@ class GdaemonFilesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }

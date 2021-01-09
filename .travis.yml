@@ -7,9 +7,9 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 7.2
   - 7.3
   - 7.4
+  - 8.0
   - nightly
 
 services:
@@ -29,14 +29,11 @@ before_script:
 script:
   - vendor/bin/phpunit --verbose
 
-after_script:
-  - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
-
 matrix:
   fast_finish: true
   allow_failures:
     - php: nightly
+    - php: 8.0
 
 addons:
   artifacts:

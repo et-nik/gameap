@@ -2,11 +2,12 @@
 
 namespace Gameap\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 /**
  * Server model
@@ -57,12 +58,12 @@ class Server extends Model
 {
     use SoftDeletes;
 
-    const TIME_EXPIRE_PROCESS_CHECK = 120;
+    public const TIME_EXPIRE_PROCESS_CHECK = 120;
 
     // Installed statuses
-    const NOT_INSTALLED              = 0;
-    const INSTALLED                  = 1;
-    const INSTALLATION_PROCESS       = 2;
+    public const NOT_INSTALLED        = 0;
+    public const INSTALLED            = 1;
+    public const INSTALLATION_PROCESS = 2;
 
     protected $fillable = [
         'uuid', 'uuid_short',
@@ -78,103 +79,71 @@ class Server extends Model
     ];
 
     protected $casts = [
-        'vars' => 'array',
-        'enabled' => 'boolean',
-        'installed' => 'integer',
-        'blocked' => 'boolean',
-        'ds_id' => 'integer',
-        'game_mod_id' => 'integer',
-        'server_port' => 'integer',
-        'query_port' => 'integer',
-        'rcon_port' => 'integer',
+        'vars'           => 'array',
+        'enabled'        => 'boolean',
+        'installed'      => 'integer',
+        'blocked'        => 'boolean',
+        'ds_id'          => 'integer',
+        'game_mod_id'    => 'integer',
+        'server_port'    => 'integer',
+        'query_port'     => 'integer',
+        'rcon_port'      => 'integer',
         'process_active' => 'boolean',
     ];
 
-    /**
-     * Get server status
-     *
-     * @return bool
-     */
-    public function processActive()
+    public function processActive(): bool
     {
         if (empty($this->last_process_check)) {
             return false;
         }
 
-        $lastProcessCheck = Carbon::createFromDate(
+        $lastProcessCheck = Carbon::createFromFormat(
+            Carbon::DEFAULT_TO_STRING_FORMAT,
             $this->last_process_check,
-            null,
-            null,
             'UTC'
         )->timestamp;
 
-        if ($this->process_active && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK) {
-            return true;
-        }
-
-        return false;
+        return $this->process_active
+            && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK;
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function dedicatedServer()
+    public function dedicatedServer(): BelongsTo
     {
         return $this->belongsTo(DedicatedServer::class, 'ds_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function game()
+    public function game(): BelongsTo
     {
         return $this->belongsTo(Game::class, 'game_id', 'code');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function gameMod()
+    public function gameMod(): BelongsTo
     {
         return $this->belongsTo(GameMod::class, 'game_mod_id');
     }
 
-    /**
-     * One to many relation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function settings()
+    public function settings(): HasMany
     {
         return $this->hasMany(ServerSetting::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function tasks()
+    public function tasks(): HasMany
     {
         return $this->hasMany(ServerTask::class);
     }
 
-    /**
-     * @return string
-     */
-    public function getFullPathAttribute()
+    public function getFullPathAttribute(): string
     {
         return rtrim($this->dedicatedServer->work_path, '/') . '/' . ltrim($this->dir, '/');
     }
 
-    /**
-     * @return array
-     */
-    public function getFileManagerDisksAttribute()
+    public function getFileManagerDisksAttribute(): array
     {
         $fileManagerDisks = [
-            "server" => array_merge(
+            'server' => array_merge(
                 $this->dedicatedServer->gdaemonSettings('local'),
                 ['driver' => 'gameap', 'workDir' => $this->full_path, 'root' => $this->full_path]
-            )
+            ),
         ];
 
         $setting = $this->settings()->where('name', 'file-manager')->first();
@@ -191,35 +160,27 @@ class Server extends Model
         return $fileManagerDisks;
     }
 
-    /**
-     * @return BelongsToMany
-     */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    /**
-     * @return array
-     */
-    public function getAliasesAttribute()
+    public function getAliasesAttribute(): array
     {
         $aliases = [
-            'ip' => $this->server_ip,
-            'port' => $this->server_port,
-            'query_port' => $this->query_port,
-            'rcon_port' => $this->rcon_port,
+            'ip'            => $this->server_ip,
+            'port'          => $this->server_port,
+            'query_port'    => $this->query_port,
+            'rcon_port'     => $this->rcon_port,
             'rcon_password' => $this->rcon,
-            'uuid' => $this->uuid,
-            'uuid_short' => $this->uuid_short,
+            'uuid'          => $this->uuid,
+            'uuid_short'    => $this->uuid_short,
         ];
 
-        if ($this->gameMod != null && is_array($this->gameMod->vars)) {
+        if ($this->gameMod !== null && is_array($this->gameMod->vars)) {
             foreach ($this->gameMod->vars as $var) {
-                $varname = $var['var'];
-                $aliases[ $varname ] = isset($this->vars[$varname])
-                    ? $this->vars[$varname]
-                    : $var['default'];
+                $varname           = $var['var'];
+                $aliases[$varname] = $this->vars[$varname] ?? $var['default'];
             }
         }
 

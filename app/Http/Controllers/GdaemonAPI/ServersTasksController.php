@@ -18,7 +18,7 @@ class ServersTasksController extends Controller
      */
     public function getList(DedicatedServer $dedicatedServer)
     {
-        return ServerTask::whereIn("server_id", function ($query) use ($dedicatedServer) {
+        return ServerTask::whereIn('server_id', function ($query) use ($dedicatedServer): void {
             $query->select('id')
                 ->from('servers')
                 ->where('ds_id', $dedicatedServer->id);
@@ -58,7 +58,7 @@ class ServersTasksController extends Controller
         $serverTaskFail = new ServerTaskFail();
 
         $serverTaskFail->server_task_id = $serverTask->id;
-        $serverTaskFail->output = $request->get('output');
+        $serverTaskFail->output         = $request->get('output');
 
         return $serverTaskFail->save()
             ? response()->json(['message' => 'success'], Response::HTTP_OK)

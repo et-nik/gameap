@@ -7,8 +7,6 @@ use Gameap\Models\Server;
 use Gameap\Models\ServerSetting;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\RconService;
-use Illuminate\Support\Facades\Auth;
-use Knik\GRcon\Exceptions\GRconException;
 
 class ServersController extends AuthController
 {
@@ -38,8 +36,8 @@ class ServersController extends AuthController
      */
     public function index()
     {
-        return view('servers.list',[
-            'servers' => $this->repository->getServersForAuth()
+        return view('servers.list', [
+            'servers' => $this->repository->getServersForAuth(),
         ]);
     }
 
@@ -65,7 +63,7 @@ class ServersController extends AuthController
         $autostart = $autostartSetting->value;
 
         $rconSupportedFeatures = $rconService->supportedFeatures($server);
-        $rconSupported = $rconSupportedFeatures['rcon'];
+        $rconSupported         = $rconSupportedFeatures['rcon'];
 
         return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
             view('servers.view', compact('server', 'autostart', 'rconSupportedFeatures', 'rconSupported'))

@@ -2,10 +2,8 @@
 
 namespace Gameap\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Sofa\Eloquence\Validable;
-use Sofa\Eloquence\Contracts\Validable as ValidableContract;
+use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable
@@ -19,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'email', 'password', 'name'
+        'login', 'email', 'password', 'name',
     ];
 
     /**
@@ -33,15 +31,15 @@ class User extends Authenticatable
 
     /**
      * Validation rules
-     * 
+     *
      * @var array
      */
     protected static $rules = [
-        'login'     => 'sometimes|string|max:255|unique:users',
-        'email'     => 'sometimes|string|email|max:255|unique:users',
+        'login' => 'sometimes|string|max:255|unique:users',
+        'email' => 'sometimes|string|email|max:255|unique:users',
         //'password'  => 'sometimes|string|min:6|confirmed',
-        'password'  => 'nullable|sometimes|string|min:6',
-        'name'      => 'string|nullable|max:255',
+        'password' => 'nullable|sometimes|string|min:6',
+        'name'     => 'string|nullable|max:255',
     ];
 
     /**
@@ -49,7 +47,7 @@ class User extends Authenticatable
      *
      * @param $value
      */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): void
     {
         if ($value != null && strlen($value) > 0) {
             $this->attributes['password'] = bcrypt($value);

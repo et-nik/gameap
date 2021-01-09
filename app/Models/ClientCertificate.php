@@ -1,9 +1,8 @@
 <?php
+
 namespace Gameap\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Validable;
-use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 
 /**
  * Class ClientCertificate
@@ -29,15 +28,15 @@ class ClientCertificate extends Model
      * @var array
      */
     protected $fillable = [
-        'fingerprint', 'expires', 'certificate', 'private_key', 'private_key_pass'
+        'fingerprint', 'expires', 'certificate', 'private_key', 'private_key_pass',
     ];
 
     /**
      * @var array
      */
     protected static $rules = [
-        'certificate' => 'required',
-        'private_key' => 'required',
+        'certificate'      => 'required',
+        'private_key'      => 'required',
         'private_key_pass' => '',
     ];
 

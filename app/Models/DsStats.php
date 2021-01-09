@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DsStats extends Model
 {
+    public $timestamps  = false;
     protected $fillable = ['dedicated_server_id', 'time', 'loa', 'ram', 'cpu', 'ifstat', 'ping', 'drvspace'];
-
-    public $timestamps = false;
 }

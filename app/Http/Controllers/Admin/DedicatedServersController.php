@@ -3,14 +3,13 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Http\Requests\Request;
+use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Knik\Gameap\GdaemonStatus;
 use RuntimeException;
 
@@ -45,7 +44,7 @@ class DedicatedServersController extends AuthController
         $dedicatedServers = $this->repository->getAll();
 
         return view('admin.dedicated_servers.list', [
-            'dedicatedServers' => $dedicatedServers
+            'dedicatedServers' => $dedicatedServers,
         ]);
     }
 
@@ -57,8 +56,12 @@ class DedicatedServersController extends AuthController
     public function create()
     {
         // Add auto setup token
-        $autoSetupToken = Str::random(24);
-        Cache::put('gdaemonAutoSetupToken', $autoSetupToken, 300);
+        $autoSetupToken = env('DAEMON_SETUP_TOKEN');
+
+        if (empty($autoSetupToken)) {
+            $autoSetupToken = Str::random(24);
+            Cache::put('gdaemonAutoSetupToken', $autoSetupToken, 300);
+        }
 
         $clientCertificates = ClientCertificate::all(['id', 'fingerprint'])->pluck('fingerprint', 'id');
         return view('admin.dedicated_servers.create', compact('clientCertificates', 'autoSetupToken'));
@@ -76,7 +79,8 @@ class DedicatedServersController extends AuthController
 
         if ($request->hasFile('gdaemon_server_cert')) {
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
-                'certs/server', 'local'
+                'certs/server',
+                'local'
             );
         }
 
@@ -99,13 +103,14 @@ class DedicatedServersController extends AuthController
 
         try {
             $gdaemonVersion = $gdaemonStatus->version();
-            $baseInfo = $gdaemonStatus->infoBase();
+            $baseInfo       = $gdaemonStatus->infoBase();
         } catch (RuntimeException $e) {
             $gdaemonVersion = [];
-            $baseInfo = [];
+            $baseInfo       = [];
         }
 
-        return view('admin.dedicated_servers.view',
+        return view(
+            'admin.dedicated_servers.view',
             compact(
                 'dedicatedServer',
                 'gdaemonVersion',
@@ -139,7 +144,8 @@ class DedicatedServersController extends AuthController
         
         if ($request->hasFile('gdaemon_server_cert')) {
             $attributes['gdaemon_server_cert'] = $request->file('gdaemon_server_cert')->store(
-                'certs/server', 'local'
+                'certs/server',
+                'local'
             );
 
             $certificateFile = Storage::disk('local')
@@ -155,7 +161,7 @@ class DedicatedServersController extends AuthController
         $this->repository->update($dedicatedServer, $attributes);
 
         return redirect()->route('admin.dedicated_servers.index')
-            ->with('success',  __('dedicated_servers.update_success_msg'));
+            ->with('success', __('dedicated_servers.update_success_msg'));
     }
 
     /**
@@ -169,6 +175,6 @@ class DedicatedServersController extends AuthController
         $this->repository->destroy($dedicatedServer);
 
         return redirect()->route('admin.dedicated_servers.index')
-            ->with('success',  __('dedicated_servers.delete_success_msg'));
+            ->with('success', __('dedicated_servers.delete_success_msg'));
     }
 }

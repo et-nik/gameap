@@ -3,9 +3,9 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\Admin\GameRequest;
 use Gameap\Models\Game;
 use Gameap\Repositories\GameRepository;
-use Gameap\Http\Requests\Admin\GameRequest;
 
 class GamesController extends AuthController
 {
@@ -35,8 +35,8 @@ class GamesController extends AuthController
      */
     public function index()
     {
-        return view('admin.games.list',[
-            'games' => $this->repository->allWith('mods')
+        return view('admin.games.list', [
+            'games' => $this->repository->allWith('mods'),
         ]);
     }
 
@@ -113,10 +113,9 @@ class GamesController extends AuthController
         if ($result) {
             return redirect()->route('admin.games.index')
                 ->with('success', __('games.upgrade_success_msg'));
-        } else {
-            return redirect()->route('admin.games.index')
-                ->with('error', __('games.upgrade_fail_msg'));
         }
+        return redirect()->route('admin.games.index')
+                ->with('error', __('games.upgrade_fail_msg'));
     }
 
     /**

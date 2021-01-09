@@ -4,7 +4,6 @@ namespace Gameap\Http\Controllers\API;
 
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Repositories\GameModRepository;
-use Gameap\Models\GameMod;
 
 class GameModsController extends AuthController
 {

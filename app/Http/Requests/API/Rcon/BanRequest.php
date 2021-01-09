@@ -11,7 +11,7 @@ class BanRequest extends Request
         return [
             'player' => 'required|max:127',
             'reason' => 'string|max:127',
-            'time' => 'integer|max:127',
+            'time'   => 'integer|max:127',
         ];
     }
 }

@@ -7,7 +7,7 @@ class ServerTaskFailRequest extends JsonRequest
     public function rules()
     {
         return [
-            'output'            => 'required|string'
+            'output' => 'required|string',
         ];
     }
 }

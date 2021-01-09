@@ -2,21 +2,21 @@
 
 namespace Gameap\Repositories;
 
+use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
-use Gameap\Models\Server;
 use Gameap\Models\GameMod;
+use Gameap\Models\Server;
 use Gameap\Models\ServerSetting;
-use Illuminate\Support\Str;
-use Gameap\Http\Requests\ServerVarsRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ServerRepository
 {
-    const DEFAULT_RCON_PASSWORD_LENGTH = 10;
+    public const DEFAULT_RCON_PASSWORD_LENGTH = 10;
 
-    const DEFAULT_PER_PAGE = 20;
+    public const DEFAULT_PER_PAGE = 20;
 
     /**
      * @var Server
@@ -35,7 +35,7 @@ class ServerRepository
      */
     public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
     {
-        $this->model = $server;
+        $this->model                 = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
@@ -56,9 +56,9 @@ class ServerRepository
      * @param array $attributes
      * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
      */
-    public function store(array $attributes)
+    public function store(array $attributes): void
     {
-        $attributes['uuid'] = Str::orderedUuid()->toString();
+        $attributes['uuid']       = Str::orderedUuid()->toString();
         $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
         
         $attributes['enabled'] = true;
@@ -66,14 +66,14 @@ class ServerRepository
 
         $addInstallTask = false;
         if (isset($attributes['install'])) {
-            $attributes['installed'] = ! $attributes['install'];
-            $addInstallTask = true;
+            $attributes['installed'] = !$attributes['install'];
+            $addInstallTask          = true;
 
             unset($attributes['install']);
         }
 
         if (empty($attributes['rcon'])) {
-             $attributes['rcon'] = Str::random(self::DEFAULT_RCON_PASSWORD_LENGTH);
+            $attributes['rcon'] = Str::random(self::DEFAULT_RCON_PASSWORD_LENGTH);
         }
 
         $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
@@ -135,9 +135,8 @@ class ServerRepository
     {
         if (Auth::user()->can('admin roles & permissions')) {
             return $this->getAll();
-        } else {
-            return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
         }
+        return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
     }
 
     /**
@@ -152,11 +151,11 @@ class ServerRepository
         }
 
         $serversTable = $this->model->getTable();
-        $gamesTable = (new Game)->getTable();
+        $gamesTable   = (new Game())->getTable();
 
         $query = DB::table($serversTable)
             ->selectRaw("{$serversTable}.*, {$gamesTable}.name as game_name")
-            ->whereIn('game_id', function($query) use ($engines, $serversTable, $gamesTable) {
+            ->whereIn('game_id', function ($query) use ($engines, $serversTable, $gamesTable): void {
                 $query->select('code')
                     ->from($gamesTable)
                     ->whereIn('engine', $engines);
@@ -182,8 +181,8 @@ class ServerRepository
     public function search($query)
     {
         return $this->model->select(['id', 'name', 'server_ip', 'server_port', 'game_id', 'game_mod_id'])
-            ->with(['game' => function($query) {
-                $query->select('code','name');
+            ->with(['game' => function ($query): void {
+                $query->select('code', 'name');
             }])
             ->where('name', 'LIKE', '%' . $query . '%')
             ->get();
@@ -193,10 +192,10 @@ class ServerRepository
      * @param Server $server
      * @param array  $attributes
      */
-    public function update(Server $server, array $attributes)
+    public function update(Server $server, array $attributes): void
     {
-        $attributes['enabled'] = (bool)array_key_exists('enabled', $attributes);
-        $attributes['blocked'] = (bool)array_key_exists('blocked', $attributes);
+        $attributes['enabled']   = (bool)array_key_exists('enabled', $attributes);
+        $attributes['blocked']   = (bool)array_key_exists('blocked', $attributes);
         $attributes['installed'] = (bool)array_key_exists('installed', $attributes);
 
         if (isset($attributes['ds_id'])) {
@@ -213,7 +212,7 @@ class ServerRepository
      * @param Server            $server
      * @param ServerVarsRequest $request
      */
-    public function updateVars(Server $server, ServerVarsRequest $request)
+    public function updateVars(Server $server, ServerVarsRequest $request): void
     {
         $only = [];
         foreach ($server->gameMod->vars as $var) {
@@ -231,7 +230,7 @@ class ServerRepository
      * @param Server $server
      * @param bool $autostart
      */
-    public function updateAutostart(Server $server, bool $autostart)
+    public function updateAutostart(Server $server, bool $autostart): void
     {
         $autostartSetting = $server->settings->where('name', 'autostart')->first()
             ?? new ServerSetting([

@@ -1,0 +1,81 @@
+#!/usr/bin/env php
+<?php
+
+empty(getenv('DB_CONNECTION')) && putenv("DB_CONNECTION=sqlite");
+
+if (getenv('DB_CONNECTION') == 'sqlite') {
+
+    putenv("DB_DATABASE=database.sqlite");
+
+    if (!file_exists('database.sqlite') || filesize('database.sqlite') == 0) {
+        system('touch database.sqlite');
+
+        system('php artisan migrate');
+
+        system('php artisan db:seed --class=ClientCertificatesTableSeeder');
+        system('php artisan db:seed --class=GamesTableSeeder');
+        system('php artisan db:seed --class=GameModsTableSeeder');
+        system('php artisan db:seed --class=UsersTableSeeder');
+        system('php artisan db:seed --class=PermissionsSeeder');
+    } else {
+        system('php artisan migrate');
+    }
+}
+else if (getenv('DB_CONNECTION') == 'mysql') {
+    $connectTries = 5;
+    $sleepTime = 5;
+    while ($connectTries > 0) {
+        $connectTries--;
+
+        try {
+            $pdo = new PDO(
+                'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_DATABASE'),
+                getenv('DB_USERNAME'),
+                getenv('DB_PASSWORD')
+            );
+
+            break;
+        } catch (PDOException $e) {
+            echo "Waiting mysql...\n";
+
+            sleep($sleepTime);
+            $sleepTime *= 2;
+
+            if ($connectTries <= 0) {
+                echo "Error: " . $e->getMessage() . "\n";
+                exit(1);
+            }
+        }
+    }
+
+    system('php artisan migrate');
+
+    $count = $pdo->query("SELECT COUNT(*) as count FROM users;")->fetch(PDO::FETCH_ASSOC)['count'];
+
+    if ($count == 0) {
+        system('php artisan db:seed --class=ClientCertificatesTableSeeder');
+        system('php artisan db:seed --class=GamesTableSeeder');
+        system('php artisan db:seed --class=GameModsTableSeeder');
+        system('php artisan db:seed --class=UsersTableSeeder');
+        system('php artisan db:seed --class=PermissionsSeeder');
+    }
+}
+
+$adminPassword = !empty(getenv('ADMIN_PASSWORD'))
+    ? getenv('ADMIN_PASSWORD')
+    : base64_encode(random_bytes(12));
+
+system("php artisan user:change-password admin {$adminPassword}");
+
+echo "\n--------------------------------------\n";
+echo "GameAP starting...\n";
+
+if (isset($adminPassword)) {
+    echo "Admin login: admin\n";
+    echo "Admin password: {$adminPassword}\n";
+}
+
+echo "\n--------------------------------------\n";
+echo "\n\n";
+
+system('php-fpm');

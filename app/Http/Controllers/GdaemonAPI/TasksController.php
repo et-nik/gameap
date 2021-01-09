@@ -5,9 +5,11 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\GdaemonTask;
 use Gameap\Repositories\GdaemonTaskRepository;
-use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Http\Response;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TasksController extends Controller
 {
@@ -18,11 +20,6 @@ class TasksController extends Controller
      */
     protected $repository;
 
-    /**
-     * Create a new GdaemonTasksController instance.
-     *
-     * @param  \Gameap\Repositories\GdaemonTaskRepository $repository
-     */
     public function __construct(GdaemonTaskRepository $repository)
     {
         parent::__construct();
@@ -31,7 +28,7 @@ class TasksController extends Controller
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|QueryBuilder[]
+     * @return Collection|QueryBuilder[]
      */
     public function index(DedicatedServer $dedicatedServer)
     {
@@ -41,13 +38,7 @@ class TasksController extends Controller
             ->get();
     }
 
-    /**
-     * Update Gdaemon Task fields
-     *
-     * @param GdaemonTask $gdaemonTask
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(GdaemonTask $gdaemonTask)
+    public function update(GdaemonTask $gdaemonTask): JsonResponse
     {
         $status = request()->status;
 
@@ -55,11 +46,11 @@ class TasksController extends Controller
             return response()->json(['message' => 'Empty status'], Response::HTTP_BAD_REQUEST);
         }
 
-        if (!in_array($status, GdaemonTask::NUM_STATUSES)) {
+        if (!in_array($status, GdaemonTask::NUM_STATUSES, true)) {
             return response()->json(['message' => 'Invalid status'], Response::HTTP_BAD_REQUEST);
         }
 
-        $gdaemonTask->status = is_integer($status)
+        $gdaemonTask->status = is_int($status)
             ? array_flip(GdaemonTask::NUM_STATUSES)[$status]
             : $status;
 
@@ -68,16 +59,10 @@ class TasksController extends Controller
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
 
-    /**
-     * @param Request $request
-     * @param int $gdaemonTaskId
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function output(Request $request, int $gdaemonTaskId)
+    public function output(Request $request, int $gdaemonTaskId): JsonResponse
     {
         if (GdaemonTask::where('id', $gdaemonTaskId)->exists()) {
-
-            $gdaemonTask = GdaemonTask::find($gdaemonTaskId);
+            $gdaemonTask = GdaemonTask::findOrFail($gdaemonTaskId);
             $this->repository->concatOutput($gdaemonTask, $request->output);
 
             $response = response()->json(['message' => 'success'], Response::HTTP_OK);

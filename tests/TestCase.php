@@ -3,8 +3,8 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use DedicatedServersTableSeeder;
-use ServersTableSeeder;
+use Database\Seeders\DedicatedServersTableSeeder;
+use Database\Seeders\ServersTableSeeder;
 
 abstract class TestCase extends BaseTestCase
 {

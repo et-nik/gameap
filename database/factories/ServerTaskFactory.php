@@ -1,11 +1,14 @@
 <?php
 
+namespace Database\Factories;
+
 use Faker\Generator as Faker;
 use Gameap\Models\Server;
+use Gameap\Models\ServerTask;
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-$factory->define(Gameap\Models\ServerTask::class, function (Faker $faker) {
+$factory->define(ServerTask::class, function (Faker $faker) {
     return [
         'command'       => $faker->randomElement(['start', 'stop', 'restart', 'update']),
         'server_id'     => Server::all()->random()->id,

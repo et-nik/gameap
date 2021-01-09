@@ -8,9 +8,11 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Session;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
+
+/**
+ * @covers \Gameap\Http\Controllers\Admin\ClientCertificatesController
+ */
 class ClientCertificatesControllerTest extends TestCase
 {
     /**

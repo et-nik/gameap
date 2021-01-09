@@ -1,31 +1,32 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services;
 
 use Carbon\Carbon;
+use GameQ\GameQ;
+use Gameap\Exceptions\Services\InvalidCommandException;
+use Gameap\Exceptions\Services\ServerInactiveException;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
-use GameQ\GameQ;
-use Knik\Gameap\GdaemonCommands;
-use Mockery\MockInterface;
-use Tests\TestCase;
-use Mockery;
-use Gameap\Services\ServerService;
-use Gameap\Models\Server;
 use Gameap\Models\Game;
+use Gameap\Models\Server;
+use Gameap\Services\ServerService;
+use Knik\Gameap\GdaemonCommands;
+use Mockery;
+use Mockery\MockInterface;
+use PHPUnit\Framework\Assert;
+use Tests\TestCase;
 
-/**
- * @covers \Gameap\Services\ServerService <extended>
- */
+/** @covers \Gameap\Services\ServerService */
 class ServerServiceTest extends TestCase
 {
-    public function adapterProviderGameQ()
+    public function adapterProviderGameQ(): array
     {
-        $mockGameQ = Mockery::mock('GameQ\GameQ');
+        $mockGameQ = Mockery::mock(GameQ::class);
         $mockGameQ->shouldReceive('setOption')->andReturnSelf();
         $mockGameQ->shouldReceive('addServer')->andReturnSelf();
 
-        $mockGdaemon = Mockery::mock('Knik\Gameap\GdaemonCommands');
+        $mockGdaemon = Mockery::mock(GdaemonCommands::class);
         $mockGdaemon->shouldReceive('setConfig')->andReturnSelf();
         $mockGdaemon->shouldReceive('disconnect');
 
@@ -45,19 +46,19 @@ class ServerServiceTest extends TestCase
         ];
     }
 
-    public function testCreateService()
+    public function testCreateService(): void
     {
-        $mockGameQ = Mockery::mock('GameQ\GameQ');
+        $mockGameQ = Mockery::mock(GameQ::class);
         $mockGameQ->shouldReceive('setOption')->andReturnSelf();
         $mockGameQ->shouldReceive('addServer')->andReturnSelf();
 
-        $mockGdaemon = Mockery::mock('Knik\Gameap\GdaemonCommands');
+        $mockGdaemon = Mockery::mock(GdaemonCommands::class);
         $mockGdaemon->shouldReceive('setConfig')->andReturnSelf();
         $mockGdaemon->shouldReceive('disconnect');
 
         $serverService = new ServerService($mockGameQ, $mockGdaemon);
 
-        $this->assertInstanceOf('Gameap\Services\ServerService', $serverService);
+        Assert::assertInstanceOf(ServerService::class, $serverService);
     }
 
     /**
@@ -65,8 +66,9 @@ class ServerServiceTest extends TestCase
      * @param ServerService $serverService
      * @param GameQ|MockInterface $mock
      * @param Server $server
+     * @throws \Exception
      */
-    public function testQuery($serverService, $mock, $server)
+    public function testQuery(ServerService $serverService, $mock, Server $server): void
     {
         $host = "{$server->server_ip}:{$server->query_port}";
         $mock->shouldReceive('process')->andReturn([
@@ -87,10 +89,10 @@ class ServerServiceTest extends TestCase
         ]);
 
         $query = $serverService->query($server);
-        $this->assertEquals(['status' => 'offline'], $query);
+        Assert::assertEquals(['status' => 'offline'], $query);
 
         $query = $serverService->query($server);
-        $this->assertEquals([
+        Assert::assertEquals([
             'status' => 'online',
             'hostname' => 'test',
             'map' => 'mapa',
@@ -106,8 +108,9 @@ class ServerServiceTest extends TestCase
      * @param ServerService $serverService
      * @param GameQ|MockInterface $mock
      * @param Server $server
+     * @throws \Exception
      */
-    public function testQueryInvalid($serverService, $mock, $server)
+    public function testQueryInvalid(ServerService $serverService, $mock, Server $server): void
     {
         $mock->shouldReceive('process')->andReturn([
             '1.3.3.7:27015' => [
@@ -123,46 +126,23 @@ class ServerServiceTest extends TestCase
         ]);
 
         $query = $serverService->query($server);
-        $this->assertEquals(['status' => 'offline'], $query);
+        Assert::assertEquals(['status' => 'offline'], $query);
     }
 
     /**
      * @return array[]
      */
-    public function adapterProviderGdaemon()
+    public function adapterProviderGdaemon(): array
     {
-        $clientCertificate = new ClientCertificate();
-        $clientCertificate->id = 1;
-        $clientCertificate->certificate = 'certificate';
-        $clientCertificate->private_key = 'private_key';
-        $clientCertificate->private_key_pass = '';
-
-        $dedicatedServer = new DedicatedServer();
-        $dedicatedServer->clientCertificate = $clientCertificate;
-        $dedicatedServer->work_path = '/srv/servers';
-        $dedicatedServer->script_get_console = './script_get_console.sh';
-        $dedicatedServer->script_send_command = './script_send_command.sh {command}';
-
-        $server = new Server();
-        $server->server_ip = '127.0.0.1';
-        $server->server_port = 1337;
-        $server->query_port = 1337;
-        $server->rcon_port = 1337;
-        $server->dir = 'server01';
-        $server->last_process_check = Carbon::now()->toDateTimeString();
-        $server->process_active = true;
-
-        $server->dedicatedServer = $dedicatedServer;
-
-        $mockGameQ = Mockery::mock('GameQ\GameQ');
-        $mockGdaemon = Mockery::mock('Knik\Gameap\GdaemonCommands');
+        $mockGameQ = Mockery::mock(GameQ::class);
+        $mockGdaemon = Mockery::mock(GdaemonCommands::class);
         $serverService = new ServerService($mockGameQ, $mockGdaemon);
 
         $mockGdaemon->shouldReceive('setConfig')->andReturnSelf();
         $mockGdaemon->shouldReceive('disconnect');
 
         return [
-            [$serverService, $mockGdaemon, $server],
+            [$serverService, $mockGdaemon],
         ];
     }
 
@@ -170,14 +150,15 @@ class ServerServiceTest extends TestCase
      * @dataProvider adapterProviderGdaemon
      * @param ServerService $serverService
      * @param GdaemonCommands|MockInterface $mock
-     * @param Server $server
      */
-    public function testGetConsoleLog($serverService, $mock, $server)
+    public function testGetConsoleLog(ServerService $serverService, $mock): void
     {
+        $server = $this->getServer();
         $mock->shouldReceive('exec')->andReturn("command result");
 
         $consoleLog = $serverService->getConsoleLog($server);
-        $this->assertEquals('command result', $consoleLog);
+
+        Assert::assertEquals('command result', $consoleLog);
     }
 
     /**
@@ -188,47 +169,54 @@ class ServerServiceTest extends TestCase
      * @param $server
      *
      */
-    public function testGetConsoleLogInactiveServer($serverService, $mock, $server)
+    public function testGetConsoleLogInactiveServer(ServerService $serverService, $mock): void
     {
-        $this->expectException(\Gameap\Exceptions\Services\ServerInactiveException::class);
+        $this->expectException(ServerInactiveException::class);
+        $server = $this->getServer();
         $server->process_active = false;
 
         $mock->shouldReceive('exec')->andReturn("command result");
+
         $serverService->getConsoleLog($server);
     }
 
     /**
      * @dataProvider adapterProviderGdaemon
+     * @param $serverService
+     * @param $mock
+     * @param $server
      */
-    public function testSendConsoleCommand($serverService, $mock, $server)
+    public function testSendConsoleCommand(ServerService $serverService, $mock): void
     {
+        $server = $this->getServer();
         $mock->shouldReceive('exec')
             ->andReturnUsing(function($command, &$exitCode) {
                 $exitCode = 0;
                 return "command result";
         });
-
         $exitCode = null;
+
         $result = $serverService->sendConsoleCommand($server, 'ban knik');
 
-        $this->assertTrue($result);
+        Assert::assertTrue($result);
     }
 
     /**
      * @dataProvider adapterProviderGdaemon
      */
-    public function testSendConsoleCommandFail($serverService, $mock, $server)
+    public function testSendConsoleCommandFail(ServerService $serverService, $gdaemonMock): void
     {
-        $mock->shouldReceive('exec')
+        $server = $this->getServer();
+        $gdaemonMock->shouldReceive('exec')
             ->andReturnUsing(function($command, &$exitCode) {
                 $exitCode = 1;
                 return "command result";
             });
-
         $exitCode = null;
+
         $result = $serverService->sendConsoleCommand($server, 'ban knik');
 
-        $this->assertFalse($result);
+        Assert::assertFalse($result);
     }
 
     /**
@@ -237,9 +225,10 @@ class ServerServiceTest extends TestCase
      * @param $mock
      * @param $server
      */
-    public function testSendConsoleCommandInactive($serverService, $mock, $server)
+    public function testSendConsoleCommandInactive(ServerService $serverService, $mock): void
     {
-        $this->expectException(\Gameap\Exceptions\Services\ServerInactiveException::class);
+        $this->expectException(ServerInactiveException::class);
+        $server = $this->getServer();
         $server->process_active = false;
         $mock->shouldReceive('exec')->andReturn("command result");
         $serverService->sendConsoleCommand($server, 'ban knik');
@@ -253,13 +242,14 @@ class ServerServiceTest extends TestCase
      * @param Server $server
      *
      * @throws \Gameap\Exceptions\Services\EmptyCommandException
-     * @throws \Gameap\Exceptions\Services\InvalidCommandException
+     * @throws InvalidCommandException
      */
-    public function testGetCommand($serverService, $mock, $server)
+    public function testGetCommand(ServerService $serverService, $mock): void
     {
+        $server = $this->getServer();
         $command = $serverService->getCommand($server, 'get_console');
 
-        $this->assertEquals('./script_get_console.sh', $command);
+        Assert::assertEquals('./script_get_console.sh', $command);
     }
 
     /**
@@ -269,20 +259,21 @@ class ServerServiceTest extends TestCase
      * @param $mock
      * @param Server $server
      */
-    public function testReplaceShortCodes($serverService, $mock, $server)
+    public function testReplaceShortCodes(ServerService $serverService, $mock): void
     {
+        $server = $this->getServer();
         $extra = ['extra' => 'azaza'];
         $command = $serverService->replaceShortCodes($server, './script.sh {extra}', $extra);
-        $this->assertEquals('./script.sh azaza', $command);
+        Assert::assertEquals('./script.sh azaza', $command);
 
         $command = $serverService->replaceShortCodes($server, './script.sh {host} {port}');
-        $this->assertEquals('./script.sh 127.0.0.1 1337', $command);
+        Assert::assertEquals('./script.sh 127.0.0.1 1337', $command);
 
         $server->dedicatedServer->work_path = '/srv/server/';
         $server->dir = '/server01';
 
         $command = $serverService->replaceShortCodes($server, './script.sh {dir}');
-        $this->assertEquals('./script.sh /srv/server/server01', $command);
+        Assert::assertEquals('./script.sh /srv/server/server01', $command);
     }
 
     /**
@@ -293,11 +284,51 @@ class ServerServiceTest extends TestCase
      * @param Server $server
      *
      * @throws \Gameap\Exceptions\Services\EmptyCommandException
-     * @throws \Gameap\Exceptions\Services\InvalidCommandException
+     * @throws InvalidCommandException
      */
-    public function testGetCommandInvalidCommand($serverService, $mock, $server)
+    public function testGetCommandInvalidCommand(ServerService $serverService, $mock): void
     {
-        $this->expectException(\Gameap\Exceptions\Services\InvalidCommandException::class);
+        $server = $this->getServer();
+        $this->expectException(InvalidCommandException::class);
+
         $serverService->getCommand($server, 'invalid_command');
+    }
+
+    private function getClientCertificate(): ClientCertificate
+    {
+        $clientCertificate = new ClientCertificate();
+        $clientCertificate->id = 1;
+        $clientCertificate->certificate = 'certificate';
+        $clientCertificate->private_key = 'private_key';
+        $clientCertificate->private_key_pass = '';
+
+        return $clientCertificate;
+    }
+
+    private function getDedicatedServer(): DedicatedServer
+    {
+        $dedicatedServer = new DedicatedServer();
+        $dedicatedServer->clientCertificate = $this->getClientCertificate();
+        $dedicatedServer->work_path = '/srv/servers';
+        $dedicatedServer->script_get_console = './script_get_console.sh';
+        $dedicatedServer->script_send_command = './script_send_command.sh {command}';
+
+        return $dedicatedServer;
+    }
+
+    private function getServer(): Server
+    {
+        $server = new Server();
+        $server->server_ip = '127.0.0.1';
+        $server->server_port = 1337;
+        $server->query_port = 1337;
+        $server->rcon_port = 1337;
+        $server->dir = 'server01';
+        $server->last_process_check = Carbon::now('UTC')->toDateTimeString();
+        $server->process_active = true;
+
+        $server->dedicatedServer = $this->getDedicatedServer();
+
+        return $server;
     }
 }

@@ -3,11 +3,11 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
-use \Gameap\Http\Controllers\AuthController;
-use \Gameap\Repositories\GdaemonTaskRepository;
-use \Gameap\Models\GdaemonTask;
+use Gameap\Http\Controllers\AuthController;
+use Gameap\Models\GdaemonTask;
+use Gameap\Repositories\GdaemonTaskRepository;
 
-class GdaemonTasksController extends AuthController 
+class GdaemonTasksController extends AuthController
 {
     /**
      * The GdaemonTasksRepository instance.
@@ -35,8 +35,8 @@ class GdaemonTasksController extends AuthController
      */
     public function index()
     {
-        return view('admin.gdaemon_tasks.list',[
-            'gdaemonTasks' => $this->repository->getAll()
+        return view('admin.gdaemon_tasks.list', [
+            'gdaemonTasks' => $this->repository->getAll(),
         ]);
     }
 

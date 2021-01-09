@@ -4,8 +4,8 @@ namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
 use Gameap\Services\CertificateService;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DedicatedServersRepository extends Repository
 {
@@ -23,7 +23,7 @@ class DedicatedServersRepository extends Repository
         DedicatedServer $dedicatedServer,
         ClientCertificateRepository $clientCertificateRepository
     ) {
-        $this->model = $dedicatedServer;
+        $this->model                       = $dedicatedServer;
         $this->clientCertificateRepository = $clientCertificateRepository;
     }
 
@@ -58,7 +58,7 @@ class DedicatedServersRepository extends Repository
     {
         /** @var DedicatedServer $dedicatedServer */
         $dedicatedServer = $this->model->select('id')->where('id', '=', $id)->first();
-        $result = [];
+        $result          = [];
 
         foreach ($dedicatedServer->servers as $server) {
             if (!array_key_exists($server->server_ip, $result)) {
@@ -84,19 +84,19 @@ class DedicatedServersRepository extends Repository
      */
     public function store(array $attributes)
     {
-        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+        $attributes['ip'] = array_filter($attributes['ip'], function ($value) {
             return !empty($value);
         });
 
         if (empty($attributes['client_certificate_id'])) {
-            $clientCertificate = $this->clientCertificateRepository->getFirstOrGenerate();
+            $clientCertificate                   = $this->clientCertificateRepository->getFirstOrGenerate();
             $attributes['client_certificate_id'] = $clientCertificate->id;
         }
 
         $attributes['gdaemon_api_key'] = Str::random(64);
 
         $attributes['enabled'] = $attributes['enabled'] ?? 1;
-        $attributes['os'] = $attributes['os'] ?? 'linux';
+        $attributes['os']      = $attributes['os'] ?? 'linux';
 
         return DedicatedServer::create($attributes);
     }
@@ -105,7 +105,7 @@ class DedicatedServersRepository extends Repository
      * @param DedicatedServer $dedicatedServer
      * @throws \Exception
      */
-    public function destroy(DedicatedServer $dedicatedServer)
+    public function destroy(DedicatedServer $dedicatedServer): void
     {
         if ($dedicatedServer->gdaemon_server_cert != CertificateService::ROOT_CA_CERT &&
             Storage::disk('local')->exists($dedicatedServer->gdaemon_server_cert)
@@ -130,9 +130,9 @@ class DedicatedServersRepository extends Repository
      * @param array $fields
      * @param DedicatedServer        $dedicatedServer
      */
-    public function update(DedicatedServer $dedicatedServer, array $attributes)
+    public function update(DedicatedServer $dedicatedServer, array $attributes): void
     {
-        $attributes['ip'] = array_filter($attributes['ip'], function($value) {
+        $attributes['ip'] = array_filter($attributes['ip'], function ($value) {
             return !empty($value);
         });
 

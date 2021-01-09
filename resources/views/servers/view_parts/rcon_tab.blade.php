@@ -1,9 +1,9 @@
-{{--
+@php
 /**
-* @var \Gameap\Models\Server $server
-* @var array $rconSupportedFeatures
+* @var $server \Gameap\Models\Server
+* @var $rconSupportedFeatures array
 **/
---}}
+@endphp
 
 @php($playersGrid = Gate::check('server-rcon-console', $server)
             ? 'col-lg-6'

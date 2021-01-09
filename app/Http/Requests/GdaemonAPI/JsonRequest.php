@@ -1,9 +1,10 @@
-<?php namespace Gameap\Http\Requests\GdaemonAPI;
+<?php
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
+namespace Gameap\Http\Requests\GdaemonAPI;
+
 use Gameap\Exceptions\GdaemonAPI\ValidationException;
 use Gameap\Http\Requests\Request;
+use Illuminate\Contracts\Validation\Validator;
 
 abstract class JsonRequest extends Request
 {
@@ -25,7 +26,7 @@ abstract class JsonRequest extends Request
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator): void
     {
         throw (new ValidationException($validator))
             ->errorBag($this->errorBag);
@@ -45,7 +46,10 @@ abstract class JsonRequest extends Request
         }
 
         return $factory->make(
-            $this->json()->all(), $this->container->call([$this, 'rules']), $this->messages(), $this->attributes()
+            $this->json()->all(),
+            $this->container->call([$this, 'rules']),
+            $this->messages(),
+            $this->attributes()
         );
     }
 }

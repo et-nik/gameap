@@ -5,8 +5,8 @@ namespace Gameap\Repositories;
 use Bouncer;
 use DB;
 use Gameap\Helpers\ServerPermissionHelper;
-use Gameap\Models\User;
 use Gameap\Models\Server;
+use Gameap\Models\User;
 
 class UserRepository extends Repository
 {
@@ -31,7 +31,7 @@ class UserRepository extends Repository
     /**
      * @param array $attributes
      */
-    public function store(array $attributes)
+    public function store(array $attributes): void
     {
         $user = User::create($attributes);
 
@@ -60,7 +60,7 @@ class UserRepository extends Repository
             $user->servers()->sync($fields['servers']);
             DB::table('permissions')
                 ->where('entity_id', '=', $user->id)
-                ->whereIn('ability_id', function ($query) use ($fields) {
+                ->whereIn('ability_id', function ($query) use ($fields): void {
                     $query->select('id')
                         ->from('abilities')
                         ->where('entity_type', '=', Server::class)
@@ -71,7 +71,7 @@ class UserRepository extends Repository
             $user->servers()->detach();
             DB::table('permissions')
                 ->where('entity_id', '=', $user->id)
-                ->whereIn('ability_id', function ($query) {
+                ->whereIn('ability_id', function ($query): void {
                     $query->select('id')
                         ->from('abilities')
                         ->where('entity_type', '=', Server::class);
@@ -90,7 +90,7 @@ class UserRepository extends Repository
         return true;
     }
 
-    public function updateServerPermission(User $user, Server $server, ?array $disabledPermissions)
+    public function updateServerPermission(User $user, Server $server, ?array $disabledPermissions): void
     {
         foreach (ServerPermissionHelper::getAllPermissions() as $pname) {
             if (isset($disabledPermissions[$pname]) && $disabledPermissions[$pname]) {

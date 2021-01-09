@@ -2,21 +2,20 @@
 
 namespace Gameap\Services;
 
-use GameQ\GameQ;
-use GameQ\Exception\Server as GameqServerException;
-use GameQ\Exception\Query as GameqQueryException;
-use GameQ\Exception\Protocol as GameqProtocolException;
-use Gameap\Models\Server;
-use Knik\Gameap\GdaemonCommands;
-use Html;
-use Storage;
-use Gameap\Exceptions\Services\InvalidCommandException;
 use Gameap\Exceptions\Services\EmptyCommandException;
+use Gameap\Exceptions\Services\InvalidCommandException;
 use Gameap\Exceptions\Services\ServerInactiveException;
+use Gameap\Models\Server;
+use GameQ\Exception\Protocol as GameqProtocolException;
+use GameQ\Exception\Query as GameqQueryException;
+use GameQ\Exception\Server as GameqServerException;
+use GameQ\GameQ;
+use Knik\Gameap\GdaemonCommands;
+use Storage;
 
 class ServerService
 {
-    const CONSOLE_MAX_SYMBOLS = 10000;
+    public const CONSOLE_MAX_SYMBOLS = 10000;
 
     /**
      * @var GameQ
@@ -41,16 +40,16 @@ class ServerService
      */
     public function __construct(GameQ $gameq, GdaemonCommands $gdaemonCommands)
     {
-        $this->gameq = $gameq;
+        $this->gameq           = $gameq;
         $this->gdaemonCommands = $gdaemonCommands;
     }
 
     /**
      * Add default server disk
-     * 
+     *
      * @param Server $server
      */
-    public function registerDisk(Server $server)
+    public function registerDisk(Server $server): void
     {
         foreach ($server->file_manager_disks as $diskName => $diskConfig) {
             if (empty(config("filesystems.disks.{$diskName}"))) {
@@ -64,7 +63,7 @@ class ServerService
      * @return array|string[]
      * @throws \Exception
      */
-    public function query(Server $server)
+    public function query(Server $server): array
     {
         $host = "{$server->server_ip}:{$server->query_port}";
 
@@ -86,11 +85,11 @@ class ServerService
 
         if (!empty($serverResult['gq_online'])) {
             $result = [
-                'status' => $serverResult['gq_online'] ? 'online' : 'offline',
+                'status'   => $serverResult['gq_online'] ? 'online' : 'offline',
                 'hostname' => $serverResult['gq_hostname'],
-                'map' => $serverResult['gq_mapname'],
-                'players' => $serverResult['gq_numplayers'] . '/' . $serverResult['gq_maxplayers'],
-                'version' => isset($serverResult['version']) ? $serverResult['version'] : null,
+                'map'      => $serverResult['gq_mapname'],
+                'players'  => $serverResult['gq_numplayers'] . '/' . $serverResult['gq_maxplayers'],
+                'version'  => $serverResult['version'] ?? null,
                 'password' => $serverResult['gq_password'] ? 'yes' : 'no',
                 'joinlink' => $serverResult['gq_joinlink'],
             ];
@@ -109,22 +108,22 @@ class ServerService
      * @param array $extraData
      * @return string
      */
-    public function replaceShortCodes(Server $server, string $command, array $extraData = [])
+    public function replaceShortCodes(Server $server, string $command, array $extraData = []): string
     {
         foreach ($extraData as $key => $value) {
             $command = str_replace('{' . $key . '}', $value, $command);
         }
 
         $replaceArray = [
-            'host' => $server->server_ip,
-            'port' => $server->server_port,
+            'host'       => $server->server_ip,
+            'port'       => $server->server_port,
             'query_port' => $server->query_port,
-            'rcon_port' => $server->rcon_port,
-            'dir' => $server->full_path,
-            'uuid' => $server->uuid,
+            'rcon_port'  => $server->rcon_port,
+            'dir'        => $server->full_path,
+            'uuid'       => $server->uuid,
             'uuid_short' => $server->uuid_short,
-            'game' => $server->game_id,
-            'user' => $server->su_user,
+            'game'       => $server->game_id,
+            'user'       => $server->su_user,
         ];
 
         foreach ($replaceArray as $key => $value) {
@@ -143,9 +142,9 @@ class ServerService
      * @throws InvalidCommandException
      * @throws EmptyCommandException
      */
-    public function getCommand(Server $server, string $command, array $extraData = [])
+    public function getCommand(Server $server, string $command, array $extraData = []): string
     {
-        $property = 'script_' . $command;
+        $property   = 'script_' . $command;
         $attributes = $server->dedicatedServer->getAttributes();
 
         if (array_key_exists($property, $attributes)) {
@@ -164,15 +163,16 @@ class ServerService
     /**
      * @param Server $server
      * @return string
+     * @throws ServerInactiveException|InvalidCommandException
      */
-    public function getConsoleLog(Server $server)
+    public function getConsoleLog(Server $server): string
     {
         $this->checkServer($server);
         $this->configureGdaemon($server);
 
         try {
             $command = $this->getCommand($server, 'get_console');
-            $result = $this->gdaemonCommands->exec($command, $exitCode);
+            $result  = $this->gdaemonCommands->exec($command, $exitCode);
         } catch (EmptyCommandException $e) {
             $this->registerDisk($server);
             $result = Storage::disk('server')->get('output.txt');
@@ -193,8 +193,11 @@ class ServerService
      * @param Server $server
      * @param string $command
      * @return bool
+     *
+     * @throws InvalidCommandException
+     * @throws ServerInactiveException
      */
-    public function sendConsoleCommand(Server $server, string $command)
+    public function sendConsoleCommand(Server $server, string $command): bool
     {
         $this->checkServer($server);
         $this->configureGdaemon($server);
@@ -222,7 +225,7 @@ class ServerService
      *
      * @param Server $server
      */
-    private function configureGdaemon(Server $server)
+    private function configureGdaemon(Server $server): void
     {
         $this->gdaemonCommands->setConfig(
             $server->dedicatedServer->gdaemonSettings($this->storageDisk)
@@ -233,7 +236,7 @@ class ServerService
      * @param Server $server
      * @throws ServerInactiveException
      */
-    private function checkServer(Server $server)
+    private function checkServer(Server $server): void
     {
         if ($server->processActive() === false) {
             throw new ServerInactiveException('Server is down');

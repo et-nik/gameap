@@ -2,63 +2,66 @@
 
 namespace Gameap\Services;
 
-use \Illuminate\Http\Response;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\Response;
 
 class InfoService
 {
-    /**
-     * Get GameAP Latest Release
-     * 
-     * @return string
-     */
-    static public function latestRelease()
+    private const GAMEAP_LATEST_VERSION_URI = 'http://www.gameap.ru/gameap_version.txt';
+    private const GITHUB_LATEST_VERSION_URI = 'https://api.github.com/repos/et-nik/gameap/releases/latest';
+    /** @var Client */
+    private $client;
+
+    public function __construct(Client $client)
     {
-        $client = new Client();
-        
-        // TODO: Remove before beta
+        $this->client = $client;
+    }
+
+    public function latestRelease(): string
+    {
+        $version = $this->loadVersionFromGameap();
+
+        if ($version === '') {
+            $version = $this->loadVersionFromGithub();
+        }
+
+        return $version;
+    }
+
+    private function loadVersionFromGameap(): string
+    {
         try {
-            $res = $client->get('http://www.gameap.ru/gameap_version.txt');
+            $res = $this->client->get(self::GAMEAP_LATEST_VERSION_URI);
         } catch (RequestException $e) {
             return '';
         }
 
-        if ($res->getStatusCode() == Response::HTTP_OK) {
-             $lines = explode("\n", $res->getBody()->getContents());
-             $parts = explode(': ', $lines[0]);
-             $latest = $parts[1];
-             
-             return $latest;
+        if ($res->getStatusCode() === Response::HTTP_OK) {
+            $lines  = explode("\n", $res->getBody()->getContents());
+            $parts  = explode(': ', $lines[0]);
+            return $parts[1];
         }
-        
-        // GitHub
-        // TODO: Replace before beta
+
+        return '';
+    }
+
+    private function loadVersionFromGithub(): string
+    {
         try {
-            $res = $client->get('https://api.github.com/repos/et-nik/gameap/releases/latest');
+            $res = $this->client->get(self::GITHUB_LATEST_VERSION_URI);
         } catch (RequestException $e) {
             return '';
         }
 
-        if ($res->getStatusCode() == Response::HTTP_OK) {
+        if ($res->getStatusCode() === Response::HTTP_OK) {
             $result = json_decode($res->getBody()->getContents());
 
             if (!empty($result->tag_name)) {
                 return $result->tag_name;
-            } else {
-                return '';
             }
-        } else {
-            return '';
         }
-    }
 
-    /**
-     * @param $report
-     */
-//    static public function sendBugReport($report)
-//    {
-//        
-//    }
+        return '';
+    }
 }

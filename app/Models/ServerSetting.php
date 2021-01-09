@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ServerSetting extends Model
 {
-    public $table = 'servers_settings';
+    public $table      = 'servers_settings';
     public $timestamps = false;
     
     public $fillable = [
@@ -30,6 +30,4 @@ class ServerSetting extends Model
     {
         return $this->belongsTo(Server::class);
     }
-
-
 }

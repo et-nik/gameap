@@ -2,9 +2,8 @@
 
 namespace Gameap\Http\Middleware;
 
-use Closure;
-use Illuminate\Support\Facades\Auth;
 use Bouncer;
+use Closure;
 
 class AdminMiddleware
 {

@@ -31,6 +31,7 @@ class ServerRconControllerTest extends TestCase
     {
         Bouncer::sync($this->user)->roles(['user']);
 
+        /** @var Server $server */
         $server = factory(Server::class)->create([
             'game_id' => 'cstrike',
             'game_mod_id' => GameMod::select('id')->where(['game_code' => 'cstrike'])->first(),

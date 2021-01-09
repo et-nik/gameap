@@ -8,30 +8,29 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\ServerCreateRequest;
 use Gameap\Http\Requests\Admin\ServerDestroyRequest;
 use Gameap\Http\Requests\Admin\ServerUpdateRequest;
+use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
-use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\GameModRepository;
-use Gameap\Repositories\ServerRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
+use Gameap\Repositories\ServerRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ServersController extends AuthController
 {
     /**
-     * The ServerRepository instance.
-     *
-     * @var ServerRepository
-     */
-    protected $repository;
-
-    /**
      * The GdaemonTaskRepository instance.
      *
      * @var GdaemonTaskRepository
      */
     public $gdaemonTaskRepository;
+    /**
+     * The ServerRepository instance.
+     *
+     * @var ServerRepository
+     */
+    protected $repository;
 
     /**
      * Create a new ServersController instance.
@@ -44,7 +43,7 @@ class ServersController extends AuthController
     {
         parent::__construct();
 
-        $this->repository = $repository;
+        $this->repository            = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
@@ -55,8 +54,8 @@ class ServersController extends AuthController
      */
     public function index()
     {
-        return view('admin.servers.list',[
-            'servers' => $this->repository->getAll()
+        return view('admin.servers.list', [
+            'servers' => $this->repository->getAll(),
         ]);
     }
 
@@ -69,7 +68,7 @@ class ServersController extends AuthController
     {
         return view('admin.servers.create', [
             'dedicatedServers' => DedicatedServer::all()->pluck('name', 'id'),
-            'games' => Game::orderBy('name')->get()->pluck('name', 'code')
+            'games'            => Game::orderBy('name')->get()->pluck('name', 'code'),
         ]);
     }
 
@@ -97,7 +96,7 @@ class ServersController extends AuthController
     public function edit(Server $server)
     {
         $dedicatedServers = DedicatedServer::all(['id', 'name'])->pluck('name', 'id');
-        $games = Game::orderBy('name')->get()->pluck('name', 'code');
+        $games            = Game::orderBy('name')->get()->pluck('name', 'code');
         return view('admin.servers.edit', compact('server', 'dedicatedServers', 'games'));
     }
 
@@ -118,7 +117,7 @@ class ServersController extends AuthController
 
     /**
      * Remove the specified resource from storage.
-     * 
+     *
      * @param Server $server
      * @return RedirectResponse
      * @throws Exception

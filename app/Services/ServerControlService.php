@@ -132,5 +132,4 @@ class ServerControlService
         $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server);
         return $gdaemonTaskId;
     }
-
 }

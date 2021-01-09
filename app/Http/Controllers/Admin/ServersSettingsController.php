@@ -3,9 +3,9 @@
 namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\ServersSettingsRequest;
 use Gameap\Models\Server;
 use Gameap\Repositories\ServerRepository;
-use Gameap\Http\Requests\ServersSettingsRequest;
 use Gameap\Repositories\ServerSettingsRepository;
 
 class ServersSettingsController extends AuthController
@@ -31,7 +31,7 @@ class ServersSettingsController extends AuthController
     {
         parent::__construct();
 
-        $this->serverRepository = $serverRepository;
+        $this->serverRepository         = $serverRepository;
         $this->serverSettingsRepository = $serverSettingsRepository;
     }
 
@@ -59,9 +59,9 @@ class ServersSettingsController extends AuthController
 
         if (!empty($all['settings'])) {
             $this->serverSettingsRepository->saveSettings($server, $all['settings']);
-        } else {
-            // TODO: Remove all settings?
         }
+        // TODO: Remove all settings?
+        
 
         return redirect()->route('admin.servers.edit', [$server->id])
             ->with('success', __('servers.settings_update_success_msg'));

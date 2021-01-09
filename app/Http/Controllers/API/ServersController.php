@@ -2,22 +2,22 @@
 
 namespace Gameap\Http\Controllers\API;
 
+use Exception;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommandException;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
-use Gameap\Exceptions\Repositories\GdaemonTaskRepository\InvalidServerStartCommandException;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Repositories\ServerRepository;
-use Gameap\Repositories\GdaemonTaskRepository;
-use Gameap\Models\Server;
+use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Gameap\Models\GdaemonTask;
+use Gameap\Models\Server;
+use Gameap\Repositories\GdaemonTaskRepository;
+use Gameap\Repositories\ServerRepository;
 use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
-use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Exception;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ServersController extends AuthController
 {
@@ -53,10 +53,10 @@ class ServersController extends AuthController
     ) {
         parent::__construct();
 
-        $this->repository = $repository;
+        $this->repository            = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
-        $this->serverService = $serverService;
-        $this->serverControlService = $serverControlService;
+        $this->serverService         = $serverService;
+        $this->serverControlService  = $serverControlService;
     }
 
     /**
@@ -87,7 +87,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -117,7 +117,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -149,7 +149,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -178,7 +178,7 @@ class ServersController extends AuthController
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -195,14 +195,14 @@ class ServersController extends AuthController
         $this->authorize('server-update', $server);
 
         try {
-            $deleteTaskId = $this->gdaemonTaskRepository->addServerDelete($server);
+            $deleteTaskId  = $this->gdaemonTaskRepository->addServerDelete($server);
             $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server, $deleteTaskId);
         } catch (RecordExistExceptions $exception) {
             return $this->makeErrorResponse($exception->getMessage());
         }
 
         return [
-            'gdaemonTaskId' => $gdaemonTaskId
+            'gdaemonTaskId' => $gdaemonTaskId,
         ];
     }
 
@@ -218,7 +218,7 @@ class ServersController extends AuthController
         $this->authorize('server-control', $server);
 
         return [
-            'processActive' => $server->processActive()
+            'processActive' => $server->processActive(),
         ];
     }
 
@@ -248,7 +248,7 @@ class ServersController extends AuthController
         $this->authorize('server-console-view', $server);
 
         return [
-            'console' => $this->serverService->getConsoleLog($server)
+            'console' => $this->serverService->getConsoleLog($server),
         ];
     }
 
@@ -270,17 +270,34 @@ class ServersController extends AuthController
         return ['message' => 'success'];
     }
 
-    /**
-     * @param Request $request
-     *
-     * TODO: Create admin part and move this
-     *
-     * @return mixed
-     */
     public function search(Request $request)
     {
         $query = $request->input('q');
         return $this->repository->search($query);
+    }
+
+    public function getList()
+    {
+        return QueryBuilder::for(Server::class)
+            ->allowedFilters('ds_id')
+            ->allowedAppends('full_path')
+            ->get([
+                'id',
+                'uuid',
+                'uuid_short',
+                'enabled',
+                'installed',
+                'blocked',
+                'name',
+                'ds_id',
+                'game_id',
+                'game_mod_id',
+                'server_ip',
+                'server_port',
+                'query_port',
+                'rcon_port',
+                'dir',
+            ]);
     }
 
     /**
@@ -288,7 +305,7 @@ class ServersController extends AuthController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function handleException(Exception $exception)
+    private function handleException(\Throwable $exception)
     {
         if (Auth::user()->can('admin roles & permissions')) {
             $extraMessage = $this->getDocMessage($exception);
@@ -303,7 +320,7 @@ class ServersController extends AuthController
      * @param Exception $exception
      * @return string
      */
-    private function getDocMessage(Exception $exception)
+    private function getDocMessage(\Throwable $exception)
     {
         $msg = '';
 
@@ -322,8 +339,8 @@ class ServersController extends AuthController
     private function makeErrorResponse($message, $code = Response::HTTP_UNPROCESSABLE_ENTITY)
     {
         return response()->json([
-            'message' => $message,
-            'http_code' => $code
+            'message'   => $message,
+            'http_code' => $code,
         ], $code);
     }
 }

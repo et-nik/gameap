@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if ! command -v gameap-daemon &> /dev/null
+then
+    sleep 5
+    curl http://${GAMEAP_HOST:-gameap}/gdaemon/setup/test_auto_setup_token | bash --
+    sleep 5
+fi
+
+service ssh start
+service gameap-daemon start
+
+tail -f /var/log/gameap-daemon/main.log | while read mainLine; do echo $mainLine ; done &
+tail -f /var/log/gameap-daemon/error.log | while read errorLine ; do echo $errorLine ; done

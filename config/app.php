@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'GameAP'),
 
     /*
     |--------------------------------------------------------------------------
@@ -118,6 +118,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | GameAP Modules Repositories
+    |--------------------------------------------------------------------------
+    |
+    */
+    'modules_repositories' => [
+        'https://modules.gameap.ru',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Allow new user registration
     |--------------------------------------------------------------------------
     |
@@ -191,7 +201,7 @@ return [
         /*
          * Other packages
          */
-        Mavinoo\LaravelBatch\LaravelBatchServiceProvider::class,
+        Mavinoo\Batch\BatchServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
     ],
 
@@ -246,7 +256,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
 
-        'Batch' => Mavinoo\LaravelBatch\LaravelBatchFacade::class,
+        'Batch' => Mavinoo\Batch\BatchFacade::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
     ],
 

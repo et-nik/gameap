@@ -12,5 +12,4 @@ use Gameap\Exceptions\GameapException;
 
 class EmptyCommandException extends GameapException
 {
-
 }

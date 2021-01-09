@@ -8,6 +8,7 @@ use Gameap\Models\User;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
+/** @covers \Gameap\Http\Controllers\Admin\UsersController */
 class UsersControllerTest extends TestCase
 {
     /**

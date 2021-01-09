@@ -4,10 +4,10 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Bouncer;
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Models\User;
-use Gameap\Repositories\UserRepository;
 use Gameap\Http\Requests\Admin\UserCreateRequest;
 use Gameap\Http\Requests\Admin\UserUpdateRequest;
+use Gameap\Models\User;
+use Gameap\Repositories\UserRepository;
 
 class UsersController extends AuthController
 {
@@ -26,6 +26,7 @@ class UsersController extends AuthController
     public function __construct(UserRepository $repository)
     {
         parent::__construct();
+
         $this->repository = $repository;
     }
 
@@ -36,8 +37,8 @@ class UsersController extends AuthController
      */
     public function index()
     {
-        return view('admin.users.list',[
-            'users' => $this->repository->getAll()
+        return view('admin.users.list', [
+            'users' => $this->repository->getAll(),
         ]);
     }
 
@@ -102,10 +103,9 @@ class UsersController extends AuthController
         if ($this->repository->update($user, $request->all())) {
             return redirect()->route('admin.users.index')
                 ->with('success', __('users.update_success_msg'));
-        } else {
-            return redirect()->route('admin.users.index')
-                ->with($user->getValidationErrors()->all());
         }
+        return redirect()->route('admin.users.index')
+                ->with($user->getValidationErrors()->all());
     }
 
     /**

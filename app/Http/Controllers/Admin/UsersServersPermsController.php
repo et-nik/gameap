@@ -4,9 +4,8 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Helpers\ServerPermissionHelper;
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Models\User;
 use Gameap\Models\Server;
-use Bouncer;
+use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
@@ -26,6 +25,7 @@ class UsersServersPermsController extends AuthController
     public function __construct(UserRepository $repository)
     {
         parent::__construct();
+
         $this->repository = $repository;
     }
 
@@ -46,10 +46,10 @@ class UsersServersPermsController extends AuthController
         $checkedPermissions = $permissions->pluck('name')->toArray();
 
         return view('admin.users.server_perms.edit', [
-            'permissions' => $permissions,
-            'allPermissions' => $allPermissions,
-            'user' => $user,
-            'server' => $server,
+            'permissions'        => $permissions,
+            'allPermissions'     => $allPermissions,
+            'user'               => $user,
+            'server'             => $server,
             'checkedPermissions' => $checkedPermissions,
         ]);
     }

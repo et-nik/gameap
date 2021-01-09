@@ -4,9 +4,9 @@ namespace Gameap\Http\Controllers\Admin;
 
 use Gameap\Exceptions\GameapException;
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\ClientCertificatesRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Repositories\ClientCertificateRepository;
-use Gameap\Http\Requests\ClientCertificatesRequest;
 
 class ClientCertificatesController extends AuthController
 {
@@ -94,6 +94,6 @@ class ClientCertificatesController extends AuthController
         $this->repository->destroy($clientCertificate);
 
         return redirect()->route('admin.client_certificates.index')
-            ->with('success',  __('client_certificates.delete_success_msg'));
+            ->with('success', __('client_certificates.delete_success_msg'));
     }
 }

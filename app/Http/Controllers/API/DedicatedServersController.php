@@ -4,7 +4,6 @@ namespace Gameap\Http\Controllers\API;
 
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Models\DedicatedServer;
 
 class DedicatedServersController extends AuthController
 {

@@ -1,3 +1,17 @@
+@php
+/**
+ * @var $modelsList array
+ * @var $labels array
+ * @var $attributes array
+ * @var $customActionsBefore callable|null
+ * @var $viewRoute string|null
+ * @var $editRoute string|null
+ * @var $destroyRoute string|null
+**/
+
+$showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($editRoute) || isset($destroyRoute);
+@endphp
+
 <table class="table table-striped table-bordered table-grid-models">
     <thead>
     <tr>
@@ -5,8 +19,8 @@
             <td>{{ $label }}</td>
         @endforeach
 
-        @if (isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
-            <td>{{ __('main.actions') }}</td>
+        @if ($showActionCollumn)
+            <td class="w-10">{{ __('main.actions') }}</td>
         @endif
     </tr>
     </thead>
@@ -63,8 +77,12 @@
                     <td>{!! $cellValue !!}</td>
                 @endforeach
 
-                @if (isset($modelKey) && isset($viewRoute) || isset($editRoute) || isset($destroyRoute))
+                @if (isset($modelKey) && $showActionCollumn)
                     <td class="text-nowrap">
+                            @if (isset($customActionsBefore))
+                                {!! $customActionsBefore($modelKey, $model) !!}
+                            @endif
+
                             @if (isset($viewRoute))
                                 <a class="btn btn-small btn-success btn-sm btn-view"
                                    title="{{ __('main.view') }}"

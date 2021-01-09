@@ -3,29 +3,24 @@
 namespace Gameap\Repositories;
 
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommandException;
-use Gameap\Exceptions\Repositories\GdaemonTaskRepository\InvalidServerStartCommandException;
-use Gameap\Models\Server;
-use Gameap\Models\GdaemonTask;
-use Gameap\Models\DedicatedServer;
-use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
+use Gameap\Exceptions\Repositories\GdaemonTaskRepository\InvalidServerStartCommandException;
+use Gameap\Exceptions\Repositories\RecordExistExceptions;
+use Gameap\Models\GdaemonTask;
+use Gameap\Models\Server;
 use Illuminate\Support\Facades\DB;
 use PDO;
 
-/**
- * Class GdaemonTaskRepository
-*/
 class GdaemonTaskRepository extends Repository
 {
     public function __construct(GdaemonTask $gdaemonTask)
     {
         $this->model = $gdaemonTask;
     }
-    
+
     public function getAll($perPage = 20)
     {
-        $gdaemonTasks = GdaemonTask::orderBy('id', 'DESC')->paginate($perPage);
-        return $gdaemonTasks;
+        return GdaemonTask::orderBy('id', 'DESC')->paginate($perPage);
     }
 
     /**
@@ -45,10 +40,10 @@ class GdaemonTaskRepository extends Repository
         $this->serverCommandCorrectOrFail($server);
 
         return GdaemonTask::create([
-            'run_aft_id' => $runAftId,
+            'run_aft_id'          => $runAftId,
             'dedicated_server_id' => $server->ds_id,
-            'server_id' => $server->id,
-            'task' => GdaemonTask::TASK_SERVER_START,
+            'server_id'           => $server->id,
+            'task'                => GdaemonTask::TASK_SERVER_START,
         ])->id;
     }
 
@@ -66,10 +61,10 @@ class GdaemonTaskRepository extends Repository
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_STOP, 'Server stop task is already exists');
 
         return GdaemonTask::create([
-            'run_aft_id' => $runAftId,
+            'run_aft_id'          => $runAftId,
             'dedicated_server_id' => $server->ds_id,
-            'server_id' => $server->id,
-            'task' => GdaemonTask::TASK_SERVER_STOP,
+            'server_id'           => $server->id,
+            'task'                => GdaemonTask::TASK_SERVER_STOP,
         ])->id;
     }
 
@@ -89,10 +84,10 @@ class GdaemonTaskRepository extends Repository
         $this->serverCommandCorrectOrFail($server);
 
         return GdaemonTask::create([
-            'run_aft_id' => $runAftId,
+            'run_aft_id'          => $runAftId,
             'dedicated_server_id' => $server->ds_id,
-            'server_id' => $server->id,
-            'task' => GdaemonTask::TASK_SERVER_RESTART,
+            'server_id'           => $server->id,
+            'task'                => GdaemonTask::TASK_SERVER_RESTART,
         ])->id;
     }
 
@@ -109,10 +104,10 @@ class GdaemonTaskRepository extends Repository
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_UPDATE, 'Server update/install task is already exists');
         
         return GdaemonTask::create([
-            'run_aft_id' => $runAftId,
+            'run_aft_id'          => $runAftId,
             'dedicated_server_id' => $server->ds_id,
-            'server_id' => $server->id,
-            'task' => GdaemonTask::TASK_SERVER_UPDATE,
+            'server_id'           => $server->id,
+            'task'                => GdaemonTask::TASK_SERVER_UPDATE,
         ])->id;
     }
 
@@ -130,10 +125,10 @@ class GdaemonTaskRepository extends Repository
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_DELETE, 'Server delete task is already exists');
         
         return GdaemonTask::create([
-            'run_aft_id' => $runAftId,
+            'run_aft_id'          => $runAftId,
             'dedicated_server_id' => $server->ds_id,
-            'server_id' => $server->id,
-            'task' => GdaemonTask::TASK_SERVER_DELETE,
+            'server_id'           => $server->id,
+            'task'                => GdaemonTask::TASK_SERVER_DELETE,
         ])->id;
     }
 
@@ -146,10 +141,10 @@ class GdaemonTaskRepository extends Repository
     public function addCmd($cmd, $dedicatedServerId, int $runAftId = 0)
     {
         return GdaemonTask::create([
-            'run_aft_id' => $runAftId,
+            'run_aft_id'          => $runAftId,
             'dedicated_server_id' => $dedicatedServerId,
-            'task' => GdaemonTask::TASK_CMD_EXEC,
-            'cmd' => $cmd,
+            'task'                => GdaemonTask::TASK_CMD_EXEC,
+            'cmd'                 => $cmd,
         ])->id;
     }
 
@@ -167,7 +162,7 @@ class GdaemonTaskRepository extends Repository
         } else {
             $taskQuery = GdaemonTask::where([
                 ['task', '=', $task],
-                ['server_id', '=', $serverId]
+                ['server_id', '=', $serverId],
             ]);
         }
 
@@ -198,7 +193,7 @@ class GdaemonTaskRepository extends Repository
      * @param GdaemonTask $gdaemonTask
      * @param string $output
      */
-    public function concatOutput(GdaemonTask $gdaemonTask, string $output)
+    public function concatOutput(GdaemonTask $gdaemonTask, string $output): void
     {
         if (empty($output)) {
             return;
@@ -208,9 +203,9 @@ class GdaemonTaskRepository extends Repository
 
         $dbDriver = DB::connection()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
 
-        if ($dbDriver == 'mysql') {
+        if ($dbDriver === 'mysql') {
             $gdaemonTask->update(['output' => DB::raw("CONCAT(IFNULL(output,''), {$qoutedOutput})")]);
-        } else if ($dbDriver == 'sqlite' || $dbDriver == 'pgsql') {
+        } elseif ($dbDriver === 'sqlite' || $dbDriver === 'pgsql') {
             $gdaemonTask->update(['output' => DB::raw("COALESCE(output, '') || {$qoutedOutput}")]);
         } else {
             $gdaemonTask->update(['output' => $gdaemonTask->output . $output]);
@@ -222,7 +217,7 @@ class GdaemonTaskRepository extends Repository
      *
      * @throws GdaemonTaskRepositoryException
      */
-    public function cancel(GdaemonTask $gdaemonTask)
+    public function cancel(GdaemonTask $gdaemonTask): void
     {
         if ($gdaemonTask->status != GdaemonTask::STATUS_WAITING) {
             throw new GdaemonTaskRepositoryException(__('gdaemon_tasks.cancel_fail_cannot_be_canceled'));
@@ -239,7 +234,7 @@ class GdaemonTaskRepository extends Repository
      *
      * @throws RecordExistExceptions
      */
-    private function workingTaskNotExistOrFail(Server $server, $task, $failMsg = 'Task is already exists')
+    private function workingTaskNotExistOrFail(Server $server, $task, $failMsg = 'Task is already exists'): void
     {
         if (is_array($task)) {
             $taskQuery = GdaemonTask::whereIn(['task', $task])->where([['server_id', '=', $server->id]]);
@@ -247,13 +242,13 @@ class GdaemonTaskRepository extends Repository
             $taskQuery = GdaemonTask::where([
                 ['task', '=', $task],
                 ['server_id', '=', $server->id],
-                ['dedicated_server_id', '=', $server->ds_id]
+                ['dedicated_server_id', '=', $server->ds_id],
             ]);
         }
 
         $taskExist = $taskQuery->whereIn('status', [
-            GdaemonTask::STATUS_WAITING, 
-            GdaemonTask::STATUS_WORKING
+            GdaemonTask::STATUS_WAITING,
+            GdaemonTask::STATUS_WORKING,
         ])->exists();
 
         if ($taskExist) {
@@ -267,7 +262,7 @@ class GdaemonTaskRepository extends Repository
      * @throws InvalidServerStartCommandException
      * @throws EmptyServerStartCommandException
      */
-    private function serverCommandCorrectOrFail(Server $server)
+    private function serverCommandCorrectOrFail(Server $server): void
     {
         if (empty($server->start_command)) {
             throw new EmptyServerStartCommandException(__('gdaemon_tasks.empty_server_start_command'));
