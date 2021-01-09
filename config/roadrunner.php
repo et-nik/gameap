@@ -127,6 +127,7 @@ return [
 
     'reset_providers' => [
         Illuminate\Auth\AuthServiceProvider::class,
+        Gameap\Providers\AuthServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
     ],
