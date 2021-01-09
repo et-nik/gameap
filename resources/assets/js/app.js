@@ -28,6 +28,7 @@ const UserServerPrivileges = () => import('./components/servers/UserServerPrivil
 const GameModSelector = () => import('./components/servers/GameModSelector' /* webpackChunkName: "components/game-mod-selector" */);
 const DsIpSelector = () => import('./components/servers/DsIpSelector' /* webpackChunkName: "components/game-mod-selector" */);
 const SmartPortSelector = () => import('./components/servers/SmartPortSelector' /* webpackChunkName: "components/smart-port-selector" */);
+const ServerSelector = () => import('./components/servers/ServerSelector' /* webpackChunkName: "components/server-selector" */);
 
 const RconPlayers = () => import('./components/rcon/RconPlayers' /* webpackChunkName: "components/rcon-players" */);
 const RconConsole = () => import('./components/rcon/RconConsole' /* webpackChunkName: "components/rcon-console" */);
@@ -63,6 +64,7 @@ var vm = new Vue({
         'settings-parameters': SettingsParameters,
         'game-mod-selector': GameModSelector,
         'ds-ip-selector': DsIpSelector,
+        'server-selector': ServerSelector,
 
         'date-picker': DatePicker,
     },
@@ -133,3 +135,4 @@ var vm = new Vue({
 import fontawesome from '@fortawesome/fontawesome-free';
 
 window.gameap = vm.$root;
+window.gameapStore = store;

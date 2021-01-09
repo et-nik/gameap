@@ -7,6 +7,8 @@ const state = {
     rconPort: 0,
 
     tasks: Array(),
+
+    serversList: [],
 };
 
 const actions = {
@@ -28,6 +30,11 @@ const actions = {
 
     setRconPort({commit}, rconPort) {
         commit('setRconPort', rconPort);
+    },
+
+    async fetchServers({state, commit, dispatch, rootState}) {
+        const response = await axios.get('/api/servers?filter[ds_id]=' + rootState.dedicatedServers.dsId + '&append=full_path');
+        commit('setServersList', response.data);
     },
 
     fetchTasks({state, commit}) {
@@ -102,12 +109,29 @@ const mutations = {
 
     deleteTask(state, taskIndex) {
         state.tasks.splice(taskIndex, 1);
-    }
+    },
+
+    setServersList(state, serversList) {
+        state.serversList = serversList
+    },
 };
+
+const getters = {
+    selectedServer(state) {
+        for(const server of state.serversList) {
+            if(server.hasOwnProperty('id') && server.id === state.serverId) {
+                return server;
+            }
+        }
+
+        return null;
+    }
+}
 
 export default {
     namespaced: true,
     state,
     actions,
-    mutations
+    mutations,
+    getters,
 };

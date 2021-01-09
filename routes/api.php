@@ -26,6 +26,7 @@ Route::name('dedicated_servers.busy_ports')
 Route::name('game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', 'GameModsController@getListForGame');
 
 // Servers
+Route::name('servers')->get('servers', 'ServersController@getList')->middleware('isAdmin');
 Route::name('servers.start')->post('servers/start/{server}', 'ServersController@start');
 Route::name('servers.stop')->post('servers/stop/{server}', 'ServersController@stop');
 Route::name('servers.restart')->post('servers/restart/{server}', 'ServersController@restart');

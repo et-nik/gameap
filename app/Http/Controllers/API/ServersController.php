@@ -17,6 +17,7 @@ use Gameap\Services\ServerService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ServersController extends AuthController
 {
@@ -269,17 +270,34 @@ class ServersController extends AuthController
         return ['message' => 'success'];
     }
 
-    /**
-     * @param Request $request
-     *
-     * TODO: Create admin part and move this
-     *
-     * @return mixed
-     */
     public function search(Request $request)
     {
         $query = $request->input('q');
         return $this->repository->search($query);
+    }
+
+    public function getList()
+    {
+        return QueryBuilder::for(Server::class)
+            ->allowedFilters('ds_id')
+            ->allowedAppends('full_path')
+            ->get([
+                'id',
+                'uuid',
+                'uuid_short',
+                'enabled',
+                'installed',
+                'blocked',
+                'name',
+                'ds_id',
+                'game_id',
+                'game_mod_id',
+                'server_ip',
+                'server_port',
+                'query_port',
+                'rcon_port',
+                'dir',
+            ]);
     }
 
     /**

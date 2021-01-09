@@ -65,6 +65,7 @@ return [
     'default_start_cmd_windows' => 'Команда запуска по умолчанию (Windows)',
 
     // Server
+    'game_server' => 'Игровой сервер',
     'installed' => 'Установлен',
     'blocked' => 'Заблокирован',
     'uuid' => 'UUID',

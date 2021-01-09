@@ -65,6 +65,7 @@ return [
     'default_start_cmd_windows' => 'Default Start Command (Windows)',
 
     // Server
+    'game_server' => 'Game server',
     'installed' => 'Installed',
     'blocked' => 'Blocked',
     'uuid' => 'UUID',
