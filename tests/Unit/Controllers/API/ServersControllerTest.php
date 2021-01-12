@@ -4,7 +4,7 @@ namespace Tests\Unit\Controllers\API;
 
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
-use Gameap\Http\Controllers\API\ServersController;
+use Gameap\Http\Controllers\WebAPI\ServersController;
 use Gameap\Models\Server;
 use Gameap\Models\User;
 use Gameap\Repositories\GdaemonTaskRepository;
@@ -18,7 +18,7 @@ use Mockery;
 use Bouncer;
 
 /**
- * @covers \Gameap\Http\Controllers\API\ServersController
+ * @covers \Gameap\Http\Controllers\WebAPI\ServersController
  */
 class ServersControllerTest extends TestCase
 {

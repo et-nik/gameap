@@ -124,7 +124,7 @@
                 }
 
                 loading(true);
-                axios.get(`/api/servers/search?q=${encodeURI(search)}`)
+                axios.get(`/web-api/servers/search?q=${encodeURI(search)}`)
                     .then(function (response) {
                         this.serversList = [];
                         this.serversListOptions = [];

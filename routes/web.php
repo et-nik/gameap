@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -99,3 +100,18 @@ Route::get('/js/lang/{lang}.js', function ($lang) {
     
     return response()->make('window.i18n = ' . $strings . ';', \Illuminate\Http\Response::HTTP_OK, ['Content-Type' => 'text/javascript']);
 })->name('assets.lang');
+
+// Tokens
+Route::name('tokens')->get('/tokens', 'TokensController@index');
+Route::name('tokens.generate')->get('/tokens/generate', 'TokensController@generate');
+Route::name('tokens.create')->post('/tokens', 'TokensController@create');
+Route::name('tokens.destroy')->delete('/tokens/{token}', 'TokensController@destroy');
+
+Route::middleware('auth:sanctum')->get('/test', function (Request $request) {
+    $user = $request->user();
+    return [
+        'tokenCan-server-start'  => $user->tokenCan('server:start'),
+        'tokenCan-server-create' => $user->tokenCan('server:create'),
+        'user'     => $user,
+    ];
+});

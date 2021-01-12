@@ -1,6 +1,6 @@
 <?php
 
-namespace Gameap\Http\Controllers\API;
+namespace Gameap\Http\Controllers\WebAPI;
 
 use Carbon\Carbon;
 use Gameap\Exceptions\Repositories\RepositoryValidationException;

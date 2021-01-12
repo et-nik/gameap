@@ -1,0 +1,7 @@
+[type="checkbox"][readonly="readonly"]::before {
+    background: rgba(255,255,255,.5);
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+}

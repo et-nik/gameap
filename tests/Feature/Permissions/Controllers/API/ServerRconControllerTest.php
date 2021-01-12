@@ -10,7 +10,7 @@ use Tests\TestCase;
 use Bouncer;
 
 /**
- * @covers \Gameap\Http\Controllers\API\ServersRconController
+ * @covers \Gameap\Http\Controllers\WebAPI\ServersRconController
  */
 class ServerRconControllerTest extends TestCase
 {

@@ -132,6 +132,8 @@ var vm = new Vue({
     store
 });
 
+require('./custom');
+
 import fontawesome from '@fortawesome/fontawesome-free';
 
 window.gameap = vm.$root;

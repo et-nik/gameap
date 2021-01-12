@@ -4,7 +4,7 @@ const state = {
 
 const actions = {
     async sendCommand({state, commit, dispatch, rootState}, command) {
-        const response = await axios.post('/api/servers/' + rootState.servers.serverId + '/rcon', {
+        const response = await axios.post('/web-api/servers/' + rootState.servers.serverId + '/rcon', {
             command: command
         });
         commit('setOutput', response.data.output);

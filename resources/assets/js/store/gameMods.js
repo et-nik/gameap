@@ -9,7 +9,7 @@ const actions = {
             return;
         }
 
-        axios.get('/api/game_mods/get_list_for_game/' + gameId).then(function (response) {
+        axios.get('/web-api/game_mods/get_list_for_game/' + gameId).then(function (response) {
             commit('setModsList', response.data);
         }.bind(this));
     },

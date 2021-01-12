@@ -13,8 +13,8 @@ class ProfileController extends AuthController
      */
     public function index()
     {
-        return view('profile', [
-            'user' => $user = Auth::user(),
+        return view('profile.profile', [
+            'user' => Auth::user(),
         ]);
     }
 

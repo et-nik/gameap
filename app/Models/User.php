@@ -4,12 +4,20 @@ namespace Gameap\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
+/**
+ * @property string $login
+ * @property string $email
+ * @property string $name
+ * @property iterable $tokens
+ */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens;
     use HasRolesAndAbilities;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

@@ -42,7 +42,7 @@ if( document.getElementById("serverControl") ) {
 
                 if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'reinstall']) !== -1) {
                     gameap.confirm(i18n.main.confirm_message, function() {
-                        axios.post('/api/servers/' + command + '/' + gameap.serverId)
+                        axios.post('/web-api/servers/' + command + '/' + gameap.serverId)
                             .then(function (response) {
                                 gameap.watchTaskId = response.data.gdaemonTaskId;
                                 gameap.openProgressModal();
@@ -225,7 +225,7 @@ if( document.getElementById("serverControl") ) {
                 }
             },
             getTask: function() {
-                axios.get('/api/gdaemon_tasks/get/' + this.watchTaskId)
+                axios.get('/web-api/gdaemon_tasks/get/' + this.watchTaskId)
                     .then(function (response) {
                         gameap.watchTaskData = response.data;
                     }).catch(function(error) {
@@ -233,7 +233,7 @@ if( document.getElementById("serverControl") ) {
                     });
             },
             getServerStatus: function(fn) {
-                axios.get('/api/servers/get_status/' + gameap.serverId)
+                axios.get('/web-api/servers/get_status/' + gameap.serverId)
                     .then(function (response) {
                         fn(response.data.processActive);
                     });

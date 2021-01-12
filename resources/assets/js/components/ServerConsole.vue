@@ -57,7 +57,7 @@
                     return;
                 }
                 
-                axios.get('/api/servers/console/' + this.serverId)
+                axios.get('/web-api/servers/console/' + this.serverId)
                     .then(function(response) {
                         this.console = response.data.console;
                         setTimeout(this.scroll, 1000)
@@ -73,7 +73,7 @@
                 }
 
                 this.lock = true;
-                axios.post('/api/servers/console/' + this.serverId, {'command': this.inputText})
+                axios.post('/web-api/servers/console/' + this.serverId, {'command': this.inputText})
                     .then(function (response) {
                         this.inputText = '';
                         this.lock = false;

@@ -96,6 +96,7 @@ return [
     'password' => 'Пароль',
     'password_confirmation' => 'Подтверждение пароля',
     'roles' => 'Роли',
+    'token_name' => 'Имя токена',
 
     // Generic servers
     'host' => 'Хост',

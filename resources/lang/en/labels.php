@@ -95,6 +95,7 @@ return [
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'roles' => 'Roles',
+    'token_name' => 'Token Name',
 
     // Generic servers
     'host' => 'Host',

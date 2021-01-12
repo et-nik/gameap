@@ -9,7 +9,7 @@ const actions = {
             return;
         }
 
-        const response = await axios.get('/api/servers/' + rootState.servers.serverId + '/rcon/players');
+        const response = await axios.get('/web-api/servers/' + rootState.servers.serverId + '/rcon/players');
         commit('setPlayers', response.data);
     },
 
@@ -18,12 +18,12 @@ const actions = {
             return;
         }
 
-        const response = await axios.get('/api/servers/' + rootState.servers.serverId + '/rcon/features');
+        const response = await axios.get('/web-api/servers/' + rootState.servers.serverId + '/rcon/features');
         commit('setSupportedFeatures', response.data);
     },
 
     async kickPlayer({state, commit, dispatch, rootState}, {playerId, reason}) {
-        await axios.post('/api/servers/' + rootState.servers.serverId + '/rcon/players/kick', {
+        await axios.post('/web-api/servers/' + rootState.servers.serverId + '/rcon/players/kick', {
             player: playerId,
             reason: reason
         });
@@ -31,7 +31,7 @@ const actions = {
     },
 
     async banPlayer({state, commit, dispatch, rootState}, {playerId, reason, time}) {
-        await axios.post('/api/servers/' + rootState.servers.serverId + '/rcon/players/ban', {
+        await axios.post('/web-api/servers/' + rootState.servers.serverId + '/rcon/players/ban', {
             player: playerId,
             reason: reason,
             time: time,
@@ -41,7 +41,7 @@ const actions = {
     },
 
     async sendMessage({state, commit, dispatch, rootState}, {playerId, message}) {
-        await axios.post('/api/servers/' + rootState.servers.serverId + '/rcon/players/message', {
+        await axios.post('/web-api/servers/' + rootState.servers.serverId + '/rcon/players/message', {
             player: playerId,
             message: message,
         });

@@ -33,7 +33,7 @@ const actions = {
     },
 
     async fetchServers({state, commit, dispatch, rootState}) {
-        const response = await axios.get('/api/servers?filter[ds_id]=' + rootState.dedicatedServers.dsId + '&append=full_path');
+        const response = await axios.get('/web-api/servers?filter[ds_id]=' + rootState.dedicatedServers.dsId + '&append=full_path');
         commit('setServersList', response.data);
     },
 
@@ -42,20 +42,20 @@ const actions = {
             return;
         }
 
-        axios.get('/api/servers/' + state.serverId + '/tasks').then((response) => {
+        axios.get('/web-api/servers/' + state.serverId + '/tasks').then((response) => {
             commit('setTasks', response.data);
         });
     },
 
     async storeTask({state, commit}, task) {
-        const response = await axios.post('/api/servers/' + state.serverId + '/tasks', task);
+        const response = await axios.post('/web-api/servers/' + state.serverId + '/tasks', task);
         task.id = response.data.serverTaskId;
         commit('insertTask', task);
     },
 
     async updateTask({state, commit}, {taskIndex, task}) {
         const taskId = state.tasks[taskIndex].id;
-        await axios.put('/api/servers/' + state.serverId + '/tasks/' + taskId, task);
+        await axios.put('/web-api/servers/' + state.serverId + '/tasks/' + taskId, task);
         commit('updateTask', {taskIndex: taskIndex, task: task});
     },
 
@@ -65,7 +65,7 @@ const actions = {
         }
 
         const taskId = state.tasks[taskIndex].id;
-        await axios.delete('/api/servers/' + state.serverId + '/tasks/' + taskId);
+        await axios.delete('/web-api/servers/' + state.serverId + '/tasks/' + taskId);
         commit('deleteTask', taskIndex);
     },
 };

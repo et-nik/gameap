@@ -12,7 +12,7 @@ use Tests\TestCase;
 use Bouncer;
 
 /**
- * @covers \Gameap\Http\Controllers\API\ServersTasksController
+ * @covers \Gameap\Http\Controllers\WebAPI\ServersTasksController
  */
 class ServersTasksControllerTest extends TestCase
 {

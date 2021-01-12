@@ -2,7 +2,7 @@
 
 namespace Tests\Http\Controllers\API;
 
-use Gameap\Http\Controllers\API\ServersTasksController;
+use Gameap\Http\Controllers\WebAPI\ServersTasksController;
 use Gameap\Http\Requests\API\ServerTaskCreateRequest;
 use Gameap\Http\Requests\API\ServerTaskUpdateRequest;
 use Gameap\Models\DedicatedServer;
@@ -16,7 +16,7 @@ use Mockery;
 use Bouncer;
 
 /**
- * @covers \Gameap\Http\Controllers\API\ServersTasksController
+ * @covers \Gameap\Http\Controllers\WebAPI\ServersTasksController
  */
 class ServersTasksControllerTest extends TestCase
 {

@@ -23,4 +23,6 @@ return [
     'more'      => 'More',
 
     'autoscroll' => 'Autoscroll',
+
+    'never'     => 'Never',
 ];

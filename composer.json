@@ -31,6 +31,7 @@
         "laravel/framework": "^8",
         "laravel/helpers": "^1.1",
         "laravel/legacy-factories": "^1.1",
+        "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6",

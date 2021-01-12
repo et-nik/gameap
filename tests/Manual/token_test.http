@@ -1,0 +1,3 @@
+GET http://localhost:2080/test
+Accept: application/json
+Authorization: Bearer 11|Hd30Xlookgw8nzPVF3y0c4rgmP5RsK6RYWcbW1qd

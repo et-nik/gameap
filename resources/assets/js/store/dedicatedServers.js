@@ -14,7 +14,7 @@ const actions = {
             return;
         }
 
-        axios.get('/api/dedicated_servers/' + state.dsId + '/ip_list').then(function (response) {
+        axios.get('/web-api/dedicated_servers/' + state.dsId + '/ip_list').then(function (response) {
             commit('setIpList', response.data);
         });
     },
@@ -24,7 +24,7 @@ const actions = {
             return;
         }
 
-        axios.get('/api/dedicated_servers/' + state.dsId + '/busy_ports').then((response) => {
+        axios.get('/web-api/dedicated_servers/' + state.dsId + '/busy_ports').then((response) => {
             commit('setBusyPorts', response.data);
 
             if (typeof callback === 'function') {
