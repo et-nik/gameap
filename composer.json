@@ -28,7 +28,7 @@
         "knik/gameap-daemon-client": "^0.4",
         "knik/gameq": "^3.0",
         "knik/x509": "^0.6.2",
-        "laravel/framework": "^8",
+        "laravel/framework": "^8.22.1",
         "laravel/helpers": "^1.1",
         "laravel/legacy-factories": "^1.1",
         "laravel/tinker": "^2.5",
