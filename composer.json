@@ -40,7 +40,7 @@
         "nwidart/laravel-modules": "^6.0",
         "phpseclib/phpseclib": "~2.0",
         "silber/bouncer": "v1.0.0-rc.10",
-        "spatie/laravel-query-builder": "^2.5",
+        "spatie/laravel-query-builder": "^3.3.4",
         "splitbrain/php-archive": "^1.2"
     },
     "require-dev": {
