@@ -23,18 +23,23 @@ class GdaemonTaskRepository extends Repository
         return GdaemonTask::orderBy('id', 'DESC')->paginate($perPage);
     }
 
+    public function taskExists(Server $server, string $task, array $statuses): bool
+    {
+        $taskQuery = GdaemonTask::where([
+            ['task', '=', $task],
+            ['server_id', '=', $server->id],
+            ['dedicated_server_id', '=', $server->ds_id],
+        ]);
+
+        return $taskQuery->whereIn('status', $statuses)->exists();
+    }
+
     /**
-     * Create new starting of game server task
-     *
-     * @param Server $server
-     * @param int $runAftId
-     * @return int Gdaemon Task ID
-     *
      * @throws RecordExistExceptions
      * @throws InvalidServerStartCommandException
      * @throws EmptyServerStartCommandException
      */
-    public function addServerStart(Server $server, int $runAftId = 0)
+    public function addServerStart(Server $server, int $runAftId = 0): int
     {
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_START, 'Server start task is already exists');
         $this->serverCommandCorrectOrFail($server);
@@ -48,15 +53,9 @@ class GdaemonTaskRepository extends Repository
     }
 
     /**
-     * Create new stopping of game server task
-     *
-     * @param Server $server
-     * @param int $runAftId
-     * @return int Gdaemon Task ID
-     *
      * @throws RecordExistExceptions
      */
-    public function addServerStop(Server $server, int $runAftId = 0)
+    public function addServerStop(Server $server, int $runAftId = 0): int
     {
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_STOP, 'Server stop task is already exists');
 
@@ -69,16 +68,11 @@ class GdaemonTaskRepository extends Repository
     }
 
     /**
-     * @param Server $server
-     * @param int    $runAftId
-     *
-     * @return int Gdaemon Task ID
-     *
      * @throws RecordExistExceptions
      * @throws InvalidServerStartCommandException
      * @throws EmptyServerStartCommandException
      */
-    public function addServerRestart(Server $server, int $runAftId = 0)
+    public function addServerRestart(Server $server, int $runAftId = 0): int
     {
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_RESTART, 'Server restart task is already exists');
         $this->serverCommandCorrectOrFail($server);
@@ -92,14 +86,9 @@ class GdaemonTaskRepository extends Repository
     }
 
     /**
-     * @param Server $server
-     * @param int    $runAftId
-     *
-     * @return int Gdaemon Task ID
-     *
      * @throws RecordExistExceptions
      */
-    public function addServerUpdate(Server $server, int $runAftId = 0)
+    public function addServerUpdate(Server $server, int $runAftId = 0): int
     {
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_UPDATE, 'Server update/install task is already exists');
         
@@ -112,15 +101,9 @@ class GdaemonTaskRepository extends Repository
     }
 
     /**
-     * Remove server files
-     *
-     * @param Server $server
-     * @param int    $runAftId
-     * @return int Gdaemon Task ID
-     *
      * @throws RecordExistExceptions
      */
-    public function addServerDelete(Server $server, int $runAftId = 0)
+    public function addServerDelete(Server $server, int $runAftId = 0): int
     {
         $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_DELETE, 'Server delete task is already exists');
         
@@ -132,12 +115,6 @@ class GdaemonTaskRepository extends Repository
         ])->id;
     }
 
-    /**
-     * @param $cmd
-     * @param $dedicatedServerId
-     * @param int $runAftId
-     * @return mixed
-     */
     public function addCmd($cmd, $dedicatedServerId, int $runAftId = 0)
     {
         return GdaemonTask::create([
@@ -149,44 +126,38 @@ class GdaemonTaskRepository extends Repository
     }
 
     /**
-     * @param int $serverId
-     * @param string|array $task
-     * @param string|array $status
-     *
      * @return mixed
      */
-    public function getTasks(int $serverId, $task, $status)
+    public function getTasks(int $serverId, $tasks, array $statuses)
     {
-        if (is_array($task)) {
-            $taskQuery = GdaemonTask::whereIn(['task', $task])->where([['server_id', '=', $serverId]]);
+        if (is_array($tasks)) {
+            $taskQuery = GdaemonTask::whereIn(['task', $tasks])->where([['server_id', '=', $serverId]]);
         } else {
             $taskQuery = GdaemonTask::where([
-                ['task', '=', $task],
+                ['task', '=', $tasks],
                 ['server_id', '=', $serverId],
             ]);
         }
 
-        $taskQuery = is_array($status)
-            ? $taskQuery->whereIn('status', $status)
-            : $taskQuery->where('status', '=', $status);
+        $taskQuery->whereIn('status', $statuses);
 
         return $taskQuery->get();
     }
 
     /**
-     * Get working or waiting task id. Return 0 if task is not one
-     *
      * @param int $serverId
      * @param $task
      * @return int
      */
-    public function getOneWorkingTaskId(int $serverId, $task)
+    public function getFirstWaitingOrWorkingTaskId(int $serverId, $task): int
     {
         $tasks = $this->getTasks($serverId, $task, [GdaemonTask::STATUS_WAITING, GdaemonTask::STATUS_WORKING]);
 
-        return (count($tasks) === 1)
-            ? $tasks->first()->id
-            : 0;
+        if (count($tasks) === 0) {
+            throw new GdaemonTaskRepositoryException('Failed to get task');
+        }
+
+        return $tasks->first()->id;
     }
 
     /**
@@ -219,7 +190,7 @@ class GdaemonTaskRepository extends Repository
      */
     public function cancel(GdaemonTask $gdaemonTask): void
     {
-        if ($gdaemonTask->status != GdaemonTask::STATUS_WAITING) {
+        if ($gdaemonTask->status !== GdaemonTask::STATUS_WAITING) {
             throw new GdaemonTaskRepositoryException(__('gdaemon_tasks.cancel_fail_cannot_be_canceled'));
         }
 
@@ -236,20 +207,10 @@ class GdaemonTaskRepository extends Repository
      */
     private function workingTaskNotExistOrFail(Server $server, $task, $failMsg = 'Task is already exists'): void
     {
-        if (is_array($task)) {
-            $taskQuery = GdaemonTask::whereIn(['task', $task])->where([['server_id', '=', $server->id]]);
-        } else {
-            $taskQuery = GdaemonTask::where([
-                ['task', '=', $task],
-                ['server_id', '=', $server->id],
-                ['dedicated_server_id', '=', $server->ds_id],
-            ]);
-        }
-
-        $taskExist = $taskQuery->whereIn('status', [
+        $taskExist = $this->taskExists($server, $task, [
             GdaemonTask::STATUS_WAITING,
             GdaemonTask::STATUS_WORKING,
-        ])->exists();
+        ]);
 
         if ($taskExist) {
             throw new RecordExistExceptions($failMsg);

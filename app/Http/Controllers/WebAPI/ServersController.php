@@ -21,18 +21,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ServersController extends AuthController
 {
-    /**
-     * The ServerRepository instance.
-     *
-     * @var \Gameap\Repositories\ServerRepository
-     */
+    /** @var ServerRepository */
     public $repository;
 
-    /**
-     * The GdaemonTaskRepository instance.
-     *
-     * @var GdaemonTaskRepository
-     */
+    /** @var GdaemonTaskRepository  */
     public $gdaemonTaskRepository;
 
     /** @var \Gameap\Services\ServerService  */
@@ -41,10 +33,6 @@ class ServersController extends AuthController
     /** @var \Gameap\Services\ServerControlService */
     public $serverControlService;
 
-    /**
-     * ServersController constructor.
-     * @param ServerRepository $repository
-     */
     public function __construct(
         ServerRepository $repository,
         GdaemonTaskRepository $gdaemonTaskRepository,
@@ -60,31 +48,14 @@ class ServersController extends AuthController
     }
 
     /**
-     * @param Server $server
-     *
-     * @return array|\Illuminate\Http\JsonResponse
-     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function start(Server $server)
+    public function start(Server $server): array
     {
         $this->authorize('server-control', $server);
         $this->authorize('server-start', $server);
 
-        try {
-            $gdaemonTaskId = $this->serverControlService->start($server);
-        } catch (GdaemonTaskRepositoryException $exception) {
-            return $this->handleException($exception);
-        } catch (RecordExistExceptions $exception) {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
-                $server->id,
-                GdaemonTask::TASK_SERVER_START
-            );
-
-            if (!$gdaemonTaskId) {
-                return $this->makeErrorResponse($exception->getMessage());
-            }
-        }
+        $gdaemonTaskId = $this->serverControlService->start($server);
 
         return [
             'gdaemonTaskId' => $gdaemonTaskId,
@@ -92,29 +63,14 @@ class ServersController extends AuthController
     }
 
     /**
-     * @param Server $server
-     *
-     * @return array|\Illuminate\Http\JsonResponse
-     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function stop(Server $server)
+    public function stop(Server $server): array
     {
         $this->authorize('server-control', $server);
         $this->authorize('server-stop', $server);
 
-        try {
-            $gdaemonTaskId = $this->serverControlService->stop($server);
-        } catch (RecordExistExceptions $exception) {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
-                $server->id,
-                GdaemonTask::TASK_SERVER_STOP
-            );
-
-            if (!$gdaemonTaskId) {
-                return $this->makeErrorResponse($exception->getMessage());
-            }
-        }
+        $gdaemonTaskId = $this->serverControlService->stop($server);
 
         return [
             'gdaemonTaskId' => $gdaemonTaskId,
@@ -122,31 +78,15 @@ class ServersController extends AuthController
     }
 
     /**
-     * @param Server $server
-     * @return array|\Illuminate\Http\JsonResponse
-     *
      * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function restart(Server $server)
+    public function restart(Server $server): array
     {
         $this->authorize('server-control', $server);
         $this->authorize('server-restart', $server);
 
-        try {
-            $gdaemonTaskId = $this->serverControlService->restart($server);
-        } catch (GdaemonTaskRepositoryException $exception) {
-            return $this->handleException($exception);
-        } catch (RecordExistExceptions $exception) {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
-                $server->id,
-                GdaemonTask::TASK_SERVER_RESTART
-            );
-
-            if (!$gdaemonTaskId) {
-                return $this->makeErrorResponse($exception->getMessage());
-            }
-        }
+        $gdaemonTaskId = $this->serverControlService->restart($server);
 
         return [
             'gdaemonTaskId' => $gdaemonTaskId,
@@ -154,12 +94,9 @@ class ServersController extends AuthController
     }
 
     /**
-     * @param Server $server
-     * @return array|\Illuminate\Http\JsonResponse
-     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Server $server)
+    public function update(Server $server): array
     {
         $this->authorize('server-control', $server);
         $this->authorize('server-update', $server);
@@ -167,7 +104,7 @@ class ServersController extends AuthController
         try {
             $gdaemonTaskId = $this->serverControlService->update($server);
         } catch (RecordExistExceptions $exception) {
-            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+            $gdaemonTaskId = $this->gdaemonTaskRepository->getFirstWaitingOrWorkingTaskId(
                 $server->id,
                 GdaemonTask::TASK_SERVER_UPDATE
             );
@@ -183,13 +120,10 @@ class ServersController extends AuthController
     }
 
     /**
-     * @param Server $server
-     * @return array|\Illuminate\Http\JsonResponse
-     *
      * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function reinstall(Server $server)
+    public function reinstall(Server $server): array
     {
         $this->authorize('server-control', $server);
         $this->authorize('server-update', $server);
@@ -207,13 +141,9 @@ class ServersController extends AuthController
     }
 
     /**
-     * Get server status
-     * @param Server $server
-     * @return array
-     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function getStatus(Server $server)
+    public function getStatus(Server $server): array
     {
         $this->authorize('server-control', $server);
 
@@ -223,26 +153,18 @@ class ServersController extends AuthController
     }
 
     /**
-     * @param Server $server
-     * @return array
-     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function query(Server $server)
+    public function query(Server $server): array
     {
         $this->authorize('server-control', $server);
-        $query = $this->serverService->query($server);
-
-        return $query;
+        return $this->serverService->query($server);
     }
 
     /**
-     * @param Server $server
-     * @return array
-     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function consoleLog(Server $server)
+    public function consoleLog(Server $server): array
     {
         $this->authorize('server-control', $server);
         $this->authorize('server-console-view', $server);
@@ -253,13 +175,9 @@ class ServersController extends AuthController
     }
 
     /**
-     * @param ServerConsoleCommandRequest $request
-     * @param Server $server
-     * @return array
-     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function sendCommand(ServerConsoleCommandRequest $request, Server $server)
+    public function sendCommand(ServerConsoleCommandRequest $request, Server $server): array
     {
         $this->authorize('server-control', $server);
         $this->authorize('server-console-send', $server);

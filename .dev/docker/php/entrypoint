@@ -50,7 +50,14 @@ else if (getenv('DB_CONNECTION') == 'mysql') {
 
     system('php artisan migrate');
 
-    $count = $pdo->query("SELECT COUNT(*) as count FROM users;")->fetch(PDO::FETCH_ASSOC)['count'];
+    $query = $pdo->query("SELECT COUNT(*) as count FROM users;");
+
+    if ($query === false) {
+        echo "Error: " . print_r($pdo->errorInfo()) . "\n";
+        exit(1);
+    }
+
+    $count = $query->fetch(PDO::FETCH_ASSOC)['count'];
 
     if ($count == 0) {
         system('php artisan db:seed --class=ClientCertificatesTableSeeder');
