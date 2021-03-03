@@ -19,7 +19,7 @@
         "ext-zip": "*",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
-        "fzaninotto/faker": "~1.4",
+        "fakerphp/faker": "^1.13.0",
         "gameap/gameap-file-manager": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "joshbrw/laravel-module-installer": "^1.0.1",
