@@ -54,20 +54,12 @@
         <div class="card-body">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-3"><i class="fas fa-info-circle"></i> {{ __('home.your_version') }}:
+                    <div class="col-md-4"><i class="fas fa-info-circle"></i> {{ __('home.your_version') }}:
                         <span class="text-nowrap">{{ Config::get('constants.AP_VERSION') }}</span>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         {{ __('home.latest_stable') }}: <span class="text-nowrap">{{ $latestVersion }}</span>
-                    </div>
-
-                    <div class="col-md-3">
-                        {{ __('home.latest_beta') }}:  <span class="text-nowrap">3.0.0-beta</span>
-                    </div>
-
-                    <div class="col-md-3">
-                        {{ __('home.latest_unstable') }}:  <span class="text-nowrap">3.0.0-dev</span>
                     </div>
                 </div>
             </div>
