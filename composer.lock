@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca64582ce35647105f2bc85c95574461",
+    "content-hash": "f16b5ac3bb5d15506450a8962375c509",
     "packages": [
         {
             "name": "brick/math",
@@ -1436,29 +1436,30 @@
         },
         {
             "name": "knik/binn",
-            "version": "0.2.2",
+            "version": "v0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/et-nik/binn-php.git",
-                "reference": "64683c1a52fc433b5e09b49115de809696585ee8"
+                "reference": "401b4d20de0452a34f1549eaff3b677deee0b6d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/et-nik/binn-php/zipball/64683c1a52fc433b5e09b49115de809696585ee8",
-                "reference": "64683c1a52fc433b5e09b49115de809696585ee8",
+                "url": "https://api.github.com/repos/et-nik/binn-php/zipball/401b4d20de0452a34f1549eaff3b677deee0b6d7",
+                "reference": "401b4d20de0452a34f1549eaff3b677deee0b6d7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.3"
+                "php": ">=7.2",
+                "symfony/serializer": "^5"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "^5.7"
+                "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Knik\\Binn\\": "src/"
+                    "Knik\\Binn\\": "src/",
+                    "Knik\\Binn\\Tests\\": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1480,9 +1481,9 @@
             ],
             "support": {
                 "issues": "https://github.com/et-nik/binn-php/issues",
-                "source": "https://github.com/et-nik/binn-php/tree/master"
+                "source": "https://github.com/et-nik/binn-php/tree/v0.9.0"
             },
-            "time": "2018-11-15T08:33:44+00:00"
+            "time": "2021-03-08T19:39:43+00:00"
         },
         {
             "name": "knik/flysystem-gameap",
@@ -1586,26 +1587,27 @@
         },
         {
             "name": "knik/gameap-daemon-client",
-            "version": "0.4.1",
+            "version": "0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/et-nik/gameap-daemon-client.git",
-                "reference": "78a15c3f59e5486d15db873225c9ed6b6d451af6"
+                "reference": "e936ce4023a92b5db19615a3312ece2c8a4958ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/et-nik/gameap-daemon-client/zipball/78a15c3f59e5486d15db873225c9ed6b6d451af6",
-                "reference": "78a15c3f59e5486d15db873225c9ed6b6d451af6",
+                "url": "https://api.github.com/repos/et-nik/gameap-daemon-client/zipball/e936ce4023a92b5db19615a3312ece2c8a4958ec",
+                "reference": "e936ce4023a92b5db19615a3312ece2c8a4958ec",
                 "shasum": ""
             },
             "require": {
                 "ext-openssl": "*",
                 "ext-sockets": "*",
-                "knik/binn": "^0.2"
+                "knik/binn": "^0.9 || ^1",
+                "php": ">=7.2"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "^5.7.25"
+                "mockery/mockery": "^1.3.4",
+                "phpunit/phpunit": "^8.5.14 || ^9.0"
             },
             "type": "library",
             "autoload": {
@@ -1626,9 +1628,9 @@
             "description": "GameAP Daemon PHP Client",
             "support": {
                 "issues": "https://github.com/et-nik/gameap-daemon-client/issues",
-                "source": "https://github.com/et-nik/gameap-daemon-client/tree/0.4.1"
+                "source": "https://github.com/et-nik/gameap-daemon-client/tree/0.5.1"
             },
-            "time": "2020-04-05T21:07:04+00:00"
+            "time": "2021-03-09T19:55:16+00:00"
         },
         {
             "name": "knik/gameq",
@@ -6148,6 +6150,108 @@
                 }
             ],
             "time": "2021-01-27T10:15:41+00:00"
+        },
+        {
+            "name": "symfony/serializer",
+            "version": "v5.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/serializer.git",
+                "reference": "a285f474a72397ccbd384900abc968ffcb511dda"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/a285f474a72397ccbd384900abc968ffcb511dda",
+                "reference": "a285f474a72397ccbd384900abc968ffcb511dda",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-php80": "^1.15"
+            },
+            "conflict": {
+                "phpdocumentor/reflection-docblock": "<3.2.2",
+                "phpdocumentor/type-resolver": "<1.4.0",
+                "symfony/dependency-injection": "<4.4",
+                "symfony/property-access": "<4.4",
+                "symfony/property-info": "<4.4",
+                "symfony/yaml": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.10.4",
+                "doctrine/cache": "~1.0",
+                "phpdocumentor/reflection-docblock": "^3.2|^4.0|^5.0",
+                "symfony/cache": "^4.4|^5.0",
+                "symfony/config": "^4.4|^5.0",
+                "symfony/dependency-injection": "^4.4|^5.0",
+                "symfony/error-handler": "^4.4|^5.0",
+                "symfony/filesystem": "^4.4|^5.0",
+                "symfony/form": "^4.4|^5.0",
+                "symfony/http-foundation": "^4.4|^5.0",
+                "symfony/http-kernel": "^4.4|^5.0",
+                "symfony/mime": "^4.4|^5.0",
+                "symfony/property-access": "^4.4.9|^5.0.9",
+                "symfony/property-info": "^4.4|^5.0",
+                "symfony/uid": "^5.1",
+                "symfony/validator": "^4.4|^5.0",
+                "symfony/var-exporter": "^4.4|^5.0",
+                "symfony/yaml": "^4.4|^5.0"
+            },
+            "suggest": {
+                "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
+                "doctrine/cache": "For using the default cached annotation reader and metadata cache.",
+                "psr/cache-implementation": "For using the metadata cache.",
+                "symfony/config": "For using the XML mapping loader.",
+                "symfony/mime": "For using a MIME type guesser within the DataUriNormalizer.",
+                "symfony/property-access": "For using the ObjectNormalizer.",
+                "symfony/property-info": "To deserialize relations.",
+                "symfony/var-exporter": "For using the metadata compiler.",
+                "symfony/yaml": "For using the default YAML mapping loader."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Serializer\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/serializer/tree/v5.2.4"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-03-02T12:14:02+00:00"
         },
         {
             "name": "symfony/service-contracts",
