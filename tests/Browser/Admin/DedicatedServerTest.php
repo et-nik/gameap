@@ -26,7 +26,7 @@ class DedicatedServerTest extends DuskTestCase
                     ->waitForText('Dedicated Server Auto Setup', 10);
 
             $value = $browser->text('code');
-            $this->assertRegExp('/^curl http:\/\/.*$/', $value);
+            $this->assertMatchesRegularExpression('/^curl http:\/\/.*$/', $value);
 
             exec($value, $output, $exitCode);
             $this->assertSame(0, $exitCode);
