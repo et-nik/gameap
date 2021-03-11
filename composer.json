@@ -25,7 +25,7 @@
         "joshbrw/laravel-module-installer": "^1.0.1",
         "knik/flysystem-gameap": "*",
         "knik/g-rcon": "*",
-        "knik/gameap-daemon-client": "^0.5",
+        "knik/gameap-daemon-client": "^0.6",
         "knik/gameq": "^3.0",
         "knik/x509": "^0.6.2",
         "laravel/framework": "^8.22.1",
