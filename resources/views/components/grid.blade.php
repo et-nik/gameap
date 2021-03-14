@@ -28,7 +28,7 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
     <tbody>
         @foreach($modelsList as $key => $model)
 
-            @if (method_exists($model, 'getKey'))
+            @if (is_object($model) && method_exists($model, 'getKey'))
                 @php($modelKey = $model->getKey())
             @elseif ((is_array($model) && array_key_exists('id', $model)) || (is_object($model) && property_exists($model, 'id')))
                 @php ($modelKey = is_array($model) ? $model['id'] : $model->id)
