@@ -55,7 +55,7 @@ class DedicatedServersControllerTest extends TestCase
         $gdaemonStatus = Mockery::mock(GdaemonStatus::class)->makePartial();
         $dedicatedServer = Mockery::mock(DedicatedServer::class);
 
-        $gdaemonStatus->shouldReceive('setConfig')->andReturnNull();
+        $gdaemonStatus->shouldReceive('setConfig')->andReturnSelf();
         $gdaemonStatus->shouldReceive('version')->andReturn([]);
         $gdaemonStatus->shouldReceive('infoBase')->andReturn([]);
 
