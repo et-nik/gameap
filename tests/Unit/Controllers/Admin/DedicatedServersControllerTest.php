@@ -9,6 +9,7 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
 use Illuminate\Container\Container;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Knik\Gameap\GdaemonStatus;
 use Mockery;
 use Tests\TestCase;
@@ -41,24 +42,23 @@ class DedicatedServersControllerTest extends TestCase
         );
 
         $response = $this->controller->index();
-        $this->assertInstanceOf(\Illuminate\View\View::class, $response);
+        $this->assertInstanceOf(View::class, $response);
     }
 
     public function testCreate()
     {
         $response = $this->controller->create();
-        $this->assertInstanceOf(\Illuminate\View\View::class, $response);
+        $this->assertInstanceOf(View::class, $response);
     }
 
     public function testShow()
     {
+        /** @var  GdaemonStatus|Mockery\MockInterface $gdaemonStatus */
         $gdaemonStatus = Mockery::mock(GdaemonStatus::class)->makePartial();
-        $dedicatedServer = Mockery::mock(DedicatedServer::class);
-
-        $gdaemonStatus->shouldReceive('setConfig')->andReturnNull();
+        $gdaemonStatus->shouldReceive('setConfig')->andReturnSelf();
         $gdaemonStatus->shouldReceive('version')->andReturn([]);
         $gdaemonStatus->shouldReceive('infoBase')->andReturn([]);
-
+        $dedicatedServer = Mockery::mock(DedicatedServer::class);
         $dedicatedServer->shouldReceive('gdaemonSettings')->andReturn([]);
 
         $response = $this->controller->show(
@@ -66,13 +66,13 @@ class DedicatedServersControllerTest extends TestCase
             $gdaemonStatus
         );
 
-        $this->assertInstanceOf(\Illuminate\View\View::class, $response);
+        $this->assertInstanceOf(View::class, $response);
     }
 
     public function testEdit()
     {
         $response = $this->controller->edit(Mockery::mock(DedicatedServer::class));
-        $this->assertInstanceOf(\Illuminate\View\View::class, $response);
+        $this->assertInstanceOf(View::class, $response);
     }
 
     public function testDestroy()
