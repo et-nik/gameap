@@ -13,6 +13,7 @@ steps:
   - name: npm
     image: node
     commands:
+      - node --version
       - npm install
       - npm run prod
 
