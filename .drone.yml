@@ -35,7 +35,7 @@ steps:
       - rm -rf storage/logs/*
 
   - name: browser-tests
-    image: knik/php:7.3-fpm-stretch
+    image: knik/php:7.3-fpm-buster
     environment:
       SELENIUM_URL: http://selenium:4444/wd/hub
     commands:
