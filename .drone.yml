@@ -31,6 +31,7 @@ steps:
       DB_USERNAME: homestead
       DB_PASSWORD: secret
     commands:
+      - touch .env
       - php artisan migrate:fresh --seed
       - vendor/bin/phpunit --verbose
       - rm -rf storage/app/certs
@@ -112,6 +113,7 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+      - rm .env || true
       - mkdir -p gameap-shared/upload
       - php artisan migrate:fresh --seed --force
       - mysqldump -h db -u homestead -p --password=secret homestead > gameap.sql
