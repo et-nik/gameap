@@ -2,15 +2,16 @@
 
 namespace Tests\Browser\Admin;
 
-use Facebook\WebDriver\WebDriverKeys;
 use Gameap\Models\User;
 use Laravel\Dusk\Browser;
+use Tests\Context\Browser\Models\GameModContextTrait;
 use Tests\Context\Browser\Models\ServerContextTrait;
 use Tests\DuskTestCase;
 
 class ServersTest extends DuskTestCase
 {
     use ServerContextTrait;
+    use GameModContextTrait;
 
     public function testCreate()
     {
@@ -65,6 +66,8 @@ class ServersTest extends DuskTestCase
 
     public function testEdit()
     {
+        $this->givenGameMod();
+
         $this->browse(function (Browser $browser) {
             $gameServer = $this->givenGameServer();
             $browser->loginAs(User::find(1))
