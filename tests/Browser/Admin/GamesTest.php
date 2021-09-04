@@ -3,7 +3,6 @@
 namespace Tests\Browser\Admin;
 
 use Gameap\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -78,5 +77,10 @@ class GamesTest extends DuskTestCase
                 ->assertPathIs('/admin/games')
                 ->assertSee(__('games.mod_create_success_msg'));
         });
+
+        $this->assertDatabaseHas('game_mods', [
+            'game_code'              => 'test',
+            'name'                   => 'Default',
+        ]);
     }
 }

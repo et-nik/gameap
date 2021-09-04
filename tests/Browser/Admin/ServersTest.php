@@ -2,9 +2,9 @@
 
 namespace Tests\Browser\Admin;
 
-use Facebook\WebDriver\WebDriverKeys;
 use Gameap\Models\User;
 use Laravel\Dusk\Browser;
+use Tests\Context\Browser\Models\GameModContextTrait;
 use Tests\Context\Browser\Models\ServerContextTrait;
 use Tests\DuskTestCase;
 
@@ -76,6 +76,7 @@ class ServersTest extends DuskTestCase
                 ->type('start_command', './run.sh interactive')
                 ->waitFor('#game_mod_id > option', 10)
                 ->waitFor('#server_ip > option', 10)
+                ->select('game_mod_id', 'test')
                 ->scrollIntoView('input[type=submit]')
                 ->press(__('main.save'))
                 ->assertSee(__('servers.update_success_msg'));
