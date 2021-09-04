@@ -10,7 +10,6 @@ trait ServerContextTrait
     {
         return factory(Server::class)->create([
             'name'              => $name,
-            'game_id'           => 'test',
             'installed'         => 1,
         ]);
     }

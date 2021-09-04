@@ -11,7 +11,6 @@ use Tests\DuskTestCase;
 class ServersTest extends DuskTestCase
 {
     use ServerContextTrait;
-    use GameModContextTrait;
 
     public function testCreate()
     {
@@ -66,8 +65,6 @@ class ServersTest extends DuskTestCase
 
     public function testEdit()
     {
-        $this->givenGameMod();
-
         $this->browse(function (Browser $browser) {
             $gameServer = $this->givenGameServer();
             $browser->loginAs(User::find(1))
@@ -79,6 +76,7 @@ class ServersTest extends DuskTestCase
                 ->type('start_command', './run.sh interactive')
                 ->waitFor('#game_mod_id > option', 10)
                 ->waitFor('#server_ip > option', 10)
+                ->select('game_mod_id', 'test')
                 ->scrollIntoView('input[type=submit]')
                 ->press(__('main.save'))
                 ->assertSee(__('servers.update_success_msg'));
