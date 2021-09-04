@@ -32,7 +32,7 @@ steps:
       DB_USERNAME: homestead
       DB_PASSWORD: secret
     commands:
-      - touch .env
+      - cp .env.example .env
       - php artisan migrate:fresh --seed
       - vendor/bin/phpunit --verbose
       - rm -rf storage/app/certs
