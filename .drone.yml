@@ -20,11 +20,6 @@ steps:
   - name: tests
     image: knik/php:7.3-fpm-stretch
     environment:
-      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
-      APP_DEBUG: true
-      APP_ENV: local
-      APP_ALLOW_REGISTRATION: true
-      APP_TIMEZONE: UTC
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
@@ -33,6 +28,7 @@ steps:
       DB_PASSWORD: secret
     commands:
       - cp .env.example .env
+      - php artisan key:generate --force
       - php artisan migrate:fresh --seed
       - vendor/bin/phpunit --verbose
       - rm -rf storage/app/certs
@@ -41,6 +37,7 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+      - rm .env
 
   - name: browser-tests
     image: knik/php:7.3-fpm-buster
