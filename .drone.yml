@@ -20,6 +20,7 @@ steps:
   - name: tests
     image: knik/php:7.3-fpm-stretch
     environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
@@ -28,7 +29,6 @@ steps:
       DB_PASSWORD: secret
     commands:
       - cp .env.example .env
-      - php artisan key:generate --force
       - php artisan migrate:fresh --seed
       - vendor/bin/phpunit --verbose
       - rm -rf storage/app/certs
