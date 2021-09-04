@@ -24,6 +24,7 @@ steps:
       APP_DEBUG: true
       APP_ENV: local
       APP_ALLOW_REGISTRATION: true
+      APP_TIMEZONE: UTC
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
@@ -49,6 +50,7 @@ steps:
       APP_DEBUG: true
       APP_ENV: local
       APP_ALLOW_REGISTRATION: true
+      APP_TIMEZONE: UTC
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
@@ -98,6 +100,7 @@ steps:
       APP_DEBUG: true
       APP_ENV: local
       APP_ALLOW_REGISTRATION: true
+      APP_TIMEZONE: UTC
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
@@ -189,6 +192,7 @@ services:
       APP_DEBUG: true
       APP_ENV: local
       APP_ALLOW_REGISTRATION: true
+      APP_TIMEZONE: UTC
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
