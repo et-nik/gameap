@@ -99,3 +99,12 @@ Route::get('/js/lang/{lang}.js', function ($lang) {
     
     return response()->make('window.i18n = ' . $strings . ';', \Illuminate\Http\Response::HTTP_OK, ['Content-Type' => 'text/javascript']);
 })->name('assets.lang');
+
+Route::get('.well-known/{action}', function (string $action) {
+    switch ($action) {
+        case 'change-password':
+            return response()->redirectToRoute('profile.change_password');
+    }
+
+    return response()->redirectToRoute('home');
+});
