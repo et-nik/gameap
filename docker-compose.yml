@@ -1,7 +1,7 @@
 version: "3"
 services:
   mysql:
-    image: mariadb:latest
+    image: mariadb:10.5
     container_name: gameap_db
     hostname: gameap.db
     ports:
@@ -43,6 +43,8 @@ services:
     links:
       - mysql:db
     restart: always
+    depends_on:
+      - mysql
   daemon:
     build: ./.dev/docker/gdaemon
     container_name: gameap_daemon
@@ -53,3 +55,7 @@ services:
     restart: always
     links:
       - nginx:gameap
+    depends_on:
+      - php
+      - nginx
+      - mysql

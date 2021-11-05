@@ -10,7 +10,7 @@ if (getenv('DB_CONNECTION') == 'sqlite') {
     if (!file_exists('database.sqlite') || filesize('database.sqlite') == 0) {
         system('touch database.sqlite');
 
-        system('php artisan migrate');
+        system('php artisan migrate --force');
 
         system('php artisan db:seed --class=ClientCertificatesTableSeeder');
         system('php artisan db:seed --class=GamesTableSeeder');
@@ -18,7 +18,7 @@ if (getenv('DB_CONNECTION') == 'sqlite') {
         system('php artisan db:seed --class=UsersTableSeeder');
         system('php artisan db:seed --class=PermissionsSeeder');
     } else {
-        system('php artisan migrate');
+        system('php artisan migrate --force');
     }
 }
 else if (getenv('DB_CONNECTION') == 'mysql') {
@@ -48,7 +48,7 @@ else if (getenv('DB_CONNECTION') == 'mysql') {
         }
     }
 
-    system('php artisan migrate');
+    system('php artisan migrate --force');
 
     $count = $pdo->query("SELECT COUNT(*) as count FROM users;")->fetch(PDO::FETCH_ASSOC)['count'];
 
