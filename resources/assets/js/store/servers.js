@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const state = {
     serverId: 0,
 
@@ -43,6 +45,14 @@ const actions = {
         }
 
         axios.get('/api/servers/' + state.serverId + '/tasks').then((response) => {
+            let tasks = []
+
+            response.data.forEach((value, index) => {
+                let task = value
+                task['execute_date'] = moment.utc(task['execute_date']).local().format('YYYY-MM-DD HH:mm:ss')
+                tasks.push(task)
+            });
+
             commit('setTasks', response.data);
         });
     },

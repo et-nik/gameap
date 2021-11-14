@@ -20,6 +20,7 @@
     "jquery": "^3.5.1",
     "laravel-mix": "^6.0.0",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "popper.js": "^1.15.0",
     "sass": "^1.32.0",
     "sass-loader": "^8.0.0",

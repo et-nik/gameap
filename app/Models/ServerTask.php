@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $repeat
  * @property integer $repeat_period
  * @property integer $counter
- * @property integer $execute_date
+ * @property string $execute_date
  * @property string $payload
  * @property string $created_at
  * @property string $updated_at
