@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property integer $id
  * @property boolean $enabled
- * @property boolean $installed
+ * @property integer $installed
  * @property boolean $blocked
  * @property string $name
  * @property string $uuid
