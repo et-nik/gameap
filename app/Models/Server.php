@@ -65,6 +65,10 @@ class Server extends Model
     public const INSTALLED            = 1;
     public const INSTALLATION_PROCESS = 2;
 
+    public const AUTOSTART_SETTING_KEY           = 'autostart';
+    public const AUTOSTART_CURRENT_SETTING_KEY   = 'autostart_current';
+    public const UPDATE_BEFORE_START_SETTING_KEY = 'update_before_start';
+
     protected $fillable = [
         'uuid', 'uuid_short',
         'enabled', 'name', 'code_name', 'game_id',
@@ -185,5 +189,22 @@ class Server extends Model
         }
 
         return $aliases;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->installed === self::INSTALLED && $this->enabled && !$this->blocked;
+    }
+
+    public function getSetting(string $key): ServerSetting
+    {
+        $value = $this->settings->where('name', $key)->first()
+        ?? new ServerSetting([
+            'server_id' => $this->id,
+            'name'      => $key,
+            'value'     => false,
+        ]);
+
+        return $value;
     }
 }

@@ -53,21 +53,22 @@ class ServersController extends AuthController
     {
         $this->authorize('server-control', $server);
 
-        $autostartSetting = $server->settings->where('name', 'autostart')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart',
-                'value'     => false,
+        $autostartSetting = $server->getSetting($server::AUTOSTART_SETTING_KEY)->value;
+        $updateBeforeStartSetting = $server->getSetting($server::UPDATE_BEFORE_START_SETTING_KEY)->value;
+
+        if ($server->isActive()) {
+            $view = view('servers.view', [
+                'server' => $server,
+                'autostart' => $autostartSetting,
+                'updateBeforeStart' => $updateBeforeStartSetting,
+                'rconSupportedFeatures' => $rconService->supportedFeatures($server),
+                'rconSupported' => $rconService->supportedFeatures($server)['rcon'],
             ]);
+        } else {
+            $view = view('servers.not_active', ['server' => $server]);
+        }
 
-        $autostart = $autostartSetting->value;
-
-        $rconSupportedFeatures = $rconService->supportedFeatures($server);
-        $rconSupported         = $rconSupportedFeatures['rcon'];
-
-        return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
-            view('servers.view', compact('server', 'autostart', 'rconSupportedFeatures', 'rconSupported'))
-            : view('servers.not_active', compact('server'));
+        return $view;
     }
 
     /**
@@ -82,7 +83,7 @@ class ServersController extends AuthController
         $this->authorize('server-control', $server);
         $this->authorize('server-settings', $server);
 
-        $this->repository->updateAutostart($server, ($request->get('autostart') == true));
+        $this->repository->updateSettings($server, $request);
         $this->repository->updateVars($server, $request);
 
         return redirect()->to(route('servers.control', ['server' => $server->id]) . '#settings')
