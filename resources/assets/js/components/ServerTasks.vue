@@ -171,7 +171,6 @@
 <script>
     import DatePicker from 'vue2-datepicker';
     import { mapState } from 'vuex';
-    import moment from 'moment'
 
     const REPEAT_ENDLESSLY          = 0;
     const REPEAT_ONCE               = 1;
@@ -246,7 +245,7 @@
                 const form = {
                     server_id: this.serverId,
                     command: this.command,
-                    execute_date: moment(this.taskDate).utc().format('YYYY-MM-DD HH:mm:ss'),
+                    execute_date: this.taskDate,
                     repeat: this.repeat,
                 };
 

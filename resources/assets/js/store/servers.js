@@ -53,19 +53,26 @@ const actions = {
                 tasks.push(task)
             });
 
-            commit('setTasks', response.data);
+            commit('setTasks', tasks);
         });
     },
 
     async storeTask({state, commit}, task) {
-        const response = await axios.post('/api/servers/' + state.serverId + '/tasks', task);
+        let storeTask = Object.assign({}, task);
+        storeTask.execute_date = moment(storeTask.execute_date).utc().format('YYYY-MM-DD HH:mm:ss')
+        const response = await axios.post('/api/servers/' + state.serverId + '/tasks', storeTask);
         task.id = response.data.serverTaskId;
+
         commit('insertTask', task);
     },
 
     async updateTask({state, commit}, {taskIndex, task}) {
         const taskId = state.tasks[taskIndex].id;
-        await axios.put('/api/servers/' + state.serverId + '/tasks/' + taskId, task);
+
+        let storeTask = Object.assign({}, task);
+        storeTask.execute_date = moment(storeTask.execute_date).utc().format('YYYY-MM-DD HH:mm:ss')
+        await axios.put('/api/servers/' + state.serverId + '/tasks/' + taskId, storeTask);
+
         commit('updateTask', {taskIndex: taskIndex, task: task});
     },
 
