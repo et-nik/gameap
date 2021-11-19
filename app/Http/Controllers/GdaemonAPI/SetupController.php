@@ -14,6 +14,10 @@ use Illuminate\Support\Str;
 
 class SetupController extends BaseController
 {
+    private const CREATE_TOKEN_LENGTH = 24;
+
+    private const CREATE_TOKEN_TTL_IN_SECONDS = 3600;
+
     /**
      * The DedicatedServersRepository instance.
      *
@@ -41,8 +45,8 @@ class SetupController extends BaseController
 
         Cache::forget('gdaemonAutoSetupToken');
 
-        $gdaemonCreateToken = Str::random(24);
-        Cache::put('gdaemonAutoCreateToken', $gdaemonCreateToken, 1800);
+        $gdaemonCreateToken = Str::random(self::CREATE_TOKEN_LENGTH);
+        Cache::put('gdaemonAutoCreateToken', $gdaemonCreateToken, self::CREATE_TOKEN_TTL_IN_SECONDS);
 
         return "export createToken={$gdaemonCreateToken};
             export panelHost=" . url('/') . ';

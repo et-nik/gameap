@@ -1,7 +1,7 @@
 version: "3"
 services:
   mysql:
-    image: mariadb:latest
+    image: mariadb:10.5
     container_name: gameap_db
     hostname: gameap.db
     ports:
@@ -36,13 +36,15 @@ services:
       DB_USERNAME: gameap
       DB_PASSWORD: gameap
       XDEBUG_MODE: debug
-      XDEBUG_CONFIG: "client_port=9001 client_host=172.17.0.1 mode=debug start_with_request=yes idekey=PHPSTORM"
+      XDEBUG_CONFIG: "client_host=172.17.0.1 mode=debug start_with_request=yes idekey=PHPSTORM"
       PHP_IDE_CONFIG: "serverName=gameap-develop"
       ADMIN_PASSWORD: fpwPOuZD
       DAEMON_SETUP_TOKEN: test_auto_setup_token
     links:
       - mysql:db
     restart: always
+    depends_on:
+      - mysql
   daemon:
     build: ./.dev/docker/gdaemon
     container_name: gameap_daemon
@@ -53,3 +55,7 @@ services:
     restart: always
     links:
       - nginx:gameap
+    depends_on:
+      - php
+      - nginx
+      - mysql

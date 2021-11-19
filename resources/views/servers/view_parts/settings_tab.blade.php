@@ -11,6 +11,13 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <div class="form-check mt-4 mb-4">
+                        {{ Form::checkbox('update_before_start', true, $updateBeforeStart, ['id' => 'update_before_start', 'class' => 'form-check-input']) }}
+                        {{ Form::label('update_before_start', __('servers.update_before_start_setting'), ['class' => 'form-check-label']) }}
+                    </div>
+                </div>
+
                 @if(!empty($server->gameMod->vars))
                     @foreach ($server->gameMod->vars as $var)
                         @if (isset($var['admin_var']) && $var['admin_var'])

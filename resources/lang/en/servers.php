@@ -51,6 +51,7 @@ return [
     'task_scheduler' => 'Task Scheduler',
 
     'autostart_setting' => 'Autostart on crash',
+    'update_before_start_setting' => 'Update server before starting',
 
     'process_status' => 'Proccess status',
     'active'        => 'active',

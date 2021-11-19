@@ -48,11 +48,11 @@
                     </tr>
                     <tr>
                         <th>{{ __('gdaemon_tasks.created') }}</th>
-                        <td>{!! $gdaemonTask->created_at !!}</td>
+                        <td>{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->created_at) !!}</td>
                     </tr>
                     <tr>
                         <th>{{ __('gdaemon_tasks.updated') }}</th>
-                        <td>{!! $gdaemonTask->updated_at !!}</td>
+                        <td>{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->updated_at) !!}</td>
                     </tr>
                 </tbody>
             </table>

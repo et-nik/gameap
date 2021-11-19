@@ -50,7 +50,8 @@ return [
 
     'task_scheduler' => 'Планировщик задач',
 
-    'autostart_setting' => 'Автозапуск в случае падения',
+    'autostart_setting'           => 'Автозапуск в случае падения',
+    'update_before_start_setting' => 'Обновлять сервер перед запуском',
 
     'process_status' => 'Статус процесса',
     'active'        => 'активен',

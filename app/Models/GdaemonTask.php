@@ -2,6 +2,7 @@
 
 namespace Gameap\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string cmd
  * @property string output
  * @property string status
+ * @property Carbon created_at
+ * @property Carbon updated_at
  */
 class GdaemonTask extends Model
 {

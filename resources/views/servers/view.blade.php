@@ -50,7 +50,7 @@
 
         @can('server-settings', $server)
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" data-tab="settings" href="#settings">
+                <a class="nav-link" data-toggle="tab" data-tab="settings" href="#settings#settings">
                     <i class="fa fa-cogs"></i>
                     {{ __('servers.settings') }}
                 </a>

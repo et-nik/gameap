@@ -5,6 +5,7 @@ namespace Tests;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Facades\DB;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
@@ -20,6 +21,14 @@ abstract class DuskTestCase extends BaseTestCase
     public static function prepare()
     {
         static::startChromeDriver();
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        DB::table('server_user')->delete();
+        DB::table('servers')->delete();
     }
 
     /**

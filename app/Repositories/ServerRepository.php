@@ -226,29 +226,19 @@ class ServerRepository
         $server->update($request->only($only));
     }
 
-    /**
-     * @param Server $server
-     * @param bool $autostart
-     */
-    public function updateAutostart(Server $server, bool $autostart): void
+    public function updateSettings(Server $server, ServerVarsRequest $request): void
     {
-        $autostartSetting = $server->settings->where('name', 'autostart')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart',
-            ]);
-
-        $autostartSetting->value = $autostart;
+        $autostartSetting = $server->getSetting($server::AUTOSTART_SETTING_KEY);
+        $autostartSetting->value = $request->autostart();
         $autostartSetting->save();
 
-        $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart_current',
-            ]);
-
-        $autostartCurrentSetting->value = $autostart;
+        $autostartCurrentSetting = $server->getSetting($server::AUTOSTART_CURRENT_SETTING_KEY);
+        $autostartCurrentSetting->value = $request->autostart();
         $autostartCurrentSetting->save();
+
+        $updateBeforeStartSetting = $server->getSetting($server::UPDATE_BEFORE_START_SETTING_KEY);
+        $updateBeforeStartSetting->value = $request->updateBeforeStart();
+        $updateBeforeStartSetting->save();
     }
 
     /**

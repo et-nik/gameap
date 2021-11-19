@@ -74,7 +74,13 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
                         @endif
                     @endif
 
-                    <td>{!! $cellValue !!}</td>
+
+                    @if($cellValue instanceof \Carbon\Carbon)
+                        <td>{!! \Gameap\Helpers\DateHelper::convertToLocal($cellValue) !!}</td>
+                    @else
+                        <td>{!! $cellValue !!}</td>
+                    @endif
+
                 @endforeach
 
                 @if (isset($modelKey) && $showActionCollumn)

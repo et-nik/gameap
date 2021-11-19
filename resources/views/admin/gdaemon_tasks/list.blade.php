@@ -22,16 +22,18 @@
             'task',
             [/* status */ 'lambda', function($gdaemonTaskModel) {
                 if ($gdaemonTaskModel->status == 'success') {
-                    $label = 'label-success';
+                    $label = 'badge-success';
                 } elseif ($gdaemonTaskModel->status == 'error') {
-                    $label = 'label-danger';
+                    $label = 'badge-danger';
                 } elseif ($gdaemonTaskModel->status == 'waiting' || $gdaemonTaskModel->status == 'working') {
-                    $label = 'label-warning';
+                    $label = 'badge-warning';
+                } elseif ($gdaemonTaskModel->status == 'canceled') {
+                    $label = 'badge-secondary';
                 } else {
-                    $label = 'label-default';
+                    $label = 'badge-default';
                 }
                 
-                return "<span class=\"label {$label}\">{$gdaemonTaskModel->status}</span>";
+                return "<span class=\"badge {$label}\">{$gdaemonTaskModel->status}</span>";
             }], 
             'created_at', 
             'updated_at'

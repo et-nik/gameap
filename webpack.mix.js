@@ -14,8 +14,12 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .webpackConfig({
-    output: {
-        chunkFilename: 'js/chunks/[name].js?[chunkhash]',
-        publicPath: '/',
-    }
+        output: {
+            chunkFilename: 'js/chunks/[name].js?[chunkhash]',
+            publicPath: '/',
+        }
+    })
+    .vue({
+        extractStyles: true,
+        globalStyles: false
 });
