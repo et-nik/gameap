@@ -71,7 +71,7 @@
                     <li class="list-group-item">{{ __('servers.status') }}: <span class="badge badge-danger">{{ __('servers.inactive') }}</span></li>
                 @endif
 
-                <li class="list-group-item">{{ __('servers.last_check') }}: {{ $server->last_process_check }}</li>
+                <li class="list-group-item">{{ __('servers.last_check') }}: {{ \Gameap\Helpers\DateHelper::convertToLocal($server->last_process_check) }}</li>
             </ul>
 
         </div>
