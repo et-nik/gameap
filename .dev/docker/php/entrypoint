@@ -5,10 +5,14 @@ empty(getenv('DB_CONNECTION')) && putenv("DB_CONNECTION=sqlite");
 
 if (getenv('DB_CONNECTION') == 'sqlite') {
 
-    putenv("DB_DATABASE=database.sqlite");
+    $databaseFile = getenv('DB_CONNECTION');
+    if (empty($databaseFile)) {
+        $databaseFile = "database.sqlite";
+        putenv("DB_DATABASE=database.sqlite");
+    }
 
-    if (!file_exists('database.sqlite') || filesize('database.sqlite') == 0) {
-        system('touch database.sqlite');
+    if (!file_exists($databaseFile) || filesize($databaseFile) == 0) {
+        system('touch ' . $databaseFile);
 
         system('php artisan migrate --force');
 
