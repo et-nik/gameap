@@ -4,6 +4,7 @@ namespace Tests\Browser\Admin;
 
 use Gameap\Models\User;
 use Laravel\Dusk\Browser;
+use Tests\Context\Browser\Models\GameContextTrait;
 use Tests\Context\Browser\Models\GameModContextTrait;
 use Tests\Context\Browser\Models\ServerContextTrait;
 use Tests\DuskTestCase;
@@ -11,9 +12,14 @@ use Tests\DuskTestCase;
 class ServersTest extends DuskTestCase
 {
     use ServerContextTrait;
+    use GameContextTrait;
+    use GameModContextTrait;
 
     public function testCreate()
     {
+        //$this->givenGame();
+        $this->givenGameMod();
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
                 ->visit('/home')
@@ -69,6 +75,7 @@ class ServersTest extends DuskTestCase
             $gameServer = $this->givenGameServer();
             $browser->loginAs(User::find(1))
                 ->visit('/home')
+                ->assertPathIs('/home')
                 ->clickLink('Game servers')
                 ->click('table > tbody > tr:nth-child(1) > td.text-nowrap > a')
                 ->assertPathIs("/admin/servers/{$gameServer->id}/edit")

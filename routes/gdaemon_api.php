@@ -10,8 +10,8 @@ Route::name('dedicated_servers.get_init_data')->get(
 
 // Servers
 Route::name('servers')->get('servers', 'ServersController@index');
-Route::name('servers.server')->get('servers/{anyserver}', 'ServersController@server');
-Route::name('servers.update')->put('servers/{anyserver}', 'ServersController@update');
+Route::name('servers.server')->get('servers/{server}', 'ServersController@server');
+Route::name('servers.update')->put('servers/{server}', 'ServersController@update');
 Route::name('gservers.bulk_update')->patch('servers', 'ServersController@updateBulk');
 
 // Servers Tasks
