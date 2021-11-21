@@ -39,34 +39,35 @@ steps:
       - rm -rf storage/logs/*
       - rm .env
 
-  - name: browser-tests
-    image: knik/php:7.3-fpm-buster
-    environment:
-      SELENIUM_URL: http://selenium:4444/wd/hub
-      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
-      APP_DEBUG: true
-      APP_ENV: local
-      APP_ALLOW_REGISTRATION: true
-      APP_TIMEZONE: UTC
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: homestead
-      DB_USERNAME: homestead
-      DB_PASSWORD: secret
-      APP_URL: http://webserver
-    commands:
-      - ./artisan migrate:fresh --seed
-      - ./artisan dusk --debug
-      - rm -rf storage/app/certs
-      - rm -rf storage/framework/cache/data/*
-      - rm -rf storage/framework/sessions/*
-      - rm -rf storage/framework/views/*
-      - rm -rf storage/debugbar/*
-      - rm -rf storage/logs/*
-    volumes:
-      - name: daemon_logs
-        path: /var/log/gameap-daemon
+# Temporary
+#  - name: browser-tests
+#    image: knik/php:7.3-fpm-buster
+#    environment:
+#      SELENIUM_URL: http://selenium:4444/wd/hub
+#      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+#      APP_DEBUG: true
+#      APP_ENV: local
+#      APP_ALLOW_REGISTRATION: true
+#      APP_TIMEZONE: UTC
+#      DB_CONNECTION: mysql
+#      DB_HOST: db
+#      DB_PORT: 3306
+#      DB_DATABASE: homestead
+#      DB_USERNAME: homestead
+#      DB_PASSWORD: secret
+#      APP_URL: http://webserver
+#    commands:
+#      - ./artisan migrate:fresh --seed
+#      - ./artisan dusk --debug
+#      - rm -rf storage/app/certs
+#      - rm -rf storage/framework/cache/data/*
+#      - rm -rf storage/framework/sessions/*
+#      - rm -rf storage/framework/views/*
+#      - rm -rf storage/debugbar/*
+#      - rm -rf storage/logs/*
+#    volumes:
+#      - name: daemon_logs
+#        path: /var/log/gameap-daemon
 
   - name: composer-production
     image: knik/php:7.3-fpm-stretch
