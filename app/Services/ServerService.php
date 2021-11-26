@@ -115,15 +115,16 @@ class ServerService
         }
 
         $replaceArray = [
-            'host'       => $server->server_ip,
-            'port'       => $server->server_port,
-            'query_port' => $server->query_port,
-            'rcon_port'  => $server->rcon_port,
-            'dir'        => $server->full_path,
-            'uuid'       => $server->uuid,
-            'uuid_short' => $server->uuid_short,
-            'game'       => $server->game_id,
-            'user'       => $server->su_user,
+            'node_work_path'    => $server->dedicatedServer->work_path,
+            'host'              => $server->server_ip,
+            'port'              => $server->server_port,
+            'query_port'        => $server->query_port,
+            'rcon_port'         => $server->rcon_port,
+            'dir'               => $server->full_path,
+            'uuid'              => $server->uuid,
+            'uuid_short'        => $server->uuid_short,
+            'game'              => $server->game_id,
+            'user'              => $server->su_user,
         ];
 
         foreach ($replaceArray as $key => $value) {
@@ -185,7 +186,7 @@ class ServerService
         // Fix
         // Malformed UTF-8 characters, possibly incorrectly encoded
         $result = mb_convert_encoding($result, 'UTF-8', 'UTF-8');
-        
+
         return $result;
     }
 
@@ -207,7 +208,7 @@ class ServerService
             $this->gdaemonCommands->exec($command, $exitCode);
         } catch (EmptyCommandException $e) {
             $this->registerDisk($server);
-            
+
             if (Storage::disk('server')->put('input.txt', $command)) {
                 // Success
                 $exitCode = 0;

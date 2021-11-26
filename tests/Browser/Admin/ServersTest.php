@@ -59,7 +59,7 @@ class ServersTest extends DuskTestCase
                 return $status == 'success';
             });
 
-            $browser->assertSee('Exited with 0');
+            $browser->assertSee('Downloading successfully completed');
 
             $this->assertDatabaseHas('servers', [
                 'name'              => 'Test',
