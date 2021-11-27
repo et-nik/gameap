@@ -73,11 +73,11 @@ class AAADaemonTest extends DuskTestCase
             $browser->waitUsing(120, 2, function () use ($browser) {
                 $status = $browser->text('table > tbody > tr:nth-child(2) > td > span');
 
-                if ($status == 'waiting') {
+                if ($status === 'waiting') {
                     $browser->refresh();
                 }
 
-                return $status == 'success';
+                return $status === 'success';
             });
 
             $browser->assertSee('Downloading successfully completed');
