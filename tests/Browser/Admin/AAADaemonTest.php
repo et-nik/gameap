@@ -10,7 +10,7 @@ use Tests\Context\Browser\Models\ServerContextTrait;
 use Tests\DuskTestCase;
 
 // TODO: Deprecated. This test executed first. Make this test independent so you can run it as you like
-class AAADaemon extends DuskTestCase
+class AAADaemonTest extends DuskTestCase
 {
     use GameContextTrait;
     use GameModContextTrait;

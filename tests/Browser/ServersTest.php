@@ -14,7 +14,6 @@ use Silber\Bouncer\Bouncer;
 
 class ServersTest extends BrowserTestCase
 {
-    use DatabaseMigrations;
     use UserContextTrait;
     use ServerContextTrait;
 

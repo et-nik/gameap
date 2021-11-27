@@ -10,8 +10,6 @@ use Tests\DuskTestCase;
 abstract class BrowserTestCase extends DuskTestCase
 {
     use DatabaseMigrations;
-    use UserContextTrait;
-    use ServerContextTrait;
 
     protected function setUp(): void
     {
