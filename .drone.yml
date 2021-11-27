@@ -205,7 +205,7 @@ services:
       - ./artisan serve --host=webserver --port=80
 
   - name: selenium
-    image: selenium/standalone-chrome:4.1.0-20211123
+    image: selenium/standalone-chrome:3.141.59-zirconium
     environment:
       HUB_PORT: 4444
 
