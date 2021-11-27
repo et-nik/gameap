@@ -30,7 +30,7 @@ class GamesTest extends BrowserTestCase
                 ->type('start_code', 'test')
                 ->type('name', 'Test')
                 ->type('engine', 'Test')
-                ->type('engine_version', '1.0')
+                ->type('engine_version', '2.0')
                 ->type('remote_repository', 'http://files.gameap.ru/test/test.tar.xz')
                 ->scrollIntoView('input[type=submit]')
                 ->press(__('main.create'))
@@ -42,7 +42,8 @@ class GamesTest extends BrowserTestCase
             'code'              => 'test',
             'name'              => 'Test',
             'engine'            => 'Test',
-            'engine_version'    => '1.0',
+            'engine_version'    => '2.0',
+            'remote_repository' => 'http://files.gameap.ru/test/test.tar.xz',
         ]);
     }
 

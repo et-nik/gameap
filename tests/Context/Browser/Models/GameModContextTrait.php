@@ -11,7 +11,6 @@ trait GameModContextTrait
         return factory(GameMod::class)->create([
             'game_code'         => 'test',
             'name'              => 'Test Game Mod',
-            'remote_repository' => 'https://files.gameap.ru/test/test.tar.xz',
         ]);
     }
 }
