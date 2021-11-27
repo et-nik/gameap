@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\User;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
+use Tests\Browser\BrowserTestCase;
 
 class LoginPageTest extends BrowserTestCase
 {

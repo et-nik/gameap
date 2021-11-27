@@ -59,7 +59,7 @@ steps:
       CACHE_DRIVER: null
     commands:
       - ./artisan migrate:fresh --seed
-      - ./artisan dusk:chrome-driver 80
+      - ./artisan dusk:chrome-driver 94
       - ./artisan dusk --debug
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
@@ -205,7 +205,7 @@ services:
       - ./artisan serve --host=webserver --port=80
 
   - name: selenium
-    image: selenium/standalone-chrome:3.141.59-zirconium
+    image: selenium/standalone-chrome:3.141.59
     environment:
       HUB_PORT: 4444
 

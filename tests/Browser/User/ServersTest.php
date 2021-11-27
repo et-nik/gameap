@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\User;
 
 use Facebook\WebDriver\WebDriverKeys;
 use Gameap\Models\Server;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
+use Tests\Browser\BrowserTestCase;
 use Tests\Context\Browser\Models\ServerContextTrait;
 use Tests\Context\Browser\Models\UserContextTrait;
 use Silber\Bouncer\Bouncer;
