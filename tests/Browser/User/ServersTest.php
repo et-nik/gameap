@@ -57,6 +57,9 @@ class ServersTest extends BrowserTestCase
         $this->userRepository = new UserRepository($this->bouncer);
     }
 
+    /**
+     * @group userServers
+     */
     public function testTasksView()
     {
         $this->userRepository->updateServerPermission($this->userModel, $this->server, [
@@ -102,7 +105,7 @@ class ServersTest extends BrowserTestCase
 
     /**
      * @dataProvider taskDataProvider
-     * @throws \Throwable
+     * @group userServers
      */
     public function testForbiddenCreateTask(string $command, string $ability)
     {

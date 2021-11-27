@@ -16,6 +16,9 @@ class AAADaemonTest extends DuskTestCase
     use GameModContextTrait;
     use ServerContextTrait;
 
+    /**
+     * @group daemon
+     */
     public function testCreateDedicatedServer()
     {
         $this->browse(function (Browser $browser) {
@@ -36,6 +39,9 @@ class AAADaemonTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group daemon
+     */
     public function testCreate()
     {
         $this->givenGame();

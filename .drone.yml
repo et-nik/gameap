@@ -60,7 +60,9 @@ steps:
     commands:
       - ./artisan migrate:fresh --seed
       - ./artisan dusk:chrome-driver 94
-      - ./artisan dusk --debug
+      - ./artisan dusk --debug --group daemon
+      - ./artisan dusk --debug --group userServers
+      - ./artisan dusk --debug --exclude-group daemon --exclude-group userServers
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
