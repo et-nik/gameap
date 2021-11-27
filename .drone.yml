@@ -59,7 +59,7 @@ steps:
       CACHE_DRIVER: null
     commands:
       - ./artisan migrate:fresh --seed
-      - ./artisan dusk:chrome-driver --detect
+      - ./artisan dusk:chrome-driver 80
       - ./artisan dusk --debug
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
