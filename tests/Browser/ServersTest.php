@@ -8,12 +8,15 @@ use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
-use Bouncer;
+use Tests\Context\Browser\Models\ServerContextTrait;
+use Tests\Context\Browser\Models\UserContextTrait;
+use Silber\Bouncer\Bouncer;
 
-class ServersTest extends DuskTestCase
+class ServersTest extends BrowserTestCase
 {
     use DatabaseMigrations;
+    use UserContextTrait;
+    use ServerContextTrait;
 
     /**
      * @var User
@@ -35,25 +38,24 @@ class ServersTest extends DuskTestCase
      */
     protected $userRepository;
 
+    /** @var Bouncer */
+    protected $bouncer;
+
     public function setUp(): void
     {
         parent::setUp();
-        $this->artisan('db:seed');
-        $this->artisan('db:seed', ['--class' => 'DedicatedServersTableSeeder']);
 
         $this->adminModel = User::find(1);
-        $this->userModel  = factory(User::class)->create();
+        $this->userModel  = $this->givenUser();
+        $this->server     = $this->givenGameServer();
 
-        Bouncer::sync($this->userModel)->roles(['user']);
-        Bouncer::refresh();
+        $this->bouncer = $this->app->get(Bouncer::class);
+        $this->bouncer->dontCache();
 
-        $this->server = factory(Server::class)->create([
-            'enabled'   => 1,
-            'installed' => 1,
-            'blocked'   => 0,
-        ]);
+        $this->bouncer->sync($this->userModel)->roles(['user']);
+        $this->bouncer->refresh();
 
-        $this->userRepository = new UserRepository($this->userModel);
+        $this->userRepository = new UserRepository($this->bouncer);
     }
 
     public function testTasksView()

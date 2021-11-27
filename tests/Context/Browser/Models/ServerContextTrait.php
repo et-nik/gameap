@@ -11,6 +11,8 @@ trait ServerContextTrait
         return factory(Server::class)->create([
             'name'              => $name,
             'installed'         => 1,
+            'enabled'           => 1,
+            'blocked'           => 0,
         ]);
     }
 }

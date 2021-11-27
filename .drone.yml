@@ -55,6 +55,8 @@ steps:
       DB_USERNAME: homestead
       DB_PASSWORD: secret
       APP_URL: http://webserver
+      DAEMON_SETUP_TOKEN: test_auto_setup_token
+      CACHE_DRIVER: null
     commands:
       - ./artisan migrate:fresh --seed
       - ./artisan dusk --debug
