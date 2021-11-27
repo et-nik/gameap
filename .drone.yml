@@ -198,6 +198,7 @@ services:
       DB_DATABASE: homestead
       DB_USERNAME: homestead
       DB_PASSWORD: secret
+      CACHE_DRIVER: null
     commands:
       - while [[ ! -f composer_installed ]]; do sleep 2; echo "Waiting composer..."; done;
       - ./artisan serve --host=webserver --port=80
