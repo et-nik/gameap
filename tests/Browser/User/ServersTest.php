@@ -7,12 +7,12 @@ use Gameap\Models\Server;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
 use Laravel\Dusk\Browser;
-use Tests\Browser\BrowserTestCase;
 use Tests\Context\Browser\Models\ServerContextTrait;
 use Tests\Context\Browser\Models\UserContextTrait;
 use Silber\Bouncer\Bouncer;
+use Tests\DuskTestCase;
 
-class ServersTest extends BrowserTestCase
+class ServersTest extends DuskTestCase
 {
     use UserContextTrait;
     use ServerContextTrait;
@@ -66,38 +66,92 @@ class ServersTest extends BrowserTestCase
             'game-server-tasks' => 'disallow'
         ]);
 
-        $this->browse(function (Browser $admin) {
+        $this->browse(function (Browser $admin, Browser $user) {
             $admin->loginAs($this->adminModel);
+            $user->loginAs($this->userModel);
+
             $admin->visit("/admin/users/{$this->userModel->id}/servers/{$this->server->id}/edit")
                 ->assertPathIs('/admin/users/*/servers/*/edit');
+
             $this->assertNotChecked($admin, '#game-server-common');
             $this->assertChecked($admin, '#game-server-tasks');
-        });
 
-        $this->browse(function (Browser $user) {
-            $user->loginAs($this->userModel);
             $user->visit('/servers')
                 ->assertSeeIn('table.table-grid-models > tbody > tr > td:last-child', 'Control')
                 ->click('.server-control:last-child > a:last-child')
                 ->assertPathIs('/servers/*')
                 ->assertDontSee(__('servers.task_scheduler'));
-        });
 
-        $this->userRepository->updateServerPermission($this->userModel, $this->server, []);
+            $this->userRepository->updateServerPermission($this->userModel, $this->server, []);
 
-        $this->browse(function (Browser $admin) {
-            $admin->loginAs($this->adminModel);
-            $admin->visit("/admin/users/{$this->userModel->id}/servers/{$this->server->id}/edit")
-                ->assertPathIs('/admin/users/*/servers/*/edit');
-
+            $admin->refresh();
             $this->assertNotChecked($admin, '#game-server-common');
             $this->assertNotChecked($admin, '#game-server-tasks');
-        });
 
-        $this->browse(function (Browser $user) {
-            $user->loginAs($this->userModel);
-            $user->visit('/servers/' . $this->server->id)
+            $user->refresh()
                 ->assertSee(__('servers.task_scheduler'));
+        });
+    }
+
+    public function taskDataProvider()
+    {
+        return [
+            ['command' => 'start', 'ability' => 'game-server-start'],
+            ['command' => 'stop', 'ability' => 'game-server-stop'],
+            ['command' => 'restart', 'ability' => 'game-server-restart'],
+            ['command' => 'update', 'ability' => 'game-server-update'],
+        ];
+    }
+
+    /**
+     * @dataProvider taskDataProvider
+     * @group userServers
+     */
+    public function testForbiddenCreateTask(string $command, string $ability)
+    {
+        $this->userRepository->updateServerPermission($this->userModel, $this->server, []);
+
+        $this->browse(function (Browser $admin, Browser $user) use ($command, $ability) {
+            $admin->loginAs($this->adminModel);
+            $user->loginAs($this->userModel);
+
+            // Check allow
+            $user->visit('/servers/' . $this->server->id)
+                ->clickLink(__('servers.task_scheduler'))
+                ->waitFor('#server-task-component', 10)
+                ->press(__('main.add'))
+                ->waitFor('.modal-content', 2)
+                ->waitForText('New Task', 2)
+                ->select('command', $command)
+                ->type('date', '2020-05-26 00:00:00');
+            $user->driver->getKeyboard()->sendKeys(WebDriverKeys::ENTER);
+            $user->press(__('main.create'));
+            sleep(1);
+            $user->assertSee('2020-05-26 00:00:00');
+
+            // Change ability to forbidden
+            $admin->visit("/admin/users/{$this->userModel->id}/servers/{$this->server->id}/edit");
+            $this->assertNotChecked($admin, "#{$ability}");
+
+            $admin->click("label[for={$ability}]")
+                ->scrollIntoView('input[type=submit]')
+                ->press(__('main.save'))
+                ->assertPathIs('/admin/users/*/edit');
+
+            // Try to add task
+            $user->clickLink(__('servers.task_scheduler'))
+                ->waitFor('#server-task-component', 10)
+                ->press(__('main.add'))
+                ->waitFor('.modal-content', 2)
+                ->waitForText('New Task', 2)
+                ->select('command', $command)
+                ->type('date', '2020-05-27 00:00:00');
+            $user->driver->getKeyboard()->sendKeys(WebDriverKeys::ENTER);
+            $user->press(__('main.create'));
+
+            sleep(1);
+            $user->assertSee('This action is unauthorized.')
+                ->press('OK');
         });
     }
 
