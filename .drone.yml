@@ -60,9 +60,10 @@ steps:
     commands:
       - ./artisan migrate:fresh --seed
       - ./artisan dusk:chrome-driver 94
-      - ./artisan dusk --debug --group daemon
       - ./artisan dusk --debug --group userServers
       - ./artisan dusk --debug --exclude-group daemon --exclude-group userServers
+      - ./artisan migrate:fresh --seed
+      - ./artisan dusk --debug --group daemon
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
@@ -207,7 +208,7 @@ services:
       - ./artisan serve --host=webserver --port=80
 
   - name: selenium
-    image: selenium/standalone-chrome:4.1.0
+    image: selenium/standalone-chrome:3.141.59
     shm_size: 4g
     environment:
       HUB_PORT: 4444
