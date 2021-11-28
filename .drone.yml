@@ -59,7 +59,6 @@ steps:
       CACHE_DRIVER: null
     commands:
       - ./artisan migrate:fresh --seed
-      - ./artisan dusk:chrome-driver 94
       - ./artisan dusk --debug --group userServers
       - ./artisan dusk --debug --exclude-group daemon --exclude-group userServers
       - ./artisan migrate:fresh --seed
@@ -70,6 +69,7 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+    shm_size: 2000000000
     volumes:
       - name: daemon_logs
         path: /var/log/gameap-daemon
