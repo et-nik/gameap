@@ -207,8 +207,8 @@ services:
       - ./artisan serve --host=webserver --port=80
 
   - name: selenium
-    image: selenium/standalone-chrome
-    shm_size: 2g
+    image: selenium/standalone-chrome:4.1.0
+    shm_size: 4g
     environment:
       HUB_PORT: 4444
       SCREEN_WIDTH: 1280
