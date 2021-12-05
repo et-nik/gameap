@@ -59,7 +59,7 @@ steps:
       CACHE_DRIVER: null
     commands:
       - ./artisan migrate:fresh --seed
-      - ./artisan dusk --debug --exclude-group daemon --exclude-group userServers
+      - ./artisan dusk --debug --exclude-group daemon,userServers
       - ./artisan migrate:fresh --seed
       - ./artisan dusk --debug --group daemon
       - rm -rf storage/app/certs
