@@ -15,17 +15,23 @@ class DedicatedServersControllerTest extends TestCase
      */
     protected $user;
 
+    /** @var \Silber\Bouncer\Bouncer */
+    protected $bouncer;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
         $this->be($this->user);
+
+        $this->bouncer = $this->app->get(\Silber\Bouncer\Bouncer::class);
     }
 
     public function testAllowIndex()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.index'));
 
@@ -35,7 +41,8 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testAllowShow()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.show', 1));
 
@@ -45,7 +52,8 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testAllowEdit()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.edit', 1));
 
@@ -55,8 +63,9 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testForbiddenIndex()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
-        Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.index'));
 
@@ -65,8 +74,9 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testForbiddenShow()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
-        Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.show', 1));
 
@@ -75,8 +85,9 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testForbiddenEdit()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
-        Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.edit', 1));
 
@@ -85,7 +96,8 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testForbiddenUserIndex()
     {
-        Bouncer::sync($this->user)->roles(['user']);
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.index'));
 
@@ -94,7 +106,8 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testForbiddenUserShow()
     {
-        Bouncer::sync($this->user)->roles(['user']);
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.show', 1));
 
@@ -104,7 +117,8 @@ class DedicatedServersControllerTest extends TestCase
 
     public function testForbiddenUserEdit()
     {
-        Bouncer::sync($this->user)->roles(['user']);
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
 
         $response = $this->get(route('admin.dedicated_servers.edit', 1));
 

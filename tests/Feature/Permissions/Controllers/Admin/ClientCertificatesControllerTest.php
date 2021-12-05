@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Permissions\Controllers\Admin;
 
-use Bouncer;
 use Gameap\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Session;
+use Silber\Bouncer\Bouncer;
 use Tests\TestCase;
-
 
 /**
  * @covers \Gameap\Http\Controllers\Admin\ClientCertificatesController
@@ -20,17 +19,23 @@ class ClientCertificatesControllerTest extends TestCase
      */
     protected $user;
 
+    /** @var \Silber\Bouncer\Bouncer */
+    protected $bouncer;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
         $this->be($this->user);
+
+        $this->bouncer = $this->app->get(Bouncer::class);
     }
 
     public function testAllow()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->refresh();
 
         // Index
         $response = $this->get(route('admin.client_certificates.index'));
@@ -58,7 +63,8 @@ class ClientCertificatesControllerTest extends TestCase
 
     public function testForbidden()
     {
-        Bouncer::sync($this->user)->roles(['user']);
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
 
         // Index
         $response = $this->get(route('admin.client_certificates.index'));
@@ -81,8 +87,9 @@ class ClientCertificatesControllerTest extends TestCase
 
     public function testAdminForbidden()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
-        Bouncer::sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->sync($this->user)->forbiddenAbilities(['admin roles & permissions']);
+        $this->bouncer->refresh();
 
         // Index
         $response = $this->get(route('admin.client_certificates.index'));

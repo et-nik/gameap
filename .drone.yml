@@ -11,7 +11,7 @@ steps:
       - touch composer_installed
 
   - name: npm
-    image: node
+    image: node:16
     commands:
       - node --version
       - npm install
@@ -55,15 +55,20 @@ steps:
       DB_USERNAME: homestead
       DB_PASSWORD: secret
       APP_URL: http://webserver
+      DAEMON_SETUP_TOKEN: test_auto_setup_token
+      CACHE_DRIVER: null
     commands:
       - ./artisan migrate:fresh --seed
-      - ./artisan dusk --debug
+      - ./artisan dusk --debug --exclude-group daemon,userServers
+      - ./artisan migrate:fresh --seed
+      - ./artisan dusk --debug --group daemon
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+    shm_size: 2000000000
     volumes:
       - name: daemon_logs
         path: /var/log/gameap-daemon
@@ -196,14 +201,18 @@ services:
       DB_DATABASE: homestead
       DB_USERNAME: homestead
       DB_PASSWORD: secret
+      CACHE_DRIVER: null
     commands:
       - while [[ ! -f composer_installed ]]; do sleep 2; echo "Waiting composer..."; done;
       - ./artisan serve --host=webserver --port=80
 
   - name: selenium
-    image: selenium/standalone-chrome:3.141.59-zirconium
+    image: selenium/standalone-chrome:4.1.0
+    shm_size: 2000000000
     environment:
       HUB_PORT: 4444
+      SCREEN_WIDTH: 1280
+      SCREEN_HEIGHT: 800
 
 volumes:
   - name: daemon_logs

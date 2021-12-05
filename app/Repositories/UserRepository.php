@@ -2,28 +2,27 @@
 
 namespace Gameap\Repositories;
 
-use Bouncer;
-use DB;
 use Gameap\Helpers\ServerPermissionHelper;
 use Gameap\Models\Server;
 use Gameap\Models\User;
+use Illuminate\Support\Facades\DB;
+use Silber\Bouncer\Bouncer;
 
-class UserRepository extends Repository
+class UserRepository
 {
-    /**
-     * UserRepository constructor.
-     * @param User $model
-     */
-    public function __construct(User $model)
+    /** @var Bouncer */
+    private $bouncer;
+
+    public function __construct(Bouncer $bouncer)
     {
-        $this->model = $model;
+        $this->bouncer = $bouncer;
     }
 
     /**
      * @param int $perPage
      * @return mixed
      */
-    public function getAll($perPage = 20)
+    public function getAll(int $perPage = 20)
     {
         return User::orderBy('id')->paginate($perPage);
     }
@@ -37,11 +36,11 @@ class UserRepository extends Repository
 
         if (isset($attributes['roles'])) {
             foreach ($attributes['roles'] as &$role) {
-                if (Bouncer::role()->where(['name' => $role])->exists()) {
+                if ($this->bouncer->role()->where(['name' => $role])->exists()) {
                     $user->assign($role);
                 }
             }
-            Bouncer::refresh();
+            $this->bouncer->refresh();
         }
     }
 
@@ -79,13 +78,13 @@ class UserRepository extends Repository
                 ->delete();
         }
 
-        $user->retract(Bouncer::role()->all());
+        $user->retract($this->bouncer->role()->all());
 
         if (isset($fields['roles'])) {
             $user->assign($fields['roles']);
         }
 
-        Bouncer::refresh();
+        $this->bouncer->refresh();
 
         return true;
     }
@@ -94,16 +93,16 @@ class UserRepository extends Repository
     {
         foreach (ServerPermissionHelper::getAllPermissions() as $pname) {
             if (isset($disabledPermissions[$pname]) && $disabledPermissions[$pname]) {
-                Bouncer::forbid($user)->to($pname, $server);
+                $this->bouncer->forbid($user)->to($pname, $server);
                 $user->disallow($pname, $server);
             } else {
-                Bouncer::unforbid($user)->to($pname, $server);
+                $this->bouncer->unforbid($user)->to($pname, $server);
                 $user->allow($pname, $server);
             }
         }
 
         $user->servers()->syncWithoutDetaching([$server->id]);
 
-        Bouncer::refresh();
+        $this->bouncer->refreshFor($user);
     }
 }

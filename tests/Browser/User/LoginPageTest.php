@@ -1,17 +1,12 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\User;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
+use Tests\Browser\BrowserTestCase;
 
-class LoginPageTest extends DuskTestCase
+class LoginPageTest extends BrowserTestCase
 {
-    /**
-     * @return void
-     * @throws \Throwable
-     */
     public function testRedirect()
     {
         $this->browse(function (Browser $browser) {
@@ -21,9 +16,6 @@ class LoginPageTest extends DuskTestCase
         });
     }
 
-    /**
-     * @throws \Throwable
-     */
     public function testLogin()
     {
         $this->browse(function (Browser $browser) {

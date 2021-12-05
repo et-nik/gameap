@@ -4,12 +4,11 @@ namespace Tests\Browser\Admin;
 
 use Facebook\WebDriver\WebDriverKeys;
 use Gameap\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
+use Tests\Browser\BrowserTestCase;
 use Tests\Context\Browser\Models\ServerContextTrait;
-use Tests\DuskTestCase;
 
-class UsersTests extends DuskTestCase
+class UsersTests extends BrowserTestCase
 {
     use ServerContextTrait;
 
