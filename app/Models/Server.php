@@ -199,13 +199,11 @@ class Server extends Model
 
     public function getSetting(string $key): ServerSetting
     {
-        $value = $this->settings->where('name', $key)->first()
+        return $this->settings->where('name', $key)->first()
         ?? new ServerSetting([
             'server_id' => $this->id,
             'name'      => $key,
             'value'     => false,
         ]);
-
-        return $value;
     }
 }

@@ -12,13 +12,6 @@ use Gameap\Repositories\GdaemonTaskRepository;
 class ServerControlService
 {
     /**
-     * The ServerRepository instance.
-     *
-     * @var \Gameap\Repositories\ServerRepository
-     */
-    public $repository;
-
-    /**
      * The GdaemonTaskRepository instance.
      *
      * @var GdaemonTaskRepository
@@ -30,104 +23,42 @@ class ServerControlService
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
-    /**
-     * @param Server $server
-     * @return int
-     *
-     * @throws EmptyServerStartCommandException
-     * @throws InvalidServerStartCommandException
-     * @throws RecordExistExceptions
-     */
-    public function start(Server $server)
+    public function start(Server $server): int
     {
-        $autostartSetting = $server->settings->where('name', 'autostart')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart',
-                'value'     => true,
-            ]);
+        $autostartSetting = $server->getSetting(Server::AUTOSTART_SETTING_KEY);
 
         if ($autostartSetting->value == true) {
-            $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
-                ?? new ServerSetting([
-                    'server_id' => $server->id,
-                    'name'      => 'autostart_current',
-                    'value'     => true,
-                ]);
-
+            $autostartCurrentSetting = $server->getSetting(Server::AUTOSTART_CURRENT_SETTING_KEY);
             $autostartCurrentSetting->value = true;
             $autostartCurrentSetting->save();
         }
 
-        $gdaemonTaskId = $this->gdaemonTaskRepository->addServerStart($server);
-        return $gdaemonTaskId;
+        return $this->gdaemonTaskRepository->addServerStart($server);
     }
 
-    /**
-     * @param Server $server
-     * @return int
-     *
-     * @throws EmptyServerStartCommandException
-     * @throws InvalidServerStartCommandException
-     * @throws RecordExistExceptions
-     */
-    public function stop(Server $server)
+    public function stop(Server $server): int
     {
-        $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart_current',
-                'value'     => true,
-            ]);
-
+        $autostartCurrentSetting = $server->getSetting(Server::AUTOSTART_CURRENT_SETTING_KEY);
         $autostartCurrentSetting->value = false;
         $autostartCurrentSetting->save();
 
-        $gdaemonTaskId = $this->gdaemonTaskRepository->addServerStop($server);
-        return $gdaemonTaskId;
+        return $this->gdaemonTaskRepository->addServerStop($server);
     }
 
-    /**
-     * @param Server $server
-     * @return int
-     *
-     * @throws EmptyServerStartCommandException
-     * @throws InvalidServerStartCommandException
-     * @throws RecordExistExceptions
-     */
-    public function restart(Server $server)
+    public function restart(Server $server): int
     {
-        $autostartSetting = $server->settings->where('name', 'autostart')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart',
-                'value'     => true,
-            ]);
+        $autostartSetting = $server->getSetting(Server::AUTOSTART_SETTING_KEY);
 
-        if ($autostartSetting->value == true) {
-            $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
-                ?? new ServerSetting([
-                    'server_id' => $server->id,
-                    'name'      => 'autostart_current',
-                    'value'     => true,
-                ]);
-
+        if ($autostartSetting->value) {
+            $autostartCurrentSetting = $server->getSetting(Server::AUTOSTART_CURRENT_SETTING_KEY);
+            $autostartCurrentSetting->value = true;
             $autostartCurrentSetting->save();
         }
 
-        $gdaemonTaskId = $this->gdaemonTaskRepository->addServerRestart($server);
-        return $gdaemonTaskId;
+        return $this->gdaemonTaskRepository->addServerRestart($server);
     }
 
-    /**
-     * @param Server $server
-     * @return int
-     *
-     * @throws EmptyServerStartCommandException
-     * @throws InvalidServerStartCommandException
-     * @throws RecordExistExceptions
-     */
-    public function update(Server $server)
+    public function update(Server $server): int
     {
         $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server);
         return $gdaemonTaskId;

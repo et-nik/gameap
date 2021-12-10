@@ -17,6 +17,7 @@
         "ext-openssl": "*",
         "ext-pdo": "*",
         "ext-zip": "*",
+        "ext-intl": "*",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
         "fakerphp/faker": "^1.13.0",

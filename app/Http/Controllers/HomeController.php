@@ -6,22 +6,32 @@ use Gameap\Http\Requests\SendBugRequest;
 use Gameap\Repositories\Modules\LaravelModulesRepository;
 use Gameap\Services\GlobalApi;
 use Gameap\Services\InfoService;
+use Gameap\Services\ProblemFinder;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
+    const LATEST_VERSION_CACHE_TTL_IN_SECONDS = 3600;
+
     /** @var InfoService */
     private $infoService;
 
     /** @var LaravelModulesRepository */
     private $laravelModulesRepository;
 
-    public function __construct(InfoService $infoService, LaravelModulesRepository $laravelModulesRepository)
-    {
+    /** @var ProblemFinder */
+    private $problemFinder;
+
+    public function __construct(
+        InfoService $infoService,
+        LaravelModulesRepository $laravelModulesRepository,
+        ProblemFinder $problemFinder
+    ) {
         $this->middleware('auth');
 
         $this->infoService              = $infoService;
         $this->laravelModulesRepository = $laravelModulesRepository;
+        $this->problemFinder            = $problemFinder;
     }
 
     /**
@@ -32,13 +42,21 @@ class HomeController extends Controller
     public function index()
     {
         $infoService   = $this->infoService;
-        $latestVersion = Cache::remember('latestVersion', 3600, static function () use ($infoService) {
-            return $infoService->latestRelease();
-        });
-
+        $latestVersion = Cache::remember(
+            'latestVersion',
+            self::LATEST_VERSION_CACHE_TTL_IN_SECONDS,
+            static function () use ($infoService) {
+                return $infoService->latestRelease();
+            }
+        );
         $modules = $this->laravelModulesRepository->getCachedEnabled();
+        $problems = $this->problemFinder->find();
         
-        return view('home', compact('latestVersion', 'modules'));
+        return view('home', [
+            'latestVersion' => $latestVersion,
+            'modules'       => $modules,
+            'problems'      => $problems,
+        ]);
     }
 
     /**

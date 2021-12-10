@@ -27,6 +27,11 @@ class DedicatedServersRepository extends Repository
         $this->clientCertificateRepository = $clientCertificateRepository;
     }
 
+    public function find()
+    {
+        return DedicatedServer::all();
+    }
+
     /**
      * @param int $perPage
      * @return mixed
