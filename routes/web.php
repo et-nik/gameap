@@ -32,10 +32,10 @@ Route::bind('anyserver', function ($id) {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('client_certificates','Admin\\ClientCertificatesController', ['as' => 'admin', 'except' => ['edit']]);
-    Route::name('admin.dedicated_servers.download_debug')
+    Route::name('admin.dedicated_servers.download_logs')
         ->get(
-            'dedicated_servers/{dedicated_server}/debug.zip',
-            'Admin\\DedicatedServersController@downloadDebug'
+            'dedicated_servers/{dedicated_server}/logs.zip',
+            'Admin\\DedicatedServersController@downloadLogs'
         );
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);

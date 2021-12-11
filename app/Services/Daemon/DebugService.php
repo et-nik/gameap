@@ -7,7 +7,7 @@ use Gameap\Models\DedicatedServer;
 use Knik\Gameap\GdaemonFiles;
 use ZipArchive;
 
-class DownloadDebugService
+class DebugService
 {
     const LINUX_LOG_PATH = '/var/log/gameap-daemon';
     const WINDOWS_LOG_PATH = 'C:/gameap/daemon/logs';
@@ -20,20 +20,20 @@ class DownloadDebugService
         $this->gdaemonFiles = $gdaemonFiles;
     }
 
-    public function download(DedicatedServer $dedicatedServer): string
+    public function downloadLogs(DedicatedServer $dedicatedServer): string
     {
-        return $this->downloadFiles($dedicatedServer);
-    }
-
-    private function downloadFiles(DedicatedServer $dedicatedServer): string
-    {
-        $this->gdaemonFiles->setConfig($dedicatedServer->gdaemonSettings());
-
         if ($dedicatedServer->isLinux()) {
             $logPath = self::LINUX_LOG_PATH;
         } else {
             $logPath = self::WINDOWS_LOG_PATH;
         }
+
+        return $this->downloadFiles($dedicatedServer, $logPath);
+    }
+
+    private function downloadFiles(DedicatedServer $dedicatedServer, $path): string
+    {
+        $this->gdaemonFiles->setConfig($dedicatedServer->gdaemonSettings());
 
         $tmpDir = OsHelper::makeTempDirectory();
 
@@ -41,8 +41,8 @@ class DownloadDebugService
         $zip = new ZipArchive();
         $zip->open($zipFilePath, ZipArchive::CREATE);
 
-        foreach ($this->gdaemonFiles->listFiles($logPath) as $fileName) {
-            $fullPath = $logPath . '/' . $fileName;
+        foreach ($this->gdaemonFiles->listFiles($path) as $fileName) {
+            $fullPath = $path . '/' . $fileName;
             $destination = $tmpDir . '/' . $fileName;
 
             $this->gdaemonFiles->get($fullPath, $destination);

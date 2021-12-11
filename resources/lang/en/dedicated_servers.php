@@ -27,6 +27,7 @@ return [
     'ip'                => 'IP',
     'os'                => 'OS',
     'servers_count'     => 'Servers count',
+    'download_logs'     => 'Download logs',
 
     'scripts'           => 'Scripts',
     'edit_scripts'      => 'Edit scripts',

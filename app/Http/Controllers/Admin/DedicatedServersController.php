@@ -7,7 +7,7 @@ use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Services\Daemon\DownloadDebugService;
+use Gameap\Services\Daemon\DebugService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -23,12 +23,12 @@ class DedicatedServersController extends AuthController
      */
     protected $repository;
 
-    /** @var DownloadDebugService */
+    /** @var DebugService */
     protected $downloadDebugService;
 
     public function __construct(
         DedicatedServersRepository $repository,
-        DownloadDebugService $downloadDebugService
+        DebugService $downloadDebugService
     ) {
         parent::__construct();
 
@@ -180,15 +180,15 @@ class DedicatedServersController extends AuthController
             ->with('success', __('dedicated_servers.delete_success_msg'));
     }
 
-    public function downloadDebug(DedicatedServer $dedicatedServer)
+    public function downloadLogs(DedicatedServer $dedicatedServer)
     {
         try {
-            $zipPath = $this->downloadDebugService->download($dedicatedServer);
+            $zipPath = $this->downloadDebugService->downloadLogs($dedicatedServer);
         } catch (RuntimeException $exception) {
             return redirect()->route('admin.dedicated_servers.show', [$dedicatedServer->id])
                 ->with('error', $exception->getMessage());
         }
 
-        return response()->download($zipPath, "debug.zip");
+        return response()->download($zipPath, "logs.zip");
     }
 }
