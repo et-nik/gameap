@@ -6,7 +6,7 @@ use Gameap\Http\Requests\SendBugRequest;
 use Gameap\Repositories\Modules\LaravelModulesRepository;
 use Gameap\Services\GlobalApi;
 use Gameap\Services\InfoService;
-use Gameap\Services\ProblemFinder;
+use Gameap\Services\ProblemFinderService;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
@@ -19,13 +19,13 @@ class HomeController extends Controller
     /** @var LaravelModulesRepository */
     private $laravelModulesRepository;
 
-    /** @var ProblemFinder */
+    /** @var ProblemFinderService */
     private $problemFinder;
 
     public function __construct(
         InfoService $infoService,
         LaravelModulesRepository $laravelModulesRepository,
-        ProblemFinder $problemFinder
+        ProblemFinderService $problemFinder
     ) {
         $this->middleware('auth');
 

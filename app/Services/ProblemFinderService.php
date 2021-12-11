@@ -5,7 +5,7 @@ namespace Gameap\Services;
 use Gameap\Repositories\DedicatedServersRepository;
 use Knik\Gameap\GdaemonStatus;
 
-class ProblemFinder
+class ProblemFinderService
 {
     private const REQUIRED_EXTENSIONS = ['gd', 'openssl', 'curl', 'gmp', 'intl', 'json', 'zip', 'mbstring'];
 

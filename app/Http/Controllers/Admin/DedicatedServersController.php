@@ -7,6 +7,7 @@ use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Services\Daemon\DownloadDebugService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -22,16 +23,17 @@ class DedicatedServersController extends AuthController
      */
     protected $repository;
 
-    /**
-     * Create a new DedicatedServersController instance.
-     *
-     * @param  \Gameap\Repositories\DedicatedServersRepository $repository
-     */
-    public function __construct(DedicatedServersRepository $repository)
-    {
+    /** @var DownloadDebugService */
+    protected $downloadDebugService;
+
+    public function __construct(
+        DedicatedServersRepository $repository,
+        DownloadDebugService $downloadDebugService
+    ) {
         parent::__construct();
 
-        $this->repository = $repository;
+        $this->repository           = $repository;
+        $this->downloadDebugService = $downloadDebugService;
     }
 
     /**
@@ -176,5 +178,17 @@ class DedicatedServersController extends AuthController
 
         return redirect()->route('admin.dedicated_servers.index')
             ->with('success', __('dedicated_servers.delete_success_msg'));
+    }
+
+    public function downloadDebug(DedicatedServer $dedicatedServer)
+    {
+        try {
+            $zipPath = $this->downloadDebugService->download($dedicatedServer);
+        } catch (RuntimeException $exception) {
+            return redirect()->route('admin.dedicated_servers.show', [$dedicatedServer->id])
+                ->with('error', $exception->getMessage());
+        }
+
+        return response()->download($zipPath, "debug.zip");
     }
 }
