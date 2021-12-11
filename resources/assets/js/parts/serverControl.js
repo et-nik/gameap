@@ -40,7 +40,7 @@ if( document.getElementById("serverControl") ) {
                     this.detailError = true;
                 }
 
-                if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'reinstall']) !== -1) {
+                if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'install', 'reinstall']) !== -1) {
                     gameap.confirm(i18n.main.confirm_message, function() {
                         axios.post('/api/servers/' + command + '/' + gameap.serverId)
                             .then(function (response) {
@@ -100,6 +100,11 @@ if( document.getElementById("serverControl") ) {
                         this.setTaskError(i18n.servers.restart_fail_msg);
                     }
                 };
+            },
+            installServer: function(serverId) {
+                this.serverId = serverId;
+                this.checkServerStatusAfterTask = false;
+                this.serverCommand('install', serverId);
             },
             updateServer: function(serverId) {
                 this.serverId = serverId;

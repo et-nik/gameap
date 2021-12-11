@@ -63,4 +63,10 @@ class ServerControlService
         $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server);
         return $gdaemonTaskId;
     }
+
+    public function install(Server $server): int
+    {
+        $gdaemonTaskId = $this->gdaemonTaskRepository->addServerInstall($server);
+        return $gdaemonTaskId;
+    }
 }
