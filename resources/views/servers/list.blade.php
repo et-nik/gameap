@@ -59,7 +59,7 @@
                             </a>&nbsp;';
                     }
                 } else if ($serverModel->installed === $serverModel::NOT_INSTALLED && Auth::user()->can('server-update', $serverModel)) {
-                    $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="updateServer(' . $serverModel->id . ')">
+                    $buttons .= '<a class="btn btn-small btn-warning btn-sm" href="#" @click="installServer(' . $serverModel->id . ')">
                             <span class="fas fa-download"></span>&nbsp;' . __('servers.install') . '
                         </a>&nbsp;';
                 }

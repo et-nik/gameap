@@ -101,13 +101,33 @@ class GdaemonTaskRepository extends Repository
      */
     public function addServerUpdate(Server $server, int $runAftId = 0)
     {
-        $this->workingTaskNotExistOrFail($server, GdaemonTask::TASK_SERVER_UPDATE, 'Server update/install task is already exists');
+        $this->workingTaskNotExistOrFail(
+            $server,
+            [GdaemonTask::TASK_SERVER_UPDATE, GdaemonTask::TASK_SERVER_INSTALL],
+            'Server update/install task is already exists'
+        );
         
         return GdaemonTask::create([
             'run_aft_id'          => $runAftId,
             'dedicated_server_id' => $server->ds_id,
             'server_id'           => $server->id,
             'task'                => GdaemonTask::TASK_SERVER_UPDATE,
+        ])->id;
+    }
+
+    public function addServerInstall(Server $server, int $runAftId = 0)
+    {
+        $this->workingTaskNotExistOrFail(
+            $server,
+            [GdaemonTask::TASK_SERVER_UPDATE, GdaemonTask::TASK_SERVER_INSTALL],
+            'Server update/install task is already exists'
+        );
+
+        return GdaemonTask::create([
+            'run_aft_id'          => $runAftId,
+            'dedicated_server_id' => $server->ds_id,
+            'server_id'           => $server->id,
+            'task'                => GdaemonTask::TASK_SERVER_INSTALL,
         ])->id;
     }
 
@@ -158,7 +178,7 @@ class GdaemonTaskRepository extends Repository
     public function getTasks(int $serverId, $task, $status)
     {
         if (is_array($task)) {
-            $taskQuery = GdaemonTask::whereIn(['task', $task])->where([['server_id', '=', $serverId]]);
+            $taskQuery = GdaemonTask::whereIn('task', $task)->where([['server_id', '=', $serverId]]);
         } else {
             $taskQuery = GdaemonTask::where([
                 ['task', '=', $task],
@@ -237,7 +257,7 @@ class GdaemonTaskRepository extends Repository
     private function workingTaskNotExistOrFail(Server $server, $task, $failMsg = 'Task is already exists'): void
     {
         if (is_array($task)) {
-            $taskQuery = GdaemonTask::whereIn(['task', $task])->where([['server_id', '=', $server->id]]);
+            $taskQuery = GdaemonTask::whereIn('task', $task)->where([['server_id', '=', $server->id]]);
         } else {
             $taskQuery = GdaemonTask::where([
                 ['task', '=', $task],

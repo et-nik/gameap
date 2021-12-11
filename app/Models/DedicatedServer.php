@@ -149,7 +149,7 @@ class DedicatedServer extends Model
 
             'privateKeyPass' => $this->clientCertificate->private_key_pass,
             'workDir'        => $this->work_path,
-            'timeout'        => 10,
+            'timeout'        => 1,
         ];
     }
 

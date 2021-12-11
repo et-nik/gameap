@@ -23,6 +23,7 @@ return [
     'dev_version'       => 'Your GameAP version is unknown or dev',
 
     'information'       => 'Information',
+    'problems'          => 'Problems',
     'get_help'          => 'Get Help',
     'documentation'     => 'Documentation',
     'report_bug'        => 'Report a bug',
@@ -33,4 +34,9 @@ return [
                         Some functions of the panel will not work correctly without the necessary extensions',
 
     'send_bug_success_msg' => 'Error message sent successfully',
+
+    'problems_list'     => [
+        'required_extenstions_are_missed' => 'Required PHP extenstions are missed: :extensions',
+        'nodes_is_not_available'          => 'Some dedicated servers are not available. Failed to connect to the following dedicated servers: :nodes'
+    ]
 ];

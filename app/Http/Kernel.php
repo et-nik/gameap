@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'guest'                    => \Gameap\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'                 => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'isAdmin'                  => \Gameap\Http\Middleware\AdminMiddleware::class,
+        'preferLanguage'           => \Gameap\Http\Middleware\PreferLanguageMiddleware::class,
         'gdaemonApiAuth'           => \Gameap\Http\Middleware\GdaemonApiAuth::class,
         'gdaemonVerifyApiToken'    => \Gameap\Http\Middleware\VerifyGdaemonApiToken::class,
         'gdaemonVerifySetupToken'  => \Gameap\Http\Middleware\VerifyGdaemonSetupToken::class,

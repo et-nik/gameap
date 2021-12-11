@@ -97,7 +97,7 @@ class ServerRepository
         $server = Server::create($attributes);
 
         if ($addInstallTask) {
-            $this->gdaemonTaskRepository->addServerUpdate($server);
+            $this->gdaemonTaskRepository->addServerInstall($server);
         }
     }
 

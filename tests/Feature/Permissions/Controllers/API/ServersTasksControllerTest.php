@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Permissions\Controllers\API;
 
-use Gameap\Models\GameMod;
 use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
 use Illuminate\Http\Response;
+use Silber\Bouncer\Bouncer;
 use Tests\TestCase;
-use Bouncer;
 
 /**
  * @covers \Gameap\Http\Controllers\API\ServersTasksController
@@ -24,6 +23,9 @@ class ServersTasksControllerTest extends TestCase
     /** @var UserRepository */
     protected $userRepository;
 
+    /** @var Bouncer */
+    protected $bouncer;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -31,13 +33,15 @@ class ServersTasksControllerTest extends TestCase
         $this->user = factory(User::class)->create();
         $this->be($this->user);
 
-        $this->userRepository = new UserRepository($this->user);
+        $this->bouncer = $this->app->get(Bouncer::class);
+
+        $this->userRepository = new UserRepository($this->bouncer);
     }
 
     public function testForbidden()
     {
-        Bouncer::sync($this->user)->roles(['user']);
-        Bouncer::refresh();
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
 
         /** @var Server $server */
         $server = factory(Server::class)->create();
@@ -78,9 +82,8 @@ class ServersTasksControllerTest extends TestCase
 
     public function testAllow()
     {
-        Bouncer::sync($this->user)->roles(['user']);
-        Bouncer::refresh();
-
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
         /** @var Server $server */
         $server = factory(Server::class)->create();
         $this->userRepository->updateServerPermission($this->user, $server, []);
@@ -134,8 +137,8 @@ class ServersTasksControllerTest extends TestCase
      */
     public function testForbiddenCommands($command, $ability)
     {
-        Bouncer::sync($this->user)->roles(['user']);
-        Bouncer::refresh();
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
 
         /** @var Server $server */
         $server = factory(Server::class)->create();
@@ -174,8 +177,8 @@ class ServersTasksControllerTest extends TestCase
 
     public function testAllowAdmin()
     {
-        Bouncer::sync($this->user)->roles(['admin']);
-        Bouncer::refresh();
+        $this->bouncer->sync($this->user)->roles(['admin']);
+        $this->bouncer->refresh();
 
         /** @var Server $server */
         $server = factory(Server::class)->create();

@@ -47,6 +47,23 @@
         </div>
     </div>
 
+    @can('admin roles & permissions')
+        @if (!empty($problems))
+            <div class="card mb-2">
+                <div class="card-header">
+                    <i class="fas fa-exclamation-triangle"></i> {{ __('home.problems') }}
+                </div>
+                <div class="card-body">
+                    @foreach ($problems as $problem)
+                        <div class="alert alert-danger" role="alert">
+                            {{ $problem }}
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+    @endcan
+
     <div class="card mb-2">
         <div class="card-header">
             {{ __('home.information') }}
@@ -62,11 +79,6 @@
                         {{ __('home.latest_stable') }}: <span class="text-nowrap">{{ $latestVersion }}</span>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-12">
-                <i class="fab fa-github"></i> GitHub:
-                <a href="https://github.com/et-nik/gameap">https://github.com/et-nik/gameap</a>
             </div>
         </div>
     </div>

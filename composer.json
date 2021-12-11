@@ -17,6 +17,7 @@
         "ext-openssl": "*",
         "ext-pdo": "*",
         "ext-zip": "*",
+        "ext-intl": "*",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
         "fakerphp/faker": "^1.13.0",
@@ -39,7 +40,7 @@
         "moontoast/math": "^1.1",
         "nwidart/laravel-modules": "^6.0",
         "phpseclib/phpseclib": "^2.0.33",
-        "silber/bouncer": "v1.0.0-rc.10",
+        "silber/bouncer": "v1.0.0-rc.11",
         "spatie/laravel-query-builder": "^3.6.0",
         "splitbrain/php-archive": "^1.2"
     },
@@ -78,12 +79,6 @@
         "module-dir": "modules"
     },
     "scripts": {
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"

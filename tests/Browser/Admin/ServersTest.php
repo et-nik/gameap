@@ -4,75 +4,25 @@ namespace Tests\Browser\Admin;
 
 use Gameap\Models\User;
 use Laravel\Dusk\Browser;
+use Tests\Browser\BrowserTestCase;
+use Tests\Context\Browser\DaemonContextTrait;
 use Tests\Context\Browser\Models\GameContextTrait;
 use Tests\Context\Browser\Models\GameModContextTrait;
 use Tests\Context\Browser\Models\ServerContextTrait;
-use Tests\DuskTestCase;
 
-class ServersTest extends DuskTestCase
+class ServersTest extends BrowserTestCase
 {
-    use ServerContextTrait;
     use GameContextTrait;
     use GameModContextTrait;
-
-    public function testCreate()
-    {
-        //$this->givenGame();
-        $this->givenGameMod();
-
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
-                ->visit('/home')
-                ->clickLink('Game servers')
-                ->assertPathIs('/admin/servers')
-                ->clickLink('Create')
-                ->assertPathIs('/admin/servers/create')
-                ->assertDontSee('Leave blank to set automatically')
-                ->clickLink(__('main.more'))
-                ->waitFor('input[name=dir]', 2)
-                ->assertVisible('input[name=dir]')
-                ->type('name', 'Test')
-                ->select('game_id', 'test')
-                ->waitFor('#game_mod_id > option', 10)
-                ->select('game_mod_id')
-                ->type('dir', 'servers/test')
-                ->select('ds_id')
-                ->waitFor('#server_ip > option', 10)
-                ->select('server_ip')
-                ->scrollIntoView('input[type=submit]')
-                ->press(__('main.create'))
-                ->assertPathIs('/admin/servers')
-                ->assertSee(__('servers.create_success_msg'));
-
-            $browser->clickLink('GDaemon tasks')
-                ->assertPathIs('/admin/gdaemon_tasks')
-                ->click('table > tbody > tr:nth-child(1) > td.text-nowrap > a')
-                ->assertPathIs('/admin/gdaemon_tasks/*');
-
-            $browser->waitUsing(120, 2, function () use ($browser) {
-                $status = $browser->text('table > tbody > tr:nth-child(2) > td > span');
-
-                if ($status == 'waiting') {
-                    $browser->refresh();
-                }
-
-                return $status == 'success';
-            });
-
-            $browser->assertSee('Downloading successfully completed');
-
-            $this->assertDatabaseHas('servers', [
-                'name'              => 'Test',
-                'game_id'           => 'test',
-                'installed'         => 1,
-            ]);
-        });
-    }
+    use ServerContextTrait;
 
     public function testEdit()
     {
-        $this->browse(function (Browser $browser) {
-            $gameServer = $this->givenGameServer();
+        $this->givenGame();
+        $this->givenGameMod();
+        $gameServer = $this->givenGameServer();
+
+        $this->browse(function (Browser $browser) use($gameServer) {
             $browser->loginAs(User::find(1))
                 ->visit('/home')
                 ->assertPathIs('/home')

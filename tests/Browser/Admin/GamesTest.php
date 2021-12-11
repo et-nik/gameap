@@ -3,16 +3,20 @@
 namespace Tests\Browser\Admin;
 
 use Gameap\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
+use Tests\Browser\BrowserTestCase;
+use Tests\Context\Browser\Models\GameContextTrait;
+use Tests\Context\Browser\Models\GameModContextTrait;
+use Tests\Context\Browser\Models\ServerContextTrait;
+use Tests\Context\Browser\Models\UserContextTrait;
 use Tests\DuskTestCase;
 
-class GamesTest extends DuskTestCase
+class GamesTest extends BrowserTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
+    use GameContextTrait;
+    use GameModContextTrait;
+
     public function testCreateGame()
     {
         $this->browse(function (Browser $browser) {
@@ -26,7 +30,7 @@ class GamesTest extends DuskTestCase
                 ->type('start_code', 'test')
                 ->type('name', 'Test')
                 ->type('engine', 'Test')
-                ->type('engine_version', '1.0')
+                ->type('engine_version', '2.0')
                 ->type('remote_repository', 'http://files.gameap.ru/test/test.tar.xz')
                 ->scrollIntoView('input[type=submit]')
                 ->press(__('main.create'))
@@ -38,15 +42,20 @@ class GamesTest extends DuskTestCase
             'code'              => 'test',
             'name'              => 'Test',
             'engine'            => 'Test',
-            'engine_version'    => '1.0',
+            'engine_version'    => '2.0',
+            'remote_repository' => 'http://files.gameap.ru/test/test.tar.xz',
         ]);
     }
 
     public function testEditGame()
     {
+        $this->givenGame();
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
                 ->visit('/admin/games/test/edit')
+                ->type('name', 'Test Edited')
+                ->type('engine', 'Test Edited')
                 ->type('engine_version', '1.0.0')
                 ->scrollIntoView('input[type=submit]')
                 ->press(__('main.save'))
@@ -56,14 +65,16 @@ class GamesTest extends DuskTestCase
 
         $this->assertDatabaseHas('games', [
             'code'              => 'test',
-            'name'              => 'Test',
-            'engine'            => 'Test',
+            'name'              => 'Test Edited',
+            'engine'            => 'Test Edited',
             'engine_version'    => '1.0.0',
         ]);
     }
 
     public function testCreateMod()
     {
+        $this->givenGame();
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
                 ->visit('/home')
