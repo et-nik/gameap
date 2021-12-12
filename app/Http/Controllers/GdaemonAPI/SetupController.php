@@ -84,7 +84,7 @@ class SetupController extends BaseController
         $attributes['gdaemon_server_cert'] = CertificateService::ROOT_CA_CERT;
         
         $dedicatedServer = $this->repository->store($attributes);
-        $certificate     = Storage::get(CertificateService::getRootCert());
+        $certificate     = CertificateService::getRootCert();
         
         Cache::forget('gdaemonCreateToken');
         
