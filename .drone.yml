@@ -123,7 +123,7 @@ steps:
       - php artisan migrate:fresh --seed --force
       - mysqldump -h db -u homestead -p --password=secret homestead > gameap.sql
       - curl -O http://packages.gameap.ru/gameap/shared-build-artifacts.zip
-      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/publish --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
+      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs --exclude=/publish --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
       - unzip -o shared-build-artifacts.zip -d gameap-shared
       - cd gameap-shared
         && mv upload/gameap.sql gameap.sql
