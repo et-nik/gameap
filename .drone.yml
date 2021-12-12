@@ -88,7 +88,7 @@ steps:
     commands:
       - apt update && apt -y install rsync
       - mkdir gameap
-      - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
+      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs ./ gameap/
       - mkdir "publish"
       - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
     when:
@@ -112,7 +112,7 @@ steps:
       APP_URL: http://webserver
     commands:
       - apt update && apt -y install default-mysql-client zip unzip rsync
-      - rm -rf storage/app/certs
+      - rm -rf storage/app/certs/*
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
       - rm -rf storage/framework/views/*
