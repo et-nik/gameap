@@ -1,12 +1,11 @@
 <?php
 
-namespace Gameap\Services;
+namespace Gameap\Services\Daemon;
 
 use Carbon\Carbon;
 use Gameap\Exceptions\GameapException;
 use Illuminate\Support\Facades\Storage;
 use phpseclib\Crypt\RSA;
-
 use Sop\CryptoEncoding\PEM;
 use Sop\CryptoTypes\AlgorithmIdentifier\Hash\SHA256AlgorithmIdentifier;
 use Sop\CryptoTypes\AlgorithmIdentifier\Signature\SignatureAlgorithmIdentifierFactory;
@@ -70,6 +69,24 @@ class CertificateService
         Storage::put(self::ROOT_CA_KEY, $privateKey);
     }
 
+    public static function getRootKey(): string
+    {
+        if (!Storage::exists(self::ROOT_CA_KEY)) {
+            self::generateRoot();
+        }
+
+        return Storage::get(self::ROOT_CA_KEY);
+    }
+
+    public static function getRootCert(): string
+    {
+        if (!Storage::exists(self::ROOT_CA_CERT)) {
+            self::generateRoot();
+        }
+
+        return Storage::get(self::ROOT_CA_CERT);
+    }
+
     /**
      * Generate key and certificate. Sign certificate
      *
@@ -80,11 +97,7 @@ class CertificateService
      */
     public static function generate($certificatePath, $keyPath): void
     {
-        if (!Storage::exists(self::ROOT_CA_CERT)) {
-            self::generateRoot();
-        }
-
-        $privateKey = (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
+        $privateKey = self::generateKey();
 
         $privateKeyInfo = PrivateKeyInfo::fromPEM(
             PEM::fromString($privateKey)
@@ -113,6 +126,33 @@ class CertificateService
         Storage::put($keyPath, $privateKey);
     }
 
+    public static function generateKey(): string
+    {
+        return (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
+    }
+
+    public static function generateCsr(string $key): string
+    {
+        $privateKeyInfo = PrivateKeyInfo::fromPEM(
+            PEM::fromString($key)
+        );
+
+        $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
+
+        $subject = Name::fromString('CN=*, O=GameAP, C=RU');
+
+        $cri = new CertificationRequestInfo($subject, $publicKeyInfo);
+
+        $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
+            $privateKeyInfo->algorithmIdentifier(),
+            new SHA256AlgorithmIdentifier()
+        );
+
+        $csr = $cri->sign($algo, $privateKeyInfo);
+
+        return $csr;
+    }
+
     /**
      * @param $csr string   PEM string
      *
@@ -121,17 +161,13 @@ class CertificateService
      */
     public static function signCsr(string $csr)
     {
-        if (!Storage::exists(self::ROOT_CA_CERT)) {
-            self::generateRoot();
-        }
-
         // load CA's private key
         $privateKeyInfo = PrivateKeyInfo::fromPEM(
-            PEM::fromString(Storage::get(self::ROOT_CA_KEY))
+            PEM::fromString(self::getRootKey())
         );
         
         $issuerCert = Certificate::fromPEM(
-            PEM::fromString(Storage::get(self::ROOT_CA_CERT))
+            PEM::fromString(self::getRootCert())
         );
         
         $certificationRequest = CertificationRequest::fromPEM(PEM::fromString($csr));

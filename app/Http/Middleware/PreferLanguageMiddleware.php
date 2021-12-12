@@ -9,7 +9,7 @@ class PreferLanguageMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!extension_loaded('intl')) {
+        if (!extension_loaded('intl') || app()->getLocale() != '') {
             return $next($request);
         }
 
