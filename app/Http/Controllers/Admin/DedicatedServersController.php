@@ -2,17 +2,20 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
+use Gameap\Helpers\OsHelper;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
 use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Services\Daemon\CertificateService;
 use Gameap\Services\Daemon\DebugService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Knik\Gameap\GdaemonStatus;
 use RuntimeException;
+use ZipArchive;
 
 class DedicatedServersController extends AuthController
 {
@@ -24,7 +27,7 @@ class DedicatedServersController extends AuthController
     protected $repository;
 
     /** @var DebugService */
-    protected $downloadDebugService;
+    protected $debugService;
 
     public function __construct(
         DedicatedServersRepository $repository,
@@ -33,7 +36,7 @@ class DedicatedServersController extends AuthController
         parent::__construct();
 
         $this->repository           = $repository;
-        $this->downloadDebugService = $downloadDebugService;
+        $this->debugService = $downloadDebugService;
     }
 
     /**
@@ -180,15 +183,37 @@ class DedicatedServersController extends AuthController
             ->with('success', __('dedicated_servers.delete_success_msg'));
     }
 
-    public function downloadLogs(DedicatedServer $dedicatedServer)
+    public function logsZip(DedicatedServer $dedicatedServer)
     {
         try {
-            $zipPath = $this->downloadDebugService->downloadLogs($dedicatedServer);
+            $zipPath = $this->debugService->downloadLogs($dedicatedServer);
         } catch (RuntimeException $exception) {
             return redirect()->route('admin.dedicated_servers.show', [$dedicatedServer->id])
                 ->with('error', $exception->getMessage());
         }
 
         return response()->download($zipPath, "logs.zip");
+    }
+
+    public function certificatesZip(DedicatedServer $dedicatedServer)
+    {
+        $key                     = CertificateService::generateKey();
+        $csr                     = CertificateService::generateCsr($key);
+        $serverSignedCertificate = CertificateService::signCsr($csr);
+
+        $zipFilePath = OsHelper::tempFile();
+        $zip = new ZipArchive();
+        $zip->open($zipFilePath, ZipArchive::CREATE);
+        $zip->addFromString("server.key", $key);
+        $zip->addFromString("server.crt", $serverSignedCertificate);
+        $zip->addFromString("ca.crt", CertificateService::getRootCert());
+        $zip->addFromString(
+            "README.md",
+            "* Move this files to certs directory (For linux: /etc/gameap-daemon/certs/)\n" .
+            "* Edit gameap-daemon configuration, set `ca_certificate_file`, `certificate_chain_file` and `private_key_file`"
+        );
+        $zip->close();
+
+        return response()->download($zipFilePath, "certificates.zip");
     }
 }

@@ -5,7 +5,7 @@ namespace Gameap\Repositories;
 use Gameap\Exceptions\GameapException;
 use Gameap\Http\Requests\ClientCertificatesRequest;
 use Gameap\Models\ClientCertificate;
-use Gameap\Services\CertificateService;
+use Gameap\Services\Daemon\CertificateService;
 use Illuminate\Support\Facades\Storage;
 
 class ClientCertificateRepository extends Repository

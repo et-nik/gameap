@@ -4,7 +4,7 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Exceptions\GameapException;
 use Gameap\Repositories\DedicatedServersRepository;
-use Gameap\Services\CertificateService;
+use Gameap\Services\Daemon\CertificateService;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -84,7 +84,7 @@ class SetupController extends BaseController
         $attributes['gdaemon_server_cert'] = CertificateService::ROOT_CA_CERT;
         
         $dedicatedServer = $this->repository->store($attributes);
-        $certificate     = Storage::get(CertificateService::ROOT_CA_CERT);
+        $certificate     = Storage::get(CertificateService::getRootCert());
         
         Cache::forget('gdaemonCreateToken');
         
