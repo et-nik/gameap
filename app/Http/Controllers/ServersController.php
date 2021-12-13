@@ -3,30 +3,27 @@
 namespace Gameap\Http\Controllers;
 
 use Gameap\Http\Requests\ServerVarsRequest;
+use Gameap\Models\GdaemonTask;
 use Gameap\Models\Server;
 use Gameap\Models\ServerSetting;
+use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\RconService;
 
 class ServersController extends AuthController
 {
-    /**
-     * The ServerRepository instance.
-     *
-     * @var \Gameap\Repositories\ServerRepository
-     */
+    /** @var ServerRepository */
     protected $repository;
 
-    /**
-     * Create a new ServersController instance.
-     *
-     * @param ServerRepository $repository
-     */
-    public function __construct(ServerRepository $repository)
+    /** @var GdaemonTaskRepository */
+    protected $gdaemonTaskRepository;
+
+    public function __construct(ServerRepository $repository, GdaemonTaskRepository $gdaemonTaskRepository)
     {
         parent::__construct();
 
         $this->repository = $repository;
+        $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
     /**
@@ -65,7 +62,14 @@ class ServersController extends AuthController
                 'rconSupported' => $rconService->supportedFeatures($server)['rcon'],
             ]);
         } else {
-            $view = view('servers.not_active', ['server' => $server]);
+            $installationTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+                $server->id,
+                [GDaemonTask::TASK_SERVER_INSTALL, GDaemonTask::TASK_SERVER_UPDATE]
+            );
+            $view = view('servers.not_active', [
+                'server' => $server,
+                'installationTaskExists' => $installationTaskId !== 0,
+            ]);
         }
 
         return $view;

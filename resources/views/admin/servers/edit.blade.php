@@ -1,3 +1,10 @@
+@php
+/**
+ * @var $server \Gameap\Models\Server
+ *
+*/
+@endphp
+
 @php($title = __('servers.title_edit'))
 
 @extends('layouts.main')
@@ -48,19 +55,22 @@
                                         {{ Form::label('blocked', __('labels.blocked'), ['class' => 'form-check-label']) }}
                                     </div>
                                 </div>
-
-                                <div class="col-3">
-                                    <div class="form-check">
-                                        {{ Form::checkbox('installed', 'on', null, ['id' => 'installed', 'class' => 'form-check-input']) }}
-                                        {{ Form::label('installed', __('labels.installed'), ['class' => 'form-check-label']) }}
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
 
                         {{ Form::bsText('uuid', null, null, ['disabled' => 'disabled']) }}
                         {{ Form::bsText('name') }}
+
+                        <div class="form-group" id="installed">
+                            {{ Form::label('installed', __('servers.status'), ['class' => 'control-label']) }}
+                            {{ Form::select('installed', [
+                                    $server::NOT_INSTALLED        => ucfirst(__('servers.not_installed')),
+                                    $server::INSTALLED            => ucfirst(__('servers.installed')),
+                                    $server::INSTALLATION_PROCESS => ucfirst(__('servers.installation')),
+                                ], $server->installed, ['class' => 'form-control'])
+                            }}
+                        </div>
 
                         <game-mod-selector
                                 :games="{{ $games }}"
