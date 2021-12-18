@@ -1700,16 +1700,16 @@
         },
         {
             "name": "knik/gameap-daemon-client",
-            "version": "0.6.4",
+            "version": "0.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/et-nik/gameap-daemon-client.git",
-                "reference": "d2ce23bc0877d8d53a61a42e6b6b32cdde93ba7e"
+                "reference": "e903b848da755c3bb0537570b2fe4ea48913faed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/et-nik/gameap-daemon-client/zipball/d2ce23bc0877d8d53a61a42e6b6b32cdde93ba7e",
-                "reference": "d2ce23bc0877d8d53a61a42e6b6b32cdde93ba7e",
+                "url": "https://api.github.com/repos/et-nik/gameap-daemon-client/zipball/e903b848da755c3bb0537570b2fe4ea48913faed",
+                "reference": "e903b848da755c3bb0537570b2fe4ea48913faed",
                 "shasum": ""
             },
             "require": {
@@ -1741,9 +1741,9 @@
             "description": "GameAP Daemon PHP Client",
             "support": {
                 "issues": "https://github.com/et-nik/gameap-daemon-client/issues",
-                "source": "https://github.com/et-nik/gameap-daemon-client/tree/0.6.4"
+                "source": "https://github.com/et-nik/gameap-daemon-client/tree/0.6.5"
             },
-            "time": "2021-12-18T12:36:06+00:00"
+            "time": "2021-12-18T15:46:44+00:00"
         },
         {
             "name": "knik/gameq",
