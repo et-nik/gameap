@@ -32,6 +32,7 @@ return [
     'enabled'       => 'Enabled',
 
     'not_installed' => 'not installed',
+    'installed'     => 'installed',
     'installation'  => 'installation',
 
     'disabled'      => 'disabled',
@@ -105,6 +106,15 @@ return [
     'd_dir' => 'Leave blank to set automatically. 
         Path relative to the working directory of the dedicated server. 
         <br> Example: <strong>servers/my_server</strong>',
+
+    'd_installation_is_stuck' => 'It looks like the server installation is stuck. ' .
+        'This could have happened due to an error in the GameAP Daemon or for some other reason. ' .
+        'The following steps will help you fix the problem: ' .
+        '<ul>' .
+        '<li>Check the GameAP Daemon is working;</li>' .
+        '<li>Restart GameAP Daemon;</li>' .
+        '<li>Set the server status manually. Go to the administration of the game server and change the server status.</li>' .
+        '<ul>',
 
     'delete_confirm_msg' => 'Are you sure to delete game server?',
 
