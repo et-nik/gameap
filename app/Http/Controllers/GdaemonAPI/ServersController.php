@@ -2,7 +2,7 @@
 
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
-use Gameap\Http\Requests\GdaemonAPI\ServerBulkRequest;
+use Gameap\Http\Requests\GdaemonAPI\JsonServerBulkRequest;
 use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
@@ -58,7 +58,7 @@ class ServersController extends Controller
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
 
-    public function updateBulk(ServerBulkRequest $request): JsonResponse
+    public function updateBulk(JsonServerBulkRequest $request): JsonResponse
     {
         $this->repository->saveBatch($request->values());
 

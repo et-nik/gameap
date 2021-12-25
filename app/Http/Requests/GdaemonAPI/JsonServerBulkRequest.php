@@ -4,7 +4,7 @@ namespace Gameap\Http\Requests\GdaemonAPI;
 
 use Illuminate\Support\Arr;
 
-class ServerBulkRequest extends JsonRequest
+class JsonServerBulkRequest extends JsonRequest
 {
     public function rules(): array
     {
@@ -20,6 +20,6 @@ class ServerBulkRequest extends JsonRequest
     {
         return array_map(function ($v) {
             return Arr::only($v, ['id', 'installed', 'process_active', 'last_process_check']);
-        }, $this->all());
+        }, $this->json()->all());
     }
 }

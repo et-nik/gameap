@@ -3,7 +3,7 @@
 namespace Tests\Unit\Controllers\GdaemonAPI;
 
 use Gameap\Http\Controllers\GdaemonAPI\ServersController;
-use Gameap\Http\Requests\GdaemonAPI\ServerBulkRequest;
+use Gameap\Http\Requests\GdaemonAPI\JsonServerBulkRequest;
 use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
@@ -106,7 +106,7 @@ class ServersControllerTest extends TestCase
     {
         /** @var ServersController $controller */
         $controller = $this->container->make(ServersController::class);
-        $request = new ServerBulkRequest([
+        $request = new JsonServerBulkRequest([
             [
                 'id' => $this->server->id,
                 'installed' => 2,
