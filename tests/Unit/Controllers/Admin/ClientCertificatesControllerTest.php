@@ -45,6 +45,7 @@ class ClientCertificatesControllerTest extends TestCase
         ]);
 
         $response = $this->controller->index();
+
         $this->assertInstanceOf(\Illuminate\View\View::class, $response);
     }
 

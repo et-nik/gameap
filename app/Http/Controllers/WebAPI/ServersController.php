@@ -120,6 +120,38 @@ class ServersController extends AuthController
     }
 
     /**
+     * @param Server $server
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function install(Server $server)
+    {
+        $this->authorize('server-control', $server);
+        $this->authorize('server-update', $server);
+
+        try {
+            $gdaemonTaskId = $this->serverControlService->install($server);
+        } catch (RecordExistExceptions $exception) {
+            $gdaemonTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+                $server->id,
+                GdaemonTask::TASK_SERVER_INSTALL
+            );
+
+            if (!$gdaemonTaskId) {
+                return $this->makeErrorResponse($exception->getMessage());
+            }
+        }
+
+        return [
+            'gdaemonTaskId' => $gdaemonTaskId,
+        ];
+    }
+
+    /**
+     * @param Server $server
+     * @return array|\Illuminate\Http\JsonResponse
+     *
      * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -130,7 +162,7 @@ class ServersController extends AuthController
 
         try {
             $deleteTaskId  = $this->gdaemonTaskRepository->addServerDelete($server);
-            $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server, $deleteTaskId);
+            $gdaemonTaskId = $this->gdaemonTaskRepository->addServerInstall($server, $deleteTaskId);
         } catch (RecordExistExceptions $exception) {
             return $this->makeErrorResponse($exception->getMessage());
         }

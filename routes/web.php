@@ -33,6 +33,16 @@ Route::bind('anyserver', function ($id) {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('client_certificates','Admin\\ClientCertificatesController', ['as' => 'admin', 'except' => ['edit']]);
+    Route::name('admin.dedicated_servers.download_logs')
+        ->get(
+            'dedicated_servers/{dedicated_server}/logs.zip',
+            'Admin\\DedicatedServersController@logsZip'
+        );
+    Route::name('admin.dedicated_servers.download_certificates')
+        ->get(
+            'dedicated_servers/{dedicated_server}/certificates.zip',
+            'Admin\\DedicatedServersController@certificatesZip'
+        );
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
 
@@ -114,4 +124,14 @@ Route::middleware('auth:sanctum')->get('/test', function (Request $request) {
         'tokenCan-server-create' => $user->tokenCan('server:create'),
         'user'     => $user,
     ];
+});
+
+Route::get('.well-known/{action}', function (string $action) {
+    switch ($action) {
+        case 'change-password':
+            return response()->redirectToRoute('profile.change_password');
+    }
+
+    return response()->redirectToRoute('home');
+
 });

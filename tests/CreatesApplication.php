@@ -19,4 +19,10 @@ trait CreatesApplication
 
         return $app;
     }
+
+    public function loadFixtures(): void
+    {
+        $this->artisan('db:seed');
+        $this->artisan('db:seed', ['--class' => 'DedicatedServersTableSeeder']);
+    }
 }

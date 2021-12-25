@@ -21,7 +21,7 @@
 
                             <div class="row">
                                 <div class="col-6"><i class="fas fa-comment-alt"></i> Forum: <a target="_blank" href="https://forum.gameap.ru">https://forum.gameap.ru</a></div>
-                                <div class="col-6"><i class="fab fa-vk"></i> VK Group (Russian): <a target="_blank" href="https://vk.com/gameap_group">https://vk.com/gameap_group</a></div>
+                                <div class="col-6"><i class="fab fa-vk"></i> VK Group (Russian): <a target="_blank" href="https://vk.com/gameap">https://vk.com/gameap</a></div>
                                 <div class="col-6"><i class="fab fa-discord"></i> Discord <a href="https://discord.gg/SqtHpZc">https://discord.gg/SqtHpZc</a></div>
                                 <div class="col-6"><i class="fab fa-telegram-plane"></i> Telegram chat: <a href="http://t.me/game_admin_panel">http://t.me/game_admin_panel</a></div>
                                 <div class="col-6"><i class="fab fa-telegram-plane"></i> Developer Telegram: <a href="http://t.me/k_nik">http://t.me/k_nik</a></div>
@@ -44,7 +44,6 @@
 
                             <ul>
                                 <li><a href="https://github.com/iTeeLion">Sergey Abu</a>. For his contribution to the panel, game servers settings, bug reports.</li>
-                                <li><a href="http://free-www.ru">Free-WWW</a> hosting. For machines for testing the panel.</li>
                             </ul>
                         </div>
                     </div>
@@ -65,7 +64,7 @@
 
                             <div class="row">
                                 <div class="col-6"><i class="fas fa-comment-alt"></i> Форум: <a target="_blank" href="https://forum.gameap.ru">https://forum.gameap.ru</a></div>
-                                <div class="col-6"><i class="fab fa-vk"></i> Группа ВК: <a target="_blank" href="https://vk.com/gameap_group">https://vk.com/gameap_group</a></div>
+                                <div class="col-6"><i class="fab fa-vk"></i> Группа ВК: <a target="_blank" href="https://vk.com/gameap">https://vk.com/gameap</a></div>
                                 <div class="col-6"><i class="fab fa-discord"></i> Канал Discord <a href="https://discord.gg/SqtHpZc">https://discord.gg/SqtHpZc</a></div>
                                 <div class="col-6"><i class="fab fa-telegram-plane"></i> Чат Telegram: <a href="http://t.me/game_admin_panel">http://t.me/game_admin_panel</a></div>
                                 <div class="col-6"><i class="fab fa-telegram-plane"></i> Telegram разработчика: <a href="http://t.me/k_nik">http://t.me/k_nik</a></div>
@@ -87,7 +86,6 @@
 
                             <ul>
                                 <li><a href="https://github.com/iTeeLion">Sergey Abu</a> за вклад в панель, настройки для игровых серверов, багрепорты.</li>
-                                <li>Хостингу <a href="http://free-www.ru">Free-WWW</a> за предоставление машин для тестирования панели.</li>
                             </ul>
                         </div>
                     </div>

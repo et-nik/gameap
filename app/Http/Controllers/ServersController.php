@@ -3,30 +3,27 @@
 namespace Gameap\Http\Controllers;
 
 use Gameap\Http\Requests\ServerVarsRequest;
+use Gameap\Models\GdaemonTask;
 use Gameap\Models\Server;
 use Gameap\Models\ServerSetting;
+use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\RconService;
 
 class ServersController extends AuthController
 {
-    /**
-     * The ServerRepository instance.
-     *
-     * @var \Gameap\Repositories\ServerRepository
-     */
+    /** @var ServerRepository */
     protected $repository;
 
-    /**
-     * Create a new ServersController instance.
-     *
-     * @param ServerRepository $repository
-     */
-    public function __construct(ServerRepository $repository)
+    /** @var GdaemonTaskRepository */
+    protected $gdaemonTaskRepository;
+
+    public function __construct(ServerRepository $repository, GdaemonTaskRepository $gdaemonTaskRepository)
     {
         parent::__construct();
 
         $this->repository = $repository;
+        $this->gdaemonTaskRepository = $gdaemonTaskRepository;
     }
 
     /**
@@ -53,21 +50,29 @@ class ServersController extends AuthController
     {
         $this->authorize('server-control', $server);
 
-        $autostartSetting = $server->settings->where('name', 'autostart')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart',
-                'value'     => false,
+        $autostartSetting = $server->getSetting($server::AUTOSTART_SETTING_KEY)->value;
+        $updateBeforeStartSetting = $server->getSetting($server::UPDATE_BEFORE_START_SETTING_KEY)->value;
+
+        if ($server->isActive()) {
+            $view = view('servers.view', [
+                'server' => $server,
+                'autostart' => $autostartSetting,
+                'updateBeforeStart' => $updateBeforeStartSetting,
+                'rconSupportedFeatures' => $rconService->supportedFeatures($server),
+                'rconSupported' => $rconService->supportedFeatures($server)['rcon'],
             ]);
+        } else {
+            $installationTaskId = $this->gdaemonTaskRepository->getOneWorkingTaskId(
+                $server->id,
+                [GDaemonTask::TASK_SERVER_INSTALL, GDaemonTask::TASK_SERVER_UPDATE]
+            );
+            $view = view('servers.not_active', [
+                'server' => $server,
+                'installationTaskExists' => $installationTaskId !== 0,
+            ]);
+        }
 
-        $autostart = $autostartSetting->value;
-
-        $rconSupportedFeatures = $rconService->supportedFeatures($server);
-        $rconSupported         = $rconSupportedFeatures['rcon'];
-
-        return ($server->installed === $server::INSTALLED && $server->enabled && !$server->blocked) ?
-            view('servers.view', compact('server', 'autostart', 'rconSupportedFeatures', 'rconSupported'))
-            : view('servers.not_active', compact('server'));
+        return $view;
     }
 
     /**
@@ -82,7 +87,7 @@ class ServersController extends AuthController
         $this->authorize('server-control', $server);
         $this->authorize('server-settings', $server);
 
-        $this->repository->updateAutostart($server, ($request->get('autostart') == true));
+        $this->repository->updateSettings($server, $request);
         $this->repository->updateVars($server, $request);
 
         return redirect()->to(route('servers.control', ['server' => $server->id]) . '#settings')

@@ -2,14 +2,13 @@
 
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
-use Batch;
-use Gameap\Http\Requests\GdaemonAPI\ServerBulkRequest;
+use Gameap\Http\Requests\GdaemonAPI\JsonServerBulkRequest;
 use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Gameap\Repositories\ServerRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ServersController extends Controller
@@ -19,10 +18,6 @@ class ServersController extends Controller
      */
     protected $repository;
 
-    /**
-     * ServersController constructor.
-     * @param ServerRepository $serverRepository
-     */
     public function __construct(ServerRepository $serverRepository)
     {
         parent::__construct();
@@ -30,22 +25,19 @@ class ServersController extends Controller
         $this->repository = $serverRepository;
     }
 
-    /**
-     * @param DedicatedServer $dedicatedServer
-     * @return mixed
-     */
-    public function index(DedicatedServer $dedicatedServer)
+    public function index(DedicatedServer $dedicatedServer): JsonResponse
     {
-        return QueryBuilder::for(Server::where('ds_id', '=', $dedicatedServer->id))
+        return response()->json(
+            QueryBuilder::for(Server::where('ds_id', '=', $dedicatedServer->id))
             ->allowedFilters('id')
-            ->get();
+            ->with('game')
+            ->with('gameMod')
+            ->with('settings')
+            ->get()
+        );
     }
 
-    /**
-     * @param Server $server
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function server(Server $server)
+    public function server(Server $server): JsonResponse
     {
         // Get Relations
         $server->getRelationValue('game');
@@ -55,29 +47,20 @@ class ServersController extends Controller
         return response()->json($server);
     }
 
-    /**
-     * @param Server $server
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(ServerRequest $request, Server $server)
+    public function update(ServerRequest $request, Server $server): JsonResponse
     {
-        $server->forceFill($request->only(['installed', 'process_active', 'last_process_check']));
-        $server->save();
+        $server->installed = $request->installed() ?? $server->installed;
+        $server->process_active = $request->processActive() ?? $server->process_active;
+        $server->last_process_check = $request->lastProcessCheck() ?? $server->last_process_check;
+
+        $this->repository->save($server);
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }
 
-    /**
-     * @param ServerBulkRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function updateBulk(ServerBulkRequest $request)
+    public function updateBulk(JsonServerBulkRequest $request): JsonResponse
     {
-        $values = array_map(function ($v) {
-            return Arr::only($v, ['id', 'installed', 'process_active', 'last_process_check']);
-        }, $request->json()->all());
-
-        Batch::update(new Server(), $values, 'id');
+        $this->repository->saveBatch($request->values());
 
         return response()->json(['message' => 'success'], Response::HTTP_OK);
     }

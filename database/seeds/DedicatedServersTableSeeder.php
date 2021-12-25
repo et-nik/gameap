@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use DB;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class DedicatedServersTableSeeder extends Seeder
 {
@@ -26,8 +25,8 @@ class DedicatedServersTableSeeder extends Seeder
             'steamcmd_path'         => '/home/servers/steamcmd',
             'gdaemon_host'          => '127.0.0.1',
             'gdaemon_port'          => 31717,
-            'gdaemon_api_key'       => Str::random(64),
-            'gdaemon_server_cert'   => '/path/to/server.crt',
+            'gdaemon_api_key'       => 'gdaemon_test_api_key',
+            'gdaemon_server_cert'   => 'certs/root.crt',
             'client_certificate_id' => 1,
             'script_install'        => './server.sh install {uuid_short}',
             'script_reinstall'      => './server.sh reinstall {uuid_short}',

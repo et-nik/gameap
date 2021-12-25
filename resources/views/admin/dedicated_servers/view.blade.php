@@ -11,6 +11,15 @@
 @endsection
 
 @section('content')
+    <a class='btn btn-warning' href="{{ route('admin.dedicated_servers.download_logs', $dedicatedServer->id) }}">
+        <i class="fas fa-download"></i> {{ __('dedicated_servers.download_logs') }}
+    </a>
+
+    <a class='btn btn-success' href="{{ route('admin.dedicated_servers.download_certificates', $dedicatedServer->id) }}">
+        <i class="fas fa-download"></i> {{ __('dedicated_servers.download_certificates') }}
+    </a>
+
+    <hr>
 
     <div class="row">
         <div class="col-md-12">

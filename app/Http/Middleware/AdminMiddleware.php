@@ -2,11 +2,19 @@
 
 namespace Gameap\Http\Middleware;
 
-use Bouncer;
+use Illuminate\Http\Request;
+use Silber\Bouncer\Bouncer;
 use Closure;
 
 class AdminMiddleware
 {
+    /** @var Bouncer */
+    private $bouncer;
+
+    public function __construct(Bouncer $bouncer)
+    {
+        $this->bouncer = $bouncer;
+    }
     /**
      * Handle an incoming request.
      *
@@ -14,9 +22,9 @@ class AdminMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        if (!Bouncer::can('admin roles & permissions')) {
+        if (!$this->bouncer->can('admin roles & permissions')) {
             abort('403', 'Access Denied');
         }
 

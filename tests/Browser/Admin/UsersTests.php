@@ -4,12 +4,14 @@ namespace Tests\Browser\Admin;
 
 use Facebook\WebDriver\WebDriverKeys;
 use Gameap\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
+use Tests\Browser\BrowserTestCase;
+use Tests\Context\Browser\Models\ServerContextTrait;
 
-class UsersTests extends DuskTestCase
+class UsersTests extends BrowserTestCase
 {
+    use ServerContextTrait;
+
     public function testCreate()
     {
         $this->browse(function (Browser $browser) {
@@ -170,6 +172,8 @@ class UsersTests extends DuskTestCase
 
     public function testServerPermission()
     {
+        $this->givenGameServer();
+
         $this->browse(function (Browser $admin, Browser $user) {
             $admin->loginAs(User::find(1));
             $user->loginAs(User::find(2));

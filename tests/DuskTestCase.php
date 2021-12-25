@@ -3,8 +3,10 @@
 namespace Tests;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Facades\DB;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
@@ -22,6 +24,14 @@ abstract class DuskTestCase extends BaseTestCase
         static::startChromeDriver();
     }
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        DB::table('server_user')->delete();
+        DB::table('servers')->delete();
+    }
+
     /**
      * Create the RemoteWebDriver instance.
      *
@@ -29,16 +39,33 @@ abstract class DuskTestCase extends BaseTestCase
      */
     protected function driver()
     {
+        return $this->driverChrome();
+    }
+
+    protected function driverChrome()
+    {
         $options = (new ChromeOptions)->addArguments([
             '--disable-gpu',
-            '--disable-dev-shm-usage',
             '--headless',
             '--no-sandbox',
         ]);
 
         return RemoteWebDriver::create(
             env('SELENIUM_URL', 'http://127.0.0.1:4444/wd/hub'),
-            DesiredCapabilities::chrome()->setCapability(ChromeOptions::CAPABILITY, $options)
+            DesiredCapabilities::chrome()->setCapability(ChromeOptions::CAPABILITY_W3C, $options)
+        );
+    }
+
+    protected function driverFirefox()
+    {
+        $options = (new FirefoxOptions())->addArguments([
+            '--headless',
+            '--disable-gpu',
+        ]);
+
+        return RemoteWebDriver::create(
+            env('SELENIUM_FIREFOX_URL', 'http://127.0.0.1:4444/wd/hub'),
+            DesiredCapabilities::firefox()->setCapability(FirefoxOptions::CAPABILITY, $options)
         );
     }
 }

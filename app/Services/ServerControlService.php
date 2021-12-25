@@ -114,11 +114,11 @@ class ServerControlService
             $gdaemonTaskId = $this->gdaemonTaskRepository->addServerUpdate($server);
         }
 
-        return $gdaemonTaskId;
-    }
-
-    private function setAutostartSetting(Server $server, bool $autostartValue): void
-    {
+        if ($autostartSetting->value) {
+            $autostartCurrentSetting = $server->getSetting(Server::AUTOSTART_CURRENT_SETTING_KEY);
+            $autostartCurrentSetting->value = true;
+            $autostartCurrentSetting->save();
+        }
         $autostartSetting = $server->settings->where('name', 'autostart')->first()
             ?? new ServerSetting([
                 'server_id' => $server->id,
@@ -130,11 +130,11 @@ class ServerControlService
             $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
                 ?? new ServerSetting([
                     'server_id' => $server->id,
-                    'name'      => 'autostart_current',
-                    'value'     => $autostartValue,
-                ]);
+    }
 
-            $autostartCurrentSetting->save();
-        }
+    public function install(Server $server): int
+    {
+        $gdaemonTaskId = $this->gdaemonTaskRepository->addServerInstall($server);
+        return $gdaemonTaskId;
     }
 }

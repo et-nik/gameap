@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property integer $id
  * @property boolean $enabled
- * @property boolean $installed
+ * @property integer $installed
  * @property boolean $blocked
  * @property string $name
  * @property string $uuid
@@ -65,6 +65,10 @@ class Server extends Model
     public const INSTALLED            = 1;
     public const INSTALLATION_PROCESS = 2;
 
+    public const AUTOSTART_SETTING_KEY           = 'autostart';
+    public const AUTOSTART_CURRENT_SETTING_KEY   = 'autostart_current';
+    public const UPDATE_BEFORE_START_SETTING_KEY = 'update_before_start';
+
     protected $fillable = [
         'uuid', 'uuid_short',
         'enabled', 'name', 'code_name', 'game_id',
@@ -79,16 +83,17 @@ class Server extends Model
     ];
 
     protected $casts = [
-        'vars'           => 'array',
-        'enabled'        => 'boolean',
-        'installed'      => 'integer',
-        'blocked'        => 'boolean',
-        'ds_id'          => 'integer',
-        'game_mod_id'    => 'integer',
-        'server_port'    => 'integer',
-        'query_port'     => 'integer',
-        'rcon_port'      => 'integer',
-        'process_active' => 'boolean',
+        'vars'                  => 'array',
+        'enabled'               => 'boolean',
+        'installed'             => 'integer',
+        'blocked'               => 'boolean',
+        'ds_id'                 => 'integer',
+        'game_mod_id'           => 'integer',
+        'server_port'           => 'integer',
+        'query_port'            => 'integer',
+        'rcon_port'             => 'integer',
+        'process_active'        => 'boolean',
+        'last_process_check'    => 'datetime:Y-m-d H:i:s',
     ];
 
     public function processActive(): bool
@@ -185,5 +190,20 @@ class Server extends Model
         }
 
         return $aliases;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->installed === self::INSTALLED && $this->enabled && !$this->blocked;
+    }
+
+    public function getSetting(string $key): ServerSetting
+    {
+        return $this->settings->where('name', $key)->first()
+        ?? new ServerSetting([
+            'server_id' => $this->id,
+            'name'      => $key,
+            'value'     => false,
+        ]);
     }
 }

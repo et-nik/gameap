@@ -2,14 +2,11 @@
 
 namespace Tests\Feature;
 
-use Bouncer;
 use Gameap\Models\Server;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
-use Illuminate\Support\Collection;
+use Silber\Bouncer\Bouncer;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 
 class ServersPermissionsTest extends TestCase
@@ -23,6 +20,9 @@ class ServersPermissionsTest extends TestCase
     /** @var UserRepository */
     protected $userRepository;
 
+    /** @var Bouncer */
+    protected $bouncer;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -30,10 +30,12 @@ class ServersPermissionsTest extends TestCase
         $this->server = factory(Server::class)->create();
         $this->user = factory(User::class)->create();
 
-        $this->userRepository = new UserRepository($this->user);
+        $this->bouncer = $this->app->get(Bouncer::class);
 
-        Bouncer::sync($this->user)->roles(['user']);
-        Bouncer::refresh();
+        $this->bouncer->sync($this->user)->roles(['user']);
+        $this->bouncer->refresh();
+
+        $this->userRepository = new UserRepository($this->bouncer);
 
         $this->be($this->user);
     }

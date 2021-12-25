@@ -2,6 +2,7 @@
 
 namespace Gameap\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string cmd
  * @property string output
  * @property string status
+ * @property Carbon created_at
+ * @property Carbon updated_at
  */
 class GdaemonTask extends Model
 {
@@ -25,7 +28,7 @@ class GdaemonTask extends Model
     public const TASK_SERVER_START   = 'gsstart';
     public const TASK_SERVER_STOP    = 'gsstop';
     public const TASK_SERVER_RESTART = 'gsrest';
-    public const TASK_SERVER_UPDATE  = 'gsinst';
+    public const TASK_SERVER_UPDATE  = 'gsupd';
     public const TASK_SERVER_INSTALL = 'gsinst';
     public const TASK_SERVER_DELETE  = 'gsdel';
     public const TASK_SERVER_MOVE    = 'gsmove';

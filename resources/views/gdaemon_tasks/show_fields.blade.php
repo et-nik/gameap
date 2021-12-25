@@ -13,13 +13,13 @@
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $gdaemonTask->created_at !!}</p>
+    <p>{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->created_at) !!}</p>
 </div>
 
 <!-- Updated At Field -->
 <div class="form-group">
     {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $gdaemonTask->updated_at !!}</p>
+    <p>{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->updated_at) !!}</p>
 </div>
 
 <!-- Dedicated Server Id Field -->

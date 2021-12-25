@@ -3,7 +3,7 @@
 namespace Gameap\Repositories;
 
 use Gameap\Models\DedicatedServer;
-use Gameap\Services\CertificateService;
+use Gameap\Services\Daemon\CertificateService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -25,6 +25,11 @@ class DedicatedServersRepository extends Repository
     ) {
         $this->model                       = $dedicatedServer;
         $this->clientCertificateRepository = $clientCertificateRepository;
+    }
+
+    public function find()
+    {
+        return DedicatedServer::all();
     }
 
     /**

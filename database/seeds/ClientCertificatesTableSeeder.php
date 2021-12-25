@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use DB;
-use Illuminate\Database\Seeder;
-use Gameap\Services\CertificateService;
 use Gameap\Repositories\ClientCertificateRepository;
+use Gameap\Services\Daemon\CertificateService;
+use Illuminate\Database\Seeder;
 
 class ClientCertificatesTableSeeder extends Seeder
 {

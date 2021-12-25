@@ -11,47 +11,130 @@ steps:
       - touch composer_installed
 
   - name: npm
-    image: node
+    image: node:16
     commands:
+      - node --version
       - npm install
       - npm run prod
 
-  - name: tests
-    image: knik/php:7.3-fpm-stretch
-    commands:
-      - mv .env.example .env
-      - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
-      - php artisan key:generate --force
-      - php artisan migrate:fresh --seed
-      - vendor/bin/phpunit --verbose
-      - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
-      - mv .env .env.example
-      - rm -rf storage/app/certs
-      - rm -rf storage/framework/cache/data/*
-      - rm -rf storage/framework/sessions/*
-      - rm -rf storage/framework/views/*
-      - rm -rf storage/debugbar/*
-      - rm -rf storage/logs/*
-
-  - name: browser-tests
+  - name: tests-php-7.3
     image: knik/php:7.3-fpm-stretch
     environment:
-      SELENIUM_URL: http://selenium:4444/wd/hub
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
     commands:
-      - mv .env.example .env
-      - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
-      - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/webserver/" .env
-      - ./artisan migrate:fresh --seed
-      - ./artisan dusk --debug
-      - sed -i "s/APP_URL.*$/APP_URL=http:\\/\\/localhost/" .env
-      - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
-      - mv .env .env.example
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+      - rm .env
+
+  - name: tests-php-7.4
+    image: knik/php:7.4-fpm-alpine
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+    commands:
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+      - rm .env
+
+  - name: tests-php-8.0
+    image: knik/php:8.0-fpm-alpine
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+    commands:
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+      - rm .env
+
+  - name: tests-php-8.1
+    image: knik/php:8.1-fpm-alpine
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+    commands:
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+      - rm .env
+
+  - name: browser-tests
+    image: knik/php:7.3-fpm-buster
+    environment:
+      SELENIUM_URL: http://selenium:4444/wd/hub
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      APP_DEBUG: true
+      APP_ENV: local
+      APP_ALLOW_REGISTRATION: true
+      APP_TIMEZONE: UTC
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+      APP_URL: http://webserver
+      DAEMON_SETUP_TOKEN: test_auto_setup_token
+      CACHE_DRIVER: null
+    commands:
+      - ./artisan migrate:fresh --seed
+      - ./artisan dusk --debug --exclude-group daemon,userServers
+      - ./artisan migrate:fresh --seed
+      - ./artisan dusk --debug --group daemon
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+    shm_size: 2000000000
     volumes:
       - name: daemon_logs
         path: /var/log/gameap-daemon
@@ -71,7 +154,7 @@ steps:
     commands:
       - apt update && apt -y install rsync
       - mkdir gameap
-      - rsync -rl --exclude=/gameap --exclude=/node_modules ./ gameap/
+      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs ./ gameap/
       - mkdir "publish"
       - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
     when:
@@ -80,22 +163,33 @@ steps:
 
   - name: archive-shared
     image: knik/php:7.3-fpm-stretch
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      APP_DEBUG: true
+      APP_ENV: local
+      APP_ALLOW_REGISTRATION: true
+      APP_TIMEZONE: UTC
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+      APP_URL: http://webserver
     commands:
       - apt update && apt -y install default-mysql-client zip unzip rsync
-      - rm -rf storage/app/certs
+      - rm -rf storage/app/certs/*
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+      - rm .env || true
       - mkdir -p gameap-shared/upload
-      - mv .env.example .env
-      - sed -i "s/DB_HOST.*$/DB_HOST=db/" .env
       - php artisan migrate:fresh --seed --force
-      - sed -i "s/DB_HOST.*$/DB_HOST=127\.0\.0\.1/" .env
       - mysqldump -h db -u homestead -p --password=secret homestead > gameap.sql
       - curl -O http://packages.gameap.ru/gameap/shared-build-artifacts.zip
-      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/publish --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
+      - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs --exclude=/publish --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
       - unzip -o shared-build-artifacts.zip -d gameap-shared
       - cd gameap-shared
         && mv upload/gameap.sql gameap.sql
@@ -138,6 +232,8 @@ steps:
         from_secret: s3_secret_key
       source:
         - tests/Browser/screenshots/*
+        - tests/Browser/console/*
+        - storage/logs/*
         - /var/log/gameap-daemon/*
       target: /${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}
       path_style: true
@@ -159,14 +255,30 @@ services:
 
   - name: webserver
     image: knik/php:7.4-cli-alpine
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      APP_DEBUG: true
+      APP_ENV: local
+      APP_ALLOW_REGISTRATION: true
+      APP_TIMEZONE: UTC
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+      CACHE_DRIVER: null
     commands:
       - while [[ ! -f composer_installed ]]; do sleep 2; echo "Waiting composer..."; done;
       - ./artisan serve --host=webserver --port=80
 
   - name: selenium
-    image: selenium/standalone-chrome:3.141.59-zirconium
+    image: selenium/standalone-chrome:4.1.0
+    shm_size: 2000000000
     environment:
       HUB_PORT: 4444
+      SCREEN_WIDTH: 1280
+      SCREEN_HEIGHT: 800
 
 volumes:
   - name: daemon_logs

@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 if ! command -v gameap-daemon &> /dev/null
 then
@@ -10,5 +12,4 @@ fi
 service ssh start
 service gameap-daemon start
 
-tail -f /var/log/gameap-daemon/main.log | while read mainLine; do echo $mainLine ; done &
-tail -f /var/log/gameap-daemon/error.log | while read errorLine ; do echo $errorLine ; done
+tail -f /var/log/gameap-daemon/output.log

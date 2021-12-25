@@ -21,7 +21,9 @@ class GlobalApi
     public static function games()
     {
         try {
-            $client = new Client(['headers' => ['Accept: application/json']]);
+            $client = new Client(['headers' => [
+                'Accept' => 'application/json'
+            ]]);
             $res    = $client->get(config(self::CONFIG_GLOBAL_API_NAME) . '/games');
             $status = $res->getStatusCode();
         } catch (ClientException $e) {

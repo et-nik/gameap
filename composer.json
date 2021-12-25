@@ -12,36 +12,37 @@
         }
     ],
     "require": {
-        "php": "^7.2.5|^8.0",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
         "ext-openssl": "*",
         "ext-pdo": "*",
         "ext-zip": "*",
+        "ext-intl": "*",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "~4.0",
-        "fzaninotto/faker": "~1.4",
+        "fakerphp/faker": "^1.13.0",
         "gameap/gameap-file-manager": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "joshbrw/laravel-module-installer": "^1.0.1",
         "knik/flysystem-gameap": "*",
         "knik/g-rcon": "*",
-        "knik/gameap-daemon-client": "^0.4",
+        "knik/gameap-daemon-client": "^0.6",
         "knik/gameq": "^3.0",
         "knik/x509": "^0.6.2",
-        "laravel/framework": "^8",
+        "laravel/framework": "^8.71.0",
         "laravel/helpers": "^1.1",
         "laravel/legacy-factories": "^1.1",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6",
-        "league/flysystem": "^1.0",
-        "mavinoo/laravel-batch": "2.2.2",
+        "league/flysystem": "^1.1.5",
+        "mavinoo/laravel-batch": "^2.3.1",
         "moontoast/math": "^1.1",
         "nwidart/laravel-modules": "^6.0",
-        "phpseclib/phpseclib": "~2.0",
-        "silber/bouncer": "v1.0.0-rc.10",
-        "spatie/laravel-query-builder": "^2.5",
+        "phpseclib/phpseclib": "^2.0.33",
+        "silber/bouncer": "v1.0.0-rc.11",
+        "spatie/laravel-query-builder": "^3.6.0",
         "splitbrain/php-archive": "^1.2"
     },
     "require-dev": {
@@ -79,12 +80,6 @@
         "module-dir": "modules"
     },
     "scripts": {
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"

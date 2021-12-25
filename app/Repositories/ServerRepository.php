@@ -7,10 +7,10 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\GameMod;
 use Gameap\Models\Server;
-use Gameap\Models\ServerSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Mavinoo\Batch\Batch;
 
 class ServerRepository
 {
@@ -18,25 +18,28 @@ class ServerRepository
 
     public const DEFAULT_PER_PAGE = 20;
 
-    /**
-     * @var Server
-     */
+    /** @var Server */
     protected $model;
 
-    /**
-     * @var GdaemonTaskRepository
-     */
+    /** @var GdaemonTaskRepository */
     protected $gdaemonTaskRepository;
+
+    /** @var Batch */
+    protected $mavinooBatch;
 
     /**
      * ServerRepository constructor.
      * @param Server $server
      * @param GdaemonTaskRepository $gdaemonTaskRepository
      */
-    public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
-    {
+    public function __construct(
+        Server $server,
+        GdaemonTaskRepository $gdaemonTaskRepository,
+        Batch $mavinooBatch
+    ) {
         $this->model                 = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
+        $this->mavinooBatch          = $mavinooBatch;
     }
 
     /**
@@ -97,7 +100,7 @@ class ServerRepository
         $server = Server::create($attributes);
 
         if ($addInstallTask) {
-            $this->gdaemonTaskRepository->addServerUpdate($server);
+            $this->gdaemonTaskRepository->addServerInstall($server);
         }
     }
 
@@ -226,29 +229,29 @@ class ServerRepository
         $server->update($request->only($only));
     }
 
-    /**
-     * @param Server $server
-     * @param bool $autostart
-     */
-    public function updateAutostart(Server $server, bool $autostart): void
+    public function updateSettings(Server $server, ServerVarsRequest $request): void
     {
-        $autostartSetting = $server->settings->where('name', 'autostart')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart',
-            ]);
-
-        $autostartSetting->value = $autostart;
+        $autostartSetting = $server->getSetting($server::AUTOSTART_SETTING_KEY);
+        $autostartSetting->value = $request->autostart();
         $autostartSetting->save();
 
-        $autostartCurrentSetting = $server->settings->where('name', 'autostart_current')->first()
-            ?? new ServerSetting([
-                'server_id' => $server->id,
-                'name'      => 'autostart_current',
-            ]);
-
-        $autostartCurrentSetting->value = $autostart;
+        $autostartCurrentSetting = $server->getSetting($server::AUTOSTART_CURRENT_SETTING_KEY);
+        $autostartCurrentSetting->value = $request->autostart();
         $autostartCurrentSetting->save();
+
+        $updateBeforeStartSetting = $server->getSetting($server::UPDATE_BEFORE_START_SETTING_KEY);
+        $updateBeforeStartSetting->value = $request->updateBeforeStart();
+        $updateBeforeStartSetting->save();
+    }
+
+    public function save(Server $server): void
+    {
+        $server->save();
+    }
+
+    public function saveBatch(array $serverValues): void
+    {
+        $this->mavinooBatch->update(new Server(), $serverValues, 'id');
     }
 
     /**

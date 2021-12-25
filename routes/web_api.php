@@ -30,6 +30,7 @@ Route::name('servers')->get('servers', 'ServersController@getList')->middleware(
 Route::name('servers.start')->post('servers/start/{server}', 'ServersController@start');
 Route::name('servers.stop')->post('servers/stop/{server}', 'ServersController@stop');
 Route::name('servers.restart')->post('servers/restart/{server}', 'ServersController@restart');
+Route::name('servers.install')->post('servers/install/{server}', 'ServersController@install');
 Route::name('servers.update')->post('servers/update/{server}', 'ServersController@update');
 Route::name('servers.reinstall')->post('servers/reinstall/{server}', 'ServersController@reinstall');
 Route::name('servers.get_status')->get('servers/get_status/{server}', 'ServersController@getStatus');
