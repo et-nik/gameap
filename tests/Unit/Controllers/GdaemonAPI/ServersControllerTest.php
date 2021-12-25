@@ -8,6 +8,7 @@ use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Illuminate\Container\Container;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -106,14 +107,15 @@ class ServersControllerTest extends TestCase
     {
         /** @var ServersController $controller */
         $controller = $this->container->make(ServersController::class);
-        $request = new JsonServerBulkRequest([
+        $request = new JsonServerBulkRequest();
+        $request->setJson(new ParameterBag([
             [
                 'id' => $this->server->id,
                 'installed' => 2,
                 'process_active' => 0,
                 'last_process_check' => '2006-01-02 15:04:05',
             ]
-        ]);
+        ]));
 
         $result = $controller->updateBulk($request);
 

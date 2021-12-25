@@ -49,9 +49,9 @@ class ServersController extends Controller
 
     public function update(ServerRequest $request, Server $server): JsonResponse
     {
-        $server->installed = $request->installed();
-        $server->process_active = $request->processActive();
-        $server->last_process_check = $request->lastProcessCheck();
+        $server->installed = $request->installed() ?? $server->installed;
+        $server->process_active = $request->processActive() ?? $server->process_active;
+        $server->last_process_check = $request->lastProcessCheck() ?? $server->last_process_check;
 
         $this->repository->save($server);
 
