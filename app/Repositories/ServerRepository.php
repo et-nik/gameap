@@ -7,10 +7,10 @@ use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\GameMod;
 use Gameap\Models\Server;
-use Gameap\Models\ServerSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Mavinoo\Batch\Batch;
 
 class ServerRepository
 {
@@ -18,25 +18,28 @@ class ServerRepository
 
     public const DEFAULT_PER_PAGE = 20;
 
-    /**
-     * @var Server
-     */
+    /** @var Server */
     protected $model;
 
-    /**
-     * @var GdaemonTaskRepository
-     */
+    /** @var GdaemonTaskRepository */
     protected $gdaemonTaskRepository;
+
+    /** @var Batch */
+    protected $mavinooBatch;
 
     /**
      * ServerRepository constructor.
      * @param Server $server
      * @param GdaemonTaskRepository $gdaemonTaskRepository
      */
-    public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
-    {
+    public function __construct(
+        Server $server,
+        GdaemonTaskRepository $gdaemonTaskRepository,
+        Batch $mavinooBatch
+    ) {
         $this->model                 = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
+        $this->mavinooBatch          = $mavinooBatch;
     }
 
     /**
@@ -239,6 +242,16 @@ class ServerRepository
         $updateBeforeStartSetting = $server->getSetting($server::UPDATE_BEFORE_START_SETTING_KEY);
         $updateBeforeStartSetting->value = $request->updateBeforeStart();
         $updateBeforeStartSetting->save();
+    }
+
+    public function save(Server $server): void
+    {
+        $server->save();
+    }
+
+    public function saveBatch(array $serverValues): void
+    {
+        $this->mavinooBatch->update(new Server(), $serverValues, 'id');
     }
 
     /**
