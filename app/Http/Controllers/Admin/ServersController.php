@@ -5,7 +5,7 @@ namespace Gameap\Http\Controllers\Admin;
 use Exception;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Http\Requests\Admin\ServerCreateRequest;
+use Gameap\Http\Requests\Admin\CreateServerRequest;
 use Gameap\Http\Requests\Admin\ServerDestroyRequest;
 use Gameap\Http\Requests\Admin\ServerUpdateRequest;
 use Gameap\Models\DedicatedServer;
@@ -14,37 +14,33 @@ use Gameap\Models\Server;
 use Gameap\Repositories\GameModRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
+use Gameap\UseCases\Commands\CreateGameServerCommand;
+use Gameap\UseCases\CreateGameServer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ServersController extends AuthController
 {
-    /**
-     * The GdaemonTaskRepository instance.
-     *
-     * @var GdaemonTaskRepository
-     */
+    /** @var GdaemonTaskRepository  */
     public $gdaemonTaskRepository;
-    /**
-     * The ServerRepository instance.
-     *
-     * @var ServerRepository
-     */
+
+    /** @var ServerRepository */
     protected $repository;
 
-    /**
-     * Create a new ServersController instance.
-     *
-     * @param ServerRepository $repository
-     * @param GdaemonTaskRepository $gdaemonTaskRepository
-     * @param GameModRepository $gameModRepository
-     */
-    public function __construct(ServerRepository $repository, GdaemonTaskRepository $gdaemonTaskRepository)
-    {
+    /** @var SerializerInterface */
+    protected $serializer;
+
+    public function __construct(
+        ServerRepository $repository,
+        GdaemonTaskRepository $gdaemonTaskRepository,
+        SerializerInterface $serializer
+    ) {
         parent::__construct();
 
         $this->repository            = $repository;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
+        $this->serializer            = $serializer;
     }
 
     /**
@@ -75,13 +71,18 @@ class ServersController extends AuthController
     /**
      * Store a newly created resource in storage.
      *
-     * @param ServerCreateRequest $request
+     * @param CreateServerRequest $request
      * @return RedirectResponse
      * @throws RecordExistExceptions
      */
-    public function store(ServerCreateRequest $request)
+    public function store(CreateServerRequest $request, CreateGameServer $createGameServer)
     {
-        $this->repository->store($request->all());
+        $command = $this->serializer->denormalize(
+            $request->all(),
+            CreateGameServerCommand::class,
+        );
+
+        $createGameServer($command);
 
         return redirect()->route('admin.servers.index')
             ->with('success', __('servers.create_success_msg'));

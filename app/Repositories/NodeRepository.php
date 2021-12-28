@@ -7,7 +7,7 @@ use Gameap\Services\Daemon\CertificateService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class DedicatedServersRepository extends Repository
+class NodeRepository extends Repository
 {
     /**
      * @var \Gameap\Repositories\ClientCertificateRepository
@@ -15,7 +15,6 @@ class DedicatedServersRepository extends Repository
     protected $clientCertificateRepository;
 
     /**
-     * DedicatedServersRepository constructor.
      * @param DedicatedServer $dedicatedServer
      * @param \Gameap\Repositories\ClientCertificateRepository $clientCertificateRepository
      */
@@ -30,6 +29,11 @@ class DedicatedServersRepository extends Repository
     public function find()
     {
         return DedicatedServer::all();
+    }
+
+    public function findById(int $id): ?DedicatedServer
+    {
+        return DedicatedServer::findOrFail($id);
     }
 
     /**

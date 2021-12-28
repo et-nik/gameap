@@ -6,7 +6,7 @@ use Gameap\Http\Controllers\Admin\DedicatedServersController;
 use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Gameap\Http\Requests\ClientCertificatesRequest;
 use Gameap\Models\DedicatedServer;
-use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Repositories\NodeRepository;
 use Illuminate\Container\Container;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -22,16 +22,16 @@ class DedicatedServersControllerTest extends TestCase
     /** @var DedicatedServersController */
     protected $controller;
 
-    /** @var DedicatedServersRepository|\Mockery\MockInterface $repository */
+    /** @var NodeRepository|\Mockery\MockInterface $repository */
     protected $repositoryMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->repositoryMock = Mockery::mock(DedicatedServersRepository::class);
+        $this->repositoryMock = Mockery::mock(NodeRepository::class);
         $container = Container::getInstance();
-        $container->instance(DedicatedServersRepository::class, $this->repositoryMock);
+        $container->instance(NodeRepository::class, $this->repositoryMock);
         $this->controller = $container->make(DedicatedServersController::class);
     }
 

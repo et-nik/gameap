@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string $os
  * @property string $location
  * @property string $provider
- * @property string $ip
+ * @property string[] $ip
  * @property string $ram
  * @property string $cpu
  * @property string $work_path

@@ -13,14 +13,19 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
+        "ext-bz2": "*",
+        "ext-curl": "*",
+        "ext-gmp": "*",
+        "ext-intl": "*",
         "ext-json": "*",
+        "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-pdo": "*",
+        "ext-xml": "*",
         "ext-zip": "*",
-        "ext-intl": "*",
         "doctrine/dbal": "~2.3",
-        "fideloper/proxy": "~4.0",
         "fakerphp/faker": "^1.13.0",
+        "fideloper/proxy": "~4.0",
         "gameap/gameap-file-manager": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "joshbrw/laravel-module-installer": "^1.0.1",
@@ -42,7 +47,9 @@
         "phpseclib/phpseclib": "^2.0.33",
         "silber/bouncer": "v1.0.0-rc.11",
         "spatie/laravel-query-builder": "^3.6.0",
-        "splitbrain/php-archive": "^1.2"
+        "splitbrain/php-archive": "^1.2",
+        "symfony/property-access": "^5.4",
+        "symfony/serializer": "^5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.*",

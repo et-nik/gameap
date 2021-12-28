@@ -96,6 +96,18 @@ class Server extends Model
         'last_process_check'    => 'datetime:Y-m-d H:i:s',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::saving(function(Server $server) {
+            $server->dir = Server::removeAbsoluteDedicatedServerPath(
+                $server->dir,
+                $server->dedicatedServer->work_path,
+            );
+        });
+    }
+
     public function processActive(): bool
     {
         if (empty($this->last_process_check)) {
@@ -205,5 +217,16 @@ class Server extends Model
             'name'      => $key,
             'value'     => false,
         ]);
+    }
+
+    private static function removeAbsoluteDedicatedServerPath(string $path, string $dsWorkPath): string
+    {
+        if (substr($path, 0, strlen($dsWorkPath)) == $dsWorkPath) {
+            $path = substr($path, strlen($dsWorkPath));
+        }
+
+        $path = ltrim($path, '/\\');
+
+        return $path;
     }
 }

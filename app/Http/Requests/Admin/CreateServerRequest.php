@@ -5,7 +5,7 @@ namespace Gameap\Http\Requests\Admin;
 use Gameap\Http\Requests\Request;
 use Illuminate\Validation\Rule;
 
-class ServerCreateRequest extends Request
+class CreateServerRequest extends Request
 {
     public function rules()
     {
