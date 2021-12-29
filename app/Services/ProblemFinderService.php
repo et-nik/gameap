@@ -2,23 +2,49 @@
 
 namespace Gameap\Services;
 
-use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Repositories\NodeRepository;
 use Knik\Gameap\GdaemonStatus;
 
 class ProblemFinderService
 {
-    private const REQUIRED_EXTENSIONS = ['gd', 'openssl', 'curl', 'gmp', 'intl', 'json', 'zip', 'mbstring'];
+    private const REQUIRED_EXTENSIONS = [
+        'bz2',
+        'curl',
+        'gd',
+        'gmp',
+        'intl',
+        'json',
+        'mbstring',
+        'openssl',
+        'xml',
+        'zip',
+    ];
+
+    /** @var array */
+    private $writableStorageDirectories = [];
 
     /** @var GdaemonStatus */
     private $gdaemonStatus;
 
-    /** @var DedicatedServersRepository */
+    /** @var NodeRepository */
     private $nodeRepository;
 
-    public function __construct(GdaemonStatus $gdaemonStatus, DedicatedServersRepository $nodeRepository)
+    public function __construct(GdaemonStatus $gdaemonStatus, NodeRepository $nodeRepository)
     {
         $this->gdaemonStatus = $gdaemonStatus;
         $this->nodeRepository = $nodeRepository;
+
+        $this->writableStorageDirectories = [
+            storage_path('app'),
+            storage_path('app/certs'),
+            storage_path('app/certs/client'),
+            storage_path('app/public'),
+            storage_path('framework'),
+            storage_path('framework/cache'),
+            storage_path('framework/sessions'),
+            storage_path('framework/views'),
+            storage_path('logs'),
+        ];
     }
 
     public function find(): array
@@ -32,9 +58,16 @@ class ProblemFinderService
         }
 
         $inconnectableNodes = $this->findInconnectableNodes();
-        if (!empty($this->findInconnectableNodes())) {
+        if (!empty($inconnectableNodes)) {
             $problems[] = __('home.problems_list.nodes_is_not_available', [
                 'nodes' => implode(', ', $inconnectableNodes),
+            ]);
+        }
+
+        $writeless = $this->findInsufficientFilePermissions();
+        if (!empty($writeless)) {
+            $problems[] = __('home.problems_list.not_writable_directories', [
+                'paths' => implode(', ', $writeless),
             ]);
         }
 
@@ -68,5 +101,18 @@ class ProblemFinderService
         }
 
         return $problemNodeNames;
+    }
+
+    private function findInsufficientFilePermissions(): array
+    {
+        $problemDirectories = [];
+
+        foreach ($this->writableStorageDirectories as $directory) {
+            if (!is_writable($directory)) {
+                $problemDirectories[] = $directory;
+            }
+        }
+
+        return $problemDirectories;
     }
 }

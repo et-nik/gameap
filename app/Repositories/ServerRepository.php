@@ -2,15 +2,16 @@
 
 namespace Gameap\Repositories;
 
+use Gameap\Helpers\ServerHelper;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\GameMod;
 use Gameap\Models\Server;
-use Gameap\Models\ServerSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Mavinoo\Batch\Batch;
 
 class ServerRepository
 {
@@ -18,25 +19,28 @@ class ServerRepository
 
     public const DEFAULT_PER_PAGE = 20;
 
-    /**
-     * @var Server
-     */
+    /** @var Server */
     protected $model;
 
-    /**
-     * @var GdaemonTaskRepository
-     */
+    /** @var GdaemonTaskRepository */
     protected $gdaemonTaskRepository;
+
+    /** @var Batch */
+    protected $mavinooBatch;
 
     /**
      * ServerRepository constructor.
      * @param Server $server
      * @param GdaemonTaskRepository $gdaemonTaskRepository
      */
-    public function __construct(Server $server, GdaemonTaskRepository $gdaemonTaskRepository)
-    {
+    public function __construct(
+        Server $server,
+        GdaemonTaskRepository $gdaemonTaskRepository,
+        Batch $mavinooBatch
+    ) {
         $this->model                 = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
+        $this->mavinooBatch          = $mavinooBatch;
     }
 
     /**
@@ -48,57 +52,6 @@ class ServerRepository
         $servers = Server::orderBy('id')->with('game')->paginate($perPage);
 
         return $servers;
-    }
-
-    /**
-     * Store server
-     *
-     * @param array $attributes
-     * @throws \Gameap\Exceptions\Repositories\RecordExistExceptions
-     */
-    public function store(array $attributes): void
-    {
-        $attributes['uuid']       = Str::orderedUuid()->toString();
-        $attributes['uuid_short'] = Str::substr($attributes['uuid'], 0, 8);
-        
-        $attributes['enabled'] = true;
-        $attributes['blocked'] = false;
-
-        $addInstallTask = false;
-        if (isset($attributes['install'])) {
-            $attributes['installed'] = !$attributes['install'];
-            $addInstallTask          = true;
-
-            unset($attributes['install']);
-        }
-
-        if (empty($attributes['rcon'])) {
-            $attributes['rcon'] = Str::random(self::DEFAULT_RCON_PASSWORD_LENGTH);
-        }
-
-        $dedicatedServer = DedicatedServer::findOrFail($attributes['ds_id']);
-
-        if (empty($attributes['start_command'])) {
-            $gameMod = GameMod::select('default_start_cmd_linux', 'default_start_cmd_windows')->where('id', '=', $attributes['game_mod_id'])->firstOrFail();
-
-            $attributes['start_command'] =
-                $dedicatedServer->isLinux()
-                    ? $gameMod->default_start_cmd_linux
-                    : $gameMod->default_start_cmd_windows;
-        }
-
-        if (empty($attributes['dir'])) {
-            $attributes['dir'] = 'servers/' . $attributes['uuid'];
-        }
-
-        // Fix path. Remove absolute dedicated server path
-        $attributes['dir'] = $this->fixPath($attributes['dir'], $dedicatedServer->work_path);
-
-        $server = Server::create($attributes);
-
-        if ($addInstallTask) {
-            $this->gdaemonTaskRepository->addServerInstall($server);
-        }
     }
 
     /**
@@ -201,10 +154,7 @@ class ServerRepository
         if (isset($attributes['ds_id'])) {
             $server->ds_id = $attributes['ds_id'];
         }
-
-        // Fix path. Remove absolute dedicated server path
-        $attributes['dir'] = $this->fixPath($attributes['dir'], $server->dedicatedServer->work_path);
-
+        
         $server->update($attributes);
     }
 
@@ -241,19 +191,13 @@ class ServerRepository
         $updateBeforeStartSetting->save();
     }
 
-    /**
-     * @param $path
-     * @param $dsWorkPath
-     * @return string
-     */
-    private function fixPath($path, $dsWorkPath)
+    public function save(Server $server): void
     {
-        if (substr($path, 0, strlen($dsWorkPath)) == $dsWorkPath) {
-            $path = substr($path, strlen($dsWorkPath));
-        }
+        $server->save();
+    }
 
-        $path = ltrim($path, '/\\');
-
-        return $path;
+    public function saveBatch(array $serverValues): void
+    {
+        $this->mavinooBatch->update(new Server(), $serverValues, 'id');
     }
 }

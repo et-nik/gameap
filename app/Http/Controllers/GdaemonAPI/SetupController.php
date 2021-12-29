@@ -3,7 +3,7 @@
 namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Exceptions\GameapException;
-use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Repositories\NodeRepository;
 use Gameap\Services\Daemon\CertificateService;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
@@ -21,15 +21,15 @@ class SetupController extends BaseController
     /**
      * The DedicatedServersRepository instance.
      *
-     * @var \Gameap\Repositories\DedicatedServersRepository
+     * @var \Gameap\Repositories\NodeRepository
      */
     public $repository;
 
     /**
      * DedicatedServersController constructor.
-     * @param DedicatedServersRepository $repository
+     * @param NodeRepository $repository
      */
-    public function __construct(DedicatedServersRepository $repository)
+    public function __construct(NodeRepository $repository)
     {
         $this->repository = $repository;
     }

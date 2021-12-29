@@ -7,7 +7,7 @@ use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\DedicatedServerRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Models\DedicatedServer;
-use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Repositories\NodeRepository;
 use Gameap\Services\Daemon\CertificateService;
 use Gameap\Services\Daemon\DebugService;
 use Illuminate\Support\Facades\Cache;
@@ -22,7 +22,7 @@ class DedicatedServersController extends AuthController
     /**
      * The DedicatedServersRepository instance.
      *
-     * @var \Gameap\Repositories\DedicatedServersRepository
+     * @var \Gameap\Repositories\NodeRepository
      */
     protected $repository;
 
@@ -30,8 +30,8 @@ class DedicatedServersController extends AuthController
     protected $debugService;
 
     public function __construct(
-        DedicatedServersRepository $repository,
-        DebugService $downloadDebugService
+        NodeRepository $repository,
+        DebugService   $downloadDebugService
     ) {
         parent::__construct();
 

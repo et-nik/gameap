@@ -16,6 +16,11 @@ class GameModRepository extends Repository
         return GameMod::orderBy('id')->paginate($perPage);
     }
 
+    public function getById(int $id): GameMod
+    {
+        return GameMod::findOrFail($id);
+    }
+
     /**
      * @param string $gameCode
      * @return array

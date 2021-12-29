@@ -183,10 +183,10 @@ return [
          */
         Gameap\Providers\AppServiceProvider::class,
         Gameap\Providers\AuthServiceProvider::class,
-        // Gameap\Providers\BroadcastServiceProvider::class,
         Gameap\Providers\EventServiceProvider::class,
-        Gameap\Providers\RouteServiceProvider::class,
         Gameap\Providers\FormServiceProvider::class,
+        Gameap\Providers\RouteServiceProvider::class,
+        Gameap\Providers\SerializerProvider::class,
         
         /*
          * Generators

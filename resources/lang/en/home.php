@@ -37,6 +37,7 @@ return [
 
     'problems_list'     => [
         'required_extenstions_are_missed' => 'Required PHP extenstions are missed: :extensions',
-        'nodes_is_not_available'          => 'Some dedicated servers are not available. Failed to connect to the following dedicated servers: :nodes'
+        'nodes_is_not_available'          => 'Some dedicated servers are not available. Failed to connect to the following dedicated servers: :nodes',
+        'not_writable_directories'        => 'The following directories are not writable: :paths',
     ]
 ];

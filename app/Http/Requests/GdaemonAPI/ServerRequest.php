@@ -12,4 +12,19 @@ class ServerRequest extends JsonRequest
             'last_process_check' => '',
         ];
     }
+
+    public function installed(): ?int
+    {
+        return $this->get('installed');
+    }
+
+    public function processActive(): ?int
+    {
+        return $this->get('process_active');
+    }
+
+    public function lastProcessCheck(): ?string
+    {
+        return $this->get('last_process_check');
+    }
 }

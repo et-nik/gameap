@@ -12,7 +12,7 @@ class GdaemonApiAuth
 {
     private $repository;
 
-    public function __construct(\Gameap\Repositories\DedicatedServersRepository $dedicatedServersRepository)
+    public function __construct(\Gameap\Repositories\NodeRepository $dedicatedServersRepository)
     {
         $this->repository = $dedicatedServersRepository;
     }

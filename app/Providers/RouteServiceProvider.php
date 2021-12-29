@@ -35,9 +35,16 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        $this->mapFileManagerRoutes();
+
         $this->mapWebRoutes();
 
         $this->mapGdaemonApiRoutes();
+    }
+
+    protected function mapFileManagerRoutes(): void
+    {
+        Route::prefix('file-manager')->middleware('api');
     }
 
     /**

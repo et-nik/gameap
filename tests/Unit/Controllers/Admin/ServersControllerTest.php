@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 use Tests\TestCase;
 use Gameap\Http\Controllers\Admin\ServersController;
 use Gameap\Http\Requests\Admin\ServerUpdateRequest;
-use Gameap\Http\Requests\Admin\ServerCreateRequest;
+use Gameap\Http\Requests\Admin\CreateServerRequest;
 use Illuminate\Container\Container;
 use Mockery;
 
@@ -59,32 +59,11 @@ class ServersControllerTest extends TestCase
         $this->assertInstanceOf(\Illuminate\View\View::class, $response);
     }
 
-    public function testStore()
-    {
-        $gameMod = GameMod::where(['game_code' => 'minecraft'])->get()->random();
-        $request = ServerCreateRequest::create('/admin/servers', ServerCreateRequest::METHOD_POST, [
-            'enabled' => 1,
-            'blocked' => 0,
-            'installed' => 1,
-            'name' => 'Test Server',
-            'game_id' => $gameMod->game_code,
-            'ds_id' => 1,
-            'game_mod_id' => $gameMod->id,
-            'server_ip' => 'localhost',
-            'server_port' => 27500,
-            'query_port' => 27500,
-            'rcon_port' => 27501,
-        ]);
-
-        $response = $this->controller->store($request);
-        $this->assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
-    }
-
     public function testUpdate()
     {
         $server = Server::first();
 
-        $request = ServerUpdateRequest::create('/admin/servers/', ServerCreateRequest::METHOD_PATCH, [
+        $request = ServerUpdateRequest::create('/admin/servers/', CreateServerRequest::METHOD_PATCH, [
             'name' => 'Edited Server',
             'dir' => 'Dir',
         ]);
@@ -101,7 +80,7 @@ class ServersControllerTest extends TestCase
         $this->container->instance(GdaemonTaskRepository::class, $mock);
         $mock->shouldNotReceive('addServerDelete');
 
-        $request = ServerDestroyRequest::create('/admin/servers/', ServerCreateRequest::METHOD_DELETE, []);
+        $request = ServerDestroyRequest::create('/admin/servers/', CreateServerRequest::METHOD_DELETE, []);
         $response = $this->controller->destroy($request, $server);
         $this->assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
     }
@@ -120,14 +99,14 @@ class ServersControllerTest extends TestCase
             'task' => GdaemonTask::TASK_SERVER_DELETE,
         ])->andThrow(RecordExistExceptions::class);
 
-        $request = ServerDestroyRequest::create('/admin/servers/', ServerCreateRequest::METHOD_DELETE, [
+        $request = ServerDestroyRequest::create('/admin/servers/', CreateServerRequest::METHOD_DELETE, [
             'delete_files' => 'delete_files'
         ]);
         $response = $this->controller->destroy($request, $server);
 
         $this->assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
 
-        $request = ServerDestroyRequest::create('/admin/servers/', ServerCreateRequest::METHOD_DELETE, [
+        $request = ServerDestroyRequest::create('/admin/servers/', CreateServerRequest::METHOD_DELETE, [
             'delete_files' => 'delete_files'
         ]);
         $response = $this->controller->destroy($request, $server);

@@ -17,8 +17,74 @@ steps:
       - npm install
       - npm run prod
 
-  - name: tests
+  - name: tests-php-7.3
     image: knik/php:7.3-fpm-stretch
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+    commands:
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+      - rm .env
+
+  - name: tests-php-7.4
+    image: knik/php:7.4-fpm-alpine
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+    commands:
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+      - rm .env
+
+  - name: tests-php-8.0
+    image: knik/php:8.0-fpm-alpine
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+    commands:
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+      - rm .env
+
+  - name: tests-php-8.1
+    image: knik/php:8.1-fpm-alpine
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       DB_CONNECTION: mysql

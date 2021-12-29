@@ -3,22 +3,22 @@
 namespace Gameap\Http\Controllers\API;
 
 use Gameap\Http\Controllers\AuthController;
-use Gameap\Repositories\DedicatedServersRepository;
+use Gameap\Repositories\NodeRepository;
 
 class DedicatedServersController extends AuthController
 {
     /**
      * The DedicatedServersRepository instance.
      *
-     * @var \Gameap\Repositories\DedicatedServersRepository
+     * @var \Gameap\Repositories\NodeRepository
      */
     public $repository;
 
     /**
      * DedicatedServersController constructor.
-     * @param DedicatedServersRepository $repository
+     * @param NodeRepository $repository
      */
-    public function __construct(DedicatedServersRepository $repository)
+    public function __construct(NodeRepository $repository)
     {
         parent::__construct();
 
