@@ -734,6 +734,8 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'ragemp',
             'name' => 'Default',
+            'remote_repository_nix' => 'https://cdn.rage.mp/updater/prerelease/server-files/linux_x64.tar.gz',
+            'remote_repository_win' => '',
             'start_cmd_nix' => './ragemp-server',
             'start_cmd_win' => '',
         ]);

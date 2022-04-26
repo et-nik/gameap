@@ -14,7 +14,6 @@ class GamesTableSeeder extends Seeder
      */
     public function run()
     {
-        $gapRepoBaseUrl = 'http://files.gameap.ru';
 
         /*
          *  Half life
@@ -397,8 +396,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'ragemp',
             'name' => 'RageMP',
             'engine' => 'Rage',
-            'remote_repository_nix' => 'https://cdn.rage.mp/updater/prerelease/server-files/linux_x64.tar.gz',
-            'remote_repository_win' => '',
         ]);
 
         /*
