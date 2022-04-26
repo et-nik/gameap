@@ -6,6 +6,7 @@ use Gameap\Http\Requests\GdaemonAPI\JsonServerBulkRequest;
 use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
+use Gameap\Repositories\NodeRepository;
 use Gameap\Repositories\ServerRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -30,6 +31,7 @@ class ServersController extends Controller
         return response()->json(
             QueryBuilder::for(Server::where('ds_id', '=', $dedicatedServer->id))
             ->allowedFilters('id')
+            ->with('dedicatedServer')
             ->with('game')
             ->with('gameMod')
             ->with('settings')
@@ -39,10 +41,33 @@ class ServersController extends Controller
 
     public function server(Server $server): JsonResponse
     {
-        // Get Relations
+        $server->getRelationValue('dedicatedServer');
+        $isLinux = $server->dedicatedServer->isLinux();
+        $server->unsetRelation('dedicatedServer');
+
         $server->getRelationValue('game');
         $server->getRelationValue('gameMod');
         $server->getRelationValue('settings');
+
+        $fieldSiffix = 'win';
+        if($isLinux) {
+            $fieldSiffix = 'nix';
+        }
+        $arFields = [
+            'game' => [
+                'remote_repository', 'local_repository', 'steam_app_id',
+            ],
+            'gameMod' => [
+                'remote_repository', 'local_repository', 'start_cmd',
+            ],
+        ];
+        foreach($arFields as $relationName => $arRelationFields){
+            foreach($arRelationFields as $gameField){
+                $server->{$relationName}->{$gameField} = $server->{$relationName}->{$gameField . '_' . $fieldSiffix};
+                unset($server->{$relationName}->{$gameField . '_nix'});
+                unset($server->{$relationName}->{$gameField . '_win'});
+            }
+        }
 
         return response()->json($server);
     }
