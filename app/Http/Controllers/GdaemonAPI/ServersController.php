@@ -6,7 +6,6 @@ use Gameap\Http\Requests\GdaemonAPI\JsonServerBulkRequest;
 use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
-use Gameap\Repositories\NodeRepository;
 use Gameap\Repositories\ServerRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
