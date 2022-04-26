@@ -658,6 +658,8 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'pmmp',
             'name' => 'Default',
+            'remote_repository_nix' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
+            'remote_repository_win' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
             'start_cmd_nix' => './bin/php7/bin/php ./PocketMine-MP.phar',
             'start_cmd_win' => '',
             'passwd_cmd' => 'password {password}',
@@ -719,6 +721,8 @@ class GameModsTableSeeder extends Seeder
                     'admin_var' => true,
                 ],
             ]),
+            'remote_repository_nix' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
+            'remote_repository_win' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
             'start_cmd_nix' => './fivem_run.sh --ip={ip} --port={port} --hostname="{hostname}" --rcon-password="{rcon_password}" --license-key="{license_key}"',
             'start_cmd_win' => 'run.cmd +exec server.cfg',
             'sendmsg_cmd' => 'say {msg}',

@@ -295,7 +295,6 @@ class GamesTableSeeder extends Seeder
 //            'engine' => 'Source',
 //            'engine_version' => '1',
 //            'steam_app_id_nix' => 570,
-//            'steam_app_id_win' => 570,
 //        ]);
 
         /*
@@ -307,8 +306,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'minecraft',
             'name' => 'Minecraft',
             'engine' => 'Minecraft',
-            'remote_repository_nix' => $gapRepoBaseUrl . '/minecraft/minecraft_install.tar.gz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/minecraft/minecraft_install.tar.gz',
         ]);
 
         DB::table('games')->insert([
@@ -316,8 +313,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'pmmp',
             'name' => 'PocketMineMP (Minecraft PE)',
             'engine' => 'Minecraft',
-            'remote_repository_nix' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
-            'remote_repository_win' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
         ]);
 
         /*
@@ -330,7 +325,6 @@ class GamesTableSeeder extends Seeder
             'name' => 'Arma 2',
             'engine' => 'RealVirtuality',
             'engine_version' => '3',
-            'steam_app_id_nix' => 33905,
             'steam_app_id_win' => 33905,
         ]);
 
@@ -340,7 +334,6 @@ class GamesTableSeeder extends Seeder
             'name' => 'Arma 2: Operation Arrowhead',
             'engine' => 'RealVirtuality',
             'engine_version' => '3',
-            'steam_app_id_nix' => 33935,
             'steam_app_id_win' => 33935,
         ]);
 
@@ -363,7 +356,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'cod3',
             'name' => 'Call of Duty 3',
             'engine' => 'Treyarch NGL',
-            'steam_app_id_nix' => 42750,
             'steam_app_id_win' => 42750,
         ]);
 
@@ -391,8 +383,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'mta',
             'name' => 'GTA: Multi Theft Auto',
             'engine' => 'RenderWare',
-            'remote_repository_nix' => $gapRepoBaseUrl . '/mta/mta.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/mta/mta.tar.xz',
         ]);
 
         DB::table('games')->insert([
@@ -400,8 +390,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'fivem',
             'name' => 'FiveM',
             'engine' => 'Rage',
-            'remote_repository_nix' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
         ]);
 
         DB::table('games')->insert([
@@ -410,7 +398,7 @@ class GamesTableSeeder extends Seeder
             'name' => 'RageMP',
             'engine' => 'Rage',
             'remote_repository_nix' => 'https://cdn.rage.mp/updater/prerelease/server-files/linux_x64.tar.gz',
-            'remote_repository_win' => 'https://cdn.rage.mp/updater/prerelease/server-files/linux_x64.tar.gz',
+            'remote_repository_win' => '',
         ]);
 
         /*
@@ -433,8 +421,6 @@ class GamesTableSeeder extends Seeder
             'name' => 'Just Cause 3',
             'engine' => 'AvalancheEngine',
             'engine_version' => '3.0',
-            'steam_app_id_nix' => 619960,
-            'steam_app_id_win' => 619960,
         ]);
 
         /*
@@ -447,8 +433,8 @@ class GamesTableSeeder extends Seeder
 //            'name' => 'Killing Floor',
 //            'engine' => 'UnrealEngine',
 //            'engine_version' => '2.5',
-//            'steam_app_id_nix' => 232130,
-//            'steam_app_id_win' => 232130,
+//            'steam_app_id_nix' => 215360,
+//            'steam_app_id_win' => 215350,
 //        ]);
 
         DB::table('games')->insert([
@@ -480,7 +466,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'rust',
             'name' => 'Rust',
             'engine' => 'Unity',
-            'steam_app_id_nix' => 258550,
             'steam_app_id_win' => 258550,
         ]);
         
@@ -507,7 +492,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'the-forest',
             'name' => 'The Forest',
             'engine' => 'Unity',
-            'steam_app_id_nix' => 556450,
             'steam_app_id_win' => 556450,
         ]);
 
@@ -516,7 +500,6 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'rok',
             'name' => 'Reign Of Kings',
             'engine' => 'Unity',
-            'steam_app_id_nix' => 344760,
             'steam_app_id_win' => 344760,
         ]);
 
@@ -527,7 +510,6 @@ class GamesTableSeeder extends Seeder
             'engine' => 'Don`t Starve',
             'engine_version' => '1',
             'steam_app_id_nix' => 343050,
-            'steam_app_id_win' => 343050,
         ]);
 
         DB::table('games')->insert([
@@ -543,7 +525,6 @@ class GamesTableSeeder extends Seeder
 //            'name' => 'Terraria',
 //            'engine' => 'Terraria',
 //            'steam_app_id_nix' => 105600,
-//            'steam_app_id_win' => 105600,
 //        ]);
 
 //        DB::table('games')->insert([
@@ -552,7 +533,6 @@ class GamesTableSeeder extends Seeder
 //            'name' => 'Unturned',
 //            'engine' => 'Unturned',
 //            'steam_app_id_nix' => 1110390,
-//            'steam_app_id_win' => 1110390,
 //        ]);
 
         /*
