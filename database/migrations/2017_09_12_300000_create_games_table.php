@@ -19,10 +19,13 @@ class CreateGamesTable extends Migration
             $table->string('name');
             $table->string('engine');
             $table->string('engine_version')->default('1.0');
-            $table->integer('steam_app_id')->unsigned()->nullable();
+            $table->integer('steam_app_id_nix')->unsigned()->nullable();
+            $table->integer('steam_app_id_win')->unsigned()->nullable();
             $table->string('steam_app_set_config')->nullable();
-            $table->string('remote_repository')->nullable();
-            $table->string('local_repository')->nullable();
+            $table->string('remote_repository_nix')->nullable();
+            $table->string('remote_repository_win')->nullable();
+            $table->string('local_repository_nix')->nullable();
+            $table->string('local_repository_win')->nullable();
         });
     }
 

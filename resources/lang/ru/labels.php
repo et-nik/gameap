@@ -45,15 +45,18 @@ return [
     'start_code' => 'Старт код',
     'engine' => 'Движок',
     'engine_version' => 'Версия движка',
-    'steam_app_id' => 'Steam App ID',
+    'steam_app_id_nix' => 'Steam App ID (Linux)',
+    'steam_app_id_win' => 'Steam App ID (Windows)',
     'steam_app_set_config' => 'Steam App Set Config',
 
     // GameMod
     'game_code' => 'Код игры',
     'fast_rcon' => 'Fast RCON',
     'vars' => 'Переменные',
-    'remote_repository' => 'Удалённый репозиторий',
-    'local_repository' => 'Локальный репозиторий',
+    'remote_repository_nix' => 'Удалённый репозиторий (Linux)',
+    'remote_repository_win' => 'Удалённый репозиторий (Windows)',
+    'local_repository_nix' => 'Локальный репозиторий (Linux)',
+    'local_repository_win' => 'Локальный репозиторий (Windows)',
     'kick_cmd' => 'Команда кика',
     'ban_cmd' => 'Команда бана',
     'chname_cmd' => 'Команда смены имени (ника)',
@@ -61,8 +64,8 @@ return [
     'chmap_cmd' => 'Команда смены карты',
     'sendmsg_cmd' => 'Команда отправки сообщения',
     'passwd_cmd' => 'Команда установки/смены пароля',
-    'default_start_cmd_linux' => 'Команда запуска по умолчанию (Linux)',
-    'default_start_cmd_windows' => 'Команда запуска по умолчанию (Windows)',
+    'start_cmd_nix' => 'Команда запуска (Linux)',
+    'start_cmd_win' => 'Команда запуска (Windows)',
 
     // Server
     'game_server' => 'Игровой сервер',

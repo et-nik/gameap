@@ -30,15 +30,23 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        {{ Form::bsText('steam_app_id') }}
+                        {{ Form::bsText('steam_app_id_nix') }}
+                        {{ Form::bsText('steam_app_id_win') }}
                         {{ Form::bsText('steam_app_set_config') }}
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="card-body">
+                        {{ Form::bsText('local_repository_nix') }}
+                        {{ Form::bsText('local_repository_win') }}
                     </div>
                 </div>
                 
                 <div class="card mt-2">
                     <div class="card-body">
-                        {{ Form::bsText('local_repository') }}
-                        {{ Form::bsText('remote_repository') }}
+                        {{ Form::bsText('local_repository_nix') }}
+                        {{ Form::bsText('local_repository_win') }}
                     </div>
                 </div>
             </div>

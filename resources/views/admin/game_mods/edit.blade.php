@@ -48,10 +48,8 @@
                                 {{ __('games.run_commands') }}
                             </div>
                             <div class="card-body">
-                                {{ Form::bsText('default_start_cmd_linux') }}
-                            </div>
-                            <div class="card-body">
-                                {{ Form::bsText('default_start_cmd_windows') }}
+                                {{ Form::bsText('start_cmd_nix') }}
+                                {{ Form::bsText('start_cmd_win') }}
                             </div>
                         </div>
                     </div>
@@ -59,11 +57,21 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-header">
-                                {{ __('games.repositories') }}
+                                {{ __('games.repositories_local') }}
                             </div>
                             <div class="card-body">
-                                {{ Form::bsText('remote_repository') }}
-                                {{ Form::bsText('local_repository') }}
+                                {{ Form::bsText('local_repository_nix') }}
+                                {{ Form::bsText('local_repository_win') }}
+                            </div>
+                        </div>
+
+                        <div class="card mt-2">
+                            <div class="card-header">
+                                {{ __('games.repositories_remote') }}
+                            </div>
+                            <div class="card-body">
+                                {{ Form::bsText('remote_repository_nix') }}
+                                {{ Form::bsText('remote_repository_win') }}
                             </div>
                         </div>
                     </div>

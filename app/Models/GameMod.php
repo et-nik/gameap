@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $vars
  * @property string $remote_repository
  * @property string $local_repository
- * @property string $default_start_cmd_linux
- * @property string $default_start_cmd_windows
+ * @property string $start_cmd_nix
+ * @property string $start_cmd_win
  * @property string $kick_cmd
  * @property string $ban_cmd
  * @property string $chname_cmd
@@ -40,8 +40,9 @@ class GameMod extends Model
     protected $fillable = [
         'name', 'game_code',
         'fast_rcon', 'vars',
-        'remote_repository', 'local_repository',
-        'default_start_cmd_linux', 'default_start_cmd_windows',
+        'remote_repository_nix', 'remote_repository_win',
+        'local_repository_nix', 'local_repository_win',
+        'start_cmd_nix', 'start_cmd_win',
         'kick_cmd', 'ban_cmd', 'chname_cmd', 'srestart_cmd', 'chmap_cmd', 'sendmsg_cmd', 'passwd_cmd',
     ];
 
@@ -54,8 +55,8 @@ class GameMod extends Model
         'name'      => 'required|string|max:255',
         'game_code' => 'sometimes|string|max:255|exists:games,code',
 
-        'default_start_cmd_linux'   => 'nullable|string|max:1000',
-        'default_start_cmd_windows' => 'nullable|string|max:1000',
+        'start_cmd_nix'   => 'nullable|string|max:1000',
+        'start_cmd_win' => 'nullable|string|max:1000',
 
         'vars.*.var'       => 'max:16',
         'vars.*.default'   => 'max:64',

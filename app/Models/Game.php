@@ -54,8 +54,10 @@ class Game extends Model
     protected $fillable = [
         'code', 'start_code', 'name',
         'engine', 'engine_version',
-        'steam_app_id', 'steam_app_set_config',
-        'local_repository', 'remote_repository',
+        'steam_app_id_nix', 'steam_app_id_win',
+        'steam_app_set_config',
+        'remote_repository_nix', 'remote_repository_win',
+        'local_repository_nix', 'local_repository_win'
     ];
 
     /**

@@ -27,8 +27,10 @@
                         </div>
 
                         {{ Form::bsText('name') }}
-                        {{ Form::bsText('remote_repository') }}
-                        {{ Form::bsText('local_repository') }}
+                        {{ Form::bsText('remote_repository_nix') }}
+                        {{ Form::bsText('remote_repository_win') }}
+                        {{ Form::bsText('local_repository_nix') }}
+                        {{ Form::bsText('local_repository_win') }}
                     </div>
                 </div>
             </div>
