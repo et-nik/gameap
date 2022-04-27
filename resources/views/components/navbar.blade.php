@@ -32,7 +32,7 @@
         </ul>
 
         <ul class="navbar-nav">
-            <li class="nav-item mr-4">
+            <li class="nav-item mr-1">
                 <a class="btn btn-dark navbar-btn" href="{{ route('profile') }}"><i class="fas fa-user"></i>&nbsp;{{ Auth::user()->name }}</a>
             </li>
 
