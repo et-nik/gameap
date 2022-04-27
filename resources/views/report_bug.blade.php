@@ -21,15 +21,15 @@
                 </div>
             </div>
 
-            <table class="table" style="width: fit-content; ">
+            <table class="table table-noborder table-fit">
                 <tbody>
                 <tr>
-                    <td>PHP:</td>
+                    <td>PHP</td>
                     <td>@php echo phpversion(); @endphp</td>
 
                 </tr>
                 <tr>
-                    <td>GD:</td>
+                    <td>GD</td>
                     <td>
                         @if (in_array('gd', $extensions))
                             <span class="text-success"><i class="fas fa-check-circle"></i></span>
@@ -39,7 +39,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>OpenSSL:</td>
+                    <td>OpenSSL</td>
                     <td>
                         @if (in_array('openssl', $extensions))
                             <span class="text-success"><i class="fas fa-check-circle"></i></span>
@@ -49,7 +49,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Curl:</td>
+                    <td>Curl</td>
                     <td>
                         @if (in_array('curl', $extensions))
                             <span class="text-success"><i class="fas fa-check-circle"></i></span>
@@ -59,7 +59,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>GMP:</td>
+                    <td>GMP</td>
                     <td>
                         @if (in_array('gmp', $extensions))
                             <span class="text-success"><i class="fas fa-check-circle"></i></span>
@@ -69,7 +69,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Intl:</td>
+                    <td>Intl</td>
                     <td>
                         @if (in_array('intl', $extensions))
                             <span class="text-success"><i class="fas fa-check-circle"></i></span>

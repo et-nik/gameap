@@ -4,6 +4,13 @@
     flex-wrap: wrap;
 }
 
+.table.table-fit{
+    width: fit-content;
+}
+.table.table-noborder td{
+    border: none;
+}
+
 .logo {
     max-width: 300px;
     max-height: 35px;
