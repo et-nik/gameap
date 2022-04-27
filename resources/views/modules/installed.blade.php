@@ -8,11 +8,19 @@
 
 @extends('layouts.main')
 
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
+        <li class="breadcrumb-item active">{{ __('modules.modules') }}</li>
+    </ol>
+@endsection
+
 @section('content')
     @include('components.form.errors_block')
 
-    @include('modules.migrate_button')
-    <hr>
+    <div class="page-list-menu mb-3">
+        @include('modules.migrate_button')
+    </div>
 
     <ul class="nav nav-tabs">
         <li class="nav-item">

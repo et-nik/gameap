@@ -2,7 +2,7 @@
 
 @extends('layouts.main')
 
-@section('breadclumbs')
+@section('breadcrumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
         <li class="breadcrumb-item"><a href="{{ route('admin.dedicated_servers.index') }}">Dedicated servers</a></li>

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('breadclumbs')
+@section('breadcrumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
         <li class="breadcrumb-item">{{ __('home.report_bug') }}</li>
@@ -9,7 +9,9 @@
 
 @section('content')
     <div class="card mb-2">
-
+        <div class="card-header">
+            {{ __('home.system_check') }}
+        </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-12">
@@ -85,6 +87,9 @@
     </div>
 
     <div class="card mb-2">
+        <div class="card-header">
+            {{ __('home.send_report') }}
+        </div>
         <div class="card-body">
             {{ Form::open(['url' => route('send_bug'), 'style'=>'display:inline']) }}
                 <div class="row">

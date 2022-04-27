@@ -39,7 +39,7 @@
                 <div class="content-wrapper">
                     <div class="p-3 content">
 
-                        @yield('breadclumbs')
+                        @yield('breadcrumbs')
 
                         @include('components.messages')
 

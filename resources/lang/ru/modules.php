@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'modules' => 'Модули',
     'title' => 'GameAP Модули',
 
     'migrate' => 'Запустить миграцию',
