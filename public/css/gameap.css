@@ -7,7 +7,6 @@
 .logo {
     max-width: 300px;
     max-height: 35px;
-    margin-left: 30px;
 }
 
 .logo-mini {
@@ -219,10 +218,9 @@ input.terminal-input {
 
     .left-menu {
         height: calc(100vh - 62px);
-        width: 245px;
+        width: 230px;
         position: fixed;
         z-index: 5;
-        margin-left: -15px;
     }
 
     .small-menu .left-menu {

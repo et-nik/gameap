@@ -26,34 +26,28 @@
     @yield('page-data')
 
     <div id="app">
-        <div class="container-fluid">
-            @include("components.navbar")
+        @include("components.navbar")
+        <div id="main-section" class="main-section small-menu">
 
-            <div id="main-section" class="main-section small-menu">
-                <div id="left-menu" class="collapse navbar-collapse left-menu d-md-block">
-                    <div id="left-menu-content" class="left-menu-content">
-                        @include("components.sidebar")
-                    </div>
+            <div id="left-menu" class="collapse navbar-collapse left-menu d-md-block">
+                <div id="left-menu-content" class="left-menu-content">
+                    @include("components.sidebar")
                 </div>
+            </div>
 
-                <div class="content-wrapper">
-                    <div class="p-3 content">
-
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="pt-3 content">
                         @yield('breadcrumbs')
-
                         @include('components.messages')
-
                         @yield('content')
-
                         <div class="copyright">
                             Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br>
                             Developer: <a href="https://github.com/et-nik" target="_blank">knik</a>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
