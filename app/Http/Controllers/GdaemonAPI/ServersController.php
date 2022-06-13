@@ -48,9 +48,9 @@ class ServersController extends Controller
         $server->getRelationValue('gameMod');
         $server->getRelationValue('settings');
 
-        $fieldSiffix = 'win';
+        $fieldSiffix = 'windows';
         if($isLinux) {
-            $fieldSiffix = 'nix';
+            $fieldSiffix = 'linux';
         }
         $arFields = [
             'game' => [
@@ -63,8 +63,8 @@ class ServersController extends Controller
         foreach($arFields as $relationName => $arRelationFields){
             foreach($arRelationFields as $gameField){
                 $server->{$relationName}->{$gameField} = $server->{$relationName}->{$gameField . '_' . $fieldSiffix};
-                unset($server->{$relationName}->{$gameField . '_nix'});
-                unset($server->{$relationName}->{$gameField . '_win'});
+                unset($server->{$relationName}->{$gameField . '_linux'});
+                unset($server->{$relationName}->{$gameField . '_windows'});
             }
         }
 

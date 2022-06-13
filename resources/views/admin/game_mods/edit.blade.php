@@ -48,8 +48,8 @@
                                 {{ __('games.run_commands') }}
                             </div>
                             <div class="card-body">
-                                {{ Form::bsText('start_cmd_nix') }}
-                                {{ Form::bsText('start_cmd_win') }}
+                                {{ Form::bsText('start_cmd_linux') }}
+                                {{ Form::bsText('start_cmd_windows') }}
                             </div>
                         </div>
                     </div>
@@ -60,8 +60,8 @@
                                 {{ __('games.repositories_local') }}
                             </div>
                             <div class="card-body">
-                                {{ Form::bsText('local_repository_nix') }}
-                                {{ Form::bsText('local_repository_win') }}
+                                {{ Form::bsText('local_repository_linux') }}
+                                {{ Form::bsText('local_repository_windows') }}
                             </div>
                         </div>
 
@@ -70,8 +70,8 @@
                                 {{ __('games.repositories_remote') }}
                             </div>
                             <div class="card-body">
-                                {{ Form::bsText('remote_repository_nix') }}
-                                {{ Form::bsText('remote_repository_win') }}
+                                {{ Form::bsText('remote_repository_linux') }}
+                                {{ Form::bsText('remote_repository_windows') }}
                             </div>
                         </div>
                     </div>

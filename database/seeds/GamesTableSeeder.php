@@ -25,8 +25,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Half-Life 1',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
         ]);
 
         DB::table('games')->insert([
@@ -35,8 +35,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Half-Life: Opposing Force',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
             'steam_app_set_config' => "90 mod gearbox",
         ]);
 
@@ -46,8 +46,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Half-Life 2',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 232370,
-            'steam_app_id_win' => 232370,
+            'steam_app_id_linux' => 232370,
+            'steam_app_id_windows' => 232370,
         ]);
 
         DB::table('games')->insert([
@@ -56,8 +56,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Black Mesa: Deathmatch',
             'engine' => 'Source',
             'engine_version' => '4',
-            'steam_app_id_nix' => 346680,
-            'steam_app_id_win' => 346680,
+            'steam_app_id_linux' => 346680,
+            'steam_app_id_windows' => 346680,
         ]);
 
         /*
@@ -78,8 +78,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Counter-Strike 1.6',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
         ]);
 
         DB::table('games')->insert([
@@ -88,8 +88,8 @@ class GamesTableSeeder extends Seeder
             'name' => "Counter-Strike: Condition Zero",
             'engine' => "GoldSource",
             'engine_version' => "1",
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
             'steam_app_set_config' => "90 mod czero",
         ]);
 
@@ -99,8 +99,8 @@ class GamesTableSeeder extends Seeder
             'name' => "Counter-Strike: Source v34",
             'engine' => "Source",
             'engine_version' => "34",
-            'steam_app_id_nix' => 232330,
-            'steam_app_id_win' => 232330,
+            'steam_app_id_linux' => 232330,
+            'steam_app_id_windows' => 232330,
         ]);
 
         DB::table('games')->insert([
@@ -109,8 +109,8 @@ class GamesTableSeeder extends Seeder
             'name' => "Counter-Strike: Source",
             'engine' => "Source",
             'engine_version' => "1",
-            'steam_app_id_nix' => 232330,
-            'steam_app_id_win' => 232330,
+            'steam_app_id_linux' => 232330,
+            'steam_app_id_windows' => 232330,
         ]);
 
         DB::table('games')->insert([
@@ -119,8 +119,8 @@ class GamesTableSeeder extends Seeder
             'name' => "Counter-Strike: Global Offensive",
             'engine' => "Source",
             'engine_version' => "1",
-            'steam_app_id_nix' => 740,
-            'steam_app_id_win' => 740,
+            'steam_app_id_linux' => 740,
+            'steam_app_id_windows' => 740,
         ]);
 
         /*
@@ -133,8 +133,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Team Fortress Classic',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
             'steam_app_set_config' => "90 mod tfc",
         ]);
 
@@ -144,8 +144,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Team Fortress 2',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 232250,
-            'steam_app_id_win' => 232250,
+            'steam_app_id_linux' => 232250,
+            'steam_app_id_windows' => 232250,
         ]);
 
         /*
@@ -158,8 +158,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Day of Defeat',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
             'steam_app_set_config' => "90 mod dod",
         ]);
 
@@ -169,8 +169,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Day of Defeat: Source',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 232290,
-            'steam_app_id_win' => 232290,
+            'steam_app_id_linux' => 232290,
+            'steam_app_id_windows' => 232290,
         ]);
 
         /*
@@ -183,8 +183,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Left 4 Dead',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 222840,
-            'steam_app_id_win' => 222840,
+            'steam_app_id_linux' => 222840,
+            'steam_app_id_windows' => 222840,
         ]);
 
         DB::table('games')->insert([
@@ -193,8 +193,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Left 4 Dead 2',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 222860,
-            'steam_app_id_win' => 222860,
+            'steam_app_id_linux' => 222860,
+            'steam_app_id_windows' => 222860,
         ]);
 
         /*
@@ -207,8 +207,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Deathmatch Classic',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
             'steam_app_set_config' => "90 mod dmc",
         ]);
 
@@ -218,8 +218,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Ricochet',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 90,
-            'steam_app_id_win' => 90,
+            'steam_app_id_linux' => 90,
+            'steam_app_id_windows' => 90,
             'steam_app_set_config' => "90 mod ricochet",
         ]);
 
@@ -229,8 +229,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Sven Co-op',
             'engine' => 'GoldSource',
             'engine_version' => '1',
-            'steam_app_id_nix' => 276060,
-            'steam_app_id_win' => 276060,
+            'steam_app_id_linux' => 276060,
+            'steam_app_id_windows' => 276060,
         ]);
 
         /*
@@ -243,8 +243,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Insurgency',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 237410,
-            'steam_app_id_win' => 237410,
+            'steam_app_id_linux' => 237410,
+            'steam_app_id_windows' => 237410,
         ]);
 
         DB::table('games')->insert([
@@ -253,8 +253,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Garry`s Mod',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 4020,
-            'steam_app_id_win' => 4020,
+            'steam_app_id_linux' => 4020,
+            'steam_app_id_windows' => 4020,
         ]);
 
         DB::table('games')->insert([
@@ -263,8 +263,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Pirates, Vikings, and Knights II',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 17575,
-            'steam_app_id_win' => 17575,
+            'steam_app_id_linux' => 17575,
+            'steam_app_id_windows' => 17575,
         ]);
 
         DB::table('games')->insert([
@@ -273,8 +273,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'No More Room In Hell',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 317670,
-            'steam_app_id_win' => 317670,
+            'steam_app_id_linux' => 317670,
+            'steam_app_id_windows' => 317670,
         ]);
 
         DB::table('games')->insert([
@@ -283,8 +283,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Synergy',
             'engine' => 'Source',
             'engine_version' => '1',
-            'steam_app_id_nix' => 17525,
-            'steam_app_id_win' => 17525,
+            'steam_app_id_linux' => 17525,
+            'steam_app_id_windows' => 17525,
         ]);
 
 //        DB::table('games')->insert([
@@ -293,7 +293,7 @@ class GamesTableSeeder extends Seeder
 //            'name' => 'Dota 2',
 //            'engine' => 'Source',
 //            'engine_version' => '1',
-//            'steam_app_id_nix' => 570,
+//            'steam_app_id_linux' => 570,
 //        ]);
 
         /*
@@ -324,7 +324,7 @@ class GamesTableSeeder extends Seeder
             'name' => 'Arma 2',
             'engine' => 'RealVirtuality',
             'engine_version' => '3',
-            'steam_app_id_win' => 33905,
+            'steam_app_id_windows' => 33905,
         ]);
 
         DB::table('games')->insert([
@@ -333,7 +333,7 @@ class GamesTableSeeder extends Seeder
             'name' => 'Arma 2: Operation Arrowhead',
             'engine' => 'RealVirtuality',
             'engine_version' => '3',
-            'steam_app_id_win' => 33935,
+            'steam_app_id_windows' => 33935,
         ]);
 
         DB::table('games')->insert([
@@ -342,8 +342,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Arma 3',
             'engine' => 'RealVirtuality',
             'engine_version' => '4',
-            'steam_app_id_nix' => 233780,
-            'steam_app_id_win' => 233780,
+            'steam_app_id_linux' => 233780,
+            'steam_app_id_windows' => 233780,
         ]);
 
         /*
@@ -355,7 +355,7 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'cod3',
             'name' => 'Call of Duty 3',
             'engine' => 'Treyarch NGL',
-            'steam_app_id_win' => 42750,
+            'steam_app_id_windows' => 42750,
         ]);
 
         DB::table('games')->insert([
@@ -408,8 +408,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Just Cause 2',
             'engine' => 'AvalancheEngine',
             'engine_version' => '2.0',
-            'steam_app_id_nix' => 261140,
-            'steam_app_id_win' => 261140,
+            'steam_app_id_linux' => 261140,
+            'steam_app_id_windows' => 261140,
         ]);
 
         DB::table('games')->insert([
@@ -430,8 +430,8 @@ class GamesTableSeeder extends Seeder
 //            'name' => 'Killing Floor',
 //            'engine' => 'UnrealEngine',
 //            'engine_version' => '2.5',
-//            'steam_app_id_nix' => 215360,
-//            'steam_app_id_win' => 215350,
+//            'steam_app_id_linux' => 215360,
+//            'steam_app_id_windows' => 215350,
 //        ]);
 
         DB::table('games')->insert([
@@ -440,8 +440,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'Killing Floor 2',
             'engine' => 'UnrealEngine',
             'engine_version' => '3',
-            'steam_app_id_nix' => 232130,
-            'steam_app_id_win' => 232130,
+            'steam_app_id_linux' => 232130,
+            'steam_app_id_windows' => 232130,
         ]);
 
         /*
@@ -454,8 +454,8 @@ class GamesTableSeeder extends Seeder
             'name' => 'ARK: Survival Evolved',
             'engine' => 'Unreal Engine',
             'engine_version' => '4',
-            'steam_app_id_nix' => 376030,
-            'steam_app_id_win' => 376030,
+            'steam_app_id_linux' => 376030,
+            'steam_app_id_windows' => 376030,
         ]);
         
         DB::table('games')->insert([
@@ -463,7 +463,7 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'rust',
             'name' => 'Rust',
             'engine' => 'Unity',
-            'steam_app_id_win' => 258550,
+            'steam_app_id_windows' => 258550,
         ]);
         
         DB::table('games')->insert([
@@ -471,8 +471,8 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'hurtworld',
             'name' => 'HurtWorld',
             'engine' => 'Unity',
-            'steam_app_id_nix' => 405100,
-            'steam_app_id_win' => 405100,
+            'steam_app_id_linux' => 405100,
+            'steam_app_id_windows' => 405100,
         ]);
 
         DB::table('games')->insert([
@@ -480,8 +480,8 @@ class GamesTableSeeder extends Seeder
             'start_code' => '7d2d',
             'name' => '7 Days to Die',
             'engine' => 'Unity',
-            'steam_app_id_nix' => 294420,
-            'steam_app_id_win' => 294420,
+            'steam_app_id_linux' => 294420,
+            'steam_app_id_windows' => 294420,
         ]);
 
         DB::table('games')->insert([
@@ -489,7 +489,7 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'the-forest',
             'name' => 'The Forest',
             'engine' => 'Unity',
-            'steam_app_id_win' => 556450,
+            'steam_app_id_windows' => 556450,
         ]);
 
         DB::table('games')->insert([
@@ -497,7 +497,7 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'rok',
             'name' => 'Reign Of Kings',
             'engine' => 'Unity',
-            'steam_app_id_win' => 344760,
+            'steam_app_id_windows' => 344760,
         ]);
 
         DB::table('games')->insert([
@@ -506,7 +506,7 @@ class GamesTableSeeder extends Seeder
             'name' => 'Don`t Starve Together',
             'engine' => 'Don`t Starve',
             'engine_version' => '1',
-            'steam_app_id_nix' => 343050,
+            'steam_app_id_linux' => 343050,
         ]);
 
         DB::table('games')->insert([
@@ -521,7 +521,7 @@ class GamesTableSeeder extends Seeder
 //            'start_code' => 'terraria',
 //            'name' => 'Terraria',
 //            'engine' => 'Terraria',
-//            'steam_app_id_nix' => 105600,
+//            'steam_app_id_linux' => 105600,
 //        ]);
 
 //        DB::table('games')->insert([
@@ -529,7 +529,7 @@ class GamesTableSeeder extends Seeder
 //            'start_code' => 'unturned',
 //            'name' => 'Unturned',
 //            'engine' => 'Unturned',
-//            'steam_app_id_nix' => 1110390,
+//            'steam_app_id_linux' => 1110390,
 //        ]);
 
         /*

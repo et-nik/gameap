@@ -51,8 +51,8 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Default',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars()),
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'valve'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'valve'),
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'valve'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'valve'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -65,10 +65,10 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Classic (AMX Mod)',
             'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars()),
-            'remote_repository_nix' => $gapRepoBaseUrl . '/half-life/amxx.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/half-life/amxx.tar.xz',
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'valve'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'valve'),
+            'remote_repository_linux' => $gapRepoBaseUrl . '/half-life/amxx.tar.xz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/half-life/amxx.tar.xz',
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'valve'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'valve'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'amx_say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -83,10 +83,10 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Classic (ReHLDS)',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars()),
-            'remote_repository_nix' => $gapRepoBaseUrl . '/half-life/rehlds-amxx-reunion.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/half-life/rehlds-amxx-reunion.tar.xz',
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'valve'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'valve'),
+            'remote_repository_linux' => $gapRepoBaseUrl . '/half-life/rehlds-amxx-reunion.tar.xz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/half-life/rehlds-amxx-reunion.tar.xz',
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'valve'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'valve'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -101,8 +101,8 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Default',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars()),
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'valve'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'valve'),
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'valve'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'valve'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -116,8 +116,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'hl2mp',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars()),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', ''),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', ''),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', ''),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', ''),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -131,8 +131,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'bms',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars()),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'bms'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'bms'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'bms'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'bms'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -151,8 +151,8 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Default',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars('de_dust2')),
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'cstrike'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'cstrike'),
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'cstrike'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'cstrike'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -165,10 +165,10 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Classic (AMX Mod)',
             'fast_rcon' => json_encode($defaultGoldSourceAmxFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars('de_dust2')),
-            'remote_repository_nix' => $gapRepoBaseUrl . '/cstrike-1.6/amxx.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/cstrike-1.6/amxx.tar.xz',
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'cstrike'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'cstrike'),
+            'remote_repository_linux' => $gapRepoBaseUrl . '/cstrike-1.6/amxx.tar.xz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/cstrike-1.6/amxx.tar.xz',
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'cstrike'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'cstrike'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'amx_say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -183,10 +183,10 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Classic (ReHLDS)',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars('de_dust2')),
-            'remote_repository_nix' => $gapRepoBaseUrl . '/cstrike-1.6/rehlds-amxx-reunion.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/cstrike-1.6/rehlds-amxx-reunion.tar.xz',
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'cstrike'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'cstrike'),
+            'remote_repository_linux' => $gapRepoBaseUrl . '/cstrike-1.6/rehlds-amxx-reunion.tar.xz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/cstrike-1.6/rehlds-amxx-reunion.tar.xz',
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'cstrike'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'cstrike'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -201,8 +201,8 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Default',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars('de_dust')),
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'czero'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'czero'),
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'czero'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'czero'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -216,8 +216,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'cssv34',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('de_dust2')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'cstrike'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'cstrike'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'cstrike'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'cstrike'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -231,8 +231,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'cssource',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('de_dust2')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'cstrike'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'cstrike'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'cstrike'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'cstrike'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -257,8 +257,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Steam account token',
                 ],
             ])),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 0',
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 0',
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 0',
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 0',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -281,8 +281,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Steam account token',
                 ],
             ])),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 1',
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 1',
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 1',
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 0 +game_mode 1',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -305,8 +305,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Steam account token',
                 ],
             ])),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 0',
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 0',
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 0',
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 0',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -329,8 +329,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Steam account token',
                 ],
             ])),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 1',
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 1',
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 1',
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 1',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -353,8 +353,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Steam account token',
                 ],
             ])),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 2',
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 2',
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 2',
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'csgo') . ' +sv_setsteamaccount {steamaccount} +mapgroup {mapgroup} +game_type 1 +game_mode 2',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -372,8 +372,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'tfc',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('2fort')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'tfc'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'tfc'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'tfc'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'tfc'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -387,8 +387,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'tf2',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('ctf_2fort')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'tf'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'tf'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'tf'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'tf'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -406,8 +406,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'dod',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('dod_anzio')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'dod'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'dod'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'dod'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'dod'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -421,8 +421,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'dods',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('dod_anzio')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'dods'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'dods'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'dods'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'dods'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -441,8 +441,8 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Default',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultGoldSourceVars('l4d_farm04_barn')),
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', 'left4dead'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', 'left4dead'),
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', 'left4dead'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', 'left4dead'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -457,8 +457,8 @@ class GameModsTableSeeder extends Seeder
             'name' => 'Default',
             'fast_rcon' => json_encode($defaultGoldSourceFastRcon),
             'vars' => json_encode(self::getDefaultSourceVars('c2m1_highway')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'left4dead2'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'left4dead2'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'left4dead2'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'left4dead2'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -476,8 +476,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'dmc',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', ''),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', ''),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', ''),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', ''),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -491,8 +491,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'ricochet',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', ''),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', ''),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', ''),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', ''),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -506,8 +506,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'svencoop',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultGoldSourceVars('stadium4')),
-            'start_cmd_nix' => self::getDefaultGoldSourceStartCmd('nix', '', './svends_run'),
-            'start_cmd_win' => self::getDefaultGoldSourceStartCmd('win', '', 'svends.exe'),
+            'start_cmd_linux' => self::getDefaultGoldSourceStartCmd('linux', '', './svends_run'),
+            'start_cmd_windows' => self::getDefaultGoldSourceStartCmd('windows', '', 'svends.exe'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -525,8 +525,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'insurgency',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('ministry')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -540,8 +540,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'garrysmod',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('gm_construct')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'garrysmod'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'garrysmod'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'garrysmod'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'garrysmod'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -555,8 +555,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'nmrih',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', ''),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', ''),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', ''),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', ''),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -570,8 +570,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'pvk2',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', ''),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', ''),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', ''),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', ''),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -585,8 +585,8 @@ class GameModsTableSeeder extends Seeder
             'game_code' => 'synergy',
             'name' => 'Default',
             'vars' => json_encode(self::getDefaultSourceVars('d1_trainstation_01')),
-            'start_cmd_nix' => self::getDefaultSourceStartCmd('nix', 'synergy'),
-            'start_cmd_win' => self::getDefaultSourceStartCmd('win', 'synergy'),
+            'start_cmd_linux' => self::getDefaultSourceStartCmd('linux', 'synergy'),
+            'start_cmd_windows' => self::getDefaultSourceStartCmd('windows', 'synergy'),
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say "{msg}"',
             'chmap_cmd' => 'changelevel {map}',
@@ -622,10 +622,10 @@ class GameModsTableSeeder extends Seeder
                     'admin_var' => true,
                 ],
             ]),
-            'remote_repository_nix' => 'https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar',
-            'remote_repository_win' => 'https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar',
-            'start_cmd_nix' => 'java -Xms{java_xms} -Xmx{java_xms} -jar server.jar --port {port} --world {world} --nogui',
-            'start_cmd_win' => 'java -Xms{java_xms} -Xmx{java_xms} -jar server.jar --port {port} --world {world} --nogui',
+            'remote_repository_linux' => 'https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar',
+            'remote_repository_windows' => 'https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar',
+            'start_cmd_linux' => 'java -Xms{java_xms} -Xmx{java_xms} -jar server.jar --port {port} --world {world} --nogui',
+            'start_cmd_windows' => 'java -Xms{java_xms} -Xmx{java_xms} -jar server.jar --port {port} --world {world} --nogui',
         ]);
 
         DB::table('game_mods')->insert([
@@ -648,9 +648,9 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Core mod version',
                 ],
             ]),
-            'remote_repository_nix' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
-            'start_cmd_nix' => './mcrun.sh run --version={version} --core-mod={core_mod} --core-mod-version={core_mod_version} --ip={ip} --port={port} --query-port={query_port} --rcon-port={rcon_port} --rcon-password={rcon_password}',
+            'remote_repository_linux' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
+            'start_cmd_linux' => './mcrun.sh run --version={version} --core-mod={core_mod} --core-mod-version={core_mod_version} --ip={ip} --port={port} --query-port={query_port} --rcon-port={rcon_port} --rcon-password={rcon_password}',
         ]);
 
         /* PMMP (MinecraftPE) */
@@ -658,10 +658,10 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'pmmp',
             'name' => 'Default',
-            'remote_repository_nix' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
-            'remote_repository_win' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
-            'start_cmd_nix' => './bin/php7/bin/php ./PocketMine-MP.phar',
-            'start_cmd_win' => '',
+            'remote_repository_linux' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
+            'remote_repository_windows' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
+            'start_cmd_linux' => './bin/php7/bin/php ./PocketMine-MP.phar',
+            'start_cmd_windows' => '',
             'passwd_cmd' => 'password {password}',
             'sendmsg_cmd' => 'say {msg}',
             'srestart_cmd' => 'reload',
@@ -679,10 +679,10 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'samp',
             'name' => 'Default (Freeroam)',
-            'remote_repository_nix' => 'http://files.sa-mp.com/samp037svr_R2-1.tar.gz',
-            'remote_repository_win' => 'http://files.sa-mp.com/samp037_svr_R2-1-1_win32.zip',
-            'start_cmd_nix' => './samp03svr',
-            'start_cmd_win' => 'samp-server.exe',
+            'remote_repository_linux' => 'http://files.sa-mp.com/samp037svr_R2-1.tar.gz',
+            'remote_repository_windows' => 'http://files.sa-mp.com/samp037_svr_R2-1-1_win32.zip',
+            'start_cmd_linux' => './samp03svr',
+            'start_cmd_windows' => 'samp-server.exe',
         ]);
 
         /* Multi Theft Auto (MTA) */
@@ -697,10 +697,10 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Maximum players on server',
                 ]
             ]),
-            'remote_repository_nix' => $gapRepoBaseUrl . '/mta/default-deathmatch.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/mta/default-deathmatch.tar.xz',
-            'start_cmd_nix' => './mta-server64 -t -n --ip {ip} --port {port} --maxplayers {maxplayers}',
-            'start_cmd_win' => '',
+            'remote_repository_linux' => $gapRepoBaseUrl . '/mta/default-deathmatch.tar.xz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/mta/default-deathmatch.tar.xz',
+            'start_cmd_linux' => './mta-server64 -t -n --ip {ip} --port {port} --maxplayers {maxplayers}',
+            'start_cmd_windows' => '',
         ]);
 
         /* FiveM */
@@ -721,10 +721,10 @@ class GameModsTableSeeder extends Seeder
                     'admin_var' => true,
                 ],
             ]),
-            'remote_repository_nix' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
-            'remote_repository_win' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
-            'start_cmd_nix' => './fivem_run.sh --ip={ip} --port={port} --hostname="{hostname}" --rcon-password="{rcon_password}" --license-key="{license_key}"',
-            'start_cmd_win' => 'run.cmd +exec server.cfg',
+            'remote_repository_linux' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/fivem/fivem.tar.xz',
+            'start_cmd_linux' => './fivem_run.sh --ip={ip} --port={port} --hostname="{hostname}" --rcon-password="{rcon_password}" --license-key="{license_key}"',
+            'start_cmd_windows' => 'run.cmd +exec server.cfg',
             'sendmsg_cmd' => 'say {msg}',
             'kick_cmd' => 'clientkick {id}',
         ]);
@@ -734,10 +734,10 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'ragemp',
             'name' => 'Default',
-            'remote_repository_nix' => 'https://cdn.rage.mp/updater/prerelease/server-files/linux_x64.tar.gz',
-            'remote_repository_win' => '',
-            'start_cmd_nix' => './ragemp-server',
-            'start_cmd_win' => '',
+            'remote_repository_linux' => 'https://cdn.rage.mp/updater/prerelease/server-files/linux_x64.tar.gz',
+            'remote_repository_windows' => '',
+            'start_cmd_linux' => './ragemp-server',
+            'start_cmd_windows' => '',
         ]);
 
         ###
@@ -749,8 +749,8 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'justcause2',
             'name' => 'Default',
-            'start_cmd_nix' => './Jcmp-Server',
-            'start_cmd_win' => '',
+            'start_cmd_linux' => './Jcmp-Server',
+            'start_cmd_windows' => '',
         ]);
 
         /* Just cause 3 */
@@ -758,8 +758,8 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'justcause3',
             'name' => 'Default',
-            'start_cmd_nix' => './Server',
-            'start_cmd_win' => '',
+            'start_cmd_linux' => './Server',
+            'start_cmd_windows' => '',
         ]);
 
         ###
@@ -782,8 +782,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Config file name',
                 ],
             ]),
-            'start_cmd_nix' => './arma2server -name={server_name} -config={config_file}',
-            'start_cmd_win' => '',
+            'start_cmd_linux' => './arma2server -name={server_name} -config={config_file}',
+            'start_cmd_windows' => '',
         ]);
 
         /* Arma 2 OA */
@@ -802,8 +802,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Config file name',
                 ],
             ]),
-            'start_cmd_nix' => './arma2server -name={server_name} -config={config_file}',
-            'start_cmd_win' => '',
+            'start_cmd_linux' => './arma2server -name={server_name} -config={config_file}',
+            'start_cmd_windows' => '',
         ]);
 
         /* Arma 3 */
@@ -822,8 +822,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Config file name',
                 ],
             ]),
-            'start_cmd_nix' => './arma3server -name={server_name} -config={config_file}',
-            'start_cmd_win' => '',
+            'start_cmd_linux' => './arma3server -name={server_name} -config={config_file}',
+            'start_cmd_windows' => '',
         ]);
 
         ###
@@ -852,8 +852,8 @@ class GameModsTableSeeder extends Seeder
 //                    'info' => 'Is VAC enabled?',
 //                ],
 //            ]),
-//            'start_cmd_nix' => './ucc-bin server {default_map}.rom?game=KFmod.KFGameType?VACSecured={is_vac}?MaxPlayers={maxplayers} -nohomedir',
-//            'start_cmd_win' => 'ucc server {default_map}.rom?game=KFmod.KFGameType?VACSecured={is_vac}?MaxPlayers={maxplayers}',
+//            'start_cmd_linux' => './ucc-bin server {default_map}.rom?game=KFmod.KFGameType?VACSecured={is_vac}?MaxPlayers={maxplayers} -nohomedir',
+//            'start_cmd_windows' => 'ucc server {default_map}.rom?game=KFmod.KFGameType?VACSecured={is_vac}?MaxPlayers={maxplayers}',
 //        ]);
 
         /* Killing floor 2 */
@@ -866,8 +866,8 @@ class GameModsTableSeeder extends Seeder
                 'default' => 'kf-bioticslab',
                 'info' => 'Default Map',
             ]),
-            'start_cmd_nix' => './Binaries/Win64/KFGameSteamServer.bin.x86_64 {default_map}',
-            'start_cmd_win' => 'Binaries\win64\kfserver {default_map}',
+            'start_cmd_linux' => './Binaries/Win64/KFGameSteamServer.bin.x86_64 {default_map}',
+            'start_cmd_windows' => 'Binaries\win64\kfserver {default_map}',
         ]);
 
         ###
@@ -891,8 +891,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Session name',
                 ],
             ]),
-            'start_cmd_nix' => './ShooterGameServer TheIsland?listen?SessionName={session_name}?Port={port}?QueryPort={query_port}?MaxPlayers={maxplayers}?ServerPassword={server_password}?ServerAdminPassword={rcon_password} -server -log',
-            'start_cmd_win' => 'ShooterGameServer.exe TheIsland?listen?SessionName={session_name}?Port={port}?QueryPort={query_port}?MaxPlayers={maxplayers}?ServerPassword={server_password}?ServerAdminPassword={rcon_password} exit',
+            'start_cmd_linux' => './ShooterGameServer TheIsland?listen?SessionName={session_name}?Port={port}?QueryPort={query_port}?MaxPlayers={maxplayers}?ServerPassword={server_password}?ServerAdminPassword={rcon_password} -server -log',
+            'start_cmd_windows' => 'ShooterGameServer.exe TheIsland?listen?SessionName={session_name}?Port={port}?QueryPort={query_port}?MaxPlayers={maxplayers}?ServerPassword={server_password}?ServerAdminPassword={rcon_password} exit',
         ]);
 
         /* HurtWorld */
@@ -917,8 +917,8 @@ class GameModsTableSeeder extends Seeder
                     'info' => 'Log file name',
                 ],
             ]),
-            'start_cmd_nix' => '',
-            'start_cmd_win' => 'Hurtworld.exe -batchmode -nographics -exec "host {port};queryport {query_port};servername {server_name};addadmin admin_uid" -logfile "{log_file}"',
+            'start_cmd_linux' => '',
+            'start_cmd_windows' => 'Hurtworld.exe -batchmode -nographics -exec "host {port};queryport {query_port};servername {server_name};addadmin admin_uid" -logfile "{log_file}"',
         ]);
 
         /* Rust */
@@ -938,8 +938,8 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'rok',
             'name' => 'Default',
-            'start_cmd_nix' => '',
-            'start_cmd_win' => '',
+            'start_cmd_linux' => '',
+            'start_cmd_windows' => '',
         ]);
 
         /* 7 Day to Die */
@@ -947,8 +947,8 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => '7d2d',
             'name' => 'Default',
-            'start_cmd_nix' => './startserver.sh -configfile=serverconfig.xml',
-            'start_cmd_win' => 'startdedicated.bat',
+            'start_cmd_linux' => './startserver.sh -configfile=serverconfig.xml',
+            'start_cmd_windows' => 'startdedicated.bat',
         ]);
 
         /* Don`t Starve Together */
@@ -956,8 +956,8 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'dst',
             'name' => 'Default',
-            'start_cmd_nix' => './dontstarve_dedicated_server_nullrenderer',
-            'start_cmd_win' => '',
+            'start_cmd_linux' => './dontstarve_dedicated_server_nullrenderer',
+            'start_cmd_windows' => '',
         ]);
 
         /* The Forest */
@@ -1020,7 +1020,7 @@ class GameModsTableSeeder extends Seeder
                     'admin_var' => true,
                 ],
             ]),
-            'start_cmd_win' => 'TheForestDedicatedServer.exe -serverip {ip} -servergameport {port} -serverqueryport {query_port} -serversteamport {steamport} -serverplayers {maxplayers} -servername "{servername}" -serverpassword {password} -serverpassword_admin {password_admin} -enableVAC {enableVAC} -serverautosaveinterval {serverautosaveinterval} -difficulty {difficulty} -slot {slot} ',
+            'start_cmd_windows' => 'TheForestDedicatedServer.exe -serverip {ip} -servergameport {port} -serverqueryport {query_port} -serversteamport {steamport} -serverplayers {maxplayers} -servername "{servername}" -serverpassword {password} -serverpassword_admin {password_admin} -enableVAC {enableVAC} -serverautosaveinterval {serverautosaveinterval} -difficulty {difficulty} -slot {slot} ',
         ]);
 
         /* Teeworlds */
@@ -1030,19 +1030,19 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'teeworlds',
             'name' => 'Default',
-            'start_cmd_nix' => './teeworlds-0.7.5-linux_x86_64/teeworlds_srv -f server.cfg',
-            'start_cmd_win' => 'teeworlds-0.7.5-win64\teeworlds_srv.exe -f server.cfg',
-            'remote_repository_nix' => 'https://github.com/teeworlds/teeworlds/releases/download/0.7.5/teeworlds-0.7.5-linux_x86_64.tar.gz',
-            'remote_repository_win' => 'https://github.com/teeworlds/teeworlds/releases/download/0.7.5/teeworlds-0.7.5-win64.zip',
+            'start_cmd_linux' => './teeworlds-0.7.5-linux_x86_64/teeworlds_srv -f server.cfg',
+            'start_cmd_windows' => 'teeworlds-0.7.5-win64\teeworlds_srv.exe -f server.cfg',
+            'remote_repository_linux' => 'https://github.com/teeworlds/teeworlds/releases/download/0.7.5/teeworlds-0.7.5-linux_x86_64.tar.gz',
+            'remote_repository_windows' => 'https://github.com/teeworlds/teeworlds/releases/download/0.7.5/teeworlds-0.7.5-win64.zip',
         ]);
 
         DB::table('game_mods')->insert([
             'game_code' => 'teeworlds',
             'name' => 'DDrace',
-            'start_cmd_nix' => './DDNet-16.0.3-linux_x86_64/DDNet-Server -f server.cfg',
-            'start_cmd_win' => 'DDNet-16.0.3-win64\DDNet-Server.exe -f server.cfg',
-            'remote_repository_nix' => 'https://ddnet.tw/downloads/DDNet-16.0.3-linux_x86_64.tar.xz',
-            'remote_repository_win' => 'https://ddnet.tw/downloads/DDNet-16.0.3-win64.zip',
+            'start_cmd_linux' => './DDNet-16.0.3-linux_x86_64/DDNet-Server -f server.cfg',
+            'start_cmd_windows' => 'DDNet-16.0.3-win64\DDNet-Server.exe -f server.cfg',
+            'remote_repository_linux' => 'https://ddnet.tw/downloads/DDNet-16.0.3-linux_x86_64.tar.xz',
+            'remote_repository_windows' => 'https://ddnet.tw/downloads/DDNet-16.0.3-win64.zip',
         ]);
 
         ###
@@ -1062,10 +1062,10 @@ class GameModsTableSeeder extends Seeder
 //                    'admin_var' => true,
 //                ],
 //            ]),
-//            'start_cmd_nix' => './teamspeak3-server_linux_amd64/ts3server_minimal_runscript.sh voice_ip={ip} default_voice_port={port} query_ip={ip} query_port={query_port} filetransfer_ip={ip} filetransfer_port={filetransfer_port} license_accepted=1',
-//            'start_cmd_win' => 'teamspeak3-server_win64\ts3server.exe',
-//            'remote_repository_nix' => 'https://files.teamspeak-services.com/releases/server/3.13.6/teamspeak3-server_linux_amd64-3.13.6.tar.bz2',
-//            'remote_repository_win' => 'https://files.teamspeak-services.com/releases/server/3.13.6/teamspeak3-server_win64-3.13.6.zip',
+//            'start_cmd_linux' => './teamspeak3-server_linux_amd64/ts3server_minimal_runscript.sh voice_ip={ip} default_voice_port={port} query_ip={ip} query_port={query_port} filetransfer_ip={ip} filetransfer_port={filetransfer_port} license_accepted=1',
+//            'start_cmd_windows' => 'teamspeak3-server_win64\ts3server.exe',
+//            'remote_repository_linux' => 'https://files.teamspeak-services.com/releases/server/3.13.6/teamspeak3-server_linux_amd64-3.13.6.tar.bz2',
+//            'remote_repository_windows' => 'https://files.teamspeak-services.com/releases/server/3.13.6/teamspeak3-server_win64-3.13.6.zip',
 //        ]);
 
     }
@@ -1110,13 +1110,13 @@ class GameModsTableSeeder extends Seeder
             $game = ' -game ' . $game;
         }
         switch ($os) {
-            case 'nix':
+            case 'linux':
                 if(empty($file)){
                     $file = './hlds_run';
                 }
                 $cmd = $file . ' -console' . $game . ' +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps} +rcon_password {rcon_password}';
                 break;
-            case 'win':
+            case 'windows':
                 if(empty($file)){
                     $file = 'hlds.exe';
                 }
@@ -1166,13 +1166,13 @@ class GameModsTableSeeder extends Seeder
             $game = ' -game ' . $game;
         }
         switch ($os) {
-            case 'nix':
+            case 'linux':
                 if(empty($file)){
                     $file = './srcds_run';
                 }
                 $cmd = $file . ' -console' . $game . ' +ip {ip} +port {port} +maxplayers {maxplayers} +map {default_map} -tickrate {tickrate} +rcon_password {rcon_password}';
                 break;
-            case 'win':
+            case 'windows':
                 if(empty($file)){
                     $file = 'srcds.exe';
                 }

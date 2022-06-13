@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGameModsTable extends Migration
+class ChangeGameModsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,8 +18,10 @@ class CreateGameModsTable extends Migration
             $table->renameColumn('local_repository', 'local_repository_linux');
             $table->renameColumn('default_start_cmd_linux', 'start_cmd_linux');
             $table->renameColumn('default_start_cmd_windows', 'start_cmd_windows');
-            $table->text('remote_repository_windows')->nullable();
-            $table->text('local_repository_windows')->nullable();
+        });
+        Schema::table('game_mods', function (Blueprint $table) {
+            $table->text('remote_repository_windows')->after('remote_repository_linux')->nullable();
+            $table->text('local_repository_windows')->after('local_repository_linux')->nullable();
         });
     }
 

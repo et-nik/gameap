@@ -13,10 +13,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $engine
  * @property string $engine_version
- * @property integer $steam_app_id
+ * @property integer $steam_app_id_linux
+ * @property integer $steam_app_id_windows
  * @property string $steam_app_set_config
- * @property string $remote_repository
- * @property string $local_repository
+ * @property string $remote_repository_linux
+ * @property string $remote_repository_windows
+ * @property string $local_repository_linux
+ * @property string $local_repository_windows
  */
 class Game extends Model
 {
@@ -54,10 +57,10 @@ class Game extends Model
     protected $fillable = [
         'code', 'start_code', 'name',
         'engine', 'engine_version',
-        'steam_app_id_nix', 'steam_app_id_win',
+        'steam_app_id_linux', 'steam_app_id_windows',
         'steam_app_set_config',
-        'remote_repository_nix', 'remote_repository_win',
-        'local_repository_nix', 'local_repository_win'
+        'remote_repository_linux', 'remote_repository_windows',
+        'local_repository_linux', 'local_repository_windows'
     ];
 
     /**

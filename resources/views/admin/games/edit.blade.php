@@ -57,8 +57,8 @@
                         {{ __('games.steam_info') }}
                     </div>
                     <div class="card-body">
-                        {{ Form::bsText('steam_app_id_nix') }}
-                        {{ Form::bsText('steam_app_id_win') }}
+                        {{ Form::bsText('steam_app_id_linux') }}
+                        {{ Form::bsText('steam_app_id_windows') }}
                         {{ Form::bsText('steam_app_set_config') }}
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                         {{ __('games.repositories_local') }}
                     </div>
                     <div class="card-body">
-                        {{ Form::bsText('local_repository_nix') }}
-                        {{ Form::bsText('local_repository_win') }}
+                        {{ Form::bsText('local_repository_linux') }}
+                        {{ Form::bsText('local_repository_windows') }}
                     </div>
                 </div>
 
@@ -78,8 +78,8 @@
                         {{ __('games.repositories_remote') }}
                     </div>
                     <div class="card-body">
-                        {{ Form::bsText('remote_repository_nix') }}
-                        {{ Form::bsText('remote_repository_win') }}
+                        {{ Form::bsText('remote_repository_linux') }}
+                        {{ Form::bsText('remote_repository_windows') }}
                     </div>
                 </div>
             </div>
