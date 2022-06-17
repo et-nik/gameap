@@ -29,6 +29,9 @@
 
             <div class="col-6">
                 <div class="card">
+                    <div class="card-header">
+                        {{ __('games.steam_info') }}
+                    </div>
                     <div class="card-body">
                         {{ Form::bsText('steam_app_id_linux') }}
                         {{ Form::bsText('steam_app_id_windows') }}
@@ -37,21 +40,27 @@
                 </div>
 
                 <div class="card mt-2">
+                    <div class="card-header">
+                        {{ __('games.repositories_local') }}
+                    </div>
                     <div class="card-body">
                         {{ Form::bsText('local_repository_linux') }}
                         {{ Form::bsText('local_repository_windows') }}
                     </div>
                 </div>
-                
+
                 <div class="card mt-2">
+                    <div class="card-header">
+                        {{ __('games.repositories_remote') }}
+                    </div>
                     <div class="card-body">
-                        {{ Form::bsText('local_repository_linux') }}
-                        {{ Form::bsText('local_repository_windows') }}
+                        {{ Form::bsText('remote_repository_linux') }}
+                        {{ Form::bsText('remote_repository_windows') }}
                     </div>
                 </div>
             </div>
         </div>
-    
+
         <div class="col-md-12 mt-4">
             <div class="form-group">
                 {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
