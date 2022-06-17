@@ -2,7 +2,7 @@
 
 @extends('layouts.main')
 
-@section('breadclumbs')
+@section('breadcrumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
         <li class="breadcrumb-item active">{{ __('dedicated_servers.dedicated_servers') }}</li>
@@ -10,13 +10,14 @@
 @endsection
 
 @section('content')
-    <a class='btn btn-success' href="{{ route('admin.dedicated_servers.create') }}">
-        <i class="fa fa-plus-square"></i> {{ __('dedicated_servers.create') }}
-    </a>
-    <a class='btn btn-warning' href="{{ route('admin.client_certificates.index') }}">
-        <i class="fas fa-certificate"></i> {{ __('client_certificates.client_certificates') }}
-    </a>
-    <hr>
+    <div class="page-list-menu mb-3">
+        <a class='btn btn-success' href="{{ route('admin.dedicated_servers.create') }}">
+            <i class="fa fa-plus-square"></i> {{ __('dedicated_servers.create') }}
+        </a>
+        <a class='btn btn-warning' href="{{ route('admin.client_certificates.index') }}">
+            <i class="fas fa-certificate"></i> {{ __('client_certificates.client_certificates') }}
+        </a>
+    </div>
 
     @include('components.grid', [
         'modelsList' => $dedicatedServers,

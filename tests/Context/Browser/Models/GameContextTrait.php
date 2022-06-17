@@ -9,9 +9,9 @@ trait GameContextTrait
     private function givenGame(): Game
     {
         $game = factory(Game::class)->create([
-            'code'              => 'test',
-            'name'              => 'Test',
-            'remote_repository' => 'https://files.gameap.ru/test/test.tar.xz',
+            'code'                    => 'test',
+            'name'                    => 'Test',
+            'remote_repository_linux' => 'https://files.gameap.ru/test/test.tar.xz',
         ]);
 
         return $game;

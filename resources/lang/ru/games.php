@@ -32,7 +32,12 @@ return [
     'fast_rcon_commands'  => 'Fast RCON команды',
     
     'basic_info'          => 'Основное',
+    'game_info'           => 'Параметры игры',
+    'game_mod_info'       => 'Параметры игрового мода',
+    'steam_info'          => 'Настройки steamcmd',
     'repositories'        => 'Репозитории',
+    'repositories_local'  => 'Локальные репозитории',
+    'repositories_remote' => 'Удаленные репозитории',
     
     // Descriptions
     'd_kick_cmd'          => 'Шорткоды: {id} -- id игрока, {name} -- имя игрока',

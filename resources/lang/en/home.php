@@ -32,6 +32,8 @@ return [
     'd_report_bug'      => 'Please check the PHP version and the availability of the necessary PHP extensions.
                         PHP versions should be no lower than the minimum recommended.
                         Some functions of the panel will not work correctly without the necessary extensions',
+    'send_report'       => 'Send report',
+    'system_check'      => 'System check',
 
     'send_bug_success_msg' => 'Error message sent successfully',
 

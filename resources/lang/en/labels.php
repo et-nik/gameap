@@ -45,15 +45,18 @@ return [
     'start_code' => 'Start Code',
     'engine' => 'Engine',
     'engine_version' => 'Engine Version',
-    'steam_app_id' => 'Steam App ID',
+    'steam_app_id_linux' => 'Steam App ID (Linux)',
+    'steam_app_id_windows' => 'Steam App ID (Windows)',
     'steam_app_set_config' => 'Steam App Set Config',
     
     // GameMod
     'game_code' => 'Game Code',
     'fast_rcon' => 'Fast RCON',
     'vars' => 'Vars',
-    'remote_repository' => 'Remote Repository',
-    'local_repository' => 'Local Repository',
+    'remote_repository_linux' => 'Remote Repository (Linux)',
+    'remote_repository_windows' => 'Remote Repository (Windows)',
+    'local_repository_linux' => 'Local Repository (Linux)',
+    'local_repository_windows' => 'Local Repository (Windows)',
     'kick_cmd' => 'Kick Command',
     'ban_cmd' => 'Ban Command',
     'chname_cmd' => 'Change Name Command',
@@ -61,8 +64,8 @@ return [
     'chmap_cmd' => 'Change Map Command',
     'sendmsg_cmd' => 'Send Message Command',
     'passwd_cmd' => 'Set/Change Password Command',
-    'default_start_cmd_linux' => 'Default Start Command (Linux)',
-    'default_start_cmd_windows' => 'Default Start Command (Windows)',
+    'start_cmd_linux' => 'Start Command (Linux)',
+    'start_cmd_windows' => 'Start Command (Windows)',
 
     // Server
     'game_server' => 'Game server',

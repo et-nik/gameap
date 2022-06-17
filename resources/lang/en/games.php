@@ -31,8 +31,13 @@ return [
     'vars'                => 'Vars',
     'fast_rcon_commands'  => 'Fast RCON commands',
     
-    'basic_info'          => 'Basic Info',
+    'basic_info'          => 'Basic info',
+    'game_info'           => 'Game info',
+    'game_mod_info'       => 'Game mod info',
+    'steam_info'          => 'Steamcmd settings',
     'repositories'        => 'Repositories',
+    'repositories_local'  => 'Local repositories',
+    'repositories_remote' => 'Remote repositories',
     
     // Descriptions
     'd_kick_cmd'          => 'Shortcodes: {id} -- player id, {name} -- player name',

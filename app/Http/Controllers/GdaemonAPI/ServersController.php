@@ -30,6 +30,7 @@ class ServersController extends Controller
         return response()->json(
             QueryBuilder::for(Server::where('ds_id', '=', $dedicatedServer->id))
             ->allowedFilters('id')
+            ->with('dedicatedServer')
             ->with('game')
             ->with('gameMod')
             ->with('settings')
@@ -39,10 +40,33 @@ class ServersController extends Controller
 
     public function server(Server $server): JsonResponse
     {
-        // Get Relations
+        $server->getRelationValue('dedicatedServer');
+        $isLinux = $server->dedicatedServer->isLinux();
+        $server->unsetRelation('dedicatedServer');
+
         $server->getRelationValue('game');
         $server->getRelationValue('gameMod');
         $server->getRelationValue('settings');
+
+        $fieldSiffix = 'windows';
+        if($isLinux) {
+            $fieldSiffix = 'linux';
+        }
+        $arFields = [
+            'game' => [
+                'remote_repository', 'local_repository', 'steam_app_id',
+            ],
+            'gameMod' => [
+                'remote_repository', 'local_repository', 'start_cmd',
+            ],
+        ];
+        foreach($arFields as $relationName => $arRelationFields){
+            foreach($arRelationFields as $gameField){
+                $server->{$relationName}->{$gameField} = $server->{$relationName}->{$gameField . '_' . $fieldSiffix};
+                unset($server->{$relationName}->{$gameField . '_linux'});
+                unset($server->{$relationName}->{$gameField . '_windows'});
+            }
+        }
 
         return response()->json($server);
     }

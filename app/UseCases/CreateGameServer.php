@@ -67,8 +67,8 @@ class CreateGameServer
 
             $server->start_command =
                 $node->isLinux()
-                    ? $gameMod->default_start_cmd_linux
-                    : $gameMod->default_start_cmd_windows;
+                    ? $gameMod->start_cmd_linux
+                    : $gameMod->start_cmd_windows;
         } else {
             $server->start_command = $command->startCommand;
         }
