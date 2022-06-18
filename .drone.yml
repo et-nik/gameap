@@ -134,6 +134,7 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
+    shm_size: 2000000000
     volumes:
       - name: daemon_logs
         path: /var/log/gameap-daemon
@@ -273,6 +274,7 @@ services:
 
   - name: selenium
     image: selenium/standalone-chrome:4.1.0
+    shm_size: 2000000000
     environment:
       HUB_PORT: 4444
       SCREEN_WIDTH: 1280
