@@ -10,6 +10,12 @@
     </report>
   </coverage>
   <testsuites>
+    <testsuite name="API">
+      <directory suffix="Test.php">./tests/API</directory>
+    </testsuite>
+    <testsuite name="DaemonAPI">
+      <directory suffix="Test.php">./tests/DaemonAPI</directory>
+    </testsuite>
     <testsuite name="Feature">
       <directory suffix="Test.php">./tests/Feature</directory>
     </testsuite>
