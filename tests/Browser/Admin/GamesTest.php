@@ -84,7 +84,8 @@ class GamesTest extends BrowserTestCase
                 ->assertPathIs('/admin/game_mods/create')
                 ->select('game_code', 'test')
                 ->type('name', 'Default')
-                ->press('Create')
+                ->scrollIntoView('input[type=submit]')
+                ->press(__('main.create'))
                 ->assertPathIs('/admin/games')
                 ->assertSee(__('games.mod_create_success_msg'));
         });
