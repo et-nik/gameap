@@ -9,7 +9,4 @@ then
     sleep 5
 fi
 
-service ssh start
-service gameap-daemon start
-
-tail -f /var/log/gameap-daemon/output.log
+gameap-daemon

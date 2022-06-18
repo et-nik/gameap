@@ -30,7 +30,7 @@ class DedicatedServersController extends Controller
             'script_restart'        => $dedicatedServer->script_restart,
             'script_status'         => $dedicatedServer->script_status,
             'script_get_console'    => $dedicatedServer->script_get_console,
-            'script_send_command'   => $dedicatedServer->script_get_console,
+            'script_send_command'   => $dedicatedServer->script_send_command,
             'script_delete'         => $dedicatedServer->script_delete,
         ];
     }

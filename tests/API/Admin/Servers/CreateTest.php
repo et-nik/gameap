@@ -3,7 +3,7 @@
 namespace Tests\API\Admin\Servers;
 
 use Gameap\Models\User;
-use Silber\Bouncer\Bouncer;
+use Bouncer;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\API\APITestCase;
 
