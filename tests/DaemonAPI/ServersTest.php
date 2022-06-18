@@ -228,4 +228,31 @@ class ServersTest extends TestCase
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJsonPath('message', 'Invalid api token');
     }
+
+    public function testUpdateServer_Success()
+    {
+        $node = $this->givenNode();
+        $server = $this->givenGameServer($node->id);
+
+        $response = $this->put(
+            '/gdaemon_api/servers/' . $server->id,
+            [
+                'installed' => 1,
+                'process_active' => 1,
+                'last_process_check' => '1971-11-19 22:52:16'
+            ],
+            [
+                'X-Auth-Token' => $node->gdaemon_api_token,
+                'Accept' => 'application/json',
+            ]
+        );
+
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseHas('servers', [
+            'id' => $server->id,
+            'installed' => 1,
+            'process_active' => 1,
+            'last_process_check' => '1971-11-19 22:52:16',
+        ]);
+    }
 }
