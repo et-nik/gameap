@@ -134,7 +134,6 @@ steps:
       - rm -rf storage/framework/views/*
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
-    shm_size: 2000000000
     volumes:
       - name: daemon_logs
         path: /var/log/gameap-daemon
