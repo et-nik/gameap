@@ -27,7 +27,7 @@
         "fakerphp/faker": "^1.13.0",
         "fideloper/proxy": "~4.0",
         "gameap/gameap-file-manager": "^1.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4.4",
         "joshbrw/laravel-module-installer": "^1.0.1",
         "knik/flysystem-gameap": "*",
         "knik/g-rcon": "*",
