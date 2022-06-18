@@ -3,13 +3,23 @@
 namespace Tests\API\FileManager;
 
 use Gameap\Models\User;
-use Illuminate\Container\Container;
 use Silber\Bouncer\Bouncer;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\API\APITestCase;
 
 class InitializeTest extends APITestCase
 {
+    /** @var Bouncer */
+    protected $bouncer;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->bouncer = $this->app->get(Bouncer::class);
+        $this->bouncer->dontCache();
+    }
+
     public function testGuestUser_ExpectUnauthorized()
     {
         $node = $this->givenNode();
@@ -31,7 +41,7 @@ class InitializeTest extends APITestCase
         $server = $this->givenGameServer($node->id);
         $user = factory(User::class)->create();
         $this->be($user);
-        Bouncer::sync($user)->roles(['admin']);
+        $this->bouncer->sync($user)->roles(['admin']);
 
         $response = $this->get(
             sprintf('/file-manager/%d/initialize', $server->id),
