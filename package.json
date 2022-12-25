@@ -23,7 +23,7 @@
     "moment": "^2.29.1",
     "popper.js": "^1.15.0",
     "sass": "^1.32.0",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^9.0.0",
     "vue": "^2.6.12",
     "vue-select": "^2.5.1",
     "vue2-datepicker": "^3.8.2"
