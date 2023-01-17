@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('breadclumbs')
+@section('breadcrumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
         <li class="breadcrumb-item">{{ __('home.get_help') }}</li>

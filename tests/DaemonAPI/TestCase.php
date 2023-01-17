@@ -1,15 +1,11 @@
 <?php
 
-namespace Tests\API;
+namespace Tests\DaemonAPI;
 
-use Gameap\Models\DedicatedServer;
-use Gameap\Models\Game;
-use Gameap\Models\GameMod;
-use Gameap\Models\Server;
 use Illuminate\Container\Container;
-use Tests\TestCase;
+use Tests\TestCase as BaseTestCase;
 
-class APITestCase extends TestCase
+class TestCase extends BaseTestCase
 {
     /** @var Container */
     protected $container;

@@ -24,30 +24,30 @@
         "ext-xml": "*",
         "ext-zip": "*",
         "doctrine/dbal": "~2.3",
-        "fakerphp/faker": "^1.13.0",
+        "fakerphp/faker": "^1.20.0",
         "fideloper/proxy": "~4.0",
         "gameap/gameap-file-manager": "^1.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.5.0",
         "joshbrw/laravel-module-installer": "^1.0.1",
         "knik/flysystem-gameap": "*",
         "knik/g-rcon": "*",
         "knik/gameap-daemon-client": "^0.6",
         "knik/gameq": "^3.0",
         "knik/x509": "^0.6.2",
-        "laravel/framework": "^8.71.0",
-        "laravel/helpers": "^1.1",
-        "laravel/legacy-factories": "^1.1",
-        "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.0",
+        "laravel/framework": "^8.83.0",
+        "laravel/helpers": "^1.6",
+        "laravel/legacy-factories": "^1.3",
+        "laravel/tinker": "^2.8",
+        "laravel/ui": "^3.4",
         "laravelcollective/html": "^6",
-        "league/flysystem": "^1.1.5",
-        "mavinoo/laravel-batch": "^2.3.1",
+        "league/flysystem": "^1.1.10",
+        "mavinoo/laravel-batch": "^2.3.5",
         "moontoast/math": "^1.1",
-        "nwidart/laravel-modules": "^6.0",
-        "phpseclib/phpseclib": "^2.0.33",
-        "silber/bouncer": "v1.0.0-rc.11",
+        "nwidart/laravel-modules": "^6.2",
+        "phpseclib/phpseclib": "^2.0.41",
+        "silber/bouncer": "v1.0.0",
         "spatie/laravel-query-builder": "^3.6.0",
-        "splitbrain/php-archive": "^1.2",
+        "splitbrain/php-archive": "^1.3",
         "symfony/property-access": "^5.4",
         "symfony/serializer": "^5"
     },
@@ -70,7 +70,7 @@
             "App\\": "app/",
             "GameapModules\\": "modules/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeds/"
         }
     },
     "autoload-dev": {
@@ -100,6 +100,9 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "joshbrw/laravel-module-installer": true
+        }
     }
 }

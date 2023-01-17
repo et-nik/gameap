@@ -2,7 +2,7 @@
 
 @extends('layouts.main')
 
-@section('breadclumbs')
+@section('breadcrumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
         <li class="breadcrumb-item active">{{ __('users.users') }}</li>
@@ -10,8 +10,11 @@
 @endsection
 
 @section('content')
-    <a class='btn btn-success btn-sm' href="{{ route('admin.users.create') }}">{{ __('main.create') }}</a>
-    <hr>
+    <div class="page-list-menu mb-3">
+        <a class='btn btn-success' href="{{ route('admin.users.create') }}">
+            <span class="fa fa-plus-square"></span>&nbsp;{{ __('main.create') }}
+        </a>
+    </div>
 
     @include('components.grid', [
         'modelsList' => $users,

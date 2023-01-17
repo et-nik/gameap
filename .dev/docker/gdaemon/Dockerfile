@@ -1,11 +1,11 @@
-FROM knik/gdaemon-build:buster
+FROM debian:latest
 
 ARG ROOT_SSH_PASSWORD=password
 
 RUN apt-get -y update && apt-get -y install \
     ssh \
-    gdb \
-    clang \
+    curl \
+    wget \
     rsync \
     tar \
     python \

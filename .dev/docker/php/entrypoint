@@ -16,11 +16,11 @@ if (getenv('DB_CONNECTION') == 'sqlite') {
 
         system('php artisan migrate --force');
 
-        system('php artisan db:seed --class=ClientCertificatesTableSeeder');
-        system('php artisan db:seed --class=GamesTableSeeder');
-        system('php artisan db:seed --class=GameModsTableSeeder');
-        system('php artisan db:seed --class=UsersTableSeeder');
-        system('php artisan db:seed --class=PermissionsSeeder');
+        system('php artisan db:seed --class=ClientCertificatesTableSeeder --force');
+        system('php artisan db:seed --class=GamesTableSeeder --force');
+        system('php artisan db:seed --class=GameModsTableSeeder --force');
+        system('php artisan db:seed --class=UsersTableSeeder --force');
+        system('php artisan db:seed --class=PermissionsSeeder --force');
     } else {
         system('php artisan migrate --force');
     }
@@ -57,11 +57,11 @@ else if (getenv('DB_CONNECTION') == 'mysql') {
     $count = $pdo->query("SELECT COUNT(*) as count FROM users;")->fetch(PDO::FETCH_ASSOC)['count'];
 
     if ($count == 0) {
-        system('php artisan db:seed --class=ClientCertificatesTableSeeder');
-        system('php artisan db:seed --class=GamesTableSeeder');
-        system('php artisan db:seed --class=GameModsTableSeeder');
-        system('php artisan db:seed --class=UsersTableSeeder');
-        system('php artisan db:seed --class=PermissionsSeeder');
+        system('php artisan db:seed --class=ClientCertificatesTableSeeder --force');
+        system('php artisan db:seed --class=GamesTableSeeder --force');
+        system('php artisan db:seed --class=GameModsTableSeeder --force');
+        system('php artisan db:seed --class=UsersTableSeeder --force');
+        system('php artisan db:seed --class=PermissionsSeeder --force');
     }
 }
 

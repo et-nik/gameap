@@ -17,8 +17,8 @@ class GameModRequest extends Request
             'name'      => 'required|string|max:255',
             'game_code' => 'sometimes|string|max:255|exists:games,code',
 
-            'default_start_cmd_linux'   => 'nullable|string|max:1000',
-            'default_start_cmd_windows' => 'nullable|string|max:1000',
+            'start_cmd_linux'   => 'nullable|string|max:1000',
+            'start_cmd_windows' => 'nullable|string|max:1000',
 
             'vars.*.var'       => 'max:16',
             'vars.*.default'   => 'max:64',

@@ -9,11 +9,22 @@ use Tests\API\APITestCase;
 
 class CreateTest extends APITestCase
 {
+    /** @var \Silber\Bouncer\Bouncer */
+    protected $bouncer;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->bouncer = $this->app->get(Bouncer::class);
+        $this->bouncer->dontCache();
+    }
+
     public function testCreateServer_ExpectInstallationGDaemonTaskExists()
     {
         $user = factory(User::class)->create();
         $this->be($user);
-        Bouncer::sync($user)->roles(['admin']);
+        $this->bouncer->sync($user)->roles(['admin']);
         $node = $this->givenNode();
         $gameMod = $this->givenGameMod();
 
@@ -61,7 +72,7 @@ class CreateTest extends APITestCase
     {
         $user = factory(User::class)->create();
         $this->be($user);
-        Bouncer::sync($user)->roles(['admin']);
+        $this->bouncer->sync($user)->roles(['admin']);
         $node = $this->givenNode();
         $gameMod = $this->givenGameMod();
 
@@ -106,7 +117,7 @@ class CreateTest extends APITestCase
     {
         $user = factory(User::class)->create();
         $this->be($user);
-        Bouncer::sync($user)->roles(['admin']);
+        $this->bouncer->sync($user)->roles(['admin']);
         $gameMod = $this->givenGameMod();
 
         $response = $this->post(

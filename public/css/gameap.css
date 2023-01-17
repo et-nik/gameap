@@ -4,10 +4,16 @@
     flex-wrap: wrap;
 }
 
+.table.table-fit{
+    width: fit-content;
+}
+.table.table-noborder td{
+    border: none;
+}
+
 .logo {
     max-width: 300px;
     max-height: 35px;
-    margin-left: 30px;
 }
 
 .logo-mini {
@@ -96,7 +102,7 @@
     border-top: 1px solid #D0D0D0;
     text-align: center;
     font-size: 11px;
-    padding: 0 10px 0 10px;
+    padding: 10px;
 }
 
 pre.console {
@@ -219,14 +225,13 @@ input.terminal-input {
 
     .left-menu {
         height: calc(100vh - 62px);
-        width: 245px;
+        width: 230px;
         position: fixed;
         z-index: 5;
-        margin-left: -15px;
     }
 
     .small-menu .left-menu {
-        width: 56px;
+        width: 65px;
     }
 
     .left-menu-tooltips .tooltip {
@@ -236,7 +241,7 @@ input.terminal-input {
 
     .small-menu .left-menu-group-mini {
         display: inline;
-        padding-left: 18px;
+        padding-left: 21px;
         text-align: center;
         margin-bottom: 0.3rem;
         font-weight: bold;
@@ -255,7 +260,7 @@ input.terminal-input {
     }
 
     .small-menu .content-wrapper {
-        margin-left: 56px;
+        margin-left: 65px;
     }
 
     .content-wrapper {

@@ -31,7 +31,7 @@ class GamesTest extends BrowserTestCase
                 ->type('name', 'Test')
                 ->type('engine', 'Test')
                 ->type('engine_version', '2.0')
-                ->type('remote_repository', 'http://files.gameap.ru/test/test.tar.xz')
+                ->type('remote_repository_linux', 'http://files.gameap.ru/test/test.tar.xz')
                 ->scrollIntoView('input[type=submit]')
                 ->press(__('main.create'))
                 ->assertPathIs('/admin/games')
@@ -43,7 +43,7 @@ class GamesTest extends BrowserTestCase
             'name'              => 'Test',
             'engine'            => 'Test',
             'engine_version'    => '2.0',
-            'remote_repository' => 'http://files.gameap.ru/test/test.tar.xz',
+            'remote_repository_linux' => 'http://files.gameap.ru/test/test.tar.xz',
         ]);
     }
 
@@ -84,7 +84,8 @@ class GamesTest extends BrowserTestCase
                 ->assertPathIs('/admin/game_mods/create')
                 ->select('game_code', 'test')
                 ->type('name', 'Default')
-                ->press('Create')
+                ->scrollIntoView('input[type=submit]')
+                ->press(__('main.create'))
                 ->assertPathIs('/admin/games')
                 ->assertSee(__('games.mod_create_success_msg'));
         });

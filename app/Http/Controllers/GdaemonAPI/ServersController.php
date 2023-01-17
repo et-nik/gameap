@@ -4,6 +4,7 @@ namespace Gameap\Http\Controllers\GdaemonAPI;
 
 use Gameap\Http\Requests\GdaemonAPI\JsonServerBulkRequest;
 use Gameap\Http\Requests\GdaemonAPI\ServerRequest;
+use Gameap\Http\Responses\GdaemonAPI\ServerResponse;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Gameap\Repositories\ServerRepository;
@@ -27,24 +28,26 @@ class ServersController extends Controller
 
     public function index(DedicatedServer $dedicatedServer): JsonResponse
     {
-        return response()->json(
-            QueryBuilder::for(Server::where('ds_id', '=', $dedicatedServer->id))
-            ->allowedFilters('id')
-            ->with('game')
-            ->with('gameMod')
-            ->with('settings')
-            ->get()
-        );
+        $servers = QueryBuilder::for(Server::where('ds_id', '=', $dedicatedServer->id))
+        ->allowedFilters('id')
+        ->with('dedicatedServer')
+        ->with('game')
+        ->with('gameMod')
+        ->with('settings')
+        ->get();
+
+        $serversResponse = [];
+
+        foreach ($servers as $server) {
+            $serversResponse[] = new ServerResponse($server);
+        }
+
+        return response()->json($serversResponse);
     }
 
     public function server(Server $server): JsonResponse
     {
-        // Get Relations
-        $server->getRelationValue('game');
-        $server->getRelationValue('gameMod');
-        $server->getRelationValue('settings');
-
-        return response()->json($server);
+        return response()->json(new ServerResponse($server));
     }
 
     public function update(ServerRequest $request, Server $server): JsonResponse

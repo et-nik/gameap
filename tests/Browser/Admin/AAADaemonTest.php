@@ -83,7 +83,7 @@ class AAADaemonTest extends DuskTestCase
                     $browser->refresh();
                 }
 
-                return $status === 'success';
+                return $status === 'success' || $status === 'error';
             });
 
             $browser->assertSee('Downloading successfully completed');

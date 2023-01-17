@@ -5,6 +5,7 @@ namespace Tests\Feature\Permissions\Controllers\API;
 use Gameap\Models\GameMod;
 use Gameap\Models\Server;
 use Gameap\Models\User;
+use Gameap\Repositories\UserRepository;
 use Illuminate\Http\Response;
 use Silber\Bouncer\Bouncer;
 use Tests\TestCase;
@@ -19,6 +20,9 @@ class ServerRconControllerTest extends TestCase
      */
     protected $user;
 
+    /** @var UserRepository */
+    protected $userRepository;
+
     /** @var Bouncer */
     protected $bouncer;
 
@@ -30,6 +34,8 @@ class ServerRconControllerTest extends TestCase
         $this->be($this->user);
 
         $this->bouncer = $this->app->get(Bouncer::class);
+
+        $this->userRepository = new UserRepository($this->bouncer);
     }
 
     public function testForbidden()
@@ -82,6 +88,7 @@ class ServerRconControllerTest extends TestCase
             'game_mod_id' => GameMod::select('id')->where(['game_code' => 'cstrike'])->first(),
             'process_active' => false,
         ]);
+        $this->userRepository->updateServerPermission($this->user, $server, []);
 
         $this->user->allow('server-rcon-console', $server);
         $this->user->allow('server-rcon-players', $server);

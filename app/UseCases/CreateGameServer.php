@@ -2,7 +2,6 @@
 
 namespace Gameap\UseCases;
 
-use Gameap\Helpers\ServerHelper;
 use Gameap\Models\Server;
 use Gameap\Repositories\GameModRepository;
 use Gameap\Repositories\NodeRepository;
@@ -67,8 +66,8 @@ class CreateGameServer
 
             $server->start_command =
                 $node->isLinux()
-                    ? $gameMod->default_start_cmd_linux
-                    : $gameMod->default_start_cmd_windows;
+                    ? $gameMod->start_cmd_linux
+                    : $gameMod->start_cmd_windows;
         } else {
             $server->start_command = $command->startCommand;
         }

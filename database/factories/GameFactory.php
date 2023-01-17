@@ -15,5 +15,6 @@ $factory->define(Game::class, function (Faker $faker) {
         'name'          => 'Test',
         'engine'        => 'test',
         'engine_version' => '1.0',
+        'remote_repository_linux' => '',
     ];
 });
