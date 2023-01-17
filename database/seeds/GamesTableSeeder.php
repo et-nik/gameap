@@ -305,6 +305,7 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'minecraft',
             'name' => 'Minecraft',
             'engine' => 'Minecraft',
+            'remote_repository_linux' => 'http://files.gameap.ru/minecraft/minecraft_install.tar.gz',
         ]);
 
         DB::table('games')->insert([
@@ -382,6 +383,7 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'mta',
             'name' => 'GTA: Multi Theft Auto',
             'engine' => 'RenderWare',
+            'remote_repository_linux' => 'http://files.gameap.ru/mta/mta.tar.xz',
         ]);
 
         DB::table('games')->insert([
@@ -389,6 +391,7 @@ class GamesTableSeeder extends Seeder
             'start_code' => 'fivem',
             'name' => 'FiveM',
             'engine' => 'Rage',
+            'remote_repository_linux' => 'http://files.gameap.ru/fivem/fivem.tar.xz',
         ]);
 
         DB::table('games')->insert([
@@ -457,7 +460,7 @@ class GamesTableSeeder extends Seeder
             'steam_app_id_linux' => 376030,
             'steam_app_id_windows' => 376030,
         ]);
-        
+
         DB::table('games')->insert([
             'code' => 'rust',
             'start_code' => 'rust',
@@ -465,7 +468,7 @@ class GamesTableSeeder extends Seeder
             'engine' => 'Unity',
             'steam_app_id_windows' => 258550,
         ]);
-        
+
         DB::table('games')->insert([
             'code' => 'hurtworld',
             'start_code' => 'hurtworld',
