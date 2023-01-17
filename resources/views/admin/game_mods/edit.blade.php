@@ -33,7 +33,7 @@
         <div class="tab-content">
             <div class="tab-pane container-fluid active" id="main">
                 <div class="row mt-2">
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
                                 {{ __('games.basic_info') }}
@@ -54,7 +54,7 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
                                 {{ __('games.repositories_local') }}
@@ -80,7 +80,7 @@
 
             <div class="tab-pane container-fluid fade" id="game-servers-commands">
                 <div class="row mt-2">
-                    <div class="col-12 m-2">
+                    <div class="col-md-12 m-2">
                         <div class="card">
                             <div class="card-header">
                                 {{ __('games.servers_commands') }}
@@ -127,7 +127,7 @@
 
             <div class="tab-pane container-fluid fade" id="vars">
                 <div class="row mt-2 mb-2">
-                    <div class="col-12">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <input-many-list
@@ -145,7 +145,7 @@
 
             <div class="tab-pane container-fluid fade" id="fast-rcon">
                 <div class="row mt-2 mb-2">
-                    <div class="col-12">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <input-many-list

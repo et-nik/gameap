@@ -29,7 +29,7 @@
             <hr>
         </div>
 
-        <div class="col-2 offset-5 centered mt-2">
+        <div class="col-md-2 offset-md-5 centered mt-2">
             <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><i class="fa fa-plus"></i>&nbsp;{{ trans('main.add') }}</button>
         </div>
     </div>

@@ -39,24 +39,24 @@
         <div class="card bg-light mt-3 mb-3">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-12">
 
                         <div class="row">
-                            <div class="col-12 mt-4 mb-3 pt-1">
+                            <div class="col-md-12 mt-4 mb-3 pt-1">
                                 <div class="custom-file" id="serverCertificateForm">
                                     {{ Form::file('certificate', ['class' => 'custom-file-input']) }}
                                     {{ Form::label('certificate', __('client_certificates.certificate'), ['class' => 'custom-file-label']) }}
-    
+
                                     @if ($errors->has('certificate'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('certificate') }}</strong>
                                         </span>
                                     @endif
-    
+
                                 </div>
                             </div>
 
-                            <div class="col-6 mt-4 mb-3 pt-1">
+                            <div class="col-md-6 mt-4 mb-3 pt-1">
                                 <div class="custom-file" id="serverCertificateForm">
                                     {{ Form::file('private_key', ['class' => 'custom-file-input']) }}
                                     {{ Form::label('private_key', __('client_certificates.private_key'), ['class' => 'custom-file-label']) }}
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 {{ Form::bsPassword('private_key_pass') }}
                             </div>
                         </div>
@@ -77,15 +77,15 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row">
-            <div class="col-12">
+            <div class="col-md-12">
                 <div class="form-group">
                     {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>
         </div>
-    
+
     {!! Form::close() !!}
 
 @endsection

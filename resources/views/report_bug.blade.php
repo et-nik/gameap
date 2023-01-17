@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-12">
+                <div class="col-md-12">
                     <p>
                         {{ __('home.d_report_bug') }}
                     </p>
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-12">
+                    <div class="col-md-12">
                         <div class="form-group">
                             {{ Form::submit(__('main.send'), ['class' => 'btn btn-success']) }}
                         </div>

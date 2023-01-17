@@ -13,10 +13,10 @@
             {{ __('home.update') }}
         </div>
         <div class="card-body">
-            <div class="col-12">
+            <div class="col-md-12">
                 <div class="row">
 
-                    <div class="col-12">
+                    <div class="col-md-12">
                         @php ($versionCompare = version_compare(Config::get('constants.AP_VERSION'), $latestVersion))
 
                         @if($versionCompare == -1)
@@ -33,13 +33,13 @@
                             </div>
                         @endif
                     </div>
-                    
-                    <div class="col-12">{{ __('home.latest_stable') }}: {{ $latestVersion }}</div>
-                    <div class="col-12">{{ __('home.your_version') }}: {{ Config::get('constants.AP_VERSION') }}</div>
+
+                    <div class="col-md-12">{{ __('home.latest_stable') }}: {{ $latestVersion }}</div>
+                    <div class="col-md-12">{{ __('home.your_version') }}: {{ Config::get('constants.AP_VERSION') }}</div>
                 </div>
-                
+
                 <div class="row mt-4">
-                    <div class="col-6"><i class="fas fa-book"></i> {{ __('home.documentation') }}: <a target="_blank" href="http://docs.gameap.ru/en/">https://docs.gameap.ru</a></div>
+                    <div class="col-md-6"><i class="fas fa-book"></i> {{ __('home.documentation') }}: <a target="_blank" href="http://docs.gameap.ru/en/">https://docs.gameap.ru</a></div>
                 </div>
             </div>
         </div>

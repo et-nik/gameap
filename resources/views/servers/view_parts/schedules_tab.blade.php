@@ -5,7 +5,7 @@
 --}}
 
 <div class="row mt-2">
-    <div class="col-12">
+    <div class="col-md-12">
         <server-tasks
                 v-if="activeTab === 'schedules'"
                 :server-id="{{ $server->id }}"
