@@ -105,6 +105,29 @@ steps:
       - rm -rf storage/logs/*
       - rm .env
 
+  - name: tests-php-8.2
+    image: knik/php:8.2-fpm-alpine
+    failure: ignore
+    environment:
+      APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+    commands:
+      - cp .env.example .env
+      - php artisan migrate:fresh --seed
+      - vendor/bin/phpunit --verbose
+      - rm -rf storage/app/certs
+      - rm -rf storage/framework/cache/data/*
+      - rm -rf storage/framework/sessions/*
+      - rm -rf storage/framework/views/*
+      - rm -rf storage/debugbar/*
+      - rm -rf storage/logs/*
+      - rm .env
+
   - name: browser-tests
     image: knik/php:7.3-fpm-buster
     environment:
