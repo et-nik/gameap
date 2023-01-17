@@ -116,6 +116,7 @@ class ServerService
 
         $replaceArray = [
             'node_work_path'    => $server->dedicatedServer->work_path,
+            'node_tools_path'   => $server->dedicatedServer->work_path . "/tools",
             'host'              => $server->server_ip,
             'port'              => $server->server_port,
             'query_port'        => $server->query_port,
