@@ -4,9 +4,9 @@
 
 @section('content')
     @include('components.form.errors_block')
-    
+
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
             <table class="table table-striped table-bordered detail-view">
                 <tbody>
                 <tr>
@@ -28,29 +28,29 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="row">
-            <div class="col-12">
-                <div class="col-12">
+            <div class="col-md-12">
+                <div class="col-md-12">
                     <a class="btn btn-primary" data-toggle="collapse" href="#changePassword" role="button" aria-expanded="false" aria-controls="changePassword">
                         {{ __('profile.change_password') }}
                     </a>
                 </div>
 
-                <div class="col-12">
+                <div class="col-md-12">
                     <div class="collapse" id="changePassword">
                         <div class="card bg-light mt-3 mb-3">
                             <div class="card-header">{{ __('profile.change_password') }}</div>
                             <div class="card-body">
                                 {!! Form::open(['url' => route('profile.change_password')]) !!}
                                     <div class="row">
-                                        <div class="col-12">{{ Form::bsPassword('current_password') }}</div>
-                                        <div class="col-12">{{ Form::bsPassword('password') }}</div>
-                                        <div class="col-12">{{ Form::bsPassword('password_confirmation') }}</div>
+                                        <div class="col-md-12">{{ Form::bsPassword('current_password') }}</div>
+                                        <div class="col-md-12">{{ Form::bsPassword('password') }}</div>
+                                        <div class="col-md-12">{{ Form::bsPassword('password_confirmation') }}</div>
                                     </div>
-    
+
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-md-6">
                                             {{ Form::submit(__('main.change'), ['class' => 'btn btn-success']) }}
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
     </div>
 @endsection

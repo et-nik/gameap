@@ -15,7 +15,7 @@
 
     {!! Form::open(['url' => route('admin.games.index')]) !!}
         <div class="row mt-2 mb-2">
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                             {{ Form::bsText('code') }}
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         {{ __('games.steam_info') }}

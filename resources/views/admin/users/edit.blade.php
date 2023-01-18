@@ -15,7 +15,7 @@
 
     {!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update', $user->id]]) !!}
         <div class="row mt-2 mb-2">
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
 
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">{{ __('users.servers') }}</div>
                     <div class="card-body">

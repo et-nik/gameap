@@ -22,7 +22,7 @@
     {!! Form::model($game, ['method' => 'PATCH','route' => ['admin.games.update', $game->code]]) !!}
 
         <div class="row mt-2 mb-2">
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         {{ __('games.basic_info') }}
@@ -31,7 +31,7 @@
                         {{ Form::bsText('code', null, null, ['disabled']) }}
                         {{ Form::bsText('start_code') }}
                         {{ Form::bsText('name') }}
-    
+
                         {{ Form::bsText('engine') }}
                         {{ Form::bsText('engine_version') }}
                     </div>
@@ -50,8 +50,8 @@
                     </div>
                 </div>
             </div>
-    
-            <div class="col-6">
+
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         {{ __('games.steam_info') }}
@@ -62,7 +62,7 @@
                         {{ Form::bsText('steam_app_set_config') }}
                     </div>
                 </div>
-                
+
                 <div class="card mt-2">
                     <div class="card-header">
                         {{ __('games.repositories_local') }}

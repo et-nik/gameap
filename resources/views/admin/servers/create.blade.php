@@ -15,7 +15,7 @@
 
     {!! Form::open(['url' => route('admin.servers.index'), 'id' => 'adminServerForm']) !!}
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         {{ __('servers.basic_info') }}
@@ -30,7 +30,7 @@
                             {{ Form::label('install', __('servers.install'), ['class' => 'form-check-label']) }}
                         </div>
 
-                        <div class="col-md-4 offset-4">
+                        <div class="col-md-4 offset-md-4">
                             <a class="btn btn-primary btn-sm btn-hide" data-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
                                 <i class="far fa-caret-square-down"></i> {{ __('main.more') }}
                             </a>
@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         {{ __('servers.ds_ip_ports') }}
@@ -76,7 +76,7 @@
         </div>
 
         <div class="row mt-2">
-            <div class="col-12">
+            <div class="col-md-12">
                 <div class="form-group">
                     {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>

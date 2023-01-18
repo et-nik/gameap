@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-12">
+            <div class="col-md-12">
                 <v-select
                         v-model="selectedServer"
                         v-bind:options="serversListOptions"
@@ -38,15 +38,15 @@
                 >
                     <template slot="option" slot-scope="option">
                         <div class="row">
-                            <div class="col-5">{{ option.label }}</div>
-                            <div class="col-3">{{ option.game }}</div>
-                            <div class="col-4">{{ option.address }}</div>
+                            <div class="col-md-5">{{ option.label }}</div>
+                            <div class="col-md-3">{{ option.game }}</div>
+                            <div class="col-md-4">{{ option.address }}</div>
                         </div>
                     </template>
                 </v-select>
             </div>
 
-            <div class="col-2 offset-5 centered mt-2">
+            <div class="col-md-2 offset-md-5 centered mt-2">
                 <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
             </div>
         </div>

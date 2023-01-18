@@ -21,7 +21,7 @@
             @if (!$errors->any())
                 $('#gdaemonAutoSetupModal').modal('toggle');
             @endif
-            
+
             $('.custom-file-input').on('change',function(){
                 var fileName = $(this).val();
                 fileName = fileName.replace(/^.*\\/, "");
@@ -56,7 +56,7 @@
 
                     <div class="tab-content">
                         <div class="row tab-pane container-fluid active" id="auto_install_debian_ubuntu">
-                            <div class="col-12 m-3">
+                            <div class="col-md-12 m-3">
                                 {!! __('dedicated_servers.autosetup_description_debian_ubuntu') !!}
                                 <code>curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
 
@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="row tab-pane container-fluid" id="auto_install_windows">
-                            <div class="col-12 m-3">
+                            <div class="col-md-12 m-3">
 
                                 {!! __('dedicated_servers.autosetup_description_windows', [
                                     'host' => request()->getSchemeAndHttpHost(),
@@ -89,7 +89,7 @@
     {!! Form::open(['url' => route('admin.dedicated_servers.index'), 'files' => true]) !!}
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card bg-light mt-3 mb-3">
                     <div class="card-body">
                         {{ Form::bsText('name') }}
@@ -97,24 +97,24 @@
                         {{ Form::bsText('os') }}
 
                         <div class="row">
-                            <div class="col-6">{{ Form::bsText('location') }}</div>
-                            <div class="col-6">{{ Form::bsText('provider') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('location') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('provider') }}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-6">{{ Form::bsText('ram') }}</div>
-                            <div class="col-6">{{ Form::bsText('cpu') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('ram') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('cpu') }}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-6">{{ Form::bsText('work_path') }}</div>
-                            <div class="col-6">{{ Form::bsText('steamcmd_path') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('work_path') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('steamcmd_path') }}</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="card bg-light mt-3 mb-3">
                     <div class="card-header">
                         IP List
@@ -133,20 +133,20 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-12">
 
                         <div class="row">
-                            <div class="col-4">{{ Form::bsText('gdaemon_host') }}</div>
-                            <div class="col-2">{{ Form::bsText('gdaemon_port') }}</div>
+                            <div class="col-md-4">{{ Form::bsText('gdaemon_host') }}</div>
+                            <div class="col-md-2">{{ Form::bsText('gdaemon_port') }}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-6">{{ Form::bsText('gdaemon_login') }}</div>
-                            <div class="col-6">{{ Form::bsText('gdaemon_password') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('gdaemon_login') }}</div>
+                            <div class="col-md-6">{{ Form::bsText('gdaemon_password') }}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-6 mt-4 mb-3 pt-1">
+                            <div class="col-md-6 mt-4 mb-3 pt-1">
                                 <div class="custom-file" id="serverCertificateForm">
                                     {{ Form::file('gdaemon_server_cert', ['class' => 'custom-file-input']) }}
                                     {{ Form::label('gdaemon_server_cert', __('dedicated_servers.server_certificate'), ['class' => 'custom-file-label']) }}
@@ -159,7 +159,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <div class="form-group" id="clientCertificateForm">
                                     {{ Form::label('client_certificates', __('dedicated_servers.client_certificate'), ['class' => 'control-label']) }}
                                     {{ Form::select('client_certificate_id', $clientCertificates , null, ['class' => 'form-control']) }}
@@ -172,38 +172,38 @@
         </div>
 
         <div class="row mb-2">
-            <div class="col-2 offset-5">
+            <div class="col-md-2 offset-md-5">
                 <a class="btn btn-primary" data-toggle="collapse" href="#editScripts" role="button" aria-expanded="false" aria-controls="editScripts">
                     {{ __('dedicated_servers.edit_scripts') }}
                 </a>
             </div>
 
-            <div class="col-12">
+            <div class="col-md-12">
                 <div class="collapse" id="editScripts">
                     <div class="card bg-light mt-3 mb-3">
                         <div class="card-header">{{ __('dedicated_servers.scripts') }}</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">{{ Form::bsText('script_install') }}</div>
-                                <div class="col-6">{{ Form::bsText('script_reinstall') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_install') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_reinstall') }}</div>
 
-                                <div class="col-6">{{ Form::bsText('script_update') }}</div>
-                                <div class="col-6">{{ Form::bsText('script_start') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_update') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_start') }}</div>
 
-                                <div class="col-6">{{ Form::bsText('script_pause') }}</div>
-                                <div class="col-6">{{ Form::bsText('script_unpause') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_pause') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_unpause') }}</div>
 
-                                <div class="col-6">{{ Form::bsText('script_stop') }}</div>
-                                <div class="col-6">{{ Form::bsText('script_kill') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_stop') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_kill') }}</div>
 
-                                <div class="col-6">{{ Form::bsText('script_restart') }}</div>
-                                <div class="col-6">{{ Form::bsText('script_status') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_restart') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_status') }}</div>
 
-                                <div class="col-6">{{ Form::bsText('script_get_console') }}</div>
-                                <div class="col-6">{{ Form::bsText('script_send_command') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_get_console') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_send_command') }}</div>
 
-                                <div class="col-6">{{ Form::bsText('script_delete') }}</div>
-                                <div class="col-6">{{ Form::bsText('script_stats') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_delete') }}</div>
+                                <div class="col-md-6">{{ Form::bsText('script_stats') }}</div>
                             </div>
                         </div>
                         <div class="card-footer">

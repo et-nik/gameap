@@ -1,5 +1,5 @@
 <div class="row mt-2">
-    <div class="col-12">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 {!! Form::model($server, ['method' => 'PATCH', 'route' => ['servers.updateSettings', $server->id], 'id' => 'adminServerForm']) !!}
@@ -39,7 +39,7 @@
                 @endif
 
                 <div class="row mt-2">
-                    <div class="col-12">
+                    <div class="col-md-12">
                         <div class="form-group">
                             {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
                         </div>

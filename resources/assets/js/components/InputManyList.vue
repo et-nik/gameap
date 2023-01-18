@@ -35,7 +35,7 @@
             </tbody>
         </table>
 
-        <div class="form-group col-1 offset-6 centered">
+        <div class="form-group col-md-1 offset-md-6 centered">
             <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
         </div>
     </div>

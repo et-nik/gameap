@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-6">
+    <div class="col-md-6">
         <h5>{{ __('dedicated_servers.game_server_shortcodes') }}</h5>
         <ul>
             <li>{host} — {{ __('dedicated_servers.d_shortcodes_host') }}</li>
@@ -13,7 +13,7 @@
             <li>{user} —{{ __('dedicated_servers.d_shortcodes_user') }}</li>
         </ul>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
         <h5>{{ __('dedicated_servers.start_restart_shortcodes') }}</h5>
         <ul>
             <li>{command} — {{ __('dedicated_servers.d_shortcodes_start_command') }}</li>

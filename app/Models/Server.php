@@ -121,7 +121,7 @@ class Server extends Model
         )->timestamp;
 
         return $this->process_active
-            && $lastProcessCheck >= Carbon::now()->timestamp - self::TIME_EXPIRE_PROCESS_CHECK;
+            && $lastProcessCheck >= Carbon::now('UTC')->timestamp - self::TIME_EXPIRE_PROCESS_CHECK;
     }
 
     public function dedicatedServer(): BelongsTo
