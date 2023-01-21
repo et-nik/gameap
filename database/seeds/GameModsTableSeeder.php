@@ -602,6 +602,31 @@ class GameModsTableSeeder extends Seeder
 
         DB::table('game_mods')->insert([
             'game_code' => 'minecraft',
+            'name' => 'Multicore',
+            'vars' => json_encode([
+                [
+                    'var' => 'version',
+                    'default' => '1.14.3',
+                    'info' => 'Minecraft version',
+                ],
+                [
+                    'var' => 'core_mod',
+                    'default' => 'vanilla',
+                    'info' => 'Core',
+                ],
+                [
+                    'var' => 'core_mod_version',
+                    'default' => null,
+                    'info' => 'Core mod version',
+                ],
+            ]),
+            'remote_repository_linux' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
+            'remote_repository_windows' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
+            'start_cmd_linux' => './mcrun.sh run --version={version} --core-mod={core_mod} --core-mod-version={core_mod_version} --ip={ip} --port={port} --query-port={query_port} --rcon-port={rcon_port} --rcon-password={rcon_password}',
+        ]);
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'minecraft',
             'name' => 'Default',
             'vars' => json_encode([
                 [
@@ -628,36 +653,11 @@ class GameModsTableSeeder extends Seeder
             'start_cmd_windows' => 'java -Xms{java_xms} -Xmx{java_xms} -jar server.jar --port {port} --world {world} --nogui',
         ]);
 
-        DB::table('game_mods')->insert([
-            'game_code' => 'minecraft',
-            'name' => 'Multicore',
-            'vars' => json_encode([
-                [
-                    'var' => 'version',
-                    'default' => '1.14.3',
-                    'info' => 'Minecraft version',
-                ],
-                [
-                    'var' => 'core_mod',
-                    'default' => 'vanilla',
-                    'info' => 'Core',
-                ],
-                [
-                    'var' => 'core_mod_version',
-                    'default' => null,
-                    'info' => 'Core mod version',
-                ],
-            ]),
-            'remote_repository_linux' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
-            'remote_repository_windows' => $gapRepoBaseUrl . '/minecraft/minecraft-runner.tar.gz',
-            'start_cmd_linux' => './mcrun.sh run --version={version} --core-mod={core_mod} --core-mod-version={core_mod_version} --ip={ip} --port={port} --query-port={query_port} --rcon-port={rcon_port} --rcon-password={rcon_password}',
-        ]);
-
         /* PMMP (MinecraftPE) */
 
         DB::table('game_mods')->insert([
             'game_code' => 'pmmp',
-            'name' => 'Default',
+            'name' => 'PocketMine-MP',
             'remote_repository_linux' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
             'remote_repository_windows' => 'https://github.com/pmmp/PocketMine-MP/releases/download/4.2.7/PocketMine-MP.phar',
             'start_cmd_linux' => './bin/php7/bin/php ./PocketMine-MP.phar',
