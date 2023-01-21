@@ -15,10 +15,17 @@ class ChangeGameModsTable extends Migration
     {
         Schema::table('game_mods', function (Blueprint $table) {
             $table->renameColumn('remote_repository', 'remote_repository_linux');
+        });
+        Schema::table('game_mods', function (Blueprint $table) {
             $table->renameColumn('local_repository', 'local_repository_linux');
+        });
+        Schema::table('game_mods', function (Blueprint $table) {
             $table->renameColumn('default_start_cmd_linux', 'start_cmd_linux');
+        });
+        Schema::table('game_mods', function (Blueprint $table) {
             $table->renameColumn('default_start_cmd_windows', 'start_cmd_windows');
         });
+
         Schema::table('game_mods', function (Blueprint $table) {
             $table->text('remote_repository_windows')->after('remote_repository_linux')->nullable();
             $table->text('local_repository_windows')->after('local_repository_linux')->nullable();
