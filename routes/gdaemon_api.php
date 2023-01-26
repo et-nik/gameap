@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::name('get_token')->get('get_token', 'AuthController@getToken');
 
 // Dedicated servers

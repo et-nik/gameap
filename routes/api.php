@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +58,5 @@ Route::name('servers.search')->get('servers/search', 'ServersController@search')
 // Gdaemon tasks
 Route::name('gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemon_task}', 'GdaemonTasksController@get');
 Route::name('gdaemon_tasks.output')->get('gdaemon_tasks/output/{gdaemon_task}', 'GdaemonTasksController@output');
+
+Route::name("healthz")->get("healthz", "Healthz@index");
