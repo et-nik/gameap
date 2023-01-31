@@ -14,6 +14,9 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/customstyles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/gameap.css') }}">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 </head>
 <body>
     <script type="application/javascript">

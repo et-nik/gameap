@@ -31,7 +31,7 @@
 
     {!! Form::model($gameMod, ['method' => 'PATCH','route' => ['admin.game_mods.update', $gameMod->id]]) !!}
         <div class="tab-content">
-            <div class="tab-pane container-fluid active" id="main">
+            <div class="tab-pane active" id="main">
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <div class="card">
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane container-fluid fade" id="game-servers-commands">
+            <div class="tab-pane fade" id="game-servers-commands">
                 <div class="row mt-2">
                     <div class="col-md-12 m-2">
                         <div class="card">
@@ -125,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane container-fluid fade" id="vars">
+            <div class="tab-pane fade" id="vars">
                 <div class="row mt-2 mb-2">
                     <div class="col-md-12">
                         <div class="card">
@@ -143,7 +143,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane container-fluid fade" id="fast-rcon">
+            <div class="tab-pane fade" id="fast-rcon">
                 <div class="row mt-2 mb-2">
                     <div class="col-md-12">
                         <div class="card">
@@ -164,7 +164,7 @@
 
         <div class="col-md-12 mt-4">
             <div class="form-group">
-                {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
             </div>
         </div>
 

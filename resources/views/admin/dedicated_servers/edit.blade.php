@@ -48,7 +48,7 @@
     ]) !!}
 
         <div class="tab-content">
-            <div class="row tab-pane container-fluid active" id="main">
+            <div class="tab-pane active" id="main">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card bg-light mt-3 mb-3">
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="row tab-pane container-fluid fade" id="scripts">
+            <div class="tab-pane fade" id="scripts">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card bg-light mt-3 mb-3">
@@ -125,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="row tab-pane container-fluid fade" id="gdaemon">
+            <div class="tab-pane fade" id="gdaemon">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card bg-light mt-3 mb-3">
@@ -176,7 +176,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    {{ Form::submit(__('dedicated_servers.save'), ['class' => 'btn btn-success']) }}
+                    {{ Form::submit(__('dedicated_servers.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@
     </ul>
 
     <div class="tab-content">
-        <div class="row tab-pane container-fluid active" id="main">
+        <div class="tab-pane active" id="main">
             <div class="row">
                 <div class="col-md-12">
                     @include('components.grid', [
