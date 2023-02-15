@@ -1,7 +1,8 @@
 <template>
     <div id="server-task-component">
-        <button class="btn btn-success m-1" data-toggle="modal" v-on:click="createTask()">{{ trans('main.add')}}</button>
-        <hr>
+        <div class="mb-2">
+          <button class="btn btn-success" data-toggle="modal" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
+        </div>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>

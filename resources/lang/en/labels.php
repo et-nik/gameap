@@ -3,6 +3,7 @@
 return [
     // Main
     'name' => 'Name',
+    'the_value' => 'Value',
 
     // ClientCertificates
     'private_key_pass' => 'Private Key Password',

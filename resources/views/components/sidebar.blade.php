@@ -4,7 +4,7 @@
 <ul class="page-sidebar-menu">
     <li title="{{ __('sidebar.servers') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
         <a href="{{ route('servers') }}">
-            <i class="fas fa-server"></i>
+            <i class="fas fa-play"></i>
             <span class="menu-item-label">{{ __('sidebar.servers') }}</span>
         </a>
     </li>
@@ -70,6 +70,20 @@
 <p class="left-menu-group-mini">—</p>
 
 <ul class="page-sidebar-menu">
+    @can('admin roles & permissions')
+        <li title="{{ __('sidebar.report_bug') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
+            <a href="{{ route('report_bug') }}">
+                <i class="fas fa-bug"></i>
+                <span class="menu-item-label">{{ __('sidebar.report_bug') }}</span>
+            </a>
+        </li>
+    @endcan
+    <li title="{{ __('sidebar.help') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
+        <a href="{{ route('help') }}">
+            <i class="fas fa-question"></i>
+            <span class="menu-item-label">{{ __('sidebar.help') }}</span>
+        </a>
+    </li>
     <li title="{{ __('sidebar.forum') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
         <a target="_blank" href="https://forum.gameap.ru">
             <i class="fas fa-comment-alt"></i>
@@ -79,24 +93,9 @@
     <li title="{{ __('sidebar.documentation') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
         <a target="_blank" href="https://docs.gameap.ru">
             <i class="fab fa-wikipedia-w"></i>
-            <span class="menu-item-label">{{ __('sidebar.documentation') }}</span>
+            <span class="menu-item-label">{{ __('sidebar.documentation') }}<i class="fas fa-external-link"></i></span>
         </a>
     </li>
-    <li title="{{ __('sidebar.help') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a href="{{ route('help') }}">
-            <i class="fas fa-question"></i>
-            <span class="menu-item-label">{{ __('sidebar.help') }}</span>
-        </a>
-    </li>
-
-    @can('admin roles & permissions')
-        <li title="{{ __('sidebar.report_bug') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('report_bug') }}">
-                <i class="fas fa-bug"></i>
-                <span class="menu-item-label">{{ __('sidebar.report_bug') }}</span>
-            </a>
-        </li>
-    @endcan
 </ul>
 
 <p class="left-menu-group d-md-none">{{ __('sidebar.profile') }}</p>

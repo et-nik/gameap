@@ -3,6 +3,7 @@
 return [
     // Main
     'name' => 'Имя',
+    'the_value' => 'Значение',
     
     // ClientCertificates
     'private_key_pass' => 'Пароль от приватного ключа',

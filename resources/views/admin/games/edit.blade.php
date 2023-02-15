@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
+        {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
 
     {!! Form::close() !!}
 @endsection

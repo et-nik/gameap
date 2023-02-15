@@ -12,20 +12,22 @@
 @endsection
 
 @section('content')
-    <div class="col-md-12">
+    <div>
         {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers_settings.update', $server->id]]) !!}
+        <div class="row">
+            <div class="col-12">
+                <settings-parameters
+                        :initial-items="{{ $settings->toJson() }}"
+                        input-name="settings">
+                </settings-parameters>
+            </div>
 
-        <settings-parameters
-                :initial-items="{{ $settings->toJson() }}"
-                input-name="settings">
-        </settings-parameters>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
+            <div class="col-12">
+                <div class="form-group">
+                    {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
+                </div>
             </div>
         </div>
-
         {!! Form::close() !!}
     </div>
 @endsection

@@ -69,12 +69,12 @@
     </ul>
 
     <div class="tab-content">
-        <div class="row tab-pane container-fluid active" id="main">
+        <div class="tab-pane active" id="main">
             @include('servers.view_parts.main_tab', ['server' => $server])
         </div>
 
         @if ($rconSupported)
-            <div class="row tab-pane container-fluid fade" id="rcon">
+            <div class="tab-pane fade" id="rcon">
                 @include('servers.view_parts.rcon_tab', [
                     'server' => $server,
                     'rconSupportedFeatures' => $rconSupportedFeatures,
@@ -82,15 +82,15 @@
             </div>
         @endif
 
-        <div class="row tab-pane container-fluid fade" id="schedules">
+        <div class="tab-pane fade" id="schedules">
             @include('servers.view_parts.schedules_tab', ['server' => $server])
         </div>
 
-        <div class="row tab-pane container-fluid fade" id="filemanager">
+        <div class="tab-pane fade" id="filemanager">
             @include('servers.view_parts.filemanager_tab', ['server' => $server])
         </div>
 
-        <div class="row tab-pane container-fluid fade" id="settings">
+        <div class="tab-pane fade" id="settings">
             @include('servers.view_parts.settings_tab', ['server' => $server])
         </div>
     </div>

@@ -47,7 +47,7 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
             </div>
         </div>
     {!! Form::close() !!}
