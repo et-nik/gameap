@@ -35,7 +35,6 @@ class GameResponse implements \JsonSerializable
 
         return [
             'code' => $this->game->code,
-            'start_code' => $this->game->start_code,
             'name' => $this->game->name,
             'engine' => $this->game->engine,
             'engine_version' => $this->game->engine_version,

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
  * @package Gameap\Models
  *
  * @property string $code
- * @property string $start_code
  * @property string $name
  * @property string $engine
  * @property string $engine_version
@@ -55,7 +54,7 @@ class Game extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'start_code', 'name',
+        'code', 'name',
         'engine', 'engine_version',
         'steam_app_id_linux', 'steam_app_id_windows',
         'steam_app_set_config',

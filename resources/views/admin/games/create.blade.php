@@ -19,7 +19,6 @@
                 <div class="card">
                     <div class="card-body">
                             {{ Form::bsText('code') }}
-                            {{ Form::bsText('start_code') }}
                             {{ Form::bsText('name') }}
                             {{ Form::bsText('engine') }}
                             {{ Form::bsText('engine_version') }}

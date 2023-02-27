@@ -29,7 +29,6 @@
                     </div>
                     <div class="card-body">
                         {{ Form::bsText('code', null, null, ['disabled']) }}
-                        {{ Form::bsText('start_code') }}
                         {{ Form::bsText('name') }}
 
                         {{ Form::bsText('engine') }}

@@ -93,7 +93,6 @@ class GamesControllerTest extends TestCase
     {
         $request = GameRequest::create('/admin/games', GameRequest::METHOD_POST, [
             'code' => 'test_game',
-            'start_code' => 'test_game',
             'name' => 'Test Game',
             'engine' => 'test',
             'engine_version' => '1.0',

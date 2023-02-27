@@ -27,7 +27,6 @@ class GamesTest extends BrowserTestCase
                 ->clickLink('Add Game')
                 ->assertPathIs('/admin/games/create')
                 ->type('code', 'test')
-                ->type('start_code', 'test')
                 ->type('name', 'Test')
                 ->type('engine', 'Test')
                 ->type('engine_version', '2.0')

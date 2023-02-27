@@ -41,7 +41,6 @@ class ServersTest extends TestCase
         $response->assertJsonPath('0.net_limit', $server->net_limit);
         $response->assertJsonPath('0.start_command', $server->start_command);
         $response->assertJsonPath('0.game.code', $server->game->code);
-        $response->assertJsonPath('0.game.start_code', $server->game->start_code);
         $response->assertJsonPath('0.game.steam_app_id', $server->game->steam_app_id_linux);
         $response->assertJsonPath('0.game.remote_repository', $server->game->remote_repository_linux);
         $response->assertJsonPath('0.game.local_repository', $server->game->local_repository_linux);
@@ -89,7 +88,6 @@ class ServersTest extends TestCase
         $response->assertJsonPath('0.net_limit', $server->net_limit);
         $response->assertJsonPath('0.start_command', $server->start_command);
         $response->assertJsonPath('0.game.code', $server->game->code);
-        $response->assertJsonPath('0.game.start_code', $server->game->start_code);
         $response->assertJsonPath('0.game.steam_app_id', $server->game->steam_app_id_windows);
         $response->assertJsonPath('0.game.remote_repository', $server->game->remote_repository_windows);
         $response->assertJsonPath('0.game.local_repository', $server->game->local_repository_windows);
@@ -137,7 +135,6 @@ class ServersTest extends TestCase
         $response->assertJsonPath('net_limit', $server->net_limit);
         $response->assertJsonPath('start_command', $server->start_command);
         $response->assertJsonPath('game.code', $server->game->code);
-        $response->assertJsonPath('game.start_code', $server->game->start_code);
         $response->assertJsonPath('game.steam_app_id', $server->game->steam_app_id_linux);
         $response->assertJsonPath('game.remote_repository', $server->game->remote_repository_linux);
         $response->assertJsonPath('game.local_repository', $server->game->local_repository_linux);
@@ -185,7 +182,6 @@ class ServersTest extends TestCase
         $response->assertJsonPath('net_limit', $server->net_limit);
         $response->assertJsonPath('start_command', $server->start_command);
         $response->assertJsonPath('game.code', $server->game->code);
-        $response->assertJsonPath('game.start_code', $server->game->start_code);
         $response->assertJsonPath('game.steam_app_id', $server->game->steam_app_id_windows);
         $response->assertJsonPath('game.remote_repository', $server->game->remote_repository_windows);
         $response->assertJsonPath('game.local_repository', $server->game->local_repository_windows);

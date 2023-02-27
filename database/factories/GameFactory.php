@@ -11,7 +11,6 @@ use Gameap\Models\Game;
 $factory->define(Game::class, function (Faker $faker) {
     return [
         'code'          => 'test',
-        'start_code'    => 'test',
         'name'          => 'Test',
         'engine'        => 'test',
         'engine_version' => '1.0',
