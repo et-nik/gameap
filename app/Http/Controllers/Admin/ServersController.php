@@ -11,17 +11,19 @@ use Gameap\Http\Requests\Admin\ServerUpdateRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
-use Gameap\Repositories\GameModRepository;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\UseCases\Commands\CreateGameServerCommand;
 use Gameap\UseCases\CreateGameServer;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ServersController extends AuthController
 {
+    use SoftDeletes;
+
     /** @var GdaemonTaskRepository  */
     public $gdaemonTaskRepository;
 
@@ -111,7 +113,7 @@ class ServersController extends AuthController
     public function update(ServerUpdateRequest $request, Server $server)
     {
         $this->repository->update($server, $request->all());
-        
+
         return redirect()->route('admin.servers.index')
             ->with('success', __('servers.update_success_msg'));
     }
