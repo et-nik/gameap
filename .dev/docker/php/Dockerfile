@@ -1,9 +1,10 @@
-FROM knik/php:7.3-fpm-alpine
+FROM knik/php:8.0-fpm-alpine
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
 RUN apk add --no-cache $PHPIZE_DEPS shadow \
+    && apk add linux-headers \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && docker-php-source delete \
