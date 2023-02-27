@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class GamesTableSeeder extends Seeder
@@ -80,6 +80,7 @@ class GamesTableSeeder extends Seeder
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
+            'remote_repository_linux' => 'http://files.gameap.ru/cstrike-1.6/hlcs_base.tar.xz',
         ]);
 
         DB::table('games')->insert([
@@ -506,10 +507,11 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'dst',
             'start_code' => 'dst',
-            'name' => 'Don`t Starve Together',
-            'engine' => 'Don`t Starve',
+            'name' => 'Don\'t Starve Together',
+            'engine' => 'Don\'t Starve',
             'engine_version' => '1',
             'steam_app_id_linux' => 343050,
+            'steam_app_id_windows' => 343050,
         ]);
 
         DB::table('games')->insert([

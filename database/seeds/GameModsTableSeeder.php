@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class GameModsTableSeeder extends Seeder
@@ -956,8 +956,9 @@ class GameModsTableSeeder extends Seeder
         DB::table('game_mods')->insert([
             'game_code' => 'dst',
             'name' => 'Default',
-            'start_cmd_linux' => './dontstarve_dedicated_server_nullrenderer',
+            'start_cmd_linux' => './run.sh',
             'start_cmd_windows' => '',
+            'remote_repository_linux' => 'https://files.gameap.ru/dont-starve-together/default-mod.tar.gz',
         ]);
 
         /* The Forest */
