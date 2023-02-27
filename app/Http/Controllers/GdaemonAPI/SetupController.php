@@ -71,7 +71,7 @@ class SetupController extends BaseController
         if (app()->has('debugbar')) {
             app('debugbar')->disable();
         }
-        
+
         $attributes = $request->all();
 
         if ($request->hasFile('gdaemon_server_cert')) {
@@ -80,14 +80,18 @@ class SetupController extends BaseController
         } else {
             return 'Error Empty GDdaemon server certificate';
         }
-        
+
+        if (empty($attributes['location'])) {
+            $attributes['location'] = 'Unknown';
+        }
+
         $attributes['gdaemon_server_cert'] = CertificateService::ROOT_CA_CERT;
-        
+
         $dedicatedServer = $this->repository->store($attributes);
         $certificate     = CertificateService::getRootCert();
-        
+
         Cache::forget('gdaemonCreateToken');
-        
+
         return "Success {$dedicatedServer->id} {$dedicatedServer->gdaemon_api_key}\n{$certificate}\n\n{$serverSignedCertificate}";
     }
 }
