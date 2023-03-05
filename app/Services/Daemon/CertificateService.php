@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Gameap\Exceptions\GameapException;
 use Illuminate\Support\Facades\Storage;
 use phpseclib3\Crypt\EC;
+use phpseclib3\Crypt\RSA;
 use Sop\CryptoEncoding\PEM;
 use Sop\CryptoTypes\AlgorithmIdentifier\Hash\SHA256AlgorithmIdentifier;
 use Sop\CryptoTypes\AlgorithmIdentifier\Signature\SignatureAlgorithmIdentifierFactory;
@@ -35,7 +36,7 @@ class CertificateService
      */
     public static function generateRoot(): void
     {
-        $privateKey = EC::createKey('Ed25519');
+        $privateKey = self::generateKey();
 
         $privateKeyInfo = PrivateKeyInfo::fromPEM(PEM::fromString($privateKey));
 
@@ -128,7 +129,7 @@ class CertificateService
 
     public static function generateKey(): string
     {
-        return EC::createKey('Ed25519');
+        return RSA::createKey();
     }
 
     public static function generateCsr(string $key): string
