@@ -5,7 +5,7 @@ namespace Gameap\Services\Daemon;
 use Carbon\Carbon;
 use Gameap\Exceptions\GameapException;
 use Illuminate\Support\Facades\Storage;
-use phpseclib\Crypt\RSA;
+use phpseclib3\Crypt\EC;
 use Sop\CryptoEncoding\PEM;
 use Sop\CryptoTypes\AlgorithmIdentifier\Hash\SHA256AlgorithmIdentifier;
 use Sop\CryptoTypes\AlgorithmIdentifier\Signature\SignatureAlgorithmIdentifierFactory;
@@ -26,23 +26,23 @@ class CertificateService
     public const ROOT_CA_KEY  = 'certs/root.key';
 
     public const PRIVATE_KEY_BITS = 2048;
-    
+
     public const CERT_YEARS = 10;
-    
+
     /**
      * Generate CA root key and certificate.
      * Write root key and certificate to a Storage.
      */
     public static function generateRoot(): void
     {
-        $privateKey = (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
-        
+        $privateKey = EC::createKey('Ed25519');
+
         $privateKeyInfo = PrivateKeyInfo::fromPEM(PEM::fromString($privateKey));
-        
+
         $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
-        
+
         $name = Name::fromString('CN=GameAP CA, O=GameAP, C=RU');
-        
+
         $validity = Validity::fromStrings('now', 'now + ' . self::CERT_YEARS . ' years');
 
         // create "to be signed" certificate object with extensions
@@ -117,18 +117,18 @@ class CertificateService
             $privateKeyInfo->algorithmIdentifier(),
             new SHA256AlgorithmIdentifier()
         );
-        
+
         $csr = $cri->sign($algo, $privateKeyInfo);
-        
+
         $cert = self::signCsr($csr);
-        
+
         Storage::put($certificatePath, $cert);
         Storage::put($keyPath, $privateKey);
     }
 
     public static function generateKey(): string
     {
-        return (new RSA())->createKey(self::PRIVATE_KEY_BITS)['privatekey'];
+        return EC::createKey('Ed25519');
     }
 
     public static function generateCsr(string $key): string
@@ -165,27 +165,27 @@ class CertificateService
         $privateKeyInfo = PrivateKeyInfo::fromPEM(
             PEM::fromString(self::getRootKey())
         );
-        
+
         $issuerCert = Certificate::fromPEM(
             PEM::fromString(self::getRootCert())
         );
-        
+
         $certificationRequest = CertificationRequest::fromPEM(PEM::fromString($csr));
-        
+
         if (!$certificationRequest->verify()) {
             throw new GameapException('Failed to verify certification request signature.');
         }
 
         $tbsCert = TBSCertificate::fromCSR($certificationRequest)->withIssuerCertificate($issuerCert);
-        
+
         $tbsCert = $tbsCert->withRandomSerialNumber();
-        
+
         $tbsCert = $tbsCert->withValidity(
             Validity::fromStrings('now', 'now + ' . self::CERT_YEARS . ' years')
         );
 
         $tbsCert = $tbsCert->withVersion(0);
-        
+
         // sign certificate with issuer's private key
         $algo = SignatureAlgorithmIdentifierFactory::algoForAsymmetricCrypto(
             $privateKeyInfo->algorithmIdentifier(),

@@ -44,7 +44,7 @@
         "mavinoo/laravel-batch": "^2.3.5",
         "moontoast/math": "^1.1",
         "nwidart/laravel-modules": "^6.2",
-        "phpseclib/phpseclib": "^2.0.41",
+        "phpseclib/phpseclib": "^3.0.18",
         "silber/bouncer": "v1.0.0",
         "spatie/laravel-query-builder": "^3.6.0",
         "splitbrain/php-archive": "^1.3",
