@@ -32,7 +32,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -49,7 +49,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -69,9 +69,9 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $data = [
-            'code' => $this->faker->unique()->words(3, true),
-            'name' => $this->faker->word(),
-            'engine' => $this->faker->word(),
+            'code' => $this->faker->unique()->slug(2),
+            'name' => $this->faker->unique()->words(3, true),
+            'engine' => $this->faker->unique()->words(3, true),
         ];
 
         $response = $this->post('/api/games', $data);
@@ -91,9 +91,9 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $data = [
-            'code' => $this->faker->unique()->words(3, true),
-            'name' => $this->faker->word(),
-            'engine' => $this->faker->word(),
+            'code' => $this->faker->unique()->slug(2),
+            'name' => $this->faker->words(3, true),
+            'engine' => $this->faker->word(3, true),
         ];
 
         $response = $this->post('/api/games', $data);
@@ -112,7 +112,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $game = factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -131,7 +131,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $game = factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -151,7 +151,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $game = factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -177,7 +177,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $game = factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
         $data = [
@@ -201,7 +201,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $game = factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -217,7 +217,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $game = factory(Game::class)->create([
-            'code' => $this->faker->unique()->words(3, true),
+            'code' => $this->faker->unique()->slug(2),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
