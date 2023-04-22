@@ -75,7 +75,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/start/{server}:
+  /servers/{server}/start:
     post:
       summary: Start Game Server
       tags:
@@ -95,7 +95,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/stop/{server}:
+  /servers/{server}/stop:
     post:
       summary: Stop Game Server
       tags:
@@ -115,7 +115,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/restart/{server}:
+  /servers/{server}/restart:
     post:
       summary: Restart Game Server
       tags:
@@ -135,7 +135,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/update/{server}:
+  /servers/{server}/update:
     post:
       summary: Update Game Server
       tags:
@@ -155,7 +155,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/reinstall/{server}:
+  /servers/{server}/reinstall:
     post:
       summary: Reinstall Game Server
       tags:
@@ -175,7 +175,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/get_status/{server}:
+  /servers/{server}/status:
     get:
       summary: Get Server Status
       tags:
@@ -195,7 +195,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/query/{server}:
+  /servers/{server}/query:
     get:
       summary: Get Query Server Information
       tags:
@@ -215,7 +215,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /servers/console/{server}:
+  /servers/{server}/console:
     get:
       summary: Get Server Console
       tags:
@@ -266,7 +266,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /gdaemon_tasks/get/{gdaemon_task}:
+  /gdaemon_tasks/{gdaemon_task}:
     get:
       summary: Get GDaemon Task Information
       tags:
@@ -286,7 +286,7 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
-  /gdaemon_tasks/output/{gdaemon_task}:
+  /gdaemon_tasks/{gdaemon_task}/output:
     get:
       summary: Get GDaemon Task Output
       tags:

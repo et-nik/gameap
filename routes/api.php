@@ -63,16 +63,16 @@ Route::middleware('isAdmin')->group(function () {
     Route::name('servers')->get('servers', [ServersController::class, 'getList']);
 });
 
-Route::name('servers.start')->post('servers/start/{server}', [ServersController::class, 'start']);
-Route::name('servers.stop')->post('servers/stop/{server}', [ServersController::class, 'stop']);
-Route::name('servers.restart')->post('servers/restart/{server}', [ServersController::class, 'restart']);
-Route::name('servers.install')->post('servers/install/{server}', [ServersController::class, 'install']);
-Route::name('servers.update')->post('servers/update/{server}', [ServersController::class, 'update']);
-Route::name('servers.reinstall')->post('servers/reinstall/{server}', [ServersController::class, 'reinstall']);
-Route::name('servers.get_status')->get('servers/get_status/{server}', [ServersController::class, 'getStatus']);
-Route::name('servers.query')->get('servers/query/{server}', [ServersController::class, 'query']);
-Route::name('servers.console')->get('servers/console/{server}', [ServersController::class, 'consoleLog']);
-Route::name('servers.send_command')->post('servers/console/{server}', [ServersController::class, 'sendCommand']);
+Route::name('servers.start')->post('servers/{server}/start', [ServersController::class, 'start']);
+Route::name('servers.stop')->post('servers/{server}/stop', [ServersController::class, 'stop']);
+Route::name('servers.restart')->post('servers/{server}/restart', [ServersController::class, 'restart']);
+Route::name('servers.install')->post('servers/{server}/install', [ServersController::class, 'install']);
+Route::name('servers.update')->post('servers/{server}/update', [ServersController::class, 'update']);
+Route::name('servers.reinstall')->post('servers/{server}/reinstall', [ServersController::class, 'reinstall']);
+Route::name('servers.get_status')->get('servers/{server}/status', [ServersController::class, 'getStatus']);
+Route::name('servers.query')->get('servers/{server}/query', [ServersController::class, 'query']);
+Route::name('servers.console')->get('servers/{server}/console', [ServersController::class, 'consoleLog']);
+Route::name('servers.send_command')->post('servers/{server}/console', [ServersController::class, 'sendCommand']);
 
 Route::name('servers.get_tasks')->get('servers/{server}/tasks', [ServersTasksController::class, 'getList']);
 Route::name('servers.add_task')->post('servers/{server}/tasks', [ServersTasksController::class, 'store']);
@@ -89,7 +89,7 @@ Route::name('server.rcon.players.kick')->post('servers/{server}/rcon/players/kic
 Route::name('server.rcon.players.ban')->post('servers/{server}/rcon/players/ban', [ServersRconController::class, 'ban']);
 
 // Gdaemon tasks
-Route::name('gdaemon_tasks.get')->get('gdaemon_tasks/get/{gdaemon_task}', [GdaemonTasksController::class, 'get']);
-Route::name('gdaemon_tasks.output')->get('gdaemon_tasks/output/{gdaemon_task}', [GdaemonTasksController::class, 'output']);
+Route::name('gdaemon_tasks.get')->get('gdaemon_tasks/{gdaemon_task}', [GdaemonTasksController::class, 'get']);
+Route::name('gdaemon_tasks.output')->get('gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output']);
 
 Route::name("healthz")->get("healthz", [HealthzController::class, 'index']);

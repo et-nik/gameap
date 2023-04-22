@@ -21,7 +21,7 @@
                     return;
                 }
 
-                axios.get('/api/gdaemon_tasks/output/' + this.taskId)
+                axios.get('/api/gdaemon_tasks/' + this.taskId + '/output')
                     .then(function(response) {
                         this.output = response.data.output;
                         if (response.data.status !== 'working') {
