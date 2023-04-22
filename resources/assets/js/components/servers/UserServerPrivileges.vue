@@ -54,15 +54,10 @@
 </template>
 
 <script>
-    import vSelect from 'vue-select';
-
     export default {
         props: {
             initialItems: Array,
             userId: Number,
-        },
-        components: {
-            'v-select': vSelect,
         },
         data: function () {
             return {

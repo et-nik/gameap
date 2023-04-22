@@ -11,6 +11,29 @@ let mix = require('laravel-mix');
  |
  */
 
+module.exports = {
+    resolve: {
+        alias: {
+            vue: '@vue/compat'
+        }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    compilerOptions: {
+                        compatConfig: {
+                            MODE: 2
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}
+
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .webpackConfig({

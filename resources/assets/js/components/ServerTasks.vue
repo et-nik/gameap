@@ -170,7 +170,7 @@
 </template>
 
 <script>
-    import DatePicker from 'vue2-datepicker';
+    import DatePicker from 'vue-datepicker-next';
     import { mapState } from 'vuex';
 
     const REPEAT_ENDLESSLY          = 0;

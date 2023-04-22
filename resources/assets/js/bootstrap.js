@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -42,6 +41,6 @@ if (token) {
 window.bootbox = require('bootbox');
 require('bootstrap-select');
 
-import Vue from 'vue';
+import Vue from '@vue/compat';
 
 window.Vue = Vue;
