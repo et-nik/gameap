@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Gameap\Http\Controllers\API\UsersController;
+use Gameap\Http\Controllers\API\GamesController;
+use Gameap\Http\Controllers\API\GameModsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +29,27 @@ Route::name('dedicated_servers.busy_ports')
 
 Route::name('game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', 'GameModsController@getListForGame');
 
-// Users
-Route::name('users')->get('/users', [UsersController::class, 'index'])->middleware('isAdmin');
-Route::name('users.store')->post('/users', [UsersController::class, 'store'])->middleware('isAdmin');
-Route::name('users.show')->get('/users/{id}', [UsersController::class, 'show'])->middleware('isAdmin');
-Route::name('users.update')->put('/users/{id}', [UsersController::class, 'update'])->middleware('isAdmin');
-Route::name('users.destroy')->delete('/users/{id}', [UsersController::class, 'destroy'])->middleware('isAdmin');
+Route::middleware('isAdmin')->group(function () {
+    // Users
+    Route::name('users')->get('/users', [UsersController::class, 'index']);
+    Route::name('users.store')->post('/users', [UsersController::class, 'store']);
+    Route::name('users.show')->get('/users/{id}', [UsersController::class, 'show']);
+    Route::name('users.update')->put('/users/{id}', [UsersController::class, 'update']);
+    Route::name('users.destroy')->delete('/users/{id}', [UsersController::class, 'destroy']);
+
+    // Games
+    Route::name('games')->get('/games', [GamesController::class, 'index']);
+    Route::name('games.store')->post('/games', [GamesController::class, 'store']);
+    Route::name('games.show')->get('/games/{game}', [GamesController::class, 'show']);
+    Route::name('games.update')->put('/games/{game}', [GamesController::class, 'update']);
+    Route::name('games.destroy')->delete('/games/{game}', [GamesController::class, 'destroy']);
+
+    Route::name('game_mods')->get('/game_mods', [GameModsController::class, 'index']);
+    Route::name('game_mods.store')->post('/game_mods', [GameModsController::class, 'store']);
+    Route::name('game_mods.show')->get('/game_mods/{game_mod}', [GameModsController::class, 'show']);
+    Route::name('game_mods.update')->put('/game_mods/{game_mod}', [GameModsController::class, 'update']);
+    Route::name('game_mods.destroy')->delete('/game_mods/{game_mod}', [GameModsController::class, 'destroy']);
+});
 
 // Servers
 Route::name('servers')->get('servers', 'ServersController@getList')->middleware('isAdmin');
