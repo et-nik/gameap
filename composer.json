@@ -43,7 +43,7 @@
         "league/flysystem": "^1.1.10",
         "mavinoo/laravel-batch": "^2.3.5",
         "moontoast/math": "^1.1",
-        "nwidart/laravel-modules": "^6.2",
+        "nwidart/laravel-modules": "^8.0",
         "phpseclib/phpseclib": "^3.0.18",
         "silber/bouncer": "v1.0.0",
         "spatie/laravel-query-builder": "^3.6.0",
