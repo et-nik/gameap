@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->middleware('auth:web')->get('/user', function (Request $request) {
     return $request->user();
 });
 
