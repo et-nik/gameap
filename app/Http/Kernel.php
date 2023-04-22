@@ -38,11 +38,13 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Gameap\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             'throttle:60,1',
             'bindings',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
         'gdaemon_api' => [

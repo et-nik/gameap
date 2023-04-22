@@ -5,6 +5,7 @@ namespace Gameap\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * User model
@@ -16,6 +17,7 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
  */
 class User extends Authenticatable
 {
+    use HasApiTokens;
     use Notifiable;
     use HasRolesAndAbilities;
 
