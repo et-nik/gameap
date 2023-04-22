@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Gameap\Http\Controllers\API\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,13 @@ Route::name('dedicated_servers.busy_ports')
     ->get('dedicated_servers/{dedicated_server}/busy_ports', 'DedicatedServersController@getBusyPorts');
 
 Route::name('game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', 'GameModsController@getListForGame');
+
+// Users
+Route::name('users')->get('/users', [UsersController::class, 'index'])->middleware('isAdmin');
+Route::name('users.store')->post('/users', [UsersController::class, 'store'])->middleware('isAdmin');
+Route::name('users.show')->get('/users/{id}', [UsersController::class, 'show'])->middleware('isAdmin');
+Route::name('users.update')->put('/users/{id}', [UsersController::class, 'update'])->middleware('isAdmin');
+Route::name('users.destroy')->delete('/users/{id}', [UsersController::class, 'destroy'])->middleware('isAdmin');
 
 // Servers
 Route::name('servers')->get('servers', 'ServersController@getList')->middleware('isAdmin');
