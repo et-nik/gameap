@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 class Handler extends ExceptionHandler
 {
     private const MAP_EXCEPTION_HTTP_CODE = [
+        ValidationException::class                                           => Response::HTTP_UNPROCESSABLE_ENTITY,
         \Gameap\Exceptions\GdaemonAPI\InvalidApiKeyException::class          => Response::HTTP_UNAUTHORIZED,
         \Gameap\Exceptions\GdaemonAPI\InvalidTokenExeption::class            => Response::HTTP_UNAUTHORIZED,
         \Gameap\Exceptions\Repositories\RecordExistExceptions::class         => Response::HTTP_UNPROCESSABLE_ENTITY,

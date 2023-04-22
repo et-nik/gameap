@@ -2,6 +2,7 @@
 
 namespace Gameap\Http\Requests\GdaemonAPI;
 
+use Gameap\Http\Requests\JsonRequest;
 use Illuminate\Support\Arr;
 
 class JsonServerBulkRequest extends JsonRequest

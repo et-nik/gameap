@@ -75,6 +75,87 @@ paths:
         5XX:
           $ref: '#/components/responses/CommonErrorResponse'
 
+  /servers:
+    post:
+      summary: Create Game Server
+      tags:
+        - 'servers'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  description: Whether the server is enabled or not.
+                blocked:
+                  type: boolean
+                  description: Whether the server is blocked or not.
+                installed:
+                  type: boolean
+                  description: Whether the server is installed or not.
+                name:
+                  type: string
+                  maxLength: 128
+                  description: The name of the server.
+                  example: My Awesome Server
+                game_id:
+                  type: string
+                  description: The code of the game.
+                  example: cstrike
+                ds_id:
+                  type: integer
+                  format: int64
+                  description: The ID of the game server provider.
+                  example: 1
+                game_mod_id:
+                  type: integer
+                  format: int64
+                  description: The ID of the game mod.
+                  example: 1
+                server_ip:
+                  type: string
+                  description: The IP address of the server.
+                  example: 192.168.1.1
+                server_port:
+                  type: integer
+                  format: int32
+                  description: The port number of the game server.
+                  example: 27015
+                query_port:
+                  type: integer
+                  format: int32
+                  nullable: true
+                  description: The port number of the game server query.
+                  example: 27016
+                rcon_port:
+                  type: integer
+                  format: int32
+                  nullable: true
+                  description: The port number of the game server rcon.
+                  example: 27017
+                dir:
+                  type: string
+                  nullable: true
+                  description: The directory path of the game server.
+                  example: servers/my-awesome-server
+              required:
+                - name
+                - game_id
+                - ds_id
+                - game_mod_id
+                - server_ip
+                - server_port
+      responses:
+        201:
+          $ref: '#/components/responses/CommonSuccessResponse'
+        4XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+        5XX:
+          $ref: '#/components/responses/CommonErrorResponse'
+
   /servers/{server}/start:
     post:
       summary: Start Game Server

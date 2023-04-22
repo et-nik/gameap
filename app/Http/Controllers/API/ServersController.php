@@ -7,6 +7,7 @@ use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommand
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\API\CreateServerRequest;
 use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\Server;
@@ -14,10 +15,13 @@ use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
+use Gameap\UseCases\Commands\CreateGameServerCommand;
+use Gameap\UseCases\CreateGameServer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\QueryBuilder;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ServersController extends AuthController
 {
@@ -41,6 +45,9 @@ class ServersController extends AuthController
     /** @var \Gameap\Services\ServerControlService */
     public $serverControlService;
 
+    /** @var SerializerInterface */
+    protected $serializer;
+
     /**
      * ServersController constructor.
      * @param ServerRepository $repository
@@ -49,7 +56,8 @@ class ServersController extends AuthController
         ServerRepository $repository,
         GdaemonTaskRepository $gdaemonTaskRepository,
         ServerService $serverService,
-        ServerControlService $serverControlService
+        ServerControlService $serverControlService,
+        SerializerInterface $serializer
     ) {
         parent::__construct();
 
@@ -57,6 +65,7 @@ class ServersController extends AuthController
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
         $this->serverService         = $serverService;
         $this->serverControlService  = $serverControlService;
+        $this->serializer            = $serializer;
     }
 
     /**
@@ -327,6 +336,18 @@ class ServersController extends AuthController
                 'rcon_port',
                 'dir',
             ]);
+    }
+
+    public function store(CreateServerRequest $request, CreateGameServer $createGameServer)
+    {
+        $command = $this->serializer->denormalize(
+            $request->all(),
+            CreateGameServerCommand::class,
+        );
+
+        $result = $createGameServer($command);
+
+        return ['message' => 'success', 'result' => $result];
     }
 
     /**

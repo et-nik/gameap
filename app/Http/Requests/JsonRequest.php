@@ -1,10 +1,10 @@
 <?php
 
-namespace Gameap\Http\Requests\GdaemonAPI;
+namespace Gameap\Http\Requests;
 
-use Gameap\Exceptions\GdaemonAPI\ValidationException;
-use Gameap\Http\Requests\Request;
+use Gameap\Exceptions\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Response;
 
 abstract class JsonRequest extends Request
 {
@@ -28,8 +28,7 @@ abstract class JsonRequest extends Request
      */
     public function failedValidation(Validator $validator): void
     {
-        throw (new ValidationException($validator))
-            ->errorBag($this->errorBag);
+        throw new ValidationException(implode(', ', $validator->errors()->all()), Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**

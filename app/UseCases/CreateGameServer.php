@@ -84,8 +84,15 @@ class CreateGameServer
 
         $this->serverRepository->save($server);
 
+        $taskID = 0;
+
         if ($command->install) {
-            $this->gdaemonTaskRepository->addServerInstall($server);
+            $taskID = $this->gdaemonTaskRepository->addServerInstall($server);
         }
+
+        return [
+            'taskId' => $taskID,
+            'serverId' => $server->id,
+        ];
     }
 }

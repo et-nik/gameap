@@ -61,6 +61,8 @@ Route::middleware('isAdmin')->group(function () {
 Route::middleware('isAdmin')->group(function () {
     Route::name('servers.search')->get('servers/search',  [ServersController::class, 'start']);
     Route::name('servers')->get('servers', [ServersController::class, 'getList']);
+
+    Route::name('servers.store')->post('servers', [ServersController::class, 'store']);
 });
 
 Route::name('servers.start')->post('servers/{server}/start', [ServersController::class, 'start']);
