@@ -6,6 +6,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
+/**
+ * User model
+ * @package Gameap\Models
+ *
+ * @property string $login
+ * @property string $email
+ * @property string $name
+ */
 class User extends Authenticatable
 {
     use Notifiable;
