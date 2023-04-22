@@ -196,6 +196,9 @@ class Server extends Model
 
         if ($this->gameMod !== null && is_array($this->gameMod->vars)) {
             foreach ($this->gameMod->vars as $var) {
+                if(!isset($var['var'])) {
+                    continue;
+                }
                 $varname           = $var['var'];
                 $aliases[$varname] = $this->vars[$varname] ?? $var['default'];
             }
