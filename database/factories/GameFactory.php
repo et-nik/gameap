@@ -10,8 +10,8 @@ use Gameap\Models\Game;
 
 $factory->define(Game::class, function (Faker $faker) {
     return [
-        'code'          => 'test',
-        'name'          => 'Test',
+        'code'          => 'test_' . $faker->lexify(),
+        'name'          => $faker->unique()->words(3, true),
         'engine'        => 'test',
         'engine_version' => '1.0',
         'remote_repository_linux' => '',

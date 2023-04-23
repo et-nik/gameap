@@ -35,7 +35,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         factory(Game::class)->create([
-            'code' => 'test_'.$this->faker->randomNumber(),
+            'code' => 'test_'.$this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -52,7 +52,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         factory(Game::class)->create([
-            'code' => 'test_'.$this->faker->randomNumber(),
+            'code' => 'test_'.$this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -72,7 +72,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $data = [
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
             'engine' => $this->faker->unique()->words(3, true),
         ];
@@ -94,7 +94,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $data = [
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->words(3, true),
             'engine' => $this->faker->word(3, true),
         ];
@@ -115,7 +115,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $game = factory(Game::class)->create([
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -134,7 +134,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $game = factory(Game::class)->create([
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -154,7 +154,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $game = factory(Game::class)->create([
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -180,7 +180,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $game = factory(Game::class)->create([
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
         $data = [
@@ -204,7 +204,7 @@ class GamesTest extends APITestCase
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
         $game = factory(Game::class)->create([
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
@@ -220,7 +220,7 @@ class GamesTest extends APITestCase
         $user = factory(User::class)->create();
         $this->be($user);
         $game = factory(Game::class)->create([
-            'code' => 'test_'. $this->faker->randomNumber(),
+            'code' => 'test_'. $this->faker->lexify(),
             'name' => $this->faker->unique()->words(3, true),
         ]);
 
