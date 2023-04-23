@@ -34,7 +34,7 @@ class CreateGameServer
         $this->gameModRepository = $gameModRepository;
     }
 
-    public function __invoke(CreateGameServerCommand $command)
+    public function __invoke(CreateGameServerCommand $command): array
     {
         $server = new Server();
 

@@ -2,7 +2,6 @@
 
 namespace Gameap\Repositories;
 
-use Gameap\Helpers\ServerHelper;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
@@ -41,6 +40,11 @@ class ServerRepository
         $this->model                 = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
         $this->mavinooBatch          = $mavinooBatch;
+    }
+
+    public function find(int $id): Server
+    {
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -154,7 +158,7 @@ class ServerRepository
         if (isset($attributes['ds_id'])) {
             $server->ds_id = $attributes['ds_id'];
         }
-        
+
         $server->update($attributes);
     }
 

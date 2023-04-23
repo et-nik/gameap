@@ -8,7 +8,7 @@ use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryEx
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\ServerDestroyRequest;
-use Gameap\Http\Requests\API\CreateServerRequest;
+use Gameap\Http\Requests\API\SaveServerRequest;
 use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\Server;
@@ -17,7 +17,9 @@ use Gameap\Repositories\ServerRepository;
 use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
 use Gameap\UseCases\Commands\CreateGameServerCommand;
+use Gameap\UseCases\Commands\EditGameServerCommand;
 use Gameap\UseCases\CreateGameServer;
+use Gameap\UseCases\EditGameServer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -320,6 +322,7 @@ class ServersController extends AuthController
         return QueryBuilder::for(Server::class)
             ->allowedFilters('ds_id')
             ->allowedAppends('full_path')
+            ->with('game')
             ->get([
                 'id',
                 'uuid',
@@ -339,8 +342,9 @@ class ServersController extends AuthController
             ]);
     }
 
-    public function store(CreateServerRequest $request, CreateGameServer $createGameServer)
+    public function store(SaveServerRequest $request, CreateGameServer $createGameServer): array
     {
+        /** @var CreateGameServerCommand $command */
         $command = $this->serializer->denormalize(
             $request->all(),
             CreateGameServerCommand::class,
@@ -349,6 +353,21 @@ class ServersController extends AuthController
         $result = $createGameServer($command);
 
         return ['message' => 'success', 'result' => $result];
+    }
+
+    public function save(int $id, SaveServerRequest $request, EditGameServer $saveGameServer): array
+    {
+        /** @var EditGameServerCommand $command */
+        $command = $this->serializer->denormalize(
+            $request->all(),
+            EditGameServerCommand::class,
+        );
+
+        $command->id = $id;
+
+        $result = $saveGameServer($command);
+
+        return ['message' => 'success', 'result' => $result->id];
     }
 
     public function destroy(ServerDestroyRequest $request, Server $server)

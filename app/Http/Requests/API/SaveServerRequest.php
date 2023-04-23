@@ -5,38 +5,57 @@ namespace Gameap\Http\Requests\API;
 use Gameap\Http\Requests\JsonRequest;
 use Illuminate\Validation\Rule;
 
-class CreateServerRequest extends JsonRequest
+class SaveServerRequest extends JsonRequest
 {
-    public function rules()
+    public function rules(): array
     {
         $portRules = ['nullable', 'numeric', 'digits_between:1,65535',
             Rule::unique('servers', 'server_port')
                 ->ignore($this->route('server'))
                 ->where(function ($query) {
-                    return $query
+                    $q = $query
                         ->where('ds_id', $this->ds_id)
                         ->where('server_ip', $this->server_ip)
                         ->whereNull('deleted_at');
+
+                    if ($this->id) {
+                        $q->where('id', '!=', $this->id);
+                    }
+
+                    return $q;
                 }),
             Rule::unique('servers', 'query_port')
                 ->ignore($this->route('server'))
                 ->where(function ($query) {
-                    return $query
+                    $q = $query
                         ->where('ds_id', $this->ds_id)
                         ->where('server_ip', $this->server_ip)
                         ->whereNull('deleted_at');
+
+                    if ($this->id) {
+                        $q->where('id', '!=', $this->id);
+                    }
+
+                    return $q;
                 }),
             Rule::unique('servers', 'rcon_port')
                 ->ignore($this->route('server'))
                 ->where(function ($query) {
-                    return $query
+                    $q = $query
                         ->where('ds_id', $this->ds_id)
                         ->where('server_ip', $this->server_ip)
                         ->whereNull('deleted_at');
+
+                    if ($this->id) {
+                        $q->where('id', '!=', $this->id);
+                    }
+
+                    return $q;
                 }),
         ];
 
         return [
+            'id'          => '',
             'enabled'     => '',
             'blocked'     => '',
             'installed'   => '',

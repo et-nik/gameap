@@ -63,7 +63,8 @@ Route::middleware('isAdmin')->group(function () {
     Route::name('servers')->get('servers', [ServersController::class, 'getList']);
 
     Route::name('servers.store')->post('servers', [ServersController::class, 'store']);
-    Route::name('servers.store')->delete('servers', [ServersController::class, 'destroy']);
+    Route::name('servers.save')->put('servers/{server}', [ServersController::class, 'save']);
+    Route::name('servers.destroy')->delete('servers', [ServersController::class, 'destroy']);
 });
 
 Route::name('servers.start')->post('servers/{server}/start', [ServersController::class, 'start']);
