@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Permissions\Controllers\Admin;
 
-use Bouncer;
 use Gameap\Models\User;
 use Illuminate\Http\Response;
+use Silber\Bouncer\Bouncer;
 use Tests\TestCase;
 
 /** @covers \Gameap\Http\Controllers\Admin\DedicatedServersController */
@@ -15,7 +15,7 @@ class DedicatedServersControllerTest extends TestCase
      */
     protected $user;
 
-    /** @var \Silber\Bouncer\Bouncer */
+    /** @var Bouncer */
     protected $bouncer;
 
     public function setUp(): void
@@ -25,7 +25,7 @@ class DedicatedServersControllerTest extends TestCase
         $this->user = factory(User::class)->create();
         $this->be($this->user);
 
-        $this->bouncer = $this->app->get(\Silber\Bouncer\Bouncer::class);
+        $this->bouncer = $this->app->get(Bouncer::class);
     }
 
     public function testAllowIndex()

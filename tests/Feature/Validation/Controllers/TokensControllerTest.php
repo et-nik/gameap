@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Tests\Feature\Validation\Controllers;
 
 use Silber\Bouncer\Bouncer;
@@ -8,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
-class ModulesControllerTest extends TestCase
+class TokensControllerTest extends TestCase
 {
     /** @var Bouncer */
     protected $bouncer;
@@ -23,24 +24,25 @@ class ModulesControllerTest extends TestCase
     public function invalidDataProvider(): array
     {
         return [
-            ['invalid@name', '1.0', 'module'],
-            ['valid-name', 'invalid@version', 'version'],
+            ['Token Name', ['Inva1iD%'], 'abilities.*'],
+            ['Token Name', [], 'abilities'],
+            ['', ['ability'], 'token_name'],
         ];
     }
 
     /**
      * @dataProvider invalidDataProvider
      */
-    public function testInstallInvalid(string $name, string $version, string $expectedErrorIn): void
+    public function testInvalidRequestAttributes(string $tokenName, array $abilities, string $expectedErrorIn): void
     {
         $user = factory(User::class)->create();
         $this->be($user);
         $this->bouncer->sync($user)->roles(['admin']);
 
-        $response = $this->post(route('modules.install'), [
+        $response = $this->post(route('tokens.create'), [
             '_token' => Session::token(),
-            'module' => $name,
-            'version' => $version,
+            'token_name' => $tokenName,
+            'abilities'  => $abilities,
         ]);
 
         $response->assertStatus(Response::HTTP_FOUND);
