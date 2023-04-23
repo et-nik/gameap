@@ -2,6 +2,7 @@
 
 namespace Gameap\Services;
 
+use Gameap\Helpers\PermissionHelper;
 use Gameap\Models\User;
 
 class PersonalAccessTokenService
@@ -33,7 +34,7 @@ class PersonalAccessTokenService
             ],
         ];
 
-        if ($user->can('admin roles & permissions')) {
+        if ($user->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             $userAbilities['server'][self::SERVER_CREATE_ABILITY] = __('tokens.abilities_descriptions.server.create');
             $userAbilities['gdaemon-task'][self::GDAEMON_TASK_READ_ABILITY] = __('tokens.abilities_descriptions.gdaemon_task.read');
         }

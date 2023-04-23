@@ -8,6 +8,6 @@ class UserHelper
 {
     public static function isAdmin(): bool
     {
-        return Auth::user()->can('admin roles & permissions');
+        return Auth::user()->can(PermissionHelper::ADMIN_PERMISSIONS);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Gameap\Repositories;
 
+use Gameap\Helpers\PermissionHelper;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
@@ -96,7 +97,7 @@ class ServerRepository
     {
         $currentUser = $this->authFactory->guard()->user();
 
-        if ($currentUser->can('admin roles & permissions')) {
+        if ($currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             return $this->getAll();
         }
 
@@ -230,7 +231,7 @@ class ServerRepository
     {
         $only = [];
         foreach ($server->gameMod->vars as $var) {
-            if (!empty($var['admin_var']) && Auth::user()->cannot('admin roles & permissions')) {
+            if (!empty($var['admin_var']) && Auth::user()->cannot(PermissionHelper::ADMIN_PERMISSIONS)) {
                 continue;
             }
 

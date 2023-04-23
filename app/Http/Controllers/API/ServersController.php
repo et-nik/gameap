@@ -6,6 +6,8 @@ use Exception;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommandException;
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
+use Gameap\Helpers\PermissionHelper;
+use Gameap\Helpers\ServerPermissionHelper;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\ServerDestroyRequest;
 use Gameap\Http\Requests\API\SaveServerRequest;
@@ -87,8 +89,8 @@ class ServersController extends AuthController
      */
     public function start(Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-start', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::START_ABILITY, $server);
 
         try {
             $gdaemonTaskId = $this->serverControlService->start($server);
@@ -119,8 +121,8 @@ class ServersController extends AuthController
      */
     public function stop(Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-stop', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::STOP_ABILITY, $server);
 
         try {
             $gdaemonTaskId = $this->serverControlService->stop($server);
@@ -149,8 +151,8 @@ class ServersController extends AuthController
      */
     public function restart(Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-restart', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::RESTART_ABILITY, $server);
 
         try {
             $gdaemonTaskId = $this->serverControlService->restart($server);
@@ -180,8 +182,8 @@ class ServersController extends AuthController
      */
     public function update(Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-update', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::UPDATE_ABILITY, $server);
 
         try {
             $gdaemonTaskId = $this->serverControlService->update($server);
@@ -209,8 +211,8 @@ class ServersController extends AuthController
      */
     public function install(Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-update', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::UPDATE_ABILITY, $server);
 
         try {
             $gdaemonTaskId = $this->serverControlService->install($server);
@@ -239,8 +241,8 @@ class ServersController extends AuthController
      */
     public function reinstall(Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-update', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::UPDATE_ABILITY, $server);
 
         try {
             $deleteTaskId  = $this->gdaemonTaskRepository->addServerDelete($server);
@@ -263,7 +265,7 @@ class ServersController extends AuthController
      */
     public function getStatus(Server $server)
     {
-        $this->authorize('server-control', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
 
         return [
             'processActive' => $server->processActive(),
@@ -278,7 +280,8 @@ class ServersController extends AuthController
      */
     public function query(Server $server)
     {
-        $this->authorize('server-control', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+
         $query = $this->serverService->query($server);
 
         return $query;
@@ -292,8 +295,8 @@ class ServersController extends AuthController
      */
     public function consoleLog(Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-console-view', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::CONSOLE_VIEW_ABILITY, $server);
 
         return [
             'console' => $this->serverService->getConsoleLog($server),
@@ -309,8 +312,8 @@ class ServersController extends AuthController
      */
     public function sendCommand(ServerConsoleCommandRequest $request, Server $server)
     {
-        $this->authorize('server-control', $server);
-        $this->authorize('server-console-send', $server);
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+        $this->authorize(ServerPermissionHelper::CONSOLE_SEND_ABILITY, $server);
 
         $command = $request->input('command');
         $this->serverService->sendConsoleCommand($server, $command);
@@ -329,7 +332,7 @@ class ServersController extends AuthController
         /** @var User $currentUser */
         $currentUser = $this->authFactory->guard()->user();
 
-        if ($currentUser->can('admin roles & permissions')) {
+        if ($currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             return $this->repository->getAllServers();
         }
 
@@ -388,7 +391,7 @@ class ServersController extends AuthController
      */
     private function handleException(\Throwable $exception)
     {
-        if (Auth::user()->can('admin roles & permissions')) {
+        if (Auth::user()->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             $extraMessage = $this->getDocMessage($exception);
         } else {
             $extraMessage = (string)__('main.common_admin_error');

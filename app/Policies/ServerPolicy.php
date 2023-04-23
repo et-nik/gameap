@@ -2,6 +2,7 @@
 
 namespace Gameap\Policies;
 
+use Gameap\Helpers\PermissionHelper;
 use Gameap\Models\Server;
 use Gameap\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -12,7 +13,7 @@ class ServerPolicy
 
     public function before(?User $user, $ability)
     {
-        if ($user !== null && $user->can('admin roles & permissions')) {
+        if ($user !== null && $user->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             return true;
         }
 

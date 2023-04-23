@@ -2,6 +2,8 @@
 
 namespace Gameap\Http\Controllers\API;
 
+use Gameap\Helpers\PermissionHelper;
+use Gameap\Helpers\ServerPermissionHelper;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\User;
@@ -42,12 +44,12 @@ class GdaemonTasksController extends AuthController
         /** @var User $currentUser */
         $currentUser = $this->authFactory->guard()->user();
 
-        if (!$currentUser->can('admin roles & permissions')) {
+        if (!$currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             if (empty($gdaemonTask->server)) {
                 abort(Response::HTTP_FORBIDDEN);
             }
 
-            $this->authorize('server-control', $gdaemonTask->server);
+            $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $gdaemonTask->server);
         }
 
         return [
@@ -67,17 +69,6 @@ class GdaemonTasksController extends AuthController
      */
     public function output(GdaemonTask $gdaemonTask)
     {
-        /** @var User $currentUser */
-        $currentUser = $this->authFactory->guard()->user();
-
-        if (!$currentUser->can('admin roles & permissions')) {
-            if (empty($gdaemonTask->server)) {
-                abort(Response::HTTP_FORBIDDEN);
-            }
-
-            $this->authorize('server-control', $gdaemonTask->server);
-        }
-
         return [
             'id'     => $gdaemonTask->id,
             'output' => $gdaemonTask->output,

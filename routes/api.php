@@ -9,6 +9,7 @@ use Gameap\Http\Controllers\API\ServersController;
 use Gameap\Http\Controllers\API\ServersRconController;
 use Gameap\Http\Controllers\API\ServersTasksController;
 use Gameap\Http\Controllers\API\UsersController;
+use Gameap\Services\PersonalAccessTokenService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,21 +65,56 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::middleware('isAdmin')->group(function () {
         Route::name('servers.search')->get('servers/search',  [ServersController::class, 'search']);
 
-        Route::name('servers.store')->post('servers', [ServersController::class, 'store']);
-        Route::name('servers.save')->put('servers/{server}', [ServersController::class, 'save']);
-        Route::name('servers.destroy')->delete('servers', [ServersController::class, 'destroy']);
+        Route::name('servers.store')
+            ->post('servers', [ServersController::class, 'store'])
+            ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
+
+        Route::name('servers.save')
+            ->put('servers/{server}', [ServersController::class, 'save'])
+            ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
+
+        Route::name('servers.destroy')
+            ->delete('servers', [ServersController::class, 'destroy'])
+            ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
     });
 
-    Route::name('servers.start')->post('servers/{server}/start', [ServersController::class, 'start']);
-    Route::name('servers.stop')->post('servers/{server}/stop', [ServersController::class, 'stop']);
-    Route::name('servers.restart')->post('servers/{server}/restart', [ServersController::class, 'restart']);
-    Route::name('servers.install')->post('servers/{server}/install', [ServersController::class, 'install']);
-    Route::name('servers.update')->post('servers/{server}/update', [ServersController::class, 'update']);
-    Route::name('servers.reinstall')->post('servers/{server}/reinstall', [ServersController::class, 'reinstall']);
-    Route::name('servers.get_status')->get('servers/{server}/status', [ServersController::class, 'getStatus']);
-    Route::name('servers.query')->get('servers/{server}/query', [ServersController::class, 'query']);
-    Route::name('servers.console')->get('servers/{server}/console', [ServersController::class, 'consoleLog']);
-    Route::name('servers.send_command')->post('servers/{server}/console', [ServersController::class, 'sendCommand']);
+    Route::name('servers.start')
+        ->post('servers/{server}/start', [ServersController::class, 'start'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_START_ABILITY);
+
+    Route::name('servers.stop')
+        ->post('servers/{server}/stop', [ServersController::class, 'stop'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_STOP_ABILITY);
+
+    Route::name('servers.restart')
+        ->post('servers/{server}/restart', [ServersController::class, 'restart'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_RESTART_ABILITY);
+
+    Route::name('servers.install')
+        ->post('servers/{server}/install', [ServersController::class, 'install'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_UPDATE_ABILITY);
+
+    Route::name('servers.update')
+        ->post('servers/{server}/update', [ServersController::class, 'update'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_UPDATE_ABILITY);
+
+    Route::name('servers.reinstall')
+        ->post('servers/{server}/reinstall', [ServersController::class, 'reinstall'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_UPDATE_ABILITY);
+
+    Route::name('servers.get_status')
+        ->get('servers/{server}/status', [ServersController::class, 'getStatus']);
+
+    Route::name('servers.query')
+        ->get('servers/{server}/query', [ServersController::class, 'query']);
+
+    Route::name('servers.console')
+        ->get('servers/{server}/console', [ServersController::class, 'consoleLog'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CONSOLE_ABILITY);
+
+    Route::name('servers.send_command')
+        ->post('servers/{server}/console', [ServersController::class, 'sendCommand'])
+        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CONSOLE_ABILITY);
 
     Route::name('servers.get_tasks')->get('servers/{server}/tasks', [ServersTasksController::class, 'getList']);
     Route::name('servers.add_task')->post('servers/{server}/tasks', [ServersTasksController::class, 'store']);
@@ -86,17 +122,27 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::name('servers.delete_task')->delete('servers/{server}/tasks/{server_task}', [ServersTasksController::class, 'destroy']);
 
     // Rcon
-    Route::name('server.rcon.features')->get('servers/{server}/rcon/features', [ServersRconController::class, 'supportedFeatures']);
-    Route::name('server.rcon')->post('servers/{server}/rcon', [ServersRconController::class, 'sendCommand']);
-    Route::name('server.rcon.players')->get('servers/{server}/rcon/players', [ServersRconController::class, 'getPlayers']);
-    Route::name('server.rcon.players.change_name')->post('servers/{server}/rcon/players/change_name', [ServersRconController::class, 'changeName']);
-    Route::name('server.rcon.players.message')->post('servers/{server}/rcon/players/message', [ServersRconController::class, 'message']);
-    Route::name('server.rcon.players.kick')->post('servers/{server}/rcon/players/kick', [ServersRconController::class, 'kick']);
-    Route::name('server.rcon.players.ban')->post('servers/{server}/rcon/players/ban', [ServersRconController::class, 'ban']);
+    Route::middleware('abilities:' . PersonalAccessTokenService::SERVER_RCON_CONSOLE_ABILITY)->group(function() {
+        Route::name('server.rcon.features')->get('servers/{server}/rcon/features', [ServersRconController::class, 'supportedFeatures']);
+        Route::name('server.rcon')->post('servers/{server}/rcon', [ServersRconController::class, 'sendCommand']);
+
+        Route::middleware('abilities:' . PersonalAccessTokenService::SERVER_RCON_PLAYERS_ABILITY)->group(function() {
+            Route::name('server.rcon.players')->get('servers/{server}/rcon/players', [ServersRconController::class, 'getPlayers']);
+            Route::name('server.rcon.players.change_name')->post('servers/{server}/rcon/players/change_name', [ServersRconController::class, 'changeName']);
+            Route::name('server.rcon.players.message')->post('servers/{server}/rcon/players/message', [ServersRconController::class, 'message']);
+            Route::name('server.rcon.players.kick')->post('servers/{server}/rcon/players/kick', [ServersRconController::class, 'kick']);
+            Route::name('server.rcon.players.ban')->post('servers/{server}/rcon/players/ban', [ServersRconController::class, 'ban']);
+        });
+    });
 
     // Gdaemon tasks
-    Route::name('gdaemon_tasks.get')->get('gdaemon_tasks/{gdaemon_task}', [GdaemonTasksController::class, 'get']);
-    Route::name('gdaemon_tasks.output')->get('gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output']);
+    Route::name('gdaemon_tasks.get')
+        ->get('gdaemon_tasks/{gdaemon_task}', [GdaemonTasksController::class, 'get'])
+        ->middleware('abilities:' . PersonalAccessTokenService::GDAEMON_TASK_READ_ABILITY);
+
+    Route::name('gdaemon_tasks.output')
+        ->middleware('isAdmin')
+        ->get('gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output']);
 });
 
 Route::name("healthz")->get("healthz", [HealthzController::class, 'index']);

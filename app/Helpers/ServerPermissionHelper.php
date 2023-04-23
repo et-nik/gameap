@@ -6,6 +6,14 @@ use Gameap\Models\Server;
 
 class ServerPermissionHelper
 {
+    const CONTROL_ABILITY = 'server-control';
+    const START_ABILITY = 'server-start';
+    const STOP_ABILITY = 'server-stop';
+    const RESTART_ABILITY = 'server-restart';
+    const UPDATE_ABILITY = 'server-update';
+    const CONSOLE_VIEW_ABILITY = 'server-console-view';
+    const CONSOLE_SEND_ABILITY = 'server-console-send';
+
     /**
      * @var array All game server permission
      */

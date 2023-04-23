@@ -4,7 +4,6 @@ namespace Gameap\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -15,6 +14,7 @@ class Handler extends ExceptionHandler
         \Gameap\Exceptions\Repositories\RecordExistExceptions::class         => Response::HTTP_UNPROCESSABLE_ENTITY,
         \Gameap\Exceptions\Repositories\RepositoryValidationException::class => Response::HTTP_BAD_REQUEST,
         \Illuminate\Validation\ValidationException::class                    => Response::HTTP_UNPROCESSABLE_ENTITY,
+        \Laravel\Sanctum\Exceptions\MissingAbilityException::class           => Response::HTTP_FORBIDDEN,
     ];
 
     public function render($request, \Throwable $exception)
@@ -32,19 +32,6 @@ class Handler extends ExceptionHandler
             return response()->make('echo "' . $exception->getMessage() . '"', 401);
         }
 
-        if ($exception instanceof HttpException) {
-            if ($request->acceptsHtml()) {
-                return parent::render($request, $exception);
-            }
-
-            if ($request->acceptsJson()) {
-                return response()->json([
-                    'message'   => $exception->getMessage(),
-                    'http_code' => $exception->getStatusCode(),
-                ], $exception->getStatusCode(), $exception->getHeaders());
-            }
-        }
-
         return parent::render($request, $exception);
     }
 
@@ -57,6 +44,13 @@ class Handler extends ExceptionHandler
                     'http_code' => $httpCode,
                 ], $httpCode);
             }
+        }
+
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+            return response()->json([
+                'message'   => $exception->getMessage(),
+                'http_code' => $exception->getStatusCode(),
+            ], $exception->getStatusCode(), $exception->getHeaders());
         }
 
         return parent::render($request, $exception);
