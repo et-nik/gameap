@@ -7,6 +7,7 @@ use Gameap\Exceptions\Repositories\GdaemonTaskRepository\EmptyServerStartCommand
 use Gameap\Exceptions\Repositories\GdaemonTaskRepository\GdaemonTaskRepositoryException;
 use Gameap\Exceptions\Repositories\RecordExistExceptions;
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\Admin\ServerDestroyRequest;
 use Gameap\Http\Requests\API\CreateServerRequest;
 use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Gameap\Models\GdaemonTask;
@@ -348,6 +349,23 @@ class ServersController extends AuthController
         $result = $createGameServer($command);
 
         return ['message' => 'success', 'result' => $result];
+    }
+
+    public function destroy(ServerDestroyRequest $request, Server $server)
+    {
+        if ($request->input('delete_files')) {
+            try {
+                $this->gdaemonTaskRepository->addServerDelete($server);
+            } catch (RecordExistExceptions $e) {
+                // Nothing
+            }
+
+            $server->delete();
+        } else {
+            $server->forceDelete();
+        }
+
+        return ['message' => 'success'];
     }
 
     /**
