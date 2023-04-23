@@ -11,14 +11,11 @@
 |
 */
 
-use Gameap\Http\Controllers\Admin\ClientCertificatesController as AdminClientCertificatesController;
 use Gameap\Http\Controllers\Admin\DedicatedServersController as AdminDedicatedServersController;
 use Gameap\Http\Controllers\Admin\GameModsController as AdminGameModsController;
 use Gameap\Http\Controllers\Admin\GamesController as AdminGamesController;
 use Gameap\Http\Controllers\Admin\GdaemonTasksController as AdminGdaemonTasksController;
-use Gameap\Http\Controllers\Admin\ServersController as AdminServersController;
 use Gameap\Http\Controllers\Admin\ServersSettingsController as AdminServersSettingsController;
-use Gameap\Http\Controllers\Admin\UsersController as AdminUsersController;
 use Gameap\Http\Controllers\Admin\UsersServersPermsController as AdminUsersServersPermsController;
 use Gameap\Http\Controllers\GdaemonAPI\SetupController as GdaemonAPISetupController;
 use Gameap\Http\Controllers\HomeController;
@@ -48,7 +45,7 @@ Route::bind('anyserver', function ($id) {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
-    Route::resource('client_certificates', AdminClientCertificatesController::class, ['as' => 'admin', 'except' => ['edit']]);
+    Route::resource('client_certificates', 'Admin\\ClientCertificatesController', ['as' => 'admin', 'except' => ['edit']]);
     Route::name('admin.dedicated_servers.download_logs')
         ->get(
             'dedicated_servers/{dedicated_server}/logs.zip',
@@ -59,11 +56,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
             'dedicated_servers/{dedicated_server}/certificates.zip',
             [AdminDedicatedServersController::class, 'certificatesZip'],
         );
-    Route::resource('dedicated_servers',AdminDedicatedServersController::class, ['as' => 'admin']);
-    Route::resource('servers', AdminServersController::class, ['as' => 'admin']);
+    Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
+    Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
 
     Route::name('admin.games.upgrade')->patch('games/upgrade', [AdminGamesController::class, 'upgrade']);
-    Route::resource('games',AdminGamesController::class, ['as' => 'admin']);
+    Route::resource('games',"Admin\\GamesController", ['as' => 'admin']);
 
     Route::name('admin.users.edit_server_permissions')->get(
         'users/{user}/servers/{server}/edit',
@@ -73,9 +70,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
         'users/{user}/servers/{server}/edit',
         [AdminUsersServersPermsController::class, 'updatePermissions'],
     );
-    Route::resource('users', AdminUsersController::class, ['as' => 'admin']);
+    Route::resource('users', 'Admin\\UsersController', ['as' => 'admin']);
 
-    Route::resource('game_mods', AdminGameModsController::class, ['as' => 'admin']);
+    Route::resource('game_mods', 'Admin\\GameModsController', ['as' => 'admin']);
     Route::name('admin.game_mods.create')->get('game_mods/create/{game?}', [AdminGameModsController::class, 'create']);
 
     Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', [AdminGdaemonTasksController::class, 'index']);
