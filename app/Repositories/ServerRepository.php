@@ -3,13 +3,10 @@
 namespace Gameap\Repositories;
 
 use Gameap\Http\Requests\ServerVarsRequest;
-use Gameap\Models\DedicatedServer;
 use Gameap\Models\Game;
-use Gameap\Models\GameMod;
 use Gameap\Models\Server;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Mavinoo\Batch\Batch;
 
 class ServerRepository
