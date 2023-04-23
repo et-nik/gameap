@@ -141,8 +141,8 @@ Route::middleware('auth:sanctum')->group(function() {
         ->middleware('abilities:' . PersonalAccessTokenService::GDAEMON_TASK_READ_ABILITY);
 
     Route::name('gdaemon_tasks.output')
-        ->middleware('isAdmin')
-        ->get('gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output']);
+        ->get('gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output'])
+        ->middleware('isAdmin');
 });
 
 Route::name("healthz")->get("healthz", [HealthzController::class, 'index']);

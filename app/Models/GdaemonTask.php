@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class GdaemonTask
  * @package App\Models
  *
+ * @property integer $id
  * @property integer $run_aft_id
  * @property integer $dedicated_server_id
  * @property integer $server_id

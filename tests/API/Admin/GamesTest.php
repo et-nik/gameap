@@ -13,6 +13,9 @@ class GamesTest extends APITestCase
 {
     use WithFaker;
 
+    /** @var Bouncer */
+    private $bouncer;
+
     public function setUp(): void
     {
         parent::setUp();
