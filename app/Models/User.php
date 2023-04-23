@@ -8,12 +8,10 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * User model
- * @package Gameap\Models
- *
  * @property string $login
  * @property string $email
  * @property string $name
+ * @property iterable $tokens
  */
 class User extends Authenticatable
 {
