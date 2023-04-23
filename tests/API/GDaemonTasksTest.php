@@ -76,6 +76,16 @@ class GDaemonTasksTest extends APITestCase
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
+    public function testTaskViewGuest_Unauthorized()
+    {
+        /** @var GdaemonTask $task */
+        $task = factory(GdaemonTask::class)->create();
+
+        $response = $this->get('/api/gdaemon_tasks/' . $task->id, ['Accept' => 'application/json']);
+
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
+
     public function testCommonTaskViewUser_Forbidden()
     {
         $user = factory(User::class)->create();

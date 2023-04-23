@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\API\Admin;
+namespace Tests\API;
 
+use Gameap\Models\Game;
 use Gameap\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Silber\Bouncer\Bouncer;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\API\APITestCase;
-use Gameap\Models\Game;
 
 class GamesTest extends APITestCase
 {
@@ -59,6 +58,18 @@ class GamesTest extends APITestCase
         $response = $this->get('/api/games');
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testIndex_Unauthorized()
+    {
+        factory(Game::class)->create([
+            'code' => 'test_'.$this->faker->lexify(),
+            'name' => $this->faker->unique()->words(3, true),
+        ]);
+
+        $response = $this->get('/api/games', ['Accept' => 'application/json']);
+
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**

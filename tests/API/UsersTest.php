@@ -1,11 +1,10 @@
 <?php
 
-namespace Tests\API\Admin;
+namespace Tests\API;
 
 use Gameap\Models\User;
-use Silber\Bouncer\Bouncer;
-use Tests\API\APITestCase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Silber\Bouncer\Bouncer;
 
 class UsersTest extends APITestCase
 {

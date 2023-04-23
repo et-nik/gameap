@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\API\Admin\Servers;
+namespace Tests\API\Servers;
 
-use Gameap\Models\User;
 use Gameap\Models\Server;
+use Gameap\Models\User;
 use Silber\Bouncer\Bouncer;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\API\APITestCase;

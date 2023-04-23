@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\API\Admin\Servers;
+namespace Tests\API\Servers;
 
 use Gameap\Models\User;
 use Silber\Bouncer\Bouncer;
