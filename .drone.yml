@@ -11,7 +11,7 @@ steps:
       - touch composer_installed
 
   - name: npm
-    image: node:16
+    image: node:20
     commands:
       - node --version
       - npm install
