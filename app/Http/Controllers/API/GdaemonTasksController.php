@@ -4,7 +4,10 @@ namespace Gameap\Http\Controllers\API;
 
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\GdaemonTask;
+use Gameap\Models\User;
 use Gameap\Repositories\GdaemonTaskRepository;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Http\Response;
 
 class GdaemonTasksController extends AuthController
 {
@@ -15,15 +18,19 @@ class GdaemonTasksController extends AuthController
      */
     public $repository;
 
+    /** @var AuthFactory */
+    protected $authFactory;
+
     /**
      * GdaemonTasksController constructor.
      * @param GdaemonTaskRepository $repository
      */
-    public function __construct(GdaemonTaskRepository $repository)
+    public function __construct(GdaemonTaskRepository $repository, AuthFactory $auth)
     {
         parent::__construct();
 
         $this->repository = $repository;
+        $this->authFactory = $auth;
     }
 
     /**
@@ -32,6 +39,17 @@ class GdaemonTasksController extends AuthController
      */
     public function get(GdaemonTask $gdaemonTask)
     {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if (!$currentUser->can('admin roles & permissions')) {
+            if (empty($gdaemonTask->server)) {
+                abort(Response::HTTP_FORBIDDEN);
+            }
+
+            $this->authorize('server-control', $gdaemonTask->server);
+        }
+
         return [
             'id'         => $gdaemonTask->id,
             'run_aft_id' => $gdaemonTask->id,
@@ -49,6 +67,17 @@ class GdaemonTasksController extends AuthController
      */
     public function output(GdaemonTask $gdaemonTask)
     {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if (!$currentUser->can('admin roles & permissions')) {
+            if (empty($gdaemonTask->server)) {
+                abort(Response::HTTP_FORBIDDEN);
+            }
+
+            $this->authorize('server-control', $gdaemonTask->server);
+        }
+
         return [
             'id'     => $gdaemonTask->id,
             'output' => $gdaemonTask->output,

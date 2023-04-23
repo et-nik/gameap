@@ -1,0 +1,23 @@
+PUT {{host}}/api/servers/1
+Accept: application/json
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "id": 1,
+    "uuid": "98fe0922-e00b-4bf1-a70c-adda55a4e2b1",
+    "uuid_short": "98fe0922",
+    "enabled": true,
+    "installed": 0,
+    "blocked": false,
+    "name": "Updated game name",
+    "ds_id": 1,
+    "game_id": "1",
+    "game_mod_id": 1,
+    "server_ip": "192.168.1.1",
+    "server_port": 27015,
+    "query_port": 27016,
+    "rcon_port": 27017,
+    "dir": "home\/gameap\/servers\/my-awesome-server2",
+    "game": null
+  }

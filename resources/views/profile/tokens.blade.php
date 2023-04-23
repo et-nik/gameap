@@ -6,7 +6,7 @@
 
 @extends('layouts.main')
 
-@section('breadclumbs')
+@section('breadcrumbs')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">GameAP</a></li>
         <li class="breadcrumb-item active">{{ __('tokens.tokens') }}</li>
@@ -46,7 +46,7 @@
 
                     <div class="row mb-2">
                         <div class="col-6">
-                            <a class='btn btn-success btn-sm mt-2' href="{{ route('tokens.generate') }}">
+                            <a class='btn btn-success mt-2' href="{{ route('tokens.generate') }}">
                                 <i class="fa fa-plus-square"></i> {{ __('tokens.generate_token') }}
                             </a>
                         </div>
@@ -80,13 +80,17 @@
     <script>
         $(function () {
             $('#copy-token').on('click', function () {
+                let text = document.getElementById('token').value;
+                try {
+                    navigator.clipboard.writeText(text);
+                    console.log('Content copied to clipboard');
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
+
                 $(this).tooltip('hide')
                     .attr('data-original-title', 'Copied')
                     .tooltip('show');
-                const copyText = document.getElementById("token");
-                copyText.select();
-                copyText.setSelectionRange(0, 99999);
-                document.execCommand("copy");
             })
         });
     </script>

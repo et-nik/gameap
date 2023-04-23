@@ -1,0 +1,3 @@
+GET {{host}}/api/servers/search?q=updated
+Accept: application/json
+Authorization: Bearer {{token}}

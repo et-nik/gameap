@@ -12,6 +12,7 @@ use Gameap\Http\Requests\API\SaveServerRequest;
 use Gameap\Http\Requests\API\ServerConsoleCommandRequest;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\Server;
+use Gameap\Models\User;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\ServerControlService;
@@ -20,6 +21,7 @@ use Gameap\UseCases\Commands\CreateGameServerCommand;
 use Gameap\UseCases\Commands\EditGameServerCommand;
 use Gameap\UseCases\CreateGameServer;
 use Gameap\UseCases\EditGameServer;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +53,9 @@ class ServersController extends AuthController
     /** @var SerializerInterface */
     protected $serializer;
 
+    /** @var AuthFactory */
+    protected $authFactory;
+
     /**
      * ServersController constructor.
      * @param ServerRepository $repository
@@ -60,7 +65,8 @@ class ServersController extends AuthController
         GdaemonTaskRepository $gdaemonTaskRepository,
         ServerService $serverService,
         ServerControlService $serverControlService,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        AuthFactory $authFactory
     ) {
         parent::__construct();
 
@@ -69,6 +75,7 @@ class ServersController extends AuthController
         $this->serverService         = $serverService;
         $this->serverControlService  = $serverControlService;
         $this->serializer            = $serializer;
+        $this->authFactory           = $authFactory;
     }
 
     /**
@@ -319,27 +326,14 @@ class ServersController extends AuthController
 
     public function getList()
     {
-        return QueryBuilder::for(Server::class)
-            ->allowedFilters('ds_id')
-            ->allowedAppends('full_path')
-            ->with('game')
-            ->get([
-                'id',
-                'uuid',
-                'uuid_short',
-                'enabled',
-                'installed',
-                'blocked',
-                'name',
-                'ds_id',
-                'game_id',
-                'game_mod_id',
-                'server_ip',
-                'server_port',
-                'query_port',
-                'rcon_port',
-                'dir',
-            ]);
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if ($currentUser->can('admin roles & permissions')) {
+            return $this->repository->getAllServers();
+        }
+
+        return $this->repository->getServersForUser($currentUser->id);
     }
 
     public function store(SaveServerRequest $request, CreateGameServer $createGameServer): array

@@ -16,11 +16,11 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
     <thead>
     <tr>
         @foreach ($labels as $label)
-            <td>{{ $label }}</td>
+            <th>{{ $label }}</th>
         @endforeach
 
         @if ($showActionCollumn)
-            <td class="w-10">{{ __('main.actions') }}</td>
+            <th class="w-10">{{ __('main.actions') }}</th>
         @endif
     </tr>
     </thead>
@@ -115,9 +115,7 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
                                     [
                                         'class' => 'btn btn-danger btn-sm btn-delete',
                                         'title' => __('main.delete'),
-                                        'v-on:click' => !isset($destroyConfirmAction)
-                                            ? 'confirmAction($event, \'' . __('main.confirm_message'). '\')'
-                                            : $destroyConfirmAction,
+                                        'v-on:click' => $destroyConfirmAction ?? 'confirmAction($event, \'' . __('main.confirm_message'). '\')',
                                         'type' => 'submit'
                                     ]
                                     ) }}

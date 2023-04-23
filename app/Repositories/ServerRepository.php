@@ -5,9 +5,11 @@ namespace Gameap\Repositories;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\Game;
 use Gameap\Models\Server;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mavinoo\Batch\Batch;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ServerRepository
 {
@@ -24,6 +26,9 @@ class ServerRepository
     /** @var Batch */
     protected $mavinooBatch;
 
+    /** @var AuthFactory */
+    protected $authFactory;
+
     /**
      * ServerRepository constructor.
      * @param Server $server
@@ -32,11 +37,13 @@ class ServerRepository
     public function __construct(
         Server $server,
         GdaemonTaskRepository $gdaemonTaskRepository,
-        Batch $mavinooBatch
+        Batch $mavinooBatch,
+        AuthFactory $auth
     ) {
         $this->model                 = $server;
         $this->gdaemonTaskRepository = $gdaemonTaskRepository;
         $this->mavinooBatch          = $mavinooBatch;
+        $this->authFactory           = $auth;
     }
 
     public function find(int $id): Server
@@ -87,10 +94,66 @@ class ServerRepository
      */
     public function getServersForAuth()
     {
-        if (Auth::user()->can('admin roles & permissions')) {
+        $currentUser = $this->authFactory->guard()->user();
+
+        if ($currentUser->can('admin roles & permissions')) {
             return $this->getAll();
         }
-        return Auth::user()->servers->paginate(self::DEFAULT_PER_PAGE);
+
+        return $currentUser->servers->paginate(self::DEFAULT_PER_PAGE);
+    }
+
+    public function getServersForUser(int $userId)
+    {
+        $qb = QueryBuilder::for(Server::class)
+            ->allowedFilters('ds_id')
+            ->allowedAppends('full_path')
+            ->with('game')
+            ->whereRaw('id IN(SELECT server_id FROM server_user su WHERE su.user_id = ?)', [$userId]);
+
+        return $qb->get([
+            'id',
+            'uuid',
+            'uuid_short',
+            'enabled',
+            'installed',
+            'blocked',
+            'name',
+            'ds_id',
+            'game_id',
+            'game_mod_id',
+            'server_ip',
+            'server_port',
+            'query_port',
+            'rcon_port',
+            'dir',
+        ]);
+    }
+
+    public function getAllServers()
+    {
+        $qb = QueryBuilder::for(Server::class)
+            ->allowedFilters('ds_id')
+            ->allowedAppends('full_path')
+            ->with('game');
+
+        return $qb->get([
+            'id',
+            'uuid',
+            'uuid_short',
+            'enabled',
+            'installed',
+            'blocked',
+            'name',
+            'ds_id',
+            'game_id',
+            'game_mod_id',
+            'server_ip',
+            'server_port',
+            'query_port',
+            'rcon_port',
+            'dir',
+        ]);
     }
 
     /**

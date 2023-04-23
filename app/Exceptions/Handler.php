@@ -4,6 +4,7 @@ namespace Gameap\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -29,6 +30,19 @@ class Handler extends ExceptionHandler
 
             // Return bash
             return response()->make('echo "' . $exception->getMessage() . '"', 401);
+        }
+
+        if ($exception instanceof HttpException) {
+            if ($request->acceptsHtml()) {
+                return parent::render($request, $exception);
+            }
+
+            if ($request->acceptsJson()) {
+                return response()->json([
+                    'message'   => $exception->getMessage(),
+                    'http_code' => $exception->getStatusCode(),
+                ], $exception->getStatusCode(), $exception->getHeaders());
+            }
         }
 
         return parent::render($request, $exception);
