@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\API\Admin\Servers;
+namespace Tests\API\Servers;
 
 use Gameap\Models\User;
 use Silber\Bouncer\Bouncer;
@@ -29,7 +29,7 @@ class CreateTest extends APITestCase
         $gameMod = $this->givenGameMod();
 
         $response = $this->post(
-            '/admin/servers',
+            '/api/servers',
             [
                 'ds_id' => $node->id,
                 'install' => 1,
@@ -46,7 +46,10 @@ class CreateTest extends APITestCase
             ]
         );
 
-        $response->assertStatus(Response::HTTP_FOUND);
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonFragment([
+            'message' => 'success',
+        ]);
         $this->assertDatabaseHas('servers', [
             'name'              => __FUNCTION__,
             'game_id'           => $gameMod->game_code,
@@ -68,6 +71,34 @@ class CreateTest extends APITestCase
         ]);
     }
 
+    public function testCreateServer_AccessDenied()
+    {
+        $user = factory(User::class)->create();
+        $this->be($user);
+        $node = $this->givenNode();
+        $gameMod = $this->givenGameMod();
+
+        $response = $this->post(
+            '/api/servers',
+            [
+                'ds_id' => $node->id,
+                'install' => 1,
+                'name' => __FUNCTION__,
+                'game_id' => $gameMod->game_code,
+                'game_mod_id' => $gameMod->id,
+                'server_ip' => array_first($node->ip),
+                'server_port' => 13777,
+                'query_port' => 13777,
+                'rcon_port' => 13777,
+                'rcon'      => 'password',
+                'start_command' => './start_command',
+                'dir' => 'servers/dir',
+            ]
+        );
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
     public function testCreateServerUncheckedInstallServer_ExpectInstallationGDaemonTaskDoesNotExists()
     {
         $user = factory(User::class)->create();
@@ -77,7 +108,7 @@ class CreateTest extends APITestCase
         $gameMod = $this->givenGameMod();
 
         $response = $this->post(
-            '/admin/servers',
+            '/api/servers',
             [
                 'ds_id' => $node->id,
                 'name' => __FUNCTION__,
@@ -92,7 +123,7 @@ class CreateTest extends APITestCase
             ]
         );
 
-        $response->assertStatus(Response::HTTP_FOUND);
+        $response->assertStatus(Response::HTTP_OK);
         $this->assertDatabaseHas('servers', [
             'name'              => __FUNCTION__,
             'game_id'           => $gameMod->game_code,
@@ -121,7 +152,7 @@ class CreateTest extends APITestCase
         $gameMod = $this->givenGameMod();
 
         $response = $this->post(
-            '/admin/servers',
+            '/api/servers',
             [
                 'ds_id' => 99999999999999,
                 'name' => __FUNCTION__,

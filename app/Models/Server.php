@@ -70,15 +70,31 @@ class Server extends Model
     public const UPDATE_BEFORE_START_SETTING_KEY = 'update_before_start';
 
     protected $fillable = [
-        'uuid', 'uuid_short',
-        'enabled', 'name', 'code_name', 'game_id',
-        'ds_id', 'game_mod_id', 'expires',
-        'installed', 'blocked', 'server_ip', 'server_port',
-        'query_port', 'rcon_port',
-        'rcon', 'dir', 'su_user',
-        'cpu_limit', 'ram_limit', 'net_limit',
-        'start_command', 'stop_command',
-        'force_stop_command', 'restart_command',
+        'uuid',
+        'uuid_short',
+        'enabled',
+        'name',
+        'code_name',
+        'game_id',
+        'ds_id',
+        'game_mod_id',
+        'expires',
+        'installed',
+        'blocked',
+        'server_ip',
+        'server_port',
+        'query_port',
+        'rcon_port',
+        'rcon',
+        'dir',
+        'su_user',
+        'cpu_limit',
+        'ram_limit',
+        'net_limit',
+        'start_command',
+        'stop_command',
+        'force_stop_command',
+        'restart_command',
         'vars',
     ];
 
@@ -196,6 +212,9 @@ class Server extends Model
 
         if ($this->gameMod !== null && is_array($this->gameMod->vars)) {
             foreach ($this->gameMod->vars as $var) {
+                if(!isset($var['var'])) {
+                    continue;
+                }
                 $varname           = $var['var'];
                 $aliases[$varname] = $this->vars[$varname] ?? $var['default'];
             }

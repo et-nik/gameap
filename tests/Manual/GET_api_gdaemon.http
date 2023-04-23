@@ -1,0 +1,3 @@
+GET {{host}}/api/gdaemon_tasks/1
+Accept: application/json
+Authorization: Bearer {{token}}

@@ -73,7 +73,7 @@
             }
         },
         mounted() {
-            axios.get('/api/servers/query/' + this.serverId)
+            axios.get('/api/servers/' + this.serverId + '/query')
                 .then(response => (this.items = response.data));
         }
     }

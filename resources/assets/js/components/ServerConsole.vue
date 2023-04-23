@@ -56,8 +56,8 @@
                 if (!ACTIVE_CONSOLE_TABS.includes(this.activeTabName)) {
                     return;
                 }
-                
-                axios.get('/api/servers/console/' + this.serverId)
+
+                axios.get('/api/servers/' + this.serverId + '/console')
                     .then(function(response) {
                         this.console = response.data.console;
                         setTimeout(this.scroll, 1000)
@@ -73,7 +73,7 @@
                 }
 
                 this.lock = true;
-                axios.post('/api/servers/console/' + this.serverId, {'command': this.inputText})
+                axios.post('/api/servers/' + this.serverId + '/console', {'command': this.inputText})
                     .then(function (response) {
                         this.inputText = '';
                         this.lock = false;

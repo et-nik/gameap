@@ -12,14 +12,13 @@ use Gameap\Repositories\ServerRepository;
 use Gameap\Services\ServerControlService;
 use Gameap\Services\ServerService;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\JsonResponse;
+use Silber\Bouncer\Bouncer;
+use Symfony\Component\Serializer\SerializerInterface;
 use Tests\TestCase;
 use Mockery;
-use Bouncer;
 
-/**
- * @covers \Gameap\Http\Controllers\API\ServersController
- */
 class ServersControllerTest extends TestCase
 {
     /** @var ServersController */
@@ -49,13 +48,20 @@ class ServersControllerTest extends TestCase
         $this->serverServiceMock = Mockery::mock(ServerService::class);
         $this->serverControlServiceMock = Mockery::mock(ServerControlService::class);
 
+        $serializer = $this->app->get(SerializerInterface::class);
+
         $this->controller = $this->createPartialMock(ServersController::class, ['authorize']);
         $this->controller->__construct(
             $this->serverRepositoryMock,
             $this->gdaemonTaskRepositoryMock,
             $this->serverServiceMock,
-            $this->serverControlServiceMock
+            $this->serverControlServiceMock,
+            $serializer,
+            $this->app->get(AuthFactory::class),
         );
+
+        $this->bouncer = $this->app->get(Bouncer::class);
+        $this->bouncer->dontCache();
     }
 
     /**
@@ -78,7 +84,7 @@ class ServersControllerTest extends TestCase
     public function testStartFailRepositoryException(): void
     {
         $user = factory(User::class)->create();
-        Bouncer::sync($user)->roles(['admin']);
+        $this->bouncer->sync($user)->roles(['admin']);
         $this->be($user);
 
         $this->controller->method('authorize')->willReturn(true);
@@ -99,7 +105,7 @@ class ServersControllerTest extends TestCase
     public function testStartExists(): void
     {
         $user = factory(User::class)->create();
-        Bouncer::sync($user)->roles(['admin']);
+        $this->bouncer->sync($user)->roles(['admin']);
         $this->be($user);
 
         $this->controller->method('authorize')->willReturn(true);
@@ -113,7 +119,7 @@ class ServersControllerTest extends TestCase
 
         $server = new Server();
         $server->id = 1;
-        
+
         $result = $this->controller->start($server);
         $this->assertEquals([
             'gdaemonTaskId' => 15

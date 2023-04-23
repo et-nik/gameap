@@ -4,7 +4,7 @@ return [
     // Main
     'name' => 'Имя',
     'the_value' => 'Значение',
-    
+
     // ClientCertificates
     'private_key_pass' => 'Пароль от приватного ключа',
 
@@ -93,13 +93,14 @@ return [
     'stop_command' => 'Команда остановки',
     'force_stop_command' => 'Команда быстрой остановки',
     'restart_command' => 'Команда перезагрузки',
-    
+
     // User
     'login' => 'Логин',
     'current_password' => 'Текущий пароль',
     'password' => 'Пароль',
     'password_confirmation' => 'Подтверждение пароля',
     'roles' => 'Роли',
+    'token_name' => 'Имя токена',
 
     // Generic servers
     'host' => 'Хост',

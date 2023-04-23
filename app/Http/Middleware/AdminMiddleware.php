@@ -2,6 +2,7 @@
 
 namespace Gameap\Http\Middleware;
 
+use Gameap\Helpers\PermissionHelper;
 use Illuminate\Http\Request;
 use Silber\Bouncer\Bouncer;
 use Closure;
@@ -24,7 +25,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$this->bouncer->can('admin roles & permissions')) {
+        if (!$this->bouncer->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             abort('403', 'Access Denied');
         }
 

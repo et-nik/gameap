@@ -2,7 +2,7 @@
 
 namespace Gameap\Providers;
 
-use Bouncer;
+use Gameap\Models\PersonalAccessToken;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\UrlGenerator;
@@ -10,6 +10,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\Sanctum;
+use Silber\Bouncer\Bouncer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +24,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $url): void
     {
         Paginator::useBootstrap();
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
         if (strtolower(substr(config('app.url'), 0, 5)) == 'https') {
             $url->forceScheme('https');
         }
 
-        Bouncer::cache();
+        $bouncer = $this->app->get(Bouncer::class);
+        $bouncer->cache();
+
         Schema::defaultStringLength(128);
 
         Validator::extend('recaptcha', 'Gameap\\Validators\\ReCaptcha@validate');

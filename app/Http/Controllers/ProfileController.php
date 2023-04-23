@@ -13,7 +13,7 @@ class ProfileController extends AuthController
      */
     public function index()
     {
-        return view('profile', [
+        return view('profile.profile', [
             'user' => $user = Auth::user(),
         ]);
     }
@@ -30,7 +30,7 @@ class ProfileController extends AuthController
         }
 
         Auth::user()->update($request->only('password'));
-        
+
         return redirect()->route('profile')
             ->with('success', __('profile.password_change_success_msg'));
     }

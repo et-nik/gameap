@@ -7,7 +7,7 @@ return [
 
     // ClientCertificates
     'private_key_pass' => 'Private Key Password',
-    
+
     // DedicatedServer
     'enabled' => 'Enabled',
     'os' => 'Operating system',
@@ -40,7 +40,7 @@ return [
     'script_get_console' => 'Script Get Console',
     'script_send_command' => 'Script Send Command',
     'script_delete' => 'Script Delete',
-    
+
     // Game
     'code' => 'Code',
     'start_code' => 'Start Code',
@@ -49,7 +49,7 @@ return [
     'steam_app_id_linux' => 'Steam App ID (Linux)',
     'steam_app_id_windows' => 'Steam App ID (Windows)',
     'steam_app_set_config' => 'Steam App Set Config',
-    
+
     // GameMod
     'game_code' => 'Game Code',
     'fast_rcon' => 'Fast RCON',
@@ -80,7 +80,7 @@ return [
     'server_port' => 'Server Port',
     'query_port' => 'Query Port',
     'rcon_port' => 'RCON Port',
-    
+
     // TODO: Replace to rcon_password
     'rcon' => 'RCON Password',
     'dir' => 'Dir',
@@ -99,6 +99,7 @@ return [
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'roles' => 'Roles',
+    'token_name' => 'Token Name',
 
     // Generic servers
     'host' => 'Host',

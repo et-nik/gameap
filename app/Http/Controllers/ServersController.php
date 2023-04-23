@@ -5,7 +5,6 @@ namespace Gameap\Http\Controllers;
 use Gameap\Http\Requests\ServerVarsRequest;
 use Gameap\Models\GdaemonTask;
 use Gameap\Models\Server;
-use Gameap\Models\ServerSetting;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Gameap\Repositories\ServerRepository;
 use Gameap\Services\RconService;

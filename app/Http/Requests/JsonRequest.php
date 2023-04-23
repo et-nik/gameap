@@ -1,10 +1,11 @@
 <?php
 
-namespace Gameap\Http\Requests\GdaemonAPI;
+namespace Gameap\Http\Requests;
 
-use Gameap\Exceptions\GdaemonAPI\ValidationException;
-use Gameap\Http\Requests\Request;
+use Gameap\Exceptions\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Factory;
 
 abstract class JsonRequest extends Request
 {
@@ -28,8 +29,7 @@ abstract class JsonRequest extends Request
      */
     public function failedValidation(Validator $validator): void
     {
-        throw (new ValidationException($validator))
-            ->errorBag($this->errorBag);
+        throw new ValidationException(implode(', ', $validator->errors()->all()), Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -39,14 +39,21 @@ abstract class JsonRequest extends Request
      */
     protected function getValidatorInstance()
     {
-        $factory = $this->container->make('Illuminate\Validation\Factory');
+        /** @var Factory $factory */
+        $factory = $this->container->make(Factory::class);
 
         if (method_exists($this, 'validator')) {
             return $this->container->call([$this, 'validator'], compact('factory'));
         }
 
+        $data = $this->json->all();
+
+        if (empty($data)) {
+            $data = $this->request->all();
+        }
+
         return $factory->make(
-            $this->json()->all(),
+            $data,
             $this->container->call([$this, 'rules']),
             $this->messages(),
             $this->attributes()

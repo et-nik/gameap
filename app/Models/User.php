@@ -5,9 +5,17 @@ namespace Gameap\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property string $login
+ * @property string $email
+ * @property string $name
+ * @property iterable $tokens
+ */
 class User extends Authenticatable
 {
+    use HasApiTokens;
     use Notifiable;
     use HasRolesAndAbilities;
 
@@ -37,7 +45,6 @@ class User extends Authenticatable
     protected static $rules = [
         'login' => 'sometimes|string|max:255|unique:users',
         'email' => 'sometimes|string|email|max:255|unique:users',
-        //'password'  => 'sometimes|string|min:6|confirmed',
         'password' => 'nullable|sometimes|string|min:6',
         'name'     => 'string|nullable|max:255',
     ];

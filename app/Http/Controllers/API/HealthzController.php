@@ -4,7 +4,7 @@ namespace Gameap\Http\Controllers\API;
 
 use Illuminate\Support\Facades\DB;
 
-class Healthz
+class HealthzController
 {
     public function index()
     {

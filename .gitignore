@@ -1,3 +1,4 @@
+*.sqlite
 .env
 /.idea
 /.phpstorm.meta.php
@@ -18,6 +19,7 @@
 /vendor
 Homestead.json
 Homestead.yaml
+gameap
 modules_statuses.json
 npm-debug.log
 yarn-error.log

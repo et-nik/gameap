@@ -4,21 +4,25 @@ namespace Gameap\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class GdaemonTask
  * @package App\Models
  *
- * @property integer run_aft_id
- * @property integer dedicated_server_id
- * @property integer server_id
- * @property string task
- * @property string data
- * @property string cmd
- * @property string output
- * @property string status
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property integer $id
+ * @property integer $run_aft_id
+ * @property integer $dedicated_server_id
+ * @property integer $server_id
+ * @property string $task
+ * @property string $data
+ * @property string $cmd
+ * @property string $output
+ * @property string $status
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ *
+ * @property Server $server
  */
 class GdaemonTask extends Model
 {
@@ -33,7 +37,7 @@ class GdaemonTask extends Model
     public const TASK_SERVER_DELETE  = 'gsdel';
     public const TASK_SERVER_MOVE    = 'gsmove';
     public const TASK_CMD_EXEC       = 'cmdexec';
-    
+
     public const STATUS_WAITING  = 'waiting';
     public const STATUS_WORKING  = 'working';
     public const STATUS_ERROR    = 'error';
@@ -71,7 +75,7 @@ class GdaemonTask extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
     /**
@@ -90,6 +94,11 @@ class GdaemonTask extends Model
         'output'              => 'string',
         'status'              => 'string',
     ];
+
+    public function server(): BelongsTo
+    {
+        return $this->belongsTo(Server::class, 'server_id');
+    }
 
     public function getStatusNumAttribute()
     {

@@ -2,9 +2,14 @@
 
 namespace Gameap\Http\Controllers\API;
 
+use Gameap\Helpers\PermissionHelper;
+use Gameap\Helpers\ServerPermissionHelper;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Models\GdaemonTask;
+use Gameap\Models\User;
 use Gameap\Repositories\GdaemonTaskRepository;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Http\Response;
 
 class GdaemonTasksController extends AuthController
 {
@@ -15,15 +20,19 @@ class GdaemonTasksController extends AuthController
      */
     public $repository;
 
+    /** @var AuthFactory */
+    protected $authFactory;
+
     /**
      * GdaemonTasksController constructor.
      * @param GdaemonTaskRepository $repository
      */
-    public function __construct(GdaemonTaskRepository $repository)
+    public function __construct(GdaemonTaskRepository $repository, AuthFactory $auth)
     {
         parent::__construct();
 
         $this->repository = $repository;
+        $this->authFactory = $auth;
     }
 
     /**
@@ -32,6 +41,17 @@ class GdaemonTasksController extends AuthController
      */
     public function get(GdaemonTask $gdaemonTask)
     {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if (!$currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
+            if (empty($gdaemonTask->server)) {
+                abort(Response::HTTP_FORBIDDEN);
+            }
+
+            $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $gdaemonTask->server);
+        }
+
         return [
             'id'         => $gdaemonTask->id,
             'run_aft_id' => $gdaemonTask->id,

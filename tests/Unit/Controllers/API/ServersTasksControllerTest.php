@@ -1,19 +1,17 @@
 <?php
 
-namespace Tests\Http\Controllers\API;
+namespace Tests\Unit\Controllers\API;
 
 use Gameap\Http\Controllers\API\ServersTasksController;
 use Gameap\Http\Requests\API\ServerTaskCreateRequest;
 use Gameap\Http\Requests\API\ServerTaskUpdateRequest;
-use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
 use Gameap\Repositories\ServersTasksRepository;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
+use Silber\Bouncer\Bouncer;
 use Tests\TestCase;
 use Mockery;
-use Bouncer;
 
 /**
  * @covers \Gameap\Http\Controllers\API\ServersTasksController
@@ -34,6 +32,9 @@ class ServersTasksControllerTest extends TestCase
         $this->controller = $this->createPartialMock(ServersTasksController::class, ['authorize']);
 
         $this->controller->__construct($this->repositoryMock);
+
+        $this->bouncer = $this->app->get(Bouncer::class);
+        $this->bouncer->dontCache();
     }
 
     /**
