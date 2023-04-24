@@ -8,6 +8,7 @@
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-select/sass/bootstrap-select";
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Font Awesome
 //@import "~font-awesome/scss/font-awesome";
@@ -18,9 +19,6 @@
 
 // GIcon
 @import "gicon/gicon";
-
-// DatePicker
-@import 'vue-datepicker-next/scss/index.scss';
 
 // GameAP
 @import 'bootstrap/switches';

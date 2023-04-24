@@ -14,7 +14,9 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/customstyles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/gameap.css') }}">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ URL::asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ URL::asset('favicon-96x96.png') }}">
 </head>
 <body>
     <script type="application/javascript">
@@ -69,9 +71,6 @@
 
     <script src="{{ URL::asset('/js/lang/' . app()->getLocale() . '.js') }}"></script>
     <script src="{{ URL::asset('/js/app.js') }}"></script>
-
-{{--    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>--}}
     @yield('footer-scripts')
 </body>
 </html>

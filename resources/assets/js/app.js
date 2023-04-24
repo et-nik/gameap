@@ -14,11 +14,7 @@ import {
 
 import './bootstrap';
 
-require('./bootstrap');
-require('./parts/leftMenu');
-
-import Vue from '@vue/compat';
-import Vuex from 'vuex';
+import './parts/leftMenu.js'
 
 import {pluralize, trans} from "./i18n/i18n";
 
@@ -32,11 +28,7 @@ const InputManyList = defineAsyncComponent(() =>
     import('./components/InputManyList.vue' /* webpackChunkName: "components/input" */)
 )
 
-// const FileManager = defineAsyncComponent(() =>
-//     import('gameap-file-manager' /* webpackChunkName: "file-manager" */)
-// )
-
-// import FileManager from 'gameap-file-manager';
+import fileManager from 'gameap-file-manager';
 
 import Progressbar from './components/Progressbar.vue';
 
@@ -88,7 +80,7 @@ const SettingsParameters = defineAsyncComponent(() =>
     import('./components/SettingsParameters.vue' /* webpackChunkName: "components/settings" */)
 )
 
-Vue.use(Vuex);
+// Vue.use(Vuex);
 
 const alert = function(message, callback) {
     bootbox.alert(message, () => {
@@ -139,7 +131,6 @@ const setActiveTab = function() {
 
 const app = createApp({
     components: {
-        // FileManager,
         Progressbar,
         InputTextList,
         InputManyList,
@@ -187,11 +178,11 @@ const naive = create({
 app.use(store)
 app.use(naive)
 
+app.use(fileManager, {store: store})
+
 app.mount("#app")
 
 window.gameap = app
 window.gameap.alert = alert
 window.gameap.confirm = confirm
 window.gameap.confirmAction = confirmAction
-
-import './parts/leftMenu.js'

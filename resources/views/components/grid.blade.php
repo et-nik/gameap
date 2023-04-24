@@ -122,7 +122,6 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
 
                                 {{ Form::close() }}
                             @endif
-                        </div>
                     </td>
                 @endif
             </tr>
