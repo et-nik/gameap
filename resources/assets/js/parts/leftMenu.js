@@ -1,98 +1,93 @@
 function toggleLeftMenuScroll() {
-    const topMenu = $('#top-menu');
-    const leftMenu = $('#left-menu');
-    const leftMenuCont = $('#left-menu-content');
+    const topMenu = document.querySelector('#top-menu');
+    const leftMenu = document.querySelector('#left-menu');
+    const leftMenuCont = document.querySelector('#left-menu-content');
 
-    if (leftMenuCont.outerHeight() + topMenu.outerHeight() > window.innerHeight) {
-        leftMenu.addClass('left-menu-scrolled');
+    if (leftMenuCont.offsetHeight + topMenu.offsetHeight > window.innerHeight) {
+        leftMenu.classList.add('left-menu-scrolled');
     } else {
-        leftMenu.removeClass('left-menu-scrolled');
+        leftMenu.classList.remove('left-menu-scrolled');
     }
 }
 
 function setMiniIconLeft() {
-    const $miniIcon = $('#left-menu-mini-icon');
+    const miniIcon = document.querySelector('#left-menu-mini-icon');
 
-    $miniIcon.removeClass('fa-chevron-right');
-    $miniIcon.addClass('fa-chevron-left');
+    miniIcon.classList.remove('fa-chevron-right');
+    miniIcon.classList.add('fa-chevron-left');
 }
 
 function setMiniIconRight() {
-    const $miniIcon = $('#left-menu-mini-icon');
+    const miniIcon = document.querySelector('#left-menu-mini-icon');
 
-    $miniIcon.removeClass('fa-chevron-left');
-    $miniIcon.addClass('fa-chevron-right');
+    miniIcon.classList.remove('fa-chevron-left');
+    miniIcon.classList.add('fa-chevron-right');
 }
 
 function setLogoMini() {
-    $('#brand-link').removeClass('navbar-brand');
+    const brandLink = document.querySelector('#brand-link');
+    brandLink.classList.remove('navbar-brand');
 
-    const $brandLogo = $('#brand-logo');
-    $brandLogo.attr('src', '/images/gap_logo_white_mini.png');
+    const brandLogo = document.querySelector('#brand-logo');
+    brandLogo.setAttribute('src', '/images/gap_logo_white_mini.png');
 
-    $brandLogo.addClass('logo-mini');
-    $brandLogo.removeClass('logo');
+    brandLogo.classList.add('logo-mini');
+    brandLogo.classList.remove('logo');
 }
 
 function setLogoNormal() {
-    $('#brand-link').addClass('navbar-brand');
+    const brandLink = document.querySelector('#brand-link');
+    brandLink.classList.add('navbar-brand');
 
-    const $brandLogo = $('#brand-logo');
-    $brandLogo.attr('src', '/images/gap_logo_white.png');
+    const brandLogo = document.querySelector('#brand-logo');
+    brandLogo.setAttribute('src', '/images/gap_logo_white.png');
 
-    $brandLogo.removeClass('logo-mini');
-    $brandLogo.addClass('logo');
+    brandLogo.classList.remove('logo-mini');
+    brandLogo.classList.add('logo');
 }
 
 function toggleMiniIcon() {
-    const $miniIcon = $('#left-menu-mini-icon');
+    const miniIcon = document.querySelector('#left-menu-mini-icon');
 
-    if ($miniIcon.hasClass('fa-chevron-right')) {
+    if (miniIcon.classList.contains('fa-chevron-right')) {
         setMiniIconLeft();
     } else {
         setMiniIconRight();
     }
 }
 
-$(function() {
-    const TOOLTIP_SHOW_DELAY = 1000;
-    const TOOLTIP_HIDE_DELAY = 100;
-
+document.addEventListener('DOMContentLoaded', function() {
     toggleLeftMenuScroll();
 
-    $(window).resize(function() {
+    window.addEventListener('resize', function() {
         toggleLeftMenuScroll();
     });
-
-    const $leftMenuTooltip = $('.left-menu [data-toggle="tooltip"]');
-    $leftMenuTooltip.data('delay', { "show": TOOLTIP_SHOW_DELAY, "hide": TOOLTIP_HIDE_DELAY });
 
     if (localStorage.getItem('leftMenuState') === 'small') {
         setMiniIconRight();
         setLogoMini();
-        $leftMenuTooltip.tooltip('enable');
     } else {
         setMiniIconLeft();
         setLogoNormal();
-        $('#main-section').removeClass('small-menu');
+        document.querySelector('#main-section').classList.remove('small-menu');
     }
 
-    $(document).on('click', '#left-menu-mini-btn', function () {
-        $mainSection = $('#main-section');
-        toggleMiniIcon();
+    document.addEventListener('click', function(event) {
+        if (event.target.id === 'left-menu-mini-icon' || event.target.id === 'left-menu-mini-btn') {
+            const mainSection = document.querySelector('#main-section');
+            toggleMiniIcon();
 
-        if ($mainSection.hasClass('small-menu')) {
-            localStorage.setItem('leftMenuState', 'big');
-            $leftMenuTooltip.tooltip('disable');
-            $mainSection.removeClass('small-menu');
+            if (mainSection.classList.contains('small-menu')) {
+                localStorage.setItem('leftMenuState', 'big');
+                mainSection.classList.remove('small-menu');
 
-            setLogoNormal();
-        } else {
-            localStorage.setItem('leftMenuState', 'small');
-            $leftMenuTooltip.tooltip('enable');
-            $mainSection.addClass('small-menu');
+                setLogoNormal();
+            } else {
+                localStorage.setItem('leftMenuState', 'small');
+                mainSection.classList.add('small-menu');
 
-            setLogoMini();
+                setLogoMini();
+            }
         }
     });
 });

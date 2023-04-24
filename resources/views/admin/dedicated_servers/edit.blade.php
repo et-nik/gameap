@@ -14,18 +14,6 @@
     </ol>
 @endsection
 
-@section('footer-scripts')
-    <script>
-        $(window).on('load',function() {
-            $('.custom-file-input').on('change',function(){
-                var fileName = $(this).val();
-                fileName = fileName.replace(/^.*\\/, "");
-                $(this).next('.custom-file-label').html(fileName);
-            });
-        });
-    </script>
-@endsection
-
 @section('content')
     @include('components.form.errors_block')
 

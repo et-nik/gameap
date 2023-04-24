@@ -8,13 +8,15 @@ import {defineAsyncComponent} from 'vue'
 
 import {
     create,
-    NSelect,
     NDatePicker,
+    NModal,
+    NSelect,
 } from 'naive-ui'
 
 import './bootstrap';
 
-import './parts/leftMenu.js'
+import './parts/leftMenu'
+import './parts/form'
 
 import {pluralize, trans} from "./i18n/i18n";
 
@@ -118,7 +120,7 @@ const confirmAction = (e, message) => {
 
         confirm(message, () => {
             actionConfirmed = true;
-            $(e.target).trigger(e.type);
+            e.target.dispatchEvent(new Event(e.type));
         });
     }
 
@@ -170,8 +172,9 @@ app.config.globalProperties.trans = trans;
 
 const naive = create({
     components: [
-        NSelect,
         NDatePicker,
+        NModal,
+        NSelect,
     ],
 })
 

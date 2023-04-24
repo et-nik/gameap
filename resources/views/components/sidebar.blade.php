@@ -123,8 +123,8 @@
 <p class="left-menu-group d-sm-none d-md-block">&nbsp;</p>
 
 <ul class="page-sidebar-menu d-sm-none d-md-block">
-    <li title="{{ __('sidebar.maximize') }}" id="left-menu-mini-btn"  data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a href="#">
+    <li title="{{ __('sidebar.maximize') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
+        <a href="#" id="left-menu-mini-btn">
             <i id="left-menu-mini-icon" class="fas fa-chevron-left"></i>
             <span class="menu-item-label">{{ __('sidebar.minimize') }}</span>
         </a>

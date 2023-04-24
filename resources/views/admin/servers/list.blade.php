@@ -31,12 +31,12 @@
 
 @section('footer-scripts')
     <script>
-        var confirmed = false;
+        let confirmed = false;
 
-        $(document).on("click", ".btn-delete", function(e) {
-            if (!confirmed) {
-                e.preventDefault();
-                bootbox.prompt({
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.btn-delete') && !confirmed) {
+                event.preventDefault();
+                const promptOptions = {
                     title: '{{ __('servers.delete_confirm_msg') }}',
                     value: [],
                     buttons: {
@@ -56,18 +56,20 @@
                     }],
                     callback: function (result) {
                         if (result) {
-                            if ($.inArray('delete_files', result) !== -1) {
-                                $('<input>').attr('type', 'hidden')
-                                    .attr('value','delete_files')
-                                    .attr('name','delete_files')
-                                    .appendTo($(e.target).parent());
+                            if (result.includes('delete_files')) {
+                                const hiddenInput = document.createElement('input');
+                                hiddenInput.type = 'hidden';
+                                hiddenInput.value = 'delete_files';
+                                hiddenInput.name = 'delete_files';
+                                event.target.parentNode.appendChild(hiddenInput);
                             }
 
                             confirmed = true;
-                            $(e.target).trigger(e.type);
+                            event.target.dispatchEvent(new MouseEvent(event.type));
                         }
                     }
-                });
+                };
+                bootbox.prompt(promptOptions);
             }
 
             confirmed = false;

@@ -86,12 +86,17 @@
 
 @section('footer-scripts')
     <script>
-        $(function () {
-            $('.ability-group').change(function() {
-                const group = $(this).data('group');
-                const checked = $(this).is(':checked');
-                const listSelector = '#list-abilities-' + group + ' input:checkbox';
-                $(listSelector).prop('checked', checked).attr('readonly', checked);
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.ability-group').forEach(function(group) {
+                group.addEventListener('change', function() {
+                    const groupName = group.dataset.group;
+                    const isChecked = group.checked;
+                    const listSelector = '#list-abilities-' + groupName + ' input[type="checkbox"]';
+                    document.querySelectorAll(listSelector).forEach(function(checkbox) {
+                        checkbox.checked = isChecked;
+                        checkbox.readOnly = isChecked;
+                    });
+                });
             });
         });
     </script>

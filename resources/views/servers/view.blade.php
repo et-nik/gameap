@@ -50,7 +50,7 @@
 
         @can('server-settings', $server)
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" data-tab="settings" href="#settings#settings">
+                <a class="nav-link" data-toggle="tab" data-tab="settings" href="#settings">
                     <i class="fa fa-cogs"></i>
                     {{ __('servers.settings') }}
                 </a>
@@ -99,24 +99,27 @@
 
 @section('footer-scripts')
     <script type="application/javascript">
-        $(document).ready(function() {
-            var url = document.location.toString();
-            if (url.match('#')) {
-                const tabLink = $('a[href="#' + url.split('#')[1] + '"]');
-
-                if (tabLink.length === 1) {
-                    tabLink.tab('show');
-                    window.gameap.activeTab = tabLink.data('tab');
+        document.addEventListener('DOMContentLoaded', function() {
+            const url = window.location.href;
+            if (url.includes('#')) {
+                const tabLink = document.querySelector(`a[href="#${url.split('#')[1]}"]`);
+                if (tabLink !== null) {
+                    tabLink.click();
+                    window.gameap.activeTab = tabLink.dataset.tab;
                 }
             }
 
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                window.gameap.activeTab = $(e.target).data('tab');
+            document.querySelectorAll('a[data-toggle="tab"]').forEach(function(link) {
+                link.addEventListener('shown.bs.tab', function(e) {
+                    window.gameap.activeTab = e.target.dataset.tab;
+                });
             });
 
-            $('a.send-rcon-command').click(function (event) {
-                window.gameap.$store.dispatch('rconConsole/sendCommand', $(this).data('command'));
-                event.preventDefault();
+            document.querySelectorAll('a.send-rcon-command').forEach(function(commandLink) {
+                commandLink.addEventListener('click', function(event) {
+                    window.gameap.$store.dispatch('rconConsole/sendCommand', this.dataset.command);
+                    event.preventDefault();
+                });
             });
         });
     </script>
