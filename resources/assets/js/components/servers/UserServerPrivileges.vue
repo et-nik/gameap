@@ -30,20 +30,31 @@
 
         <div class="form-group">
             <div class="col-md-12">
-                <v-select
-                        v-model="selectedServer"
-                        v-bind:options="serversListOptions"
-                        @search="onSearch"
-                        :placeholder="trans('users.servers_privileges_placeholder')"
-                >
-                    <template slot="option" slot-scope="option">
-                        <div class="row">
-                            <div class="col-md-5">{{ option.label }}</div>
-                            <div class="col-md-3">{{ option.game }}</div>
-                            <div class="col-md-4">{{ option.address }}</div>
-                        </div>
-                    </template>
-                </v-select>
+                <n-select
+                    v-model:value="selectedServer"
+                    filterable
+                    :placeholder="trans('users.servers_privileges_placeholder')"
+                    :options="serversListOptions"
+                    :loading="loading"
+                    clearable
+                    remote
+                    @search="onSearch"
+                />
+
+<!--                <v-select-->
+<!--                        v-model="selectedServer"-->
+<!--                        v-bind:options="serversListOptions"-->
+<!--                        @search="onSearch"-->
+<!--                        :placeholder="trans('users.servers_privileges_placeholder')"-->
+<!--                >-->
+<!--                    <template slot="option" slot-scope="option">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-5">{{ option.label }}</div>-->
+<!--                            <div class="col-md-3">{{ option.game }}</div>-->
+<!--                            <div class="col-md-4">{{ option.address }}</div>-->
+<!--                        </div>-->
+<!--                    </template>-->
+<!--                </v-select>-->
             </div>
 
             <div class="col-md-2 offset-md-5 centered mt-2">
@@ -54,105 +65,125 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            initialItems: Array,
-            userId: Number,
-        },
-        data: function () {
-            return {
-                items: this.initialItems,
-                selectedServer: null,
-                serversList: [],
-                serversListOptions: [],
+import { reactive, toRefs } from 'vue';
+import axios from 'axios';
+
+export default {
+    props: {
+        initialItems: Array,
+        userId: Number,
+    },
+    setup(props) {
+        const state = reactive({
+            items: props.initialItems,
+            selectedServer: null,
+            serversList: [],
+            serversListOptions: [],
+            loading: false,
+        });
+
+        function existsItem(id) {
+            for (let item of state.items) {
+                if (item.id === id) {
+                    return true;
+                }
             }
-        },
-        methods: {
-            existsItem(id) {
-                for (let item of this.items) {
-                    if (item.id === id) {
-                        return true;
-                    }
+        }
+
+        function findItem(id) {
+            for (let item of state.serversList) {
+                if (item.id === id) {
+                    return item;
                 }
-            },
-            findItem(id) {
-                for (let item of this.serversList) {
-                    if (item.id === id) {
-                        return item;
-                    }
-                }
-            },
-            removeListsElem(elemId) {
-                this.serversList = this.serversList.filter(function(elem) {
-                    return elem.id !== elemId;
-                });
+            }
+        }
 
-                this.serversListOptions = this.serversListOptions.filter(function(elem) {
-                    return elem.value !== elemId;
-                });
-            },
-            removeItem: function(index) {
-                this.items.splice(index, 1);
-            },
-            addItem: function() {
-                if (!this.selectedServer) {
-                    this.alert('Select server');
-                    return;
-                }
+        function removeListsElem(elemId) {
+            state.serversList = state.serversList.filter(function(elem) {
+                return elem.id !== elemId;
+            });
 
-                if (this.existsItem(this.selectedServer.value)) {
-                    return;
-                }
+            state.serversListOptions = state.serversListOptions.filter(function(elem) {
+                return elem.value !== elemId;
+            });
+        }
 
-                const newItem = this.findItem(this.selectedServer.value);
+        function removeItem(index) {
+            state.items.splice(index, 1);
+        }
 
-                if (newItem) {
-                    this.items.push(newItem);
+        function addItem() {
+            if (!state.selectedServer) {
+                window.gameap.alert('Select server');
+                return;
+            }
 
-                    this.removeListsElem(newItem.id);
-                    this.selectedServer = null;
-                }
-            },
-            onSearch(search, loading) {
-                if (search.length < 3)  {
-                    return;
-                }
+            if (existsItem(state.selectedServer)) {
+                window.gameap.alert('Server already exists');
+                return;
+            }
 
-                loading(true);
-                axios.get(`/api/servers/search?q=${encodeURI(search)}`)
-                    .then(function (response) {
-                        this.serversList = [];
-                        this.serversListOptions = [];
+            const newItem = findItem(state.selectedServer);
 
-                        for (let item of response.data) {
-                            if (this.existsItem(item.id)) {
-                                continue;
-                            }
+            if (newItem) {
+                state.items.push(newItem);
 
-                            this.serversList.push({
-                                id: item.id,
-                                name: item.name,
-                                game: item.game.name,
-                                server_ip: item.server_ip,
-                                server_port: item.server_port
-                            });
+                removeListsElem(newItem.id);
+                state.selectedServer = null;
+            }
+        }
 
-                            this.serversListOptions.push({
-                                label: item.name,
-                                address: `${item.server_ip}:${item.server_port}`,
-                                game: item.game.name,
-                                value: item.id,
-                            });
+        function onSearch(search) {
+            if (search.length < 3) {
+                return;
+            }
+
+            state.loading = true;
+
+            axios.get(`/api/servers/search?q=${encodeURI(search)}`)
+                .then(function (response) {
+                    state.serversList = [];
+                    state.serversListOptions = [];
+
+                    for (let item of response.data) {
+                        if (existsItem(item.id)) {
+                            continue;
                         }
 
-                        loading(false);
-                    }.bind(this))
-                    .catch(function (error) {
-                        loading(false);
-                        console.log(error);
-                        gameap.alert(error.response.data.message);
+                        state.serversList.push({
+                            id: item.id,
+                            name: item.name,
+                            game: item.game.name,
+                            server_ip: item.server_ip,
+                            server_port: item.server_port
+                        });
+
+                        state.serversListOptions.push({
+                            label: item.name + ' (' + item.game.name + ')' + ' - ' + item.server_ip + ':' + item.server_port,
+                            address: `${item.server_ip}:${item.server_port}`,
+                            game: item.game.name,
+                            value: item.id,
+                        });
+                    }
+
+                    state.loading = false;
+                })
+                .catch(function (error) {
+                    state.loading = false;
+                    console.log(error);
+                    alert(error.response.data.message);
                 });
-            },
         }
-    }
+
+        return {
+            ...toRefs(state),
+            existsItem,
+            findItem,
+            removeListsElem,
+            removeItem,
+            addItem,
+            onSearch,
+        };
+    },
+};
 </script>

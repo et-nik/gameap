@@ -12,7 +12,7 @@ if( document.getElementById("serverControl") ) {
     const CHECK_SERVER_STATUS_TRIES = 10;
     const CHECK_SERVER_STATUS_TIMEOUT   = 2000; // 2 sec
 
-    Vue.mixin({
+    window.gameap.mixin({
         data: function () {
             return {
                 // serverId: 0,

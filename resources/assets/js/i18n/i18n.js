@@ -1,8 +1,8 @@
-import { createApp } from 'vue';
+// import { createApp } from 'vue';
 import plurals from './plurals';
 import _ from 'lodash';
 
-const app = createApp({});
+// const app = createApp({});
 
 const pluralForms = {
     default: (n) => (n !== 1 ? 1 : 0),
@@ -15,7 +15,7 @@ const pluralForms = {
                 : 2,
 };
 
-app.config.globalProperties.$pluralize = (choice, choicesLength) => {
+const pluralize = (choice, choicesLength) => {
     let lang = document.documentElement.lang;
 
     if (!plurals.hasOwnProperty(lang)) {
@@ -33,7 +33,7 @@ app.config.globalProperties.$pluralize = (choice, choicesLength) => {
         : plurals[lang][choice][index];
 };
 
-app.config.globalProperties.$trans = (string, args) => {
+const trans = (string, args) => {
     let value = _.get(window.i18n, string);
 
     _.eachRight(args, (paramVal, paramKey) => {
@@ -41,3 +41,5 @@ app.config.globalProperties.$trans = (string, args) => {
     });
     return value;
 };
+
+export {pluralize, trans}

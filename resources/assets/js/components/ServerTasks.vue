@@ -40,18 +40,7 @@
                             <div class="form-group">
                                 <label for="task" class="control-label">{{ trans('servers_tasks.task') }}</label>
 
-                                <select
-                                        id="command"
-                                        class="custom-select"
-                                        name="command"
-                                        v-model="command"
-                                        v-on:change="formChange">
-                                    <option v-if="privileges.restart" value="restart">{{ trans('servers.restart') }}</option>
-                                    <option v-if="privileges.start" value="start">{{ trans('servers.start') }}</option>
-                                    <option v-if="privileges.stop" value="stop">{{ trans('servers.stop') }}</option>
-                                    <option v-if="privileges.update" value="update">{{ trans('servers.update') }}</option>
-                                    <option v-if="privileges.update" value="reinstall">{{ trans('servers.reinstall') }}</option>
-                                </select>
+                                <n-select v-model:value="command" :options="options" v-on:update="formChange" />
 
                                 <span v-if="errors['command']" class="help-block">
                                     <strong class="text-danger">{{ errors['command'] }}</strong>
@@ -59,12 +48,13 @@
                             </div>
 
                             <div class="form-group">
-                                <date-picker
-                                        type="datetime"
-                                        v-model="taskDate"
-                                        valueType="format"
-                                        v-on:change="formChange">
-                                </date-picker><br>
+                                <n-date-picker
+                                    v-model:formatted-value="taskDate"
+                                    value-format="yyyy-MM-dd HH:mm:ss"
+                                    type="datetime"
+                                    v-on:update="formChange"
+                                    clearable
+                                /><br>
 
                                 <span v-if="errors['taskDate']" class="help-block">
                                     <strong class="text-danger">{{ errors['taskDate'] }}</strong>
@@ -139,14 +129,12 @@
                                     </div>
 
                                     <div class="col-md-8">
-                                        <select
-                                                v-model="taskRepeatUnit"
-                                                :disabled="repeat === 1"
-                                                v-on:change="formChange"
-                                                class="custom-select"
-                                                >
-                                            <option v-for="(value, key) in unitOptions" :value="key">{{ value }}</option>
-                                        </select>
+                                        <n-select
+                                            v-model:value="taskRepeatUnit"
+                                            :disabled="repeat === 1"
+                                            v-on:update="formChange"
+                                            :options="unitOptions"
+                                        />
                                     </div>
                                 </div>
 
@@ -170,8 +158,9 @@
 </template>
 
 <script>
-    import DatePicker from 'vue-datepicker-next';
     import { mapState } from 'vuex';
+    import { ref } from "vue";
+    import { pluralize, trans } from '../i18n/i18n'
 
     const REPEAT_ENDLESSLY          = 0;
     const REPEAT_ONCE               = 1;
@@ -179,7 +168,6 @@
     const RADIO_REPEAT_CUSTOM       = '';
 
     export default {
-        components: { DatePicker },
         props: {
             serverId: Number,
             privileges: {
@@ -187,18 +175,18 @@
                 stop: true,
                 restart: true,
                 update: true
-            }
+            },
         },
         data: function () {
             return {
-                command: '',
-                taskDate: '',
-                taskRepeatInput: 1,
-                taskRepeatRadio: 0,
-                taskRepeatPeriod: 0,
-                taskRepeatUnit: 'hours',
+                command: ref(''),
+                taskDate: ref('2007-06-30 12:08:55'),
+                taskRepeatInput: ref(1),
+                taskRepeatRadio: ref(0),
+                taskRepeatPeriod: ref(0),
+                taskRepeatUnit: ref('hours'),
 
-                selectedTaskIndex: null,
+                selectedTaskIndex: ref(null),
                 errors: {},
 
                 modalTitle: '',
@@ -417,14 +405,74 @@
             },
             unitOptions: {
                 get() {
-                    return {
-                        'minutes': this.pluralize('minute', parseInt(this.taskRepeatPeriod)),
-                        'hours': this.pluralize('hour', parseInt(this.taskRepeatPeriod)),
-                        'days': this.pluralize('day', parseInt(this.taskRepeatPeriod)),
-                        'weeks': this.pluralize('week', parseInt(this.taskRepeatPeriod)),
-                        'months': this.pluralize('month', parseInt(this.taskRepeatPeriod)),
-                        'years': this.pluralize('year', parseInt(this.taskRepeatPeriod)),
-                    };
+                    return [
+                        {
+                            label: pluralize('minute', parseInt(this.taskRepeatPeriod)),
+                            value: 'minutes',
+                        },
+                        {
+                            label: pluralize('hour', parseInt(this.taskRepeatPeriod)),
+                            value: 'hours',
+                        },
+                        {
+                            label: pluralize('day', parseInt(this.taskRepeatPeriod)),
+                            value: 'days',
+                        },
+                        {
+                            label: pluralize('week', parseInt(this.taskRepeatPeriod)),
+                            value: 'weeks',
+                        },
+                        {
+                            label: pluralize('month', parseInt(this.taskRepeatPeriod)),
+                            value: 'months',
+                        },
+                        {
+                            label: pluralize('year', parseInt(this.taskRepeatPeriod)),
+                            value: 'years',
+                        },
+                    ];
+                }
+            },
+            options: {
+                get() {
+                    let result = [];
+
+                    if (this.privileges.restart) {
+                        result.push({
+                            label: trans('servers.restart'),
+                            value: "restart",
+                        })
+                    }
+
+                    if (this.privileges.start) {
+                        result.push({
+                            label: trans('servers.start'),
+                            value: "start",
+                        })
+                    }
+
+                    if (this.privileges.stop) {
+                        result.push({
+                            label: trans('servers.stop'),
+                            value: "stop",
+                        })
+                    }
+
+                    if (this.privileges.update) {
+                        result.push({
+                            label: trans('servers.update'),
+                            value: "update",
+                        })
+                    }
+
+                    if (this.privileges.update) {
+                        result.push({
+                            label: trans('servers.reinstall'),
+                            value: "reinstall",
+                        })
+                    }
+
+                    return result;
                 }
             }
         },

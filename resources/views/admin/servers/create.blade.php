@@ -91,5 +91,5 @@
         .btn-hide[aria-expanded="true"] {display: none;}
     </style>
 
-    <script src="{{ URL::asset('/js/formHelpers.js') }}"></script>
+    @include('scripts.formHelper')
 @endsection

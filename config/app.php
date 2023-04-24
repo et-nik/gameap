@@ -187,7 +187,7 @@ return [
         Gameap\Providers\FormServiceProvider::class,
         Gameap\Providers\RouteServiceProvider::class,
         Gameap\Providers\SerializerProvider::class,
-        
+
         /*
          * Generators
          */
@@ -254,7 +254,6 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Flash' => Laracasts\Flash\Flash::class,
 
         'Batch' => Mavinoo\Batch\BatchFacade::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,

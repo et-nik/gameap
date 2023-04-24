@@ -2,12 +2,12 @@
 
 namespace Gameap\Http\Controllers\Admin;
 
-use Bouncer;
 use Gameap\Http\Controllers\AuthController;
 use Gameap\Http\Requests\Admin\UserCreateRequest;
 use Gameap\Http\Requests\Admin\UserUpdateRequest;
 use Gameap\Models\User;
 use Gameap\Repositories\UserRepository;
+use Silber\Bouncer\Bouncer;
 
 class UsersController extends AuthController
 {
@@ -18,16 +18,20 @@ class UsersController extends AuthController
      */
     protected $repository;
 
+    /** @var \Silber\Bouncer\Bouncer */
+    private $bouncer;
+
     /**
      * Create a new UserRepository instance.
      *
      * @param  \Gameap\Repositories\UserRepository $repository
      */
-    public function __construct(UserRepository $repository)
+    public function __construct(UserRepository $repository, Bouncer $bouncer)
     {
         parent::__construct();
 
         $this->repository = $repository;
+        $this->bouncer = $bouncer;
     }
 
     /**
@@ -49,9 +53,18 @@ class UsersController extends AuthController
      */
     public function create()
     {
-        $roles = Bouncer::role()->all();
-        
-        return view('admin.users.create', compact('roles'));
+        $roles = $this->bouncer->role()->all();
+        $roleOptions = $roles->map(function ($item) {
+            return [
+                'label' => $item->title,
+                'value' => $item->name,
+            ];
+        })->toArray();
+
+        return view('admin.users.create', [
+            'roles' => $roles,
+            'roleOptions' => $roleOptions,
+        ]);
     }
 
     /**
@@ -87,8 +100,19 @@ class UsersController extends AuthController
      */
     public function edit(User $user)
     {
-        $roles = Bouncer::role()->all();
-        return view('admin.users.edit', compact('user', 'roles'));
+        $roles = $this->bouncer->role()->all();
+        $roleOptions = $roles->map(function ($item) {
+            return [
+                'label' => $item->title,
+                'value' => $item->name,
+            ];
+        })->toArray();
+
+        return view('admin.users.edit', [
+            'user' => $user,
+            'roles' => $roles,
+            'roleOptions' => $roleOptions,
+        ]);
     }
 
     /**

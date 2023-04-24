@@ -177,5 +177,5 @@
 @endsection
 
 @section('footer-scripts')
-    <script src="{{ URL::asset('/js/formHelpers.js') }}"></script>
+    @include('scripts.formHelper')
 @endsection
