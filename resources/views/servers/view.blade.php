@@ -105,13 +105,13 @@
                 const tabLink = document.querySelector(`a[href="#${url.split('#')[1]}"]`);
                 if (tabLink !== null) {
                     tabLink.click();
-                    window.gameap.activeTab = tabLink.dataset.tab;
+                    window.gameap.setActiveTab(tabLink.dataset.tab);
                 }
             }
 
             document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(function(link) {
                 link.addEventListener('shown.bs.tab', function(e) {
-                    window.gameap.activeTab = e.target.dataset.tab;
+                    window.gameap.setActiveTab(e.target.dataset.tab);
                 });
             });
 

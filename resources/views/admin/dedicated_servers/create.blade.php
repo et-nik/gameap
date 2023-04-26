@@ -138,9 +138,9 @@
 
                         <div class="row">
                             <div class="col-md-6 mt-4 mb-3 pt-1">
-                                <div class="custom-file" id="serverCertificateForm">
-                                    {{ Form::file('gdaemon_server_cert', ['class' => 'custom-file-input']) }}
-                                    {{ Form::label('gdaemon_server_cert', __('dedicated_servers.server_certificate'), ['class' => 'custom-file-label']) }}
+                                <div class="input-group" id="serverCertificateForm">
+                                    {{ Form::file('gdaemon_server_cert', ['class' => 'form-control']) }}
+                                    {{ Form::label('gdaemon_server_cert', __('dedicated_servers.server_certificate'), ['class' => 'input-group-text']) }}
 
                                     @if ($errors->has('gdaemon_server_cert'))
                                         <span class="help-block">

@@ -1,7 +1,6 @@
 @php
 /**
  * @var $server \Gameap\Models\Server
- *
 */
 @endphp
 
@@ -23,7 +22,7 @@
     <div class="mb-1">
         <a class="btn btn-large btn-light" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
             <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
-        </a>
+        </a>&nbsp;
 
         <a class="btn btn-large btn-light" href="{{ route('servers.control', ['server' => $server->id]) }}">
             <span class="fa fa-chalkboard"></span>&nbsp;{{ __('servers.control') }}
@@ -84,10 +83,7 @@
                             <div class="input-group">
                                 {{ Form::input('password', 'rcon', $server->rcon,
                                     ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-
-                                <div class="input-group-text">
-                                    <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
-                                </div>
+                                <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
                             </div>
 
                         </div>

@@ -43,10 +43,7 @@
                                 <div class="input-group">
                                     {{ Form::input('password', 'rcon', null,
                                         ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-
-                                    <div class="input-group-text">
-                                        <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
-                                    </div>
+                                    <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
                                 </div>
                             </div>
 

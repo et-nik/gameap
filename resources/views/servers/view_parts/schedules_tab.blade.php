@@ -7,7 +7,7 @@
 <div class="row mt-2">
     <div class="col-md-12">
         <server-tasks
-{{--                v-if="activeTab === 'schedules'"--}}
+                v-if="activeTab === 'schedules'"
                 :server-id="{{ $server->id }}"
                 :privileges="{{
                     json_encode([

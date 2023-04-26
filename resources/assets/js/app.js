@@ -91,10 +91,15 @@ const SettingsParameters = defineAsyncComponent(() =>
 )
 
 const alert = function(message, callback) {
-    bootbox.alert(message, () => {
-        if (typeof callback === "function") {
-            callback();
-        }
+    window.$dialog.error({
+        title: message,
+        content: "",
+        positiveText: trans('main.close'),
+        onPositiveClick: () => {
+            if (typeof callback === "function") {
+                callback();
+            }
+        },
     });
 }
 
@@ -105,7 +110,9 @@ const confirm = function(message, callback) {
         positiveText: trans('main.yes'),
         negativeText: trans('main.no'),
         onPositiveClick: () => {
-            callback();
+            if (typeof callback === "function") {
+                callback();
+            }
         },
         onNegativeClick: () => {
         }
@@ -126,8 +133,8 @@ const confirmAction = (e, message) => {
     actionConfirmed = false;
 }
 
-const setActiveTab = function() {
-    store.commit('activeTab');
+const setActiveTab = (tab) => {
+    store.dispatch('activeTab/setName', tab);
 }
 
 const app = createApp({
@@ -198,3 +205,5 @@ window.gameap = app
 window.gameap.alert = alert
 window.gameap.confirm = confirm
 window.gameap.confirmAction = confirmAction
+window.gameap.setActiveTab = setActiveTab
+window.gameap.$store = store;
