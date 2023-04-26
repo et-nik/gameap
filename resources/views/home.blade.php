@@ -54,9 +54,9 @@
                 </div>
                 <div class="card-body">
                     @foreach ($problems as $problem)
-                        <div class="alert alert-danger" role="alert">
+                        <n-alert title="{{ __('main.error') }}" type="error">
                             {{ $problem }}
-                        </div>
+                        </n-alert>
                     @endforeach
                 </div>
             </div>

@@ -79,15 +79,19 @@
 @section('footer-scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('#copy-token').addEventListener('click', function() {
-                const text = document.getElementById('token').value;
-                try {
-                    navigator.clipboard.writeText(text);
-                    console.log('Content copied to clipboard');
-                } catch (err) {
-                    console.error('Failed to copy: ', err);
-                }
-            });
+            const el = document.querySelector('#copy-token');
+
+            if (el !== undefined && el !== null) {
+                el.addEventListener('click', function() {
+                    const text = document.getElementById('token').value;
+                    try {
+                        navigator.clipboard.writeText(text);
+                        console.log('Content copied to clipboard');
+                    } catch (err) {
+                        console.error('Failed to copy: ', err);
+                    }
+                });
+            }
         });
     </script>
 @endsection

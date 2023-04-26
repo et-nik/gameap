@@ -23,5 +23,12 @@ return [
     'more'      => 'More',
 
     'autoscroll' => 'Autoscroll',
+
+    'common_admin_error' => 'Contact an administrator',
+
+    'error'     => 'Error',
+    'success'   => 'Success',
+    'info'      => 'Info',
+
     'never'     => 'Never',
 ];
