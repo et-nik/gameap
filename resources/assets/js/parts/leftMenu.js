@@ -56,6 +56,22 @@ function toggleMiniIcon() {
     }
 }
 
+function tooltipsDisable() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('.left-menu-link[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        const t = new bootstrap.Tooltip(tooltipTriggerEl);
+        t.disable();
+    })
+}
+
+function tooltipsEnable() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('.left-menu-link[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        const t = new bootstrap.Tooltip(tooltipTriggerEl);
+        t.enable();
+    })
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     toggleLeftMenuScroll();
 
@@ -64,16 +80,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     if (localStorage.getItem('leftMenuState') === 'small') {
+        tooltipsEnable();
         setMiniIconRight();
         setLogoMini();
     } else {
+        tooltipsDisable();
         setMiniIconLeft();
         setLogoNormal();
         document.querySelector('#main-section').classList.remove('small-menu');
     }
 
     document.addEventListener('click', function(event) {
-        if (event.target.id === 'left-menu-mini-icon' || event.target.id === 'left-menu-mini-btn') {
+        if (event.target.id === 'left-menu-mini-icon' ||
+            event.target.id === 'left-menu-mini-btn' ||
+            event.target.parentNode.id === 'left-menu-mini-btn'
+        ) {
             const mainSection = document.querySelector('#main-section');
             toggleMiniIcon();
 
@@ -82,11 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 mainSection.classList.remove('small-menu');
 
                 setLogoNormal();
+                tooltipsDisable();
             } else {
                 localStorage.setItem('leftMenuState', 'small');
                 mainSection.classList.add('small-menu');
 
                 setLogoMini();
+                tooltipsEnable();
             }
         }
     });

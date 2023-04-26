@@ -67,7 +67,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>

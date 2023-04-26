@@ -1,6 +1,6 @@
 
 // Fonts
-// @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+ @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
 @import "variables";
@@ -11,7 +11,6 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Font Awesome
-//@import "~font-awesome/scss/font-awesome";
 @import '@fortawesome/fontawesome-free/scss/brands';
 @import '@fortawesome/fontawesome-free/scss/regular';
 @import '@fortawesome/fontawesome-free/scss/solid';
@@ -21,4 +20,6 @@
 @import "gicon/gicon";
 
 // GameAP
+@import './gameap';
 @import 'bootstrap/switches';
+@import 'bootstrap-custom';

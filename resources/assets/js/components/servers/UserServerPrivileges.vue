@@ -28,7 +28,7 @@
             </table>
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <div class="col-md-12">
                 <n-select
                     v-model:value="selectedServer"

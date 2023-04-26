@@ -20,7 +20,7 @@
             <div class="card bg-light mt-3 mb-3">
                 <div class="card-body">
                     {!! Form::open(['url' => route('tokens.create')]) !!}
-                    <div class="form-group">
+                    <div class="mb-3">
                         {{ Form::bsText('token_name') }}
 
                         <div class="row">

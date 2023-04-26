@@ -13,11 +13,11 @@
     <div class="page-list-menu mb-3">
         <a class='btn btn-success' href="{{ route('admin.games.create') }}">
             <i class="fa fa-plus-square"></i>&nbsp;{{ __('games.add') }}
-        </a>
+        </a>&nbsp;
 
         <a class="btn btn-large btn-warning" href="{{ route('admin.game_mods.create', ['game' => null]) }}">
             <i class="fa fa-cat"></i>&nbsp;{{ __('games.add_mod') }}
-        </a>
+        </a>&nbsp;
 
         {{ Form::open(['method' => 'PATCH', 'url' => route('admin.games.upgrade'), 'style'=>'display:inline']) }}
         {{ Form::button( '<i class="fas fa-sync"></i>&nbsp;' . __('games.upgrade'),

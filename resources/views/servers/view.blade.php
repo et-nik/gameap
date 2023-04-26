@@ -13,7 +13,7 @@
 @section('content')
     <ul class="nav nav-tabs large mt-4">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" data-tab="main" href="#main">
+            <a class="nav-link active" data-bs-toggle="tab" data-tab="main" href="#main">
                 <i class="fas fa-play"></i>
                 {{ __('servers.control') }}
             </a>
@@ -22,7 +22,7 @@
         @if ($rconSupported && $server->processActive())
             @can('server-rcon', $server)
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" data-tab="rcon" href="#rcon">
+                    <a class="nav-link" data-bs-toggle="tab" data-tab="rcon" href="#rcon">
                         <i class="fas fa-user-astronaut"></i>
                         RCON
                     </a>
@@ -32,7 +32,7 @@
 
         @can('server-files', $server)
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" data-tab="filemanager" href="#filemanager">
+                <a class="nav-link" data-bs-toggle="tab" data-tab="filemanager" href="#filemanager">
                     <i class="fa fa-folder-open"></i>
                     {{ __('servers.files') }}
                 </a>
@@ -41,7 +41,7 @@
 
         @can('server-tasks', $server)
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" data-tab="schedules" href="#schedules">
+                <a class="nav-link" data-bs-toggle="tab" data-tab="schedules" href="#schedules">
                     <i class="far fa-calendar-alt"></i>
                     {{ __('servers.task_scheduler') }}
                 </a>
@@ -50,7 +50,7 @@
 
         @can('server-settings', $server)
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" data-tab="settings" href="#settings">
+                <a class="nav-link" data-bs-toggle="tab" data-tab="settings" href="#settings">
                     <i class="fa fa-cogs"></i>
                     {{ __('servers.settings') }}
                 </a>
@@ -58,7 +58,7 @@
         @endcan
 
         @can('admin roles & permissions')
-            <li class="nav-item ml-auto">
+            <li class="nav-item ms-auto">
                 <a class="nav-link text-danger" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
                     <i class="fa fa-hammer"></i>
                     {{ __('servers.admin') }}
@@ -109,7 +109,7 @@
                 }
             }
 
-            document.querySelectorAll('a[data-toggle="tab"]').forEach(function(link) {
+            document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(function(link) {
                 link.addEventListener('shown.bs.tab', function(e) {
                     window.gameap.activeTab = e.target.dataset.tab;
                 });

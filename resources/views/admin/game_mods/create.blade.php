@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="form-group" id="dedicatedServerForm">
+                        <div class="mb-3" id="dedicatedServerForm">
                             {{ Form::label('game_code', __('games.game'), ['class' => 'control-label']) }}
                             {{ Form::select('game_code', $gameList, $game, ['class' => 'form-control']) }}
                         </div>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
+            <div class="mb-3">
                 {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
             </div>
         </div>

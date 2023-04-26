@@ -46,7 +46,7 @@
         >
             <div>
                 <form>
-                    <div class="form-group" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
+                    <div class="mb-3" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
                         <label for="input-reason" class="control-label">{{ trans('rcon.reason') }}</label>
                         <input v-model.number="form.reason" id="input-reason" type="text" class="form-control">
 
@@ -55,7 +55,7 @@
                                 </span>
                     </div>
 
-                    <div class="form-group" v-if="dialogAction === 'ban'">
+                    <div class="mb-3" v-if="dialogAction === 'ban'">
                         <label for="input-time" class="control-label">{{ trans('rcon.time') }}</label>
                         <input v-model.number="form.time" id="input-time" type="number" class="form-control">
 
@@ -64,7 +64,7 @@
                                 </span>
                     </div>
 
-                    <div class="form-group" v-if="dialogAction === 'message'">
+                    <div class="mb-3" v-if="dialogAction === 'message'">
                         <label for="input-mesage" class="control-label">{{ trans('rcon.message') }}</label>
                         <input v-model.number="form.message" id="input-mesage" type="text" class="form-control">
 
@@ -76,7 +76,7 @@
             </div>
 
             <template #footer>
-                <button type="button" class="btn btn-primary mr-1" v-on:click="send">{{ trans('main.send') }}</button>
+                <button type="button" class="btn btn-primary me-1" v-on:click="send">{{ trans('main.send') }}</button>
                 <button type="button" class="btn btn-secondary" v-on:click="hideModal">{{ trans('main.close') }}</button>
 
             </template>

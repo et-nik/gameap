@@ -16,16 +16,16 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#main">{{ __('games.main') }}</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#main">{{ __('games.main') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#game-servers-commands">{{ __('games.servers_commands') }}</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#game-servers-commands">{{ __('games.servers_commands') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#vars">{{ __('games.vars') }}</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#vars">{{ __('games.vars') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#fast-rcon">{{ __('games.fast_rcon_commands') }}</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#fast-rcon">{{ __('games.fast_rcon_commands') }}</a>
         </li>
     </ul>
 
@@ -163,7 +163,7 @@
         </div>
 
         <div class="col-md-12 mt-4">
-            <div class="form-group">
+            <div class="mb-3">
                 {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
             </div>
         </div>

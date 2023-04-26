@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="form-group deletable" v-for="(item, index) in items" :key="index">
+        <div class="mb-3 deletable" v-for="(item, index) in items" :key="index">
             <div class="row">
                 <div class="col-md-12">
                     <input type="text" v-model="items[index]" :name="name + '[]'" :id="name + '_' + index" class="form-control">
@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <button class="btn btn-success" @click.prevent="addItem"><span class="fa fa-plus"></span></button>
         </div>
     </div>

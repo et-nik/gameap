@@ -1,7 +1,7 @@
 <template>
     <div id="server-task-component">
         <div class="mb-2">
-          <button class="btn btn-success" data-toggle="modal" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
+          <button class="btn btn-success" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
         </div>
         <table class="table table-striped table-bordered">
             <thead>
@@ -36,7 +36,7 @@
         >
             <div>
                 <form>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="task" class="control-label">{{ trans('servers_tasks.task') }}</label>
 
                         <n-select v-model:value="command" :options="options" v-on:update="formChange" />
@@ -46,7 +46,7 @@
                                 </span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <n-date-picker
                             v-model:formatted-value="taskDate"
                             value-format="yyyy-MM-dd HH:mm:ss"
@@ -96,7 +96,7 @@
                         </label>
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="repeat" class="control-label">{{ trans('servers_tasks.repeat_num') }}</label>
                         <input
                             v-model.number="taskRepeatInput"
@@ -112,7 +112,7 @@
                                 </span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="control-label">{{ trans('servers_tasks.repeat_period') }}</label>
 
                         <div class="row">
@@ -147,7 +147,7 @@
             </div>
 
             <template #footer>
-                <button type="button" class="btn btn-primary mr-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
+                <button type="button" class="btn btn-primary me-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
                 <button type="button" class="btn btn-secondary" v-on:click="hideModal">{{ trans('main.close') }}</button>
             </template>
         </n-modal>

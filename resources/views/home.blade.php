@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="d-flex flex-nowrap">
                     <div class="p-2 mb-3 text-center menu-item">
-                        <a class="btn btn-block btn-lg btn-outline-dark rounded" href="{{ route('servers') }}">
+                        <a class="btn d-grid gap-3 btn-lg btn-outline-dark rounded" href="{{ route('servers') }}">
                             <i class="fas fa-server fa-5x m-1"></i>
                             <h5>{{ __('home.servers_list') }}</h5>
                         </a>
@@ -27,7 +27,7 @@
                     @if (!empty($module->mainRoute))
                         <div class="d-flex flex-nowrap">
                             <div class="p-2 mb-3 text-center menu-item">
-                                <a class="btn btn-block btn-lg btn-outline-dark rounded" href="{{ $module->mainRoute }}">
+                                <a class="btn d-grid gap-3 btn-lg btn-outline-dark rounded" href="{{ $module->mainRoute }}">
 
                                     @if (!empty($module->icon))
                                         {!! $module->icon !!}
@@ -84,19 +84,19 @@
 
     <div class="row">
         <div class="col-md-4">
-            <a href="{{ route('help') }}" class="btn btn-block btn-lg btn-warning rounded">
+            <a href="{{ route('help') }}" class="btn d-grid gap-1 btn-lg btn-warning rounded">
                 <i class="fas fa-hands-helping"></i> {{ __('home.get_help') }}
             </a>
         </div>
 
         <div class="col-md-4">
-            <a target="_blank" href="https://docs.gameap.ru" class="btn btn-block btn-lg btn-info rounded">
+            <a target="_blank" href="https://docs.gameap.ru" class="btn d-grid gap-1 btn-lg btn-info rounded">
                 <i class="fas fa-book"></i> {{ __('home.documentation') }}
             </a>
         </div>
 
         <div class="col-md-4">
-            <a href="{{ route('report_bug') }}" class="btn btn-block btn-lg btn-danger rounded">
+            <a href="{{ route('report_bug') }}" class="btn d-grid gap-1 btn-lg btn-danger rounded">
                 <i class="fas fa-bug"></i> {{ __('home.report_bug') }}
             </a>
         </div>

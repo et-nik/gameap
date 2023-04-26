@@ -13,7 +13,7 @@
     <div class="page-list-menu mb-3">
         <a class='btn btn-success' href="{{ route('admin.dedicated_servers.create') }}">
             <i class="fa fa-plus-square"></i> {{ __('dedicated_servers.create') }}
-        </a>
+        </a>&nbsp;
         <a class='btn btn-warning' href="{{ route('admin.client_certificates.index') }}">
             <i class="fas fa-certificate"></i> {{ __('client_certificates.client_certificates') }}
         </a>

@@ -16,7 +16,7 @@
                             </div>
                         @endif
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="mb-3{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-12">{{ __('auth.username_email') }}</label>
 
                             <div class="col-md-12">
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="card-footer text-muted">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-light">{{ __('auth.send_reset_link') }}</button>
                             </div>

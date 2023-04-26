@@ -8,9 +8,15 @@ import {defineAsyncComponent} from 'vue'
 
 import {
     create,
+    NAlert,
+    NButton,
     NDatePicker,
+    NDialog,
+    NDialogProvider,
+    NMessageProvider,
     NModal,
     NSelect,
+    NTooltip,
 } from 'naive-ui'
 
 import './bootstrap';
@@ -21,6 +27,8 @@ import './parts/form'
 import {pluralize, trans} from "./i18n/i18n";
 
 import store from './store'
+
+import ContentView from './components/ContentView.vue';
 
 const InputTextList = defineAsyncComponent(() =>
     import('./components/InputTextList.vue' /* webpackChunkName: "components/input" */)
@@ -82,8 +90,6 @@ const SettingsParameters = defineAsyncComponent(() =>
     import('./components/SettingsParameters.vue' /* webpackChunkName: "components/settings" */)
 )
 
-// Vue.use(Vuex);
-
 const alert = function(message, callback) {
     bootbox.alert(message, () => {
         if (typeof callback === "function") {
@@ -93,22 +99,15 @@ const alert = function(message, callback) {
 }
 
 const confirm = function(message, callback) {
-    bootbox.confirm({
-        message: message,
-        buttons: {
-            confirm: {
-                label: trans('main.yes'),
-                className: 'btn-success'
-            },
-            cancel: {
-                label: trans('main.no'),
-                className: 'btn-danger'
-            }
+    window.$dialog.success({
+        title: message,
+        content: "",
+        positiveText: trans('main.yes'),
+        negativeText: trans('main.no'),
+        onPositiveClick: () => {
+            callback();
         },
-        callback: (result) => {
-            if (result) {
-                callback();
-            }
+        onNegativeClick: () => {
         }
     });
 }
@@ -133,6 +132,7 @@ const setActiveTab = function() {
 
 const app = createApp({
     components: {
+        ContentView,
         Progressbar,
         InputTextList,
         InputManyList,
@@ -148,6 +148,9 @@ const app = createApp({
         GameModSelector,
         DsIpSelector,
         ServerSelector,
+    },
+    setup: () => {
+
     },
     methods: {
         alert: alert,
@@ -172,9 +175,15 @@ app.config.globalProperties.trans = trans;
 
 const naive = create({
     components: [
+        NAlert,
+        NButton,
+        NDialog,
         NDatePicker,
+        NDialogProvider,
+        NMessageProvider,
         NModal,
         NSelect,
+        NTooltip,
     ],
 })
 

@@ -7,10 +7,11 @@ window._ = _
  * code may be modified to fit the specific needs of your application.
  */
 
-try {
-    window.$ = window.jQuery = require('jquery');
-    require('bootstrap');
-} catch (e) {}
+window.bootstrap = {};
+
+import {Modal, Tooltip} from 'bootstrap';
+window.bootstrap.Modal = Modal;
+window.bootstrap.Tooltip = Tooltip;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -37,7 +38,6 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-import bootbox from 'bootbox'
-window.bootbox = bootbox
+import 'bootstrap-select';
 
-require('bootstrap-select');
+import 'popper.js'

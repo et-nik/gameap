@@ -19,13 +19,13 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#main">{{ __('dedicated_servers.main') }}</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#main">{{ __('dedicated_servers.main') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#scripts">{{ __('dedicated_servers.scripts') }}</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#scripts">{{ __('dedicated_servers.scripts') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#gdaemon">GDaemon</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#gdaemon">GDaemon</a>
         </li>
     </ul>
 
@@ -146,7 +146,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group" id="clientCertificateForm">
+                                        <div class="mb-3" id="clientCertificateForm">
                                             {{ Form::label('client_certificates', __('dedicated_servers.client_certificate'), ['class' => 'control-label']) }}
                                             {{ Form::select('client_certificate_id', $clientCertificates , $dedicatedServer->client_certificate_id, ['class' => 'form-control']) }}
                                         </div>
@@ -163,7 +163,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('dedicated_servers.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
                 </div>
             </div>

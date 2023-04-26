@@ -1,6 +1,6 @@
 <template>
     <div class="table-responsive">
-        <div class="form-group">
+        <div class="mb-3">
             <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span></button>
         </div>
 
@@ -16,7 +16,7 @@
             <tbody>
                 <tr v-for="(item, itemIndex) in items">
                     <td v-for="(keyName, keyIndex) in keys">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <input
                                     v-bind:type="inputTypes[keyIndex]"
                                     v-model="item[keyName]"
@@ -35,7 +35,7 @@
             </tbody>
         </table>
 
-        <div class="form-group col-md-1 offset-md-6 centered">
+        <div class="mb-3 col-md-1 offset-md-6 centered">
             <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
         </div>
     </div>

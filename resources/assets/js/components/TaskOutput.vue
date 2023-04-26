@@ -1,6 +1,6 @@
 <template>
     <div>
-        <pre class="console azaza">{{ output }}</pre>
+        <pre class="console">{{ output }}</pre>
     </div>
 </template>
 

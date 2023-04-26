@@ -93,18 +93,16 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
                                 <a class="btn btn-small btn-success btn-sm btn-view"
                                    title="{{ __('main.view') }}"
                                    href="{{ route($viewRoute, $modelKey) }}">
-
-                                    <i class="fas fa-eye"></i> <span class="d-none d-xl-inline">&nbsp;{{ __('main.view') }}</span>
-                                </a>
+                                    <i class="fas fa-eye"></i><span class="d-none d-xl-inline">&nbsp;{{ __('main.view') }}</span>
+                                </a>&nbsp;
                             @endif
 
                             @if (isset($editRoute))
                                 <a class="btn btn-small btn-info btn-sm btn-edit"
                                    title="{{ __('main.edit') }}"
                                    href="{{ route($editRoute, $modelKey) }}">
-
                                     <i class="fas fa-edit"></i><span class="d-none d-xl-inline">&nbsp;{{ __('main.edit') }}</span>
-                                </a>
+                                </a>&nbsp;
                             @endif
 
                             @if (isset($destroyRoute))

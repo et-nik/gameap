@@ -21,7 +21,7 @@
         {{ Form::bsPassword('password_confirmation') }}
         {{ Form::bsText('name') }}
 
-        <div class='form-group'>
+        <div class='mb-3'>
             {{ Form::label('roles', __('users.roles'), ['class' => 'control-label']) }}
 
             {{ Form::select(
@@ -34,7 +34,7 @@
     </div>
 
     <div class="col-md-12">
-        <div class="form-group">
+        <div class="mb-3">
             {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
         </div>
     </div>
