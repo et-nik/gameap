@@ -31,11 +31,15 @@ import store from './store'
 import ContentView from './components/ContentView.vue';
 
 const InputTextList = defineAsyncComponent(() =>
-    import('./components/InputTextList.vue' /* webpackChunkName: "components/input" */)
+    import('./components/input/InputTextList.vue' /* webpackChunkName: "components/input" */)
 )
 
 const InputManyList = defineAsyncComponent(() =>
-    import('./components/InputManyList.vue' /* webpackChunkName: "components/input" */)
+    import('./components/input/InputManyList.vue' /* webpackChunkName: "components/input" */)
+)
+
+const GameapSelect = defineAsyncComponent(() =>
+    import('./components/input/GameapSelect.vue' /* webpackChunkName: "components/input" */)
 )
 
 import fileManager from 'gameap-file-manager';
@@ -140,21 +144,22 @@ const setActiveTab = (tab) => {
 const app = createApp({
     components: {
         ContentView,
-        Progressbar,
-        InputTextList,
-        InputManyList,
-        ServerStatus,
-        ServerConsole,
-        ServerTasks,
-        TaskOutput,
-        RconPlayers,
-        RconConsole,
-        UserServerPrivileges,
-        SmartPortSelector,
-        SettingsParameters,
-        GameModSelector,
         DsIpSelector,
+        GameModSelector,
+        GameapSelect,
+        InputManyList,
+        InputTextList,
+        Progressbar,
+        RconConsole,
+        RconPlayers,
+        ServerConsole,
         ServerSelector,
+        ServerStatus,
+        ServerTasks,
+        SettingsParameters,
+        SmartPortSelector,
+        TaskOutput,
+        UserServerPrivileges,
     },
     setup: () => {
 
