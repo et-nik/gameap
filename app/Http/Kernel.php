@@ -74,6 +74,5 @@ class Kernel extends HttpKernel
         'gdaemonVerifyApiToken'    => \Gameap\Http\Middleware\VerifyGdaemonApiToken::class,
         'gdaemonVerifySetupToken'  => \Gameap\Http\Middleware\VerifyGdaemonSetupToken::class,
         'gdaemonVerifyCreateToken' => \Gameap\Http\Middleware\VerifyGdaemonCreateToken::class,
-        'cors'                     => \Gameap\Http\Middleware\Cors::class,
     ];
 }
