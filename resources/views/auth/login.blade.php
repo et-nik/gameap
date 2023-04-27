@@ -8,9 +8,9 @@
                 <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
 
-                    <div class="card-header">{{ __('auth.sign_in') }}</div>
+                    <div class="card-header p-4">{{ __('auth.sign_in') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body p-4">
 
                         <div class="mb-3{{ $errors->has('login') ? ' has-error' : '' }}">
                             <label for="login" class="col-md-12">{{ __('auth.username_email') }}</label>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="card-footer text-muted">
+                    <div class="card-footer p-4 text-muted">
                         <div class="mb-3">
                             <div class="col-md-12">
                                 <div class="row">

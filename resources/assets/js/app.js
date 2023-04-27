@@ -107,34 +107,34 @@ const alert = function(message, callback) {
     });
 }
 
-const confirm = function(message, callback) {
-    window.$dialog.success({
-        title: message,
-        content: "",
-        positiveText: trans('main.yes'),
-        negativeText: trans('main.no'),
-        onPositiveClick: () => {
-            if (typeof callback === "function") {
-                callback();
-            }
-        },
-        onNegativeClick: () => {
-        }
-    });
-}
-
 let actionConfirmed = false;
 const confirmAction = (e, message) => {
     if (!actionConfirmed) {
         e.preventDefault();
 
         confirm(message, () => {
-            actionConfirmed = true;
-            e.target.dispatchEvent(new Event(e.type));
+            const clonedEvent = new e.constructor(e.type, e);
+            e.target.dispatchEvent(clonedEvent);
         });
     }
+}
 
-    actionConfirmed = false;
+const confirm = (message, callback) => {
+    window.$dialog.success({
+        title: message,
+        content: "",
+        positiveText: trans('main.yes'),
+        negativeText: trans('main.no'),
+        onPositiveClick: () => {
+            actionConfirmed = true
+            if (typeof callback === "function") {
+                callback();
+            }
+        },
+        onNegativeClick: () => {
+            actionConfirmed = false
+        }
+    });
 }
 
 const setActiveTab = (tab) => {

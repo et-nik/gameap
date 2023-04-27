@@ -18,8 +18,14 @@
                     <td>{{ value.execute_date }}</td>
                     <td>{{ humanRepeatText(value.repeat) }}</td>
                     <td>
-                        <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">{{ trans('main.edit') }}</button>
-                        <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">{{ trans('main.delete') }}</button>
+                        <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-xl-inline">&nbsp;{{ trans('main.edit') }}</span>
+                        </button>
+                        <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">
+                            <i class="fas fa-trash"></i>
+                            <span class="d-none d-xl-inline">&nbsp;{{ trans('main.delete') }}</span>
+                        </button>
                     </td>
                 </tr>
             </tbody>

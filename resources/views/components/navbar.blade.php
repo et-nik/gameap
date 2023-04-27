@@ -31,7 +31,7 @@
             @endcan
         </ul>
 
-        <ul class="navbar-nav">
+        <ul class="navbar-nav me-3">
             <li class="nav-item me-1">
                 <a class="btn btn-dark navbar-btn" href="{{ route('profile') }}"><i class="fas fa-user"></i>&nbsp;{{ Auth::user()->name }}</a>
             </li>
