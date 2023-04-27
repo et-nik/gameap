@@ -25,10 +25,13 @@
     -moz-box-shadow: 1px 1px 7px #ccc;
     -webkit-box-shadow: 1px 1px 7px #ccc;
     box-shadow: 1px 1px 7px #ccc;
+    min-width: 500px;
+    max-width: 600px;
 }
 
 p.copyright {
     text-align: center;
     font-size: 11px;
     padding: 0 10px 0 10px;
+    border: none;
 }

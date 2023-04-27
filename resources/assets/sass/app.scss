@@ -1,26 +1,25 @@
 
 // Fonts
-// @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+ @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
-@import "~bootstrap-select/sass/bootstrap-select";
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-select/sass/bootstrap-select";
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Font Awesome
-//@import "~font-awesome/scss/font-awesome";
-@import '~@fortawesome/fontawesome-free/scss/brands';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/brands';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
 
 // GIcon
 @import "gicon/gicon";
 
-// DatePicker
-@import '~vue2-datepicker/scss/index.scss';
-
 // GameAP
+@import './gameap';
 @import 'bootstrap/switches';
+@import 'bootstrap-custom';

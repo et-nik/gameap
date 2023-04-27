@@ -12,11 +12,9 @@
     @yield('header-scripts')
 
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/app.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/customstyles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/gameap.css') }}">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ URL::asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ URL::asset('favicon-96x96.png') }}">
 </head>
 <body>
     <script type="application/javascript">
@@ -29,6 +27,12 @@
     @yield('page-data')
 
     <div id="app">
+        <n-dialog-provider>
+            <n-message-provider>
+                <content-view />
+            </n-message-provider>
+        </n-dialog-provider>
+
         @include("components.navbar")
         <div id="main-section" class="main-section small-menu">
 

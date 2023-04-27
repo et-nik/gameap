@@ -31,22 +31,19 @@
                         </div>
 
                         <div class="col-md-4 offset-md-4">
-                            <a class="btn btn-primary btn-sm btn-hide" data-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
+                            <a class="btn btn-primary btn-sm btn-hide" data-bs-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
                                 <i class="far fa-caret-square-down"></i> {{ __('main.more') }}
                             </a>
                         </div>
 
                         <div class="collapse" id="additionalParameters">
-                            <div class="form-group{{ $errors->has('rcon') ? ' has-error' : '' }}">
+                            <div class="mb-3{{ $errors->has('rcon') ? ' has-error' : '' }}">
                                 {{ Form::label('rcon', null, ['class' => 'control-label']) }}
 
                                 <div class="input-group">
                                     {{ Form::input('password', 'rcon', null,
                                         ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
-                                    </div>
+                                    <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
                                 </div>
                             </div>
 
@@ -77,7 +74,7 @@
 
         <div class="row mt-2">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>
@@ -91,5 +88,5 @@
         .btn-hide[aria-expanded="true"] {display: none;}
     </style>
 
-    <script src="{{ URL::asset('/js/formHelpers.js') }}"></script>
+    @include('scripts.formHelper')
 @endsection

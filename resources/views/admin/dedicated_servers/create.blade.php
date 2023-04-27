@@ -14,19 +14,11 @@
     </ol>
 @endsection
 
-{{-- TODO: Move filename fix --}}
 @section('footer-scripts')
     <script>
-        $(window).on('load',function() {
-            @if (!$errors->any())
-                $('#gdaemonAutoSetupModal').modal('toggle');
-            @endif
-
-            $('.custom-file-input').on('change',function(){
-                var fileName = $(this).val();
-                fileName = fileName.replace(/^.*\\/, "");
-                $(this).next('.custom-file-label').html(fileName);
-            });
+        window.addEventListener('load', function() {
+            var modal = new bootstrap.Modal('#gdaemonAutoSetupModal');
+            modal.toggle();
         });
     </script>
 @endsection
@@ -39,18 +31,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('dedicated_servers.autosetup_title') }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('main.close') }}">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('main.close') }}">
                     </button>
                 </div>
 
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#auto_install_debian_ubuntu">Debian/Ubuntu</a>
+                            <a class="nav-link active" data-bs-toggle="tab" href="#auto_install_debian_ubuntu">Debian/Ubuntu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#auto_install_windows">Windows</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#auto_install_windows">Windows</a>
                         </li>
                     </ul>
 
@@ -80,7 +71,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('main.close') }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('main.close') }}</button>
                 </div>
             </div>
         </div>
@@ -147,9 +138,9 @@
 
                         <div class="row">
                             <div class="col-md-6 mt-4 mb-3 pt-1">
-                                <div class="custom-file" id="serverCertificateForm">
-                                    {{ Form::file('gdaemon_server_cert', ['class' => 'custom-file-input']) }}
-                                    {{ Form::label('gdaemon_server_cert', __('dedicated_servers.server_certificate'), ['class' => 'custom-file-label']) }}
+                                <div class="input-group" id="serverCertificateForm">
+                                    {{ Form::file('gdaemon_server_cert', ['class' => 'form-control']) }}
+                                    {{ Form::label('gdaemon_server_cert', __('dedicated_servers.server_certificate'), ['class' => 'input-group-text']) }}
 
                                     @if ($errors->has('gdaemon_server_cert'))
                                         <span class="help-block">
@@ -160,7 +151,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group" id="clientCertificateForm">
+                                <div class="mb-3" id="clientCertificateForm">
                                     {{ Form::label('client_certificates', __('dedicated_servers.client_certificate'), ['class' => 'control-label']) }}
                                     {{ Form::select('client_certificate_id', $clientCertificates , null, ['class' => 'form-control']) }}
                                 </div>
@@ -173,7 +164,7 @@
 
         <div class="row mb-2">
             <div class="col-md-2 offset-md-5">
-                <a class="btn btn-primary" data-toggle="collapse" href="#editScripts" role="button" aria-expanded="false" aria-controls="editScripts">
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#editScripts" role="button" aria-expanded="false" aria-controls="editScripts">
                     {{ __('dedicated_servers.edit_scripts') }}
                 </a>
             </div>
@@ -216,7 +207,7 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('dedicated_servers.create'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>

@@ -12,7 +12,7 @@ if( document.getElementById("serverControl") ) {
     const CHECK_SERVER_STATUS_TRIES = 10;
     const CHECK_SERVER_STATUS_TIMEOUT   = 2000; // 2 sec
 
-    Vue.mixin({
+    window.gameap.mixin({
         data: function () {
             return {
                 // serverId: 0,
@@ -36,11 +36,11 @@ if( document.getElementById("serverControl") ) {
         },
         methods: {
             serverCommand: function(command, serverId) {
-                if ($.inArray('admin', window.user.roles) !== -1) {
+                if (window.user.roles.includes('admin')) {
                     this.detailError = true;
                 }
 
-                if ($.inArray(command, ['start', 'stop', 'restart', 'update', 'install', 'reinstall']) !== -1) {
+                if (['start', 'stop', 'restart', 'update', 'install', 'reinstall'].includes(command)) {
                     gameap.confirm(i18n.main.confirm_message, function() {
                         axios.post('/api/servers/' + gameap.serverId + '/' + command)
                             .then(function (response) {
@@ -145,7 +145,7 @@ if( document.getElementById("serverControl") ) {
 
                 this.getTask();
 
-                if ($.isEmptyObject(this.watchTaskData) === false) {
+                if (Object.keys(this.watchTaskData).length !== 0) {
                     if (this.watchTaskData.status === 'waiting') {
                         this.watchTaskProgress.progress = PROGRESS_PERCENT_WAITING;
                         this.checkLongWaiting();
@@ -189,16 +189,16 @@ if( document.getElementById("serverControl") ) {
                 }
             },
             showAdditionalInfo: function(text = '') {
-                let additionalInfo = $('#additional-info');
+                const additionalInfo = document.querySelector('#additional-info');
 
-                if (additionalInfo.is(':hidden')) {
-                    additionalInfo.html(text);
-                    additionalInfo.show();
+                if (additionalInfo.style.display === 'none') {
+                    additionalInfo.innerHTML = text;
+                    additionalInfo.style.display = 'block';
                 }
             },
             hideAdditionalInfo: function() {
-                let additionalInfo = $('#additional-info');
-                additionalInfo.hide();
+                const additionalInfo = document.querySelector('#additional-info');
+                additionalInfo.style.display = 'none';
             },
             setTaskError: function(errorMsg) {
                 if (this.detailError) {

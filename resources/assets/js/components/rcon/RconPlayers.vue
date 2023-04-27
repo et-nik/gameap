@@ -35,59 +35,59 @@
             </tbody>
         </table>
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="player-control-modal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ dialogTitle }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" :aria-label="trans('main.close')">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+        <n-modal
+            v-model:show="modalEnabled"
+            class="custom-card"
+            preset="card"
+            :title="dialogTitle"
+            :bordered="false"
+            style="width: 600px"
+            :segmented="segmented"
+        >
+            <div>
+                <form>
+                    <div class="mb-3" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
+                        <label for="input-reason" class="control-label">{{ trans('rcon.reason') }}</label>
+                        <input v-model.number="form.reason" id="input-reason" type="text" class="form-control">
 
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
-                                <label for="input-reason" class="control-label">{{ trans('rcon.reason') }}</label>
-                                <input v-model.number="form.reason" id="input-reason" type="text" class="form-control">
-
-                                <span v-if="errors['reason']" class="help-block">
+                        <span v-if="errors['reason']" class="help-block">
                                     <strong class="text-danger">{{ errors['reason'] }}</strong>
                                 </span>
-                            </div>
+                    </div>
 
-                            <div class="form-group" v-if="dialogAction === 'ban'">
-                                <label for="input-time" class="control-label">{{ trans('rcon.time') }}</label>
-                                <input v-model.number="form.time" id="input-time" type="number" class="form-control">
+                    <div class="mb-3" v-if="dialogAction === 'ban'">
+                        <label for="input-time" class="control-label">{{ trans('rcon.time') }}</label>
+                        <input v-model.number="form.time" id="input-time" type="number" class="form-control">
 
-                                <span v-if="errors['time']" class="help-block">
+                        <span v-if="errors['time']" class="help-block">
                                     <strong class="text-danger">{{ errors['time'] }}</strong>
                                 </span>
-                            </div>
+                    </div>
 
-                            <div class="form-group" v-if="dialogAction === 'message'">
-                                <label for="input-mesage" class="control-label">{{ trans('rcon.message') }}</label>
-                                <input v-model.number="form.message" id="input-mesage" type="text" class="form-control">
+                    <div class="mb-3" v-if="dialogAction === 'message'">
+                        <label for="input-mesage" class="control-label">{{ trans('rcon.message') }}</label>
+                        <input v-model.number="form.message" id="input-mesage" type="text" class="form-control">
 
-                                <span v-if="errors['message']" class="help-block">
+                        <span v-if="errors['message']" class="help-block">
                                     <strong class="text-danger">{{ errors['message'] }}</strong>
                                 </span>
-                            </div>
-                        </form>
                     </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main.close') }}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="send">{{ trans('main.send') }}</button>
-                    </div>
-                </div>
+                </form>
             </div>
-        </div>
+
+            <template #footer>
+                <button type="button" class="btn btn-primary me-1" v-on:click="send">{{ trans('main.send') }}</button>
+                <button type="button" class="btn btn-secondary" v-on:click="hideModal">{{ trans('main.close') }}</button>
+
+            </template>
+        </n-modal>
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
+    import { ref } from "vue";
+    import { pluralize, trans } from '../../i18n/i18n'
 
     export default {
         name: "RconPlayers",
@@ -110,6 +110,11 @@
                     time: null,
                     message: null,
                 },
+                modalEnabled: ref(false),
+                segmented: {
+                    content: 'soft',
+                    footer: 'soft'
+                },
             };
         },
         methods: {
@@ -128,10 +133,10 @@
                 this.showModal();
             },
             showModal() {
-                $('#player-control-modal').modal('show');
+                this.modalEnabled = true;
             },
             hideModal() {
-                $('#player-control-modal').modal('hide');
+                this.modalEnabled = false;
             },
             send() {
                 if (!this.checkForm()) {

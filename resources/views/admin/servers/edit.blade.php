@@ -1,7 +1,6 @@
 @php
 /**
  * @var $server \Gameap\Models\Server
- *
 */
 @endphp
 
@@ -23,7 +22,7 @@
     <div class="mb-1">
         <a class="btn btn-large btn-light" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
             <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
-        </a>
+        </a>&nbsp;
 
         <a class="btn btn-large btn-light" href="{{ route('servers.control', ['server' => $server->id]) }}">
             <span class="fa fa-chalkboard"></span>&nbsp;{{ __('servers.control') }}
@@ -40,7 +39,7 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="form-group mt-4 mb-4">
+                        <div class="mb-3 mt-4 mb-4">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-check">
@@ -62,7 +61,7 @@
                         {{ Form::bsText('uuid', null, null, ['disabled' => 'disabled']) }}
                         {{ Form::bsText('name') }}
 
-                        <div class="form-group" id="installed">
+                        <div class="mb-3" id="installed">
                             {{ Form::label('installed', __('servers.status'), ['class' => 'control-label']) }}
                             {{ Form::select('installed', [
                                     $server::NOT_INSTALLED        => ucfirst(__('servers.not_installed')),
@@ -78,16 +77,13 @@
                                 initial-mod="{{ $server->game_mod_id }}">
                         </game-mod-selector>
 
-                        <div class="form-group{{ $errors->has('rcon') ? ' has-error' : '' }}">
+                        <div class="mb-3{{ $errors->has('rcon') ? ' has-error' : '' }}">
                             {{ Form::label('rcon', null, ['class' => 'control-label']) }}
 
                             <div class="input-group">
                                 {{ Form::input('password', 'rcon', $server->rcon,
                                     ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
-                                </div>
+                                <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
                             </div>
 
                         </div>
@@ -167,7 +163,7 @@
 
         <div class="row mt-2">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
                 </div>
             </div>
@@ -177,5 +173,5 @@
 @endsection
 
 @section('footer-scripts')
-    <script src="{{ URL::asset('/js/formHelpers.js') }}"></script>
+    @include('scripts.formHelper')
 @endsection

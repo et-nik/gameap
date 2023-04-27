@@ -2,10 +2,17 @@
 <p class="left-menu-group-mini">—</p>
 
 <ul class="page-sidebar-menu">
-    <li title="{{ __('sidebar.servers') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a href="{{ route('servers') }}">
-            <i class="fas fa-play"></i>
-            <span class="menu-item-label">{{ __('sidebar.servers') }}</span>
+
+    <li>
+        <a
+            class="left-menu-link"
+            href="{{ route('servers') }}"
+            title="{{ __('sidebar.servers') }}"
+            data-bs-toggle="tooltip"
+            data-bs-placement="right"
+            data-bs-delay="200"
+        >
+            <i class="fas fa-play"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.servers') }}</span>
         </a>
     </li>
 </ul>
@@ -15,34 +22,64 @@
     <p class="left-menu-group-mini">—</p>
 
     <ul class="page-sidebar-menu">
-        <li title="{{ __('sidebar.dedicated_servers') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('admin.dedicated_servers.index') }}">
-                <i class="fas fa-hdd"></i>
-                <span class="menu-item-label">{{ __('sidebar.dedicated_servers') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('admin.dedicated_servers.index') }}"
+                title="{{ __('sidebar.dedicated_servers') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-hdd"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.dedicated_servers') }}</span>
             </a>
         </li>
-        <li title="{{ __('sidebar.game_servers') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('admin.servers.index') }}">
-                <i class="fas fa-server"></i>
-                <span class="menu-item-label">{{ __('sidebar.game_servers') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('admin.servers.index') }}"
+                title="{{ __('sidebar.game_servers') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-server"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.game_servers') }}</span>
             </a>
         </li>
-        <li title="{{ __('sidebar.games') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('admin.games.index') }}">
-                <i class="fas fa-gamepad"></i>
-                <span class="menu-item-label">{{ __('sidebar.games') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('admin.games.index') }}"
+                title="{{ __('sidebar.games') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-gamepad"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.games') }}</span>
             </a>
         </li>
-        <li title="{{ __('sidebar.gdaemon_tasks') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('admin.gdaemon_tasks.index') }}">
-                <i class="fas fa-tasks"></i>
-                <span class="menu-item-label">{{ __('sidebar.gdaemon_tasks') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('admin.gdaemon_tasks.index') }}"
+                title="{{ __('sidebar.gdaemon_tasks') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-tasks"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.gdaemon_tasks') }}</span>
             </a>
         </li>
-        <li title="{{ __('sidebar.users') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('admin.users.index') }}">
-                <i class="fas fa-users"></i>
-                <span class="menu-item-label">{{ __('sidebar.users') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('admin.users.index') }}"
+                title="{{ __('sidebar.users') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-users"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.users') }}</span>
             </a>
         </li>
     </ul>
@@ -51,16 +88,28 @@
     <p class="left-menu-group-mini">—</p>
 
     <ul class="page-sidebar-menu">
-        <li title="{{ __('sidebar.modules') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('modules') }}">
-                <i class="fas fa-puzzle-piece"></i>
-                <span class="menu-item-label">{{ __('sidebar.modules') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('modules') }}"
+                title="{{ __('sidebar.modules') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-puzzle-piece"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.modules') }}</span>
             </a>
         </li>
-        <li title="{{ __('sidebar.update') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('update') }}">
-                <i class="fas fa-sync"></i>
-                <span class="menu-item-label">{{ __('sidebar.update') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('update') }}"
+                title="{{ __('sidebar.update') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-sync"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.update') }}</span>
             </a>
         </li>
     </ul>
@@ -71,29 +120,54 @@
 
 <ul class="page-sidebar-menu">
     @can('admin roles & permissions')
-        <li title="{{ __('sidebar.report_bug') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-            <a href="{{ route('report_bug') }}">
-                <i class="fas fa-bug"></i>
-                <span class="menu-item-label">{{ __('sidebar.report_bug') }}</span>
+        <li>
+            <a
+                class="left-menu-link"
+                href="{{ route('report_bug') }}"
+                title="{{ __('sidebar.report_bug') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-delay="200"
+            >
+                <i class="fas fa-bug"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.report_bug') }}</span>
             </a>
         </li>
     @endcan
-    <li title="{{ __('sidebar.help') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a href="{{ route('help') }}">
-            <i class="fas fa-question"></i>
-            <span class="menu-item-label">{{ __('sidebar.help') }}</span>
+    <li>
+        <a
+            class="left-menu-link"
+            href="{{ route('help') }}"
+            title="{{ __('sidebar.help') }}"
+            data-bs-toggle="tooltip"
+            data-bs-placement="right"
+            data-bs-delay="200"
+        >
+            <i class="fas fa-question"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.help') }}</span>
         </a>
     </li>
-    <li title="{{ __('sidebar.forum') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a target="_blank" href="https://forum.gameap.ru">
-            <i class="fas fa-comment-alt"></i>
-            <span class="menu-item-label">{{ __('sidebar.forum') }}</span>
+    <li>
+        <a
+            class="left-menu-link"
+            target="_blank" href="https://forum.gameap.ru"
+            title="{{ __('sidebar.forum') }}"
+            data-bs-toggle="tooltip"
+            data-bs-placement="right"
+            data-bs-delay="200"
+        >
+            <i class="fas fa-comment-alt"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.forum') }}</span>
         </a>
     </li>
-    <li title="{{ __('sidebar.documentation') }}" data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a target="_blank" href="https://docs.gameap.ru">
-            <i class="fab fa-wikipedia-w"></i>
-            <span class="menu-item-label">{{ __('sidebar.documentation') }}<i class="fas fa-external-link"></i></span>
+    <li>
+        <a
+            class="left-menu-link"
+            target="_blank"
+            href="https://docs.gameap.ru"
+            title="{{ __('sidebar.documentation') }}"
+            data-bs-toggle="tooltip"
+            data-bs-placement="right"
+            data-bs-delay="200"
+        >
+            <i class="fab fa-wikipedia-w"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.documentation') }}<i class="fas fa-external-link"></i></span>
         </a>
     </li>
 </ul>
@@ -102,9 +176,8 @@
 
 <ul class="page-sidebar-menu d-md-none">
     <li>
-        <a class="btn btn-dark navbar-btn" href="{{ route('profile') }}">
-            <i class="fas fa-user"></i>
-            <span class="menu-item-label">{{ Auth::user()->name }}</span>
+        <a class="left-menu-link btn btn-dark navbar-btn" href="{{ route('profile') }}">
+            <i class="fas fa-user"></i>&nbsp;<span class="menu-item-label">{{ Auth::user()->name }}</span>
         </a>
     </li>
     <li>
@@ -123,10 +196,14 @@
 <p class="left-menu-group d-sm-none d-md-block">&nbsp;</p>
 
 <ul class="page-sidebar-menu d-sm-none d-md-block">
-    <li title="{{ __('sidebar.maximize') }}" id="left-menu-mini-btn"  data-toggle="tooltip" data-placement="left" data-container="#left-menu-tooltips">
-        <a href="#">
-            <i id="left-menu-mini-icon" class="fas fa-chevron-left"></i>
-            <span class="menu-item-label">{{ __('sidebar.minimize') }}</span>
+    <li>
+        <a
+            class="left-menu-link"
+            href="#"
+            id="left-menu-mini-btn"
+            title="{{ __('sidebar.maximize') }}"
+        >
+            <i id="left-menu-mini-icon" class="fas fa-chevron-left"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.minimize') }}</span>
         </a>
     </li>
 </ul>

@@ -1,7 +1,7 @@
 <template>
     <div id="server-task-component">
         <div class="mb-2">
-          <button class="btn btn-success" data-toggle="modal" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
+          <button class="btn btn-success" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
         </div>
         <table class="table table-striped table-bordered">
             <thead>
@@ -18,160 +18,152 @@
                     <td>{{ value.execute_date }}</td>
                     <td>{{ humanRepeatText(value.repeat) }}</td>
                     <td>
-                        <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">{{ trans('main.edit') }}</button>
-                        <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">{{ trans('main.delete') }}</button>
+                        <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-xl-inline">&nbsp;{{ trans('main.edit') }}</span>
+                        </button>
+                        <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">
+                            <i class="fas fa-trash"></i>
+                            <span class="d-none d-xl-inline">&nbsp;{{ trans('main.delete') }}</span>
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="createTaskModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ modalTitle }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" :aria-label="trans('main.close')">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+        <n-modal
+            v-model:show="modalEnabled"
+            class="custom-card"
+            preset="card"
+            :title="modalTitle"
+            :bordered="false"
+            style="width: 600px"
+            :segmented="segmented"
+        >
+            <div>
+                <form>
+                    <div class="mb-3">
+                        <label for="task" class="control-label">{{ trans('servers_tasks.task') }}</label>
 
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="task" class="control-label">{{ trans('servers_tasks.task') }}</label>
+                        <n-select v-model:value="command" :options="options" v-on:update="formChange" />
 
-                                <select
-                                        id="command"
-                                        class="custom-select"
-                                        name="command"
-                                        v-model="command"
-                                        v-on:change="formChange">
-                                    <option v-if="privileges.restart" value="restart">{{ trans('servers.restart') }}</option>
-                                    <option v-if="privileges.start" value="start">{{ trans('servers.start') }}</option>
-                                    <option v-if="privileges.stop" value="stop">{{ trans('servers.stop') }}</option>
-                                    <option v-if="privileges.update" value="update">{{ trans('servers.update') }}</option>
-                                    <option v-if="privileges.update" value="reinstall">{{ trans('servers.reinstall') }}</option>
-                                </select>
-
-                                <span v-if="errors['command']" class="help-block">
+                        <span v-if="errors['command']" class="help-block">
                                     <strong class="text-danger">{{ errors['command'] }}</strong>
                                 </span>
-                            </div>
+                    </div>
 
-                            <div class="form-group">
-                                <date-picker
-                                        type="datetime"
-                                        v-model="taskDate"
-                                        valueType="format"
-                                        v-on:change="formChange">
-                                </date-picker><br>
+                    <div class="mb-3">
+                        <n-date-picker
+                            v-model:formatted-value="taskDate"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            type="datetime"
+                            v-on:update="formChange"
+                            clearable
+                        /><br>
 
-                                <span v-if="errors['taskDate']" class="help-block">
+                        <span v-if="errors['taskDate']" class="help-block">
                                     <strong class="text-danger">{{ errors['taskDate'] }}</strong>
                                 </span>
-                            </div>
+                    </div>
 
-                            <div class="form-check">
-                                <label class="control-label">
-                                    <input
-                                            v-model="taskRepeatRadio"
-                                            v-on:change="formChange"
-                                            type="radio"
-                                            name="repeat"
-                                            value="1">
-                                    {{ trans('servers_tasks.no_repeat') }}
-                                </label>
-                            </div>
+                    <div class="form-check">
+                        <label class="control-label">
+                            <input
+                                v-model="taskRepeatRadio"
+                                v-on:change="formChange"
+                                type="radio"
+                                name="repeat"
+                                value="1">
+                            {{ trans('servers_tasks.no_repeat') }}
+                        </label>
+                    </div>
 
-                            <div class="form-check">
-                                <label class="control-label">
-                                    <input
-                                            v-model="taskRepeatRadio"
-                                            v-on:change="formChange"
-                                            type="radio"
-                                            name="repeat"
-                                            value="0">
-                                    {{ trans('servers_tasks.endlessly_repeat') }}
-                                </label>
-                            </div>
+                    <div class="form-check">
+                        <label class="control-label">
+                            <input
+                                v-model="taskRepeatRadio"
+                                v-on:change="formChange"
+                                type="radio"
+                                name="repeat"
+                                value="0">
+                            {{ trans('servers_tasks.endlessly_repeat') }}
+                        </label>
+                    </div>
 
-                            <div class="form-check">
-                                <label class="control-label">
-                                    <input
-                                            v-model="taskRepeatRadio"
-                                            v-on:change="formChange"
-                                            type="radio"
-                                            name="repeat"
-                                            value="">
-                                    {{ trans('servers_tasks.custom_repeat') }}
-                                </label>
-                            </div>
+                    <div class="form-check">
+                        <label class="control-label">
+                            <input
+                                v-model="taskRepeatRadio"
+                                v-on:change="formChange"
+                                type="radio"
+                                name="repeat"
+                                value="">
+                            {{ trans('servers_tasks.custom_repeat') }}
+                        </label>
+                    </div>
 
-                            <div class="form-group">
-                                <label for="repeat" class="control-label">{{ trans('servers_tasks.repeat_num') }}</label>
-                                <input
-                                        v-model.number="taskRepeatInput"
-                                        :disabled="taskRepeatRadio !== ''"
-                                        id="repeat"
-                                        type="number"
-                                        min="1"
-                                        max="255"
-                                        class="form-control">
+                    <div class="mb-3">
+                        <label for="repeat" class="control-label">{{ trans('servers_tasks.repeat_num') }}</label>
+                        <input
+                            v-model.number="taskRepeatInput"
+                            :disabled="taskRepeatRadio !== ''"
+                            id="repeat"
+                            type="number"
+                            min="1"
+                            max="255"
+                            class="form-control">
 
-                                <span v-if="errors['taskRepeatInput']" class="help-block">
+                        <span v-if="errors['taskRepeatInput']" class="help-block">
                                     <strong class="text-danger">{{ errors['taskRepeatInput'] }}</strong>
                                 </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="control-label">{{ trans('servers_tasks.repeat_period') }}</label>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input v-model="taskRepeatPeriod"
+                                       :disabled="repeat === 1"
+                                       v-on:change="formChange"
+                                       id="repeat_period"
+                                       name="repeat_period"
+                                       type="number"
+                                       :min="repeatMin"
+                                       class="form-control">
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label">{{ trans('servers_tasks.repeat_period') }}</label>
+                            <div class="col-md-8">
+                                <n-select
+                                    v-model:value="taskRepeatUnit"
+                                    :disabled="repeat === 1"
+                                    v-on:update="formChange"
+                                    :options="unitOptions"
+                                />
+                            </div>
+                        </div>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input v-model="taskRepeatPeriod"
-                                               :disabled="repeat === 1"
-                                               v-on:change="formChange"
-                                               id="repeat_period"
-                                               name="repeat_period"
-                                               type="number"
-                                               :min="repeatMin"
-                                               class="form-control">
-                                    </div>
-
-                                    <div class="col-md-8">
-                                        <select
-                                                v-model="taskRepeatUnit"
-                                                :disabled="repeat === 1"
-                                                v-on:change="formChange"
-                                                class="custom-select"
-                                                >
-                                            <option v-for="(value, key) in unitOptions" :value="key">{{ value }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <span v-if="errors['taskRepeatPeriod']" class="help-block">
+                        <span v-if="errors['taskRepeatPeriod']" class="help-block">
                                     <strong class="text-danger">{{ errors['taskRepeatPeriod'] }}</strong>
                                 </span>
 
-                            </div>
-
-                        </form>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main.close') }}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="sendTaskForm">{{ buttonName }}</button>
-                    </div>
-                </div>
+                </form>
             </div>
-        </div>
+
+            <template #footer>
+                <button type="button" class="btn btn-primary me-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
+                <button type="button" class="btn btn-secondary" v-on:click="hideModal">{{ trans('main.close') }}</button>
+            </template>
+        </n-modal>
     </div>
 </template>
 
 <script>
-    import DatePicker from 'vue2-datepicker';
     import { mapState } from 'vuex';
+    import { ref } from "vue";
+    import { pluralize, trans } from '../i18n/i18n'
 
     const REPEAT_ENDLESSLY          = 0;
     const REPEAT_ONCE               = 1;
@@ -179,7 +171,6 @@
     const RADIO_REPEAT_CUSTOM       = '';
 
     export default {
-        components: { DatePicker },
         props: {
             serverId: Number,
             privileges: {
@@ -187,22 +178,28 @@
                 stop: true,
                 restart: true,
                 update: true
-            }
+            },
         },
         data: function () {
             return {
-                command: '',
-                taskDate: '',
-                taskRepeatInput: 1,
-                taskRepeatRadio: 0,
-                taskRepeatPeriod: 0,
-                taskRepeatUnit: 'hours',
+                command: ref(''),
+                taskDate: ref('2007-06-30 12:08:55'),
+                taskRepeatInput: ref(1),
+                taskRepeatRadio: ref(0),
+                taskRepeatPeriod: ref(0),
+                taskRepeatUnit: ref('hours'),
 
-                selectedTaskIndex: null,
+                selectedTaskIndex: ref(null),
                 errors: {},
 
-                modalTitle: '',
+                modalEnabled: ref(false),
+                modalTitle: ref(''),
                 buttonName: this.trans('main.create'),
+
+                segmented: {
+                    content: 'soft',
+                    footer: 'soft'
+                },
             }
         },
         methods: {
@@ -376,12 +373,10 @@
                 return unit;
             },
             showModal() {
-                this.resetErrors();
-                $('#createTaskModal').modal('show');
+                this.modalEnabled = true;
             },
             hideModal() {
-                this.resetErrors();
-                $('#createTaskModal').modal('hide');
+                this.modalEnabled = false;
             },
         },
         computed: {
@@ -417,14 +412,74 @@
             },
             unitOptions: {
                 get() {
-                    return {
-                        'minutes': this.pluralize('minute', parseInt(this.taskRepeatPeriod)),
-                        'hours': this.pluralize('hour', parseInt(this.taskRepeatPeriod)),
-                        'days': this.pluralize('day', parseInt(this.taskRepeatPeriod)),
-                        'weeks': this.pluralize('week', parseInt(this.taskRepeatPeriod)),
-                        'months': this.pluralize('month', parseInt(this.taskRepeatPeriod)),
-                        'years': this.pluralize('year', parseInt(this.taskRepeatPeriod)),
-                    };
+                    return [
+                        {
+                            label: pluralize('minute', parseInt(this.taskRepeatPeriod)),
+                            value: 'minutes',
+                        },
+                        {
+                            label: pluralize('hour', parseInt(this.taskRepeatPeriod)),
+                            value: 'hours',
+                        },
+                        {
+                            label: pluralize('day', parseInt(this.taskRepeatPeriod)),
+                            value: 'days',
+                        },
+                        {
+                            label: pluralize('week', parseInt(this.taskRepeatPeriod)),
+                            value: 'weeks',
+                        },
+                        {
+                            label: pluralize('month', parseInt(this.taskRepeatPeriod)),
+                            value: 'months',
+                        },
+                        {
+                            label: pluralize('year', parseInt(this.taskRepeatPeriod)),
+                            value: 'years',
+                        },
+                    ];
+                }
+            },
+            options: {
+                get() {
+                    let result = [];
+
+                    if (this.privileges.restart) {
+                        result.push({
+                            label: trans('servers.restart'),
+                            value: "restart",
+                        })
+                    }
+
+                    if (this.privileges.start) {
+                        result.push({
+                            label: trans('servers.start'),
+                            value: "start",
+                        })
+                    }
+
+                    if (this.privileges.stop) {
+                        result.push({
+                            label: trans('servers.stop'),
+                            value: "stop",
+                        })
+                    }
+
+                    if (this.privileges.update) {
+                        result.push({
+                            label: trans('servers.update'),
+                            value: "update",
+                        })
+                    }
+
+                    if (this.privileges.update) {
+                        result.push({
+                            label: trans('servers.reinstall'),
+                            value: "reinstall",
+                        })
+                    }
+
+                    return result;
                 }
             }
         },

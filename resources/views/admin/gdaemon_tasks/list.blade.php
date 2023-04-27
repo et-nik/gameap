@@ -13,29 +13,29 @@
     @include('components.grid', [
         'modelsList' => $gdaemonTasks,
         'labels' => [
-            __('gdaemon_tasks.task'), 
-            __('gdaemon_tasks.status'), 
-            __('gdaemon_tasks.created'), 
+            __('gdaemon_tasks.task'),
+            __('gdaemon_tasks.status'),
+            __('gdaemon_tasks.created'),
             __('gdaemon_tasks.updated')
         ],
         'attributes' => [
             'task',
             [/* status */ 'lambda', function($gdaemonTaskModel) {
                 if ($gdaemonTaskModel->status == 'success') {
-                    $label = 'badge-success';
+                    $label = 'text-bg-success';
                 } elseif ($gdaemonTaskModel->status == 'error') {
-                    $label = 'badge-danger';
+                    $label = 'text-bg-danger';
                 } elseif ($gdaemonTaskModel->status == 'waiting' || $gdaemonTaskModel->status == 'working') {
-                    $label = 'badge-warning';
+                    $label = 'text-bg-warning';
                 } elseif ($gdaemonTaskModel->status == 'canceled') {
-                    $label = 'badge-secondary';
+                    $label = 'text-bg-secondary';
                 } else {
-                    $label = 'badge-default';
+                    $label = 'text-bg-default';
                 }
-                
+
                 return "<span class=\"badge {$label}\">{$gdaemonTaskModel->status}</span>";
-            }], 
-            'created_at', 
+            }],
+            'created_at',
             'updated_at'
         ],
         'viewRoute' => 'admin.gdaemon_tasks.show'

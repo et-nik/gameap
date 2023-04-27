@@ -16,7 +16,7 @@
 
 @section('content')
     <a class='btn btn-success' href="{{ route('admin.client_certificates.create') }}">
-        <i class="fa fa-plus-square"></i> {{ __('client_certificates.create') }}
+        <i class="fa fa-plus-square"></i>&nbsp;{{ __('client_certificates.create') }}
     </a>
     <hr>
 

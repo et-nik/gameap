@@ -7,15 +7,15 @@
 
             <div class="col-md-1">
                 <div v-if="status === 'online'" class="d-inline">
-                    <span class="badge badge-success">{{ trans('servers.online') }}</span>
+                    <span class="badge text-bg-success">{{ trans('servers.online') }}</span>
                 </div>
 
                 <div v-else-if="status === 'offline'" class="d-inline">
-                    <span class="badge badge-danger">{{ trans('servers.offline') }}</span>
+                    <span class="badge text-bg-danger">{{ trans('servers.offline') }}</span>
                 </div>
 
                 <div v-else class="d-inline">
-                    <span class="badge badge-warning">-</span>
+                    <span class="badge text-bg-warning">-</span>
                 </div>
             </div>
 

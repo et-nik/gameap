@@ -6,7 +6,7 @@
     @endif
 @endif
 
-<div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
+<div class="mb-3{{ $errors->has($name) ? ' has-error' : '' }}">
     {{ Form::label($name, $label, ['class' => 'control-label']) }}
     {{ Form::password($name, array_merge(['class' => 'form-control'], $attributes)) }}
 

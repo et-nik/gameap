@@ -31,7 +31,7 @@
                 <div class="card">
                     <div class="card-body">
                         @foreach ($allPermissions as $permission)
-                            <div class="form-group m-3">
+                            <div class="mb-3 m-3">
                                 <span class="switch switch-success switch-checked-danger">
                                     {{ Form::checkbox("permissions[{$permission}]", 'disallow', !in_array($permission, $checkedPermissions), ['id' => $permission, 'class' => 'switch']) }}
                                     {{ Form::label($permission, __('users.permission_names.' . $permission)) }}
@@ -68,7 +68,7 @@
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
+            <div class="mb-3">
                 {{ Form::submit(__('main.save'), ['class' => 'btn btn-success']) }}
             </div>
         </div>

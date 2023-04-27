@@ -78,20 +78,20 @@
 
 @section('footer-scripts')
     <script>
-        $(function () {
-            $('#copy-token').on('click', function () {
-                let text = document.getElementById('token').value;
-                try {
-                    navigator.clipboard.writeText(text);
-                    console.log('Content copied to clipboard');
-                } catch (err) {
-                    console.error('Failed to copy: ', err);
-                }
+        document.addEventListener('DOMContentLoaded', function() {
+            const el = document.querySelector('#copy-token');
 
-                $(this).tooltip('hide')
-                    .attr('data-original-title', 'Copied')
-                    .tooltip('show');
-            })
+            if (el !== undefined && el !== null) {
+                el.addEventListener('click', function() {
+                    const text = document.getElementById('token').value;
+                    try {
+                        navigator.clipboard.writeText(text);
+                        console.log('Content copied to clipboard');
+                    } catch (err) {
+                        console.error('Failed to copy: ', err);
+                    }
+                });
+            }
         });
     </script>
 @endsection

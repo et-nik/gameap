@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>{{ __('servers.commands') }}</h3>
+                    {{ __('servers.commands') }}
                 </div>
 
                 <div class="card-body">
@@ -62,13 +62,13 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3>{{ __('servers.process_status') }}</h3>
+                {{ __('servers.process_status') }}
             </div>
             <ul class="list-group list-group-flush">
                 @if ($server->processActive())
-                    <li class="list-group-item">{{ __('servers.status') }}: <span class="badge badge-success">{{ __('servers.active') }}</span></li>
+                    <li class="list-group-item">{{ __('servers.status') }}: <span class="badge text-bg-success">{{ __('servers.active') }}</span></li>
                 @else
-                    <li class="list-group-item">{{ __('servers.status') }}: <span class="badge badge-danger">{{ __('servers.inactive') }}</span></li>
+                    <li class="list-group-item">{{ __('servers.status') }}: <span class="badge text-bg-danger">{{ __('servers.inactive') }}</span></li>
                 @endif
 
                 <li class="list-group-item">{{ __('servers.last_check') }}: {{ \Gameap\Helpers\DateHelper::convertToLocal($server->last_process_check) }}</li>
@@ -84,7 +84,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>{{ __('servers.console') }}</h3>
+                        {{ __('servers.console') }}
                     </div>
 
                     <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}">

@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
                 </div>
             </div>

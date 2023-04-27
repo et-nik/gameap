@@ -1,15 +1,21 @@
-import Vue from "vue";
-
+// import { createApp } from 'vue';
 import plurals from './plurals';
+import _ from 'lodash';
 
-// http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
+// const app = createApp({});
+
 const pluralForms = {
     default: (n) => (n !== 1 ? 1 : 0),
     en: (n) => (n !== 1 ? 1 : 0),
-    ru: (n) => (n%10===1 && n%100!==11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)
-}
+    ru: (n) =>
+        n % 10 === 1 && n % 100 !== 11
+            ? 0
+            : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
+                ? 1
+                : 2,
+};
 
-Vue.prototype.pluralize = (choice, choicesLength) => {
+const pluralize = (choice, choicesLength) => {
     let lang = document.documentElement.lang;
 
     if (!plurals.hasOwnProperty(lang)) {
@@ -27,7 +33,7 @@ Vue.prototype.pluralize = (choice, choicesLength) => {
         : plurals[lang][choice][index];
 };
 
-Vue.prototype.trans = (string, args) => {
+const trans = (string, args) => {
     let value = _.get(window.i18n, string);
 
     _.eachRight(args, (paramVal, paramKey) => {
@@ -35,3 +41,5 @@ Vue.prototype.trans = (string, args) => {
     });
     return value;
 };
+
+export {pluralize, trans}

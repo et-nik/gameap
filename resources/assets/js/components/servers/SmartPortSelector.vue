@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="server_port" class="control-label">{{ trans('labels.server_port') }}</label>
             <input class="form-control" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
             <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="query_port" class="control-label">{{ trans('labels.query_port') }}</label>
             <input class="form-control" name="query_port" type="number" id="query_port" min="1024" max="65535" v-model="queryPort">
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="rcon_port" class="control-label">{{ trans('labels.rcon_port') }}</label>
             <input class="form-control" name="rcon_port" type="number" id="rcon_port" min="1024" max="65535" v-model="rconPort">
         </div>

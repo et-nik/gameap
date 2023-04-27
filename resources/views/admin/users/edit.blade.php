@@ -23,9 +23,13 @@
                         {{ Form::bsEmail('email') }}
                         {{ Form::bsText('name') }}
 
-                        <div class='form-group'>
+                        <div class='mb-3'>
                             {{ Form::label('roles', __('users.roles'), ['class' => 'control-label']) }}
-                            {{ Form::select('roles[]', $roles->pluck('title', 'name'), $user->getRoles(), ['id' => 'roles', 'multiple' => 'multiple', 'class' => 'form-control selectpicker']) }}
+                            <gameap-select
+                                    name="roles[]"
+                                    :value="{{ json_encode($user->getRoles()) }}"
+                                    :options="{{ json_encode($roleOptions) }}">
+                            </gameap-select>
                         </div>
 
                         {{ Form::bsPassword('password') }}
@@ -46,7 +50,7 @@
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
+            <div class="mb-3">
                 {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
             </div>
         </div>

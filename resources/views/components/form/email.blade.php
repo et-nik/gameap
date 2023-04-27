@@ -1,12 +1,11 @@
 @if (empty($label))
     @php ($localeLabel = __('labels.' . $name))
-
     @if (!empty($localeLabel) && $localeLabel != 'labels.' . $name)
         @php ($label = $localeLabel)
     @endif
 @endif
 
-<div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
+<div class="mb-3{{ $errors->has($name) ? ' has-error' : '' }}">
     {{ Form::label($name, $label, ['class' => 'control-label']) }}
     {{ Form::email($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
 

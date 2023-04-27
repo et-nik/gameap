@@ -3,7 +3,7 @@
         <div class="card mb-2">
             <div class="card-body">
                 <div v-for="(item, itemIndex) in items">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label v-bind:for="inputName + '[' + itemIndex + ']' + '[name]'" class="control-label">{{ trans('labels.name') }}</label>
                         <input
                                 v-bind:name="inputName + '[' + itemIndex + ']' + '[name]'"
@@ -13,7 +13,7 @@
                                 class="form-control">
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label v-bind:for="inputName + '[' + itemIndex + ']' + '[value]'" class="control-label">{{ trans('labels.the_value') }}</label>
                         <textarea
                                 v-bind:name="inputName + '[' + itemIndex + ']' + '[value]'"

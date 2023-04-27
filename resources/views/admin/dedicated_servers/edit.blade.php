@@ -14,30 +14,18 @@
     </ol>
 @endsection
 
-@section('footer-scripts')
-    <script>
-        $(window).on('load',function() {
-            $('.custom-file-input').on('change',function(){
-                var fileName = $(this).val();
-                fileName = fileName.replace(/^.*\\/, "");
-                $(this).next('.custom-file-label').html(fileName);
-            });
-        });
-    </script>
-@endsection
-
 @section('content')
     @include('components.form.errors_block')
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#main">{{ __('dedicated_servers.main') }}</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#main">{{ __('dedicated_servers.main') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#scripts">{{ __('dedicated_servers.scripts') }}</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#scripts">{{ __('dedicated_servers.scripts') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#gdaemon">GDaemon</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#gdaemon">GDaemon</a>
         </li>
     </ul>
 
@@ -142,9 +130,9 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mt-4 mb-3 pt-1">
-                                        <div class="custom-file" id="serverCertificateForm">
-                                            {{ Form::file('gdaemon_server_cert', ['class' => 'custom-file-input']) }}
-                                            {{ Form::label('gdaemon_server_cert', __('dedicated_servers.change_certificate'), ['class' => 'custom-file-label']) }}
+                                        <div class="input-group" id="serverCertificateForm">
+                                            {{ Form::file('gdaemon_server_cert', ['class' => 'form-control']) }}
+                                            {{ Form::label('gdaemon_server_cert', __('dedicated_servers.change_certificate'), ['class' => 'input-group-text']) }}
 
                                             @if ($errors->has('gdaemon_server_cert'))
                                                 <span class="help-block">
@@ -158,7 +146,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group" id="clientCertificateForm">
+                                        <div class="mb-3" id="clientCertificateForm">
                                             {{ Form::label('client_certificates', __('dedicated_servers.client_certificate'), ['class' => 'control-label']) }}
                                             {{ Form::select('client_certificate_id', $clientCertificates , $dedicatedServer->client_certificate_id, ['class' => 'form-control']) }}
                                         </div>
@@ -175,7 +163,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('dedicated_servers.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
                 </div>
             </div>

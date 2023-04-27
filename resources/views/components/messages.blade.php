@@ -1,15 +1,15 @@
 @if ($message = Session::get('notification'))
-    <div class="alert alert-primary">
-        <p>{{ $message }}</p>
-    </div>
+    <n-alert title="{{ __('main.info') }}" type="info" class="mb-2">
+        {{ $message }}
+    </n-alert>
 @endif
 
 @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
+    <n-alert title="{{ __('main.success') }}" type="success" class="mb-2">
+        {{ $message }}
+    </n-alert>
 @elseif ($message = Session::get('error'))
-    <div class="alert alert-danger">
-        <p>{{ $message }}</p>
-    </div>
+    <n-alert title="{{ __('main.error') }}" type="error" class="mb-2">
+        {{ $message }}
+    </n-alert>
 @endif

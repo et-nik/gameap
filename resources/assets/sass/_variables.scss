@@ -1,4 +1,3 @@
-
 // Body
 $body-bg: #ffffff;
 
@@ -22,10 +21,13 @@ $badge-font-size: 80%;
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $font-family-sans-serif: "Helvetica", "Arial", sans-serif;
-$font-size-base: 0.8rem; // Bootstrap 4
-// $font-size-base: 13px; // Bootstrap 3
-$line-height-base: 1.6;
+$font-size-base: 0.9rem;
 $text-color: #636b6f;
+
+// Colors
+$primary: #007bff;
+$success: #28a745;
+$info: #17a2b8;
 
 // Navbar
 $navbar-default-bg: #fff;

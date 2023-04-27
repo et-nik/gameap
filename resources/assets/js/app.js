@@ -3,136 +3,213 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import {createApp, h} from "vue";
+import {defineAsyncComponent} from 'vue'
 
-require('./bootstrap');
-require('./parts/leftMenu');
+import {
+    create,
+    NAlert,
+    NButton,
+    NDatePicker,
+    NDialog,
+    NDialogProvider,
+    NMessageProvider,
+    NModal,
+    NSelect,
+    NTooltip,
+} from 'naive-ui'
 
-import Vuex from 'vuex';
-import vSelect from 'vue-select';
+import './bootstrap';
+
+import './parts/leftMenu'
+import './parts/form'
+
+import {pluralize, trans} from "./i18n/i18n";
 
 import store from './store'
 
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/locale/ru';
+import ContentView from './components/ContentView.vue';
 
-import FileManager from 'gameap-file-manager';
-import Progressbar from './components/Progressbar';
+const InputTextList = defineAsyncComponent(() =>
+    import('./components/input/InputTextList.vue' /* webpackChunkName: "components/input" */)
+)
 
-const InputTextList = () => import('./components/InputTextList' /* webpackChunkName: "components/input-text-list" */);
-const InputManyList = () => import('./components/InputManyList' /* webpackChunkName: "components/input-many-list" */);
-const ServerStatus = () => import('./components/ServerStatus' /* webpackChunkName: "components/server-status" */);
-const ServerConsole = () => import('./components/ServerConsole' /* webpackChunkName: "components/server-console" */);
-const ServerTasks = () => import('./components/ServerTasks' /* webpackChunkName: "components/server-tasks" */);
-const TaskOutput = () => import('./components/TaskOutput' /* webpackChunkName: "components/task-output" */);
-const UserServerPrivileges = () => import('./components/servers/UserServerPrivileges' /* webpackChunkName: "components/user-server-privileges" */);
-const GameModSelector = () => import('./components/servers/GameModSelector' /* webpackChunkName: "components/game-mod-selector" */);
-const DsIpSelector = () => import('./components/servers/DsIpSelector' /* webpackChunkName: "components/game-mod-selector" */);
-const SmartPortSelector = () => import('./components/servers/SmartPortSelector' /* webpackChunkName: "components/smart-port-selector" */);
-const ServerSelector = () => import('./components/servers/ServerSelector' /* webpackChunkName: "components/server-selector" */);
+const InputManyList = defineAsyncComponent(() =>
+    import('./components/input/InputManyList.vue' /* webpackChunkName: "components/input" */)
+)
 
-const RconPlayers = () => import('./components/rcon/RconPlayers' /* webpackChunkName: "components/rcon-players" */);
-const RconConsole = () => import('./components/rcon/RconConsole' /* webpackChunkName: "components/rcon-console" */);
+const GameapSelect = defineAsyncComponent(() =>
+    import('./components/input/GameapSelect.vue' /* webpackChunkName: "components/input" */)
+)
 
-const SettingsParameters = () => import('./components/SettingsParameters' /* webpackChunkName: "components/user-server-privileges" */);
+import fileManager from 'gameap-file-manager';
 
-Vue.use(Vuex);
+import Progressbar from './components/Progressbar.vue';
 
-Vue.use(FileManager, {store: store, lang: document.documentElement.lang});
+const ServerStatus = defineAsyncComponent(() =>
+    import('./components/ServerStatus.vue' /* webpackChunkName: "components/server" */)
+)
 
-require('./parts/serverControl');
+const ServerConsole = defineAsyncComponent(() =>
+    import('./components/ServerConsole.vue' /* webpackChunkName: "components/server" */)
+)
 
-var vm = new Vue({
-    el: "#app",
-    data: {
-        actionConfirmed: false
-    },
+const ServerTasks = defineAsyncComponent(() =>
+    import('./components/ServerTasks.vue' /* webpackChunkName: "components/server" */)
+)
+
+const TaskOutput = defineAsyncComponent(() =>
+    import('./components/TaskOutput.vue' /* webpackChunkName: "components/task-output" */)
+)
+
+const UserServerPrivileges = defineAsyncComponent(() =>
+    import('./components/servers/UserServerPrivileges.vue' /* webpackChunkName: "components/user-server-privileges" */)
+)
+
+const GameModSelector = defineAsyncComponent(() =>
+    import('./components/servers/GameModSelector.vue' /* webpackChunkName: "components/game-mod-selector" */)
+)
+
+const DsIpSelector = defineAsyncComponent(() =>
+    import('./components/servers/DsIpSelector.vue' /* webpackChunkName: "components/game-mod-selector" */)
+)
+
+const SmartPortSelector = defineAsyncComponent(() =>
+    import('./components/servers/SmartPortSelector.vue' /* webpackChunkName: "components/smart-port-selector" */)
+)
+
+const ServerSelector = defineAsyncComponent(() =>
+    import('./components/servers/ServerSelector.vue' /* webpackChunkName: "components/server" */)
+)
+
+const RconPlayers = defineAsyncComponent(() =>
+    import('./components/rcon/RconPlayers.vue' /* webpackChunkName: "components/rcon" */)
+)
+
+const RconConsole = defineAsyncComponent(() =>
+    import('./components/rcon/RconConsole.vue' /* webpackChunkName: "components/rcon" */)
+)
+
+const SettingsParameters = defineAsyncComponent(() =>
+    import('./components/SettingsParameters.vue' /* webpackChunkName: "components/settings" */)
+)
+
+const alert = function(message, callback) {
+    window.$dialog.error({
+        title: message,
+        content: "",
+        positiveText: trans('main.close'),
+        onPositiveClick: () => {
+            if (typeof callback === "function") {
+                callback();
+            }
+        },
+    });
+}
+
+let actionConfirmed = false;
+const confirmAction = (e, message) => {
+    if (!actionConfirmed) {
+        e.preventDefault();
+
+        confirm(message, () => {
+            const clonedEvent = new e.constructor(e.type, e);
+            e.target.dispatchEvent(clonedEvent);
+        });
+    }
+}
+
+const confirm = (message, callback) => {
+    window.$dialog.success({
+        title: message,
+        content: "",
+        positiveText: trans('main.yes'),
+        negativeText: trans('main.no'),
+        onPositiveClick: () => {
+            actionConfirmed = true
+            if (typeof callback === "function") {
+                callback();
+            }
+        },
+        onNegativeClick: () => {
+            actionConfirmed = false
+        }
+    });
+}
+
+const setActiveTab = (tab) => {
+    store.dispatch('activeTab/setName', tab);
+}
+
+const app = createApp({
     components: {
-        'v-select': vSelect,
-        'progressbar': Progressbar,
-        'input-text-list': InputTextList,
-        'input-many-list': InputManyList,
-        'server-status': ServerStatus,
-        'server-console': ServerConsole,
-        'server-tasks': ServerTasks,
-        'task-output': TaskOutput,
+        ContentView,
+        DsIpSelector,
+        GameModSelector,
+        GameapSelect,
+        InputManyList,
+        InputTextList,
+        Progressbar,
+        RconConsole,
+        RconPlayers,
+        ServerConsole,
+        ServerSelector,
+        ServerStatus,
+        ServerTasks,
+        SettingsParameters,
+        SmartPortSelector,
+        TaskOutput,
+        UserServerPrivileges,
+    },
+    setup: () => {
 
-        'rcon-players': RconPlayers,
-        'rcon-console': RconConsole,
-
-        'user-server-privileges': UserServerPrivileges,
-        'smart-port-selector': SmartPortSelector,
-        'settings-parameters': SettingsParameters,
-        'game-mod-selector': GameModSelector,
-        'ds-ip-selector': DsIpSelector,
-        'server-selector': ServerSelector,
-
-        'date-picker': DatePicker,
     },
     methods: {
-        alert: function(message, callback) {
-            bootbox.alert(message, function() {
-                if (typeof callback === "function") {
-                    callback();
-                }
-            });
+        alert: alert,
+        confirm: confirm,
+        confirmAction: confirmAction,
+        mountProgressbar(mountPoint) {
+            const ProgressbarComponent = app.component('Progressbar');
+            return app.mount(ProgressbarComponent, mountPoint);
         },
-        confirm: function(message, callback) {
-            bootbox.confirm({
-                message: message,
-                buttons: {
-                    confirm: {
-                        label: this.trans('main.yes'),
-                        className: 'btn-success'
-                    },
-                    cancel: {
-                        label: this.trans('main.no'),
-                        className: 'btn-danger'
-                    }
-                },
-                callback: function(result) {
-                    if (result) {
-                        callback();
-                    }
-                }
-            });
-        },
-        confirmAction: function (e, message) {
-            if (!this.actionConfirmed) {
-                e.preventDefault();
-
-                this.confirm(message, function () {
-                    this.actionConfirmed = true;
-                    $(e.target).trigger(e.type);
-                }.bind(this));
-            }
-
-            this.actionConfirmed = false;
-        },
-        mountProgressbar: function(mountPoint) {
-            var progressbar = Vue.extend(this.$options.components.progressbar);
-            return new progressbar().$mount(mountPoint);
-        },
-        appendComponent: function(componentName, appendPoint) {
-            var component = Vue.extend(this.$options.components[componentName]);
-
-            var componentInstance = new component().$mount();
-            $(appendPoint).append(componentInstance.$el);
-            return componentInstance;
-        },
-        setActiveTab () {
-            store.commit('activeTab');
-        }
+        setActiveTab: setActiveTab,
     },
     computed: {
         activeTab: {
-            get() { return this.$store.state.activeTab.name; },
-            set(tab) { this.$store.dispatch('activeTab/setName', tab) },
+            get() { return store.state.activeTab.name; },
+            set(tab) { store.dispatch('activeTab/setName', tab) },
         },
     },
-    store
-});
+})
 
-import fontawesome from '@fortawesome/fontawesome-free';
+app.config.globalProperties.pluralize = pluralize;
+app.config.globalProperties.trans = trans;
 
-window.gameap = vm.$root;
-window.gameapStore = store;
+const naive = create({
+    components: [
+        NAlert,
+        NButton,
+        NDialog,
+        NDatePicker,
+        NDialogProvider,
+        NMessageProvider,
+        NModal,
+        NSelect,
+        NTooltip,
+    ],
+})
+
+app.use(store)
+app.use(naive)
+
+app.use(fileManager, {store: store})
+
+app.mount("#app")
+
+window.gameap = app
+window.gameap.alert = alert
+window.gameap.confirm = confirm
+window.gameap.confirmAction = confirmAction
+window.gameap.setActiveTab = setActiveTab
+window.gameap.$store = store;
+window.h = h;

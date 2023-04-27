@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="serverForm" class="form-group">
+        <div id="serverForm" class="mb-3">
           <label for="server-id" class="control-label">{{ trans('labels.game_server') }}</label>
           <select id="server-id" v-bind:name="serverIdFieldName" class="form-control" v-model="selectedServerId">
               <option v-for="server in serversList" v-bind:value="server.id">{{ server.name }}&nbsp;&nbsp;&nbsp;&nbsp;{{ server.server_ip }}:{{ server.server_port }}</option>

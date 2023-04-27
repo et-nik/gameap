@@ -19,19 +19,6 @@
     </ol>
 @endsection
 
-{{-- TODO: Move filename fix --}}
-@section('footer-scripts')
-    <script>
-        $(window).on('load',function(){
-            $('.custom-file-input').on('change',function(){
-                var fileName = $(this).val();
-                fileName = fileName.replace(/^.*\\/, "");
-                $(this).next('.custom-file-label').html(fileName);
-            });
-        });
-    </script>
-@endsection
-
 @section('content')
     @include('components.form.errors_block')
 
@@ -43,9 +30,9 @@
 
                         <div class="row">
                             <div class="col-md-12 mt-4 mb-3 pt-1">
-                                <div class="custom-file" id="serverCertificateForm">
-                                    {{ Form::file('certificate', ['class' => 'custom-file-input']) }}
-                                    {{ Form::label('certificate', __('client_certificates.certificate'), ['class' => 'custom-file-label']) }}
+                                <div class="input-group" id="serverCertificateForm">
+                                    {{ Form::file('certificate', ['class' => 'form-control']) }}
+                                    {{ Form::label('certificate', __('client_certificates.certificate'), ['class' => 'input-group-text']) }}
 
                                     @if ($errors->has('certificate'))
                                         <span class="help-block">
@@ -57,9 +44,9 @@
                             </div>
 
                             <div class="col-md-6 mt-4 mb-3 pt-1">
-                                <div class="custom-file" id="serverCertificateForm">
-                                    {{ Form::file('private_key', ['class' => 'custom-file-input']) }}
-                                    {{ Form::label('private_key', __('client_certificates.private_key'), ['class' => 'custom-file-label']) }}
+                                <div class="input-group" id="serverCertificateForm">
+                                    {{ Form::file('private_key', ['class' => 'form-control']) }}
+                                    {{ Form::label('private_key', __('client_certificates.private_key'), ['class' => 'input-group-text']) }}
 
                                     @if ($errors->has('private_key'))
                                         <span class="help-block">
@@ -80,7 +67,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="mb-3">
                     {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>
             </div>

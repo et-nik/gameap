@@ -1,18 +1,18 @@
 <nav id="top-menu" class="navbar navbar-expand-md navbar-dark fixed-top bg-black">
     <a id="brand-link" class="navbar-brand" href="/">
-        <img id="brand-logo" src="{{ URL::asset('/images/gap_logo_white.png') }}" class="logo">
+        <img id="brand-logo" src="{{ URL::asset('/images/gap_logo_white.png') }}" class="logo" alt="GameAP" />
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-menu" aria-controls="left-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#left-menu" aria-controls="left-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse bg-black" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('navbar.main') }}</a></li>
             @can('admin roles & permissions')
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.admin') }}<span class="caret"></span></a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ __('navbar.admin') }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.dedicated_servers.index') }}">{{ __('navbar.dedicated_servers') }}</a></li>
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.servers.index') }}">{{ __('navbar.game_servers') }}</a></li>
@@ -22,7 +22,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('navbar.users') }}<span class="caret"></span></a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ __('navbar.users') }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.users.index') }}">{{ __('navbar.users') }}</a></li>
                         <li class="dropdown-item"><a class="dropdown-item" href="{{ route('admin.users.create') }}">{{ __('navbar.add_user') }}</a></li>
@@ -31,8 +31,8 @@
             @endcan
         </ul>
 
-        <ul class="navbar-nav">
-            <li class="nav-item mr-1">
+        <ul class="navbar-nav me-3">
+            <li class="nav-item me-1">
                 <a class="btn btn-dark navbar-btn" href="{{ route('profile') }}"><i class="fas fa-user"></i>&nbsp;{{ Auth::user()->name }}</a>
             </li>
 
