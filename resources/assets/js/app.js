@@ -3,7 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import {createApp} from "vue";
+import {createApp, h} from "vue";
 import {defineAsyncComponent} from 'vue'
 
 import {
@@ -212,3 +212,4 @@ window.gameap.confirm = confirm
 window.gameap.confirmAction = confirmAction
 window.gameap.setActiveTab = setActiveTab
 window.gameap.$store = store;
+window.h = h;

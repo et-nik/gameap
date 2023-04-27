@@ -36,40 +36,37 @@
         document.addEventListener('click', function(event) {
             if (event.target.closest('.btn-delete') && !confirmed) {
                 event.preventDefault();
-                const promptOptions = {
-                    title: '{{ __('servers.delete_confirm_msg') }}',
-                    value: [],
-                    buttons: {
-                        confirm: {
-                            label: '{{ __('main.yes') }}',
-                            className: 'btn-success'
-                        },
-                        cancel: {
-                            label: '{{ __('main.no') }}',
-                            className: 'btn-danger'
-                        }
-                    },
-                    inputType: 'checkbox',
-                    inputOptions: [{
-                        text: '{{ __('servers.delete_files') }}',
-                        value: 'delete_files'
-                    }],
-                    callback: function (result) {
-                        if (result) {
-                            if (result.includes('delete_files')) {
-                                const hiddenInput = document.createElement('input');
-                                hiddenInput.type = 'hidden';
-                                hiddenInput.value = 'delete_files';
-                                hiddenInput.name = 'delete_files';
-                                event.target.parentNode.appendChild(hiddenInput);
-                            }
 
-                            confirmed = true;
-                            event.target.dispatchEvent(new MouseEvent(event.type));
+                let deleteFiles = false;
+
+                window.$dialog.success({
+                    title: '{{ __('servers.delete_confirm_msg') }}',
+                    content: () => h('div', {class: "mt-4 mb-4"}, [
+                        h('input', {
+                            type: 'checkbox',
+                            id: 'delete-files-checkbox',
+                            onChange: () => {deleteFiles = true;},
+                        }),
+                        h('label', {class: 'ms-1', for: 'delete-files-checkbox'}, '{{ __('servers.delete_files') }}'),
+                    ]),
+                    positiveText: '{{ __('main.yes') }}',
+                    negativeText: '{{ __('main.no' ) }}',
+                    onPositiveClick: () => {
+                        if (deleteFiles) {
+                            const hiddenInput = document.createElement('input');
+                            hiddenInput.type = 'hidden';
+                            hiddenInput.value = 'delete_files';
+                            hiddenInput.name = 'delete_files';
+                            event.target.parentNode.appendChild(hiddenInput);
                         }
+
+                        confirmed = true;
+                        const clonedEvent = new event.constructor(event.type, event);
+                        event.target.dispatchEvent(clonedEvent);
+                    },
+                    onNegativeClick: () => {
                     }
-                };
-                bootbox.prompt(promptOptions);
+                });
             }
 
             confirmed = false;
