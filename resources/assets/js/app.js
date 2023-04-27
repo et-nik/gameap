@@ -125,6 +125,7 @@ const confirm = (message, callback) => {
         content: "",
         positiveText: trans('main.yes'),
         negativeText: trans('main.no'),
+        closable: false,
         onPositiveClick: () => {
             actionConfirmed = true
             if (typeof callback === "function") {

@@ -51,6 +51,7 @@
                     ]),
                     positiveText: '{{ __('main.yes') }}',
                     negativeText: '{{ __('main.no' ) }}',
+                    closable: false,
                     onPositiveClick: () => {
                         if (deleteFiles) {
                             const hiddenInput = document.createElement('input');
