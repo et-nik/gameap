@@ -83,42 +83,47 @@
 
                     let buttons = [];
 
-                    if (!row.online) {
-                        buttons.push(
-                            h(ServerControlButton,
-                            {
-                                "command": "start",
-                                "button": "btn btn-small btn-success btn-sm",
-                                "icon": "fa fa-play",
-                                "text": trans('servers.start'),
-                                "server-id": row.id,
-                            }),
-                            " "
-                        );
-                    } else {
+                    if (row.installed === INSTALLED) {
+                        if (row.online) {
+                            buttons.push(
+                                h(ServerControlButton,
+                                    {
+                                        "command": "stop",
+                                        "button": "btn btn-small btn-danger btn-sm",
+                                        "icon": "fa fa-stop",
+                                        "text": trans('servers.stop'),
+                                        "server-id": row.id,
+                                    }),
+                                " ",
+                            );
+                        } else {
+                            buttons.push(
+                                h(ServerControlButton,
+                                    {
+                                        "command": "start",
+                                        "button": "btn btn-small btn-success btn-sm",
+                                        "icon": "fa fa-play",
+                                        "text": trans('servers.start'),
+                                        "server-id": row.id,
+                                    }),
+                                " "
+                            );
+                        }
+
                         buttons.push(
                             h(ServerControlButton,
                                 {
-                                    "command": "stop",
-                                    "button": "btn btn-small btn-danger btn-sm",
-                                    "icon": "fa fa-stop",
-                                    "text": trans('servers.stop'),
+                                    "command": "restart",
+                                    "button": "btn btn-small btn-warning btn-sm",
+                                    "icon": "fa fa-redo",
+                                    "text": trans('servers.restart'),
                                     "server-id": row.id,
-                            }),
+                                }),
                             " ",
                         );
                     }
 
                     buttons.push(
-                        h(ServerControlButton,
-                            {
-                                "command": "restart",
-                                "button": "btn btn-small btn-warning btn-sm",
-                                "icon": "fa fa-redo",
-                                "text": trans('servers.restart'),
-                                "server-id": row.id,
-                        }),
-                        " ",
                         h('a',
                             {
                                 "class": "btn btn-small btn-primary btn-sm",
