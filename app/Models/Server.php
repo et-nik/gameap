@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $deleted_at
  *
  * @property string $full_path
+ * @property bool $online
  *
  * @property DedicatedServer $dedicatedServer
  * @property Game $game
@@ -122,6 +123,10 @@ class Server extends Model
                 $server->dedicatedServer->work_path,
             );
         });
+    }
+
+    public function getOnlineAttribute(): bool {
+        return $this->processActive();
     }
 
     public function processActive(): bool

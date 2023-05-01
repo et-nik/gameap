@@ -75,9 +75,9 @@ return [
     'create'        => 'Create',
     'edit'          => 'Edit server',
     'revoke'        => 'Revoke',
-    
+
     'settings'      => 'Settings',
-    
+
     'install'       => 'Install server',
 
     'server_info' => 'Server Info',
@@ -99,7 +99,7 @@ return [
     'settings_update_success_msg' => 'Game Server Settings updated successfully',
 
     'task_success_msg' => 'Task completed successfully',
-    'task_see_log'     => 'See <a href=:link>task log</a> for details.',
+    'task_see_log'     => 'See task log for details.',
 
     'unknown_command_msg' => 'Unknown server command',
 
@@ -119,4 +119,16 @@ return [
     'delete_confirm_msg' => 'Are you sure to delete game server?',
 
     'delete_files' => 'Delete files',
+
+    'starting' => 'Starting',
+    'stopping' => 'Stopping',
+    'restarting' => 'Restarting',
+
+    'command_progress_waiting' => 'Waiting task starting',
+    'command_progress_executed' => 'Task is execuded',
+    'command_progress_waiting_status' => 'Waiting server status',
+
+    'filters' => 'Filters',
+    'select_game_filter_placeholder' => 'Choose games',
+    'select_ip_filter_placeholder' => 'Choose IP list',
 ];
