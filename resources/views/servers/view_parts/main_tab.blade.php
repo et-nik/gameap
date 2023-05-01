@@ -24,34 +24,49 @@
                     <div id="serverControl">
                         @can('server-start', $server)
                             @if (!$server->processActive())
-                                <a class="btn btn-large btn-success m-1" href="#" @click="startServer({{ $server->id }})">
-                                    <span class="fas fa-play"></span>&nbsp;{{ __('servers.start') }}
-                                </a>
+                                <server-control-button
+                                    command="start"
+                                    button="btn btn-large btn-success m-1"
+                                    icon="fas fa-play"
+                                    text="{{ __('servers.start') }}"
+                                ></server-control-button>
                             @endif
                         @endcan
 
                         @can('server-stop', $server)
                             @if ($server->processActive())
-                                <a class="btn btn-large btn-danger m-1" href="#" @click="stopServer({{ $server->id }})">
-                                    <span class="fas fa-stop"></span>&nbsp;{{ __('servers.stop') }}
-                                </a>
+                                <server-control-button
+                                        command="stop"
+                                        button="btn btn-large btn-danger m-1"
+                                        icon="fas fa-stop"
+                                        text="{{ __('servers.stop') }}"
+                                ></server-control-button>
                             @endif
                         @endcan
 
                         @can('server-restart', $server)
-                            <a class="btn btn-large btn-warning m-1" href="#" @click="restartServer({{ $server->id }})">
-                                <span class="fas fa-redo"></span>&nbsp;{{ __('servers.restart') }}
-                            </a>
+                            <server-control-button
+                                    command="restart"
+                                    button="btn btn-large btn-warning m-1"
+                                    icon="fas fa-redo"
+                                    text="{{ __('servers.restart') }}"
+                            ></server-control-button>
                         @endcan
 
                         @can('server-update', $server)
-                            <a class="btn btn-large btn-info m-1" href="#" @click="updateServer({{ $server->id }})">
-                                <span class="fas fa-sync"></span>&nbsp;{{ __('servers.update') }}
-                            </a>
+                            <server-control-button
+                                    command="update"
+                                    button="btn btn-large btn-info m-1"
+                                    icon="fas fa-sync"
+                                    text="{{ __('servers.update') }}"
+                            ></server-control-button>
 
-                            <a class="btn btn-large btn-dark m-1" href="#" @click="reinstallServer({{ $server->id }})">
-                                <span class="fas fa-reply-all"></span>&nbsp;{{ __('servers.reinstall') }}
-                            </a>
+                            <server-control-button
+                                    command="reinstall"
+                                    button="btn btn-large btn-dark m-1"
+                                    icon="fas fa-reply-all"
+                                    text="{{ __('servers.reinstall') }}"
+                            ></server-control-button>
                         @endcan
                     </div>
                 </div>

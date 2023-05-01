@@ -123,6 +123,9 @@ return [
     'starting' => 'Запуск',
     'stopping' => 'Остановка',
     'restarting' => 'Перезапуск',
+    'updating' => 'Обновление',
+    'installing' => 'Установка',
+    'reinstalling' => 'Переустановка',
 
     'command_progress_waiting' => 'Ожидание запуска задачи',
     'command_progress_executed' => 'Задание выполняется',

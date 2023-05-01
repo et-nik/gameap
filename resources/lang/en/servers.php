@@ -123,9 +123,12 @@ return [
     'starting' => 'Starting',
     'stopping' => 'Stopping',
     'restarting' => 'Restarting',
+    'updating' => 'Updating',
+    'installing' => 'Installing',
+    'reinstalling' => 'Reinstalling',
 
     'command_progress_waiting' => 'Waiting task starting',
-    'command_progress_executed' => 'Task is execuded',
+    'command_progress_executed' => 'Task is being execuded',
     'command_progress_waiting_status' => 'Waiting server status',
 
     'filters' => 'Filters',

@@ -1,10 +1,11 @@
 import {trans} from "../i18n/i18n";
 
-const alert = function(message, callback) {
+const alert = function(message, callback, content = "") {
     window.$dialog.info({
         title: message,
-        content: "",
+        content: content,
         positiveText: trans('main.close'),
+        closable: false,
         onPositiveClick: () => {
             if (typeof callback === "function") {
                 callback();

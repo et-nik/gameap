@@ -11,7 +11,7 @@
   const CLEAR_STATE_TIMEOUT           = 2000; // 2 sec
   const LONG_WAITING_TIME             = 20000; // 20 sec
 
-  const PROGRESS_PERCENT_NULL = 10;
+  const PROGRESS_PERCENT_NULL = 0;
   const PROGRESS_PERCENT_WAITING = 10;
   const PROGRESS_PERCENT_WORKING = 40;
   const PROGRESS_PERCENT_TASK_SUCCESS = 80;
@@ -29,29 +29,29 @@
           failMessage: trans('servers.start_fail_msg'),
       },
       stop: {
-          title: trans('servers.starting'),
+          title: trans('servers.stopping'),
           checkServerStatusAfterTask: true,
           expectedStatus: false,
           successMessage: trans('servers.stop_success_msg'),
           failMessage: trans('servers.stop_fail_msg'),
       },
       restart: {
-          title: trans('servers.starting'),
+          title: trans('servers.restarting'),
           checkServerStatusAfterTask: true,
           expectedStatus: true,
           successMessage: trans('servers.restart_success_msg'),
           failMessage: trans('servers.restart_fail_msg'),
       },
       update: {
-          title: '',
+          title: trans('servers.updating'),
           checkServerStatusAfterTask: false,
       },
       install: {
-          title: '',
+          title: trans('servers.installing'),
           checkServerStatusAfterTask: false,
       },
       reinstall: {
-          title: '',
+          title: trans('servers.reinstalling'),
           checkServerStatusAfterTask: false,
       }
   }
@@ -180,27 +180,25 @@
   }
 
   function taskError(errorMsg) {
-      if (errorMsg === "") {
+      if (errorMsg === undefined || errorMsg === "") {
           errorMsg = trans('gdaemon_tasks.common_error_msg')
       }
 
       watchTaskStopped = true;
-      // if (detailedError) {
-      //     alert(h('div', [
-      //         h('div', errorMsg),
-      //         h('div', [
-      //             h(
-      //                 'a',
-      //                 {href: "/admin/gdaemon_tasks/" + watchTaskData.id},
-      //                 trans('servers.task_see_log'),
-      //             )
-      //         ])
-      //     ]));
-      // } else {
-      //     alert(errorMsg);
-      // }
 
-      alert(errorMsg);
+      let content = "";
+      if (detailedError) {
+          content = () => [
+              h('div', [
+                  h(
+                      'a',
+                      {href: "/admin/gdaemon_tasks/" + watchTaskData.id},
+                      trans('servers.task_see_log'),
+                  )
+              ])
+          ];
+      }
+      alert(errorMsg, null, content);
 
       watchTaskStartedTime = 0;
       hideAdditionalInfo();
@@ -215,9 +213,13 @@
 
       watchTaskStartedTime = 0;
 
-      if (msg === "") {
+      console.log(msg);
+
+      if (msg == undefined || msg === "") {
           msg = trans('servers.task_success_msg');
       }
+
+      console.log(msg);
 
       alert(msg);
 
