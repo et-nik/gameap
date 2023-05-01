@@ -8,7 +8,7 @@
                     'headers' => [
                         'X-Requested-With' => 'XMLHttpRequest',
                     ],
-                    'language' => (app()->getLocale() ?? app()->getFallbackLocale()),
+                    'lang' => (app()->getLocale() ?? app()->getFallbackLocale()),
                 ]) }}"
             />
         </div>
