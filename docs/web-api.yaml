@@ -13,6 +13,7 @@ servers:
 
 security:
   - cookieAuth: []
+  - tokenAuth: []
 
 paths:
   /dedicated_servers/{dedicated_server}/ip_list:
