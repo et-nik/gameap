@@ -26,6 +26,7 @@
                             @if (!$server->processActive())
                                 <server-control-button
                                     command="start"
+                                    server-id="{{ $server->id }}"
                                     button="btn btn-large btn-success m-1"
                                     icon="fas fa-play"
                                     text="{{ __('servers.start') }}"
@@ -37,6 +38,7 @@
                             @if ($server->processActive())
                                 <server-control-button
                                         command="stop"
+                                        server-id="{{ $server->id }}"
                                         button="btn btn-large btn-danger m-1"
                                         icon="fas fa-stop"
                                         text="{{ __('servers.stop') }}"
@@ -47,6 +49,7 @@
                         @can('server-restart', $server)
                             <server-control-button
                                     command="restart"
+                                    server-id="{{ $server->id }}"
                                     button="btn btn-large btn-warning m-1"
                                     icon="fas fa-redo"
                                     text="{{ __('servers.restart') }}"
@@ -56,6 +59,7 @@
                         @can('server-update', $server)
                             <server-control-button
                                     command="update"
+                                    server-id="{{ $server->id }}"
                                     button="btn btn-large btn-info m-1"
                                     icon="fas fa-sync"
                                     text="{{ __('servers.update') }}"
@@ -63,6 +67,7 @@
 
                             <server-control-button
                                     command="reinstall"
+                                    server-id="{{ $server->id }}"
                                     button="btn btn-large btn-dark m-1"
                                     icon="fas fa-reply-all"
                                     text="{{ __('servers.reinstall') }}"

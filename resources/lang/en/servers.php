@@ -131,6 +131,8 @@ return [
     'command_progress_executed' => 'Task is being execuded',
     'command_progress_waiting_status' => 'Waiting server status',
 
+    'empty_list' => 'No game servers available',
+
     'filters' => 'Filters',
     'select_game_filter_placeholder' => 'Choose games',
     'select_ip_filter_placeholder' => 'Choose IP list',

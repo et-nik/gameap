@@ -294,5 +294,10 @@
         :data="data"
         :loading="loading"
         :pagination="pagination"
-    />
+    >
+        <template #empty>
+            <n-empty :description="trans('servers.empty_list')">
+            </n-empty>
+        </template>
+    </n-data-table>
 </template>

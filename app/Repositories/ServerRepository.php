@@ -111,48 +111,17 @@ class ServerRepository
             ->with('game:code,name,engine,engine_version')
             ->whereRaw('id IN(SELECT server_id FROM server_user su WHERE su.user_id = ?)', [$userId]);
 
-        return $qb->get([
-            'id',
-            'uuid',
-            'uuid_short',
-            'enabled',
-            'installed',
-            'blocked',
-            'name',
-            'ds_id',
-            'game_id',
-            'game_mod_id',
-            'server_ip',
-            'server_port',
-            'query_port',
-            'rcon_port',
-            'is_online',
-        ])->append(['online']);
+        return $qb->get()->append(['online']);
     }
 
     public function getAllServers()
     {
         $qb = QueryBuilder::for(Server::class)
             ->allowedFilters('ds_id')
-            ->allowedAppends(['full_path', 'is_online'])
+            ->allowedAppends(['full_path'])
             ->with('game:code,name,engine,engine_version');
 
-        return $qb->get([
-            'id',
-            'uuid',
-            'uuid_short',
-            'enabled',
-            'installed',
-            'blocked',
-            'name',
-            'ds_id',
-            'game_id',
-            'game_mod_id',
-            'server_ip',
-            'server_port',
-            'query_port',
-            'rcon_port',
-        ])->append(['online']);
+        return $qb->get()->append(['online']);
     }
 
     /**

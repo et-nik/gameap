@@ -125,7 +125,8 @@ class Server extends Model
         });
     }
 
-    public function getOnlineAttribute(): bool {
+    public function getOnlineAttribute(): bool
+    {
         return $this->processActive();
     }
 

@@ -27,7 +27,6 @@ use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ServersController extends AuthController
@@ -333,10 +332,31 @@ class ServersController extends AuthController
         $currentUser = $this->authFactory->guard()->user();
 
         if ($currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
-            return $this->repository->getAllServers();
+            $collection = $this->repository->getAllServers()->collect();
+        } else {
+            $collection = $this->repository->getServersForUser($currentUser->id);
         }
 
-        return $this->repository->getServersForUser($currentUser->id);
+        return $collection->map(function ($item) {
+            return $item->only([
+                'id',
+                'uuid',
+                'uuid_short',
+                'enabled',
+                'installed',
+                'blocked',
+                'name',
+                'ds_id',
+                'game_id',
+                'game_mod_id',
+                'server_ip',
+                'server_port',
+                'query_port',
+                'rcon_port',
+                'game',
+                'online'
+            ]);
+        });
     }
 
     public function store(SaveServerRequest $request, CreateGameServer $createGameServer): array

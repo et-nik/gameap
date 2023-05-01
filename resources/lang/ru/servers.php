@@ -131,6 +131,8 @@ return [
     'command_progress_executed' => 'Задание выполняется',
     'command_progress_waiting_status' => 'Проверка статуса сервера',
 
+    'empty_list' => 'Серверы отсутствуют',
+
     'filters' => 'Фильтр',
     'select_game_filter_placeholder' => 'Выберите игры',
     'select_ip_filter_placeholder' => 'Выберите список IP',
