@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() ?? app()->getFallbackLocale() }}">
+<html lang="{{ (app()->getLocale() ?? app()->getFallbackLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -73,7 +73,7 @@
         }
     </script>
 
-    <script src="{{ URL::asset('/js/lang/' . app()->getLocale() ?? app()->getFallbackLocale() . '.js') }}"></script>
+    <script src="{{ URL::asset('/js/lang/' . (app()->getLocale() ?? app()->getFallbackLocale()) . '.js') }}"></script>
     <script src="{{ URL::asset('/js/app.js') }}"></script>
     @yield('footer-scripts')
 </body>
