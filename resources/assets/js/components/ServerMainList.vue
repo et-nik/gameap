@@ -144,7 +144,7 @@
 
     const columns = ref(createColumns());
     const pagination = {
-        pageSize: 10,
+        pageSize: 20,
     };
     const loading = ref(true);
     const tableRef = ref(null);
