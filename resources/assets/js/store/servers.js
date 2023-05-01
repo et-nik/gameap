@@ -35,7 +35,14 @@ const actions = {
     },
 
     async fetchServers({state, commit, dispatch, rootState}) {
-        const response = await axios.get('/api/servers?filter[ds_id]=' + rootState.dedicatedServers.dsId + '&append=full_path');
+        let response = {};
+
+        if (rootState.dedicatedServers.dsId) {
+            response = await axios.get('/api/servers?filter[ds_id]=' + rootState.dedicatedServers.dsId + '&append=full_path');
+        } else {
+            response = await axios.get('/api/servers');
+        }
+
         commit('setServersList', response.data);
     },
 

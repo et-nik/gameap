@@ -69,9 +69,9 @@ return [
     'installation_process_msg' => 'Сервер в процессе установки',
     'disabled_msg' => 'Сервер отключен',
     'blocked_msg' => 'Сервер заблокирован',
-    
+
     // Admin
-    
+
     'create'        => 'Создать',
     'edit'          => 'Редактирование сервера',
     'revoke'        => 'Отозвать',
@@ -99,7 +99,7 @@ return [
     'settings_update_success_msg' => 'Настройки игрового сервера успешно обновлены',
 
     'task_success_msg' => 'Задача успешно выполнена',
-    'task_see_log'     => 'Подробности смотрите в <a href=:link>логе задачи</a>.',
+    'task_see_log'     => 'Подробности смотрите в логе задачи.',
 
     'unknown_command_msg' => 'Неизвестная команда',
 
@@ -118,5 +118,17 @@ return [
 
     'delete_confirm_msg' => 'Вы уверены, что хотите удалить сервер?',
 
-    'delete_files' => 'Удалить файлы'
+    'delete_files' => 'Удалить файлы',
+
+    'starting' => 'Запуск',
+    'stopping' => 'Остановка',
+    'restarting' => 'Перезапуск',
+
+    'command_progress_waiting' => 'Ожидание запуска задачи',
+    'command_progress_executed' => 'Задание выполняется',
+    'command_progress_waiting_status' => 'Проверка статуса сервера',
+
+    'filters' => 'Фильтр',
+    'select_game_filter_placeholder' => 'Выберите игры',
+    'select_ip_filter_placeholder' => 'Выберите список IP',
 ];

@@ -108,8 +108,7 @@ class ServerRepository
     {
         $qb = QueryBuilder::for(Server::class)
             ->allowedFilters('ds_id')
-            ->allowedAppends('full_path')
-            ->with('game')
+            ->with('game:code,name,engine,engine_version')
             ->whereRaw('id IN(SELECT server_id FROM server_user su WHERE su.user_id = ?)', [$userId]);
 
         return $qb->get([
@@ -127,16 +126,16 @@ class ServerRepository
             'server_port',
             'query_port',
             'rcon_port',
-            'dir',
-        ]);
+            'is_online',
+        ])->append(['online']);
     }
 
     public function getAllServers()
     {
         $qb = QueryBuilder::for(Server::class)
             ->allowedFilters('ds_id')
-            ->allowedAppends('full_path')
-            ->with('game');
+            ->allowedAppends(['full_path', 'is_online'])
+            ->with('game:code,name,engine,engine_version');
 
         return $qb->get([
             'id',
@@ -153,8 +152,7 @@ class ServerRepository
             'server_port',
             'query_port',
             'rcon_port',
-            'dir',
-        ]);
+        ])->append(['online']);
     }
 
     /**

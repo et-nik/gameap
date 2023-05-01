@@ -32,9 +32,7 @@ class ServersController extends AuthController
      */
     public function index()
     {
-        return view('servers.list', [
-            'servers' => $this->repository->getServersForAuth(),
-        ]);
+        return view('servers.list');
     }
 
     /**

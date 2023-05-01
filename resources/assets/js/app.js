@@ -10,12 +10,17 @@ import {
     create,
     NAlert,
     NButton,
+    NCollapse,
+    NCollapseItem,
     NDatePicker,
+    NDataTable,
     NDialog,
     NDialogProvider,
     NMessageProvider,
     NModal,
+    NProgress,
     NSelect,
+    NTable,
     NTooltip,
 } from 'naive-ui'
 
@@ -23,6 +28,7 @@ import './bootstrap';
 
 import './parts/leftMenu'
 import './parts/form'
+import {alert, confirmAction, confirm} from './parts/dialogs'
 
 import {pluralize, trans} from "./i18n/i18n";
 
@@ -44,8 +50,6 @@ const GameapSelect = defineAsyncComponent(() =>
 
 import fileManager from 'gameap-file-manager';
 
-import Progressbar from './components/Progressbar.vue';
-
 const ServerStatus = defineAsyncComponent(() =>
     import('./components/ServerStatus.vue' /* webpackChunkName: "components/server" */)
 )
@@ -56,6 +60,14 @@ const ServerConsole = defineAsyncComponent(() =>
 
 const ServerTasks = defineAsyncComponent(() =>
     import('./components/ServerTasks.vue' /* webpackChunkName: "components/server" */)
+)
+
+const ServerControlButton = defineAsyncComponent(() =>
+    import('./components/ServerControlButton.vue' /* webpackChunkName: "components/server" */)
+)
+
+const ServerMainList = defineAsyncComponent(() =>
+    import('./components/ServerMainList.vue' /* webpackChunkName: "components/server" */)
 )
 
 const TaskOutput = defineAsyncComponent(() =>
@@ -94,50 +106,6 @@ const SettingsParameters = defineAsyncComponent(() =>
     import('./components/SettingsParameters.vue' /* webpackChunkName: "components/settings" */)
 )
 
-const alert = function(message, callback) {
-    window.$dialog.error({
-        title: message,
-        content: "",
-        positiveText: trans('main.close'),
-        onPositiveClick: () => {
-            if (typeof callback === "function") {
-                callback();
-            }
-        },
-    });
-}
-
-let actionConfirmed = false;
-const confirmAction = (e, message) => {
-    if (!actionConfirmed) {
-        e.preventDefault();
-
-        confirm(message, () => {
-            const clonedEvent = new e.constructor(e.type, e);
-            e.target.dispatchEvent(clonedEvent);
-        });
-    }
-}
-
-const confirm = (message, callback) => {
-    window.$dialog.success({
-        title: message,
-        content: "",
-        positiveText: trans('main.yes'),
-        negativeText: trans('main.no'),
-        closable: false,
-        onPositiveClick: () => {
-            actionConfirmed = true
-            if (typeof callback === "function") {
-                callback();
-            }
-        },
-        onNegativeClick: () => {
-            actionConfirmed = false
-        }
-    });
-}
-
 const setActiveTab = (tab) => {
     store.dispatch('activeTab/setName', tab);
 }
@@ -150,10 +118,11 @@ const app = createApp({
         GameapSelect,
         InputManyList,
         InputTextList,
-        Progressbar,
         RconConsole,
         RconPlayers,
         ServerConsole,
+        ServerControlButton,
+        ServerMainList,
         ServerSelector,
         ServerStatus,
         ServerTasks,
@@ -169,10 +138,10 @@ const app = createApp({
         alert: alert,
         confirm: confirm,
         confirmAction: confirmAction,
-        mountProgressbar(mountPoint) {
-            const ProgressbarComponent = app.component('Progressbar');
-            return app.mount(ProgressbarComponent, mountPoint);
-        },
+        // mountProgressbar(mountPoint) {
+        //     const ProgressbarComponent = app.component('Progressbar');
+        //     return app.mount(ProgressbarComponent, mountPoint);
+        // },
         setActiveTab: setActiveTab,
     },
     computed: {
@@ -190,12 +159,17 @@ const naive = create({
     components: [
         NAlert,
         NButton,
+        NCollapse,
+        NCollapseItem,
         NDialog,
+        NDataTable,
         NDatePicker,
         NDialogProvider,
         NMessageProvider,
         NModal,
+        NProgress,
         NSelect,
+        NTable,
         NTooltip,
     ],
 })
