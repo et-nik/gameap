@@ -16,465 +16,52 @@ security:
 
 paths:
   /dedicated_servers/{dedicated_server}/ip_list:
-    get:
-      summary: Get IP list
-      tags:
-        - 'dedicated servers'
-      parameters:
-        - name: dedicated_server
-          in: path
-          required: true
-          description: 'Dedicated Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/dedicated_servers_id_ip_list.yaml'
 
   /dedicated_servers/{dedicated_server}/busy_ports:
-    get:
-      summary: Get Busy Ports
-      tags:
-        - 'dedicated servers'
-      parameters:
-        - name: dedicated_server
-          in: path
-          required: true
-          description: 'Dedicated Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/dedicated_servers_id_busy_ports.yaml'
 
   /game_mods/get_list_for_game/{game}:
-    get:
-      summary: Get Game mod list for Game
-      tags:
-        - 'games'
-      parameters:
-        - name: game
-          in: path
-          required: true
-          description: 'Game Code'
-          schema:
-            type: string
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/game_mods_get_list_for_game.yaml'
 
   /servers:
-    post:
-      summary: Create Game Server
-      tags:
-        - 'servers'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                install:
-                  type: boolean
-                  description: Install server.
-                name:
-                  type: string
-                  maxLength: 128
-                  description: The name of the server.
-                  example: My Awesome Server
-                game_id:
-                  type: string
-                  description: The code of the game.
-                  example: cstrike
-                ds_id:
-                  type: integer
-                  format: int64
-                  description: The ID of the game server provider.
-                  example: 1
-                game_mod_id:
-                  type: integer
-                  format: int64
-                  description: The ID of the game mod.
-                  example: 1
-                server_ip:
-                  type: string
-                  description: The IP address of the server.
-                  example: 192.168.1.1
-                server_port:
-                  type: integer
-                  format: int32
-                  description: The port number of the game server.
-                  example: 27015
-                query_port:
-                  type: integer
-                  format: int32
-                  nullable: true
-                  description: The port number of the game server query.
-                  example: 27016
-                rcon_port:
-                  type: integer
-                  format: int32
-                  nullable: true
-                  description: The port number of the game server rcon.
-                  example: 27017
-                dir:
-                  type: string
-                  nullable: true
-                  description: The directory path of the game server.
-                  example: servers/my-awesome-server
-              required:
-                - name
-                - game_id
-                - ds_id
-                - game_mod_id
-                - server_ip
-                - server_port
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        201:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers.yaml'
 
   /servers/{server}:
-    put:
-      summary: Save Game Server
-      tags:
-          - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                enabled:
-                  type: integer
-                  format: int8
-                  description: Set server is enabled
-                installed:
-                  type: integer
-                  format: int8
-                  description: Set server is installed
-                blocked:
-                  type: integer
-                  format: int8
-                  description: Set server is blocked
-                name:
-                  type: string
-                  maxLength: 128
-                  description: The name of the server.
-                  example: My Awesome Server
-                game_id:
-                  type: string
-                  description: The code of the game.
-                  example: cstrike
-                ds_id:
-                  type: integer
-                  format: int64
-                  description: The ID of the game server provider.
-                  example: 1
-                game_mod_id:
-                  type: integer
-                  format: int64
-                  description: The ID of the game mod.
-                  example: 1
-                server_ip:
-                  type: string
-                  description: The IP address of the server.
-                  example: 192.168.1.1
-                server_port:
-                  type: integer
-                  format: int32
-                  description: The port number of the game server.
-                  example: 27015
-                query_port:
-                  type: integer
-                  format: int32
-                  nullable: true
-                  description: The port number of the game server query.
-                  example: 27016
-                rcon_port:
-                  type: integer
-                  format: int32
-                  nullable: true
-                  description: The port number of the game server rcon.
-                  example: 27017
-                dir:
-                  type: string
-                  nullable: true
-                  description: The directory path of the game server.
-                  example: servers/my-awesome-server
-              required:
-                - name
-                - game_id
-                - ds_id
-                - game_mod_id
-                - server_ip
-                - server_port
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        201:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id.yaml'
 
   /servers/{server}/start:
-    post:
-      summary: Start Game Server
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_start.yaml'
 
   /servers/{server}/stop:
-    post:
-      summary: Stop Game Server
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_stop.yaml'
 
   /servers/{server}/restart:
-    post:
-      summary: Restart Game Server
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_restart.yaml'
 
   /servers/{server}/update:
-    post:
-      summary: Update Game Server
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_update.yaml'
 
   /servers/{server}/reinstall:
-    post:
-      summary: Reinstall Game Server
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_reinstall.yaml'
 
   /servers/{server}/status:
-    get:
-      summary: Get Server Status
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_status.yaml'
 
   /servers/{server}/query:
-    get:
-      summary: Get Query Server Information
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_query.yaml'
 
   /servers/{server}/console:
-    get:
-      summary: Get Server Console
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-    post:
-      summary: Input command into Game Server
-      tags:
-        - 'servers'
-      parameters:
-        - name: server
-          in: path
-          required: true
-          description: 'Game Server ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_id_console.yaml'
 
   /servers/search:
-    get:
-      summary: Search Game Server
-      tags:
-        - 'servers'
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/servers_search.yaml'
 
   /gdaemon_tasks/{gdaemon_task}:
-    get:
-      summary: Get GDaemon Task Information
-      tags:
-        - 'gdaemon tasks'
-      parameters:
-        - name: gdaemon_task
-          in: path
-          required: true
-          description: 'GDaemon Task ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/gdaemon_tasks_id.yaml'
 
   /gdaemon_tasks/{gdaemon_task}/output:
-    get:
-      summary: Get GDaemon Task Output
-      tags:
-        - 'gdaemon tasks'
-      parameters:
-        - name: gdaemon_task
-          in: path
-          required: true
-          description: 'GDaemon Task ID'
-          schema:
-            type: integer
-      responses:
-        200:
-          $ref: '#/components/responses/CommonSuccessResponse'
-        4XX:
-          $ref: '#/components/responses/CommonErrorResponse'
-        5XX:
-          $ref: '#/components/responses/CommonErrorResponse'
+    $ref: './web-api/paths/gdaemon_tasks_id_output.yaml'
 
 components:
   securitySchemes:
@@ -498,18 +85,6 @@ components:
 
   responses:
     CommonSuccessResponse:
-      description: 'Success'
-      content:
-        application/json:
-          schema:
-            type: object
-
+      $ref: './web-api/responses/common-success.yaml'
     CommonErrorResponse:
-      description: "Common API ErrorResponse"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
+      $ref: './web-api/responses/common-error.yaml'

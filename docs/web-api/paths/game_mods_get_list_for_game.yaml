@@ -1,0 +1,18 @@
+get:
+  summary: Get Game mod list for Game
+  tags:
+    - 'games'
+  parameters:
+    - name: game
+      in: path
+      required: true
+      description: 'Game Code'
+      schema:
+        type: string
+  responses:
+    200:
+      $ref: '../responses/common-success.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

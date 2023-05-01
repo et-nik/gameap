@@ -1,0 +1,18 @@
+post:
+  summary: Restart Game Server
+  tags:
+    - 'servers'
+  parameters:
+    - name: server
+      in: path
+      required: true
+      description: 'Game Server ID'
+      schema:
+        type: integer
+  responses:
+    200:
+      $ref: '../responses/common-success.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

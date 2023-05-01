@@ -1,0 +1,8 @@
+description: "Common API ErrorResponse"
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        message:
+          type: string

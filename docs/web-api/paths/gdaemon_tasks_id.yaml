@@ -1,0 +1,18 @@
+get:
+  summary: Get GDaemon Task Information
+  tags:
+    - 'gdaemon tasks'
+  parameters:
+    - name: gdaemon_task
+      in: path
+      required: true
+      description: 'GDaemon Task ID'
+      schema:
+        type: integer
+  responses:
+    200:
+      $ref: '../responses/common-success.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
