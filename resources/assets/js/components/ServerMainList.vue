@@ -226,14 +226,21 @@
     });
 
     function handleUpdateFilters() {
-        // tableRef.value.filter({
-        //     'server_ip': selectedIP.value,
-        // })
-
         localStorage.setItem("server-filters", JSON.stringify({
             'server_ip': selectedIP.value,
             'game_name': selectedGame.value,
         }));
+    }
+
+    function clearFilters() {
+        selectedIP.value = null;
+        selectedGame.value = null;
+
+        handleUpdateFilters();
+    }
+
+    function isFiltersSet() {
+        return selectedIP.value !== null || selectedGame.value !== null
     }
 </script>
 
@@ -262,6 +269,12 @@
                             @update:value="handleUpdateFilters"
                         >
                         </n-select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <n-button @click="clearFilters" type="error" :disabled="!isFiltersSet()" ghost>
+                            <i class="fa fa-eraser"></i><span class="d-none d-xl-inline">&nbsp;{{ trans('main.clear') }}</span>
+                        </n-button>
                     </div>
                 </div>
             </n-collapse-item>

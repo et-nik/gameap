@@ -13,6 +13,7 @@ return [
     'change'    => 'Change',
     'close'     => 'Close',
     'send'      => 'Send',
+    'clear'     => 'Clear',
 
     'confirm_message' => 'Are you sure?',
     'wait'      => 'Please wait...',
