@@ -25,6 +25,8 @@ info:
 tags:
   - name: servers
     description: Management of game servers, starting, stopping, restarting.
+  - name: rcon
+    description: Management game server by rcon
   - name: dedicated servers
     description: Management of Nodes. Obtaining information about nodes.
   - name: gdaemon tasks
@@ -53,9 +55,6 @@ paths:
 
   /api/dedicated_servers/{dedicated_server}/busy_ports:
     $ref: './web-api/paths/dedicated_servers_id_busy_ports.yaml'
-
-  /api/game_mods/get_list_for_game/{game}:
-    $ref: './web-api/paths/game_mods_get_list_for_game.yaml'
 
   /api/servers:
     $ref: './web-api/paths/servers.yaml'
@@ -90,8 +89,29 @@ paths:
   /api/servers/search:
     $ref: './web-api/paths/servers_search.yaml'
 
+  /api/servers/{server}/rcon/features:
+    $ref: './web-api/paths/servers_id_rcon_features.yaml'
+
+  /api/servers/{server}/rcon:
+    $ref: './web-api/paths/servers_id_rcon.yaml'
+
+  /api/servers/{server}/rcon/players:
+    $ref: './web-api/paths/servers_id_rcon_players.yaml'
+
+  /api/servers/{server}/rcon/players/kick:
+    $ref: './web-api/paths/servers_id_rcon_players_kick.yaml'
+
+  /api/servers/{server}/rcon/players/ban:
+    $ref: './web-api/paths/servers_id_rcon_players_ban.yaml'
+
   /api/games:
     $ref: './web-api/paths/games.yaml'
+
+  /api/game_mods:
+    $ref: './web-api/paths/game_mods.yaml'
+
+  /api/game_mods/get_list_for_game/{game}:
+    $ref: './web-api/paths/game_mods_get_list_for_game.yaml'
 
   /api/gdaemon_tasks/{gdaemon_task}:
     $ref: './web-api/paths/gdaemon_tasks_id.yaml'

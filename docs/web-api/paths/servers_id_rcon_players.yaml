@@ -1,0 +1,47 @@
+get:
+  summary: Players
+  description: Get list of players on the server using RCON
+  tags:
+    - rcon
+  parameters:
+    - in: path
+      name: server
+      required: true
+      description: Game server ID
+      schema:
+        type: integer
+  responses:
+    200:
+      description: List of players on the server
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 12
+                name:
+                  type: string
+                  example: "k_nik"
+                steamid:
+                  type: string
+                score:
+                  type: string
+                  example: 50
+                ping:
+                  type: string
+                  example: 12
+                loss:
+                  type: integer
+                ip:
+                  type: string
+                  example: "127.0.0.1"
+                time:
+                  type: string
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

@@ -1,0 +1,36 @@
+post:
+  summary: Send RCON command
+  description: |
+    Execute RCON command in game server and return response
+  tags:
+    - rcon
+  parameters:
+    - in: path
+      name: server
+      required: true
+      description: ID of the game server
+      schema:
+        type: integer
+    - in: body
+      name: command
+      description: RCON command to be executed on the game server
+      required: true
+      schema:
+        type: object
+        properties:
+          command:
+            type: string
+  responses:
+    200:
+      description: RCON command executed successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              output:
+                type: string
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

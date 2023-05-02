@@ -1,0 +1,119 @@
+get:
+  summary: Get game mods list
+  description: Get the list of available game mods
+  tags:
+    - game mods
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                game_code:
+                  type: string
+                  example: "valve"
+                name:
+                  type: string
+                  example: "Default"
+                fast_rcon:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      info:
+                        type: string
+                        example: "Status"
+                      command:
+                        type: string
+                        example: "status"
+                    example:
+                      - info: "Status"
+                        command: "status"
+                      - info: "Stats"
+                        command: "stats"
+                  example:
+                    - info: "Status"
+                      command: "status"
+                    - info: "Stats"
+                      command: "stats"
+                vars:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      var:
+                        type: string
+                        example: "default_map"
+                      default:
+                        type: string
+                        example: "crossfire"
+                      info:
+                        type: string
+                        example: "Default Map"
+                      admin_var:
+                        type: boolean
+                        nullable: true
+                        description: Whether the variable can only be modified by an admin or not
+                        example: true
+                    example:
+                      - var: "default_map"
+                        default: "crossfire"
+                        info: "Default Map"
+                        admin_var: null
+                      - var: "maxplayers"
+                        default: 32
+                        info: "Maximum players on server"
+                        admin_var: true
+                kick_cmd:
+                  type: string
+                  nullable: true
+                  example: "kick #{id}"
+                ban_cmd:
+                  type: string
+                  nullable: true
+                chname_cmd:
+                  type: string
+                  nullable: true
+                srestart_cmd:
+                  type: string
+                  nullable: true
+                  example: "restart"
+                chmap_cmd:
+                  type: string
+                  nullable: true
+                  example: "changelevel {map}"
+                sendmsg_cmd:
+                  type: string
+                  nullable: true
+                  example: "say \"{msg}\""
+                passwd_cmd:
+                  type: string
+                  nullable: true
+                  example: "password {password}"
+                remote_repository_linux:
+                  type: string
+                  nullable: true
+                local_repository_linux:
+                  type: string
+                  nullable: true
+                start_cmd_linux:
+                  type: string
+                  nullable: true
+                  example: "./hlds_run -console -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps} +rcon_password {rcon_password}"
+                start_cmd_windows:
+                  type: string
+                  nullable: true
+                  example: "hlds.exe -console -game valve +ip {ip} +port {port} +map {default_map} +maxplayers {maxplayers} +sys_ticrate {fps} +rcon_password {rcon_password}"
+                remote_repository_windows:
+                  type: string
+                  nullable: true
+                local_repository_windows:
+                  type: string
+                  nullable: true

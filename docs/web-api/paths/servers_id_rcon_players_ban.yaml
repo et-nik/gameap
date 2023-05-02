@@ -1,0 +1,94 @@
+post:
+  summary: Ban Player
+  description: Ban the specified player from game server
+  tags:
+    - rcon
+  parameters:
+    - in: path
+      name: server
+      required: true
+      description: Game server ID
+      schema:
+        type: integer
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            player:
+              type: string
+              required: true
+              description: Player ID on game server
+              example: 12
+            reason:
+              type: string
+              description: The reason a player is banned
+              example: cheater
+            time:
+              type: string
+              description: Time how much a player should be banned
+              example: 1000
+  responses:
+    200:
+      description: RCON command executed successfully
+      content:
+        application/json:
+          schema:
+            type: string
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
+  x-codeSamples:
+    - lang: cURL
+      label: CLI
+      source: |
+        curl 'https://demo.gameap.ru/api/servers/2/rcon/players/ban' \
+          -H 'Accept: application/json \
+          -H 'Content-Type: application/json' \
+          --data-raw '{"player":"123", "reason": "some reason", "time": "10000"}'
+
+    - lang: JavaScript
+      label: JavaScript fetch
+      source: |
+        fetch("https://demo.gameap.ru/api/servers/2/rcon/players/ban", {
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "authorization": "Bearer " + YOUR_API_KEY
+          },
+          "body": "{\"player\":\"123\", \"player\":\"123\", \"time\":\"123456\"}",
+          "method": "POST",
+        });
+
+    - lang: PHP
+      source: |
+        <?php
+        
+        $url = 'https://demo.gameap.ru/api/servers/2/rcon/players/ban';
+        $data = '{"player":"123", "reason": "some reason"}';
+        
+        curl_setopt_array($curl, [
+          CURLOPT_URL => $url,
+          CURLOPT_POST => true,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+          ],
+          CURLOPT_POSTFIELDS => '{"player":"123", "reason": "some reason", "time": "1234567"}',
+        ]);
+          
+        $response = curl_exec($curl);
+        
+        if (curl_errno($curl)) {
+            echo 'Curl error: ' . curl_error($curl);
+            exit;
+        }
+        
+        curl_close($curl);
+        print_r($response);
+              

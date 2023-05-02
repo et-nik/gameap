@@ -1,5 +1,10 @@
 get:
-  summary: Get Query Server Information
+  summary: Query Server Information
+  description: |
+    The API call retrieves a query response from the server using the [GameQ](https://github.com/Austinb/GameQ) Library.
+    To use this feature, the game server must support query requests; however, not all game servers do. 
+    For Minecraft servers, you'll need to enable query in `server.properties` by setting `enable-query=true` and 
+    specifying the `query.port`.
   tags:
     - 'servers'
   parameters:
@@ -11,8 +16,141 @@ get:
         type: integer
   responses:
     200:
-      $ref: '../responses/common-success.yaml'
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: "online"
+              hostname:
+                type: string
+                example: "Half-Life"
+              map:
+                type: string
+                example: "crossfire"
+              players:
+                type: string
+                example: "0/32"
+              version:
+                type: string
+                example: "1.1.2.2/Stdio"
+              password:
+                type: string
+                example: "no"
+              joinlink:
+                type: string
+                example: "steam://connect/172.17.0.8:27016/"
     4XX:
       $ref: '../responses/common-error.yaml'
     5XX:
       $ref: '../responses/common-error.yaml'
+
+  x-codeSamples:
+    - lang: 'cURL'
+      label: 'CLI'
+      source: |
+        curl --request GET \
+        --url 'https://demo.gameap.ru/api/servers/6/query' \
+        --header 'Content-Type: application/json: ' \
+        --header 'Authorization: Bearer YOUR_API_KEY'
+    - lang: 'PHP'
+      source: |
+        <?php
+
+        $url = 'https://demo.gameap.ru/api/servers/6/query';
+        $apiKey = 'YOUR_API_KEY';
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+          ],
+        ]);
+
+        $response = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            echo 'Curl error: ' . curl_error($curl);
+            exit;
+        }
+
+        curl_close($curl);
+
+        $result = json_decode($response, true);
+        print_r($result);
+    - lang: 'GO'
+      source: |
+        package main
+
+        import (
+        "fmt"
+        "io"
+        "net/http"
+        "os"
+        )
+
+        func main() {
+          url := "https://demo.gameap.ru/api/servers/6/query"
+          apiKey := "YOUR_API_KEY"
+
+          client := &http.Client{}
+
+          req, err := http.NewRequest("GET", url, nil)
+          if err != nil {
+            fmt.Println(err)
+            return
+          }
+
+          req.Header.Add("Content-Type", "application/json")
+          req.Header.Add("Authorization", "Bearer "+apiKey)
+
+          resp, err := client.Do(req)
+          if err != nil {
+            fmt.Println(err)
+            return
+          }
+          defer resp.Body.Close()
+
+          body, err := io.ReadAll(resp.Body)
+          if err != nil {
+            fmt.Println(err)
+            return
+          }
+
+          fmt.Println(string(body))
+        }
+    - lang: "NodeJS"
+      source: |
+        const request = require('request');
+
+        const url = 'https://demo.gameap.ru/api/servers/6/query';
+        const apiKey = 'YOUR_API_KEY';
+
+        const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + apiKey
+        };
+
+        request.get({
+          url: url,
+          headers: headers
+        }, (error, response, body) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(body);
+          }
+        });
