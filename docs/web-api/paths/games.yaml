@@ -1,0 +1,82 @@
+get:
+  summary: Game List
+  description: Get the list of available games
+  tags:
+    - games
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "valve"
+                name:
+                  type: string
+                  example: "Half-Life 1"
+                engine:
+                  type: string
+                  example: "GoldSource"
+                engine_version:
+                  type: string
+                  example: "1"
+                steam_app_set_config:
+                  type: string
+                  nullable: true
+                steam_app_id_linux:
+                  type: integer
+                  example: 90
+                remote_repository_linux:
+                  type: string
+                  nullable: true
+                local_repository_linux:
+                  type: string
+                  nullable: true
+                steam_app_id_windows:
+                  type: integer
+                  example: 90
+                remote_repository_windows:
+                  type: string
+                  nullable: true
+                local_repository_windows:
+                  type: string
+                  nullable: true
+                enabled:
+                  type: integer
+                  minimum: 0
+                  maximum: 1
+                  example: 1
+            example:
+              - code: "valve"
+                name: "Half-Life 1"
+                engine: "GoldSource"
+                engine_version: "1"
+                steam_app_set_config: null
+                steam_app_id_linux: 90
+                remote_repository_linux: "https://example.com/hlcs_base_linux.tar.gz"
+                local_repository_linux: "/path/to/hl-files"
+                steam_app_id_windows: 90
+                remote_repository_windows: "https://example.com/hlcs_base_windows.zip"
+                local_repository_windows: "C:\gameap\repository\hl-files"
+                enabled: 1
+              - code: "op4"
+                name: "Half-Life: Opposing Force"
+                engine: "GoldSource"
+                engine_version: "1"
+                steam_app_set_config: "90 mod gearbox"
+                steam_app_id_linux: 90
+                remote_repository_linux: null
+                local_repository_linux: null
+                steam_app_id_windows: 90
+                remote_repository_windows: null
+                local_repository_windows: null
+                enabled: 1
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

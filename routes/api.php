@@ -74,7 +74,7 @@ Route::middleware('auth:sanctum')->group(function() {
             ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
 
         Route::name('servers.destroy')
-            ->delete('servers', [ServersController::class, 'destroy'])
+            ->delete('servers/{server}', [ServersController::class, 'destroy'])
             ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
     });
 

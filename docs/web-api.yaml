@@ -19,7 +19,7 @@ info:
     privileges, then click "Save". Copy the token to clipboard and use it in headers in API requests.
 
   x-logo:
-    url: 'https://raw.githubusercontent.com/et-nik/gameap/develop/public/favicon-96x96.png'
+    url: 'https://gameap.ru/img/gameap.png'
     altText: GameAP
 
 tags:
@@ -89,6 +89,9 @@ paths:
 
   /api/servers/search:
     $ref: './web-api/paths/servers_search.yaml'
+
+  /api/games:
+    $ref: './web-api/paths/games.yaml'
 
   /api/gdaemon_tasks/{gdaemon_task}:
     $ref: './web-api/paths/gdaemon_tasks_id.yaml'

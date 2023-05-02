@@ -1,7 +1,7 @@
 get:
   summary: Get Game mod list for Game
   tags:
-    - 'games'
+    - 'game mods'
   parameters:
     - name: game
       in: path

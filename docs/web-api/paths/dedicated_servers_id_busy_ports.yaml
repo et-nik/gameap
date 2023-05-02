@@ -1,5 +1,6 @@
 get:
-  summary: Get Busy Ports for the specified node
+  summrary: Get Busy Ports
+  description: Get used ports for the specified node groupped by IP
   tags:
     - 'dedicated servers'
   parameters:

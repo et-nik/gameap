@@ -1,5 +1,6 @@
 get:
-  summary: Get the list of IP addresses for the specified dedicated server
+  summary: Get IP list
+  description: Get the list of IP addresses for the specified node
   tags:
     - 'dedicated servers'
   parameters:

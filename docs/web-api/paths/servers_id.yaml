@@ -87,3 +87,28 @@ put:
       $ref: '../responses/common-error.yaml'
     5XX:
       $ref: '../responses/common-error.yaml'
+
+delete:
+  summary: Delete Server
+  description: Delete Game Server by id. If provide `delete_files` files will be deleted also.
+  tags:
+    - servers
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            delete_files:
+              type: boolean
+              required: false
+              description: Set to `true` to delete server files along with the server
+              example: true
+  responses:
+    200:
+      $ref: '../responses/common-success.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+

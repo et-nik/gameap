@@ -1,5 +1,6 @@
 get:
-  summary: Get information about a specific GDaemon task
+  summary: Get GDaemon Task
+  description: Get information about a specific GDaemon task
   tags:
     - 'gdaemon tasks'
   parameters:
