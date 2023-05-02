@@ -19,7 +19,7 @@ info:
     privileges, then click "Save". Copy the token to clipboard and use it in headers in API requests.
 
   x-logo:
-    url: 'https://gameap.ru/img/gameap.png'
+    url: 'https://raw.githubusercontent.com/gameap/gameap.github.io/master/images/gameap_logo.svg'
     altText: GameAP
 
 tags:
