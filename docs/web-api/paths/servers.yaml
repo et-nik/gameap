@@ -20,6 +20,40 @@ get:
         --url 'https://demo.gameap.ru/api/servers' \
         --header 'Content-Type: application/json: ' \
         --header 'Authorization: Bearer YOUR_API_KEY'
+    - lang: 'PHP'
+      source: |
+        <?php
+  
+        $url = 'https://demo.gameap.ru/api/servers';
+        $apiKey = 'YOUR_API_KEY';
+
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+          ],
+        ));
+        
+        $response = curl_exec($curl);
+        
+        if(curl_errno($curl)){
+            echo 'Curl error: ' . curl_error($curl);
+            exit;
+        }
+        
+        curl_close($curl);
+        
+        $result = json_decode($response, true);
+        print_r($result);
 
 post:
   summary: Create Game Server
