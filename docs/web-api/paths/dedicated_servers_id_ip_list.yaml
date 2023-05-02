@@ -1,5 +1,5 @@
 get:
-  summary: Get IP list
+  summary: Get the list of IP addresses for the specified dedicated server
   tags:
     - 'dedicated servers'
   parameters:
@@ -9,9 +9,22 @@ get:
       description: 'Dedicated Server ID'
       schema:
         type: integer
+        format: int64
   responses:
     200:
-      $ref: '../responses/common-success.yaml'
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+              example: 127.0.0.1
+            example:
+              - "127.0.0.1"
+              - "10.20.30.40"
+              - "172.17.0.8"
+
     4XX:
       $ref: '../responses/common-error.yaml'
     5XX:

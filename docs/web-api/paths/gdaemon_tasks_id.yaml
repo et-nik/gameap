@@ -1,5 +1,5 @@
 get:
-  summary: Get GDaemon Task Information
+  summary: Get information about a specific GDaemon task
   tags:
     - 'gdaemon tasks'
   parameters:
@@ -9,9 +9,38 @@ get:
       description: 'GDaemon Task ID'
       schema:
         type: integer
+        format: int64
   responses:
     200:
-      $ref: '../responses/common-success.yaml'
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 6
+              run_aft_id:
+                type: integer
+                example: 6
+              created_at:
+                type: string
+                format: date-time
+                example: "2023-05-02T10:50:10Z"
+              updated_at:
+                type: string
+                format: date-time
+                example: "2023-05-02T10:50:11Z"
+              server_id:
+                type: integer
+                example: 2
+              task:
+                type: string
+                example: "gsstart"
+              status:
+                type: string
+                example: "success"
     4XX:
       $ref: '../responses/common-error.yaml'
     5XX:

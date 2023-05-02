@@ -1,0 +1,13 @@
+description: OK
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        gdaemonTaskId:
+          type: integer
+          description: |
+            ID of the GDaemon task created to start the server. 
+            You can obtain information about the task status using the /api/gdaemon_tasks/ endpoint.
+
+          example: 6

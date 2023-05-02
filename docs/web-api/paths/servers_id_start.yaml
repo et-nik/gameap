@@ -11,8 +11,106 @@ post:
         type: integer
   responses:
     200:
-      $ref: '../responses/common-success.yaml'
+      $ref: '../responses/server-control.yaml'
     4XX:
       $ref: '../responses/common-error.yaml'
     5XX:
       $ref: '../responses/common-error.yaml'
+  x-codeSamples:
+    - lang: cURL
+      label: CLI
+      source: |
+        curl -X POST "https://demo.gameap.ru/api/servers/6/start" \
+          -H "Content-Type: application/json"
+
+    - lang: PHP
+      source: |
+        <?php
+        
+        $url = 'https://demo.gameap.ru/api/servers';
+        $apiKey = 'YOUR_API_KEY';
+
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, [
+          CURLOPT_URL => $url,
+          CURLOPT_POST => true,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+          ],
+        ]);
+        
+        $response = curl_exec($curl);
+        
+        if (curl_errno($curl)) {
+            echo 'Curl error: ' . curl_error($curl);
+            exit;
+        }
+        
+        curl_close($curl);
+        
+        $result = json_decode($response, true);
+        print_r($result);
+
+    - lang: GO
+      source: |
+        package main
+
+        import (
+            "fmt"
+            "io"
+            "net/http"
+        )
+
+        func main() {
+            url := "https://demo.gameap.ru/api/servers"
+            apiKey := "YOUR_API_KEY"
+
+            client := &http.Client{}
+            req, err := http.NewRequest("POST", url, nil)
+            if err != nil {
+                panic(err)
+            }
+
+            req.Header.Set("Content-Type", "application/json")
+            req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", apiKey))
+
+            resp, err := client.Do(req)
+            if err != nil {
+                panic(err)
+            }
+            defer resp.Body.Close()
+
+            body, err := io.ReadAll(resp.Body)
+            if err != nil {
+                panic(err)
+            }
+
+            fmt.Println(string(body))
+        }
+    - lang: NodeJS
+      source: |
+        const request = require('request');
+  
+        const url = 'https://demo.gameap.ru/api/servers';
+        const apiKey = 'YOUR_API_KEY';
+        
+        const options = {
+          url: url,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          }
+        };
+        
+        request(options, (error, response, body) => {
+        if (error) {
+          console.error(error);
+          return;
+        }
+          console.log(body);
+        });

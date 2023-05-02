@@ -3,9 +3,41 @@ openapi: 3.0.0
 info:
   title: "GameAP Web API"
   version: "1.0.0"
+  description: |
+    
+    Documentation for GameAP API.
+    You can find more about GameAP at [https://docs.gameap.ru](https://docs.gameap.ru).
+    
+    # Authentication
+
+    GameAP API offers two forms of authentication:
+      - Cookie
+      - Bearer Token
+    
+    To generate a token, you need to go to the profile of the current user, click the button with the user in the upper 
+    right corner, then open "Tokens", click "Generate New Token", enter the token name and select the necessary 
+    privileges, then click "Save". Copy the token to clipboard and use it in headers in API requests.
+
+  x-logo:
+    url: 'https://raw.githubusercontent.com/et-nik/gameap/develop/public/favicon-96x96.png'
+    altText: GameAP
+
+tags:
+  - name: servers
+    description: Management of game servers, starting, stopping, restarting.
+  - name: dedicated servers
+    description: Management of Nodes. Obtaining information about nodes.
+  - name: gdaemon tasks
+    description: Management of GameAP Daemon tasks, obtaining information about tasks.
+  - name: games
+    description: Management of Games
+  - name: game mods
+    description: Game Mods management
+  - name: users
+    description: Users management
 
 servers:
-  - url: "{gameap-host}/api"
+  - url: "{gameap-host}"
     variables:
       gameap-host:
         default: https://demo.gameap.ru
@@ -13,55 +45,55 @@ servers:
 
 security:
   - cookieAuth: []
-  - tokenAuth: []
+  - bearerAuth: []
 
 paths:
-  /dedicated_servers/{dedicated_server}/ip_list:
+  /api/dedicated_servers/{dedicated_server}/ip_list:
     $ref: './web-api/paths/dedicated_servers_id_ip_list.yaml'
 
-  /dedicated_servers/{dedicated_server}/busy_ports:
+  /api/dedicated_servers/{dedicated_server}/busy_ports:
     $ref: './web-api/paths/dedicated_servers_id_busy_ports.yaml'
 
-  /game_mods/get_list_for_game/{game}:
+  /api/game_mods/get_list_for_game/{game}:
     $ref: './web-api/paths/game_mods_get_list_for_game.yaml'
 
-  /servers:
+  /api/servers:
     $ref: './web-api/paths/servers.yaml'
 
-  /servers/{server}:
+  /api/servers/{server}:
     $ref: './web-api/paths/servers_id.yaml'
 
-  /servers/{server}/start:
+  /api/servers/{server}/start:
     $ref: './web-api/paths/servers_id_start.yaml'
 
-  /servers/{server}/stop:
+  /api/servers/{server}/stop:
     $ref: './web-api/paths/servers_id_stop.yaml'
 
-  /servers/{server}/restart:
+  /api/servers/{server}/restart:
     $ref: './web-api/paths/servers_id_restart.yaml'
 
-  /servers/{server}/update:
+  /api/servers/{server}/update:
     $ref: './web-api/paths/servers_id_update.yaml'
 
-  /servers/{server}/reinstall:
+  /api/servers/{server}/reinstall:
     $ref: './web-api/paths/servers_id_reinstall.yaml'
 
-  /servers/{server}/status:
+  /api/servers/{server}/status:
     $ref: './web-api/paths/servers_id_status.yaml'
 
-  /servers/{server}/query:
+  /api/servers/{server}/query:
     $ref: './web-api/paths/servers_id_query.yaml'
 
-  /servers/{server}/console:
+  /api/servers/{server}/console:
     $ref: './web-api/paths/servers_id_console.yaml'
 
-  /servers/search:
+  /api/servers/search:
     $ref: './web-api/paths/servers_search.yaml'
 
-  /gdaemon_tasks/{gdaemon_task}:
+  /api/gdaemon_tasks/{gdaemon_task}:
     $ref: './web-api/paths/gdaemon_tasks_id.yaml'
 
-  /gdaemon_tasks/{gdaemon_task}/output:
+  /api/gdaemon_tasks/{gdaemon_task}/output:
     $ref: './web-api/paths/gdaemon_tasks_id_output.yaml'
 
 components:
@@ -71,8 +103,6 @@ components:
       type: apiKey
       in: cookie
       name: laravel_session
-    tokenAuth:
-        description: Auth Token
-        type: apiKey
-        in: header
-        name: Authorization
+    bearerAuth:
+      type: http
+      scheme: bearer
