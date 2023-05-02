@@ -12,6 +12,14 @@ get:
             type: array
             items:
               $ref: '#/components/schemas/Server'
+  x-codeSamples:
+    - lang: 'cURL'
+      label: 'CLI'
+      source: |
+        curl --request GET \
+        --url 'https://demo.gameap.ru/api/servers' \
+        --header 'Content-Type: application/json: ' \
+        --header 'Authorization: Bearer YOUR_API_KEY'
 
 post:
   summary: Create Game Server

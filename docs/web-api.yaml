@@ -76,16 +76,3 @@ components:
         type: apiKey
         in: header
         name: Authorization
-
-  requestBodies:
-    CommonRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-
-  responses:
-    CommonSuccessResponse:
-      $ref: './web-api/responses/common-success.yaml'
-    CommonErrorResponse:
-      $ref: './web-api/responses/common-error.yaml'
