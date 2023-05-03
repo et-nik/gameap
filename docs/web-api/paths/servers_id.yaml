@@ -112,3 +112,39 @@ delete:
     5XX:
       $ref: '../responses/common-error.yaml'
 
+  x-codeSamples:
+    - lang: cURL
+      label: CLI
+      source: |
+        curl -X DELETE "https://demo.gameap.ru/api/servers/6" \
+             -H "Content-Type: application/json" \
+             -H 'Authorization: Bearer YOUR_API_KEY' \
+             -d '{"delete_files": true}'
+
+    - lang: PHP
+      source: |
+        <?php
+
+        $url = 'https://demo.gameap.ru/api/servers/6';
+        $data = '{"delete_files": true}';
+
+        curl_setopt_array($curl, [
+          CURLOPT_URL => $url,
+          CURLOPT_CUSTOMREQUEST => 'DELETE',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+          ],
+        ]);
+
+        $response = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            echo 'Curl error: ' . curl_error($curl);
+            exit;
+        }
+
+        curl_close($curl);
+
+        echo $response;

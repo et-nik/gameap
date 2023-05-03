@@ -21,13 +21,14 @@ post:
       label: CLI
       source: |
         curl -X POST "https://demo.gameap.ru/api/servers/6/start" \
-          -H "Content-Type: application/json"
+          -H "Content-Type: application/json" \
+          -H 'Authorization: Bearer YOUR_API_KEY'
 
     - lang: PHP
       source: |
         <?php
         
-        $url = 'https://demo.gameap.ru/api/servers';
+        $url = 'https://demo.gameap.ru/api/servers/6/start';
         $apiKey = 'YOUR_API_KEY';
 
         $curl = curl_init();
@@ -66,7 +67,7 @@ post:
         )
 
         func main() {
-            url := "https://demo.gameap.ru/api/servers"
+            url := "https://demo.gameap.ru/api/servers/6/start"
             apiKey := "YOUR_API_KEY"
 
             client := &http.Client{}
@@ -95,7 +96,7 @@ post:
       source: |
         const request = require('request');
   
-        const url = 'https://demo.gameap.ru/api/servers';
+        const url = 'https://demo.gameap.ru/api/servers/6/start';
         const apiKey = 'YOUR_API_KEY';
         
         const options = {

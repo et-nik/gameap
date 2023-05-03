@@ -198,7 +198,7 @@
               ])
           ];
       }
-      alert(errorMsg, null, content);
+      alert(errorMsg, () => { location.reload() }, content);
 
       watchTaskStartedTime = 0;
       hideAdditionalInfo();
@@ -213,15 +213,11 @@
 
       watchTaskStartedTime = 0;
 
-      console.log(msg);
-
-      if (msg == undefined || msg === "") {
+      if (msg === undefined || msg === "") {
           msg = trans('servers.task_success_msg');
       }
 
-      console.log(msg);
-
-      alert(msg);
+      alert(msg, () => { location.reload() });
 
       taskComplete();
   }
