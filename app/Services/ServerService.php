@@ -85,13 +85,13 @@ class ServerService
 
         if (!empty($serverResult['gq_online'])) {
             $result = [
-                'status'   => $serverResult['gq_online'] ? 'online' : 'offline',
-                'hostname' => $serverResult['gq_hostname'],
-                'map'      => $serverResult['gq_mapname'],
-                'players'  => $serverResult['gq_numplayers'] . '/' . $serverResult['gq_maxplayers'],
+                'status'   => ($serverResult['gq_online'] ?? null) ? 'online' : 'offline',
+                'hostname' => $serverResult['gq_hostname'] ?? null,
+                'map'      => $serverResult['gq_mapname'] ?? null,
+                'players'  => ($serverResult['gq_numplayers'] ?? 0) . '/' . ($serverResult['gq_maxplayers'] ?? 0),
                 'version'  => $serverResult['version'] ?? null,
-                'password' => $serverResult['gq_password'] ? 'yes' : 'no',
-                'joinlink' => $serverResult['gq_joinlink'],
+                'password' => ($serverResult['gq_password'] ?? null) ? 'yes' : 'no',
+                'joinlink' => $serverResult['gq_joinlink'] ?? null,
             ];
         } else {
             $result = [
