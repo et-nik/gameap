@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="terminal-box p-3 m-2">
-            <div id="terminalConsole" ref="terminalConsole" class="terminal">{{ console }}</div>
+            <div id="terminalConsole" ref="terminalConsole" class="terminal">{{ output }}</div>
             <div class="mb-3 m-0">
                 <div class="input-group">
                     <div class="terminal-input">
@@ -35,7 +35,7 @@
         },
         data: function () {
             return {
-                console: null,
+                output: null,
                 inputText: null,
                 lock: false,
                 updateConsole: true,
@@ -59,7 +59,7 @@
 
                 axios.get('/api/servers/' + this.serverId + '/console')
                     .then(function(response) {
-                        this.console = response.data.console;
+                        this.output = response.data.console;
                         setTimeout(this.scroll, 1000)
                     }.bind(this))
                     .catch(function (error) {
