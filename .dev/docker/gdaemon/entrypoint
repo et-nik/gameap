@@ -7,6 +7,8 @@ then
     sleep 5
     curl http://${GAMEAP_HOST:-gameap}/gdaemon/setup/test_auto_setup_token | bash --
     sleep 5
+
+    gameapctl daemon stop
 fi
 
 gameap-daemon
