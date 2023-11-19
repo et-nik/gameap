@@ -41,13 +41,11 @@ class Kernel extends HttpKernel
             \Gameap\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            'throttle:60,1',
             'bindings',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
         'gdaemon_api' => [
-            'throttle:120,1',
             'bindings',
         ],
     ];
