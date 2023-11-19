@@ -22,7 +22,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'valve',
             'name' => 'Half-Life 1',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -31,7 +31,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'op4',
             'name' => 'Half-Life: Opposing Force',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -41,7 +41,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'hl2mp',
             'name' => 'Half-Life 2',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 232370,
             'steam_app_id_windows' => 232370,
@@ -50,7 +50,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'bms',
             'name' => 'Black Mesa: Deathmatch',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '4',
             'steam_app_id_linux' => 346680,
             'steam_app_id_windows' => 346680,
@@ -63,14 +63,14 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'cs15',
             'name' => 'Counter-Strike 1.5',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
         ]);
 
         DB::table('games')->insert([
             'code' => 'cstrike',
             'name' => 'Counter-Strike 1.6',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -80,7 +80,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => "czero",
             'name' => "Counter-Strike: Condition Zero",
-            'engine' => "GoldSource",
+            'engine' => "goldsource",
             'engine_version' => "1",
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -90,7 +90,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => "cssv34",
             'name' => "Counter-Strike: Source v34",
-            'engine' => "Source",
+            'engine' => "source",
             'engine_version' => "34",
             'steam_app_id_linux' => 232330,
             'steam_app_id_windows' => 232330,
@@ -99,7 +99,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => "cssource",
             'name' => "Counter-Strike: Source",
-            'engine' => "Source",
+            'engine' => "source",
             'engine_version' => "1",
             'steam_app_id_linux' => 232330,
             'steam_app_id_windows' => 232330,
@@ -108,7 +108,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => "csgo",
             'name' => "Counter-Strike: Global Offensive",
-            'engine' => "Source",
+            'engine' => "source",
             'engine_version' => "1",
             'steam_app_id_linux' => 740,
             'steam_app_id_windows' => 740,
@@ -121,7 +121,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => "cs2",
             'name' => "Counter-Strike 2",
-            'engine' => "Source",
+            'engine' => "source",
             'engine_version' => "2",
             'steam_app_id_linux' => 730,
             'steam_app_id_windows' => 730,
@@ -134,7 +134,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'tfc',
             'name' => 'Team Fortress Classic',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -144,7 +144,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'tf2',
             'name' => 'Team Fortress 2',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 232250,
             'steam_app_id_windows' => 232250,
@@ -157,7 +157,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'dod',
             'name' => 'Day of Defeat',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -167,7 +167,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'dods',
             'name' => 'Day of Defeat: Source',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 232290,
             'steam_app_id_windows' => 232290,
@@ -180,7 +180,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'l4d',
             'name' => 'Left 4 Dead',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 222840,
             'steam_app_id_windows' => 222840,
@@ -189,7 +189,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'l4d2',
             'name' => 'Left 4 Dead 2',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 222860,
             'steam_app_id_windows' => 222860,
@@ -202,7 +202,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'dmc',
             'name' => 'Deathmatch Classic',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -212,7 +212,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'ricochet',
             'name' => 'Ricochet',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 90,
             'steam_app_id_windows' => 90,
@@ -222,7 +222,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'svencoop',
             'name' => 'Sven Co-op',
-            'engine' => 'GoldSource',
+            'engine' => 'goldsource',
             'engine_version' => '1',
             'steam_app_id_linux' => 276060,
             'steam_app_id_windows' => 276060,
@@ -235,7 +235,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'insurgency',
             'name' => 'Insurgency',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 237410,
             'steam_app_id_windows' => 237410,
@@ -244,7 +244,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'garrysmod',
             'name' => 'Garry`s Mod',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 4020,
             'steam_app_id_windows' => 4020,
@@ -253,7 +253,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'pvk2',
             'name' => 'Pirates, Vikings, and Knights II',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 17575,
             'steam_app_id_windows' => 17575,
@@ -262,7 +262,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'nmrih',
             'name' => 'No More Room In Hell',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 317670,
             'steam_app_id_windows' => 317670,
@@ -271,7 +271,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'synergy',
             'name' => 'Synergy',
-            'engine' => 'Source',
+            'engine' => 'source',
             'engine_version' => '1',
             'steam_app_id_linux' => 17525,
             'steam_app_id_windows' => 17525,
@@ -292,14 +292,14 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'minecraft',
             'name' => 'Minecraft',
-            'engine' => 'Minecraft',
+            'engine' => 'minecraft',
             'remote_repository_linux' => 'http://files.gameap.ru/minecraft/minecraft_install.tar.gz',
         ]);
 
         DB::table('games')->insert([
             'code' => 'pmmp',
             'name' => 'PocketMineMP (Minecraft PE)',
-            'engine' => 'Minecraft',
+            'engine' => 'minecraft',
         ]);
 
         /*
@@ -309,7 +309,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'arma2',
             'name' => 'Arma 2',
-            'engine' => 'RealVirtuality',
+            'engine' => 'armedassault2',
             'engine_version' => '3',
             'steam_app_id_windows' => 33905,
         ]);
@@ -317,7 +317,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'arma2oa',
             'name' => 'Arma 2: Operation Arrowhead',
-            'engine' => 'RealVirtuality',
+            'engine' => 'armedassault2oa',
             'engine_version' => '3',
             'steam_app_id_windows' => 33935,
         ]);
@@ -325,7 +325,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'arma3',
             'name' => 'Arma 3',
-            'engine' => 'RealVirtuality',
+            'engine' => 'armedassault3',
             'engine_version' => '4',
             'steam_app_id_linux' => 233780,
             'steam_app_id_windows' => 233780,
@@ -338,14 +338,14 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'cod3',
             'name' => 'Call of Duty 3',
-            'engine' => 'Treyarch NGL',
+            'engine' => 'cod4',
             'steam_app_id_windows' => 42750,
         ]);
 
         DB::table('games')->insert([
             'code' => 'cod4',
             'name' => 'Call of Duty 4',
-            'engine' => 'IWEngine',
+            'engine' => 'cod4',
             'engine_version' => '3.0',
         ]);
 
@@ -356,20 +356,20 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'code' => 'samp',
             'name' => 'SA-MP',
-            'engine' => 'RenderWare',
+            'engine' => 'samp',
         ]);
 
         DB::table('games')->insert([
             'code' => 'mta',
             'name' => 'GTA: Multi Theft Auto',
-            'engine' => 'RenderWare',
+            'engine' => 'mta',
             'remote_repository_linux' => 'http://files.gameap.ru/mta/mta.tar.xz',
         ]);
 
         DB::table('games')->insert([
             'code' => 'fivem',
             'name' => 'FiveM',
-            'engine' => 'Rage',
+            'engine' => 'Gta5m',
             'remote_repository_linux' => 'http://files.gameap.ru/fivem/fivem.tar.xz',
         ]);
 
