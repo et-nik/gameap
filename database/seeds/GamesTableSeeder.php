@@ -115,6 +115,19 @@ class GamesTableSeeder extends Seeder
         ]);
 
         /*
+         *  Counter Strike 2
+         */
+
+        DB::table('games')->insert([
+            'code' => "cs2",
+            'name' => "Counter-Strike 2",
+            'engine' => "Source",
+            'engine_version' => "2",
+            'steam_app_id_linux' => 730,
+            'steam_app_id_windows' => 730,
+        ]);
+
+        /*
          *  Team Fortress
          */
 

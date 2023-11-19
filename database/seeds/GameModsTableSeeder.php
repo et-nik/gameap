@@ -362,6 +362,48 @@ class GameModsTableSeeder extends Seeder
             'kick_cmd' => 'kick #{id}',
         ]);
 
+        /* Counter-Strike 2 */
+
+        DB::table('game_mods')->insert([
+            'game_code' => 'cs2',
+            'name' => 'Default',
+            'vars' => json_encode([
+                [
+                    'var' => 'hostname',
+                    'default' => '[GameAP] New CS2 Server',
+                    'info' => 'Hostname',
+                ],
+                [
+                    'var' => 'default_map',
+                    'default' => 'de_dust2',
+                    'info' => 'Default Map',
+                ],
+                [
+                    'var' => 'maxplayers',
+                    'default' => 64,
+                    'info' => 'Maximum players on server',
+                    'admin_var' => true,
+                ],
+                [
+                    'var' => 'mapgroup',
+                    'default' => 'mg_active',
+                    'info' => 'Map group',
+                ],
+                [
+                    'var' => 'steamaccount',
+                    'default' => '',
+                    'info' => 'Steam account token',
+                ],
+            ]),
+            'start_cmd_linux' => './cs2 -dedicated -ip {ip} -port {port} -maxplayers {maxplayers} +hostname {hostname} +map {default_map} +sv_setsteamaccount {steamaccount}',
+            'start_cmd_windows' => 'cs2.exe -dedicated -ip {ip} -port {port} -maxplayers {maxplayers} +hostname {hostname} +map {default_map} +sv_setsteamaccount {steamaccount}',
+            'passwd_cmd' => 'password {password}',
+            'sendmsg_cmd' => 'say "{msg}"',
+            'chmap_cmd' => 'changelevel {map}',
+            'srestart_cmd' => 'restart',
+            'kick_cmd' => 'kick #{id}',
+        ]);
+
         ###
         ### Team Fortress
         ###
