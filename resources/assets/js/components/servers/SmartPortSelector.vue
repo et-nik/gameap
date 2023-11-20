@@ -81,6 +81,12 @@
                 }
             },
             setPorts() {
+                if(this.initialServerIp === this.selectedIp) {
+                    this.serverPort = parseInt(this.initialServerPort) || 27015;
+                    this.queryPort = parseInt(this.initialQueryPort) || 27015;
+                    this.rconPort = parseInt(this.initialRconPort) || 27015;
+                }
+
                 const gameCode = this.getExistsPortGameCode();
 
                 let portCorrect = -1;
