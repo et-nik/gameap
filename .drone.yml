@@ -30,6 +30,7 @@ steps:
     commands:
       - cp .env.example .env
       - php artisan migrate:fresh --seed
+      - php artisan route:list
       - vendor/bin/phpunit --verbose
       - rm -rf storage/app/certs
       - rm -rf storage/framework/cache/data/*
