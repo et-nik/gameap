@@ -130,6 +130,7 @@ Route::middleware('auth:sanctum')->group(function() {
             Route::name('server.rcon.players')->get('servers/{server}/rcon/players', [ServersRconController::class, 'getPlayers']);
             Route::name('server.rcon.players.kick')->post('servers/{server}/rcon/players/kick', [ServersRconController::class, 'kick']);
             Route::name('server.rcon.players.ban')->post('servers/{server}/rcon/players/ban', [ServersRconController::class, 'ban']);
+            Route::name('server.rcon.players.message')->post('servers/{server}/rcon/players/message', [ServersRconController::class, 'message']);
         });
     });
 
