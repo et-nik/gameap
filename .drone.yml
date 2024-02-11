@@ -201,7 +201,7 @@ steps:
       DB_PASSWORD: secret
       APP_URL: http://webserver
     commands:
-      - apt update && apt -y install default-mysql-client zip unzip rsync
+      - apt update && apt -y install mariadb-client zip unzip rsync
       - rm -rf storage/app/certs/*
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
