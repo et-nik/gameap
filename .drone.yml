@@ -186,7 +186,7 @@ steps:
         - master
 
   - name: archive-shared
-    image: knik/php:7.3-fpm-stretch
+    image: knik/php:8.2-fpm-alpine
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       APP_DEBUG: true
@@ -201,7 +201,7 @@ steps:
       DB_PASSWORD: secret
       APP_URL: http://webserver
     commands:
-      - apt update && apt -y install mariadb-client zip unzip rsync
+      - apk add mariadb-client zip unzip rsync
       - rm -rf storage/app/certs/*
       - rm -rf storage/framework/cache/data/*
       - rm -rf storage/framework/sessions/*
