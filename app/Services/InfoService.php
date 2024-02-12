@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 
 class InfoService
 {
-    private const GAMEAP_LATEST_VERSION_URI = 'http://www.gameap.ru/gameap_version.txt';
+    private const GAMEAP_LATEST_VERSION_URI = 'https://www.gameap.com/gameap_version.txt';
     private const GITHUB_LATEST_VERSION_URI = 'https://api.github.com/repos/et-nik/gameap/releases/latest';
 
     /** @var Client */

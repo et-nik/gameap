@@ -114,7 +114,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'global_api' => 'https://api.gameap.ru',
+    'global_api' => 'https://api.gameap.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -123,7 +123,7 @@ return [
     |
     */
     'modules_repositories' => [
-        'https://modules.gameap.ru',
+        'https://modules.gameap.com',
     ],
 
     /*
