@@ -248,7 +248,7 @@ steps:
         - ^.*zip$
     volumes:
       - name: publish
-        path: /publish
+        path: /drone/src/publish
     when:
       branch:
         - master
