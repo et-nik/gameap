@@ -179,11 +179,14 @@ steps:
       - apt update && apt -y install rsync
       - mkdir gameap
       - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs ./ gameap/
-      - mkdir "publish"
-      - tar czf "publish/gameap-3.1.tar.gz" "gameap"
+      - tar czf "/publish/gameap-3.1.tar.gz" "gameap"
+    volumes:
+      - name: publish
+        path: /publish
     when:
       branch:
         - master
+        - publish-test
 
   - name: archive-shared
     image: knik/php:8.2-fpm-alpine
@@ -217,10 +220,14 @@ steps:
       - unzip -o shared-build-artifacts.zip -d gameap-shared
       - cd gameap-shared
         && mv upload/gameap.sql gameap.sql
-        && zip -r "../publish/gameap-3.1-shared.zip" ./
+        && zip -r "/publish/gameap-3.1-shared.zip" ./
+    volumes:
+      - name: publish
+        path: /publish
     when:
       branch:
         - master
+        - publish-test
 
   - name: publish
     image: cschlosser/drone-ftps
@@ -239,9 +246,13 @@ steps:
       include:
         - ^.*tar\.gz$
         - ^.*zip$
+    volumes:
+      - name: publish
+        path: /publish
     when:
       branch:
         - master
+        - publish-test
 
   - name: publish-sdn
     image: plugins/s3
@@ -253,9 +264,13 @@ steps:
         from_secret: aws_secret_access_key
       source: /publish/*
       target: /gameap
+    volumes:
+      - name: publish
+        path: /publish
     when:
       branch:
         - master
+        - publish-test
 
   - name: artifacts
     image: knik/drone-s3-plugin
@@ -320,4 +335,7 @@ services:
 
 volumes:
   - name: daemon_logs
+    temp: {}
+
+  - name: publish
     temp: {}
