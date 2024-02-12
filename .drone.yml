@@ -264,6 +264,7 @@ steps:
       secret_key:
         from_secret: aws_secret_access_key
       source: /publish/*
+      strip_prefix: /publish
       target: /gameap
     volumes:
       - name: publish
