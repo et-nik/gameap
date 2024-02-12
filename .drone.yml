@@ -186,7 +186,7 @@ steps:
     when:
       branch:
         - master
-        - publish-test
+        - aws-publish-test
 
   - name: archive-shared
     image: knik/php:8.2-fpm-alpine
@@ -227,7 +227,7 @@ steps:
     when:
       branch:
         - master
-        - publish-test
+        - aws-publish-test
 
   - name: publish
     image: cschlosser/drone-ftps
@@ -252,7 +252,7 @@ steps:
     when:
       branch:
         - master
-        - publish-test
+        - aws-publish-test
 
   - name: publish-sdn
     image: plugins/s3
@@ -270,7 +270,7 @@ steps:
     when:
       branch:
         - master
-        - publish-test
+        - aws-publish-test
 
   - name: artifacts
     image: knik/drone-s3-plugin
