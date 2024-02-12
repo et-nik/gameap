@@ -20,7 +20,7 @@
                             <h3>You can get community help</h3>
 
                             <div class="row">
-                                <div class="col-md-6"><i class="fas fa-book"></i> Documentation: <a target="_blank" href="http://docs.gameap.ru/en/">https://docs.gameap.ru</a></div>
+                                <div class="col-md-6"><i class="fas fa-book"></i> Documentation: <a target="_blank" href="http://docs.gameap.com/en/">https://docs.gameap.com</a></div>
                                 <div class="col-md-6"><i class="fab fa-telegram-plane"></i> Telegram chat: <a target="_blank" href="http://t.me/game_admin_panel">http://t.me/game_admin_panel</a></div>
 
                                 <div class="col-md-6"><i class="fas fa-comment-alt"></i> Forum: <a target="_blank" href="https://forum.gameap.ru">https://forum.gameap.ru</a></div>
@@ -64,7 +64,7 @@
                             <h3>Вы можете получить помощь у сообщества</h3>
 
                             <div class="row">
-                                <div class="col-md-6"><i class="fas fa-book"></i> Документация: <a target="_blank" href="http://docs.gameap.ru/ru/">https://docs.gameap.ru</a></div>
+                                <div class="col-md-6"><i class="fas fa-book"></i> Документация: <a target="_blank" href="http://docs.gameap.com/ru/">https://docs.gameap.com</a></div>
                                 <div class="col-md-6"><i class="fab fa-telegram-plane"></i> Чат Telegram: <a target="_blank" href="http://t.me/game_admin_panel">http://t.me/game_admin_panel</a></div>
 
                                 <div class="col-md-6"><i class="fas fa-comment-alt"></i> Форум: <a target="_blank" href="https://forum.gameap.ru">https://forum.gameap.ru</a></div>

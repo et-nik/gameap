@@ -90,7 +90,7 @@
         </div>
 
         <div class="col-md-4">
-            <a target="_blank" href="https://docs.gameap.ru" class="btn d-grid gap-1 btn-lg btn-info rounded">
+            <a target="_blank" href="https://docs.gameap.com" class="btn d-grid gap-1 btn-lg btn-info rounded">
                 <i class="fas fa-book"></i> {{ __('home.documentation') }}
             </a>
         </div>

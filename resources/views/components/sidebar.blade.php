@@ -161,7 +161,7 @@
         <a
             class="left-menu-link"
             target="_blank"
-            href="https://docs.gameap.ru"
+            href="https://docs.gameap.com"
             title="{{ __('sidebar.documentation') }}"
             data-bs-toggle="tooltip"
             data-bs-placement="right"

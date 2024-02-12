@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col-md-6"><i class="fas fa-book"></i> {{ __('home.documentation') }}: <a target="_blank" href="http://docs.gameap.ru/en/">https://docs.gameap.ru</a></div>
+                    <div class="col-md-6"><i class="fas fa-book"></i> {{ __('home.documentation') }}: <a target="_blank" href="http://docs.gameap.com/en/">https://docs.gameap.com</a></div>
                 </div>
             </div>
         </div>

@@ -23,8 +23,8 @@ return [
 
     'empty_server_start_command' => 'Empty server start command',
     'empty_server_start_command_doc' => '<br>See the documentation to fix the error — 
-        <a target="_blank" href="https://docs.gameap.ru/en/troubleshooting.html#empty-server-start-command">Empty server start command</a>',
+        <a target="_blank" href="https://docs.gameap.com/en/troubleshooting.html#empty-server-start-command">Empty server start command</a>',
 
     'long_waiting_doc' => 'It looks like the wait is stuck. If the status does not change for a long time, try looking 
-        at the documentation to fix the error — <a target="_blank" href="https://docs.gameap.ru/en/troubleshooting.html#the-information-modal-window-does-not-change-for-a-long-time">The information modal window does not change for a long time</a>',
+        at the documentation to fix the error — <a target="_blank" href="https://docs.gameap.com/en/troubleshooting.html#the-information-modal-window-does-not-change-for-a-long-time">The information modal window does not change for a long time</a>',
 ];
