@@ -180,7 +180,7 @@ steps:
       - mkdir gameap
       - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs ./ gameap/
       - mkdir "publish"
-      - tar czf "publish/gameap-3.0.0-beta.tar.gz" "gameap"
+      - tar czf "publish/gameap-3.1.tar.gz" "gameap"
     when:
       branch:
         - master
@@ -212,12 +212,12 @@ steps:
       - mkdir -p gameap-shared/upload
       - php artisan migrate:fresh --seed --force
       - mysqldump -h db -u homestead -p --password=secret homestead > gameap.sql
-      - curl -O http://packages.gameap.ru/gameap/shared-build-artifacts.zip
+      - curl -O http://packages.gameap.com/gameap/shared-build-artifacts.zip
       - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs --exclude=/publish --exclude=/shared-build-artifacts.zip ./ gameap-shared/upload/
       - unzip -o shared-build-artifacts.zip -d gameap-shared
       - cd gameap-shared
         && mv upload/gameap.sql gameap.sql
-        && zip -r "../publish/gameap-3.0.0-beta-shared.zip" ./
+        && zip -r "../publish/gameap-3.1-shared.zip" ./
     when:
       branch:
         - master
@@ -239,6 +239,20 @@ steps:
       include:
         - ^.*tar\.gz$
         - ^.*zip$
+    when:
+      branch:
+        - master
+
+  - name: publish-sdn
+    image: plugins/s3
+    settings:
+      bucket: gameap
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      source: /publish/*
+      target: /gameap
     when:
       branch:
         - master
