@@ -122,6 +122,7 @@ class ServerService
             'query_port'        => $server->query_port,
             'rcon_port'         => $server->rcon_port,
             'dir'               => $server->full_path,
+            'id'                => $server->id,
             'uuid'              => $server->uuid,
             'uuid_short'        => $server->uuid_short,
             'game'              => $server->game_id,
