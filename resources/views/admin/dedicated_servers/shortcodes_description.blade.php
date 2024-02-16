@@ -7,6 +7,7 @@
             <li>{query_port} — {{ __('dedicated_servers.d_shortcodes_query_port') }}</li>
             <li>{rcon_port} — {{ __('dedicated_servers.d_shortcodes_rcon_port') }}</li>
             <li>{dir} — {{ __('dedicated_servers.d_shortcodes_dir') }}</li>
+            <li>{id} — {{ __('dedicated_servers.d_shortcodes_id') }}</li>
             <li>{uuid} — {{ __('dedicated_servers.d_shortcodes_uuid') }}</li>
             <li>{uuid_short} — {{ __('dedicated_servers.d_shortcodes_uuid_short') }}</li>
             <li>{game} — {{ __('dedicated_servers.d_shortcodes_game') }}</li>
