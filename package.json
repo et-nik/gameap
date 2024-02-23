@@ -16,7 +16,7 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@vitejs/plugin-vue": "^4.1.0",
     "@vue/compat": "^3.1.0",
-    "axios": "^1.6.1",
+    "axios": "^1.6.4",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
     "bootstrap-select": "^1.13.18",
