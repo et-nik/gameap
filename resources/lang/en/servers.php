@@ -69,6 +69,7 @@ return [
     'installation_process_msg' => 'Server in installation process',
     'disabled_msg' => 'Server is disabled',
     'blocked_msg' => 'Server is blocked',
+    'offline_console_msg' => 'Server is offline. The data in the console is up to date at the moment of server stop.',
 
     // Admin
 
