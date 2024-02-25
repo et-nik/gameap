@@ -54,6 +54,7 @@ return [
     'd_shortcodes_query_port'   => 'server query port',
     'd_shortcodes_rcon_port'    => 'server rcon port',
     'd_shortcodes_dir'          => 'absolute path to server directory',
+    'd_shortcodes_id'           => 'server id',
     'd_shortcodes_uuid'         => 'unique id',
     'd_shortcodes_uuid_short'   => 'short unique id',
     'd_shortcodes_game'         => 'game code',

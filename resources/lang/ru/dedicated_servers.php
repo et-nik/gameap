@@ -53,6 +53,7 @@ return [
     'd_shortcodes_query_port'   => 'query порт сервера',
     'd_shortcodes_rcon_port'    => 'rcon порт сервера',
     'd_shortcodes_dir'          => 'абсолютный путь к каталог сервера',
+    'd_shortcodes_id'           => 'id сервера',
     'd_shortcodes_uuid'         => 'уникальный id',
     'd_shortcodes_uuid_short'   => 'короткий уникальный id',
     'd_shortcodes_game'         => 'код игры',
