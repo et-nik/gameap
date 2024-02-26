@@ -71,16 +71,21 @@ return [
 
     'autosetup_title' => 'Автоматическая настройка выделенного сервера',
 
-    'autosetup_description_debian_ubuntu' => '<p>Только для Debian/Ubuntu.</p>
-                    <p>Для автоматической настройки GDaemon запустите команду в консоли выделенного сервера:</p>',
+    'autosetup_description_linux' => '<p>Можете использовать следующие хост и токен для настройки GDaemon используя gameapctl:</p>
+                    <ul>
+                        <li>Хост: <code>:host</code></li>
+                        <li>Токен: <code>:token</code></li>
+                    </ul>
+                    <p>Или для автоматической настройки GDaemon запустите команду в консоли выделенного сервера:</p>',
 
     'autosetup_description_windows' => '<p>Только для Windows</p>
                                 <ul>
-                                    <li>Установите <a target="_blank" href="https://www.microsoft.com/ru-ru/download/details.aspx?id=53587">Microsoft Visual C++ 2015</a></li>
-                                    <li>Скачайте инсталлятор <a target="_blank" href="http://packages.gameap.ru/windows/gameap-daemon-installer.exe">gameap-daemon-installer.exe</a>
-                                        (<code>http://packages.gameap.ru/windows/gameap-daemon-installer.exe</code>)
+                                    <li>Перейдите на страницу <a href="https://github.com/gameap/gameapctl/releases">gameapctl релизов</a>
+                                        (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>
-                                    <li>Запустите инсталлятор на вашем Windows хосте</li>
+                                    <li>Выберите последнюю версию и скачайте архив для вашей архитектуры, скорее всего вам подойдёт gameapctl-vX.Y.Z-windows-amd64.zip</li>
+                                    <li>Запустите gameapctl.exe на вашем Windows хосте</li>
+                                    <li>Нажмите кнопку Install в секции GameAP Daemon</li>
                                     <li>Заполните все поля:<br>
                                         Host: <code>:host</code><br>
                                         Token: <code>:token</code>

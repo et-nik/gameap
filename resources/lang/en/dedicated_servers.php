@@ -72,16 +72,21 @@ return [
     
     'autosetup_title' => 'Dedicated Server Auto Setup',
     
-    'autosetup_description_debian_ubuntu' => '<p>Only for Debian/Ubuntu.</p>
-                    <p>To auto setup GDaemon run the command on Dedicated Server:</p>',
+    'autosetup_description_linux' => '<p>You can use this host and token to setup GDaemon via gameapctl:</p>
+                    <ul>
+                        <li>Host: <code>:host</code></li>
+                        <li>Token: <code>:token</code></li>
+                    </ul>
+                    <p>Or to auto setup GDaemon run the command on Dedicated Server:</p>',
 
     'autosetup_description_windows' => '<p>Only for Windows</p>
                                 <ul>
-                                    <li>Install <a href="https://www.microsoft.com/ru-ru/download/details.aspx?id=53587">Microsoft Visual C++ 2015</a></li>
-                                    <li>Download <a href="http://packages.gameap.ru/windows/gameap-daemon-installer.exe">gameap-daemon-installer.exe</a>
-                                        (<code>http://packages.gameap.ru/windows/gameap-daemon-installer.exe</code>)
+                                    <li>Go to <a href="https://github.com/gameap/gameapctl/releases">gameapctl releases page</a>
+                                        (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>
-                                    <li>Run gameap-daemon-installer.exe on your Windows host</li>
+                                    <li>Select a last version and download an archive for you architecture, most likely gameapctl-vX.Y.Z-windows-amd64.zip will work for you</li>
+                                    <li>Run gameapctl.exe on your Windows host</li>
+                                    <li>Click Install button in a GameAP Daemon section</li>
                                     <li>Fill in all the fields:<br>
                                         Host: <code>:host</code><br>
                                         Token: <code>:token</code>
