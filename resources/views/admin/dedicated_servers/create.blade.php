@@ -38,10 +38,10 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#auto_install_linux">Linux</a>
+                            <a class="nav-link active" data-bs-toggle="tab" href="#auto_install_linux"><i class="fab fa-linux me-1"></i>Linux</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#auto_install_windows">Windows</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#auto_install_windows"><i class="fab fa-windows me-1"></i>Windows</a>
                         </li>
                     </ul>
 
