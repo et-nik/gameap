@@ -99,23 +99,20 @@
 </div>
 
 @can('server-console-view', $server)
-    @if ($server->processActive())
-        <div class="row mt-2">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        {{ __('servers.console') }}
-                    </div>
-
-                    <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}">
-                        <div class="d-flex justify-content-center">
-                            <div class="fa-3x">
-                                <i class="fas fa-spinner fa-spin"></i>
-                            </div>
-                        </div>
-                    </server-console>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('servers.console') }}
                 </div>
+                <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}" :server-active="{{ $server->processActive() ? "true" : "false" }}">
+                    <div class="d-flex justify-content-center">
+                        <div class="fa-3x">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </div>
+                </server-console>
             </div>
         </div>
-    @endif
+    </div>
 @endcan

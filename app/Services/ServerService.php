@@ -241,8 +241,6 @@ class ServerService
      */
     private function checkServer(Server $server): void
     {
-        if ($server->processActive() === false) {
-            throw new ServerInactiveException('Server is down');
-        }
+        // There is no checkers for server status
     }
 }

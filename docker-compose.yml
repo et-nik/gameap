@@ -1,7 +1,7 @@
 version: "3"
 services:
   mysql:
-    image: mariadb:10.5
+    image: mariadb:10.6
     container_name: gameap_db
     hostname: gameap.db
     ports:

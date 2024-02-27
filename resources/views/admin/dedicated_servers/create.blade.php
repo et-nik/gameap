@@ -38,7 +38,7 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#auto_install_debian_ubuntu">Debian/Ubuntu</a>
+                            <a class="nav-link active" data-bs-toggle="tab" href="#auto_install_linux">Linux</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#auto_install_windows">Windows</a>
@@ -46,9 +46,12 @@
                     </ul>
 
                     <div class="tab-content">
-                        <div class="row tab-pane container-fluid active" id="auto_install_debian_ubuntu">
+                        <div class="row tab-pane container-fluid active" id="auto_install_linux">
                             <div class="col-md-12 m-3">
-                                {!! __('dedicated_servers.autosetup_description_debian_ubuntu') !!}
+                                {!! __('dedicated_servers.autosetup_description_linux', [
+                                    'host' => request()->getSchemeAndHttpHost(),
+                                    'token' => $autoSetupToken
+                                ]) !!}
                                 <code>curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
 
                                 <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_msg') }}</small></p>

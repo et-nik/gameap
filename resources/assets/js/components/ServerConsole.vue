@@ -1,16 +1,20 @@
 <template>
     <div>
         <div class="terminal-box p-3 m-2">
-            <div id="terminalConsole" ref="terminalConsole" class="terminal">{{ output }}</div>
-            <div class="mb-3 m-0">
+            <div id="terminalConsole" ref="terminalConsole" class="terminal">
+              <span v-if="!serverActive" class="server-offline-note">{{ trans('servers.offline_console_msg') }}<br></span>
+              {{ output }}
+            </div>
+            <div v-if="serverActive" class="mb-3 m-0">
                 <div class="input-group">
                     <div class="terminal-input">
                         {{ consoleHostname }}:~$&nbsp;
                         <input
-                                v-on:keyup.enter="sendCommand"
-                                v-model="inputText"
-                                type="text"
-                                class="terminal-input m-0 p-0">
+                          v-on:keyup.enter="sendCommand"
+                          v-model="inputText"
+                          type="text"
+                          class="terminal-input m-0 p-0"
+                        >
                     </div>
                 </div>
             </div>
@@ -32,6 +36,7 @@
         props: {
             serverId: Number,
             consoleHostname: String,
+            serverActive: Boolean,
         },
         data: function () {
             return {
@@ -97,3 +102,10 @@
         }
     }
 </script>
+
+<style>
+.server-offline-note {
+    color: #880808;
+    font-weight: bold;
+}
+</style>
