@@ -202,7 +202,10 @@ class ServerService
      */
     public function sendConsoleCommand(Server $server, string $command): bool
     {
-        $this->checkServer($server);
+        if ($server->processActive() === false) {
+            throw new ServerInactiveException('Server is down');
+        }
+
         $this->configureGdaemon($server);
 
         try {
