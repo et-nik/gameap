@@ -31,7 +31,7 @@ class AAADaemonTest extends DuskTestCase
                 ->assertPathIs('/admin/dedicated_servers/create')
                 ->waitForText('Dedicated Server Auto Setup', 10);
 
-            $value = $browser->text('code');
+            $value = $browser->text('code.curl-link');
             $this->assertMatchesRegularExpression('/^curl http:\/\/.*$/', $value);
 
             exec($value, $output, $exitCode);

@@ -52,7 +52,7 @@
                                     'host' => request()->getSchemeAndHttpHost(),
                                     'token' => $autoSetupToken
                                 ]) !!}
-                                <code>curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
+                                <code class="curl-link">curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
 
                                 <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_msg') }}</small></p>
                             </div>
