@@ -171,13 +171,14 @@ class ServerServiceTest extends TestCase
      */
     public function testGetConsoleLogInactiveServer(ServerService $serverService, $mock): void
     {
-        $this->expectException(ServerInactiveException::class);
         $server = $this->getServer();
         $server->process_active = false;
 
         $mock->shouldReceive('exec')->andReturn("command result");
 
-        $serverService->getConsoleLog($server);
+        $consoleLog = $serverService->getConsoleLog($server);
+
+        Assert::assertEquals('command result', $consoleLog);
     }
 
     /**
