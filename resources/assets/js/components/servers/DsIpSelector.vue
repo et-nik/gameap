@@ -2,14 +2,14 @@
     <div>
         <div id="dedicatedServerForm" class="mb-3">
             <label for="ds_id" class="control-label">{{ trans('labels.ds_id') }}</label>
-            <select id="ds_id" v-bind:name="dsIdFieldName" class="form-control" v-model="selectedDs">
+            <select id="ds_id" v-bind:name="dsIdFieldName" class="form-select" v-model="selectedDs">
                 <option v-for="(dsName, dsId) in dsList" v-bind:value="dsId">{{ dsName }}</option>
             </select>
         </div>
 
         <div class="mb-3">
             <label for="server_ip" class="control-label">{{ trans('labels.server_ip') }}</label>
-            <select id="server_ip" v-bind:name="serverIpFieldName" class="form-control" v-model="selectedIp">
+            <select id="server_ip" v-bind:name="serverIpFieldName" class="form-select" v-model="selectedIp">
                 <option v-for="ip in ipList" v-bind:value="ip">{{ ip }}</option>
             </select>
         </div>

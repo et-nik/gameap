@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <a class='btn btn-warning' href="{{ route('admin.dedicated_servers.download_logs', $dedicatedServer->id) }}">
+    <a class='btn btn-warning me-1' href="{{ route('admin.dedicated_servers.download_logs', $dedicatedServer->id) }}">
         <i class="fas fa-download"></i> {{ __('dedicated_servers.download_logs') }}
     </a>
 

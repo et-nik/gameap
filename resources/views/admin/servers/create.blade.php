@@ -14,13 +14,13 @@
     @include('components.form.errors_block')
 
     {!! Form::open(['url' => route('admin.servers.index'), 'id' => 'adminServerForm']) !!}
-        <div class="row justify-content-center mt-4">
+        <div class="row">
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-header p-4">
+                    <div class="card-header">
                         {{ __('servers.basic_info') }}
                     </div>
-                    <div class="card-body p-4">
+                    <div class="card-body">
                         {{ Form::bsText('name') }}
 
                         <game-mod-selector :games="{{ $games }}"></game-mod-selector>

@@ -156,7 +156,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3" id="clientCertificateForm">
                                     {{ Form::label('client_certificates', __('dedicated_servers.client_certificate'), ['class' => 'control-label']) }}
-                                    {{ Form::select('client_certificate_id', $clientCertificates , null, ['class' => 'form-control']) }}
+                                    {{ Form::select('client_certificate_id', $clientCertificates , null, ['class' => 'form-select']) }}
                                 </div>
                             </div>
                         </div>

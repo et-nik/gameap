@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <div class="mb-3" id="dedicatedServerForm">
                             {{ Form::label('game_code', __('games.game'), ['class' => 'control-label']) }}
-                            {{ Form::select('game_code', $gameList, $game, ['class' => 'form-control']) }}
+                            {{ Form::select('game_code', $gameList, $game, ['class' => 'form-select']) }}
                         </div>
 
                         {{ Form::bsText('name') }}

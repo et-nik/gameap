@@ -67,7 +67,7 @@
                                     $server::NOT_INSTALLED        => ucfirst(__('servers.not_installed')),
                                     $server::INSTALLED            => ucfirst(__('servers.installed')),
                                     $server::INSTALLATION_PROCESS => ucfirst(__('servers.installation')),
-                                ], $server->installed, ['class' => 'form-control'])
+                                ], $server->installed, ['class' => 'form-select'])
                             }}
                         </div>
 
