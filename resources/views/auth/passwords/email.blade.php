@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-5">
             <div class="card mb-3 mt-3">
                 <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
                     {{ csrf_field() }}
-                    <div class="card-header">{{ __('auth.reset_password') }}</div>
+                    <div class="card-header p-4">{{ __('auth.reset_password') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-muted p-4">
                         <div class="mb-3">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-light">{{ __('auth.send_reset_link') }}</button>

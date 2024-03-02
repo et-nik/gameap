@@ -2,16 +2,16 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <div class="card mb-3 mt-3">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-5">
+            <div class="card">
                 @if(config('app.allow_registration'))
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="card-header">{{ __('auth.sign_up') }}</div>
+                        <div class="card-header p-4">{{ __('auth.sign_up') }}</div>
 
-                        <div class="card-body">
+                        <div class="card-body p-4">
                             <div class="mb-3{{ $errors->has('login') ? ' has-error' : '' }}">
                                 <label for="login" class="col-md-12">{{ __('auth.login') }}</label>
 
@@ -69,7 +69,7 @@
                             @endif
                         </div>
 
-                        <div class="card-footer">
+                        <div class="card-footer p-4">
                             <div class="mb-3">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-light">{{ __('auth.sign_up') }}</button>

@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="card mb-3 mt-3">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-5">
+            <div class="card">
                 <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
-                    <div class="card-header">{{ __('auth.reset_password') }}</div>
+                    <div class="card-header p-4">{{ __('auth.reset_password') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body p-4">
                             {{ csrf_field() }}
 
                             <input type="hidden" name="token" value="{{ $token }}">
@@ -55,7 +55,7 @@
                             </div>
                     </div>
 
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-muted p-4">
                         <div class="mb-3">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-light">{{ __('auth.reset_password') }}</button>
