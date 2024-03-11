@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+        <div class="block w-full overflow-auto scrolling-touch">
+            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
                 <thead>
                 <tr>
                     <td>{{ trans('servers.name') }}</td>
@@ -15,11 +15,11 @@
                     <td><a v-bind:href="'/admin/servers/' + server.id + '/edit'">{{ server.name }}</a></td>
                     <td>{{ server.server_ip }}:{{ server.server_port }}</td>
                     <td>
-                        <a class="btn btn-sm btn-info" v-bind:href="'/admin/users/' + userId + '/servers/' + server.id + '/edit'">
+                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600" v-bind:href="'/admin/users/' + userId + '/servers/' + server.id + '/edit'">
                             <i class="fas fa-lock"></i>
                         </a>
                         <input type="hidden" v-model="server.id" v-bind:name="'servers[]'">
-                        <button class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(itemIndex)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
                             <i class="fa fa-times"></i>
                         </button>
                     </td>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="mb-3">
-            <div class="col-md-12">
+            <div class="md:w-full pr-4 pl-4">
                 <n-select
                     v-model:value="selectedServer"
                     filterable
@@ -48,17 +48,17 @@
 <!--                        :placeholder="trans('users.servers_privileges_placeholder')"-->
 <!--                >-->
 <!--                    <template slot="option" slot-scope="option">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-md-5">{{ option.label }}</div>-->
-<!--                            <div class="col-md-3">{{ option.game }}</div>-->
-<!--                            <div class="col-md-4">{{ option.address }}</div>-->
+<!--                        <div class="flex flex-wrap ">-->
+<!--                            <div class="md:w-2/5 pr-4 pl-4">{{ option.label }}</div>-->
+<!--                            <div class="md:w-1/4 pr-4 pl-4">{{ option.game }}</div>-->
+<!--                            <div class="md:w-1/3 pr-4 pl-4">{{ option.address }}</div>-->
 <!--                        </div>-->
 <!--                    </template>-->
 <!--                </v-select>-->
             </div>
 
-            <div class="col-md-2 offset-md-5 centered mt-2">
-                <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
+            <div class="md:w-1/5 pr-4 pl-4 md:mx-2/5 centered mt-2">
+                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
             </div>
         </div>
     </div>

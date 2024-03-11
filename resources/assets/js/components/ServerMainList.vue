@@ -250,11 +250,11 @@
 </script>
 
 <template>
-    <div class="row mb-4">
+    <div class="flex flex-wrap  mb-4">
         <n-collapse>
             <n-collapse-item :title="trans('servers.filters')" name="filters">
-                <div class="row">
-                    <div class="col-md-3">
+                <div class="flex flex-wrap ">
+                    <div class="md:w-1/4 pr-4 pl-4">
                         <n-select
                             v-model:value="selectedGame"
                             :options="gamesOptions"
@@ -265,7 +265,7 @@
                         </n-select>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="md:w-1/4 pr-4 pl-4">
                         <n-select
                             v-model:value="selectedIP"
                             :options="gamesIPOptions"
@@ -276,9 +276,9 @@
                         </n-select>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="md:w-1/4 pr-4 pl-4">
                         <n-button @click="clearFilters" type="error" :disabled="!isFiltersSet()" ghost>
-                            <i class="fa fa-eraser"></i><span class="d-none d-xl-inline">&nbsp;{{ trans('main.clear') }}</span>
+                            <i class="fa fa-eraser"></i><span class="hidden xl:inline">&nbsp;{{ trans('main.clear') }}</span>
                         </n-button>
                     </div>
                 </div>

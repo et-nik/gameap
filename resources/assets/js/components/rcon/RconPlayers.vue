@@ -1,10 +1,10 @@
 <template>
     <div id="rcon-players-component">
-        <button class="btn btn-success m-1" v-on:click="updatePlayers()">
+        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600 m-1" v-on:click="updatePlayers()">
             <i class="fas fa-sync"></i>
         </button>
 
-        <table class="table table-striped table-bordered">
+        <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
             <thead>
             <tr>
                 <td>{{ trans('rcon.player_name') }}</td>
@@ -21,14 +21,14 @@
                 <td v-if="pingRow">{{ value.ping }}</td>
                 <td v-if="ipRow">{{ value.ip }}</td>
                 <td>
-                    <button v-on:click="openDialog('kick', key)" class="btn btn-sm btn-info btn-warning m-1">
+                    <button v-on:click="openDialog('kick', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-orange-400 text-black hover:bg-orange-500 m-1">
                         <i class="gicon gicon-kick"></i>
-                        <span class="d-none d-xl-inline">{{ trans('rcon.kick') }}</span>
+                        <span class="hidden xl:inline">{{ trans('rcon.kick') }}</span>
                     </button>
 
-                    <button v-on:click="openDialog('ban', key)" class="btn btn-sm btn-info btn-danger m-1">
+                    <button v-on:click="openDialog('ban', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1">
                         <i class="fas fa-ban"></i>
-                        <span class="d-none d-xl-inline">{{ trans('rcon.ban') }}</span>
+                        <span class="hidden xl:inline">{{ trans('rcon.ban') }}</span>
                     </button>
                 </td>
             </tr>
@@ -48,36 +48,36 @@
                 <form>
                     <div class="mb-3" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
                         <label for="input-reason" class="control-label">{{ trans('rcon.reason') }}</label>
-                        <input v-model.number="form.reason" id="input-reason" type="text" class="form-control">
+                        <input v-model.number="form.reason" id="input-reason" type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                         <span v-if="errors['reason']" class="help-block">
-                                    <strong class="text-danger">{{ errors['reason'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['reason'] }}</strong>
                                 </span>
                     </div>
 
                     <div class="mb-3" v-if="dialogAction === 'ban'">
                         <label for="input-time" class="control-label">{{ trans('rcon.time') }}</label>
-                        <input v-model.number="form.time" id="input-time" type="number" class="form-control">
+                        <input v-model.number="form.time" id="input-time" type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                         <span v-if="errors['time']" class="help-block">
-                                    <strong class="text-danger">{{ errors['time'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['time'] }}</strong>
                                 </span>
                     </div>
 
                     <div class="mb-3" v-if="dialogAction === 'message'">
                         <label for="input-mesage" class="control-label">{{ trans('rcon.message') }}</label>
-                        <input v-model.number="form.message" id="input-mesage" type="text" class="form-control">
+                        <input v-model.number="form.message" id="input-mesage" type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                         <span v-if="errors['message']" class="help-block">
-                                    <strong class="text-danger">{{ errors['message'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['message'] }}</strong>
                                 </span>
                     </div>
                 </form>
             </div>
 
             <template #footer>
-                <button type="button" class="btn btn-primary me-1" v-on:click="send">{{ trans('main.send') }}</button>
-                <button type="button" class="btn btn-secondary" v-on:click="hideModal">{{ trans('main.close') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="send">{{ trans('main.send') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
 
             </template>
         </n-modal>

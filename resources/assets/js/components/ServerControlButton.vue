@@ -294,7 +294,7 @@
 
   <a :class="button" @click="run(command)">
       <i :class="icon"></i>
-      <span class="d-none d-xl-inline">&nbsp;{{ text }}</span>
+      <span class="hidden xl:inline">&nbsp;{{ text }}</span>
   </a>
 </template>
 

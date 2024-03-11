@@ -1,9 +1,9 @@
 <template>
     <div id="server-task-component">
         <div class="mb-2">
-          <button class="btn btn-success" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
+          <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
         </div>
-        <table class="table table-striped table-bordered">
+        <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
             <thead>
                 <tr>
                     <td>{{ trans('servers_tasks.task') }}</td>
@@ -18,13 +18,13 @@
                     <td>{{ value.execute_date }}</td>
                     <td>{{ humanRepeatText(value.repeat) }}</td>
                     <td>
-                        <button class="btn btn-sm btn-info btn-success m-1" v-on:click="editTask(key)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-green-500 text-white hover:bg-green-600 m-1" v-on:click="editTask(key)">
                             <i class="fas fa-edit"></i>
-                            <span class="d-none d-xl-inline">&nbsp;{{ trans('main.edit') }}</span>
+                            <span class="hidden xl:inline">&nbsp;{{ trans('main.edit') }}</span>
                         </button>
-                        <button class="btn btn-sm btn-info btn-danger m-1" v-on:click="deleteTask(key)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1" v-on:click="deleteTask(key)">
                             <i class="fas fa-trash"></i>
-                            <span class="d-none d-xl-inline">&nbsp;{{ trans('main.delete') }}</span>
+                            <span class="hidden xl:inline">&nbsp;{{ trans('main.delete') }}</span>
                         </button>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@
                         <n-select v-model:value="command" :options="options" v-on:update="formChange" />
 
                         <span v-if="errors['command']" class="help-block">
-                                    <strong class="text-danger">{{ errors['command'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['command'] }}</strong>
                                 </span>
                     </div>
 
@@ -62,11 +62,11 @@
                         /><br>
 
                         <span v-if="errors['taskDate']" class="help-block">
-                                    <strong class="text-danger">{{ errors['taskDate'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['taskDate'] }}</strong>
                                 </span>
                     </div>
 
-                    <div class="form-check">
+                    <div class="relative block mb-2">
                         <label class="control-label">
                             <input
                                 v-model="taskRepeatRadio"
@@ -78,7 +78,7 @@
                         </label>
                     </div>
 
-                    <div class="form-check">
+                    <div class="relative block mb-2">
                         <label class="control-label">
                             <input
                                 v-model="taskRepeatRadio"
@@ -90,7 +90,7 @@
                         </label>
                     </div>
 
-                    <div class="form-check">
+                    <div class="relative block mb-2">
                         <label class="control-label">
                             <input
                                 v-model="taskRepeatRadio"
@@ -111,18 +111,18 @@
                             type="number"
                             min="1"
                             max="255"
-                            class="form-control">
+                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                         <span v-if="errors['taskRepeatInput']" class="help-block">
-                                    <strong class="text-danger">{{ errors['taskRepeatInput'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['taskRepeatInput'] }}</strong>
                                 </span>
                     </div>
 
                     <div class="mb-3">
                         <label class="control-label">{{ trans('servers_tasks.repeat_period') }}</label>
 
-                        <div class="row">
-                            <div class="col-md-4">
+                        <div class="flex flex-wrap ">
+                            <div class="md:w-1/3 pr-4 pl-4">
                                 <input v-model="taskRepeatPeriod"
                                        :disabled="repeat === 1"
                                        v-on:change="formChange"
@@ -130,10 +130,10 @@
                                        name="repeat_period"
                                        type="number"
                                        :min="repeatMin"
-                                       class="form-control">
+                                       class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                             </div>
 
-                            <div class="col-md-8">
+                            <div class="md:w-2/3 pr-4 pl-4">
                                 <n-select
                                     v-model:value="taskRepeatUnit"
                                     :disabled="repeat === 1"
@@ -144,7 +144,7 @@
                         </div>
 
                         <span v-if="errors['taskRepeatPeriod']" class="help-block">
-                                    <strong class="text-danger">{{ errors['taskRepeatPeriod'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['taskRepeatPeriod'] }}</strong>
                                 </span>
 
                     </div>
@@ -153,8 +153,8 @@
             </div>
 
             <template #footer>
-                <button type="button" class="btn btn-primary me-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
-                <button type="button" class="btn btn-secondary" v-on:click="hideModal">{{ trans('main.close') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
             </template>
         </n-modal>
     </div>

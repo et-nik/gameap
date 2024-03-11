@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="terminal-box p-3 m-2">
+        <div class="terminal-box p-6 m-2">
             <div id="terminalConsole" ref="terminalConsole" class="terminal">
               <span v-if="!serverActive" class="server-offline-note">{{ trans('servers.offline_console_msg') }}<br></span>
               {{ output }}
             </div>
             <div v-if="serverActive" class="mb-3 m-0">
-                <div class="input-group">
+                <div class="relative flex items-stretch w-full">
                     <div class="terminal-input">
                         {{ consoleHostname }}:~$&nbsp;
                         <input
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="p-3 m-2">
+        <div class="p-6 m-2">
             <input type="checkbox" id="checkbox" v-model="autoScroll">
             <label for="checkbox">{{ trans('main.autoscroll') }}</label>
         </div>

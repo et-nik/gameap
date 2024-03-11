@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="card mb-2">
-            <div class="card-body">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
+            <div class="flex-auto p-6">
                 <div v-for="(item, itemIndex) in items">
                     <div class="mb-3">
                         <label v-bind:for="inputName + '[' + itemIndex + ']' + '[name]'" class="control-label">{{ trans('labels.name') }}</label>
@@ -10,7 +10,7 @@
                                 v-bind:id="inputName + '[' + itemIndex + ']' + '[name]'"
                                 v-model="item.name"
                                 type="text"
-                                class="form-control">
+                                class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                     </div>
 
                     <div class="mb-3">
@@ -19,19 +19,19 @@
                                 v-bind:name="inputName + '[' + itemIndex + ']' + '[value]'"
                                 v-bind:id="inputName + '[' + itemIndex + ']' + '[value]'"
                                 v-model="item.value"
-                                class="form-control"
+                                class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                                 v-bind:rows='(item.value.match(new RegExp("\n", "g")) || []).length + 2'>
                         </textarea>
                     </div>
 
-                    <button class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(itemIndex)">
+                    <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
                         <i class="fa fa-times"></i> {{ trans('main.delete') }}
                     </button>
 
                     <hr>
                 </div>
                 <div class="mt-2 text-center">
-                  <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><i class="fa fa-plus"></i>&nbsp;{{ trans('main.add') }}</button>
+                  <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><i class="fa fa-plus"></i>&nbsp;{{ trans('main.add') }}</button>
                 </div>
             </div>
         </div>

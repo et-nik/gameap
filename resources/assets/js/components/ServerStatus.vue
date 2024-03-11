@@ -1,37 +1,37 @@
 <template>
     <div id="server-status-component">
-        <div class="row">
-            <div class="col-md-1">
+        <div class="flex flex-wrap ">
+            <div class="md:w-1/6 pr-4 pl-4">
                 <strong>{{ trans('servers.query') }}</strong>
             </div>
 
-            <div class="col-md-1">
-                <div v-if="status === 'online'" class="d-inline">
-                    <span class="badge text-bg-success">{{ trans('servers.online') }}</span>
+            <div class="md:w-1/6 pr-4 pl-4">
+                <div v-if="status === 'online'" class="inline">
+                    <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-success">{{ trans('servers.online') }}</span>
                 </div>
 
-                <div v-else-if="status === 'offline'" class="d-inline">
-                    <span class="badge text-bg-danger">{{ trans('servers.offline') }}</span>
+                <div v-else-if="status === 'offline'" class="inline">
+                    <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-danger">{{ trans('servers.offline') }}</span>
                 </div>
 
-                <div v-else class="d-inline">
-                    <span class="badge text-bg-warning">-</span>
+                <div v-else class="inline">
+                    <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-warning">-</span>
                 </div>
             </div>
 
-            <div v-if="showHostname" class="col-md-4">
-                <div v-if="useJoinLink" class="d-inline">
+            <div v-if="showHostname" class="md:w-1/3 pr-4 pl-4">
+                <div v-if="useJoinLink" class="inline">
                     <a :href="items.joinlink">{{ items.hostname }}</a>
                 </div>
 
                 <div v-else>{{ items.hostname }}</div>
             </div>
 
-            <div v-if="showPlayersNum" class="col-md-3">
+            <div v-if="showPlayersNum" class="md:w-1/4 pr-4 pl-4">
                 {{ trans('servers.query_players') }}: {{ items.players }}
             </div>
 
-            <div v-if="showMap" class="col-md-3">
+            <div v-if="showMap" class="md:w-1/4 pr-4 pl-4">
                 {{ trans('servers.query_map') }}: {{ items.map }}
             </div>
         </div>

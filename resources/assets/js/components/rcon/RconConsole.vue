@@ -1,20 +1,20 @@
 <template>
     <div id="rcon-console-component">
-        <div class="terminal-box p-3 m-2">
+        <div class="terminal-box p-6 m-2">
             <div id="terminal-console" ref="terminal-console" class="terminal">{{ output }}</div>
         </div>
 
-        <div class="input-group">
+        <div class="relative flex items-stretch w-full">
             <input v-on:keyup.enter="sendCommand"
                    v-model="inputText"
                    type="text"
-                   class="form-control"
+                   class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                    placeholder=""
                    aria-label=""
                    aria-describedby="basic-addon1">
 
             <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary" type="button" v-on:click="sendCommand">Send</button>
+                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700" type="button" v-on:click="sendCommand">Send</button>
             </div>
         </div>
     </div>

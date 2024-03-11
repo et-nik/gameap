@@ -1,10 +1,10 @@
 <template>
-    <div class="table-responsive">
+    <div class="block w-full overflow-auto scrolling-touch">
         <div class="mb-3">
-            <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span></button>
+            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span></button>
         </div>
 
-        <table class="table table-striped table-bordered">
+        <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
             <thead>
                 <tr>
                     <td v-for="label in labels">
@@ -27,7 +27,7 @@
                         </div>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-danger" v-on:click.prevent="removeItem(itemIndex)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
                             <span class="fa fa-times"></span>
                         </button>
                     </td>
@@ -35,8 +35,8 @@
             </tbody>
         </table>
 
-        <div class="mb-3 col-md-1 offset-md-6 centered">
-            <button class="btn btn-sm btn-success" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
+        <div class="mb-3 md:w-1/6 pr-4 pl-4 md:mx-1/2 centered">
+            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
         </div>
     </div>
 </template>
