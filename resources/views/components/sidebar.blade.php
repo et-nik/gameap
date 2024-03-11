@@ -88,18 +88,20 @@
     <p class="left-menu-group-mini">—</p>
 
     <ul class="page-sidebar-menu">
-        <li>
-            <a
-                class="left-menu-link"
-                href="{{ route('modules') }}"
-                title="{{ __('sidebar.modules') }}"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-delay="200"
-            >
-                <i class="fas fa-puzzle-piece"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.modules') }}</span>
-            </a>
-        </li>
+        @if(config('app.enable_experimental_features'))
+            <li>
+                <a
+                    class="left-menu-link"
+                    href="{{ route('modules') }}"
+                    title="{{ __('sidebar.modules') }}"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-delay="200"
+                >
+                    <i class="fas fa-puzzle-piece"></i>&nbsp;<span class="menu-item-label">{{ __('sidebar.modules') }}</span>
+                </a>
+            </li>
+        @endif
         <li>
             <a
                 class="left-menu-link"
