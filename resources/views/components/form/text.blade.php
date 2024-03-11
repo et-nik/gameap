@@ -20,7 +20,7 @@
 
     @if ($errors->has($name))
         <span class="help-block">
-            <strong class="text-danger">{{ $errors->first($name) }}</strong>
+            <strong class="text-red-600">{{ $errors->first($name) }}</strong>
         </span>
     @endif
 </div>

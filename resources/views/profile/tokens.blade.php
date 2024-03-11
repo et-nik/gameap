@@ -7,9 +7,9 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item active">{{ __('tokens.tokens') }}</li>
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('tokens.tokens') }}</li>
     </ol>
 @endsection
 
@@ -17,12 +17,12 @@
     @include('components.form.errors_block')
 
     @if ($token = Session::get('token'))
-        <div class="alert alert-success">
-            <div class="input-group">
-                <input type="text" id="token" value="{{ $token }}" class="form-control">
+        <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800">
+            <div class="relative flex items-stretch w-full">
+                <input type="text" id="token" value="{{ $token }}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                 <span class="input-group-btn">
-                <button id="copy-token" class="btn btn-secondary" type="button">
+                <button id="copy-token" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" type="button">
                     <i class="fas fa-copy"></i>
                 </button>
             </span>
@@ -30,23 +30,23 @@
         </div>
     @endif
 
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('profile') }}">{{ __('profile.profile') }}</a>
+    <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200">
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" href="{{ route('profile') }}">{{ __('profile.profile') }}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link active">{{ __('tokens.tokens') }}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline active">{{ __('tokens.tokens') }}</a>
         </li>
     </ul>
 
     <div class="tab-content">
-        <div class="row tab-pane container-fluid active" id="main">
-            <div class="row">
-                <div class="col-12">
+        <div class="flex flex-wrap  tab-pane container mx-auto sm:px-4 max-w-full mx-auto sm:px-4 active" id="main">
+            <div class="flex flex-wrap ">
+                <div class="w-full">
 
-                    <div class="row mb-2">
-                        <div class="col-6">
-                            <a class='btn btn-success mt-2' href="{{ route('tokens.generate') }}">
+                    <div class="flex flex-wrap  mb-2">
+                        <div class="w-1/2">
+                            <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600 mt-2' href="{{ route('tokens.generate') }}">
                                 <i class="fa fa-plus-square"></i> {{ __('tokens.generate_token') }}
                             </a>
                         </div>

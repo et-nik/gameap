@@ -36,14 +36,14 @@
         @include("components.navbar")
         <div id="main-section" class="main-section small-menu">
 
-            <div id="left-menu" class="collapse navbar-collapse left-menu d-md-block">
+            <div id="left-menu" class="hidden flex-grow items-center left-menu md:block">
                 <div id="left-menu-content" class="left-menu-content">
                     @include("components.sidebar")
                 </div>
             </div>
 
             <div class="content-wrapper">
-                <div class="container-fluid">
+                <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
                     <div class="pt-3 content">
                         @yield('breadcrumbs')
                         @include('components.messages')

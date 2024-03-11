@@ -3,37 +3,37 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item">
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700">
             <a href="{{ route('admin.dedicated_servers.index') }}">
                 {{ __('dedicated_servers.dedicated_servers') }}
             </a>
         </li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.client_certificates.index') }}">{{ __('client_certificates.client_certificates') }}</a></li>
-        <li class="breadcrumb-item active">{{ __('client_certificates.view') }}</li>
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.client_certificates.index') }}">{{ __('client_certificates.client_certificates') }}</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('client_certificates.view') }}</li>
     </ol>
 @endsection
 
 @section('content')
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped table-bordered detail-view">
+    <div class="flex flex-wrap ">
+        <div class="md:w-full pr-4 pl-4">
+            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered detail-view">
                 <tbody>
                     <tr>
-                        <th class="w-25">{{ __('client_certificates.fingerprint') }}</th>
+                        <th class="w-1/4">{{ __('client_certificates.fingerprint') }}</th>
                         <td>{!! $clientCertificate->fingerprint !!}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="col-md-12">
-            <table class="table table-striped table-bordered detail-view">
+        <div class="md:w-full pr-4 pl-4">
+            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered detail-view">
                 <tbody>
                     <tr>
-                        <th class="w-25">{{ __('client_certificates.signature_type') }}</th>
+                        <th class="w-1/4">{{ __('client_certificates.signature_type') }}</th>
                         <td>{!! $certificateInfo['signature_type'] !!}</td>
                     </tr>                    
                     <tr>
@@ -53,10 +53,10 @@
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mt-3 mb-3">
-                <div class="card-header">
+    <div class="flex flex-wrap ">
+        <div class="md:w-full pr-4 pl-4">
+            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-3 mb-3">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                     {{ __('client_certificates.used') }}
                 </div>
                 

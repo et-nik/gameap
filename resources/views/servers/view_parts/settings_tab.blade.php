@@ -1,18 +1,18 @@
-<div class="row mt-2">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
+<div class="flex flex-wrap  mt-2">
+    <div class="md:w-full pr-4 pl-4">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+            <div class="flex-auto p-6">
                 {!! Form::model($server, ['method' => 'PATCH', 'route' => ['servers.updateSettings', $server->id], 'id' => 'adminServerForm']) !!}
 
-                <div class="col-md-12">
-                    <div class="form-check mt-4 mb-4">
+                <div class="md:w-full pr-4 pl-4">
+                    <div class="relative block mb-2 mt-4 mb-4">
                         {{ Form::checkbox('autostart', true, $autostart, ['id' => 'autostart', 'class' => 'form-check-input']) }}
                         {{ Form::label('autostart', __('servers.autostart_setting'), ['class' => 'form-check-label']) }}
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="form-check mt-4 mb-4">
+                <div class="md:w-full pr-4 pl-4">
+                    <div class="relative block mb-2 mt-4 mb-4">
                         {{ Form::checkbox('update_before_start', true, $updateBeforeStart, ['id' => 'update_before_start', 'class' => 'form-check-input']) }}
                         {{ Form::label('update_before_start', __('servers.update_before_start_setting'), ['class' => 'form-check-label']) }}
                     </div>
@@ -26,7 +26,7 @@
                             @endcannot
                         @endif
 
-                        <div class="col-md-12">
+                        <div class="md:w-full pr-4 pl-4">
                             {{ Form::bsText(
                                     'vars[' . $var['var'] . ']',
                                     (isset($server->vars[ $var['var'] ]))
@@ -38,7 +38,7 @@
                     @endforeach
                 @endif
 
-                <div class="mt-2 col-md-12">
+                <div class="mt-2 md:w-full pr-4 pl-4">
                     <div class="mb-3">
                         {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
                     </div>

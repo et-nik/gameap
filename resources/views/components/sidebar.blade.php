@@ -174,11 +174,11 @@
     </li>
 </ul>
 
-<p class="left-menu-group d-md-none">{{ __('sidebar.profile') }}</p>
+<p class="left-menu-group md:hidden">{{ __('sidebar.profile') }}</p>
 
-<ul class="page-sidebar-menu d-md-none">
+<ul class="page-sidebar-menu md:hidden">
     <li>
-        <a class="left-menu-link btn btn-dark navbar-btn" href="{{ route('profile') }}">
+        <a class="left-menu-link inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-900 text-white hover:bg-gray-900 navbar-btn" href="{{ route('profile') }}">
             <i class="fas fa-user"></i>&nbsp;<span class="menu-item-label">{{ Auth::user()->name }}</span>
         </a>
     </li>
@@ -195,9 +195,9 @@
     </li>
 </ul>
 
-<p class="left-menu-group d-sm-none d-md-block">&nbsp;</p>
+<p class="left-menu-group sm:hidden md:block">&nbsp;</p>
 
-<ul class="page-sidebar-menu d-sm-none d-md-block">
+<ul class="page-sidebar-menu sm:hidden md:block">
     <li>
         <a
             class="left-menu-link"

@@ -1,30 +1,30 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item">{{ __('home.report_bug') }}</li>
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700">{{ __('home.report_bug') }}</li>
     </ol>
 @endsection
 
 @section('content')
-    <div class="row">
+    <div class="flex flex-wrap ">
 
-        <div class="col-12 col-lg-6">
-            <div class="card mb-2">
-                <div class="card-header">
+        <div class="w-full lg:w-1/2 pr-4 pl-4">
+            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                     {{ __('home.system_check') }}
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
+                <div class="flex-auto p-6">
+                    <div class="flex flex-wrap ">
+                        <div class="md:w-full pr-4 pl-4">
                             <p>
                                 {{ __('home.d_report_bug') }}
                             </p>
                         </div>
                     </div>
 
-                    <table class="table table-noborder table-fit">
+                    <table class="w-full max-w-full mb-4 bg-transparent table-noborder table-fit">
                         <tbody>
                         <tr>
                             <td>PHP</td>
@@ -35,9 +35,9 @@
                             <td>GD</td>
                             <td>
                                 @if (in_array('gd', $extensions))
-                                    <span class="text-success"><i class="fas fa-check-circle"></i></span>
+                                    <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
                                 @else
-                                    <span class="text-danger"><i class="fas fa-times-circle"></i></span>
+                                    <span class="text-red-600"><i class="fas fa-times-circle"></i></span>
                                 @endif
                             </td>
                         </tr>
@@ -45,9 +45,9 @@
                             <td>OpenSSL</td>
                             <td>
                                 @if (in_array('openssl', $extensions))
-                                    <span class="text-success"><i class="fas fa-check-circle"></i></span>
+                                    <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
                                 @else
-                                    <span class="text-danger"><i class="fas fa-times-circle"></i></span>
+                                    <span class="text-red-600"><i class="fas fa-times-circle"></i></span>
                                 @endif
                             </td>
                         </tr>
@@ -55,9 +55,9 @@
                             <td>Curl</td>
                             <td>
                                 @if (in_array('curl', $extensions))
-                                    <span class="text-success"><i class="fas fa-check-circle"></i></span>
+                                    <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
                                 @else
-                                    <span class="text-danger"><i class="fas fa-times-circle"></i></span>
+                                    <span class="text-red-600"><i class="fas fa-times-circle"></i></span>
                                 @endif
                             </td>
                         </tr>
@@ -65,9 +65,9 @@
                             <td>GMP</td>
                             <td>
                                 @if (in_array('gmp', $extensions))
-                                    <span class="text-success"><i class="fas fa-check-circle"></i></span>
+                                    <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
                                 @else
-                                    <span class="text-danger"><i class="fas fa-times-circle"></i></span>
+                                    <span class="text-red-600"><i class="fas fa-times-circle"></i></span>
                                 @endif
                             </td>
                         </tr>
@@ -75,9 +75,9 @@
                             <td>Intl</td>
                             <td>
                                 @if (in_array('intl', $extensions))
-                                    <span class="text-success"><i class="fas fa-check-circle"></i></span>
+                                    <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
                                 @else
-                                    <span class="text-danger"><i class="fas fa-times-circle"></i></span>
+                                    <span class="text-red-600"><i class="fas fa-times-circle"></i></span>
                                 @endif
                             </td>
                         </tr>
@@ -88,22 +88,22 @@
             </div>
         </div>
 
-        <div class="col-12 col-lg-6">
-            <div class="card mb-2">
-                <div class="card-header">
+        <div class="w-full lg:w-1/2 pr-4 pl-4">
+            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                     {{ __('home.send_report') }}
                 </div>
-                <div class="card-body">
+                <div class="flex-auto p-6">
                     {{ Form::open(['url' => route('send_bug'), 'style'=>'display:inline']) }}
-                        <div class="row">
-                            <div class="col-md-12">
+                        <div class="flex flex-wrap ">
+                            <div class="md:w-full pr-4 pl-4">
                                 {{ Form::bsText('summary') }}
                                 {{ Form::bsTextArea('description', null, null, ['rows' => 3]) }}
                             </div>
                         </div>
 
-                        <div class="row mt-2">
-                            <div class="col-md-12">
+                        <div class="flex flex-wrap  mt-2">
+                            <div class="md:w-full pr-4 pl-4">
                                 <div class="mb-3">
                                     {{ Form::submit(__('main.send'), ['class' => 'btn btn-success']) }}
                                 </div>

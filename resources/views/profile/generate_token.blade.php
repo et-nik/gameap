@@ -7,25 +7,25 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('tokens') }}">{{ __('tokens.tokens') }}</a></li>
-        <li class="breadcrumb-item active">{{ __('tokens.generate_token') }}</li>
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('tokens') }}">{{ __('tokens.tokens') }}</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('tokens.generate_token') }}</li>
     </ol>
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card bg-light mt-3 mb-3">
-                <div class="card-body">
+    <div class="flex flex-wrap ">
+        <div class="md:w-full pr-4 pl-4">
+            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
+                <div class="flex-auto p-6">
                     {!! Form::open(['url' => route('tokens.create')]) !!}
                     <div class="mb-3">
                         {{ Form::bsText('token_name') }}
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-check">
+                        <div class="flex flex-wrap ">
+                            <div class="md:w-full pr-4 pl-4">
+                                <div class="relative block mb-2">
                                     @foreach($abilities as $group => $groupAbilities)
                                         {{ Form::checkbox('abilities-' . $group, $group, false, [
                                             'id' => 'abilities-' . $group,
@@ -37,8 +37,8 @@
                                         <ul id="list-abilities-{{ $group }}" style="list-style: none;">
                                             @foreach($groupAbilities as $ability => $description)
                                                 <li class="mt-2">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
+                                                    <div class="flex flex-wrap ">
+                                                        <div class="md:w-1/4 pr-4 pl-4">
                                                             {{ Form::checkbox(
                                                                 'abilities[]',
                                                                 $ability,
@@ -53,7 +53,7 @@
                                                             ) }}
                                                         </div>
 
-                                                        <div class="col-md-6">{{ $description }}</div>
+                                                        <div class="md:w-1/2 pr-4 pl-4">{{ $description }}</div>
                                                     </div>
                                                 </li>
                                             @endforeach
@@ -65,13 +65,13 @@
 
                         @if ($errors->has('abilities'))
                             <span class="help-block">
-                                <strong class="text-danger">{{ $errors->first('abilities') }}</strong>
+                                <strong class="text-red-600">{{ $errors->first('abilities') }}</strong>
                             </span>
                         @endif
 
                         @if ($errors->has('abilities.*'))
                             <span class="help-block">
-                                <strong class="text-danger">{{ $errors->first('abilities.*') }}</strong>
+                                <strong class="text-red-600">{{ $errors->first('abilities.*') }}</strong>
                             </span>
                         @endif
                     </div>

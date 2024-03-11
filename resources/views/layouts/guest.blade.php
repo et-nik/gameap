@@ -16,37 +16,37 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <div class="container-fluid">
+        <nav class="relative flex flex-wrap items-center content-between py-3 px-4  text-white bg-gray-900">
+            <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="navbar-toggler-icon"></span>
+                    <button type="button" class="py-1 px-2 text-md leading-normal bg-transparent border border-transparent rounded collapsed" data-bs-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="px-5 py-1 border border-gray-600 rounded"></span>
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="inline-block pt-1 pb-1 mr-4 text-lg whitespace-no-wrap" href="{{ url('/') }}">
                         {{ isset($title) ? $title : "GameAP" }}
                     </a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <div class="hidden flex-grow items-center" id="app-navbar-collapse">
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="flex flex-wrap list-reset pl-0 mb-0 ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('auth.sign_in') }}</a></li>
+                            <li class=""><a class="inline-block py-2 px-4 no-underline" href="{{ route('login') }}">{{ __('auth.sign_in') }}</a></li>
                             @if(config('app.allow_registration'))
-                                <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a></li>
+                                <li class=""><a class="inline-block py-2 px-4 no-underline" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a></li>
                             @endif
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                            <li class="relative">
+                                <a href="#" class=" inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu">
+                                <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded" role="menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -68,9 +68,9 @@
 
         @yield('content')
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
+        <div class="container mx-auto sm:px-4">
+            <div class="flex flex-wrap ">
+                <div class="md:w-full pr-4 pl-4">
                     <p class="copyright">
                         Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br>
                         Developer: <a href="https://github.com/et-nik" target="_blank">knik</a>

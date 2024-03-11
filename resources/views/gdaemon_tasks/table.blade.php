@@ -1,4 +1,4 @@
-<table class="table table-responsive" id="gdaemonTasks-table">
+<table class="w-full max-w-full mb-4 bg-transparent block w-full overflow-auto scrolling-touch" id="gdaemonTasks-table">
     <thead>
         <tr>
             <th>Run Aft Id</th>
@@ -25,9 +25,9 @@
             <td>{!! $gdaemonTask->status !!}</td>
             <td>
                 {!! Form::open(['route' => ['gdaemonTasks.destroy', $gdaemonTask->id], 'method' => 'delete']) !!}
-                <div class='btn-group'>
-                    <a href="{!! route('gdaemonTasks.show', [$gdaemonTask->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('gdaemonTasks.edit', [$gdaemonTask->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                <div class='relative inline-flex align-middle'>
+                    <a href="{!! route('gdaemonTasks.show', [$gdaemonTask->id]) !!}" class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('gdaemonTasks.edit', [$gdaemonTask->id]) !!}" class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

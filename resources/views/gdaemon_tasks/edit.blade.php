@@ -10,7 +10,7 @@
        @include('adminlte-templates::common.errors')
        <div class="box box-primary">
            <div class="box-body">
-               <div class="row">
+               <div class="flex flex-wrap ">
                    {!! Form::model($gdaemonTask, ['route' => ['gdaemonTasks.update', $gdaemonTask->id], 'method' => 'patch']) !!}
 
                         @include('gdaemon_tasks.fields')

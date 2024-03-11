@@ -3,73 +3,73 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.games.index') }}">{{ __('games.games') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.games.edit', ['game' => $gameMod->game->code]) }}">{{ $gameMod->game->name }}</a></li>
-        <li class="breadcrumb-item active">{{  __('games.title_edit_mod') }}</li>
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.games.index') }}">{{ __('games.games') }}</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.games.edit', ['game' => $gameMod->game->code]) }}">{{ $gameMod->game->name }}</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700 active">{{  __('games.title_edit_mod') }}</li>
     </ol>
 @endsection
 
 @section('content')
     @include('components.form.errors_block')
 
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#main">{{ __('games.main') }}</a>
+    <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200">
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline active" data-bs-toggle="tab" href="#main">{{ __('games.main') }}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#game-servers-commands">{{ __('games.servers_commands') }}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" href="#game-servers-commands">{{ __('games.servers_commands') }}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#vars">{{ __('games.vars') }}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" href="#vars">{{ __('games.vars') }}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#fast-rcon">{{ __('games.fast_rcon_commands') }}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" href="#fast-rcon">{{ __('games.fast_rcon_commands') }}</a>
         </li>
     </ul>
 
     {!! Form::model($gameMod, ['method' => 'PATCH','route' => ['admin.game_mods.update', $gameMod->id]]) !!}
         <div class="tab-content">
             <div class="tab-pane active" id="main">
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
+                <div class="flex flex-wrap  mt-2">
+                    <div class="md:w-1/2 pr-4 pl-4">
+                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.basic_info') }}
                             </div>
-                            <div class="card-body">
+                            <div class="flex-auto p-6">
                                 {{ Form::bsText('name') }}
                             </div>
                         </div>
 
-                        <div class="card mt-2">
-                            <div class="card-header">
+                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
+                            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.run_commands') }}
                             </div>
-                            <div class="card-body">
+                            <div class="flex-auto p-6">
                                 {{ Form::bsText('start_cmd_linux') }}
                                 {{ Form::bsText('start_cmd_windows') }}
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
+                    <div class="md:w-1/2 pr-4 pl-4">
+                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.repositories_local') }}
                             </div>
-                            <div class="card-body">
+                            <div class="flex-auto p-6">
                                 {{ Form::bsText('local_repository_linux') }}
                                 {{ Form::bsText('local_repository_windows') }}
                             </div>
                         </div>
 
-                        <div class="card mt-2">
-                            <div class="card-header">
+                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
+                            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.repositories_remote') }}
                             </div>
-                            <div class="card-body">
+                            <div class="flex-auto p-6">
                                 {{ Form::bsText('remote_repository_linux') }}
                                 {{ Form::bsText('remote_repository_windows') }}
                             </div>
@@ -78,14 +78,14 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="game-servers-commands">
-                <div class="row mt-2">
-                    <div class="col-md-12 m-2">
-                        <div class="card">
-                            <div class="card-header">
+            <div class="tab-pane opacity-0" id="game-servers-commands">
+                <div class="flex flex-wrap  mt-2">
+                    <div class="md:w-full pr-4 pl-4 m-2">
+                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.servers_commands') }}
                             </div>
-                            <div class="card-body">
+                            <div class="flex-auto p-6">
 
                                 {{ Form::bsInput('text', [
                                     'name' => 'kick_cmd',
@@ -125,11 +125,11 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="vars">
-                <div class="row mt-2 mb-2">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
+            <div class="tab-pane opacity-0" id="vars">
+                <div class="flex flex-wrap  mt-2 mb-2">
+                    <div class="md:w-full pr-4 pl-4">
+                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                            <div class="flex-auto p-6">
                                 <input-many-list
                                         name="vars"
                                         :initial-items="{{ json_encode($gameMod->vars) }}"
@@ -143,11 +143,11 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="fast-rcon">
-                <div class="row mt-2 mb-2">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
+            <div class="tab-pane opacity-0" id="fast-rcon">
+                <div class="flex flex-wrap  mt-2 mb-2">
+                    <div class="md:w-full pr-4 pl-4">
+                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                            <div class="flex-auto p-6">
                                 <input-many-list
                                         name="fast_rcon"
                                         :initial-items="{{ json_encode($gameMod->fast_rcon) }}"
@@ -162,7 +162,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 mt-4">
+        <div class="md:w-full pr-4 pl-4 mt-4">
             <div class="mb-3">
                 {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
             </div>

@@ -3,10 +3,10 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.gdaemon_tasks.index') }}">{{ __('gdaemon_tasks.gdaemon_tasks') }}</a></li>
-        <li class="breadcrumb-item">{{ __('gdaemon_tasks.task') }}</li>
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.gdaemon_tasks.index') }}">{{ __('gdaemon_tasks.gdaemon_tasks') }}</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700">{{ __('gdaemon_tasks.task') }}</li>
     </ol>
 @endsection
 
@@ -24,9 +24,9 @@
     @endif
     <hr>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped table-bordered detail-view">
+    <div class="flex flex-wrap ">
+        <div class="md:w-full pr-4 pl-4">
+            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered detail-view">
                 <tbody>
                     <tr>
                         <th>{{ __('gdaemon_tasks.task') }}</th>
@@ -60,8 +60,8 @@
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-md-12">
+    <div class="flex flex-wrap ">
+        <div class="md:w-full pr-4 pl-4">
             @if ($gdaemonTask->status == 'working')
                 <task-output :task-id="{{ $gdaemonTask->id }}"></task-output>
             @else

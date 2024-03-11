@@ -9,10 +9,10 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.servers.index') }}">{{ __('servers.game_servers') }}</a></li>
-        <li class="breadcrumb-item active">{{ __('servers.edit') }}</li>
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.servers.index') }}">{{ __('servers.game_servers') }}</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('servers.edit') }}</li>
     </ol>
 @endsection
 
@@ -20,36 +20,36 @@
     @include('components.form.errors_block')
 
     <div class="mb-1">
-        <a class="btn btn-large btn-light" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
+        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-large bg-gray-100 text-gray-800 hover:bg-gray-200" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
             <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
         </a>&nbsp;
 
-        <a class="btn btn-large btn-light" href="{{ route('servers.control', ['server' => $server->id]) }}">
+        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-large bg-gray-100 text-gray-800 hover:bg-gray-200" href="{{ route('servers.control', ['server' => $server->id]) }}">
             <span class="fa fa-chalkboard"></span>&nbsp;{{ __('servers.control') }}
         </a>
     </div>
 
 
     {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers.update', $server->id], 'id' => 'adminServerForm']) !!}
-        <div class="row mt-2">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
+        <div class="flex flex-wrap  mt-2">
+            <div class="md:w-1/2 pr-4 pl-4">
+                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                         {{ __('servers.basic_info') }}
                     </div>
-                    <div class="card-body">
+                    <div class="flex-auto p-6">
 
                         <div class="mb-3 mt-4 mb-4">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-check">
+                            <div class="flex flex-wrap ">
+                                <div class="md:w-1/4 pr-4 pl-4">
+                                    <div class="relative block mb-2">
                                         {{ Form::checkbox('enabled', 'on', null, ['id' => 'enabled', 'class' => 'form-check-input']) }}
                                         {{ Form::label('enabled', __('labels.enabled'), ['class' => 'form-check-label']) }}
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="form-check">
+                                <div class="md:w-1/4 pr-4 pl-4">
+                                    <div class="relative block mb-2">
                                         {{ Form::checkbox('blocked', 'on', null, ['id' => 'blocked', 'class' => 'form-check-input']) }}
                                         {{ Form::label('blocked', __('labels.blocked'), ['class' => 'form-check-label']) }}
                                     </div>
@@ -80,10 +80,10 @@
                         <div class="mb-3{{ $errors->has('rcon') ? ' has-error' : '' }}">
                             {{ Form::label('rcon', null, ['class' => 'control-label']) }}
 
-                            <div class="input-group">
+                            <div class="relative flex items-stretch w-full">
                                 {{ Form::input('password', 'rcon', $server->rcon,
                                     ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-                                <button class="btn btn-outline-secondary show-hide-password" type="button"><i class="far fa-eye"></i></button>
+                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700 show-hide-password" type="button"><i class="far fa-eye"></i></button>
                             </div>
 
                         </div>
@@ -98,12 +98,12 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
+            <div class="md:w-1/2 pr-4 pl-4">
+                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                         {{ __('servers.ds_ip_ports') }}
                     </div>
-                    <div class="card-body">
+                    <div class="flex-auto p-6">
                         <ds-ip-selector
                                 :ds-list="{{ $dedicatedServers }}"
                                 :initial-ds-id="{{ $server->ds_id }}"
@@ -121,17 +121,17 @@
             </div>
         </div>
 
-        <div class="row mt-2">
-            <div class="col-md-12">
-                <div class="card mt-2">
-                    <div class="card-header">
+        <div class="flex flex-wrap  mt-2">
+            <div class="md:w-full pr-4 pl-4">
+                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
+                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                         {{ __('servers.start_command') }}
                     </div>
-                    <div class="card-body">
+                    <div class="flex-auto p-6">
                         {{ Form::bsTextArea('start_command', null, null, ['rows' => 3]) }}
 
-                        <div class="col-md-12">
-                            <table class="table table-striped table-bordered">
+                        <div class="md:w-full pr-4 pl-4">
+                            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>{{ __('main.name') }}</th>
@@ -143,7 +143,7 @@
                                 @foreach ($server->aliases as $aliasName => $aliasValue)
                                     <tr>
                                         <td>
-                                            <code class="bg-light highlighter-rouge p-1 rounded">
+                                            <code class="bg-gray-100 highlighter-rouge p-1 rounded">
                                                 <span>{</span>{{ $aliasName }}<span>}</span>
                                             </code>
 
@@ -161,8 +161,8 @@
 
 
 
-        <div class="row mt-2">
-            <div class="col-md-12">
+        <div class="flex flex-wrap  mt-2">
+            <div class="md:w-full pr-4 pl-4">
                 <div class="mb-3">
                     {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
                 </div>

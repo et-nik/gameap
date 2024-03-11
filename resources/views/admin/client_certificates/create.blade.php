@@ -3,19 +3,19 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">GameAP</a></li>
-        <li class="breadcrumb-item">
+    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
+        <li class="inline-block px-2 py-2 text-gray-700">
             <a href="{{ route('admin.dedicated_servers.index') }}">
                 {{ __('dedicated_servers.dedicated_servers') }}
             </a>
         </li>
-        <li class="breadcrumb-item">
+        <li class="inline-block px-2 py-2 text-gray-700">
             <a href="{{ route('admin.client_certificates.index') }}">
                 {{ __('client_certificates.client_certificates') }}
             </a>
         </li>
-        <li class="breadcrumb-item active">{{ __('client_certificates.create') }}</li>
+        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('client_certificates.create') }}</li>
     </ol>
 @endsection
 
@@ -23,14 +23,14 @@
     @include('components.form.errors_block')
 
     {!! Form::open(['url' => route('admin.client_certificates.index'), 'files' => true]) !!}
-        <div class="card bg-light mt-3 mb-3">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
+            <div class="flex-auto p-6">
+                <div class="flex flex-wrap ">
+                    <div class="md:w-full pr-4 pl-4">
 
-                        <div class="row">
-                            <div class="col-md-12 mt-4 mb-3 pt-1">
-                                <div class="input-group" id="serverCertificateForm">
+                        <div class="flex flex-wrap ">
+                            <div class="md:w-full pr-4 pl-4 mt-4 mb-3 pt-1">
+                                <div class="relative flex items-stretch w-full" id="serverCertificateForm">
                                     {{ Form::file('certificate', ['class' => 'form-control']) }}
                                     {{ Form::label('certificate', __('client_certificates.certificate'), ['class' => 'input-group-text']) }}
 
@@ -43,8 +43,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 mt-4 mb-3 pt-1">
-                                <div class="input-group" id="serverCertificateForm">
+                            <div class="md:w-1/2 pr-4 pl-4 mt-4 mb-3 pt-1">
+                                <div class="relative flex items-stretch w-full" id="serverCertificateForm">
                                     {{ Form::file('private_key', ['class' => 'form-control']) }}
                                     {{ Form::label('private_key', __('client_certificates.private_key'), ['class' => 'input-group-text']) }}
 
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="md:w-1/2 pr-4 pl-4">
                                 {{ Form::bsPassword('private_key_pass') }}
                             </div>
                         </div>
@@ -65,8 +65,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="flex flex-wrap ">
+            <div class="md:w-full pr-4 pl-4">
                 <div class="mb-3">
                     {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
                 </div>

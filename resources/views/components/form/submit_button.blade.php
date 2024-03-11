@@ -33,7 +33,7 @@ $confirmMessage = $confirmMessage ?? __('main.confirm_message');
     {{ Form::hidden($key, $value) }}
 @endforeach
 
-{{ Form::button( $icon . '<span class="d-none d-xl-inline">&nbsp;' . $text . '</span>',
+{{ Form::button( $icon . '<span class="hidden xl:inline">&nbsp;' . $text . '</span>',
     [
         'class'      => $class,
         'title'      => __('main.delete'),

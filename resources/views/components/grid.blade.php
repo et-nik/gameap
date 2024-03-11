@@ -12,7 +12,7 @@
 $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($editRoute) || isset($destroyRoute);
 @endphp
 
-<table class="table table-striped table-bordered table-grid-models">
+<table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered table-grid-models">
     <thead>
     <tr>
         @foreach ($labels as $label)
@@ -84,24 +84,24 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
                 @endforeach
 
                 @if (isset($modelKey) && $showActionCollumn)
-                    <td class="text-nowrap">
+                    <td class="whitespace-nowrap">
                             @if (isset($customActionsBefore))
                                 {!! $customActionsBefore($modelKey, $model) !!}
                             @endif
 
                             @if (isset($viewRoute))
-                                <a class="btn btn-small btn-success btn-sm btn-view"
+                                <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-small bg-green-500 text-white hover:bg-green-600 py-1 px-2 leading-tight text-xs  btn-view"
                                    title="{{ __('main.view') }}"
                                    href="{{ route($viewRoute, $modelKey) }}">
-                                    <i class="fas fa-eye"></i><span class="d-none d-xl-inline">&nbsp;{{ __('main.view') }}</span>
+                                    <i class="fas fa-eye"></i><span class="hidden xl:inline">&nbsp;{{ __('main.view') }}</span>
                                 </a>&nbsp;
                             @endif
 
                             @if (isset($editRoute))
-                                <a class="btn btn-small btn-info btn-sm btn-edit"
+                                <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-small bg-teal-500 text-white hover:bg-teal-600 py-1 px-2 leading-tight text-xs  btn-edit"
                                    title="{{ __('main.edit') }}"
                                    href="{{ route($editRoute, $modelKey) }}">
-                                    <i class="fas fa-edit"></i><span class="d-none d-xl-inline">&nbsp;{{ __('main.edit') }}</span>
+                                    <i class="fas fa-edit"></i><span class="hidden xl:inline">&nbsp;{{ __('main.edit') }}</span>
                                 </a>&nbsp;
                             @endif
 
@@ -109,7 +109,7 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
                                 {{ Form::open(['id' => 'form-destroy-' . $modelKey, 'url' => route($destroyRoute, $modelKey), 'style'=>'display:inline']) }}
                                 {{ Form::hidden('_method', 'DELETE') }}
 
-                                {{ Form::button( '<i class="fas fa-trash"></i><span class="d-none d-xl-inline">&nbsp;' . __('main.delete') . '</span>',
+                                {{ Form::button( '<i class="fas fa-trash"></i><span class="hidden xl:inline">&nbsp;' . __('main.delete') . '</span>',
                                     [
                                         'class' => 'btn btn-danger btn-sm btn-delete',
                                         'title' => __('main.delete'),

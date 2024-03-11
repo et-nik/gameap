@@ -11,7 +11,7 @@
         <div class="box box-primary">
 
             <div class="box-body">
-                <div class="row">
+                <div class="flex flex-wrap ">
                     {!! Form::open(['route' => 'gdaemonTasks.store']) !!}
 
                         @include('gdaemon_tasks.fields')

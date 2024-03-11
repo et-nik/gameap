@@ -1,9 +1,9 @@
 {{--@if ($server->processActive())--}}
-    <div class="row mt-2">
-        <div class="col-md-12">
+    <div class="flex flex-wrap  mt-2">
+        <div class="md:w-full pr-4 pl-4">
 
-            <div class="card">
-                <div class="card-body">
+            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="flex-auto p-6">
                     <server-status :server-id="{{ $server->id }}"></server-status>
                 </div>
             </div>
@@ -12,15 +12,15 @@
     </div>
 {{--@endif--}}
 
-<div class="row mt-2">
+<div class="flex flex-wrap  mt-2">
     @canany(['server-start', 'server-stop', 'server-restart', 'server-update'], $server)
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
+        <div class="md:w-1/2 pr-4 pl-4">
+            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                     {{ __('servers.commands') }}
                 </div>
 
-                <div class="card-body">
+                <div class="flex-auto p-6">
                     <div id="serverControl">
                         @can('server-start', $server)
                             @if (!$server->processActive())
@@ -79,19 +79,19 @@
         </div>
     @endcanany
 
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
+    <div class="md:w-1/2 pr-4 pl-4">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                 {{ __('servers.process_status') }}
             </div>
-            <ul class="list-group list-group-flush">
+            <ul class="flex flex-col pl-0 mb-0 border rounded border-gray-300 ">
                 @if ($server->processActive())
-                    <li class="list-group-item">{{ __('servers.status') }}: <span class="badge text-bg-success">{{ __('servers.active') }}</span></li>
+                    <li class="relative block py-3 px-6 -mb-px border border-r-0 border-l-0 border-gray-300 no-underline">{{ __('servers.status') }}: <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-success">{{ __('servers.active') }}</span></li>
                 @else
-                    <li class="list-group-item">{{ __('servers.status') }}: <span class="badge text-bg-danger">{{ __('servers.inactive') }}</span></li>
+                    <li class="relative block py-3 px-6 -mb-px border border-r-0 border-l-0 border-gray-300 no-underline">{{ __('servers.status') }}: <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-danger">{{ __('servers.inactive') }}</span></li>
                 @endif
 
-                <li class="list-group-item">{{ __('servers.last_check') }}: {{ \Gameap\Helpers\DateHelper::convertToLocal($server->last_process_check) }}</li>
+                <li class="relative block py-3 px-6 -mb-px border border-r-0 border-l-0 border-gray-300 no-underline">{{ __('servers.last_check') }}: {{ \Gameap\Helpers\DateHelper::convertToLocal($server->last_process_check) }}</li>
             </ul>
 
         </div>
@@ -99,14 +99,14 @@
 </div>
 
 @can('server-console-view', $server)
-    <div class="row mt-2">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
+    <div class="flex flex-wrap  mt-2">
+        <div class="md:w-full pr-4 pl-4">
+            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                     {{ __('servers.console') }}
                 </div>
                 <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}" :server-active="{{ $server->processActive() ? "true" : "false" }}">
-                    <div class="d-flex justify-content-center">
+                    <div class="flex justify-center">
                         <div class="fa-3x">
                             <i class="fas fa-spinner fa-spin"></i>
                         </div>

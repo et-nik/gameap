@@ -4,8 +4,8 @@
 **/
 --}}
 
-<div class="row mt-2">
-    <div class="col-md-12">
+<div class="flex flex-wrap  mt-2">
+    <div class="md:w-full pr-4 pl-4">
         <server-tasks
                 v-if="activeTab === 'schedules'"
                 :server-id="{{ $server->id }}"
