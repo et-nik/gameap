@@ -118,6 +118,22 @@ get:
             console.log(body);
           }
         });
+    - lang: "JavaScript"
+      label: "JavaScript fetch"
+      source: |
+          fetch("https://demo.gameap.ru/api/servers", {
+          "headers": {
+              "accept": "application/json",
+              "content-type": "application/json",
+              "authorization": "Bearer " + YOUR_API_KEY
+          }
+          })
+          .then(response => {
+          console.log(response);
+          })
+          .catch(err => {
+          console.error(err);
+          });
 
 post:
   summary: Create Game Server

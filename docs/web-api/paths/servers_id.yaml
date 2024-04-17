@@ -159,6 +159,7 @@ put:
         print_r($response);
 
     - lang: JavaScript
+      label: JavaScript fetch
       source: |
           fetch("https://demo.gameap.ru/api/servers/6", {
           "headers": {
