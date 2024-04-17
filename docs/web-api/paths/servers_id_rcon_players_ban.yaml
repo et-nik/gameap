@@ -79,7 +79,7 @@ post:
             'Content-Type: application/json',
             'Authorization: Bearer ' . $apiKey,
           ],
-          CURLOPT_POSTFIELDS => '{"player":"123", "reason": "some reason", "time": "1234567"}',
+          CURLOPT_POSTFIELDS => $data,
         ]);
           
         $response = curl_exec($curl);
