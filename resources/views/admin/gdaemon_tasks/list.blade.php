@@ -3,10 +3,10 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
-        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
-        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('gdaemon_tasks.gdaemon_tasks') }}</li>
-    </ol>
+    <g-breadcrumbs :items="[
+        {'link':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+        {'text':'{{ __("gdaemon_tasks.gdaemon_tasks") }}'},
+    ]"></g-breadcrumbs>
 @endsection
 
 @section('content')

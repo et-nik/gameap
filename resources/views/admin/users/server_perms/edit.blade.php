@@ -13,14 +13,12 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
-        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
-        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.users.index') }}">{{ __('users.users') }}</a></li>
-        <li class="inline-block px-2 py-2 text-gray-700">
-            <a href="{{ route('admin.users.edit', $user->id) }}">{{ __('users.title_edit') }}</a>
-        </li>
-        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('users.server_permission_edit') }}</li>
-    </ol>
+    <g-breadcrumbs :items="[
+        {'link':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+        {'link':'{{ route("admin.users.index") }}', 'text':'{{ __("users.users") }}'},
+        {'link':'{{ route("admin.users.edit", $user->id) }}', 'text':'{{ __("users.title_edit") }}'},
+        {'text':'{{ __("users.server_permission_edit") }}'},
+    ]"></g-breadcrumbs>
 @endsection
 
 @section('content')

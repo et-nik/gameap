@@ -1,7 +1,7 @@
 <template>
     <!-- Component Start -->
     <div v-if="minimized === true" class="items-center w-16 mr-5"></div>
-    <div v-if="minimized === true" class="fixed items-center w-16 h-full overflow-y-scroll no-scrollbar text-stone-400 bg-stone-900">
+    <div v-if="minimized === true" class="sidebar-menu fixed items-center w-16 h-full overflow-y-scroll no-scrollbar text-stone-400 bg-stone-900">
         <a class="flex items-center w-full px-3 mt-3" href="#">
           <span class="ml-2 w-full text-center text-sm font-bold">—</span>
         </a>
@@ -38,18 +38,6 @@
           </div>
         </div>
 
-        <a class="flex items-center w-full px-3 mt-3" href="#">
-          <span class="ml-2 w-full text-center text-sm font-bold">—</span>
-        </a>
-
-        <div class="w-full px-2">
-          <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-            <a v-for="link in supportLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
-              <i :class="link.icon" class="ml-1"></i>
-            </a>
-          </div>
-        </div>
-
         <div class="w-full px-2 mt-3">
           <div class="flex flex-col items-center w-full mb-3 border-stone-700">
             <a v-on:click="toggleMinimized" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" href="#">
@@ -58,12 +46,14 @@
           </div>
         </div>
 
+        <div class="mb-20"></div>
+
       </div>
     <!-- Component End  -->
 
     <!-- Component Start -->
     <div v-if="minimized === false" class="items-center w-56 mr-5"></div>
-    <div v-if="minimized === false" class="fixed items-center w-56 h-full overflow-y-scroll no-scrollbar text-stone-400 bg-stone-900">
+    <div v-if="minimized === false" class="sidebar-menu fixed items-center w-56 h-full overflow-y-scroll no-scrollbar text-stone-400 bg-stone-900">
       <a class="flex items-center w-full px-3 mt-3" href="#">
         <span class="ml-2 w-full text-center text-sm font-bold">{{ trans('sidebar.control') }}</span>
       </a>
@@ -103,20 +93,6 @@
         </div>
       </div>
 
-      <a class="flex items-center w-full px-3 mt-3" href="#">
-        <span class="ml-2 w-full text-center text-sm font-bold">{{ trans('sidebar.support') }}</span>
-      </a>
-
-      <div class="w-full px-2">
-        <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-          <a v-for="link in supportLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
-            <i :class="link.icon" class="ml-1"></i>
-            <span class="ml-2 text-sm font-medium">{{ link.text }}</span>
-          </a>
-        </div>
-      </div>
-
-
       <div class="w-full px-2 mt-3">
         <div class="flex flex-col items-center w-full mb-3 border-stone-700">
           <a v-on:click="toggleMinimized" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" href="#">
@@ -125,6 +101,8 @@
           </a>
         </div>
       </div>
+
+      <div class="mb-20"></div>
 
     </div>
     <!-- Component End  -->
@@ -182,31 +160,22 @@ const gameapLinks = [
     icon: 'fas fa-sync',
     text: trans('sidebar.update'),
     href: '#'
-  }
-]
-
-const supportLinks = [
+  },
   {
     icon: 'fas fa-question',
     text: trans('sidebar.help'),
     href: '#'
   },
-  {
-    icon: 'fas fa-comment-alt',
-    text: trans('sidebar.forum'),
-    href: 'https://forum.gameap.ru'
-  },
-  {
-    icon: 'fab fa-wikipedia-w',
-    text: trans('sidebar.documentation'),
-    href: 'https://docs.gameap.com'
-  }
-];
+]
 
 const minimized = ref(localStorage.getItem('leftMenuState') === 'small');
 
 function toggleMinimized() {
   minimized.value = !minimized.value;
+
+  document.querySelectorAll('.sidebar-menu').forEach((el) => {
+    el.scrollTop = 0;
+  })
 
   if (minimized.value) {
     localStorage.setItem('leftMenuState', 'small');

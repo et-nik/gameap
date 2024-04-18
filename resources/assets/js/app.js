@@ -35,6 +35,8 @@ import {pluralize, trans} from "./i18n/i18n";
 
 import store from './store'
 
+import GBreadcrumbs from "./components/GBreadcrumbs.vue";
+
 import MainNavbar from './components/MainNavbar.vue';
 import MainSidebar from './components/MainSidebar.vue';
 
@@ -116,6 +118,7 @@ const setActiveTab = (tab) => {
 
 const app = createApp({
     components: {
+        GBreadcrumbs,
         MainNavbar,
         MainSidebar,
         ContentView,

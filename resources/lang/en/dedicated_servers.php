@@ -19,6 +19,7 @@ return [
 
     'create'                    => 'Create',
     'edit'                      => 'Edit',
+    'view'                      => 'View',
     'save'                      => 'Save',
     'main'                      => 'Main',
     'name'                      => 'Name',

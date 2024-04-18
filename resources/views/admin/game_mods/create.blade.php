@@ -3,14 +3,14 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
-        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
-        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.games.index') }}">{{ __('games.games') }}</a></li>
-        @if($game)
-            <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('admin.games.edit', ['game' => $gameList[$game]]) }}">{{ $gameList[$game] }}</a></li>
-        @endif
-        <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('games.add_mod') }}</li>
-    </ol>
+    <g-breadcrumbs :items="[
+        {'link':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+        {'link':'{{ route("admin.games.index") }}', 'text':'{{ __("games.games") }}'},
+            @if($game)
+                {'link':'{{ route("admin.games.edit", ["game" => $game]) }}', 'text':'{{ $gameList[$game] }}'},
+            @endif
+        {'text':'{{ __("games.add_mod") }}'},
+    ]"></g-breadcrumbs>
 @endsection
 
 @section('content')

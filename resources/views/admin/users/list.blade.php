@@ -7,6 +7,10 @@
         <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>
         <li class="inline-block px-2 py-2 text-gray-700 active">{{ __('users.users') }}</li>
     </ol>
+    <g-breadcrumbs :items="[
+        {'link':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+        {'text':'{{ __("users.users") }}'},
+    ]"></g-breadcrumbs>
 @endsection
 
 @section('content')
