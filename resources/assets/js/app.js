@@ -36,6 +36,7 @@ import {pluralize, trans} from "./i18n/i18n";
 import store from './store'
 
 import MainNavbar from './components/MainNavbar.vue';
+import MainSidebar from './components/MainSidebar.vue';
 
 import ContentView from './components/ContentView.vue';
 
@@ -116,6 +117,7 @@ const setActiveTab = (tab) => {
 const app = createApp({
     components: {
         MainNavbar,
+        MainSidebar,
         ContentView,
         DsIpSelector,
         GameModSelector,
