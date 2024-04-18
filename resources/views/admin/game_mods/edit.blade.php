@@ -34,7 +34,7 @@
             <div class="tab-pane active" id="main">
                 <div class="flex flex-wrap  mt-2">
                     <div class="md:w-1/2 pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                             <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.basic_info') }}
                             </div>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
 
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
                             <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.run_commands') }}
                             </div>
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="md:w-1/2 pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                             <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.repositories_local') }}
                             </div>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
 
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
                             <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.repositories_remote') }}
                             </div>
@@ -81,7 +81,7 @@
             <div class="tab-pane opacity-0" id="game-servers-commands">
                 <div class="flex flex-wrap  mt-2">
                     <div class="md:w-full pr-4 pl-4 m-2">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                             <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('games.servers_commands') }}
                             </div>
@@ -128,7 +128,7 @@
             <div class="tab-pane opacity-0" id="vars">
                 <div class="flex flex-wrap  mt-2 mb-2">
                     <div class="md:w-full pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                             <div class="flex-auto p-6">
                                 <input-many-list
                                         name="vars"
@@ -146,7 +146,7 @@
             <div class="tab-pane opacity-0" id="fast-rcon">
                 <div class="flex flex-wrap  mt-2 mb-2">
                     <div class="md:w-full pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                             <div class="flex-auto p-6">
                                 <input-many-list
                                         name="fast_rcon"

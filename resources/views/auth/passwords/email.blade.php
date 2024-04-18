@@ -4,7 +4,7 @@
 <div class="container mx-auto sm:px-4">
     <div class="flex flex-wrap  justify-center mt-4">
         <div class="md:w-2/5 pr-4 pl-4">
-            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-3 mt-3">
+            <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-3 mt-3">
                 <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
                     {{ csrf_field() }}
                     <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 p-6">{{ __('auth.reset_password') }}</div>

@@ -35,6 +35,8 @@ import {pluralize, trans} from "./i18n/i18n";
 
 import store from './store'
 
+import MainNavbar from './components/MainNavbar.vue';
+
 import ContentView from './components/ContentView.vue';
 
 const InputTextList = defineAsyncComponent(() =>
@@ -113,6 +115,7 @@ const setActiveTab = (tab) => {
 
 const app = createApp({
     components: {
+        MainNavbar,
         ContentView,
         DsIpSelector,
         GameModSelector,

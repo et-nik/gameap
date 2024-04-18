@@ -16,7 +16,7 @@
     {!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update', $user->id]]) !!}
         <div class="flex flex-wrap  mt-2 mb-2">
             <div class="md:w-1/2 pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                     <div class="flex-auto p-6">
 
                         {{ Form::bsText('login') }}
@@ -40,7 +40,7 @@
             </div>
 
             <div class="md:w-1/2 pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                     <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">{{ __('users.servers') }}</div>
                     <div class="flex-auto p-6">
                         <user-server-privileges :initial-items="{{ $user->servers }}" :user-id="{{ $user->id }}"></user-server-privileges>

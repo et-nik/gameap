@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
+    <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
         <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
             {{ __('home.main') }}
         </div>
@@ -48,7 +48,7 @@
 
     @can('admin roles & permissions')
         @if (!empty($problems))
-            <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
+            <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
                 <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                     <i class="fas fa-exclamation-triangle"></i> {{ __('home.problems') }}
                 </div>
@@ -63,7 +63,7 @@
         @endif
     @endcan
 
-    <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
+    <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
         <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
             {{ __('home.information') }}
         </div>

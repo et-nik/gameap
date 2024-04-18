@@ -23,7 +23,7 @@
     @include('components.form.errors_block')
 
     {!! Form::open(['url' => route('admin.client_certificates.index'), 'files' => true]) !!}
-        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
+        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
             <div class="flex-auto p-6">
                 <div class="flex flex-wrap ">
                     <div class="md:w-full pr-4 pl-4">

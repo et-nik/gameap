@@ -25,7 +25,7 @@
 
         <div class="flex flex-wrap  mt-2">
             <div class="md:w-full pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                     <div class="flex-auto p-6">
                         <div id="serverControl">
                             <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-large bg-teal-500 text-white hover:bg-teal-600" href="#" @click="updateServer({{ $server->id }})">

@@ -39,7 +39,7 @@
             <div class="tab-pane active" id="main">
                 <div class="flex flex-wrap ">
                     <div class="md:w-1/2 pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
                             <div class="flex-auto p-6">
                                 {{ Form::bsText('name') }}
                                 {{ Form::bsText('enabled') }}
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="md:w-1/2 pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
                             <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
                                 {{ __('dedicated_servers.ip_list') }}
                             </div>
@@ -79,7 +79,7 @@
             <div class="tab-pane opacity-0" id="scripts">
                 <div class="flex flex-wrap ">
                     <div class="md:w-full pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
                             <div class="flex-auto p-6">
                                 <div class="flex flex-wrap ">
                                     <div class="md:w-1/2 pr-4 pl-4">{{ Form::bsText('script_install') }}</div>
@@ -116,7 +116,7 @@
             <div class="tab-pane opacity-0" id="gdaemon">
                 <div class="flex flex-wrap ">
                     <div class="md:w-full pr-4 pl-4">
-                        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
+                        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 bg-gray-100 mt-3 mb-3">
                             <div class="flex-auto p-6">
                                 <div class="flex flex-wrap ">
                                     <div class="md:w-1/3 pr-4 pl-4">{{ Form::bsText('gdaemon_host') }}</div>
