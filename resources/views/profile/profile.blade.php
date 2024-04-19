@@ -73,10 +73,10 @@
                                             <div class="w-full">{{ Form::bsPassword('password_confirmation') }}</div>
                                         </div>
 
-                                        <div class="flex flex-wrap ">
-                                            <div class="w-1/2">
-                                                {{ Form::submit(__('main.change'), ['class' => 'btn btn-success']) }}
-                                            </div>
+                                        <div class="md:w-full mt-4 mb-8">
+                                            <g-button color="green">
+                                                <i class="fas fa-save"></i></i>&nbsp;{{ __('main.change') }}
+                                            </g-button>
                                         </div>
                                         {!! Form::close() !!}
                                     </div>

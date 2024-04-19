@@ -159,14 +159,10 @@
             </div>
         </div>
 
-
-
-        <div class="flex flex-wrap  mt-2">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="mb-3">
-                    {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
-                </div>
-            </div>
+        <div class="md:w-full mt-4 mb-8">
+            <g-button color="green">
+                <i class="fas fa-save"></i></i>&nbsp;{{ __('main.save') }}
+            </g-button>
         </div>
 
     {!! Form::close() !!}

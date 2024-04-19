@@ -102,12 +102,10 @@
                             </div>
                         </div>
 
-                        <div class="flex flex-wrap  mt-2">
-                            <div class="md:w-full pr-4 pl-4">
-                                <div class="mb-3">
-                                    {{ Form::submit(__('main.send'), ['class' => 'btn btn-success']) }}
-                                </div>
-                            </div>
+                        <div class="md:w-full mt-4 mb-8">
+                            <g-button color="green">
+                                {{ __('main.send') }}
+                            </g-button>
                         </div>
                     {{ Form::close() }}
                 </div>

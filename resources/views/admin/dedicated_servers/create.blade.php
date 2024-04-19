@@ -204,12 +204,10 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap ">
-            <div class="w-full">
-                <div class="mb-3">
-                    {{ Form::submit(__('dedicated_servers.create'), ['class' => 'btn btn-success']) }}
-                </div>
-            </div>
+        <div class="md:w-full mt-4 mb-8">
+            <g-button color="green">
+                <i class="fas fa-save"></i></i>&nbsp;{{ __('dedicated_servers.create') }}
+            </g-button>
         </div>
 
     {!! Form::close() !!}

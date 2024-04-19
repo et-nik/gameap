@@ -57,12 +57,10 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap ">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="mb-3">
-                    {{ Form::submit(__('main.create'), ['class' => 'btn btn-success']) }}
-                </div>
-            </div>
+        <div class="md:w-full mt-4 mb-8">
+            <g-button color="green">
+                <i class="fas fa-save"></i></i>&nbsp;{{ __('main.create') }}
+            </g-button>
         </div>
 
     {!! Form::close() !!}

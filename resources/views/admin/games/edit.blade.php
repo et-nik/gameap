@@ -84,7 +84,11 @@
             </div>
         </div>
 
-        {{ Form::submit(__('main.save'), ['class' => 'btn btn-success btn-ico btn-ico-save']) }}
+        <div class="md:w-full mt-4 mb-8">
+            <g-button color="green">
+                <i class="fas fa-save"></i></i>&nbsp;{{ __('main.save') }}
+            </g-button>
+        </div>
 
     {!! Form::close() !!}
 @endsection
