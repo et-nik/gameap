@@ -1,6 +1,6 @@
 <template>
   <!-- Breadcrumb -->
-  <nav class="flex pt-3 pb-3 py-4 px-4 mb-4 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
+  <nav class="flex pt-3 pb-3 py-4 px-4 mb-4 text-gray-700 border border-stone-200 rounded-lg bg-stone-100 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
       <li v-for="item in items.slice(0, 1)" class="inline-flex items-center">
         <a v-if="item.link" :href="item.link" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">

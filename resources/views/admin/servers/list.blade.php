@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="page-list-menu mb-3">
-        <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600' href="{{ route('admin.servers.create') }}">
+        <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600' href="{{ route('admin.servers.create') }}">
             <span class="fa fa-plus-square"></span>&nbsp;{{ __('servers.create') }}
         </a>
     </div>

@@ -14,49 +14,68 @@
     @include('components.form.errors_block')
 
     {!! Form::open(['url' => route('admin.games.index')]) !!}
-        <div class="flex flex-wrap  mt-2 mb-2">
-            <div class="md:w-1/2 pr-4 pl-4">
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="flex-auto p-6">
-                            {{ Form::bsText('code') }}
-                            {{ Form::bsText('name') }}
-                            {{ Form::bsText('engine') }}
-                            {{ Form::bsText('engine_version') }}
-                    </div>
-                </div>
+        <div class="flex flex-wrap mt-2 mb-2">
+            <div class="md:w-1/2 pr-8">
+                <n-card
+                        title="{{ __('games.basic_info') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                          content: true,
+                          footer: 'soft'
+                        }"
+                >
+                    {{ Form::bsText('code') }}
+                    {{ Form::bsText('name') }}
+                    {{ Form::bsText('engine') }}
+                    {{ Form::bsText('engine_version') }}
+                </n-card>
             </div>
 
-            <div class="md:w-1/2 pr-4 pl-4">
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('games.steam_info') }}
-                    </div>
-                    <div class="flex-auto p-6">
-                        {{ Form::bsText('steam_app_id_linux') }}
-                        {{ Form::bsText('steam_app_id_windows') }}
-                        {{ Form::bsText('steam_app_set_config') }}
-                    </div>
-                </div>
+            <div class="md:w-1/2">
+                <n-card
+                        title="{{ __('games.steam_info') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                          content: true,
+                          footer: 'soft'
+                        }"
+                >
+                    {{ Form::bsText('steam_app_id_linux') }}
+                    {{ Form::bsText('steam_app_id_windows') }}
+                    {{ Form::bsText('steam_app_set_config') }}
+                </n-card>
+            </div>
 
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('games.repositories_local') }}
-                    </div>
-                    <div class="flex-auto p-6">
-                        {{ Form::bsText('local_repository_linux') }}
-                        {{ Form::bsText('local_repository_windows') }}
-                    </div>
-                </div>
+            <div class="md:w-1/2 pr-8">
+                <n-card
+                        title="{{ __('games.repositories_local') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                      content: true,
+                      footer: 'soft'
+                    }"
+                >
+                    {{ Form::bsText('local_repository_linux') }}
+                    {{ Form::bsText('local_repository_windows') }}
+                </n-card>
+            </div>
 
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('games.repositories_remote') }}
-                    </div>
-                    <div class="flex-auto p-6">
-                        {{ Form::bsText('remote_repository_linux') }}
-                        {{ Form::bsText('remote_repository_windows') }}
-                    </div>
-                </div>
+            <div class="md:w-1/2">
+                <n-card
+                        title="{{ __('games.repositories_remote') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                      content: true,
+                      footer: 'soft'
+                    }"
+                >
+                    {{ Form::bsText('remote_repository_linux') }}
+                    {{ Form::bsText('remote_repository_windows') }}
+                </n-card>
             </div>
         </div>
 

@@ -15,7 +15,7 @@
 
 @section('content')
     <div class="page-list-menu mb-3">
-        <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600' href="{{ route('admin.users.create') }}">
+        <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded no-underline btn-small bg-orange-500 text-white hover:bg-orange-600 py-1.5 px-2 leading-tight text-xs btn-edit' href="{{ route('admin.users.create') }}">
             <span class="fa fa-plus-square"></span>&nbsp;{{ __('main.create') }}
         </a>
     </div>

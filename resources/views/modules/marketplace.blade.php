@@ -74,7 +74,7 @@
                                     'class' => 'btn btn-warning btn-sm'
                                 ]);
                             } else {
-                                $buttons .= '<a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-small bg-gray-100 text-gray-800 hover:bg-gray-200 py-1 px-2 leading-tight text-xs  opacity-75" title="' . __('modules.already_installed') . '" href="#">';
+                                $buttons .= '<a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-small bg-gray-100 text-gray-800 hover:bg-gray-200 py-1.5 px-2 leading-tight text-xs  opacity-75" title="' . __('modules.already_installed') . '" href="#">';
                                 $buttons .= '<i class="fas fa-download"></i><span class="hidden xl:inline">&nbsp;' . __('modules.already_installed') . '</span>';
                                 $buttons .= '</a>';
                             }

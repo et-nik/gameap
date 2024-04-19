@@ -56,7 +56,7 @@
                 <div class="flex flex-wrap ">
                     <div class="w-full">
                         <div class="w-full">
-                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-bs-toggle="collapse" href="#changePassword" role="button" aria-expanded="false" aria-controls="changePassword">
+                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-bs-toggle="collapse" href="#changePassword" role="button" aria-expanded="false" aria-controls="changePassword">
                                 {{ __('profile.change_password') }}
                             </a>
                         </div>

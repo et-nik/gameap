@@ -24,7 +24,7 @@
                                 {{ __('home.old_version') }}
                             </div>
                         @elseif ($versionCompare == 0)
-                            <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800">
+                            <div class="relative px-3 py-3 mb-4 border rounded bg-lime-200 border-green-300 text-green-800">
                                 {{ __('home.actual_version') }}
                             </div>
                         @else

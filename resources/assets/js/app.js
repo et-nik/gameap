@@ -10,6 +10,7 @@ import {
     create,
     NAlert,
     NButton,
+    NCard,
     NCollapse,
     NCollapseItem,
     NDatePicker,
@@ -27,7 +28,6 @@ import {
 
 import './bootstrap';
 
-import './parts/leftMenu'
 import './parts/form'
 import {alert, confirmAction, confirm} from './parts/dialogs'
 
@@ -36,6 +36,7 @@ import {pluralize, trans} from "./i18n/i18n";
 import store from './store'
 
 import GBreadcrumbs from "./components/GBreadcrumbs.vue";
+import GButton from "./components/GButton.vue";
 
 import MainNavbar from './components/MainNavbar.vue';
 import MainSidebar from './components/MainSidebar.vue';
@@ -119,6 +120,7 @@ const setActiveTab = (tab) => {
 const app = createApp({
     components: {
         GBreadcrumbs,
+        GButton,
         MainNavbar,
         MainSidebar,
         ContentView,
@@ -168,6 +170,7 @@ const naive = create({
     components: [
         NAlert,
         NButton,
+        NCard,
         NCollapse,
         NCollapseItem,
         NDialog,
@@ -188,6 +191,10 @@ app.use(store)
 app.use(naive)
 
 app.use(fileManager, {store: store})
+
+const meta = document.createElement('meta')
+meta.name = 'naive-ui-style'
+document.head.appendChild(meta)
 
 app.mount("#app")
 

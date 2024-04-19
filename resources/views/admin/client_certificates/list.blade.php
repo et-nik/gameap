@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600' href="{{ route('admin.client_certificates.create') }}">
+    <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600' href="{{ route('admin.client_certificates.create') }}">
         <i class="fa fa-plus-square"></i>&nbsp;{{ __('client_certificates.create') }}
     </a>
     <hr>

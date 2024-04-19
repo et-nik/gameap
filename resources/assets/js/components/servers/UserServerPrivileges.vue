@@ -15,11 +15,11 @@
                     <td><a v-bind:href="'/admin/servers/' + server.id + '/edit'">{{ server.name }}</a></td>
                     <td>{{ server.server_ip }}:{{ server.server_port }}</td>
                     <td>
-                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600" v-bind:href="'/admin/users/' + userId + '/servers/' + server.id + '/edit'">
+                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600" v-bind:href="'/admin/users/' + userId + '/servers/' + server.id + '/edit'">
                             <i class="fas fa-lock"></i>
                         </a>
                         <input type="hidden" v-model="server.id" v-bind:name="'servers[]'">
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
                             <i class="fa fa-times"></i>
                         </button>
                     </td>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="md:w-1/5 pr-4 pl-4 md:mx-2/5 centered mt-2">
-                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
+                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-lime-500 text-white hover:bg-lime-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
             </div>
         </div>
     </div>

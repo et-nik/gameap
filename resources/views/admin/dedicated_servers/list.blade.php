@@ -11,10 +11,10 @@
 
 @section('content')
     <div class="page-list-menu mb-3">
-        <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600' href="{{ route('admin.dedicated_servers.create') }}">
+        <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600' href="{{ route('admin.dedicated_servers.create') }}">
             <i class="fa fa-plus-square"></i> {{ __('dedicated_servers.create') }}
         </a>&nbsp;
-        <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-orange-400 text-black hover:bg-orange-500' href="{{ route('admin.client_certificates.index') }}">
+        <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-orange-400 text-black hover:bg-orange-500' href="{{ route('admin.client_certificates.index') }}">
             <i class="fas fa-certificate"></i> {{ __('client_certificates.client_certificates') }}
         </a>
     </div>

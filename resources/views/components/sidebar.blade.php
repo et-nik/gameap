@@ -178,7 +178,7 @@
 
 <ul class="page-sidebar-menu md:hidden">
     <li>
-        <a class="left-menu-link inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-900 text-white hover:bg-gray-900 navbar-btn" href="{{ route('profile') }}">
+        <a class="left-menu-link inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-900 text-white hover:bg-gray-900 navbar-btn" href="{{ route('profile') }}">
             <i class="fas fa-user"></i>&nbsp;<span class="menu-item-label">{{ Auth::user()->name }}</span>
         </a>
     </li>

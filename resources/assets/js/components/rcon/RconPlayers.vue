@@ -1,6 +1,6 @@
 <template>
     <div id="rcon-players-component">
-        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600 m-1" v-on:click="updatePlayers()">
+        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600 m-1" v-on:click="updatePlayers()">
             <i class="fas fa-sync"></i>
         </button>
 
@@ -21,12 +21,12 @@
                 <td v-if="pingRow">{{ value.ping }}</td>
                 <td v-if="ipRow">{{ value.ip }}</td>
                 <td>
-                    <button v-on:click="openDialog('kick', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-orange-400 text-black hover:bg-orange-500 m-1">
+                    <button v-on:click="openDialog('kick', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-orange-400 text-black hover:bg-orange-500 m-1">
                         <i class="gicon gicon-kick"></i>
                         <span class="hidden xl:inline">{{ trans('rcon.kick') }}</span>
                     </button>
 
-                    <button v-on:click="openDialog('ban', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1">
+                    <button v-on:click="openDialog('ban', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1">
                         <i class="fas fa-ban"></i>
                         <span class="hidden xl:inline">{{ trans('rcon.ban') }}</span>
                     </button>
@@ -76,8 +76,8 @@
             </div>
 
             <template #footer>
-                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="send">{{ trans('main.send') }}</button>
-                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="send">{{ trans('main.send') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
 
             </template>
         </n-modal>

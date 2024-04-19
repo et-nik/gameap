@@ -53,7 +53,7 @@
                 @if (!empty($server->gameMod->fast_rcon))
                     <div class="py-3 px-6 bg-gray-200 border-t-1 border-gray-300">
                         @foreach ($server->gameMod->fast_rcon as $rconCommand)
-                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600 m-1 send-rcon-command" data-command="{{ $rconCommand['command'] }}" href="#">{{ $rconCommand['info'] }}</a>
+                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600 m-1 send-rcon-command" data-command="{{ $rconCommand['command'] }}" href="#">{{ $rconCommand['info'] }}</a>
                         @endforeach
                     </div>
                 @endif

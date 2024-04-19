@@ -9,7 +9,7 @@
 @section('content')
 
     <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
-        <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
+        <div class="py-3 px-6 mb-0 bg-gray-100 border-b-1 border-gray-300 text-gray-900">
             {{ __('home.main') }}
         </div>
         <div class="flex-auto p-6">
@@ -84,19 +84,19 @@
 
     <div class="flex flex-wrap ">
         <div class="md:w-1/3 pr-4 pl-4">
-            <a href="{{ route('help') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline d-grid gap-1 py-3 px-4 leading-tight text-xl bg-orange-400 text-black hover:bg-orange-500 rounded">
+            <a href="{{ route('help') }}" class="inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded no-underline d-grid gap-1 py-3 px-4 leading-tight text-xl bg-orange-400 text-black hover:bg-orange-500">
                 <i class="fas fa-hands-helping"></i> {{ __('home.get_help') }}
             </a>
         </div>
 
         <div class="md:w-1/3 pr-4 pl-4">
-            <a target="_blank" href="https://docs.gameap.com" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline d-grid gap-1 py-3 px-4 leading-tight text-xl bg-teal-500 text-white hover:bg-teal-600 rounded">
+            <a target="_blank" href="https://docs.gameap.com" class="inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded  no-underline d-grid gap-1 py-3 px-4 leading-tight text-xl bg-teal-500 text-white hover:bg-teal-600">
                 <i class="fas fa-book"></i> {{ __('home.documentation') }}
             </a>
         </div>
 
         <div class="md:w-1/3 pr-4 pl-4">
-            <a href="{{ route('report_bug') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline d-grid gap-1 py-3 px-4 leading-tight text-xl bg-red-600 text-white hover:bg-red-700 rounded">
+            <a href="{{ route('report_bug') }}" class="inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded  no-underline d-grid gap-1 py-3 px-4 leading-tight text-xl bg-red-600 text-white hover:bg-red-700">
                 <i class="fas fa-bug"></i> {{ __('home.report_bug') }}
             </a>
         </div>

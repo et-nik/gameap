@@ -56,17 +56,17 @@
                             <div class="md:w-full pr-4 pl-4">
                                 <div class="flex flex-wrap ">
                                     <div class="md:w-full pr-4 pl-4">
-                                        <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-100 text-gray-800 hover:bg-gray-200 float-left">{{ __('auth.sign_in') }}</button>
+                                        <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-100 text-gray-800 hover:bg-gray-200 float-left">{{ __('auth.sign_in') }}</button>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-wrap  mt-3">
                                     <div class="md:w-full pr-4 pl-4">
-                                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent float-left" href="{{ route('password.request') }}">{{ __('auth.forgot_password') }}</a>
+                                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent float-left" href="{{ route('password.request') }}">{{ __('auth.forgot_password') }}</a>
                                     </div>
                                     @if(config('app.allow_registration'))
                                         <div class="md:w-full pr-4 pl-4">
-                                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent float-left" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a>
+                                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent float-left" href="{{ route('register') }}">{{ __('auth.sign_up') }}</a>
                                         </div>
                                     @endif
                                 </div>

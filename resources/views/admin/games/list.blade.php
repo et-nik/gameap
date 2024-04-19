@@ -11,18 +11,18 @@
 
 @section('content')
     <div class="page-list-menu mb-3">
-        <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600' href="{{ route('admin.games.create') }}">
+        <g-button class="mr-1" color="green" link="{{ route('admin.games.create') }}">
             <i class="fa fa-plus-square"></i>&nbsp;{{ __('games.add') }}
-        </a>&nbsp;
+        </g-button>
 
-        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-large bg-orange-400 text-black hover:bg-orange-500" href="{{ route('admin.game_mods.create', ['game' => null]) }}">
+        <g-button class="mr-1" color="orange" link="{{ route('admin.game_mods.create', ['game' => null]) }}">
             <i class="fa fa-cat"></i>&nbsp;{{ __('games.add_mod') }}
-        </a>&nbsp;
+        </g-button>
 
         {{ Form::open(['method' => 'PATCH', 'url' => route('admin.games.upgrade'), 'style'=>'display:inline']) }}
         {{ Form::button( '<i class="fas fa-sync"></i>&nbsp;' . __('games.upgrade'),
         [
-            'class' => 'btn btn-dark',
+            'class' => 'inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline btn-large bg-stone-700 text-white hover:bg-stone-800',
             'v-on:click' => 'confirmAction($event, \'' . __('games.d_upgrade_confirm') . '\')',
             'type' => 'submit'
         ]
@@ -43,7 +43,7 @@
 
                     $destroyButton = Form::open(array('url' => route('admin.game_mods.destroy', ['game_mod' => $mod->getKey()]), 'style'=>'display:inline'));
                     $destroyButton .= Form::hidden('_method', 'DELETE');
-                    $destroyButton .= Form::button('<span class="fa fa-times"></span>', [
+                    $destroyButton .= Form::button('<span class="ml-4 text-red-500 fa fa-times"></span>', [
                         'class' => 'btn btn-link btn-sm text-danger',
                         'v-on:click' => 'confirmAction($event, \'' . __('main.confirm_message'). '\')',
                         'type' => 'submit',
@@ -58,15 +58,14 @@
                 }
 
                 if (empty($modLinks)) {
-                    return "<a class=\"btn btn-sm btn-warning\" href=\"" . route('admin.game_mods.create', ['game' => $gameModel->getKey()]) . "\">
+                    return "<a class=\"inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded no-underline btn-small bg-orange-500 text-white hover:bg-orange-600 py-1.5 px-2 leading-tight text-xs btn-edit\" href=\"" . route('admin.game_mods.create', ['game' => $gameModel->getKey()]) . "\">
                         <span class=\"fa fa-cat\"></span>&nbsp;" . __('games.add_first_mod') . "
                     </a>";
                 } else {
-                    return "<ul class=\"list-unstyled\">{$modLinks}</ul>";
+                    return "<ul class=\"max-w-md space-y-1 list-none list-inside\">{$modLinks}</ul>";
                 }
             }]
         ],
-        // 'viewRoute' => 'admin.games.show',
         'editRoute' => 'admin.games.edit',
         'destroyRoute' => 'admin.games.destroy',
     ])

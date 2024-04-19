@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="md:w-1/3 pr-4 pl-4 md:mx-1/3">
-                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-blue-600 text-white hover:bg-blue-600 py-1 px-2 leading-tight text-xs  btn-hide" data-bs-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
+                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-blue-600 text-white hover:bg-blue-600 py-1.5 px-2 leading-tight text-xs  btn-hide" data-bs-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
                                 <i class="far fa-caret-square-down"></i> {{ __('main.more') }}
                             </a>
                         </div>
@@ -43,7 +43,7 @@
                                 <div class="relative flex items-stretch w-full">
                                     {{ Form::input('password', 'rcon', null,
                                         ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-                                    <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700 show-hide-password" type="button"><i class="far fa-eye"></i></button>
+                                    <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700 show-hide-password" type="button"><i class="far fa-eye"></i></button>
                                 </div>
                             </div>
 

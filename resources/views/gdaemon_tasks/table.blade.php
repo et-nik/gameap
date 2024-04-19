@@ -26,8 +26,8 @@
             <td>
                 {!! Form::open(['route' => ['gdaemonTasks.destroy', $gdaemonTask->id], 'method' => 'delete']) !!}
                 <div class='relative inline-flex align-middle'>
-                    <a href="{!! route('gdaemonTasks.show', [$gdaemonTask->id]) !!}" class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('gdaemonTasks.edit', [$gdaemonTask->id]) !!}" class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('gdaemonTasks.show', [$gdaemonTask->id]) !!}" class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('gdaemonTasks.edit', [$gdaemonTask->id]) !!}" class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

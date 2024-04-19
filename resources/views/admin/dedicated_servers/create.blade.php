@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" data-bs-dismiss="modal">{{ __('main.close') }}</button>
+                    <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" data-bs-dismiss="modal">{{ __('main.close') }}</button>
                 </div>
             </div>
         </div>
@@ -163,7 +163,7 @@
 
         <div class="flex flex-wrap  mb-2">
             <div class="md:w-1/5 pr-4 pl-4 md:mx-2/5">
-                <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-bs-toggle="collapse" href="#editScripts" role="button" aria-expanded="false" aria-controls="editScripts">
+                <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-bs-toggle="collapse" href="#editScripts" role="button" aria-expanded="false" aria-controls="editScripts">
                     {{ __('dedicated_servers.edit_scripts') }}
                 </a>
             </div>

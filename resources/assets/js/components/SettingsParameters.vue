@@ -24,14 +24,14 @@
                         </textarea>
                     </div>
 
-                    <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
+                    <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
                         <i class="fa fa-times"></i> {{ trans('main.delete') }}
                     </button>
 
                     <hr>
                 </div>
                 <div class="mt-2 text-center">
-                  <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><i class="fa fa-plus"></i>&nbsp;{{ trans('main.add') }}</button>
+                  <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-lime-500 text-white hover:bg-lime-600" v-on:click.prevent="addItem"><i class="fa fa-plus"></i>&nbsp;{{ trans('main.add') }}</button>
                 </div>
             </div>
         </div>

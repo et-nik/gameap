@@ -58,7 +58,7 @@
                     <div class="py-3 px-6 bg-gray-200 border-t-1 border-gray-300 text-gray-700 p-6">
                         <div class="mb-3">
                             <div class="md:w-full pr-4 pl-4">
-                                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-100 text-gray-800 hover:bg-gray-200">{{ __('auth.reset_password') }}</button>
+                                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-100 text-gray-800 hover:bg-gray-200">{{ __('auth.reset_password') }}</button>
                             </div>
                         </div>
                     </div>

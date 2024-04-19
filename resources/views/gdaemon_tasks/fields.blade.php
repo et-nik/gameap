@@ -49,5 +49,5 @@
 <!-- Submit Field -->
 <div class="mb-3 sm:w-full pr-4 pl-4">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('gdaemonTasks.index') !!}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-default">Cancel</a>
+    <a href="{!! route('gdaemonTasks.index') !!}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline btn-default">Cancel</a>
 </div>

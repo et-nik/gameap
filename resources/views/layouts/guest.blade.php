@@ -17,7 +17,7 @@
 <body>
     <div id="app">
         <nav class="relative flex flex-wrap items-center content-between py-3 px-4  text-white bg-gray-900">
-            <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+            <div class="container mx-auto sm:px-4 max-w-full">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->

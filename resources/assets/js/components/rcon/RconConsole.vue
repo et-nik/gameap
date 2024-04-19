@@ -14,7 +14,7 @@
                    aria-describedby="basic-addon1">
 
             <div class="input-group-prepend">
-                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700" type="button" v-on:click="sendCommand">Send</button>
+                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700" type="button" v-on:click="sendCommand">Send</button>
             </div>
         </div>
     </div>

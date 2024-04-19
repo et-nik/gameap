@@ -20,11 +20,11 @@
     @include('components.form.errors_block')
 
     <div class="mb-1">
-        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-large bg-gray-100 text-gray-800 hover:bg-gray-200" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
+        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline btn-large bg-gray-100 text-gray-800 hover:bg-gray-200" href="{{ route('admin.servers_settings.edit', ['server' => $server->id]) }}">
             <span class="fa fa-cogs"></span>&nbsp;{{ __('servers.settings') }}
         </a>&nbsp;
 
-        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-large bg-gray-100 text-gray-800 hover:bg-gray-200" href="{{ route('servers.control', ['server' => $server->id]) }}">
+        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline btn-large bg-gray-100 text-gray-800 hover:bg-gray-200" href="{{ route('servers.control', ['server' => $server->id]) }}">
             <span class="fa fa-chalkboard"></span>&nbsp;{{ __('servers.control') }}
         </a>
     </div>
@@ -83,7 +83,7 @@
                             <div class="relative flex items-stretch w-full">
                                 {{ Form::input('password', 'rcon', $server->rcon,
                                     ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700 show-hide-password" type="button"><i class="far fa-eye"></i></button>
+                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700 show-hide-password" type="button"><i class="far fa-eye"></i></button>
                             </div>
 
                         </div>

@@ -17,12 +17,12 @@
     @include('components.form.errors_block')
 
     @if ($token = Session::get('token'))
-        <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800">
+        <div class="relative px-3 py-3 mb-4 border rounded bg-lime-200 border-green-300 text-green-800">
             <div class="relative flex items-stretch w-full">
                 <input type="text" id="token" value="{{ $token }}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                 <span class="input-group-btn">
-                <button id="copy-token" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" type="button">
+                <button id="copy-token" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" type="button">
                     <i class="fas fa-copy"></i>
                 </button>
             </span>
@@ -46,7 +46,7 @@
 
                     <div class="flex flex-wrap  mb-2">
                         <div class="w-1/2">
-                            <a class='inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600 mt-2' href="{{ route('tokens.generate') }}">
+                            <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600 mt-2' href="{{ route('tokens.generate') }}">
                                 <i class="fa fa-plus-square"></i> {{ __('tokens.generate_token') }}
                             </a>
                         </div>

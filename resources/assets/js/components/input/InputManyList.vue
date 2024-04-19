@@ -1,7 +1,7 @@
 <template>
     <div class="block w-full overflow-auto scrolling-touch">
         <div class="mb-3">
-            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span></button>
+            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-lime-500 text-white hover:bg-lime-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span></button>
         </div>
 
         <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
@@ -27,7 +27,7 @@
                         </div>
                     </td>
                     <td>
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
                             <span class="fa fa-times"></span>
                         </button>
                     </td>
@@ -36,7 +36,7 @@
         </table>
 
         <div class="mb-3 md:w-1/6 pr-4 pl-4 md:mx-1/2 centered">
-            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-green-500 text-white hover:bg-green-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
+            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-lime-500 text-white hover:bg-lime-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
         </div>
     </div>
 </template>

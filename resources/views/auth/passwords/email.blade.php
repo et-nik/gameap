@@ -11,7 +11,7 @@
 
                     <div class="flex-auto p-6">
                         @if (session('status'))
-                            <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800">
+                            <div class="relative px-3 py-3 mb-4 border rounded bg-lime-200 border-green-300 text-green-800">
                                 {{ session('status') }}
                             </div>
                         @endif
@@ -34,7 +34,7 @@
                     <div class="py-3 px-6 bg-gray-200 border-t-1 border-gray-300 text-gray-700 p-6">
                         <div class="mb-3">
                             <div class="md:w-full pr-4 pl-4">
-                                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-100 text-gray-800 hover:bg-gray-200">{{ __('auth.send_reset_link') }}</button>
+                                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-100 text-gray-800 hover:bg-gray-200">{{ __('auth.send_reset_link') }}</button>
                             </div>
                         </div>
                     </div>

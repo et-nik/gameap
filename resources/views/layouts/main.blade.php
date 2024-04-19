@@ -35,21 +35,17 @@
             </n-message-provider>
         </n-dialog-provider>
 
-        <div id="main-section" class="mt-16 flex">
+        <div id="main-section" class="mt-16 mr-5 flex">
             <div class="flex-none">
                 <main-sidebar></main-sidebar>
             </div>
 
             <div class="flex-1">
                 <div class="max-w-full">
-                    <div class="pt-3 content">
+                    <div class="pt-3 pb-5 content">
                         @yield('breadcrumbs')
                         @include('components.messages')
                         @yield('content')
-                        <div class="copyright">
-                            Game AdminPanel {{ Config::get('constants.AP_VERSION') }} [{{ Config::get('constants.AP_DATE') }}]<br>
-                            Developer: <a href="https://github.com/et-nik" target="_blank">knik</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -57,19 +53,6 @@
     </div>
 
     <div id="left-menu-tooltips" class="left-menu-tooltips"></div>
-
-    <script type="application/javascript">
-        if (localStorage.getItem('leftMenuState') !== 'small') {
-            document.getElementById('main-section').classList.remove("small-menu");
-        } else {
-            document.getElementById('brand-link').classList.remove('navbar-brand');
-
-            document.getElementById('brand-logo').classList.remove('logo');
-            document.getElementById('brand-logo').classList.add('logo-mini');
-
-            document.getElementById('brand-logo').setAttribute('src', '{{ URL::asset('/images/gap_logo_white_mini.png') }}');
-        }
-    </script>
 
     <script src="{{ URL::asset('/js/lang/' . (app()->getLocale() ?? app()->getFallbackLocale()) . '.js') }}"></script>
     <script src="{{ URL::asset('/js/app.js') }}"></script>

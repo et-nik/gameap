@@ -1,7 +1,7 @@
 <template>
     <div id="server-task-component">
         <div class="mb-2">
-          <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
+          <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
         </div>
         <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
             <thead>
@@ -18,11 +18,11 @@
                     <td>{{ value.execute_date }}</td>
                     <td>{{ humanRepeatText(value.repeat) }}</td>
                     <td>
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-green-500 text-white hover:bg-green-600 m-1" v-on:click="editTask(key)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-lime-500 text-white hover:bg-lime-600 m-1" v-on:click="editTask(key)">
                             <i class="fas fa-edit"></i>
                             <span class="hidden xl:inline">&nbsp;{{ trans('main.edit') }}</span>
                         </button>
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1" v-on:click="deleteTask(key)">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1" v-on:click="deleteTask(key)">
                             <i class="fas fa-trash"></i>
                             <span class="hidden xl:inline">&nbsp;{{ trans('main.delete') }}</span>
                         </button>
@@ -153,8 +153,8 @@
             </div>
 
             <template #footer>
-                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
-                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
             </template>
         </n-modal>
     </div>

@@ -14,7 +14,7 @@
     @include('components.form.errors_block')
 
     <div class="mb-1">
-        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-large bg-green-500 text-white hover:bg-green-600" href="{{ route('admin.game_mods.create', ['game' => $game->code]) }}">
+        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline btn-large bg-lime-500 text-white hover:bg-lime-600" href="{{ route('admin.game_mods.create', ['game' => $game->code]) }}">
             <span class="fa fa-cat"></span>&nbsp;{{ __('games.add_mod') }}
         </a>
     </div>
