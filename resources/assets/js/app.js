@@ -23,6 +23,8 @@ import {
     NProgress,
     NSelect,
     NTable,
+    NTabs,
+    NTabPane,
     NTooltip,
 } from 'naive-ui'
 
@@ -183,6 +185,8 @@ const naive = create({
         NProgress,
         NSelect,
         NTable,
+        NTabs,
+        NTabPane,
         NTooltip,
     ],
 })

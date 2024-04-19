@@ -3,11 +3,6 @@
 @extends('layouts.main')
 
 @section('breadcrumbs')
-{{--    <ol class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">--}}
-{{--        <li class="inline-block px-2 py-2 text-gray-700"><a href="/">GameAP</a></li>--}}
-{{--        <li class="inline-block px-2 py-2 text-gray-700"><a href="{{ route('servers') }}">{{ __('servers.game_servers') }}</a></li>--}}
-{{--        <li class="inline-block px-2 py-2 text-gray-700">{{ $server->name }}&nbsp;&nbsp;<span class="text-gray-700">{{ $server->game->name }}</span></li>--}}
-{{--    </ol>--}}
     <g-breadcrumbs :items="[
         {'link':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
         {'link':'{{ route("servers") }}', 'text':'{{ __("servers.game_servers") }}'},
@@ -16,90 +11,82 @@
 @endsection
 
 @section('content')
-    <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200 large mt-4">
-        <li class="">
-            <a class="inline-block py-2 px-4 no-underline active" data-bs-toggle="tab" data-tab="main" href="#main">
-                <i class="fas fa-play"></i>
-                {{ __('servers.control') }}
-            </a>
-        </li>
+        <n-tabs type="line" class="flex justify-between" animated>
+            <n-tab-pane name="control">
+                <template #tab>
+                    <i class="fas fa-play mr-1"></i>
+                    {{ __('servers.control') }}
+                </template>
 
-        @if ($rconSupported && $server->processActive())
-            @can('server-rcon', $server)
-                <li class="">
-                    <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" data-tab="rcon" href="#rcon">
-                        <i class="fas fa-user-astronaut"></i>
-                        RCON
-                    </a>
-                </li>
-            @endcan
-        @endif
+                @include('servers.view_parts.main_tab', ['server' => $server])
 
-        @can('server-files', $server)
-            <li class="">
-                <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" data-tab="filemanager" href="#filemanager">
-                    <i class="fa fa-folder-open"></i>
-                    {{ __('servers.files') }}
-                </a>
-            </li>
-        @endcan
+            </n-tab-pane>
 
-        @can('server-tasks', $server)
-            <li class="">
-                <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" data-tab="schedules" href="#schedules">
-                    <i class="far fa-calendar-alt"></i>
-                    {{ __('servers.task_scheduler') }}
-                </a>
-            </li>
-        @endcan
+            @if ($rconSupported && $server->processActive())
+                @can('server-rcon', $server)
+                    <n-tab-pane name="rcon">
+                        <template #tab>
+                            <i class="fas fa-user-astronaut mr-1"></i>
+                            RCON
+                        </template>
+                    </n-tab-pane>
+                @endcan
 
-        @can('server-settings', $server)
-            <li class="">
-                <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" data-tab="settings" href="#settings">
-                    <i class="fa fa-cogs"></i>
-                    {{ __('servers.settings') }}
-                </a>
-            </li>
-        @endcan
-
-        @can('admin roles & permissions')
-            <li class=" ms-auto">
-                <a class="inline-block py-2 px-4 no-underline text-red-600" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
-                    <i class="fa fa-hammer"></i>
-                    {{ __('servers.admin') }}
-                </a>
-            </li>
-        @endcan
-
-    </ul>
-
-    <div class="tab-content">
-        <div class="tab-pane active" id="main">
-            @include('servers.view_parts.main_tab', ['server' => $server])
-        </div>
-
-        @if ($rconSupported)
-            <div class="tab-pane opacity-0" id="rcon">
                 @include('servers.view_parts.rcon_tab', [
                     'server' => $server,
                     'rconSupportedFeatures' => $rconSupportedFeatures,
                 ])
-            </div>
-        @endif
 
-        <div class="tab-pane opacity-0" id="schedules">
-            @include('servers.view_parts.schedules_tab', ['server' => $server])
-        </div>
+            @endif
 
-        <div class="tab-pane opacity-0" id="filemanager">
-            @include('servers.view_parts.filemanager_tab', ['server' => $server])
-        </div>
+            @can('server-files', $server)
+                <n-tab-pane name="files">
+                    <template #tab>
+                        <i class="fa fa-folder-open mr-1"></i>
+                        {{ __('servers.files') }}
+                    </template>
 
-        <div class="tab-pane opacity-0" id="settings">
-            @include('servers.view_parts.settings_tab', ['server' => $server])
-        </div>
-    </div>
+                    @include('servers.view_parts.filemanager_tab', ['server' => $server])
 
+                </n-tab-pane>
+            @endcan
+
+            @can('server-tasks', $server)
+                <n-tab-pane name="schedules">
+                    <template #tab>
+                        <i class="far fa-calendar-alt mr-1"></i>
+                        {{ __('servers.task_scheduler') }}
+                    </template>
+
+                    @include('servers.view_parts.schedules_tab', ['server' => $server])
+
+                </n-tab-pane>
+            @endcan
+
+            @can('server-settings', $server)
+                <n-tab-pane name="settings">
+                    <template #tab>
+                        <i class="fa fa-cogs mr-1"></i>
+                        {{ __('servers.settings') }}
+                    </template>
+
+                    @include('servers.view_parts.settings_tab', ['server' => $server])
+
+                </n-tab-pane>
+            @endcan
+
+            @can('admin roles & permissions')
+                <n-tab-pane name="admin">
+                    <template #tab>
+                        <div class="order-last ml-auto">
+                            <i class="fa fa-hammer mr-1"></i>
+                            {{ __('servers.admin') }}
+                        </div>
+
+                    </template>
+                </n-tab-pane>
+            @endcan
+        </n-tabs>
 @endsection
 
 @section('footer-scripts')

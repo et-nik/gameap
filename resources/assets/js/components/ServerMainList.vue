@@ -3,6 +3,8 @@
     import {trans} from "../i18n/i18n";
     import store from "../store";
 
+    import GButton from "./GButton.vue";
+
     // Installed statuses
     const NOT_INSTALLED        = 0;
     const INSTALLED            = 1;
@@ -29,26 +31,26 @@
                 key: "status",
                 render(row) {
                     if (row.blocked) {
-                        return h('span', {class: "badge text-bg-secondary"}, trans('servers.blocked'));
+                        return h('span', {class: "bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900"}, trans('servers.blocked'));
                     }
 
                     if (!row.enabled) {
-                        return h('span', {class: "badge text-bg-secondary"}, trans('servers.disabled'));
+                        return h('span', {class: "bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900"}, trans('servers.disabled'));
                     }
 
                     if (!row.installed) {
-                        return h('span', {class: "badge text-bg-secondary"}, trans('servers.not_installed'));
+                        return h('span', {class: "bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900"}, trans('servers.not_installed'));
                     }
 
                     if (row.installed === INSTALLATION_PROCESS) {
-                        return h('span', {class: "badge text-bg-warning"}, trans('servers.installation'));
+                        return h('span', {class: "bg-orange-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-orange-900"}, trans('servers.installation'));
                     }
 
                     if (row.online) {
                         return h(
                             "span",
                             {
-                                class: "badge text-bg-success",
+                                class: "bg-lime-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-lime-900",
                             },
                             trans('servers.online'),
                         );
@@ -57,7 +59,7 @@
                     return h(
                         "span",
                         {
-                            class: "badge text-bg-danger",
+                            class: "bg-red-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-red-900",
                         },
                         trans('servers.offline'),
                     );
@@ -74,7 +76,8 @@
                         return h(ServerControlButton,
                             {
                                 "command": "install",
-                                "button": "btn btn-small btn-warning btn-sm",
+                                "button-color": "orange",
+                                "button-size": "small",
                                 "icon": "fa fa-download",
                                 "text": trans('servers.install'),
                                 "server-id": row.id,
@@ -89,7 +92,8 @@
                                 h(ServerControlButton,
                                     {
                                         "command": "stop",
-                                        "button": "btn btn-small btn-danger btn-sm",
+                                        "button-color": "red",
+                                        "button-size": "small",
                                         "icon": "fa fa-stop",
                                         "text": trans('servers.stop'),
                                         "server-id": row.id,
@@ -101,7 +105,8 @@
                                 h(ServerControlButton,
                                     {
                                         "command": "start",
-                                        "button": "btn btn-small btn-success btn-sm",
+                                        "button-color": "green",
+                                        "button-size": "small",
                                         "icon": "fa fa-play",
                                         "text": trans('servers.start'),
                                         "server-id": row.id,
@@ -114,7 +119,8 @@
                             h(ServerControlButton,
                                 {
                                     "command": "restart",
-                                    "button": "btn btn-small btn-warning btn-sm",
+                                    "button-color": "orange",
+                                    "button-size": "small",
                                     "icon": "fa fa-redo",
                                     "text": trans('servers.restart'),
                                     "server-id": row.id,
@@ -124,10 +130,11 @@
                     }
 
                     buttons.push(
-                        h('a',
+                        h(GButton,
                             {
-                                "class": "btn btn-small btn-primary btn-sm",
-                                "href": "/servers/" + row.id,
+                                "color": "black",
+                                "size": "small",
+                                "link": "/servers/" + row.id,
                             },
                             [
                                 h('span', {"class": "d-none d-xl-inline"}, trans('servers.control')),

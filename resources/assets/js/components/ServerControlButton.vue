@@ -2,6 +2,7 @@
   import {ref, h} from 'vue'
   import {alert, confirm} from '../parts/dialogs'
   import {trans} from "../i18n/i18n";
+  import GButton from "./GButton.vue";
 
   const bodyStyle = {
       width: "600px"
@@ -63,6 +64,8 @@
 
   const props = defineProps([
       'button',
+      'buttonColor',
+      'buttonSize',
       'icon',
       'text',
       'command',
@@ -292,10 +295,10 @@
         <div id="additional-info" class="mt-3"></div>
   </n-modal>
 
-  <a :class="button" @click="run(command)">
-      <i :class="icon"></i>
-      <span class="hidden xl:inline">&nbsp;{{ text }}</span>
-  </a>
+  <g-button :class="button" :color="buttonColor" :size="buttonSize" @click="run(command)">
+    <i :class="icon"></i>
+    <span class="hidden xl:inline">&nbsp;{{ text }}</span>
+  </g-button>
 </template>
 
 <style>
