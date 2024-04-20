@@ -26,6 +26,7 @@
         "doctrine/dbal": "~2.3",
         "fakerphp/faker": "^1.20.0",
         "fideloper/proxy": "~4.0",
+        "fruitcake/laravel-cors": "^3.0",
         "gameap/gameap-file-manager": "^1.0",
         "guzzlehttp/guzzle": "^7.5.0",
         "joshbrw/laravel-module-installer": "^1.0.1",
