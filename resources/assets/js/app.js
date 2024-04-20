@@ -57,7 +57,7 @@ const GameapSelect = defineAsyncComponent(() =>
     import('./components/input/GameapSelect.vue' /* webpackChunkName: "components/input" */)
 )
 
-import fileManager from 'gameap-file-manager';
+import fileManager from './filemanager';
 
 const ServerStatus = defineAsyncComponent(() =>
     import('./components/ServerStatus.vue' /* webpackChunkName: "components/server" */)
