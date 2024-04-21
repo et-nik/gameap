@@ -46,7 +46,7 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded" role="menu">
+                                <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 bg-white border border-gray-300 rounded" role="menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

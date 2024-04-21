@@ -31,15 +31,18 @@
 
 
     {!! Form::model($server, ['method' => 'PATCH', 'route' => ['admin.servers.update', $server->id], 'id' => 'adminServerForm']) !!}
-        <div class="flex flex-wrap  mt-2">
-            <div class="md:w-1/2 pr-4 pl-4">
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('servers.basic_info') }}
-                    </div>
-                    <div class="flex-auto p-6">
-
-                        <div class="mb-3 mt-4 mb-4">
+        <div class="flex flex-wrap mt-2">
+            <div class="md:w-1/2 pr-8">
+                <n-card
+                        title="{{ __('servers.basic_info') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                          content: true,
+                          footer: 'soft'
+                        }"
+                >
+                        <div class="mb-3 mt-4">
                             <div class="flex flex-wrap ">
                                 <div class="md:w-1/4 pr-4 pl-4">
                                     <div class="relative block mb-2">
@@ -94,68 +97,72 @@
                         ]) }}
 
                         {{ Form::bsText('su_user') }}
-                    </div>
-                </div>
+                </n-card>
             </div>
 
-            <div class="md:w-1/2 pr-4 pl-4">
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('servers.ds_ip_ports') }}
-                    </div>
-                    <div class="flex-auto p-6">
-                        <ds-ip-selector
-                                :ds-list="{{ $dedicatedServers }}"
-                                :initial-ds-id="{{ $server->ds_id }}"
-                                initial-ip="{{ $server->server_ip }}">
-                        </ds-ip-selector>
+            <div class="md:w-1/2">
+                <n-card
+                        title="{{ __('servers.ds_ip_ports') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                          content: true,
+                          footer: 'soft'
+                        }"
+                >
+                    <ds-ip-selector
+                            :ds-list="{{ $dedicatedServers }}"
+                            :initial-ds-id="{{ $server->ds_id }}"
+                            initial-ip="{{ $server->server_ip }}">
+                    </ds-ip-selector>
 
-                        <smart-port-selector
-                                initial-server-ip="{{ $server->server_ip }}"
-                                initial-server-port="{{ $server->server_port }}"
-                                initial-query-port="{{ $server->query_port }}"
-                                initial-rcon-port="{{ $server->rcon_port }}">
-                        </smart-port-selector>
-                    </div>
-                </div>
+                    <smart-port-selector
+                            initial-server-ip="{{ $server->server_ip }}"
+                            initial-server-port="{{ $server->server_port }}"
+                            initial-query-port="{{ $server->query_port }}"
+                            initial-rcon-port="{{ $server->rcon_port }}">
+                    </smart-port-selector>
+                </n-card>
             </div>
         </div>
 
-        <div class="flex flex-wrap  mt-2">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-2">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('servers.start_command') }}
-                    </div>
-                    <div class="flex-auto p-6">
-                        {{ Form::bsTextArea('start_command', null, null, ['rows' => 3]) }}
+        <div class="flex flex-wrap mt-2">
+            <div class="md:w-full">
+                <n-card
+                        title="{{ __('servers.start_command') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                          content: true,
+                          footer: 'soft'
+                        }"
+                >
+                    {{ Form::bsTextArea('start_command', null, null, ['rows' => 3]) }}
 
-                        <div class="md:w-full pr-4 pl-4">
-                            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
-                                <thead>
+                    <div class="md:w-full">
+                        <table class="stone-table">
+                            <thead class="stone-table-header">
                                 <tr>
-                                    <th>{{ __('main.name') }}</th>
-                                    <th>{{ __('main.value') }}</th>
+                                    <th class="px-2 py-2">{{ __('main.name') }}</th>
+                                    <th class="px-2 py-2">{{ __('main.value') }}</th>
                                 </tr>
-                                </thead>
+                            </thead>
 
-                                <tbody>
-                                @foreach ($server->aliases as $aliasName => $aliasValue)
-                                    <tr>
-                                        <td>
-                                            <code class="bg-gray-100 highlighter-rouge p-1 rounded">
-                                                <span>{</span>{{ $aliasName }}<span>}</span>
-                                            </code>
-
-                                        </td>
-                                        <td>{{ $aliasValue }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            <tbody>
+                            @foreach ($server->aliases as $aliasName => $aliasValue)
+                                <tr class="stone-table-row">
+                                    <td class="px-2 py-2">
+                                        <code class="bg-gray-100 highlighter-rouge p-1 rounded">
+                                            <span>{</span>{{ $aliasName }}<span>}</span>
+                                        </code>
+                                    </td>
+                                    <td class="px-2 py-2">{{ $aliasValue }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                </div>
+                </n-card>
             </div>
         </div>
 

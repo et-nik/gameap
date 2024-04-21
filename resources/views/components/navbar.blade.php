@@ -13,7 +13,7 @@
             @can('admin roles & permissions')
                 <li class=" relative">
                     <a href="#" class="inline-block py-2 px-4 no-underline  inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-bs-toggle="dropdown">{{ __('navbar.admin') }}<span class="caret"></span></a>
-                    <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded">
+                    <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 bg-white border border-gray-300 rounded">
                         <li class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><a class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0" href="{{ route('admin.dedicated_servers.index') }}">{{ __('navbar.dedicated_servers') }}</a></li>
                         <li class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><a class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0" href="{{ route('admin.servers.index') }}">{{ __('navbar.game_servers') }}</a></li>
                         <li class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><a class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0" href="{{ route('admin.games.index') }}">{{ __('navbar.games') }}</a></li>
@@ -23,7 +23,7 @@
 
                 <li class=" relative">
                     <a href="#" class="inline-block py-2 px-4 no-underline  inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-bs-toggle="dropdown">{{ __('navbar.users') }}<span class="caret"></span></a>
-                    <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded">
+                    <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 bg-white border border-gray-300 rounded">
                         <li class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><a class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0" href="{{ route('admin.users.index') }}">{{ __('navbar.users') }}</a></li>
                         <li class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><a class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0" href="{{ route('admin.users.create') }}">{{ __('navbar.add_user') }}</a></li>
                     </ul>

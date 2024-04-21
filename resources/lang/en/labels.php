@@ -75,6 +75,7 @@ return [
     'uuid' => 'UUID',
     'uuid_short' => 'Short UUID',
     'ds_id' => 'Dedicated Server',
+    'game_id' => 'Game',
     'game_mod_id' => 'Game Mod',
     'expires' => 'Expires',
     'server_port' => 'Server Port',

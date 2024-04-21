@@ -8,7 +8,7 @@
             <input v-on:keyup.enter="sendCommand"
                    v-model="inputText"
                    type="text"
-                   class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                   class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                    placeholder=""
                    aria-label=""
                    aria-describedby="basic-addon1">

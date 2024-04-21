@@ -20,7 +20,7 @@
                             <label for="email" class="md:w-full pr-4 pl-4">{{ __('auth.username_email') }}</label>
 
                             <div class="md:w-full pr-4 pl-4">
-                                <input id="email" type="email" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">

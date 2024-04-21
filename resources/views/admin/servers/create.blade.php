@@ -14,61 +14,66 @@
     @include('components.form.errors_block')
 
     {!! Form::open(['url' => route('admin.servers.index'), 'id' => 'adminServerForm']) !!}
-        <div class="flex flex-wrap ">
-            <div class="md:w-2/5 pr-4 pl-4">
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('servers.basic_info') }}
+        <div class="flex flex-wrap">
+            <div class="md:w-1/2 pr-8">
+                <n-card
+                        title="{{ __('servers.basic_info') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                          content: true,
+                          footer: 'soft'
+                        }"
+                >
+                    {{ Form::bsText('name') }}
+
+                    <game-mod-selector :games="{{ $games }}"></game-mod-selector>
+
+                    <div class="relative block mb-2 mt-4">
+                        {{ Form::checkbox('install', true, true, ['id' => 'install', 'class' => 'form-check-input']) }}
+                        {{ Form::label('install', __('servers.install'), ['class' => 'form-check-label']) }}
                     </div>
-                    <div class="flex-auto p-6">
-                        {{ Form::bsText('name') }}
 
-                        <game-mod-selector :games="{{ $games }}"></game-mod-selector>
+                    <div class="md:w-1/3 pr-4 pl-4 md:mx-1/3">
+                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-blue-600 text-white hover:bg-blue-600 py-1.5 px-2 leading-tight text-xs  btn-hide" data-bs-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
+                            <i class="far fa-caret-square-down"></i> {{ __('main.more') }}
+                        </a>
+                    </div>
 
-                        <div class="relative block mb-2 mt-4 mb-4">
-                            {{ Form::checkbox('install', true, true, ['id' => 'install', 'class' => 'form-check-input']) }}
-                            {{ Form::label('install', __('servers.install'), ['class' => 'form-check-label']) }}
-                        </div>
+                    <div class="hidden" id="additionalParameters">
+                        <div class="mb-3{{ $errors->has('rcon') ? ' has-error' : '' }}">
+                            {{ Form::label('rcon', null, ['class' => 'control-label']) }}
 
-                        <div class="md:w-1/3 pr-4 pl-4 md:mx-1/3">
-                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-blue-600 text-white hover:bg-blue-600 py-1.5 px-2 leading-tight text-xs  btn-hide" data-bs-toggle="collapse" href="#additionalParameters" role="button" aria-expanded="false" aria-controls="additionalParameters">
-                                <i class="far fa-caret-square-down"></i> {{ __('main.more') }}
-                            </a>
-                        </div>
-
-                        <div class="hidden" id="additionalParameters">
-                            <div class="mb-3{{ $errors->has('rcon') ? ' has-error' : '' }}">
-                                {{ Form::label('rcon', null, ['class' => 'control-label']) }}
-
-                                <div class="relative flex items-stretch w-full">
-                                    {{ Form::input('password', 'rcon', null,
-                                        ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
-                                    <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700 show-hide-password" type="button"><i class="far fa-eye"></i></button>
-                                </div>
+                            <div class="relative flex items-stretch w-full">
+                                {{ Form::input('password', 'rcon', null,
+                                    ['class' => 'form-control password', 'autocomplete' => 'new-password']) }}
+                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700 show-hide-password" type="button"><i class="far fa-eye"></i></button>
                             </div>
-
-                            {{ Form::bsInput('text', [
-                                'name' => 'dir',
-                                'description' => __('servers.d_dir')
-                            ]) }}
-
-                            {{ Form::bsText('su_user', 'gameap') }}
                         </div>
 
+                        {{ Form::bsInput('text', [
+                            'name' => 'dir',
+                            'description' => __('servers.d_dir')
+                        ]) }}
+
+                        {{ Form::bsText('su_user', 'gameap') }}
                     </div>
-                </div>
+                </n-card>
             </div>
 
-            <div class="md:w-1/2 pr-4 pl-4">
-                <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900">
-                        {{ __('servers.ds_ip_ports') }}
-                    </div>
-                    <div class="flex-auto p-6">
-                        <ds-ip-selector :ds-list="{{ $dedicatedServers }}"></ds-ip-selector>
-                        <smart-port-selector></smart-port-selector>
-                    </div>
-                </div>
+            <div class="md:w-1/2">
+                <n-card
+                        title="{{ __('servers.ds_ip_ports') }}"
+                        class="mb-3"
+                        header-class="bg-stone-100"
+                        :segmented="{
+                          content: true,
+                          footer: 'soft'
+                        }"
+                >
+                    <ds-ip-selector :ds-list="{{ $dedicatedServers }}"></ds-ip-selector>
+                    <smart-port-selector></smart-port-selector>
+                </n-card>
             </div>
         </div>
 

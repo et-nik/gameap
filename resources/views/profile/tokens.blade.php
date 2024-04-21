@@ -19,7 +19,7 @@
     @if ($token = Session::get('token'))
         <div class="relative px-3 py-3 mb-4 border rounded bg-lime-200 border-green-300 text-green-800">
             <div class="relative flex items-stretch w-full">
-                <input type="text" id="token" value="{{ $token }}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                <input type="text" id="token" value="{{ $token }}" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                 <span class="input-group-btn">
                 <button id="copy-token" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" type="button">

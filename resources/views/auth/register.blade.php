@@ -16,7 +16,7 @@
                                 <label for="login" class="md:w-full pr-4 pl-4">{{ __('auth.login') }}</label>
 
                                 <div class="md:w-full pr-4 pl-4">
-                                    <input id="login" type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="login" value="{{ old('login') }}" required autofocus>
+                                    <input id="login" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="login" value="{{ old('login') }}" required autofocus>
 
                                     @if ($errors->has('login'))
                                         <span class="help-block">
@@ -30,7 +30,7 @@
                                 <label for="email" class="md:w-full pr-4 pl-4">{{ __('auth.email') }}</label>
 
                                 <div class="md:w-full pr-4 pl-4">
-                                    <input id="email" type="email" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="email" value="{{ old('email') }}" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -44,7 +44,7 @@
                                 <label for="password" class="md:w-full pr-4 pl-4">{{ __('auth.password') }}</label>
 
                                 <div class="md:w-full pr-4 pl-4">
-                                    <input id="password" type="password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password" required>
+                                    <input id="password" type="password" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password" required>
 
                                     @if ($errors->has('password'))
                                         <span class="help-block">
@@ -58,7 +58,7 @@
                                 <label for="password-confirm" class="md:w-full pr-4 pl-4">{{ __('auth.confirm_password') }}</label>
 
                                 <div class="md:w-full pr-4 pl-4">
-                                    <input id="password-confirm" type="password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password_confirmation" required>
+                                    <input id="password-confirm" type="password" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password_confirmation" required>
                                 </div>
                             </div>
 

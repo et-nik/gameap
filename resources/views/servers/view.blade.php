@@ -76,15 +76,14 @@
             @endcan
 
             @can('admin roles & permissions')
-                <n-tab-pane name="admin">
-                    <template #tab>
-                        <div class="order-last ml-auto">
+                <template #suffix>
+                    <div class="order-last ml-auto text-red-500 hover:text-red-600">
+                        <a class="block" href="{{ route('admin.servers.edit', ['server' => $server->id]) }}">
                             <i class="fa fa-hammer mr-1"></i>
                             {{ __('servers.admin') }}
-                        </div>
-
-                    </template>
-                </n-tab-pane>
+                        </a>
+                    </div>
+                </template>
             @endcan
         </n-tabs>
 @endsection

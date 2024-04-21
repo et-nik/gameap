@@ -2,18 +2,18 @@
     <div>
         <div class="mb-3">
             <label for="server_port" class="control-label">{{ trans('labels.server_port') }}</label>
-            <input class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
+            <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
             <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
         </div>
 
         <div class="mb-3">
             <label for="query_port" class="control-label">{{ trans('labels.query_port') }}</label>
-            <input class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="query_port" type="number" id="query_port" min="1024" max="65535" v-model="queryPort">
+            <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="query_port" type="number" id="query_port" min="1024" max="65535" v-model="queryPort">
         </div>
 
         <div class="mb-3">
             <label for="rcon_port" class="control-label">{{ trans('labels.rcon_port') }}</label>
-            <input class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="rcon_port" type="number" id="rcon_port" min="1024" max="65535" v-model="rconPort">
+            <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="rcon_port" type="number" id="rcon_port" min="1024" max="65535" v-model="rconPort">
         </div>
     </div>
 </template>

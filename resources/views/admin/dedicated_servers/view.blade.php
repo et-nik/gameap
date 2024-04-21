@@ -11,89 +11,30 @@
 @endsection
 
 @section('content')
-    <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-orange-400 text-black hover:bg-orange-500 me-1' href="{{ route('admin.dedicated_servers.download_logs', $dedicatedServer->id) }}">
-        <i class="fas fa-download"></i> {{ __('dedicated_servers.download_logs') }}
-    </a>
+    <div class="page-list-menu mb-3">
+        <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-orange-400 text-black hover:bg-orange-500 me-1' href="{{ route('admin.dedicated_servers.download_logs', $dedicatedServer->id) }}">
+            <i class="fas fa-download"></i> {{ __('dedicated_servers.download_logs') }}
+        </a>
 
-    <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600' href="{{ route('admin.dedicated_servers.download_certificates', $dedicatedServer->id) }}">
-        <i class="fas fa-download"></i> {{ __('dedicated_servers.download_certificates') }}
-    </a>
-
-    <hr>
+        <a class='inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600' href="{{ route('admin.dedicated_servers.download_certificates', $dedicatedServer->id) }}">
+            <i class="fas fa-download"></i> {{ __('dedicated_servers.download_certificates') }}
+        </a>
+    </div>
 
     <div class="flex flex-wrap ">
-        <div class="md:w-full pr-4 pl-4">
-            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered detail-view">
-                <tbody>
-                    <tr>
-                        <th>ID</th>
-                        <td>{!! $dedicatedServer->id !!}</td>
-                    </tr>
-                    <tr>
-                        <th>{{ __('dedicated_servers.name') }}</th>
-                        <td>{!! $dedicatedServer->name !!}</td>
-                    </tr>
-                    <tr>
-                        <th>{{ __('dedicated_servers.gdaemon_api_key') }}</th>
-                        <td>{!! $dedicatedServer->gdaemon_api_key !!}</td>
-                    </tr>
-
-                    <tr>
-                        <th>{{ __('dedicated_servers.gdaemon_version') }}</th>
-                        <td>
-                            @if(!empty($gdaemonVersion))
-                                {{ $gdaemonVersion['version'] }} ({{ $gdaemonVersion['compile_date'] }})
-                            @else
-                                {{ __('dedicated_servers.gdaemon_empty_info') }}
-                            @endif
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>{{ __('dedicated_servers.gdaemon_uptime') }}</th>
-                        <td>
-                            @if(!empty($baseInfo))
-                                {{ $baseInfo['uptime'] }}
-                            @else
-                                {{ __('dedicated_servers.gdaemon_empty_info') }}
-                            @endif
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>{{ __('dedicated_servers.gdaemon_online_servers_count') }}</th>
-                        <td>
-                            @if(!empty($baseInfo))
-                                {{ $baseInfo['online_servers_count'] }}
-                            @else
-                                {{ __('dedicated_servers.gdaemon_empty_info') }}
-                            @endif
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>{{ __('dedicated_servers.gdaemon_working_tasks_count') }}</th>
-                        <td>
-                            @if(!empty($baseInfo))
-                                {{ $baseInfo['working_tasks_count'] }}
-                            @else
-                                {{ __('dedicated_servers.gdaemon_empty_info') }}
-                            @endif
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>{{ __('dedicated_servers.gdaemon_waiting_tasks_count') }}</th>
-                        <td>
-                            @if(!empty($baseInfo))
-                                {{ $baseInfo['waiting_tasks_count'] }}
-                            @else
-                                {{ __('dedicated_servers.gdaemon_empty_info') }}
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="md:w-full pr-8">
+            <key-value-table
+                :items='{
+                    "ID": "{{ $dedicatedServer->id }}",
+                    "{{ __('dedicated_servers.name') }}": "{{ $dedicatedServer->name }}",
+                    "{{ __('dedicated_servers.gdaemon_api_key') }}": "{{ $dedicatedServer->gdaemon_api_key }}",
+                    "{{ __('dedicated_servers.gdaemon_version') }}": "{{ !empty($gdaemonVersion) ? $gdaemonVersion['version'] . ' (' . $gdaemonVersion['compile_date'] . ')' : __('dedicated_servers.gdaemon_empty_info') }}",
+                    "{{ __('dedicated_servers.gdaemon_uptime') }}": "{{ !empty($baseInfo) ? $baseInfo['uptime'] : __('dedicated_servers.gdaemon_empty_info') }}",
+                    "{{ __('dedicated_servers.gdaemon_online_servers_count') }}": "{{ !empty($baseInfo) ? $baseInfo['online_servers_count'] : __('dedicated_servers.gdaemon_empty_info') }}",
+                    "{{ __('dedicated_servers.gdaemon_working_tasks_count') }}": "{{ !empty($baseInfo) ? $baseInfo['working_tasks_count'] : __('dedicated_servers.gdaemon_empty_info') }}",
+                    "{{ __('dedicated_servers.gdaemon_waiting_tasks_count') }}": "{{ !empty($baseInfo) ? $baseInfo['waiting_tasks_count'] : __('dedicated_servers.gdaemon_empty_info') }}",
+                }'
+            ></key-value-table>
         </div>
     </div>
 

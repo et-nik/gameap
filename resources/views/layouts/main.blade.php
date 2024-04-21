@@ -21,6 +21,7 @@
     <script type="application/javascript">
         window.user = {
             login: "{{ Auth::user()->login }}",
+            name: "{{ Auth::user()->name }}",
             roles: {!! Auth::user()->getRoles() !!}
         };
     </script>

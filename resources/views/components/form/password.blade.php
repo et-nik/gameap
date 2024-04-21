@@ -8,7 +8,7 @@
 
 <div class="mb-3{{ $errors->has($name) ? ' has-error' : '' }}">
     {{ Form::label($name, $label, ['class' => 'block mb-2 text-sm font-medium text-gray-900 dark:text-white']) }}
-    {{ Form::password($name, array_merge(['class' => 'block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded'], $attributes)) }}
+    {{ Form::password($name, array_merge(['class' => 'block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded'], $attributes)) }}
 
     @if ($errors->has($name))
         <span class="help-block">

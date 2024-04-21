@@ -48,7 +48,7 @@
                 <form>
                     <div class="mb-3" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
                         <label for="input-reason" class="control-label">{{ trans('rcon.reason') }}</label>
-                        <input v-model.number="form.reason" id="input-reason" type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input v-model.number="form.reason" id="input-reason" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                         <span v-if="errors['reason']" class="help-block">
                                     <strong class="text-red-600">{{ errors['reason'] }}</strong>
@@ -57,7 +57,7 @@
 
                     <div class="mb-3" v-if="dialogAction === 'ban'">
                         <label for="input-time" class="control-label">{{ trans('rcon.time') }}</label>
-                        <input v-model.number="form.time" id="input-time" type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input v-model.number="form.time" id="input-time" type="number" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                         <span v-if="errors['time']" class="help-block">
                                     <strong class="text-red-600">{{ errors['time'] }}</strong>
@@ -66,7 +66,7 @@
 
                     <div class="mb-3" v-if="dialogAction === 'message'">
                         <label for="input-mesage" class="control-label">{{ trans('rcon.message') }}</label>
-                        <input v-model.number="form.message" id="input-mesage" type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input v-model.number="form.message" id="input-mesage" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
 
                         <span v-if="errors['message']" class="help-block">
                                     <strong class="text-red-600">{{ errors['message'] }}</strong>

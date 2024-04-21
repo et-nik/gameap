@@ -1,5 +1,5 @@
 const state = {
-    gameMod: Number,
+    gameMod: 0,
     gameModsList: [],
 };
 

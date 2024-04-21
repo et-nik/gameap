@@ -14,8 +14,8 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
 <div class="w-full max-w-full">
     <div class="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white">
         <div class="relative flex flex-col min-w-0 break-words bg-clip-border border-stone-200 bg-light/30">
-            <table class="w-full text-left rtl:text-right border text-gray-700 dark:text-gray-400">
-                <thead class="text-gray-700 uppercase bg-gray-50 rounded-lg dark:bg-gray-700 dark:text-gray-400">
+            <table class="stone-table">
+                <thead class="stone-table-header">
                     <tr>
                         @foreach ($labels as $label)
                             <th scope="col" class="px-4 py-4">{{ $label }}</th>
@@ -36,7 +36,7 @@ $showActionCollumn = isset($customActionsBefore) || isset($viewRoute) || isset($
                             @php ($modelKey = is_array($model) ? $model['id'] : $model->id)
                         @endif
 
-                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                        <tr class="stone-table-row">
                             @foreach ($attributes as $attr)
                                 @php($cellValue = '')
 

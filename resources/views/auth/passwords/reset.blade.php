@@ -17,7 +17,7 @@
                                 <label for="email" class="md:w-1/3 pr-4 pl-4 control-label">{{ __('auth.email') }}</label>
 
                                 <div class="md:w-1/2 pr-4 pl-4">
-                                    <input id="email" type="email" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="email" value="{{ $email or old('email') }}" required autofocus>
+                                    <input id="email" type="email" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="email" value="{{ $email or old('email') }}" required autofocus>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -31,7 +31,7 @@
                                 <label for="password" class="md:w-1/3 pr-4 pl-4 control-label">{{ __('auth.password') }}</label>
 
                                 <div class="md:w-1/2 pr-4 pl-4">
-                                    <input id="password" type="password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password" required>
+                                    <input id="password" type="password" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password" required>
 
                                     @if ($errors->has('password'))
                                         <span class="help-block">
@@ -44,7 +44,7 @@
                             <div class="mb-3{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                 <label for="password-confirm" class="md:w-1/3 pr-4 pl-4 control-label">{{ __('auth.confirm_password') }}</label>
                                 <div class="md:w-1/2 pr-4 pl-4">
-                                    <input id="password-confirm" type="password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password_confirmation" required>
+                                    <input id="password-confirm" type="password" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password_confirmation" required>
 
                                     @if ($errors->has('password_confirmation'))
                                         <span class="help-block">

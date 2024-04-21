@@ -45,6 +45,8 @@ import MainSidebar from './components/MainSidebar.vue';
 
 import ContentView from './components/ContentView.vue';
 
+import KeyValueTable from "./components/KeyValueTable.vue";
+
 const InputTextList = defineAsyncComponent(() =>
     import('./components/input/InputTextList.vue' /* webpackChunkName: "components/input" */)
 )
@@ -126,6 +128,7 @@ const app = createApp({
         MainNavbar,
         MainSidebar,
         ContentView,
+        KeyValueTable,
         DsIpSelector,
         GameModSelector,
         GameapSelect,
