@@ -21,7 +21,7 @@
     "axios": "^1.6.1",
     "buffer": "^6.0.3",
     "cross-env": "^7.0.3",
-    "gameap-file-manager": "4.0.0-dev2",
+    "gameap-file-manager": "4.0.0-dev3",
     "laravel-mix": "^6.0.49",
     "lodash": "^4.17.20",
     "moment": "^2.29.4",

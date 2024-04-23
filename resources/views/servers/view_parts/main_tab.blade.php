@@ -94,9 +94,9 @@
         >
             <ul class="flex flex-col pl-0 mb-0">
                 @if ($server->processActive())
-                    <li class="relative block py-3 px-6 -mb-px">{{ __('servers.status') }}: <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-success">{{ __('servers.active') }}</span></li>
+                    <li class="relative block py-3 px-6 -mb-px">{{ __('servers.status') }}: <span class="badge-green">{{ __('servers.active') }}</span></li>
                 @else
-                    <li class="relative block py-3 px-6 -mb-px">{{ __('servers.status') }}: <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-danger">{{ __('servers.inactive') }}</span></li>
+                    <li class="relative block py-3 px-6 -mb-px">{{ __('servers.status') }}: <span class="badge-red">{{ __('servers.inactive') }}</span></li>
                 @endif
 
                 <li class="relative block py-3 px-6 -mb-px">{{ __('servers.last_check') }}: {{ \Gameap\Helpers\DateHelper::convertToLocal($server->last_process_check) }}</li>

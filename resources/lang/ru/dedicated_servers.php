@@ -73,14 +73,14 @@ return [
     'autosetup_title' => 'Автоматическая настройка выделенного сервера',
 
     'autosetup_description_linux' => '<p>Можете использовать следующие хост и токен для настройки GDaemon используя gameapctl:</p>
-                    <ul>
+                    <ul class="list-disc">
                         <li>Хост: <code>:host</code></li>
                         <li>Токен: <code>:token</code></li>
                     </ul>
                     <p>Или для автоматической настройки GDaemon запустите команду в консоли выделенного сервера:</p>',
 
     'autosetup_description_windows' => '<p>Только для Windows</p>
-                                <ul>
+                                <ul class="list-disc">
                                     <li>Перейдите на страницу <a href="https://github.com/gameap/gameapctl/releases">gameapctl релизов</a>
                                         (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>

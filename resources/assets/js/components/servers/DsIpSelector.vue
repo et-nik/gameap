@@ -1,5 +1,8 @@
 <template>
     <div>
+        <input type="hidden" :name="dsIdFieldName" v-model="selectedDs" />
+        <input type="hidden" :name="serverIpFieldName" v-model="selectedIp" />
+
         <div id="dedicatedServerForm" class="mb-3">
           <n-select v-model:value="selectedDs" :options="nodesOptions" :placeholder="trans('labels.ds_id')" />
         </div>

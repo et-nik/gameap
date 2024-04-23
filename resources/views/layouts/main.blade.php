@@ -31,8 +31,8 @@
     <div id="app">
         <n-dialog-provider>
             <n-message-provider>
-                    <main-navbar></main-navbar>
-                    <content-view></content-view>
+                <main-navbar></main-navbar>
+                <content-view></content-view>
             </n-message-provider>
         </n-dialog-provider>
 

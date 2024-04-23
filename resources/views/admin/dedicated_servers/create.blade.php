@@ -22,59 +22,65 @@
 @section('content')
     @include('components.form.errors_block')
 
-    <div class="modal opacity-0" tabindex="-1" role="dialog" id="gdaemonAutoSetupModal">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{{ __('dedicated_servers.autosetup_title') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('main.close') }}">
-                    </button>
-                </div>
+    <create-node-modal
+            link="{{ route('gdaemon.setup', ['token' => $autoSetupToken]) }}"
+            token="{{ $autoSetupToken }}"
+            host="{{ request()->getSchemeAndHttpHost() }}"
+    ></create-node-modal>
 
-                <div class="modal-body">
-                    <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200">
-                        <li class="">
-                            <a class="inline-block py-2 px-4 no-underline active" data-bs-toggle="tab" href="#auto_install_linux"><i class="fab fa-linux me-1"></i>Linux</a>
-                        </li>
-                        <li class="">
-                            <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" href="#auto_install_windows"><i class="fab fa-windows me-1"></i>Windows</a>
-                        </li>
-                    </ul>
+{{--    <div class="modal opacity-0" tabindex="-1" role="dialog" id="gdaemonAutoSetupModal">--}}
+{{--        <div class="modal-dialog modal-lg" role="document">--}}
+{{--            <div class="modal-content">--}}
+{{--                <div class="modal-header">--}}
+{{--                    <h5 class="modal-title">{{ __('dedicated_servers.autosetup_title') }}</h5>--}}
+{{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('main.close') }}">--}}
+{{--                    </button>--}}
+{{--                </div>--}}
 
-                    <div class="tab-content">
-                        <div class="flex flex-wrap  tab-pane container mx-auto sm:px-4 max-w-full mx-auto sm:px-4 active" id="auto_install_linux">
-                            <div class="md:w-full pr-4 pl-4 m-6">
-                                {!! __('dedicated_servers.autosetup_description_linux', [
-                                    'host' => request()->getSchemeAndHttpHost(),
-                                    'token' => $autoSetupToken
-                                ]) !!}
-                                <code class="curl-link">curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>
+{{--                <div class="modal-body">--}}
+{{--                    <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200">--}}
+{{--                        <li class="">--}}
+{{--                            <a class="inline-block py-2 px-4 no-underline active" data-bs-toggle="tab" href="#auto_install_linux"><i class="fab fa-linux me-1"></i>Linux</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="">--}}
+{{--                            <a class="inline-block py-2 px-4 no-underline" data-bs-toggle="tab" href="#auto_install_windows"><i class="fab fa-windows me-1"></i>Windows</a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
 
-                                <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_msg') }}</small></p>
-                            </div>
-                        </div>
+{{--                    <div class="tab-content">--}}
+{{--                        <div class="flex flex-wrap  tab-pane container mx-auto sm:px-4 max-w-full" id="auto_install_linux">--}}
+{{--                            <div class="md:w-full pr-4 pl-4 m-6">--}}
+{{--                                {!! __('dedicated_servers.autosetup_description_linux', [--}}
+{{--                                    'host' => request()->getSchemeAndHttpHost(),--}}
+{{--                                    'token' => $autoSetupToken--}}
+{{--                                ]) !!}--}}
+{{--                                <code class="curl-link">curl {{ route('gdaemon.setup', ['token' => $autoSetupToken]) }} | bash --</code>--}}
 
-                        <div class="flex flex-wrap  tab-pane container mx-auto sm:px-4 max-w-full mx-auto sm:px-4" id="auto_install_windows">
-                            <div class="md:w-full pr-4 pl-4 m-6">
+{{--                                <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_msg') }}</small></p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                                {!! __('dedicated_servers.autosetup_description_windows', [
-                                    'host' => request()->getSchemeAndHttpHost(),
-                                    'token' => $autoSetupToken
-                                    ])
-                                !!}
+{{--                        <div class="flex flex-wrap  tab-pane container mx-auto sm:px-4 max-w-full" id="auto_install_windows">--}}
+{{--                            <div class="md:w-full pr-4 pl-4 m-6">--}}
 
-                                <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_token_msg') }}</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{{--                                {!! __('dedicated_servers.autosetup_description_windows', [--}}
+{{--                                    'host' => request()->getSchemeAndHttpHost(),--}}
+{{--                                    'token' => $autoSetupToken--}}
+{{--                                    ])--}}
+{{--                                !!}--}}
 
-                <div class="modal-footer">
-                    <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" data-bs-dismiss="modal">{{ __('main.close') }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                                <p class="text-center"><small>{{ __('dedicated_servers.autosetup_expire_token_msg') }}</small></p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--                <div class="modal-footer">--}}
+{{--                    <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" data-bs-dismiss="modal">{{ __('main.close') }}</button>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     {!! Form::open(['url' => route('admin.dedicated_servers.index'), 'files' => true]) !!}
 
@@ -161,7 +167,7 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap  mb-2">
+        <div class="flex flex-wrap mb-2">
             <div class="md:w-1/5 pr-4 pl-4 md:mx-2/5">
                 <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-bs-toggle="collapse" href="#editScripts" role="button" aria-expanded="false" aria-controls="editScripts">
                     {{ __('dedicated_servers.edit_scripts') }}

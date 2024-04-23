@@ -7,15 +7,15 @@
 
             <div class="md:w-1/6 pr-4 pl-4">
                 <div v-if="status === 'online'" class="inline">
-                    <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-success">{{ trans('servers.online') }}</span>
+                    <span class="badge-green">{{ trans('servers.online') }}</span>
                 </div>
 
                 <div v-else-if="status === 'offline'" class="inline">
-                    <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-danger">{{ trans('servers.offline') }}</span>
+                    <span class="badge-red">{{ trans('servers.offline') }}</span>
                 </div>
 
                 <div v-else class="inline">
-                    <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded text-bg-warning">-</span>
+                    <span class="badge-orange">-</span>
                 </div>
             </div>
 

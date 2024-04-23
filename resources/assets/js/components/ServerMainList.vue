@@ -31,26 +31,26 @@
                 key: "status",
                 render(row) {
                     if (row.blocked) {
-                        return h('span', {class: "bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900"}, trans('servers.blocked'));
+                        return h('span', {class: "badge-stone"}, trans('servers.blocked'));
                     }
 
                     if (!row.enabled) {
-                        return h('span', {class: "bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900"}, trans('servers.disabled'));
+                        return h('span', {class: "badge-stone"}, trans('servers.disabled'));
                     }
 
                     if (!row.installed) {
-                        return h('span', {class: "bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900"}, trans('servers.not_installed'));
+                        return h('span', {class: "badge-stone"}, trans('servers.not_installed'));
                     }
 
                     if (row.installed === INSTALLATION_PROCESS) {
-                        return h('span', {class: "bg-orange-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-orange-900"}, trans('servers.installation'));
+                        return h('span', {class: "badge-orange"}, trans('servers.installation'));
                     }
 
                     if (row.online) {
                         return h(
                             "span",
                             {
-                                class: "bg-lime-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-lime-900",
+                                class: "badge-green",
                             },
                             trans('servers.online'),
                         );
@@ -59,7 +59,7 @@
                     return h(
                         "span",
                         {
-                            class: "bg-red-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-red-900",
+                            class: "badge-red",
                         },
                         trans('servers.offline'),
                     );

@@ -117,6 +117,12 @@ const SettingsParameters = defineAsyncComponent(() =>
     import('./components/SettingsParameters.vue' /* webpackChunkName: "components/settings" */)
 )
 
+// Blocks
+
+const CreateNodeModal  = defineAsyncComponent(() =>
+    import('./components/blocks/CreateNodeModal.vue' /* webpackChunkName: "components/blocks" */)
+)
+
 const setActiveTab = (tab) => {
     store.dispatch('activeTab/setName', tab);
 }
@@ -146,6 +152,9 @@ const app = createApp({
         SmartPortSelector,
         TaskOutput,
         UserServerPrivileges,
+
+        // Blocks
+        CreateNodeModal
     },
     setup: () => {
 

@@ -1,20 +1,16 @@
 <template>
     <div>
         <div class="mb-3">
-            <label for="game_mod_id" class="control-label">{{ trans('labels.game_id') }}</label>
-            <select id="game_id" name="game_id" class="hidden form-select" v-model="selectedGameCode">
-                <option v-for="(gameName, gameCode) in games" v-bind:value="gameCode">{{ gameName }}</option>
-            </select>
+            <input type="hidden" name="game_id" v-model="selectedGameCode">
 
+            <label for="game_mod_id" class="control-label">{{ trans('labels.game_id') }}</label>
             <n-select filterable v-model:value="selectedGameCode" :options="gamesOptions" />
         </div>
 
         <div class="mb-3">
-            <label for="game_mod_id" class="control-label">{{ trans('labels.game_mod_id') }}</label>
-            <select id="game_mod_id" name="game_mod_id" class="hidden form-select" v-model="selectedMod">
-                <option v-for="gameMod in gameModsList" v-bind:value="gameMod.id">{{ gameMod.name }}</option>
-            </select>
+            <input type="hidden" name="game_mod_id" v-model="selectedMod">
 
+            <label for="game_mod_id" class="control-label">{{ trans('labels.game_mod_id') }}</label>
             <n-select
                 filterable
                 v-model:value="selectedMod"

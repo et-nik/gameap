@@ -23,7 +23,3 @@ const props = defineProps({
   items: null,
 });
 </script>
-
-<style scoped>
-
-</style>

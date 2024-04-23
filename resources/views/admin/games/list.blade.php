@@ -52,7 +52,7 @@
                     $destroyButton .= Form::close();
 
                     $modLinks .= "<li>
-                        <a href=\"" . route('admin.game_mods.edit', ['game_mod' => $mod->id]) . "\">{$mod->name}</a>
+                        <a class=\"link\" href=\"" . route('admin.game_mods.edit', ['game_mod' => $mod->id]) . "\">{$mod->name}</a>
                         {$destroyButton}
                     </li>";
                 }

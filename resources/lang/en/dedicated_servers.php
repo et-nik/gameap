@@ -74,14 +74,14 @@ return [
     'autosetup_title' => 'Dedicated Server Auto Setup',
     
     'autosetup_description_linux' => '<p>You can use this host and token to setup GDaemon via gameapctl:</p>
-                    <ul>
+                    <ul class="list-disc">
                         <li>Host: <code>:host</code></li>
                         <li>Token: <code>:token</code></li>
                     </ul>
                     <p>Or to auto setup GDaemon run the command on Dedicated Server:</p>',
 
     'autosetup_description_windows' => '<p>Only for Windows</p>
-                                <ul>
+                                <ul class="list-disc">
                                     <li>Go to <a href="https://github.com/gameap/gameapctl/releases">gameapctl releases page</a>
                                         (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>

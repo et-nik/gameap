@@ -26,15 +26,15 @@
 
     <div class="flex flex-wrap ">
         <div class="md:w-full pr-4 pl-4">
-            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered detail-view">
+            <table class="stone-table mt-4">
                 <tbody>
-                    <tr>
-                        <th>{{ __('gdaemon_tasks.task') }}</th>
-                        <td>{!! $gdaemonTask->task !!}</td>
+                    <tr class="stone-table-row">
+                        <th class="px-2 py-2">{{ __('gdaemon_tasks.task') }}</th>
+                        <td class="px-2 py-2">{!! $gdaemonTask->task !!}</td>
                     </tr>
-                    <tr>
-                        <th>{{ __('gdaemon_tasks.status') }}</th>
-                        <td>
+                    <tr class="stone-table-row">
+                        <th class="px-2 py-2">{{ __('gdaemon_tasks.status') }}</th>
+                        <td class="px-2 py-2">
                             @if ($gdaemonTask->status == 'success')
                                 <span class="label label-success">{{ $gdaemonTask->status }}</span>
                             @elseif($gdaemonTask->status == 'error')
@@ -46,13 +46,13 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>{{ __('gdaemon_tasks.created') }}</th>
-                        <td>{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->created_at) !!}</td>
+                    <tr class="stone-table-row">
+                        <th class="px-2 py-2">{{ __('gdaemon_tasks.created') }}</th>
+                        <td class="px-2 py-2">{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->created_at) !!}</td>
                     </tr>
-                    <tr>
-                        <th>{{ __('gdaemon_tasks.updated') }}</th>
-                        <td>{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->updated_at) !!}</td>
+                    <tr class="stone-table-row">
+                        <th class="px-2 py-2">{{ __('gdaemon_tasks.updated') }}</th>
+                        <td class="px-2 py-2">{!! \Gameap\Helpers\DateHelper::convertToLocal($gdaemonTask->updated_at) !!}</td>
                     </tr>
                 </tbody>
             </table>
