@@ -3,5 +3,4 @@
 @extends('layouts.main')
 
 @section('content')
-    <server-main-list></server-main-list>
 @endsection

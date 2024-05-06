@@ -1,37 +1,41 @@
 <template>
     <div id="server-task-component">
         <div class="mb-2">
-          <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600" v-on:click="createTask()"><i class="fa fa-plus-square"></i> {{ trans('main.add')}}</button>
+          <GButton color="green" size="small" v-on:click="createTask()">
+            <i class="fa fa-plus-square"></i>
+            {{ trans('main.add') }}
+          </GButton>
         </div>
-        <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
-            <thead>
-                <tr>
-                    <td>{{ trans('servers_tasks.task') }}</td>
-                    <td>{{ trans('servers_tasks.date') }}</td>
-                    <td>{{ trans('servers_tasks.repeat') }}</td>
-                    <td>{{ trans('main.actions') }}</td>
-                </tr>
-            </thead>
-            <tbody v-for="(value, key) in tasks">
-                <tr>
-                    <td>{{ value.command }}</td>
-                    <td>{{ value.execute_date }}</td>
-                    <td>{{ humanRepeatText(value.repeat) }}</td>
-                    <td>
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-lime-500 text-white hover:bg-lime-600 m-1" v-on:click="editTask(key)">
-                            <i class="fas fa-edit"></i>
-                            <span class="hidden xl:inline">&nbsp;{{ trans('main.edit') }}</span>
-                        </button>
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1" v-on:click="deleteTask(key)">
-                            <i class="fas fa-trash"></i>
-                            <span class="hidden xl:inline">&nbsp;{{ trans('main.delete') }}</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
 
-        <n-modal
+      <table class="stone-table">
+        <thead class="stone-table-header">
+        <tr>
+          <th scope="col" class="px-4 py-4">{{ trans('servers_tasks.task') }}</th>
+          <th scope="col" class="px-4 py-4">{{ trans('servers_tasks.date') }}</th>
+          <th scope="col" class="px-4 py-4">{{ trans('servers_tasks.repeat') }}</th>
+          <th scope="col" class="px-4 py-4">{{ trans('main.actions') }}</th>
+        </tr>
+        </thead>
+        <tbody v-for="(value, key) in tasks">
+        <tr class="stone-table-row">
+          <td class="px-3 py-4">{{ value.command }}</td>
+          <td class="px-3 py-4">{{ value.execute_date }}</td>
+          <td class="px-3 py-4">{{ humanRepeatText(value.repeat) }}</td>
+          <td class="px-3 py-4">
+            <GButton v-on:click="editTask(key)" color="blue" size="small" class="mr-1">
+              <i class="fas fa-edit"></i>
+              <span class="hidden xl:inline">&nbsp;{{ trans('main.edit') }}</span>
+            </GButton>
+            <GButton v-on:click="deleteTask(key)" color="red" size="small">
+              <i class="fas fa-trash"></i>
+              <span class="hidden xl:inline">&nbsp;{{ trans('main.delete') }}</span>
+            </GButton>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <n-modal
             v-model:show="modalEnabled"
             class="custom-card"
             preset="card"
@@ -153,17 +157,22 @@
             </div>
 
             <template #footer>
-                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="sendTaskForm">{{ buttonName }}</button>
-                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
+                <GButton color="blue" v-on:click="sendTaskForm" class="mr-1">
+                  {{ buttonName }}
+                </GButton>
+                <GButton color="white" v-on:click="hideModal">
+                  {{ trans('main.close') }}
+                </GButton>
             </template>
-        </n-modal>
+      </n-modal>
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
     import { ref } from "vue";
-    import { pluralize, trans } from '../i18n/i18n'
+    import { pluralize, trans } from '../../i18n/i18n'
+    import GButton from "../../components/GButton.vue";
 
     const REPEAT_ENDLESSLY          = 0;
     const REPEAT_ONCE               = 1;
@@ -171,6 +180,7 @@
     const RADIO_REPEAT_CUSTOM       = '';
 
     export default {
+      components: {GButton},
         props: {
             serverId: Number,
             privileges: {
@@ -203,6 +213,7 @@
             }
         },
         methods: {
+          trans,
             createTask() {
                 this.command = null;
                 this.taskDate = null;

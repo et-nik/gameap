@@ -17,14 +17,14 @@ get:
       label: 'CLI'
       source: |
         curl --request GET \
-        --url 'https://demo.gameap.ru/api/servers' \
+        --url 'https://demo.gameap.com/api/servers' \
         --header 'Content-Type: application/json: ' \
         --header 'Authorization: Bearer YOUR_API_KEY'
     - lang: 'PHP'
       source: |
         <?php
   
-        $url = 'https://demo.gameap.ru/api/servers';
+        $url = 'https://demo.gameap.com/api/servers';
         $apiKey = 'YOUR_API_KEY';
 
         $curl = curl_init();
@@ -67,7 +67,7 @@ get:
         )
         
         func main() {
-          url := "https://demo.gameap.ru/api/servers"
+          url := "https://demo.gameap.com/api/servers"
           apiKey := "YOUR_API_KEY"
           
           client := &http.Client{}
@@ -100,7 +100,7 @@ get:
       source: |
         const request = require('request');
   
-        const url = 'https://demo.gameap.ru/api/servers';
+        const url = 'https://demo.gameap.com/api/servers';
         const apiKey = 'YOUR_API_KEY';
         
         const headers = {

@@ -1,0 +1,27 @@
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar[data-v-5e0b1508]::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar[data-v-5e0b1508] {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+.server-offline-note {
+    color: #880808;
+    font-weight: bold;
+}
+
+
+.progress-info {
+    color: silver;
+}
+
+
+.terminal[data-v-455f919f] {
+        min-height: 250px;
+}
+

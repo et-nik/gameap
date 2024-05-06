@@ -1,9 +1,10 @@
 <script setup>
     import {defineAsyncComponent, h, ref, onMounted, computed} from 'vue'
-    import {trans} from "../i18n/i18n";
-    import store from "../store";
+    import {trans} from "../../i18n/i18n";
+    import store from "../../legacy/store";
 
-    import GButton from "./GButton.vue";
+    import GButton from "../../components/GButton.vue";
+    import Loading from "../../components/Loading.vue";
 
     // Installed statuses
     const NOT_INSTALLED        = 0;
@@ -11,23 +12,23 @@
     const INSTALLATION_PROCESS = 2;
 
     const ServerControlButton = defineAsyncComponent(() =>
-        import('../components/ServerControlButton.vue' /* webpackChunkName: "components/server" */)
+        import('./ServerControlButton.vue' /* webpackChunkName: "components/server" */)
     );
 
     const createColumns = () => {
         return [
             {
-                title: "Name",
+                title: trans('servers.name'),
                 key: "name"
             },
             {
-                title: "IP:Port",
+                title: trans('servers.ip_port'),
                 render(row) {
                     return row.server_ip + ":" + row.server_port;
                 }
             },
             {
-                title: "Status",
+                title: trans('servers.status'),
                 key: "status",
                 render(row) {
                     if (row.blocked) {
@@ -66,7 +67,7 @@
                 }
             },
             {
-                title: "Commands",
+                title: trans('servers.commands'),
                 render(row) {
                     if (!row.enabled || row.blocked) {
                         return [];
@@ -132,9 +133,9 @@
                     buttons.push(
                         h(GButton,
                             {
-                                "color": "black",
-                                "size": "small",
-                                "link": "/servers/" + row.id,
+                                color: "black",
+                                size: "small",
+                                route: "/servers/" + row.id,
                             },
                             [
                                 h('span', {"class": "d-none d-xl-inline"}, trans('servers.control')),
@@ -160,23 +161,24 @@
     const selectedIP = ref(null);
 
     onMounted(() => {
-        store.dispatch('servers/fetchServers');
+      store.dispatch('servers/fetchServers').finally(() => {
         loading.value = false;
+      });
 
-        try {
-            const f = JSON.parse(localStorage.getItem("server-filters"))
-            if (f !== null) {
-                if (f["server_ip"] !== null) {
-                    selectedIP.value = f["server_ip"]
-                }
+      try {
+          const f = JSON.parse(localStorage.getItem("server-filters"))
+          if (f !== null) {
+              if (f["server_ip"] !== null) {
+                  selectedIP.value = f["server_ip"]
+              }
 
-                if (f["game_name"] !== null) {
-                    selectedGame.value = f["game_name"]
-                }
-            }
-        } catch (e) {
-            console.log(e);
-        }
+              if (f["game_name"] !== null) {
+                  selectedGame.value = f["game_name"]
+              }
+          }
+      } catch (e) {
+          console.log(e);
+      }
 
     });
 
@@ -302,6 +304,9 @@
         :loading="loading"
         :pagination="pagination"
     >
+        <template #loading>
+          <Loading />
+        </template>
         <template #empty>
             <n-empty :description="trans('servers.empty_list')">
             </n-empty>

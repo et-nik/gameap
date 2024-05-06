@@ -62,6 +62,9 @@ paths:
   /api/servers/{server}:
     $ref: './web-api/paths/servers_id.yaml'
 
+  /api/servers/{server}/abilities:
+    $ref: './web-api/paths/servers_id_abilities.yaml'
+
   /api/servers/{server}/start:
     $ref: './web-api/paths/servers_id_start.yaml'
 
@@ -85,6 +88,9 @@ paths:
 
   /api/servers/{server}/console:
     $ref: './web-api/paths/servers_id_console.yaml'
+
+  /api/servers/{server}/settings:
+    $ref: './web-api/paths/servers_id_settings.yaml'
 
   /api/servers/search:
     $ref: './web-api/paths/servers_search.yaml'

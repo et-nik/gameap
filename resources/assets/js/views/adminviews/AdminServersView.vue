@@ -1,0 +1,157 @@
+<template>
+  <GBreadcrumbs :items="breadcrumbs"></GBreadcrumbs>
+
+  <GButton color="green" size="middle" class="mb-5">
+    <i class="fa fa-plus-square mr-0.5"></i>
+    <span>{{ trans('servers.create')}}</span>
+  </GButton>
+
+  <n-data-table
+      ref="tableRef"
+      :bordered="false"
+      :single-line="true"
+      :columns="columns"
+      :data="serversData"
+      :loading="loading"
+      :pagination="pagination"
+  >
+    <template #loading>
+      <Loading />
+    </template>
+    <template #empty>
+      <n-empty :description="trans('servers.empty_list')">
+      </n-empty>
+    </template>
+  </n-data-table>
+</template>
+
+<script setup>
+import {trans} from "../../i18n/i18n"
+import Loading from "../../components/Loading.vue"
+import GButton from "../../components/GButton.vue"
+import {h, onMounted, computed, ref} from "vue"
+import {useServerListStore} from "../../store/serverList"
+import {confirm, errorNotification} from "../../parts/dialogs";
+import {storeToRefs} from "pinia";
+import GBreadcrumbs from "../../components/GBreadcrumbs.vue";
+
+const serverListStore = useServerListStore()
+
+const breadcrumbs = computed(() => {
+  const bc = [
+    {'route':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+    {'route':{name: 'admin.servers.index'}, 'text':trans('servers.game_servers')},
+  ]
+
+  return bc
+})
+
+const createColumns = () => {
+  return [
+    {
+      title: trans('servers.name'),
+      key: "name"
+    },
+    {
+      title: trans('servers.game'),
+      key: "game"
+    },
+    {
+      title: trans('servers.ip_port'),
+      key: "ip_port"
+    },
+    {
+      title: trans('main.actions'),
+      render(row) {
+        return [
+            h(GButton, {
+              color: 'blue',
+              size: 'small',
+              class: 'mr-0.5',
+              route: {name: 'admin.servers.edit', params: {id: row.id}},
+            }, [
+              h("i", {class: 'fa-solid fa-pen-to-square'}),
+              h("span", {class: 'hidden xl:inline'}, trans('main.edit')),
+            ]),
+            h(GButton, {
+              color: 'red',
+              size: 'small',
+              text: trans('main.delete'),
+              onClick: () => {onClickDelete(row.id)},
+            }, [
+                h("i", {class: 'fa-solid fa-trash'}),
+                h("span", {class: 'hidden xl:inline'}, trans('main.delete')),
+            ]),
+        ]
+      },
+    }
+  ]
+}
+
+const {loading, servers} = storeToRefs(serverListStore)
+
+const columns = ref(createColumns())
+const pagination = {
+  pageSize: 20,
+};
+
+onMounted(() => {
+  fetchServers()
+})
+
+const fetchServers = () => {
+  serverListStore.fetchServersByFilter([]).
+  catch((error) => {
+    errorNotification(error)
+  })
+}
+
+const serversData = computed(() => {
+  let result = []
+
+  servers.value.forEach((server) => {
+    result.push({
+      id: server.id,
+      name: server.name,
+      game: server.game.name,
+      ip_port: server.server_ip + ':' + server.server_port,
+    })
+  })
+
+  return result
+})
+
+const onClickDelete = (id) => {
+  let deleteFiles = false
+
+  window.$dialog.success({
+    title: trans('servers.delete_confirm_msg'),
+    content: () => h('div', {class: "mt-4 mb-4"}, [
+      h('input', {
+        type: 'checkbox',
+        id: 'delete-files-checkbox',
+        onChange: () => {deleteFiles = true;},
+      }),
+      h('label', {class: 'ms-1', for: 'delete-files-checkbox'}, trans('servers.delete_files')),
+    ]),
+    positiveText: trans('main.yes'),
+    negativeText: trans('main.no' ),
+    closable: false,
+    onPositiveClick: () => {
+      deleteByID(id, deleteFiles)
+    },
+    onNegativeClick: () => {}
+  });
+}
+
+const deleteByID = (id, deleteFiles) => {
+  serverListStore.deleteById(id, deleteFiles).
+    catch((error) => {
+      errorNotification(error)
+    }).
+    finally(() => {
+      fetchServers()
+  })
+}
+
+</script>

@@ -24,7 +24,7 @@ return [
     'control'           => 'Управление',
     'servers'           => 'Серверы',
 
-    'gameap'            => 'Gameap',
+    'gameap'            => 'GameAP',
     'modules'           => 'Модули',
     'update'            => 'Обновление',
 

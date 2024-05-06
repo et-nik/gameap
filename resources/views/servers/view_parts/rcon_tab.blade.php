@@ -23,7 +23,7 @@
                         <rcon-players v-if="activeTab === 'rcon'" :server-id="{{ $server->id }}">
                             <div class="flex justify-center">
                                 <div class="fa-3x">
-                                    <i class="fas fa-spinner fa-spin"></i>
+                                    <i class="fa-solid fa-gear fa-spin"></i>
                                 </div>
                             </div>
                         </rcon-players>
@@ -44,7 +44,7 @@
                     <rcon-console v-if="activeTab === 'rcon'" :server-id="{{ $server->id }}">
                         <div class="flex justify-center">
                             <div class="fa-3x">
-                                <i class="fas fa-spinner fa-spin"></i>
+                                <i class="fa-solid fa-gear fa-spin"></i>
                             </div>
                         </div>
                     </rcon-console>

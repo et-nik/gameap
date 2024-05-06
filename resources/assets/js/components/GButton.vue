@@ -2,7 +2,10 @@
   <a v-if="link" :class='classes' :href="link">
     <slot></slot>
   </a>
-  <button v-else :class='classes'>
+  <router-link v-else-if="route" :to="route" :class='classes'>
+    <slot></slot>
+  </router-link>
+  <button v-else :class='classes' v-on:click="buttonClick">
     <slot></slot>
   </button>
 </template>
@@ -16,6 +19,7 @@ const colors = {
   green: 'inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600',
   red: 'inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded leading-normal no-underline bg-red-500 text-white hover:bg-red-600',
   orange: 'inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded leading-normal no-underline bg-orange-400 text-white hover:bg-orange-500',
+  blue: 'inline-block align-middle text-center select-none font-normal whitespace-no-wrap rounded leading-normal no-underline bg-sky-500 text-white hover:bg-sky-600',
 }
 
 const sizes = {
@@ -28,6 +32,7 @@ const props = defineProps({
   color: 'white',
   size: 'middle',
   link: null,
+  route: null,
   class: '',
 })
 
@@ -46,6 +51,12 @@ const classes = computed(() => {
 
   return c.join(' ')
 })
+
+const emits = defineEmits(["click"])
+
+const buttonClick = () => {
+  emits("click")
+}
 
 </script>
 

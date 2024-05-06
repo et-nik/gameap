@@ -60,10 +60,12 @@
 
       <div class="w-full px-2">
         <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-          <a v-for="link in serversLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
-            <i :class="link.icon" class="ml-1"></i>
-            <span class="ml-2 text-sm font-medium">{{ link.text }}</span>
-          </a>
+          <template v-for="link in serversLinks">
+            <router-link :to="link.route" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2">
+              <i :class="link.icon" class="ml-1"></i>
+              <span class="ml-2 text-sm font-medium">{{ link.text }}</span>
+            </router-link>
+          </template>
         </div>
       </div>
 
@@ -73,10 +75,10 @@
 
       <div class="w-full px-2">
         <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-          <a v-for="link in adminLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
+          <router-link v-for="link in adminLinks" :to="link.route" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2">
             <i :class="link.icon" class="ml-1"></i>
             <span class="ml-2 text-sm font-medium">{{ link.text }}</span>
-          </a>
+          </router-link>
         </div>
       </div>
 
@@ -118,6 +120,7 @@ const serversLinks = [
   {
     icon: 'fas fa-play',
     text: trans('sidebar.servers'),
+    route: {name: 'servers'},
     href: '#',
   }
 ]
@@ -126,12 +129,11 @@ const adminLinks = [
   {
     icon: 'fas fa-hdd',
     text: trans('sidebar.dedicated_servers'),
-    href: '#',
   },
   {
     icon: 'fas fa-server',
     text: trans('sidebar.game_servers'),
-    href: '#',
+    route: {name: 'admin.servers.index'}
   },
   {
     icon: 'fas fa-gamepad',

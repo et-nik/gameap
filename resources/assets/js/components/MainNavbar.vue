@@ -31,14 +31,6 @@
               <img id="brand-logo" src="/images/gap_logo_white.png" class="logo" alt="GameAP">
             </a>
           </div>
-          <div class="hidden sm:ml-6 sm:block">
-            <div class="flex space-x-4">
-              <!-- Current: "bg-stone-900 text-white", Default: "text-stone-300 hover:bg-stone-700 hover:text-white" -->
-              <a href="#" class="bg-stone-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">{{ trans('navbar.main') }}</a>
-              <a href="#" class="text-stone-300 hover:bg-stone-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">{{ trans('navbar.admin') }}</a>
-              <a href="#" class="text-stone-300 hover:bg-stone-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">{{ trans('navbar.users') }}</a>
-            </div>
-          </div>
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <GButton color="black" size="small" class="mr-1">
@@ -69,6 +61,8 @@
 import {trans} from "../i18n/i18n";
 import {computed} from 'vue'
 import GButton from "./GButton.vue";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+// import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 
 const user = computed(() => {
     return window.user

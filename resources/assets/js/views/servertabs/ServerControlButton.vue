@@ -1,8 +1,8 @@
 <script setup>
   import {ref, h} from 'vue'
-  import {alert, confirm} from '../parts/dialogs'
-  import {trans} from "../i18n/i18n";
-  import GButton from "./GButton.vue";
+  import {alert, confirm} from '../../parts/dialogs'
+  import {trans} from "../../i18n/i18n";
+  import GButton from "../../components/GButton.vue";
 
   const bodyStyle = {
       width: "600px"

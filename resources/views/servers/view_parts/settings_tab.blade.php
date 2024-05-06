@@ -5,14 +5,14 @@
                 {!! Form::model($server, ['method' => 'PATCH', 'route' => ['servers.updateSettings', $server->id], 'id' => 'adminServerForm']) !!}
 
                 <div class="md:w-full pr-4 pl-4">
-                    <div class="relative block mb-2 mt-4 mb-4">
+                    <div class="relative block mt-4 mb-4">
                         {{ Form::checkbox('autostart', true, $autostart, ['id' => 'autostart', 'class' => 'form-check-input']) }}
                         {{ Form::label('autostart', __('servers.autostart_setting'), ['class' => 'form-check-label']) }}
                     </div>
                 </div>
 
                 <div class="md:w-full pr-4 pl-4">
-                    <div class="relative block mb-2 mt-4 mb-4">
+                    <div class="relative block mt-4 mb-4">
                         {{ Form::checkbox('update_before_start', true, $updateBeforeStart, ['id' => 'update_before_start', 'class' => 'form-check-input']) }}
                         {{ Form::label('update_before_start', __('servers.update_before_start_setting'), ['class' => 'form-check-label']) }}
                     </div>

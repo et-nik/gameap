@@ -120,7 +120,7 @@
                 <server-console console-hostname="{{ $server->uuid_short }}" :server-id="{{ $server->id }}" :server-active="{{ $server->processActive() ? "true" : "false" }}">
                     <div class="flex justify-center">
                         <div class="fa-3x">
-                            <i class="fas fa-spinner fa-spin"></i>
+                            <i class="fa-solid fa-gear fa-spin"></i>
                         </div>
                     </div>
                 </server-console>

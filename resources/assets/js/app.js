@@ -6,18 +6,23 @@
 import {createApp, h} from "vue";
 import {defineAsyncComponent} from 'vue'
 
+import {createPinia} from 'pinia'
+
 import {
     create,
     NAlert,
     NButton,
     NCard,
+    NCheckbox,
     NCollapse,
     NCollapseItem,
+    NConfigProvider,
     NDatePicker,
     NDataTable,
     NDialog,
     NDialogProvider,
     NEmpty,
+    NInput,
     NMessageProvider,
     NModal,
     NProgress,
@@ -25,8 +30,11 @@ import {
     NTable,
     NTabs,
     NTabPane,
+    NThemeEditor,
     NTooltip,
 } from 'naive-ui'
+
+import { createMemoryHistory, createRouter } from 'vue-router'
 
 import './bootstrap';
 
@@ -35,7 +43,7 @@ import {alert, confirmAction, confirm} from './parts/dialogs'
 
 import {pluralize, trans} from "./i18n/i18n";
 
-import store from './store'
+import store from './legacy/store'
 
 import GBreadcrumbs from "./components/GBreadcrumbs.vue";
 import GButton from "./components/GButton.vue";
@@ -62,23 +70,19 @@ const GameapSelect = defineAsyncComponent(() =>
 import fileManager from './filemanager';
 
 const ServerStatus = defineAsyncComponent(() =>
-    import('./components/ServerStatus.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerStatus.vue' /* webpackChunkName: "components/server" */)
 )
 
 const ServerConsole = defineAsyncComponent(() =>
-    import('./components/ServerConsole.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerConsole.vue' /* webpackChunkName: "components/server" */)
 )
 
 const ServerTasks = defineAsyncComponent(() =>
-    import('./components/ServerTasks.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerTasks.vue' /* webpackChunkName: "components/server" */)
 )
 
 const ServerControlButton = defineAsyncComponent(() =>
-    import('./components/ServerControlButton.vue' /* webpackChunkName: "components/server" */)
-)
-
-const ServerMainList = defineAsyncComponent(() =>
-    import('./components/ServerMainList.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerControlButton.vue' /* webpackChunkName: "components/server" */)
 )
 
 const TaskOutput = defineAsyncComponent(() =>
@@ -127,6 +131,20 @@ const setActiveTab = (tab) => {
     store.dispatch('activeTab/setName', tab);
 }
 
+import {routes} from "./routes";
+
+const router = createRouter({
+    history: createMemoryHistory(),
+    routes,
+})
+
+router.beforeEach((to, from) => {
+    const resolved = router.resolve(to.fullPath)
+    if (resolved.name) {
+        window.history.replaceState({}, '', to.fullPath);
+    }
+})
+
 const app = createApp({
     components: {
         GBreadcrumbs,
@@ -144,7 +162,6 @@ const app = createApp({
         RconPlayers,
         ServerConsole,
         ServerControlButton,
-        ServerMainList,
         ServerSelector,
         ServerStatus,
         ServerTasks,
@@ -185,13 +202,16 @@ const naive = create({
         NAlert,
         NButton,
         NCard,
+        NCheckbox,
         NCollapse,
         NCollapseItem,
+        NConfigProvider,
         NDialog,
         NDataTable,
         NDatePicker,
         NDialogProvider,
         NEmpty,
+        NInput,
         NMessageProvider,
         NModal,
         NProgress,
@@ -199,12 +219,17 @@ const naive = create({
         NTable,
         NTabs,
         NTabPane,
+        NThemeEditor,
         NTooltip,
     ],
 })
 
+const pinia = createPinia()
+
 app.use(store)
 app.use(naive)
+app.use(router)
+app.use(pinia)
 
 app.use(fileManager, {store: store})
 

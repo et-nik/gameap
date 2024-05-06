@@ -86,6 +86,59 @@ class ServersController extends AuthController
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
+    public function get(Server $server)
+    {
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+
+        return $server->only([
+            'id',
+            'uuid',
+            'uuid_short',
+            'enabled',
+            'installed',
+            'blocked',
+            'name',
+            'ds_id',
+            'game_id',
+            'game_mod_id',
+            'server_ip',
+            'server_port',
+            'query_port',
+            'rcon_port',
+            'game',
+            'online'
+        ]);
+    }
+
+    /**
+     * @param Server $server
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function abilities(Server $server)
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+        $isAdmin = $currentUser->can(PermissionHelper::ADMIN_PERMISSIONS);
+
+        $abilities = [];
+
+        foreach (ServerPermissionHelper::getAllPermissions() as $permission) {
+            $abilities[$permission] = $isAdmin || $currentUser->can($permission, $server);
+        }
+
+        return $abilities;
+    }
+
+    /**
+     * @param Server $server
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function start(Server $server)
     {
         $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
@@ -411,7 +464,10 @@ class ServersController extends AuthController
      */
     private function handleException(\Throwable $exception)
     {
-        if (Auth::user()->can(PermissionHelper::ADMIN_PERMISSIONS)) {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if ($currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             $extraMessage = $this->getDocMessage($exception);
         } else {
             $extraMessage = (string)__('main.common_admin_error');

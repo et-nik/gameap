@@ -6,6 +6,7 @@ use Gameap\Http\Controllers\API\GamesController;
 use Gameap\Http\Controllers\API\GdaemonTasksController;
 use Gameap\Http\Controllers\API\HealthzController;
 use Gameap\Http\Controllers\API\ServersController;
+use Gameap\Http\Controllers\API\ServersSettingsController;
 use Gameap\Http\Controllers\API\ServersRconController;
 use Gameap\Http\Controllers\API\ServersTasksController;
 use Gameap\Http\Controllers\API\UsersController;
@@ -65,6 +66,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::middleware('isAdmin')->group(function () {
         Route::name('servers.search')->get('servers/search',  [ServersController::class, 'search']);
 
+        Route::name('servers.get')
+            ->get('servers/{server}', [ServersController::class, 'get']);
+
         Route::name('servers.store')
             ->post('servers', [ServersController::class, 'store'])
             ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
@@ -77,6 +81,9 @@ Route::middleware('auth:sanctum')->group(function() {
             ->delete('servers/{server}', [ServersController::class, 'destroy'])
             ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
     });
+
+    Route::name('servers.abilities')
+        ->get('servers/{server}/abilities', [ServersController::class, 'abilities']);
 
     Route::name('servers.start')
         ->post('servers/{server}/start', [ServersController::class, 'start'])
@@ -120,6 +127,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::name('servers.add_task')->post('servers/{server}/tasks', [ServersTasksController::class, 'store']);
     Route::name('servers.update_task')->put('servers/{server}/tasks/{server_task}', [ServersTasksController::class, 'update']);
     Route::name('servers.delete_task')->delete('servers/{server}/tasks/{server_task}', [ServersTasksController::class, 'destroy']);
+
+    Route::name('servers.get_settings')->get('servers/{server}/settings', [ServersSettingsController::class, 'get']);
+    Route::name('servers.save_settings')->put('servers/{server}/settings', [ServersSettingsController::class, 'save']);
 
     // Rcon
     Route::middleware('abilities:' . PersonalAccessTokenService::SERVER_RCON_CONSOLE_ABILITY)->group(function() {
