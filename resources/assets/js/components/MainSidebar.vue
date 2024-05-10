@@ -129,6 +129,7 @@ const adminLinks = [
   {
     icon: 'fas fa-hdd',
     text: trans('sidebar.dedicated_servers'),
+    route: {name: 'admin.nodes.index'}
   },
   {
     icon: 'fas fa-server',

@@ -70,6 +70,8 @@ return [
     'create_success_msg' => 'Dedicated server created successfully',
     'update_success_msg' => 'Dedicated server updated successfully',
     'delete_success_msg' => 'Dedicated server deleted successfully',
+
+    'delete_has_servers_error_msg' => 'You can\'t delete dedicated server with game servers',
     
     'autosetup_title' => 'Dedicated Server Auto Setup',
     

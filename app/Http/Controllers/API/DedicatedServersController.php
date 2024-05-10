@@ -3,7 +3,9 @@
 namespace Gameap\Http\Controllers\API;
 
 use Gameap\Http\Controllers\AuthController;
+use Gameap\Http\Requests\API\Admin\SaveNodeRequest;
 use Gameap\Repositories\NodeRepository;
+use Gameap\Models\DedicatedServer;
 
 class DedicatedServersController extends AuthController
 {
@@ -23,6 +25,52 @@ class DedicatedServersController extends AuthController
         parent::__construct();
 
         $this->repository = $repository;
+    }
+
+    public function list()
+    {
+        $collection = $this->repository->getAll();
+
+        return $collection->map(function ($item) {
+            return $item->only([
+                'id',
+                'enabled',
+                'name',
+                'os',
+                'location',
+                'provider',
+                'ip',
+            ]);
+        });
+    }
+
+    public function get(int $id)
+    {
+        return $this->repository->findById($id);
+    }
+
+    public function save(SaveNodeRequest $request)
+    {
+        if ($request->id()) {
+            $node = $this->repository->findById($request->id);
+            $this->repository->update($node, $request->all());
+        } else {
+            $node = $this->repository->store($request->all());
+        }
+
+        return ['message' => 'success', 'result' => $node->id];
+    }
+
+    public function destroy(int $id)
+    {
+        $node = $this->repository->findById($id);
+        if (count($node->servers) > 0) {
+            return ['message' => 'error', 'error' => __('dedicated_servers.delete_has_servers_error_msg')];
+        }
+
+        $this->repository->destroy($node);
+
+        return ['message' => 'success'];
     }
 
     /**

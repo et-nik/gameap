@@ -33,8 +33,20 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::name('game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', [GameModsController::class, 'getListForGame']);
 
     Route::middleware('isAdmin')->group(function () {
+        Route::name('dedicated_servers')
+            ->get('dedicated_servers', [DedicatedServersController::class, "list"]);
+
+        Route::name('dedicated_servers.get')
+            ->get('dedicated_servers/{dedicated_server}', [DedicatedServersController::class, "get"]);
+
         Route::name('dedicated_servers.ip_list')
             ->get('dedicated_servers/{dedicated_server}/ip_list', [DedicatedServersController::class, "getIpList"]);
+
+        Route::name('dedicated_servers.save')
+            ->post('dedicated_servers', [DedicatedServersController::class, "save"]);
+
+        Route::name('dedicated_servers.destroy')
+            ->post('dedicated_servers', [DedicatedServersController::class, "destroy"]);
 
         Route::name('dedicated_servers.busy_ports')
             ->get('dedicated_servers/{dedicated_server}/busy_ports', [DedicatedServersController::class, "getBusyPorts"]);

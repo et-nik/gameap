@@ -1,0 +1,287 @@
+get:
+  summary: Get node
+  tags:
+    - 'dedicated servers'
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int64
+                example: 1
+              enabled:
+                type: boolean
+                example: true
+              name:
+                type: string
+                example: 22aeaf65bbcd
+              os:
+                type: string
+                example: linux
+              location:
+                type: string
+                example: Montenegro
+              provider:
+                type: string
+                nullable: true
+                example: null
+              ip:
+                type: array
+                items:
+                    type: string
+                    nullable: false
+                    example: ""
+              ram:
+                type: integer
+                nullable: true
+                example: 1024
+              cpu:
+                type: integer
+                nullable: true
+                example: 1
+              work_path:
+                type: string
+                example: /srv/gameap
+              steamcmd_path:
+                type: string
+                example: /srv/gameap/steamcmd
+              gdaemon_host:
+                type: string
+                example: "172.18.0.5"
+              gdaemon_port:
+                type: integer
+                example: 31717
+              gdaemon_api_key:
+                type: string
+                example: "gNvgQbFtgkIgYEVd88ns0vO4li70clyaHm4e1bAeF2wJkF9of6UbTxX0i9SAQ2mP"
+              gdaemon_api_token:
+                type: string
+                example: "INi5pAMySv93RkgANYszIzsQV0qa6sSoXbR3kbhDhIfwAqP33jp0KvRTJ394TaiT"
+              gdaemon_login:
+                type: string
+                nullable: true
+                example: "some_login"
+              gdaemon_password:
+                type: string
+                nullable: true
+                example: "some_password"
+              gdaemon_server_cert:
+                type: string
+                example: "certs/root.crt"
+              client_certificate_id:
+                type: integer
+                example: 1
+              prefer_install_method:
+                type: string
+                example: "auto"
+              script_install:
+                type: string
+                nullable: true
+                example: "install.sh"
+              script_reinstall:
+                type: string
+                nullable: true
+                example: "reinstall.sh"
+              script_update:
+                type: string
+                nullable: true
+                example: "update.sh"
+              script_start:
+                type: string
+                nullable: true
+                example: "start.sh"
+              script_pause:
+                type: string
+                nullable: true
+                example: "pause.sh"
+              script_unpause:
+                type: string
+                nullable: true
+                example: "unpause.sh"
+              script_stop:
+                type: string
+                nullable: true
+                example: "stop.sh"
+              script_kill:
+                type: string
+                nullable: true
+                example: "kill.sh"
+              script_restart:
+                type: string
+                nullable: true
+                example: "restart.sh"
+              script_status:
+                type: string
+                nullable: true
+                example: "status.sh"
+              script_stats:
+                type: string
+                nullable: true
+                example: "stats.sh"
+              script_get_console:
+                type: string
+                nullable: true
+                example: "server-output {id}"
+              script_send_command:
+                type: string
+                nullable: true
+                example: "server-command {id} {command}"
+              script_delete:
+                type: string
+                nullable: true
+                example: "delete.sh"
+              created_at:
+                type: string
+                format: date-time
+                example: "2024-04-23T16:04:52.000000Z"
+              updated_at:
+                type: string
+                format: date-time
+                example: "2024-05-05T16:01:42.000000Z"
+              deleted_at:
+                type: string
+                format: date-time
+                nullable: true
+                example: "2024-05-05T16:01:42.000000Z"
+
+post:
+  summary: Save node
+  tags:
+    - 'dedicated servers'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+              nullable: true
+              format: int64
+            enabled:
+              type: boolean
+            name:
+              type: string
+            os:
+              type: string
+            location:
+              type: string
+            provider:
+              type: string
+              nullable: true
+            ip:
+              type: array
+              items:
+                type: string
+                nullable: false
+            ram:
+              type: integer
+              nullable: true
+            cpu:
+              type: integer
+              nullable: true
+            work_path:
+              type: string
+            steamcmd_path:
+              type: string
+            gdaemon_host:
+              type: string
+            gdaemon_port:
+              type: integer
+            gdaemon_api_key:
+              type: string
+            gdaemon_api_token:
+              type: string
+            gdaemon_login:
+              type: string
+              nullable: true
+            gdaemon_password:
+              type: string
+              nullable: true
+            gdaemon_server_cert:
+              type: string
+            client_certificate_id:
+              type: integer
+            prefer_install_method:
+              type: string
+            script_install:
+              type: string
+              nullable: true
+            script_reinstall:
+              type: string
+              nullable: true
+            script_update:
+              type: string
+              nullable: true
+            script_start:
+              type: string
+              nullable: true
+            script_pause:
+              type: string
+              nullable: true
+            script_unpause:
+              type: string
+              nullable: true
+            script_stop:
+              type: string
+              nullable: true
+            script_kill:
+              type: string
+              nullable: true
+            script_restart:
+              type: string
+              nullable: true
+            script_status:
+              type: string
+              nullable: true
+            script_stats:
+              type: string
+              nullable: true
+            script_get_console:
+              type: string
+              nullable: true
+            script_send_command:
+              type: string
+              nullable: true
+            script_delete:
+              type: string
+              nullable: true
+          required:
+            - id
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "success"
+              result:
+                type: int
+                example: 1
+    "404":
+      $ref: '../responses/common-error.yaml'
+    "5XX":
+      $ref: '../responses/common-error.yaml'
+
+
+delete:
+    summary: Delete node
+    tags:
+        - 'dedicated servers'
+    responses:
+      "204":
+        description: No Content
+      "404":
+        $ref: '../responses/common-error.yaml'
+      "5XX":
+        $ref: '../responses/common-error.yaml'

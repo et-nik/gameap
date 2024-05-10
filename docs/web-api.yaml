@@ -50,6 +50,12 @@ security:
   - bearerAuth: []
 
 paths:
+  /api/dedicated_servers:
+    $ref: './web-api/paths/dedicated_servers.yaml'
+
+  /api/dedicated_servers/{dedicated_server}:
+    $ref: './web-api/paths/dedicated_servers_id.yaml'
+
   /api/dedicated_servers/{dedicated_server}/ip_list:
     $ref: './web-api/paths/dedicated_servers_id_ip_list.yaml'
 

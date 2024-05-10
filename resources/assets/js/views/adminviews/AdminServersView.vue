@@ -38,12 +38,10 @@ import GBreadcrumbs from "../../components/GBreadcrumbs.vue";
 const serverListStore = useServerListStore()
 
 const breadcrumbs = computed(() => {
-  const bc = [
+  return [
     {'route':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
     {'route':{name: 'admin.servers.index'}, 'text':trans('servers.game_servers')},
   ]
-
-  return bc
 })
 
 const createColumns = () => {

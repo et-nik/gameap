@@ -70,6 +70,8 @@ return [
     'update_success_msg' => 'Выделенный сервер успешно обновлён',
     'delete_success_msg' => 'Выделенный сервер успешно удалён',
 
+    'delete_has_servers_error_msg' => 'Нельзя удалить выделенный сервер, на котором есть сервера',
+
     'autosetup_title' => 'Автоматическая настройка выделенного сервера',
 
     'autosetup_description_linux' => '<p>Можете использовать следующие хост и токен для настройки GDaemon используя gameapctl:</p>
