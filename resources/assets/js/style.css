@@ -85,3 +85,7 @@
 .badge-stone {
     @apply bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900;
 }
+
+.badge-light {
+    @apply bg-stone-50 text-stone-600 me-2 px-1.5 py-0.5 rounded ring-1 ring-inset ring-stone-500/10;
+}

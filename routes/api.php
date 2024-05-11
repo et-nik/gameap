@@ -60,6 +60,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
         // Games
         Route::name('games')->get('/games', [GamesController::class, 'index']);
+        Route::name('games.mods')->get('/games/{game}/mods', [GameModsController::class, 'getListForGame']);
         Route::name('games.store')->post('/games', [GamesController::class, 'store']);
         Route::name('games.show')->get('/games/{game}', [GamesController::class, 'show']);
         Route::name('games.update')->put('/games/{game}', [GamesController::class, 'update']);

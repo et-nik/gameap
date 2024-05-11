@@ -1,7 +1,7 @@
 <template>
   <GBreadcrumbs :items="breadcrumbs"></GBreadcrumbs>
 
-  <GButton color="green" size="middle" class="mb-5">
+  <GButton color="green" size="middle" class="mb-5" :route="{name: 'admin.servers.create'}">
     <i class="fa fa-plus-square mr-0.5"></i>
     <span>{{ trans('servers.create')}}</span>
   </GButton>
@@ -31,9 +31,9 @@ import Loading from "../../components/Loading.vue"
 import GButton from "../../components/GButton.vue"
 import {h, onMounted, computed, ref} from "vue"
 import {useServerListStore} from "../../store/serverList"
-import {confirm, errorNotification} from "../../parts/dialogs";
-import {storeToRefs} from "pinia";
-import GBreadcrumbs from "../../components/GBreadcrumbs.vue";
+import {errorNotification} from "../../parts/dialogs"
+import {storeToRefs} from "pinia"
+import GBreadcrumbs from "../../components/GBreadcrumbs.vue"
 
 const serverListStore = useServerListStore()
 

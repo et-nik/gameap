@@ -57,6 +57,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
             [AdminDedicatedServersController::class, 'certificatesZip'],
         );
     Route::resource('dedicated_servers','Admin\\DedicatedServersController', ['as' => 'admin']);
+    Route::resource('nodes','Admin\\DedicatedServersController', ['as' => 'admin']);
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
 
     Route::name('admin.games.upgrade')->patch('games/upgrade', [AdminGamesController::class, 'upgrade']);

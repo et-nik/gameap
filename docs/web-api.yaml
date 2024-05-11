@@ -119,11 +119,11 @@ paths:
   /api/games:
     $ref: './web-api/paths/games.yaml'
 
-  /api/game_mods:
+  /api/games/{game}/mods:
     $ref: './web-api/paths/game_mods.yaml'
 
   /api/game_mods/get_list_for_game/{game}:
-    $ref: './web-api/paths/game_mods_get_list_for_game.yaml'
+    $ref: './web-api/paths/games_id_mods.yaml'
 
   /api/gdaemon_tasks/{gdaemon_task}:
     $ref: './web-api/paths/gdaemon_tasks_id.yaml'

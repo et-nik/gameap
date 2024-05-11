@@ -138,15 +138,15 @@ post:
               maxLength: 128
               description: The name of the server.
               example: My Awesome Server
-            game_id:
-              type: string
-              description: The code of the game.
-              example: cstrike
             ds_id:
               type: integer
               format: int64
               description: The ID of the game server provider.
               example: 1
+            game_id:
+              type: string
+              description: The code of the game.
+              example: cstrike
             game_mod_id:
               type: integer
               format: int64

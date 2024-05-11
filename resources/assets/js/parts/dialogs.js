@@ -9,17 +9,7 @@ const errorNotification = function(error, callback) {
             content = error
             break
         case "object":
-            if ('title' in error) {
-                title = error.title
-            } else if ('name' in error) {
-                title = error.name
-            }
-
-            if ('content' in error) {
-                content = error.content
-            } else if ('message' in error) {
-                content = error.message
-            }
+            ({title, content} = parseErrorObject(error))
             break
         default:
             content = "Something went wrong."
@@ -30,6 +20,37 @@ const errorNotification = function(error, callback) {
         content: content,
         type: 'error'
     })
+}
+
+const parseErrorObject = function(error) {
+    const result = {
+        title: trans('main.error'),
+        content: "Something went wrong.",
+    }
+
+    if ('response' in error) {
+        if ('statusText' in error.response) {
+            result.title = error.response.statusText
+        }
+
+        if ('data' in error.response  && 'message' in error.response.data) {
+            result.content = error.response.data.message
+        }
+    } else {
+        if ('title' in error) {
+            result.title = error.title
+        } else if ('name' in error) {
+            result.title = error.name
+        }
+
+        if ('content' in error) {
+            result.content = error.content
+        } else if ('message' in error) {
+            result.content = error.message
+        }
+    }
+
+    return result
 }
 
 const notification = function(n, callback) {

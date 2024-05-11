@@ -3,7 +3,7 @@
 import { defineStore } from 'pinia'
 import {errorNotification} from "../parts/dialogs";
 
-export const useServerStore = defineStore('servers', {
+export const useServerStore = defineStore('server', {
     state: () => ({
         errors: [],
         loading: false,

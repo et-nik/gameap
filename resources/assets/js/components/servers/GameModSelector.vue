@@ -3,33 +3,43 @@
         <div class="mb-3">
             <input type="hidden" name="game_id" v-model="selectedGameCode">
 
-            <label for="game_mod_id" class="control-label">{{ trans('labels.game_id') }}</label>
-            <n-select filterable v-model:value="selectedGameCode" :options="gamesOptions" />
+            <n-form-item :label="trans('labels.game_id')" :path="gamePath">
+              <n-select filterable v-model:value="selectedGameCode" :options="gamesOptions" />
+            </n-form-item>
+
         </div>
 
         <div class="mb-3">
             <input type="hidden" name="game_mod_id" v-model="selectedMod">
 
-            <label for="game_mod_id" class="control-label">{{ trans('labels.game_mod_id') }}</label>
-            <n-select
-                filterable
-                v-model:value="selectedMod"
-                :disabled="!selectedGameCode"
-                :options="gameModOptions"
-            />
+            <n-form-item :label="trans('labels.game_mod_id')" :path="gameModPath">
+              <n-select
+                  filterable
+                  v-model:value="selectedMod"
+                  :disabled="!selectedGameCode"
+                  :options="gameModOptions"
+              />
+            </n-form-item>
         </div>
     </div>
 </template>
 
 <script setup>
-  import { computed, watch, onMounted } from 'vue';
+  import { computed, watch, onMounted, defineModel } from 'vue';
   import { useStore } from 'vuex';
+  import {trans} from "../../i18n/i18n";
+  import {NFormItem} from "naive-ui";
 
   const props = defineProps({
     games: Object,
     initialGame: String,
     initialMod: Number,
+    gamePath: "game",
+    gameModPath: "gameMod",
   });
+
+  const gameModel = defineModel('game')
+  const gameModModel = defineModel('gameMod')
 
   const store = useStore();
 
@@ -45,12 +55,18 @@
 
   const selectedGameCode = computed({
     get: () => store.state.games.gameCode,
-    set: (gameCode) => store.dispatch('games/setGameCode', gameCode)
+    set: (gameCode) => {
+      gameModel.value = gameCode;
+      store.dispatch('games/setGameCode', gameCode)
+    }
   });
 
   const selectedMod = computed({
     get: () => store.state.gameMods.gameMod,
-    set: (gameMod) => store.dispatch('gameMods/setGameMod', gameMod)
+    set: (gameMod) => {
+      gameModModel.value = gameMod;
+      store.dispatch('gameMods/setGameMod', gameMod)
+    }
   });
 
   watch(selectedGameCode, (gameCode) => {

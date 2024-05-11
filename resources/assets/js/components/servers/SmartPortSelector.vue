@@ -1,25 +1,24 @@
 <template>
     <div>
-        <div class="mb-3">
-            <label for="server_port" class="control-label">{{ trans('labels.server_port') }}</label>
-            <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
-            <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
-        </div>
+        <n-form-item :label="trans('labels.server_port')" :path="serverPortPath">
+          <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
+          <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
+        </n-form-item>
 
-        <div class="mb-3">
-            <label for="query_port" class="control-label">{{ trans('labels.query_port') }}</label>
-            <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="query_port" type="number" id="query_port" min="1024" max="65535" v-model="queryPort">
-        </div>
+      <n-form-item :label="trans('labels.query_port')" :path="queryPortPath">
+        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="query_port" type="number" id="server_port" min="1024" max="65535" v-model="queryPort">
+      </n-form-item>
 
-        <div class="mb-3">
-            <label for="rcon_port" class="control-label">{{ trans('labels.rcon_port') }}</label>
-            <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="rcon_port" type="number" id="rcon_port" min="1024" max="65535" v-model="rconPort">
-        </div>
+      <n-form-item :label="trans('labels.rcon_port')" :path="rconPortPath">
+        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="rcon_port" type="number" id="server_port" min="1024" max="65535" v-model="rconPort">
+      </n-form-item>
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
+    import {NFormItem} from "naive-ui";
+    import {trans} from "../../i18n/i18n";
 
     const DEFAULT_PORTS = {
         'arma2': 2302,
@@ -59,13 +58,18 @@
 
     export default {
         name: "SmartPortSelector",
+      components: {NFormItem},
         props: {
             initialServerIp: String,
             initialServerPort: String,
             initialQueryPort: String,
             initialRconPort: String,
-            game: ''
+            game: '',
+            serverPortPath: 'serverPort',
+            rconPortPath: 'rconPort',
+            queryPortPath: 'queryPort',
         },
+        emits: ['update:serverPort', 'update:rconPort', 'update:queryPort'],
         data: function() {
             return {
                 serverPort: parseInt(this.initialServerPort) || 27015,
@@ -75,6 +79,7 @@
             }
         },
         methods: {
+          trans,
             initPorts() {
                 if (!this.initialServerPort) {
                     this.setPorts();
@@ -160,6 +165,13 @@
                 this.serverPort = Number(this.serverPort);
                 this.correctPorts();
                 this.checkPorts();
+                this.$emit('update:serverPort', this.serverPort)
+            },
+            rconPort() {
+              this.$emit('update:rconPort', this.rconPort)
+            },
+            queryPort() {
+              this.$emit('update:queryPort', this.queryPort)
             },
         }
     }

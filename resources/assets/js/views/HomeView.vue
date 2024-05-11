@@ -1,24 +1,25 @@
 <template>
     <div class="mt-4">
-      <GButton class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2" :route="{name: 'servers'}">
+      <GButton class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2 h-28" :route="{name: 'servers'}">
         <div class="text-lg">
           <i class="fa-solid fa-server"></i>
           Servers
         </div>
-        <div class="mt-3 grid grid-cols-2">
+        <div class="mt-3 grid grid-cols-2 content-center">
           <div class="text-xs text-lime-600"><i class="fa-solid fa-heart-pulse"></i>: 4</div>
           <div class="text-xs text-red-600"><i class="fa-solid fa-power-off "></i>: 2</div>
         </div>
       </GButton>
 
-      <GButton class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2" :route="{name: 'admin.nodes.index'}">
+      <GButton class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2 h-28" :route="{name: 'admin.nodes.index'}">
         <div class="text-lg">
           <i class="fa-solid fa-hard-drive"></i>
           Nodes
         </div>
-        <div class="mt-3 grid grid-cols-2">
-          <div class="text-xs text-lime-600"><i class="fa-solid fa-heart-pulse"></i>: 4</div>
-          <div class="text-xs text-red-600"><i class="fa-solid fa-power-off "></i>: 2</div>
+        <div class="mt-3 content-center">
+          <span class="text-xs badge-light">
+            4
+          </span>
         </div>
       </GButton>
     </div>

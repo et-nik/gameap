@@ -17,6 +17,16 @@ export const useServerListStore = defineStore('serverList', {
                 this.loading = false
             }
         },
+        async create(server) {
+            this.loading = true
+            try {
+                await axios.post('/api/servers/', server)
+            } catch (error) {
+                throw error
+            } finally {
+                this.loading = false
+            }
+        },
         async deleteById(id, deleteFiles) {
             this.loading = true
             try {
