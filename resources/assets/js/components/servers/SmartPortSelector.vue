@@ -2,7 +2,9 @@
     <div>
         <n-form-item :label="trans('labels.server_port')" :path="serverPortPath">
           <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
-          <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
+          <template #feedback>
+            <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
+          </template>
         </n-form-item>
 
       <n-form-item :label="trans('labels.query_port')" :path="queryPortPath">
@@ -141,7 +143,13 @@
                 gameCode: state => state.games.gameCode,
             }),
             selectedIp: {
-                get() { return this.$store.state.servers.ip; },
+                get() {
+                  if (!this.$store.state.servers.ip || this.$store.state.servers.ip === "") {
+                    return null;
+                  }
+
+                  return this.$store.state.servers.ip;
+                },
                 set(selectedIp) { this.$store.dispatch('servers/setIp', selectedIp) },
             },
         },
@@ -155,13 +163,11 @@
             gameCode() {
                 this.setPorts();
             },
-            selectedIp(ip, oldIp) {
-                if (oldIp) {
-                    this.setPorts();
-                }
-                this.checkPorts();
-            },
-            serverPort() {
+            serverPort(v, oldVal) {
+                console.log("new:", v);
+                console.log("old: ", oldVal);
+                console.log("serverPort: ", this.serverPort);
+
                 this.serverPort = Number(this.serverPort);
                 this.correctPorts();
                 this.checkPorts();

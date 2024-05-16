@@ -141,7 +141,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
     const resolved = router.resolve(to.fullPath)
     if (resolved.name) {
-        window.history.replaceState({}, '', to.fullPath);
+        window.history.pushState({}, '', to.fullPath);
     }
 })
 

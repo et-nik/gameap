@@ -4,7 +4,12 @@
             <input type="hidden" name="game_id" v-model="selectedGameCode">
 
             <n-form-item :label="trans('labels.game_id')" :path="gamePath">
-              <n-select filterable v-model:value="selectedGameCode" :options="gamesOptions" />
+              <n-select
+                  filterable
+                  :disabled="gameSelectDisabled"
+                  v-model:value="selectedGameCode"
+                  :options="gamesOptions"
+              />
             </n-form-item>
 
         </div>
@@ -32,10 +37,9 @@
 
   const props = defineProps({
     games: Object,
-    initialGame: String,
-    initialMod: Number,
     gamePath: "game",
     gameModPath: "gameMod",
+    gameSelectDisabled: false,
   });
 
   const gameModel = defineModel('game')
@@ -54,7 +58,16 @@
   });
 
   const selectedGameCode = computed({
-    get: () => store.state.games.gameCode,
+    get: () => {
+      if (
+          !store.state.games.gameCode ||
+          store.state.games.gameCode === ""
+      ) {
+        return null;
+      }
+
+      return store.state.games.gameCode
+    },
     set: (gameCode) => {
       gameModel.value = gameCode;
       store.dispatch('games/setGameCode', gameCode)
@@ -62,7 +75,16 @@
   });
 
   const selectedMod = computed({
-    get: () => store.state.gameMods.gameMod,
+    get: () => {
+      if (
+          !store.state.gameMods.gameMod ||
+          store.state.gameMods.gameMod === ""
+      ) {
+        return null;
+      }
+
+      return store.state.gameMods.gameMod
+    },
     set: (gameMod) => {
       gameModModel.value = gameMod;
       store.dispatch('gameMods/setGameMod', gameMod)
@@ -74,16 +96,28 @@
   });
 
   watch(gameModsList, (val) => {
-    if (props.initialGame !== selectedGameCode.value) {
-      selectedMod.value = val.length > 0 ? val[0].id : '';
-    } else {
-      selectedMod.value = Number(props.initialMod);
+    let mod = 0
+    if (val.length > 0) {
+      mod = val[0].id
+    }
+    const found = val.find((element) => element.id === gameModModel.value);
+    if (found) {
+      mod = gameModModel.value;
+    }
+
+    selectedMod.value = mod;
+  });
+
+  watch(gameModel, (val) => {
+    if (val !== 0) {
+      selectedGameCode.value = val;
     }
   });
 
-  onMounted(() => {
-    selectedGameCode.value = props.initialGame;
-    selectedMod.value = props.initialMod;
+  watch(gameModModel, (val) => {
+    if (val !== 0) {
+      selectedMod.value = val;
+    }
   });
 </script>
 

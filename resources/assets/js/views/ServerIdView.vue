@@ -279,10 +279,8 @@ const serverStore = useServerStore()
 
 const {
   loading,
-  errors,
   serverId,
   server,
-  abilities,
   rconSupportedFeatures,
 } = storeToRefs(serverStore)
 

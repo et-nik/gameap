@@ -49,6 +49,7 @@
                 <n-input
                     v-model:value="serverForm.rcon"
                     type="password"
+                    show-password-on="click"
                 />
               </n-form-item>
 

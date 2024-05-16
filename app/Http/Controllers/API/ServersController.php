@@ -90,6 +90,38 @@ class ServersController extends AuthController
     {
         $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
 
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+        $isAdmin = $currentUser->can(PermissionHelper::ADMIN_PERMISSIONS);
+
+        if ($isAdmin) {
+            return $server->only([
+                'id',
+                'uuid',
+                'uuid_short',
+                'enabled',
+                'installed',
+                'blocked',
+                'name',
+                'ds_id',
+                'game_id',
+                'game_mod_id',
+                'server_ip',
+                'server_port',
+                'query_port',
+                'rcon_port',
+                'game',
+                'online',
+
+                'rcon',
+                'dir',
+                'su_user',
+                'start_command',
+                'aliases',
+                'vars',
+            ]);
+        }
+
         return $server->only([
             'id',
             'uuid',
@@ -106,7 +138,7 @@ class ServersController extends AuthController
             'query_port',
             'rcon_port',
             'game',
-            'online'
+            'online',
         ]);
     }
 

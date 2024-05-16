@@ -42,6 +42,13 @@ export const useServerStore = defineStore('server', {
             rcon_port: 0,
             game: {},
             online: false,
+
+            // admin
+            rcon: '',
+            dir: '',
+            su_user: '',
+            start_command: '',
+            aliases: null,
         },
         settings: [],
         rconSupportedFeatures: {
@@ -129,6 +136,18 @@ export const useServerStore = defineStore('server', {
             } finally {
                 this.loading = false;
             }
+        },
+        async save(server) {
+            this.loading = true;
+
+            try {
+                await axios.put('/api/servers/' + this.serverId, server)
+            } catch (error) {
+                throw error
+            } finally {
+                this.loading = false;
+            }
+
         },
         async saveSettings(settings) {
             this.loading = true;

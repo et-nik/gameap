@@ -4,7 +4,12 @@
         <input type="hidden" :name="serverIpFieldName" v-model="selectedIp" />
 
         <n-form-item :path="nodeIdPath">
-          <n-select v-model:value="selectedDs" :options="nodesOptions" :placeholder="trans('labels.ds_id')" />
+          <n-select
+              v-model:value="selectedDs"
+              :disabled="nodeSelectDisabled"
+              :options="nodesOptions"
+              :placeholder="trans('labels.ds_id')"
+          />
         </n-form-item>
 
         <n-form-item :path="ipPath" :show-label="false">
@@ -19,14 +24,12 @@
 </template>
 
 <script setup>
-  import { computed, watch, onMounted } from 'vue';
-  import { useStore } from 'vuex';
-  import {NFormItem} from "naive-ui";
+  import { computed, watch, onMounted } from 'vue'
+  import { useStore } from 'vuex'
+  import {NFormItem} from "naive-ui"
 
   const props = defineProps({
     dsList: Object,
-    initialDsId: Number,
-    initialIp: String,
     serverIpFieldName: {
       type: String,
       default: 'server_ip',
@@ -34,6 +37,10 @@
     dsIdFieldName: {
       type: String,
       default: 'ds_id',
+    },
+    nodeSelectDisabled: {
+      type: Boolean,
+      default: false,
     },
     nodeIdPath: "nodeId",
     ipPath: "ip",
@@ -55,7 +62,16 @@
   });
 
   const selectedDs = computed({
-    get: () => store.state.dedicatedServers.dsId,
+    get: () => {
+      if (
+          !store.state.dedicatedServers.dsId ||
+          store.state.dedicatedServers.dsId === ""
+      ) {
+        return null;
+      }
+
+      return store.state.dedicatedServers.dsId
+    },
     set: (dsId) => store.dispatch('dedicatedServers/setDsId', dsId)
   });
 
@@ -79,9 +95,11 @@
     ipModel.value = val;
   });
 
-  // Mounted lifecycle hook equivalent
-  onMounted(() => {
-    selectedDs.value = props.initialDsId || null;
-    selectedIp.value = props.initialIp;
+  watch(nodeIdModel, (val) => {
+    selectedDs.value = val;
+  });
+
+  watch(ipModel, (val) => {
+    selectedIp.value = val;
   });
 </script>

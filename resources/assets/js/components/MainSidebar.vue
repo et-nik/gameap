@@ -139,7 +139,7 @@ const adminLinks = [
   {
     icon: 'fas fa-gamepad',
     text: trans('sidebar.games'),
-    href: '#',
+    route: {name: 'admin.games.index'},
   },
   {
     icon: 'fas fa-tasks',
