@@ -118,7 +118,7 @@
 import GBreadcrumbs from "../../components/GBreadcrumbs.vue"
 import {computed, onMounted, ref} from "vue"
 import {trans} from "../../i18n/i18n"
-import {useGamesStore} from "../../store/games"
+import {useGameListStore} from "../../store/gameList"
 import {useNodeListStore} from "../../store/nodeList"
 import {useServerListStore} from "../../store/serverList"
 import {storeToRefs} from "pinia"
@@ -133,7 +133,7 @@ import {requiredValidator} from "../../parts/validators";
 
 const router = useRouter()
 
-const gamesStore = useGamesStore()
+const gamesStore = useGameListStore()
 const nodeListStore = useNodeListStore()
 const serverListStore = useServerListStore()
 

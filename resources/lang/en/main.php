@@ -14,6 +14,7 @@ return [
     'close'     => 'Close',
     'send'      => 'Send',
     'clear'     => 'Clear',
+    'search'    => 'Search',
 
     'confirm_message' => 'Are you sure?',
     'wait'      => 'Please wait...',

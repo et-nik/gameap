@@ -1,40 +1,42 @@
 import { defineStore } from 'pinia'
 
-export const useGamesStore = defineStore('games', {
+export const useGameStore = defineStore('game', {
     state: () => ({
         loading: false,
-        games: [],
-        gameMods: [],
-        allGameMods: [],
+        gameCode: '',
+        game: {},
+        mods: [],
     }),
     actions: {
-        async fetchGames() {
+        setGameCode(gameCode) {
+            this.gameCode = gameCode;
+        },
+        async fetchGame() {
             this.loading = true
             try {
-                const response = await axios.get('/api/games/')
-                this.games = response.data;
+                const response = await axios.get('/api/games/' + this.gameCode)
+                this.game = response.data;
             } catch (error) {
                 throw error
             } finally {
                 this.loading = false
             }
         },
-        async fetchGameMods(gameId) {
+        async fetchMods() {
             this.loading = true
             try {
-                const response = await axios.get('/api/games/' + gameId + '/mods')
-                this.gameMods = response.data;
+                const response = await axios.get('/api/games/' + this.gameCode + '/mods')
+                this.mods = response.data;
             } catch (error) {
                 throw error
             } finally {
                 this.loading = false
             }
         },
-        async fetchAllGameMods() {
+        async saveGame(game) {
             this.loading = true
             try {
-                const response = await axios.get('/api/game_mods')
-                this.allGameMods = response.data;
+                await axios.put('/api/games/' + this.gameCode, game)
             } catch (error) {
                 throw error
             } finally {

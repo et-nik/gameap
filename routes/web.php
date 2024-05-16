@@ -61,6 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('servers', 'Admin\\ServersController', ['as' => 'admin']);
 
     Route::name('admin.games.upgrade')->patch('games/upgrade', [AdminGamesController::class, 'upgrade']);
+    Route::name('admin.games.mod.edit')->get('games/{game}/mods/{game_mod}/edit', [AdminGameModsController::class, 'edit']);
     Route::resource('games',"Admin\\GamesController", ['as' => 'admin']);
 
     Route::name('admin.users.edit_server_permissions')->get(
@@ -73,7 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     );
     Route::resource('users', 'Admin\\UsersController', ['as' => 'admin']);
 
-    Route::resource('game_mods', 'Admin\\GameModsController', ['as' => 'admin']);
+    Route::resource('game_mods', AdminGameModsController::class, ['as' => 'admin']);
     Route::name('admin.game_mods.create')->get('game_mods/create/{game?}', [AdminGameModsController::class, 'create']);
 
     Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', [AdminGdaemonTasksController::class, 'index']);

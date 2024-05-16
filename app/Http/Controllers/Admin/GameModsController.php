@@ -66,9 +66,9 @@ class GameModsController extends AuthController
      * @param  GameMod  $gameMod
      * @return View
      */
-    public function edit(GameMod $gameMod)
+    public function edit()
     {
-        return view('admin.game_mods.edit', compact('gameMod'));
+        return view('admin.game_mods.edit');
     }
 
     /**

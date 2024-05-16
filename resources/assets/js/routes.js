@@ -7,6 +7,8 @@ import HomeView from "./views/HomeView.vue";
 import AdminServersCreate from "./views/adminviews/AdminServersCreate.vue";
 import AdminServersEdit from "./views/adminviews/AdminServersEdit.vue";
 import AdminGamesList from "./views/adminviews/AdminGamesList.vue";
+import AdminGamesEdit from "./views/adminviews/AdminGamesEdit.vue";
+import AdminModEdit from "./views/adminviews/AdminModEdit.vue";
 
 const routes = [
     { path: '/', name: 'home', component: HomeView, alias: '/home' },
@@ -18,6 +20,8 @@ const routes = [
     { path: '/admin/servers/create', name: 'admin.servers.create', component: AdminServersCreate },
     { path: '/admin/servers/:id/edit', name: 'admin.servers.edit', component: AdminServersEdit },
     { path: '/admin/games', name: 'admin.games.index', component: AdminGamesList },
+    { path: '/admin/games/:code', name: 'admin.games.edit', component: AdminGamesEdit },
+    { path: '/admin/games/:code/mods/:id/edit', name: 'admin.games.mods.edit', component: AdminModEdit },
 ]
 
 export {routes}

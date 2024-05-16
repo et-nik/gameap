@@ -68,4 +68,7 @@ return [
 
     'upgrade_success_msg'    => 'Games upgraded sucessfully',
     'upgrade_fail_msg'       => 'Unable to upgrade Games',
+
+    'delete_game_confirm_msg' => 'Are you sure you want to delete the game?',
+    'delete_mod_confirm_msg'  => 'Are you sure you want to delete the game modification?',
 ];

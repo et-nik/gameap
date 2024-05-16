@@ -201,7 +201,7 @@ import {useRoute, useRouter} from "vue-router"
 import {storeToRefs} from "pinia"
 import {errorNotification, notification} from "../../parts/dialogs";
 import {useServerStore} from "../../store/server"
-import {useGamesStore} from "../../store/games"
+import {useGameListStore} from "../../store/gameList"
 import {useNodeListStore} from "../../store/nodeList"
 import {requiredValidator} from "../../parts/validators";
 import GameModSelector from "../../components/servers/GameModSelector.vue";
@@ -211,7 +211,7 @@ import Loading from "../../components/Loading.vue";
 const route = useRoute()
 const router = useRouter()
 
-const gamesStore = useGamesStore()
+const gamesStore = useGameListStore()
 const nodeListStore = useNodeListStore()
 const serverStore = useServerStore()
 
