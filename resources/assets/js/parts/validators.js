@@ -23,6 +23,45 @@ const stringLengthValidator = (label, min, max) => {
     }
 }
 
+const stringMinLengthValidator = (label, min) => {
+    return (rule, value) => {
+        if (value.length < min) {
+            return new Error(
+                trans(
+                    'validation.min.string',
+                    { attribute: label, min: min},
+                ),
+            )
+        }
+    }
+}
+
+const sameWithValidator = (label, targetLabel, targetValueReader) => {
+    return (rule, value) => {
+        if (!_.isEqual(value, targetValueReader())) {
+            return new Error(
+                trans(
+                    'validation.same',
+                    { attribute: label, other: targetLabel },
+                ),
+            )
+        }
+    }
+}
+
+const isArrayNotEmptyValidator = (label) => {
+    return (rule, value) => {
+        if (_.isEmpty(value)) {
+            return new Error(
+                trans(
+                    'validation.gte.array',
+                    { attribute: label },
+                )
+            )
+        }
+    }
+}
+
 const allOfValidator = (...validators) => {
     return (rule, value) => {
         for (const validator of validators) {
@@ -34,8 +73,32 @@ const allOfValidator = (...validators) => {
     }
 }
 
+const ifNotEmptyValidator = (...validators) => {
+    return (rule, value) => {
+        if (!_.isEmpty(value)) {
+            for (const validator of validators) {
+                const error = validator(rule, value)
+                if (error) {
+                    return error
+                }
+            }
+        }
+    }
+}
+
 export {
+    // common
     requiredValidator,
+
+    // string
     stringLengthValidator,
+    stringMinLengthValidator,
+    sameWithValidator,
+
+    // array
+    isArrayNotEmptyValidator,
+
+    // special
     allOfValidator,
+    ifNotEmptyValidator,
 }

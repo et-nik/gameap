@@ -48,7 +48,7 @@
 <script setup>
 import UpdateGameForm from "./forms/UpdateGameForm.vue"
 import GBreadcrumbs from "../../components/GBreadcrumbs.vue"
-import {computed, ref, onMounted, h} from "vue"
+import {computed, ref, onMounted} from "vue"
 import {trans} from "../../i18n/i18n";
 import GButton from "../../components/GButton.vue";
 import {useGameStore} from "../../store/game"
@@ -118,7 +118,6 @@ const modItems = computed(() => {
 
   return items
 })
-
 
 const onClickModCreate = (game) => {
   gameListStore.fetchGames().then(() => {

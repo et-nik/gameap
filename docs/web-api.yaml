@@ -122,6 +122,18 @@ paths:
   /api/games/{game}/mods:
     $ref: './web-api/paths/game_mods.yaml'
 
+  /api/users:
+    $ref: './web-api/paths/users.yaml'
+
+  /api/users/{user}:
+    $ref: './web-api/paths/users_id.yaml'
+
+  /api/users/{user}/servers:
+    $ref: './web-api/paths/users_id_servers.yaml'
+
+  /api/users/{user}/servers/{server}/permissions:
+    $ref: './web-api/paths/users_id_servers_id_permissions.yaml'
+
   /api/game_mods/get_list_for_game/{game}:
     $ref: './web-api/paths/games_id_mods.yaml'
 
@@ -132,6 +144,19 @@ paths:
     $ref: './web-api/paths/gdaemon_tasks_id_output.yaml'
 
 components:
+  schemas:
+    User:
+      $ref: './web-api/schemas/user.yaml'
+    UserWithRoles:
+      $ref: './web-api/schemas/user-with-roles.yaml'
+    UserWithPasswordAndRoles:
+      $ref: './web-api/schemas/user-with-password-and-roles.yaml'
+    Server:
+      $ref: './web-api/schemas/server.yaml'
+    UserServer:
+      $ref: './web-api/schemas/user-server.yaml'
+    UserServerPermission:
+      $ref: './web-api/schemas/user-server-permission.yaml'
   securitySchemes:
     cookieAuth:
       description: Auth Cookies

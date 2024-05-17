@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$attrs.class">
     <n-form
         label-placement="top"
         label-width="auto"

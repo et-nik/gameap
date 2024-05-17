@@ -149,7 +149,7 @@ const adminLinks = [
   {
     icon: 'fas fa-users',
     text: trans('sidebar.users'),
-    href: '#',
+    route: {name: 'admin.users.index'}
   },
 ]
 

@@ -15,7 +15,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: './servers.yaml#/components/schemas/Server'
+            $ref: '../schemas/server.yaml'
     4XX:
       $ref: '../responses/common-error.yaml'
     5XX:

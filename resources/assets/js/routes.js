@@ -9,6 +9,8 @@ import AdminServersEdit from "./views/adminviews/AdminServersEdit.vue";
 import AdminGamesList from "./views/adminviews/AdminGamesList.vue";
 import AdminGamesEdit from "./views/adminviews/AdminGamesEdit.vue";
 import AdminModEdit from "./views/adminviews/AdminModEdit.vue";
+import AdminUsersView from "./views/adminviews/AdminUsersView.vue";
+import AdminUsersEditView from "./views/adminviews/AdminUsersEditView.vue";
 
 const routes = [
     { path: '/', name: 'home', component: HomeView, alias: '/home' },
@@ -22,6 +24,8 @@ const routes = [
     { path: '/admin/games', name: 'admin.games.index', component: AdminGamesList },
     { path: '/admin/games/:code', name: 'admin.games.edit', component: AdminGamesEdit },
     { path: '/admin/games/:code/mods/:id/edit', name: 'admin.games.mods.edit', component: AdminModEdit },
+    { path: '/admin/users', name: 'admin.users.index', component: AdminUsersView },
+    { path: '/admin/users/:id/edit', name: 'admin.users.edit', component: AdminUsersEditView },
 ]
 
 export {routes}

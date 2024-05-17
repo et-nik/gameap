@@ -22,9 +22,8 @@ class UsersController extends AuthController
     private $bouncer;
 
     /**
-     * Create a new UserRepository instance.
-     *
      * @param  \Gameap\Repositories\UserRepository $repository
+     * @param  \Silber\Bouncer\Bouncer $bouncer
      */
     public function __construct(UserRepository $repository, Bouncer $bouncer)
     {

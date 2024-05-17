@@ -1,0 +1,25 @@
+get:
+  summary: Get User Servers
+  tags:
+    - users
+    - servers
+  parameters:
+    - name: user
+      in: path
+      required: true
+      description: 'User ID'
+      schema:
+        type: integer
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/user-server.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

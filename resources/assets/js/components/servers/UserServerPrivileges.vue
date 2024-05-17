@@ -1,189 +1,313 @@
 <template>
     <div>
-        <div class="block w-full overflow-auto scrolling-touch">
-            <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
+        <div class="mb-4">
+            <n-table :bordered="false" :single-line="true">
                 <thead>
-                <tr>
-                    <td>{{ trans('servers.name') }}</td>
-                    <td>{{ trans('servers.ip_port') }}</td>
-                    <td>&nbsp;</td>
-                </tr>
+                  <tr>
+                      <th>{{ trans('servers.name') }}</th>
+                      <th>{{ trans('servers.game') }}</th>
+                      <th>{{ trans('servers.ip_port') }}</th>
+                      <th>{{ trans('main.actions') }}</th>
+                  </tr>
                 </thead>
 
                 <tbody>
-                <tr v-for="(server, itemIndex) in items">
-                    <td><a v-bind:href="'/admin/servers/' + server.id + '/edit'">{{ server.name }}</a></td>
-                    <td>{{ server.server_ip }}:{{ server.server_port }}</td>
-                    <td>
-                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600" v-bind:href="'/admin/users/' + userId + '/servers/' + server.id + '/edit'">
-                            <i class="fas fa-lock"></i>
-                        </a>
-                        <input type="hidden" v-model="server.id" v-bind:name="'servers[]'">
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" v-on:click.prevent="removeItem(itemIndex)">
+                  <tr v-for="(server, itemIndex) in items">
+                      <td><a :href="'/admin/servers/' + server.id + '/edit'">{{ server.name }}</a></td>
+                      <td>{{ server.game.name }}</td>
+                      <td>{{ server.server_ip }}:{{ server.server_port }}</td>
+                      <td class="flex flex-wrap gap-1">
+                        <GButton color="blue" size="small" v-on:click="onClickEditPrivileges(server)">
+                          <i class="fas fa-lock"></i>
+                        </GButton>
+                        <GButton color="red" size="small" v-on:click="removeItem(itemIndex)">
                             <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
+                        </GButton>
+                      </td>
+                  </tr>
                 </tbody>
-            </table>
+            </n-table>
         </div>
 
-        <div class="mb-3">
-            <div class="md:w-full pr-4 pl-4">
-                <n-select
-                    v-model:value="selectedServer"
-                    filterable
-                    :placeholder="trans('users.servers_privileges_placeholder')"
-                    :options="serversListOptions"
-                    :loading="loading"
-                    clearable
-                    remote
-                    @search="onSearch"
-                />
-
-<!--                <v-select-->
-<!--                        v-model="selectedServer"-->
-<!--                        v-bind:options="serversListOptions"-->
-<!--                        @search="onSearch"-->
-<!--                        :placeholder="trans('users.servers_privileges_placeholder')"-->
-<!--                >-->
-<!--                    <template slot="option" slot-scope="option">-->
-<!--                        <div class="flex flex-wrap ">-->
-<!--                            <div class="md:w-2/5 pr-4 pl-4">{{ option.label }}</div>-->
-<!--                            <div class="md:w-1/4 pr-4 pl-4">{{ option.game }}</div>-->
-<!--                            <div class="md:w-1/3 pr-4 pl-4">{{ option.address }}</div>-->
-<!--                        </div>-->
-<!--                    </template>-->
-<!--                </v-select>-->
-            </div>
-
-            <div class="md:w-1/5 pr-4 pl-4 md:mx-2/5 centered mt-2">
-                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-lime-500 text-white hover:bg-lime-600" v-on:click.prevent="addItem"><span class="fa fa-plus"></span>&nbsp;{{ trans('main.add') }}</button>
-            </div>
+        <div class="mt-6 mb-3">
+          <div class="flex justify-center mt-2">
+            <GButton color="green" size="small" v-on:click="onClickAddServer">
+              <span class="fa-solid fa-plus"></span>&nbsp;{{ trans('main.add') }}
+            </GButton>
+          </div>
         </div>
     </div>
+
+  <n-modal
+      v-model:show="addServerModalEnabled"
+      class="custom-card"
+      preset="card"
+      :title="trans('servers.add_server')"
+      :bordered="false"
+      style="width: 800px"
+      :segmented="{content: 'soft', footer: 'soft'}"
+  >
+    <div class="md:w-full">
+      <n-select
+          v-model:value="selectedServer"
+          filterable
+          :placeholder="trans('users.servers_privileges_placeholder')"
+          :options="serversListOptions"
+          :render-label="renderLabel"
+          :loading="loading"
+          clearable
+          remote
+          @search="onSearch"
+      >
+        <template #action>
+          <div>
+            <div class="m-2">
+              <span>...</span>
+            </div>
+          </div>
+        </template>
+      </n-select>
+    </div>
+
+    <div class="flex justify-center mt-2">
+      <GButton color="green" v-on:click="addItem">
+        <span class="fa-solid fa-plus"></span>&nbsp;{{ trans('main.add') }}
+      </GButton>
+    </div>
+  </n-modal>
+
+  <n-modal
+      v-model:show="editPrivilegestModalEnabled"
+      class="custom-card"
+      preset="card"
+      :title="trans('users.server_permission_edit')"
+      :bordered="false"
+      style="width: 800px"
+      :segmented="{content: 'soft', footer: 'soft'}"
+  >
+    <n-table :bordered="false" :single-line="true" size="small" class="mb-8">
+      <tbody>
+      <tr>
+        <td><strong>{{ trans('servers.name') }}:</strong></td>
+        <td>{{ editPrivilegesServer.name }}</td>
+      </tr>
+      <tr>
+        <td><strong>{{ trans('servers.ip_port') }}:</strong></td>
+        <td>{{ editPrivilegesServer.server_ip }}:{{ editPrivilegesServer.server_port }}</td>
+      </tr>
+      <tr>
+        <td><strong>{{ trans('servers.game') }}:</strong></td>
+        <td>{{ editPrivilegesServer.game.name }}</td>
+      </tr>
+      </tbody>
+    </n-table>
+
+    <div class="grid grid-cols-2 gap-x-20 mb-4">
+      <div v-for="item in serverPermissions" class="grid grid-cols-4 gap-x-4 mb-6">
+        <div class="col-span-3">{{ item.name }}</div>
+        <n-switch
+            v-model:value="item.value"
+        />
+      </div>
+    </div>
+
+    <GButton color="green" v-on:click="onClickSavePermissions">
+      <i class="fa-solid fa-floppy-disk"></i>
+      <span class="hidden xl:inline">&nbsp;{{ trans('main.save') }}</span>
+    </GButton>
+
+  </n-modal>
 </template>
 
-<script>
-import { reactive, toRefs } from 'vue';
-import axios from 'axios';
+<script setup>
+import { defineProps, defineModel, ref, onMounted, computed, h } from 'vue'
+import axios from 'axios'
+import {storeToRefs} from "pinia";
+import {
+  NFormItem,
+  NTable,
+  NSelect,
+  NModal,
+  NSwitch,
+} from "naive-ui"
+import GButton from "../GButton.vue";
+import {trans} from "../../i18n/i18n";
+import {useUserStore} from "../../store/user";
+import {errorNotification, notification} from "../../parts/dialogs";
 
-export default {
-    props: {
-        initialItems: Array,
-        userId: Number,
-    },
-    setup(props) {
-        const state = reactive({
-            items: props.initialItems,
-            selectedServer: null,
-            serversList: [],
-            serversListOptions: [],
-            loading: false,
+const userStore = useUserStore()
+
+const {getServerPermissions} = storeToRefs(userStore)
+
+const props = defineProps({
+    userId: Number,
+})
+
+onMounted(() => {
+  onSearch('')
+})
+
+const items = defineModel([])
+
+const selectedServer = ref(null)
+const serverList = ref([])
+const serversListOptions = ref([])
+const loading = ref(false)
+
+function existsItem(id) {
+  for (let item of items.value) {
+    if (item.id === id) {
+      return true;
+    }
+  }
+}
+
+function findItem(id) {
+  for (let item of serverList.value) {
+    if (item.id === id) {
+      return item;
+    }
+  }
+}
+
+function removeListsElem(elemId) {
+  serverList.value = serverList.value.filter(function(elem) {
+    return elem.id !== elemId;
+  });
+
+  serversListOptions.value = serversListOptions.value.filter(function(elem) {
+    return elem.value !== elemId;
+  });
+}
+
+function removeItem(index) {
+  items.value.splice(index, 1);
+}
+
+function addItem() {
+  if (!selectedServer.value) {
+    notification(trans('servers.select_server'))
+
+    return;
+  }
+
+  addServerModalEnabled.value = false;
+
+  if (existsItem(selectedServer.value)) {
+    notification(trans('servers.server_already_added'))
+
+    return;
+  }
+
+  const newItem = findItem(selectedServer.value);
+
+  if (newItem) {
+    items.value.push(newItem);
+
+    removeListsElem(newItem.id);
+    selectedServer.value = null;
+  }
+}
+
+let timer
+function debounce(f) {
+  clearTimeout(timer)
+  timer = setTimeout(() => {
+    f()
+  }, 500)
+}
+
+function onSearch(search) {
+  loading.value = true;
+
+  debounce(() => {
+    axios.get(`/api/servers/search?q=${encodeURI(search)}`)
+        .then(function (response) {
+          serverList.value = [];
+          serversListOptions.value = [];
+
+          for (let item of response.data) {
+            if (existsItem(item.id)) {
+              continue;
+            }
+
+            serverList.value.push({
+              id: item.id,
+              name: item.name,
+              game: item.game.name,
+              server_ip: item.server_ip,
+              server_port: item.server_port
+            });
+
+            serversListOptions.value.push({
+              name: item.name,
+              label: item.name + ' (' + item.game.name + ')' + ' - ' + item.server_ip + ':' + item.server_port,
+              address: `${item.server_ip}:${item.server_port}`,
+              game: item.game,
+              value: item.id,
+            });
+          }
+
+          loading.value = false;
+        })
+        .catch(function (error) {
+          loading.value = false;
+          errorNotification(error)
         });
+  })
+}
 
-        function existsItem(id) {
-            for (let item of state.items) {
-                if (item.id === id) {
-                    return true;
-                }
-            }
-        }
+const renderLabel = (option) => {
+  return h(
+      "div",
+      { class: "flex" },
+      [
+        h("div", {class: "w-64"}, option.name),
+        h("div", {class: "w-56"}, option.game.name),
+        h("div", {class: "w-40"}, option.address),
+      ]
+  )
+}
 
-        function findItem(id) {
-            for (let item of state.serversList) {
-                if (item.id === id) {
-                    return item;
-                }
-            }
-        }
+const addServerModalEnabled = ref(false);
+const onClickAddServer = () => {
+  addServerModalEnabled.value = true;
+}
 
-        function removeListsElem(elemId) {
-            state.serversList = state.serversList.filter(function(elem) {
-                return elem.id !== elemId;
-            });
+const editPrivilegestModalEnabled = ref(false);
+const onClickEditPrivileges = (server) => {
+  userStore.fetchPermissionsForServer(server.id).then(() => {
+    editPrivilegesServer.value = server;
+    editPrivilegestModalEnabled.value = true;
+  }).catch((error) => {
+    errorNotification(error)
+  });
+}
 
-            state.serversListOptions = state.serversListOptions.filter(function(elem) {
-                return elem.value !== elemId;
-            });
-        }
+const editPrivilegesServer = ref({})
+const serverPermissions = computed({
+  get: () => {
+    if (!editPrivilegesServer.value.id) {
+      return []
+    }
+    return getServerPermissions.value(editPrivilegesServer.value.id)
+  },
+  set: (value) => {
+    userStore.setServerPermissions(editPrivilegesServer.value.id, value)
+  },
+})
 
-        function removeItem(index) {
-            state.items.splice(index, 1);
-        }
+const onClickSavePermissions = () => {
+  userStore.savePermissionsForServer(editPrivilegesServer.value.id).then(() => {
+    notification({
+      content: trans('users.privileges_saved_success_msg'),
+      type: "success",
+    }, () => {
+      editPrivilegestModalEnabled.value = false;
+    })
+  }).catch((error) => {
+    errorNotification(error)
+  });
+}
 
-        function addItem() {
-            if (!state.selectedServer) {
-                window.gameap.alert('Select server');
-                return;
-            }
-
-            if (existsItem(state.selectedServer)) {
-                window.gameap.alert('Server already exists');
-                return;
-            }
-
-            const newItem = findItem(state.selectedServer);
-
-            if (newItem) {
-                state.items.push(newItem);
-
-                removeListsElem(newItem.id);
-                state.selectedServer = null;
-            }
-        }
-
-        function onSearch(search) {
-            if (search.length < 3) {
-                return;
-            }
-
-            state.loading = true;
-
-            axios.get(`/api/servers/search?q=${encodeURI(search)}`)
-                .then(function (response) {
-                    state.serversList = [];
-                    state.serversListOptions = [];
-
-                    for (let item of response.data) {
-                        if (existsItem(item.id)) {
-                            continue;
-                        }
-
-                        state.serversList.push({
-                            id: item.id,
-                            name: item.name,
-                            game: item.game.name,
-                            server_ip: item.server_ip,
-                            server_port: item.server_port
-                        });
-
-                        state.serversListOptions.push({
-                            label: item.name + ' (' + item.game.name + ')' + ' - ' + item.server_ip + ':' + item.server_port,
-                            address: `${item.server_ip}:${item.server_port}`,
-                            game: item.game.name,
-                            value: item.id,
-                        });
-                    }
-
-                    state.loading = false;
-                })
-                .catch(function (error) {
-                    state.loading = false;
-                    console.log(error);
-                    alert(error.response.data.message);
-                });
-        }
-
-        return {
-            ...toRefs(state),
-            existsItem,
-            findItem,
-            removeListsElem,
-            removeItem,
-            addItem,
-            onSearch,
-        };
-    },
-};
 </script>

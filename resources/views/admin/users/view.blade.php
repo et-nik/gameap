@@ -17,19 +17,19 @@
             <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered detail-view">
                 <tbody>
                     <tr>
-                        <th>{{ __('users.login') }}</th>
+                        <td>{{ __('users.login') }}</td>
                         <td>{{ $user->login }}</td>
                     </tr>
                     <tr>
-                        <th>Email</th>
+                        <td>Email</td>
                         <td>{{ $user->email }}</td>
                     </tr>
                     <tr>
-                        <th>{{ __('users.name') }}</th>
+                        <td>{{ __('users.name') }}</td>
                         <td>{{ $user->name }}</td>
                     </tr>
                     <tr>
-                        <th>{{ __('users.roles') }}</th>
+                        <td>{{ __('users.roles') }}</td>
                         <td>{!! $user->roles->implode('name', ', ') !!}</td>
                     </tr>
                 </tbody>

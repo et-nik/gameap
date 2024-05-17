@@ -96,6 +96,7 @@ return [
 
     // User
     'login' => 'Логин',
+    'email' => 'Email',
     'current_password' => 'Текущий пароль',
     'password' => 'Пароль',
     'password_confirmation' => 'Подтверждение пароля',

@@ -66,7 +66,6 @@ const loading = computed(() => {
 onMounted(() => {
   gameStore.setGameCode(route.params.code)
   gameStore.fetchGame().then(() => {
-
     gameModStore.setModId(route.params.id)
     gameModStore.fetchMod().then(() => {
 

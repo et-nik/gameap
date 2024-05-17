@@ -165,11 +165,22 @@ class ServerRepository
      */
     public function search($query)
     {
+        if (strlen($query) < 3) {
+            return $this->model->select(['id', 'name', 'server_ip', 'server_port', 'game_id', 'game_mod_id'])
+                ->with(['game' => function ($query): void {
+                    $query->select('code', 'name');
+                }])
+                ->limit(10)
+                ->get();
+        }
+
         return $this->model->select(['id', 'name', 'server_ip', 'server_port', 'game_id', 'game_mod_id'])
             ->with(['game' => function ($query): void {
                 $query->select('code', 'name');
             }])
             ->where('name', 'LIKE', '%' . $query . '%')
+            ->orWhere('server_ip', 'LIKE', '%' . $query . '%')
+            ->orWhere('server_port', 'LIKE', '%' . $query . '%')
             ->get();
     }
 

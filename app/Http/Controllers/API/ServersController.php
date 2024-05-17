@@ -26,7 +26,6 @@ use Gameap\UseCases\EditGameServer;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ServersController extends AuthController
