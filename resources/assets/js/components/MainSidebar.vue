@@ -8,9 +8,9 @@
 
         <div class="w-full px-2">
           <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-            <a v-for="link in serversLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
+            <router-link v-for="link in serversLinks" :to="link.route" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2">
               <i :class="link.icon" class="ml-1"></i>
-            </a>
+            </router-link>
           </div>
         </div>
 
@@ -20,27 +20,15 @@
 
         <div class="w-full px-2">
           <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-            <a v-for="link in adminLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
+            <router-link v-for="link in adminLinks" :to="link.route" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2">
               <i :class="link.icon" class="ml-1"></i>
-            </a>
-          </div>
-        </div>
-
-        <a class="flex items-center w-full px-3 mt-3" href="#">
-          <span class="ml-2 w-full text-center text-sm font-bold">—</span>
-        </a>
-
-        <div class="w-full px-2">
-          <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-            <a v-for="link in gameapLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
-              <i :class="link.icon" class="ml-1"></i>
-            </a>
+            </router-link>
           </div>
         </div>
 
         <div class="w-full px-2 mt-3">
           <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-            <a v-on:click="toggleMinimized" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" href="#">
+            <a v-on:click="toggleMinimized" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2">
               <i class="fas fa-chevron-right ml-1"></i>
             </a>
           </div>
@@ -82,19 +70,6 @@
         </div>
       </div>
 
-      <a class="flex items-center w-full px-3 mt-3" href="#">
-        <span class="ml-2 w-full text-center text-sm font-bold">{{ trans('sidebar.gameap') }}</span>
-      </a>
-
-      <div class="w-full px-2">
-        <div class="flex flex-col items-center w-full mb-3 border-stone-700">
-          <a v-for="link in gameapLinks" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" :href="link.href">
-            <i :class="link.icon" class="ml-1"></i>
-            <span class="ml-2 text-sm font-medium">{{ link.text }}</span>
-          </a>
-        </div>
-      </div>
-
       <div class="w-full px-2 mt-3">
         <div class="flex flex-col items-center w-full mb-3 border-stone-700">
           <a v-on:click="toggleMinimized" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2" href="#">
@@ -115,61 +90,7 @@
 
 import {trans} from "../i18n/i18n";
 import {ref} from "vue";
-
-const serversLinks = [
-  {
-    icon: 'fas fa-play',
-    text: trans('sidebar.servers'),
-    route: {name: 'servers'},
-    href: '#',
-  }
-]
-
-const adminLinks = [
-  {
-    icon: 'fas fa-hdd',
-    text: trans('sidebar.dedicated_servers'),
-    route: {name: 'admin.nodes.index'}
-  },
-  {
-    icon: 'fas fa-server',
-    text: trans('sidebar.game_servers'),
-    route: {name: 'admin.servers.index'}
-  },
-  {
-    icon: 'fas fa-gamepad',
-    text: trans('sidebar.games'),
-    route: {name: 'admin.games.index'},
-  },
-  {
-    icon: 'fas fa-tasks',
-    text: trans('sidebar.gdaemon_tasks'),
-    href: '#',
-  },
-  {
-    icon: 'fas fa-users',
-    text: trans('sidebar.users'),
-    route: {name: 'admin.users.index'}
-  },
-]
-
-const gameapLinks = [
-  {
-    icon: 'fas fa-puzzle-piece',
-    text: trans('sidebar.modules'),
-    href: '#'
-  },
-  {
-    icon: 'fas fa-sync',
-    text: trans('sidebar.update'),
-    href: '#'
-  },
-  {
-    icon: 'fas fa-question',
-    text: trans('sidebar.help'),
-    href: '#'
-  },
-]
+import {adminLinks, serversLinks} from "./bars";
 
 const minimized = ref(localStorage.getItem('leftMenuState') === 'small');
 

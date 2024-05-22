@@ -17,7 +17,7 @@ return [
     'modules'           => 'Modules',
     'control_modules'   => '- Modules control panel -',
     'gameap'            => 'GameAP',
-    'documentation'     => 'Doc',
+    'documentation'     => 'Documentation',
     'update'            => 'Check for updates',
     'error_report'      => 'Report a bug',
     'help'              => 'Help',

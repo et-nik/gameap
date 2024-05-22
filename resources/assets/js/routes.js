@@ -132,7 +132,15 @@ const routes = [
         meta: {
             title: trans('users.title_edit')
         }
-    }
+    },
+    {
+        path: '/report_bug',
+        name: 'report_bug',
+        component: EmptyView,
+        meta: {
+            title: trans('home.send_report')
+        }
+    },
 ]
 
 export {routes}

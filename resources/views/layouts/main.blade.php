@@ -60,12 +60,12 @@
                 <n-message-provider>
                     <main-navbar></main-navbar>
 
-                    <div id="main-section" class="mt-16 mr-5 flex">
-                        <div class="flex-none">
+                    <div id="main-section" class="mt-16 mr-5 sm:flex">
+                        <div class="sm:visible invisible flex-none">
                             <main-sidebar></main-sidebar>
                         </div>
 
-                        <div class="flex-1">
+                        <div class="sm:flex-1">
                             <div class="max-w-full">
                                 <div class="pt-3 pb-5 content">
                                     <content-view></content-view>
