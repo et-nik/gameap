@@ -102,26 +102,9 @@ class DedicatedServersController extends AuthController
      * @param GdaemonStatus $gdaemonStatus
      * @return \Illuminate\View\View
      */
-    public function show(DedicatedServer $dedicatedServer, GdaemonStatus $gdaemonStatus)
+    public function show()
     {
-        $gdaemonStatus->setConfig($dedicatedServer->gdaemonSettings());
-
-        try {
-            $gdaemonVersion = $gdaemonStatus->version();
-            $baseInfo       = $gdaemonStatus->infoBase();
-        } catch (RuntimeException $e) {
-            $gdaemonVersion = [];
-            $baseInfo       = [];
-        }
-
-        return view(
-            'admin.dedicated_servers.view',
-            compact(
-                'dedicatedServer',
-                'gdaemonVersion',
-                'baseInfo'
-            )
-        );
+        return view('admin.dedicated_servers.view');
     }
 
     /**
@@ -130,10 +113,9 @@ class DedicatedServersController extends AuthController
      * @param  \Gameap\Models\DedicatedServer  $dedicatedServer
      * @return \Illuminate\View\View
      */
-    public function edit(DedicatedServer $dedicatedServer)
+    public function edit()
     {
-        $clientCertificates = ClientCertificate::all(['id', 'fingerprint'])->pluck('fingerprint', 'id');
-        return view('admin.dedicated_servers.edit', compact('dedicatedServer', 'clientCertificates'));
+        return view('admin.dedicated_servers.edit');
     }
 
     /**

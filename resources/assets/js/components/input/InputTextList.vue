@@ -3,46 +3,49 @@
         <div class="mb-3 deletable" v-for="(item, index) in items" :key="index">
             <div class="flex flex-wrap ">
                 <div class="md:w-full pr-4 pl-4 relative flex items-stretch w-full">
-                    <input type="text" v-model="items[index]" :name="name + '[]'" :id="name + '_' + index" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
-                    <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-red-600 text-white hover:bg-red-700" @click.prevent="removeItem(index)">
-                        <span class="fa fa-times"></span>
-                    </button>
+                  <n-input type="text" v-model:value="items[index]"></n-input>
+
+                  <GButton color="red" size="small" class="ml-1" v-on:click="removeItem(index)">
+                    <span class="fa-solid fa-times"></span>
+                  </GButton>
                 </div>
             </div>
         </div>
-        <div class="mb-3">
-            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600" @click.prevent="addItem"><span class="fa fa-plus"></span></button>
+
+        <div class="flex justify-center mt-2">
+          <GButton color="green" size="small" v-on:click="addItem">
+            <span class="fa-solid fa-plus"></span>
+          </GButton>
         </div>
     </div>
 </template>
 
-<script>
-import { ref } from 'vue';
-export default {
-    props: {
-        initialItems: Array,
-        label: String,
-        name: String
-    },
-    setup(props) {
-        const items = ref(props.initialItems);
+<script setup>
+import { defineProps, defineModel } from 'vue'
+import {trans} from "../../i18n/i18n"
+import GButton from "../GButton.vue"
+import {
+  NDataTable,
+  NInput,
+  NSwitch,
+} from "naive-ui"
 
-        const removeItem = (index) => {
-            items.value.splice(index, 1);
-        };
+const props = defineProps({
+  label: String,
+  name: String
+});
 
-        const addItem = () => {
-            if (items.value === undefined) {
-                items.value = []
-            }
-            items.value.push('');
-        };
+const items = defineModel()
 
-        return {
-            items,
-            removeItem,
-            addItem
-        };
-    }
-}
+const removeItem = (index) => {
+  items.value.splice(index, 1);
+};
+
+const addItem = () => {
+  if (!items.value) {
+    items.value = ['']
+  } else {
+    items.value.push('');
+  }
+};
 </script>

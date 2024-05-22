@@ -4,12 +4,11 @@ namespace Gameap\Http\Requests\API\Admin;
 
 use Gameap\Http\Requests\JsonRequest;
 
-class SaveNodeRequest extends JsonRequest
+class StoreNodeRequest extends JsonRequest
 {
     public function rules()
     {
         return [
-            'id'                    => 'numeric',
             'name'                  => 'required|max:128',
             'location'              => 'required|max:128',
             'ip'                    => 'required',

@@ -1,3 +1,5 @@
+import {trans} from "./i18n/i18n";
+
 import EmptyView from "./views/EmptyView.vue";
 import ServersView from "./views/ServersView.vue";
 import ServerIdView from "./views/ServerIdView.vue";
@@ -11,21 +13,126 @@ import AdminGamesEdit from "./views/adminviews/AdminGamesEdit.vue";
 import AdminModEdit from "./views/adminviews/AdminModEdit.vue";
 import AdminUsersView from "./views/adminviews/AdminUsersView.vue";
 import AdminUsersEditView from "./views/adminviews/AdminUsersEditView.vue";
+import AdminNodesEditView from "./views/adminviews/AdminNodesEditView.vue";
+import AdminClientCertificatesView from "./views/adminviews/AdminClientCertificatesView.vue";
+import AdminNodesCreateView from "./views/adminviews/AdminNodesCreateView.vue";
 
 const routes = [
-    { path: '/', name: 'home', component: HomeView, alias: '/home' },
-    { path: '/servers', name: 'servers', component: ServersView },
-    { path: '/servers/:id', name: 'servers.control', component: ServerIdView },
-    { path: '/admin/nodes', name: 'admin.nodes.index', component: AdminNodesView, alias: '/admin/dedicated_servers' },
-    { path: '/admin/nodes/:id', name: 'admin.nodes.edit', component: EmptyView, alias: '/admin/dedicated_servers/:id' },
-    { path: '/admin/servers', name: 'admin.servers.index', component: AdminServersList },
-    { path: '/admin/servers/create', name: 'admin.servers.create', component: AdminServersCreate },
-    { path: '/admin/servers/:id/edit', name: 'admin.servers.edit', component: AdminServersEdit },
-    { path: '/admin/games', name: 'admin.games.index', component: AdminGamesList },
-    { path: '/admin/games/:code', name: 'admin.games.edit', component: AdminGamesEdit },
-    { path: '/admin/games/:code/mods/:id/edit', name: 'admin.games.mods.edit', component: AdminModEdit },
-    { path: '/admin/users', name: 'admin.users.index', component: AdminUsersView },
-    { path: '/admin/users/:id/edit', name: 'admin.users.edit', component: AdminUsersEditView },
+    {
+        path: '/',
+        name: 'home',
+        component: HomeView,
+        alias: '/home'
+    },
+    {
+        path: '/servers',
+        name: 'servers',
+        component: ServersView
+    },
+    {
+        path: '/servers/:id',
+        name: 'servers.control',
+        component: ServerIdView
+    },
+    {
+        path: '/admin/nodes',
+        name: 'admin.nodes.index',
+        component: AdminNodesView,
+        alias: '/admin/dedicated_servers',
+        meta: {
+            title: trans('dedicated_servers.title_list'),
+        },
+    },
+    {
+        path: '/admin/nodes/create',
+        name: 'admin.nodes.create',
+        component: AdminNodesCreateView,
+        alias: '/admin/dedicated_servers/create',
+        meta: {
+            title: trans('dedicated_servers.title_create'),
+        },
+    },
+    {
+        path: '/admin/nodes/:id/edit',
+        name: 'admin.nodes.edit',
+        component: AdminNodesEditView,
+        alias: '/admin/dedicated_servers/:id',
+        meta: {
+            title: trans('dedicated_servers.title_edit'),
+        },
+    },
+    {
+        path: '/admin/client_certificates',
+        name: 'admin.client_certificates.index',
+        component: AdminClientCertificatesView,
+        meta: {
+            title: trans('client_certificates.title_list'),
+        },
+    },
+    {
+        path: '/admin/servers',
+        name: 'admin.servers.index',
+        component: AdminServersList,
+        meta: {
+            title: trans('servers.title_servers_list'),
+        }
+    },
+    {
+        path: '/admin/servers/create',
+        name: 'admin.servers.create',
+        component: AdminServersCreate,
+        meta: {
+            title: trans('servers.title_create'),
+        },
+    },
+    {
+        path: '/admin/servers/:id/edit',
+        name: 'admin.servers.edit',
+        component: AdminServersEdit,
+        meta: {
+            title: trans('servers.title_edit'),
+        },
+    },
+    {
+        path: '/admin/games',
+        name: 'admin.games.index',
+        component: AdminGamesList,
+        meta: {
+            title: trans('games.title_games_list'),
+        }
+    },
+    {
+        path: '/admin/games/:code',
+        name: 'admin.games.edit',
+        component: AdminGamesEdit,
+        meta: {
+            title: trans('games.title_edit'),
+        }
+    },
+    {
+        path: '/admin/games/:code/mods/:id/edit',
+        name: 'admin.games.mods.edit',
+        component: AdminModEdit,
+        meta: {
+            title: trans('games.title_edit_mod'),
+        }
+    },
+    {
+        path: '/admin/users',
+        name: 'admin.users.index',
+        component: AdminUsersView,
+        meta: {
+            title: trans('users.title_list')
+        }
+    },
+    {
+        path: '/admin/users/:id/edit',
+        name: 'admin.users.edit',
+        component: AdminUsersEditView,
+        meta: {
+            title: trans('users.title_edit')
+        }
+    }
 ]
 
 export {routes}

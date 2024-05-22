@@ -7,6 +7,7 @@
     </template>
 
     <n-card
+        :title="trans('dedicated_servers.autosetup_title')"
         style="max-width: 800px;min-height: 500px"
         :bordered="false"
         size="huge"

@@ -1,12 +1,12 @@
 <template>
   <GBreadcrumbs :items="breadcrumbs"></GBreadcrumbs>
 
-  <GButton color="green" size="middle" class="mb-5 mr-1">
+  <GButton color="green" size="middle" class="mb-5 mr-1" :route="{name: 'admin.nodes.create'}">
     <i class="fa fa-plus-square mr-0.5"></i>
     <span>{{ trans('dedicated_servers.create')}}</span>
   </GButton>
 
-  <GButton color="orange" size="middle" class="mb-5">
+  <GButton color="orange" size="middle" class="mb-5" :route="{name: 'admin.client_certificates.index'}">
     <i class="fa-solid fa-certificate mr-0.5"></i>
     <span>{{ trans('client_certificates.client_certificates')}}</span>
   </GButton>
@@ -36,9 +36,13 @@ import {computed, h, ref, onMounted} from "vue"
 import {trans} from "../../i18n/i18n"
 import GButton from "../../components/GButton.vue"
 import {useNodeListStore} from "../../store/nodeList"
-import {errorNotification} from "../../parts/dialogs"
+import {errorNotification, notification} from "../../parts/dialogs"
 import Loading from "../../components/Loading.vue"
 import {storeToRefs} from "pinia"
+import {
+  NEmpty,
+  NDataTable,
+} from "naive-ui"
 
 const nodeListStore = useNodeListStore()
 
@@ -129,5 +133,27 @@ const nodesData = computed(() => {
     }
   })
 })
+
+const onClickDelete = (id) => {
+  window.$dialog.success({
+    title: trans('dedicated_servers.delete_confirm_msg'),
+    positiveText: trans('main.yes'),
+    negativeText: trans('main.no' ),
+    closable: false,
+    onPositiveClick: () => {
+      nodeListStore.deleteNode(id).then(() => {
+        notification({
+          content: trans('dedicated_servers.delete_success_msg'),
+          type: "success",
+        }, () => {
+          fetchNodes()
+        })
+      }).catch((error) => {
+        errorNotification(error)
+      })
+    },
+    onNegativeClick: () => {}
+  })
+}
 
 </script>

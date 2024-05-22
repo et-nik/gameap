@@ -66,6 +66,8 @@ return [
     'console_command_shortcodes'   => 'Скрипт отправки команды',
     'd_shortcodes_console_command'   => 'Команда консоли',
 
+    'delete_confirm_msg' => 'Вы уверены, что хотите удалить эту ноду?',
+
     'create_success_msg' => 'Выделенный сервер успешно создан',
     'update_success_msg' => 'Выделенный сервер успешно обновлён',
     'delete_success_msg' => 'Выделенный сервер успешно удалён',
@@ -83,7 +85,7 @@ return [
 
     'autosetup_description_windows' => '<p>Только для Windows</p>
                                 <ul class="list-disc">
-                                    <li>Перейдите на страницу <a href="https://github.com/gameap/gameapctl/releases">gameapctl релизов</a>
+                                    <li>Перейдите на страницу <a target="_blank" href="https://github.com/gameap/gameapctl/releases">gameapctl релизов</a>
                                         (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>
                                     <li>Выберите последнюю версию и скачайте архив для вашей архитектуры, скорее всего вам подойдёт gameapctl-vX.Y.Z-windows-amd64.zip</li>

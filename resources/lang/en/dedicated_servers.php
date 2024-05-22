@@ -66,6 +66,8 @@ return [
 
     'console_command_shortcodes'   => 'Script Send Command',
     'd_shortcodes_console_command'   => 'Console command',
+
+    'delete_confirm_msg' => 'Are you sure you want to delete this node?',
     
     'create_success_msg' => 'Dedicated server created successfully',
     'update_success_msg' => 'Dedicated server updated successfully',
@@ -84,7 +86,7 @@ return [
 
     'autosetup_description_windows' => '<p>Only for Windows</p>
                                 <ul class="list-disc">
-                                    <li>Go to <a href="https://github.com/gameap/gameapctl/releases">gameapctl releases page</a>
+                                    <li>Go to <a target="_blank" href="https://github.com/gameap/gameapctl/releases">gameapctl releases page</a>
                                         (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>
                                     <li>Select a last version and download an archive for you architecture, most likely gameapctl-vX.Y.Z-windows-amd64.zip will work for you</li>

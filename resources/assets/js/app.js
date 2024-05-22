@@ -139,6 +139,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    }
+
     const resolved = router.resolve(to.fullPath)
     if (resolved.name) {
         window.history.pushState({}, '', to.fullPath);

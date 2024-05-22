@@ -17,5 +17,4 @@ class InvalidApiKeyException extends GameapException implements HttpExceptionInt
     {
         return [];
     }
-
 }

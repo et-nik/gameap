@@ -108,7 +108,7 @@ class CertificateService
         $publicKeyInfo = $privateKeyInfo->publicKeyInfo();
 
         // DN of the subject
-        $subject = Name::fromString('CN=' . gethostname() . ', O=GameAP, C=RU');
+        $subject = Name::fromString('CN=' . gethostname() . ', O=GameAP');
 
         // create certification request info
         $cri = new CertificationRequestInfo($subject, $publicKeyInfo);
