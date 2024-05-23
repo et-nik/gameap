@@ -17,6 +17,7 @@ import AdminNodesEditView from "./views/adminviews/AdminNodesEditView.vue";
 import AdminClientCertificatesView from "./views/adminviews/AdminClientCertificatesView.vue";
 import AdminNodesCreateView from "./views/adminviews/AdminNodesCreateView.vue";
 import AdminDaemonTaskListView from "./views/adminviews/AdminDaemonTaskListView.vue";
+import AdminDaemonTaskOutputView from "./views/adminviews/AdminDaemonTaskOutputView.vue";
 
 const routes = [
     {
@@ -144,8 +145,8 @@ const routes = [
     },
     {
         path: '/admin/gdaemon_tasks/:id',
-        name: 'admin.gdaemon_tasks.view',
-        component: EmptyView,
+        name: 'admin.gdaemon_tasks.output',
+        component: AdminDaemonTaskOutputView,
         meta: {
             title: trans('gdaemon_tasks.title_view')
         }

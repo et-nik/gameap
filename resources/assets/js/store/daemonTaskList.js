@@ -3,6 +3,9 @@ import { defineStore } from 'pinia'
 export const useDaemonTaskListStore = defineStore('daemonTaskList', {
     state: () => ({
         daemonTaskList: [],
+        currentPage: 1,
+        total: 0,
+        lastPage: 1,
 
         // This is a counter to keep track of how many API processes are running
         apiProcesses: 0,
@@ -11,11 +14,36 @@ export const useDaemonTaskListStore = defineStore('daemonTaskList', {
         loading: (state) => state.apiProcesses > 0,
     },
     actions: {
-        async fetchTasks() {
+        async fetchTasksByFilter(filter) {
             this.apiProcesses++
             try {
-                const response = await axios.get('/api/gdaemon_tasks')
-                this.daemonTaskList = response.data;
+                let params = {
+                    sort: '-id',
+                }
+
+                if (filter.page) {
+                    params['page[number]'] = filter.page
+                }
+
+                if (filter.tasks) {
+                    params['filter[task]'] = _.join(filter.tasks, ',')
+                }
+
+                if (filter.statuses) {
+                    params['filter[status]'] = _.join(filter.statuses, ',')
+                }
+
+                if (filter.nodes) {
+                    params['filter[dedicated_server_id]'] = _.join(filter.nodes, ',')
+                }
+
+                const response = await axios.get('/api/gdaemon_tasks', {
+                    params: params,
+                })
+                this.daemonTaskList = response.data.data
+                this.currentPage = response.data.current_page
+                this.total = response.data.total
+                this.lastPage = response.data.last_page
             } catch (error) {
                 throw error
             } finally {

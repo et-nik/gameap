@@ -82,6 +82,10 @@
     @apply bg-orange-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-orange-900;
 }
 
+.badge-blue {
+    @apply bg-sky-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-sky-900;
+}
+
 .badge-stone {
     @apply bg-stone-500 text-white text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-stone-900;
 }

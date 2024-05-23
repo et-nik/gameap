@@ -26,7 +26,6 @@
           :placeholder="trans('main.search')"
       />
     </n-input-group>
-
   </div>
 
   <n-data-table

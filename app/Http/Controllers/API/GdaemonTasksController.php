@@ -66,10 +66,12 @@ class GdaemonTasksController extends AuthController
 
     public function list()
     {
-        return QueryBuilder::for(GdaemonTask::select('id','created_at', 'updated_at', 'dedicated_server_id', 'server_id', 'task', 'status', 'cmd'))
+        return QueryBuilder::for(
+            GdaemonTask::select('id','created_at', 'updated_at', 'dedicated_server_id', 'server_id', 'task', 'status', 'cmd')
+        )
             ->allowedSorts(['created_at', 'id'])
             ->allowedFilters(['status', 'dedicated_server_id', 'server_id', 'task', 'status'])
-            ->get();
+            ->jsonPaginate();
     }
 
     /**
@@ -83,6 +85,8 @@ class GdaemonTasksController extends AuthController
             'dedicated_server_id'   => $gdaemonTask->dedicated_server_id,
             'server_id'             => $gdaemonTask->server_id,
             'task'                  => $gdaemonTask->task,
+            'created_at'            => $gdaemonTask->created_at,
+            'updated_at'            => $gdaemonTask->updated_at,
             'output'                => $gdaemonTask->output,
             'status'                => $gdaemonTask->status,
         ];
