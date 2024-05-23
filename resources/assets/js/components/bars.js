@@ -27,7 +27,7 @@ const adminLinks = [
     {
         icon: 'fas fa-tasks',
         text: trans('sidebar.gdaemon_tasks'),
-        href: '#',
+        route: {name: 'admin.gdaemon_tasks.index'},
     },
     {
         icon: 'fas fa-users',

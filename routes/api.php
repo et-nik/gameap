@@ -179,12 +179,16 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     // Gdaemon tasks
+    Route::name('gdaemon_tasks.list')
+        ->get('/gdaemon_tasks', [GdaemonTasksController::class, 'list'])
+        ->middleware('isAdmin');
+
     Route::name('gdaemon_tasks.get')
-        ->get('gdaemon_tasks/{gdaemon_task}', [GdaemonTasksController::class, 'get'])
+        ->get('/gdaemon_tasks/{gdaemon_task}', [GdaemonTasksController::class, 'get'])
         ->middleware('abilities:' . PersonalAccessTokenService::GDAEMON_TASK_READ_ABILITY);
 
     Route::name('gdaemon_tasks.output')
-        ->get('gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output'])
+        ->get('/gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output'])
         ->middleware('isAdmin');
 });
 

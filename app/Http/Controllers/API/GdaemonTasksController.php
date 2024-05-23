@@ -10,6 +10,7 @@ use Gameap\Models\User;
 use Gameap\Repositories\GdaemonTaskRepository;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Response;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class GdaemonTasksController extends AuthController
 {
@@ -63,6 +64,14 @@ class GdaemonTasksController extends AuthController
         ];
     }
 
+    public function list()
+    {
+        return QueryBuilder::for(GdaemonTask::select('id','created_at', 'updated_at', 'dedicated_server_id', 'server_id', 'task', 'status', 'cmd'))
+            ->allowedSorts(['created_at', 'id'])
+            ->allowedFilters(['status', 'dedicated_server_id', 'server_id', 'task', 'status'])
+            ->get();
+    }
+
     /**
      * @param GdaemonTask $gdaemonTask
      * @return array
@@ -70,9 +79,12 @@ class GdaemonTasksController extends AuthController
     public function output(GdaemonTask $gdaemonTask)
     {
         return [
-            'id'     => $gdaemonTask->id,
-            'output' => $gdaemonTask->output,
-            'status' => $gdaemonTask->status,
+            'id'                    => $gdaemonTask->id,
+            'dedicated_server_id'   => $gdaemonTask->dedicated_server_id,
+            'server_id'             => $gdaemonTask->server_id,
+            'task'                  => $gdaemonTask->task,
+            'output'                => $gdaemonTask->output,
+            'status'                => $gdaemonTask->status,
         ];
     }
 }

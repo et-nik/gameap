@@ -16,6 +16,7 @@ import AdminUsersEditView from "./views/adminviews/AdminUsersEditView.vue";
 import AdminNodesEditView from "./views/adminviews/AdminNodesEditView.vue";
 import AdminClientCertificatesView from "./views/adminviews/AdminClientCertificatesView.vue";
 import AdminNodesCreateView from "./views/adminviews/AdminNodesCreateView.vue";
+import AdminDaemonTaskListView from "./views/adminviews/AdminDaemonTaskListView.vue";
 
 const routes = [
     {
@@ -131,6 +132,22 @@ const routes = [
         component: AdminUsersEditView,
         meta: {
             title: trans('users.title_edit')
+        }
+    },
+    {
+        path: '/admin/gdaemon_tasks',
+        name: 'admin.gdaemon_tasks.index',
+        component: AdminDaemonTaskListView,
+        meta: {
+            title: trans('gdaemon_tasks.title_list')
+        }
+    },
+    {
+        path: '/admin/gdaemon_tasks/:id',
+        name: 'admin.gdaemon_tasks.view',
+        component: EmptyView,
+        meta: {
+            title: trans('gdaemon_tasks.title_view')
         }
     },
     {
