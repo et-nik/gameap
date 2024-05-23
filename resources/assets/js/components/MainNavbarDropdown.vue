@@ -18,18 +18,19 @@
     <transition @after-leave="transitionAfterLeave" enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
       <MenuItems :unmount="menuItemsUnmount" class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-stone-100 rounded bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <div class="py-1" v-for="itemGroup in items">
-          <MenuItem v-slot="{ active }" v-for="item in itemGroup">
-            <router-link
+          <MenuItem v-slot="{ active, close }" v-for="item in itemGroup">
+            <a
                 v-if="item.route"
-                :to="item.route"
-                :class="[active ? 'bg-stone-100 text-stone-900' : 'text-stone-700', 'block px-4 py-2 text-sm']"
+                @click="onLinkClick(item, close)"
+                :class="[active ? 'bg-stone-100 text-stone-900' : 'text-stone-700', 'block px-4 py-2 text-sm cursor-pointer']"
             >
-              <i v-if="item.icon" :class="item.icon"></i>
-              {{ item.label }}
-            </router-link>
+                <i v-if="item.icon" :class="item.icon"></i>
+                {{ item.label }}
+            </a>
             <a
                 v-else-if="item.link"
                 :href="item.link"
+                @click="onMenuButtonClick"
                 :class="[active ? 'bg-stone-100 text-stone-900' : 'text-stone-700', 'block px-4 py-2 text-sm']"
             >
               <i v-if="item.icon" :class="item.icon"></i>
@@ -45,6 +46,9 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import {defineProps, ref} from "vue"
+import {useRouter} from "vue-router"
+
+const router = useRouter()
 
 const props = defineProps({
   buttonText: {
@@ -67,6 +71,17 @@ const menuOpened = ref(false)
 const onMenuButtonClick = () => {
   menuOpened.value = !menuOpened.value;
 }
+
+const onLinkClick = (item, close) => {
+  menuOpened.value = false
+  close()
+
+  console.log(item)
+
+  if (item.route) {
+    router.push(item.route)
+  }
+};
 
 const transitionAfterLeave = () => {
   menuOpened.value = false

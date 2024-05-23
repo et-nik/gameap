@@ -10,6 +10,7 @@ use Gameap\Http\Controllers\API\ServersController;
 use Gameap\Http\Controllers\API\ServersSettingsController;
 use Gameap\Http\Controllers\API\ServersRconController;
 use Gameap\Http\Controllers\API\ServersTasksController;
+use Gameap\Http\Controllers\API\TokensController;
 use Gameap\Http\Controllers\API\UsersController;
 use Gameap\Services\PersonalAccessTokenService;
 use Illuminate\Http\Request;
@@ -190,6 +191,19 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::name('gdaemon_tasks.output')
         ->get('/gdaemon_tasks/{gdaemon_task}/output', [GdaemonTasksController::class, 'output'])
         ->middleware('isAdmin');
+
+    // Tokens
+    Route::name('tokens.list')
+        ->get('/tokens', [TokensController::class, 'list']);
+
+    Route::name('tokens.abilities')
+        ->get('/tokens/abilities', [TokensController::class, 'abilities']);
+
+    Route::name('tokens.store')
+        ->post('/tokens', [TokensController::class, 'store']);
+
+    Route::name('tokens.destroy')
+        ->delete('/tokens/{id}', [TokensController::class, 'destroy']);
 });
 
 Route::name("healthz")->get("healthz", [HealthzController::class, 'index']);

@@ -72,12 +72,12 @@
                     {
                       icon: 'fa-regular fa-address-card',
                       label: trans('navbar.profile'),
-                      link: 'https://docs.gameap.com',
+                      route: {name: 'profile'},
                     },
                     {
                       icon: 'fa-solid fa-key',
                       label: trans('tokens.tokens'),
-                      link: 'https://docs.gameap.com',
+                      route: {name: 'tokens'},
                     }
                 ],
                 [

@@ -15,6 +15,7 @@ return [
     'send'          => 'Send',
     'clear'         => 'Clear',
     'search'        => 'Search',
+    'generate'      => 'Generate',
     'upload_file'   => 'Upload file',
 
     'confirm_message' => 'Are you sure?',

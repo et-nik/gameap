@@ -18,6 +18,8 @@ import AdminClientCertificatesView from "./views/adminviews/AdminClientCertifica
 import AdminNodesCreateView from "./views/adminviews/AdminNodesCreateView.vue";
 import AdminDaemonTaskListView from "./views/adminviews/AdminDaemonTaskListView.vue";
 import AdminDaemonTaskOutputView from "./views/adminviews/AdminDaemonTaskOutputView.vue";
+import ProfileView from "./views/ProfileView.vue";
+import TokensView from "./views/TokensView.vue";
 
 const routes = [
     {
@@ -150,6 +152,22 @@ const routes = [
         meta: {
             title: trans('gdaemon_tasks.title_view')
         }
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: ProfileView,
+        meta: {
+            title: trans('profile.title'),
+        },
+    },
+    {
+        path: '/tokens',
+        name: 'tokens',
+        component: TokensView,
+        meta: {
+            title: trans('tokens.tokens'),
+        },
     },
     {
         path: '/report_bug',

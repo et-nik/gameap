@@ -82,8 +82,15 @@ const notification = function(n, callback) {
             window.$dialog.error({
                 title: notification.title,
                 content: notification.content,
+                style: notification.style,
+                maskClosable: notification.maskClosable ?? true,
                 positiveText: trans('main.close'),
                 closable: false,
+                onMaskClick: notification.maskClosable ?? (() => {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                }),
                 onPositiveClick: () => {
                     if (typeof callback === "function") {
                         callback();
@@ -95,8 +102,15 @@ const notification = function(n, callback) {
             window.$dialog.success({
                 title: notification.title,
                 content: notification.content,
+                style: notification.style,
+                maskClosable: notification.maskClosable ?? true,
                 positiveText: trans('main.close'),
                 closable: false,
+                onMaskClick: notification.maskClosable ?? (() => {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                }),
                 onPositiveClick: () => {
                     if (typeof callback === "function") {
                         callback();
@@ -108,8 +122,15 @@ const notification = function(n, callback) {
             window.$dialog.info({
                 title: notification.title,
                 content: notification.content,
+                style: notification.style,
+                maskClosable: notification.maskClosable ?? true,
                 positiveText: trans('main.close'),
                 closable: false,
+                onMaskClick: notification.maskClosable ?? (() => {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                }),
                 onPositiveClick: () => {
                     if (typeof callback === "function") {
                         callback();

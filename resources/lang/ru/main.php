@@ -15,6 +15,7 @@ return [
     'send'          => 'Отправить',
     'clear'         => 'Очистить',
     'search'        => 'Поиск',
+    'generate'      => 'Сгенерировать',
     'upload_file'   => 'Загрузить файл',
 
     'confirm_message' => 'Вы уверены?',
