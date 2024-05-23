@@ -6,6 +6,7 @@ use Gameap\Http\Controllers\API\GameModsController;
 use Gameap\Http\Controllers\API\GamesController;
 use Gameap\Http\Controllers\API\GdaemonTasksController;
 use Gameap\Http\Controllers\API\HealthzController;
+use Gameap\Http\Controllers\API\ProfileController;
 use Gameap\Http\Controllers\API\ServersController;
 use Gameap\Http\Controllers\API\ServersSettingsController;
 use Gameap\Http\Controllers\API\ServersRconController;
@@ -42,8 +43,17 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::name('dedicated_servers.setup')
             ->get('/dedicated_servers/setup', [DedicatedServersController::class, "setup"]);
 
+        Route::name('dedicated_servers.certificates')
+            ->get('/dedicated_servers/certificates.zip', [DedicatedServersController::class, "certificatesZip"]);
+
         Route::name('dedicated_servers.get')
             ->get('/dedicated_servers/{dedicated_server}', [DedicatedServersController::class, "get"]);
+
+        Route::name('dedicated_servers.daemon')
+            ->get('/dedicated_servers/{dedicated_server}/daemon', [DedicatedServersController::class, "daemon"]);
+
+        Route::name('dedicated_servers.logs')
+            ->get('/dedicated_servers/{dedicated_server}/logs.zip', [DedicatedServersController::class, "logsZip"]);
 
         Route::name('dedicated_servers.ip_list')
             ->get('/dedicated_servers/{dedicated_server}/ip_list', [DedicatedServersController::class, "getIpList"]);
@@ -204,6 +214,13 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::name('tokens.destroy')
         ->delete('/tokens/{id}', [TokensController::class, 'destroy']);
+
+    // Profile
+    Route::name('profile')->get('/profile', [ProfileController::class, 'show']);
+
+    Route::name('profile.save')
+        ->put('/profile', [ProfileController::class, 'save']);
+
 });
 
 Route::name("healthz")->get("healthz", [HealthzController::class, 'index']);

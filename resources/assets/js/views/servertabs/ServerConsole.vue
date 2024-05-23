@@ -7,7 +7,7 @@
               </div>
               {{ output }}
             </div>
-            <div v-if="serverActive" class="mb-3 m-0">
+            <div v-if="serverActive && sendCommandAvailable" class="mb-3 m-0">
                 <div class="relative flex items-stretch w-full">
                     <div class="terminal-input">
                         {{ consoleHostname }}:~$&nbsp;
@@ -37,6 +37,7 @@ const props = defineProps({
   serverId: Number,
   consoleHostname: String,
   serverActive: Boolean,
+  sendCommandAvailable: Boolean,
 });
 
 const output = ref(null);

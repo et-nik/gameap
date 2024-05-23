@@ -11,7 +11,7 @@
         </div>
       </GButton>
 
-      <GButton class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2 h-28" :route="{name: 'admin.nodes.index'}">
+      <GButton v-if="isAdmin" class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2 h-28" :route="{name: 'admin.nodes.index'}">
         <div class="text-lg">
           <i class="fa-solid fa-hard-drive"></i>
           Nodes
@@ -93,7 +93,13 @@
 </template>
 
 <script setup>
+import {computed} from "vue"
+import GButton from "../components/GButton.vue"
+import {useAuthStore} from "../store/auth";
 
-import GButton from "../components/GButton.vue";
+const authStore = useAuthStore()
 
+const isAdmin = computed(() => {
+  return authStore.isAdmin
+})
 </script>

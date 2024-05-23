@@ -196,9 +196,10 @@ const onGenerateToken = () => {
       maskClosable: false,
       type: "success",
     }, () => {
-      fetchTokens()
+
     })
 
+    fetchTokens()
     generateTokenModalEnabled.value = false
     fetchTokens()
   }).catch((error) => {
@@ -212,9 +213,8 @@ const onClickDelete = (id) => {
       notification({
         content: trans('tokens.token_removed_msg'),
         type: "success",
-      }, () => {
-        fetchTokens()
       })
+      fetchTokens()
     }).catch((error) => {
       errorNotification(error)
     })

@@ -34,7 +34,7 @@
             <div v-if="!loading" id="serverControl">
               <ServerControlButton
                   command="start"
-                  v-if="!serverOnline"
+                  v-if="serverStore.canStart && !serverOnline"
                   :server-id="serverId"
                   button="m-1"
                   button-color="green"
@@ -44,7 +44,7 @@
 
               <ServerControlButton
                   command="stop"
-                  v-if="serverOnline"
+                  v-if="serverStore.canStop && serverOnline"
                   :server-id="serverId"
                   button="m-1"
                   button-color="red"
@@ -54,6 +54,7 @@
 
               <ServerControlButton
                   command="restart"
+                  v-if="serverStore.canRestart"
                   :server-id="serverId"
                   button="m-1"
                   button-color="orange"
@@ -63,6 +64,7 @@
 
               <ServerControlButton
                   command="update"
+                  v-if="serverStore.canUpdate"
                   :server-id="serverId"
                   button="m-1"
                   button-color="black"
@@ -72,6 +74,7 @@
 
               <ServerControlButton
                   command="reinstall"
+                  v-if="serverStore.canUpdate"
                   :server-id="serverId"
                   button="m-1"
                   button-color="black"
@@ -107,7 +110,7 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap mt-2">
+      <div class="flex flex-wrap mt-2" v-if="serverStore.canReadConsole">
         <div class="md:w-full">
           <n-card
               :title="trans('servers.console')"
@@ -119,7 +122,13 @@
                         }"
           >
             <Loading v-if="loading"></Loading>
-            <ServerConsole v-if="!loading" :console-hostname="server?.name" :server-id="serverId" :server-active="server?.online">
+            <ServerConsole
+                v-if="!loading"
+                :console-hostname="server?.name"
+                :server-id="serverId"
+                :server-active="server?.online"
+                :send-command-available="serverStore.canSendConsole"
+            >
             </ServerConsole>
           </n-card>
         </div>
@@ -272,10 +281,12 @@ import GBreadcrumbs from "../components/GBreadcrumbs.vue";
 import Loading from "../components/Loading.vue";
 
 import {useServerStore} from "../store/server"
+import {useAuthStore} from "../store/auth";
 import {trans} from "../i18n/i18n";
 
 const route = useRoute()
 const serverStore = useServerStore()
+const authStore = useAuthStore()
 
 const {
   loading,
@@ -324,7 +335,7 @@ const breadcrumbs = computed(() => {
 })
 
 const isAdmin = computed(() => {
-  return window.user.roles.includes('admin')
+  return authStore.isAdmin
 })
 
 </script>

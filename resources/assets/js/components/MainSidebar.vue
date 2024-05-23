@@ -14,11 +14,11 @@
           </div>
         </div>
 
-        <a class="flex items-center w-full px-3 mt-3" href="#">
+        <a v-if="isAdmin" class="flex items-center w-full px-3 mt-3" href="#">
           <span class="ml-2 w-full text-center text-sm font-bold">—</span>
         </a>
 
-        <div class="w-full px-2">
+        <div v-if="isAdmin" class="w-full px-2">
           <div class="flex flex-col items-center w-full mb-3 border-stone-700">
             <router-link v-for="link in adminLinks" :to="link.route" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2">
               <i :class="link.icon" class="ml-1"></i>
@@ -57,11 +57,11 @@
         </div>
       </div>
 
-      <a class="flex items-center w-full px-3 mt-3" href="#">
+      <a v-if="isAdmin" class="flex items-center w-full px-3 mt-3" href="#">
         <span class="ml-2 w-full text-center text-sm font-bold">{{ trans('sidebar.admin') }}</span>
       </a>
 
-      <div class="w-full px-2">
+      <div v-if="isAdmin" class="w-full px-2">
         <div class="flex flex-col items-center w-full mb-3 border-stone-700">
           <router-link v-for="link in adminLinks" :to="link.route" class="flex items-center transition transform w-full h-10 px-3 mt-2 bg-stone-800 hover:translate-x-2">
             <i :class="link.icon" class="ml-1"></i>
@@ -89,8 +89,11 @@
 <script setup>
 
 import {trans} from "../i18n/i18n";
-import {ref} from "vue";
+import {ref, computed} from "vue";
 import {adminLinks, serversLinks} from "./bars";
+import {useAuthStore} from "../store/auth";
+
+const authStore = useAuthStore()
 
 const minimized = ref(localStorage.getItem('leftMenuState') === 'small');
 
@@ -108,6 +111,9 @@ function toggleMinimized() {
   }
 }
 
+const isAdmin = computed(() => {
+  return authStore.isAdmin
+})
 </script>
 
 <style scoped>

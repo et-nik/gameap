@@ -99,6 +99,7 @@ return [
     'login' => 'Логин',
     'email' => 'Email',
     'current_password' => 'Текущий пароль',
+    'new_password' => 'Новый пароль',
     'password' => 'Пароль',
     'password_confirmation' => 'Подтверждение пароля',
     'roles' => 'Роли',

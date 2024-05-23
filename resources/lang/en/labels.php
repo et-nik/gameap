@@ -99,6 +99,7 @@ return [
     'login' => 'Login',
     'email' => 'Email',
     'current_password' => 'Current Password',
+    'new_password' => 'New Password',
     'password' => 'Password',
     'password_confirmation' => 'Password Confirmation',
     'roles' => 'Roles',

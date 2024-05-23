@@ -20,7 +20,7 @@ import AdminDaemonTaskListView from "./views/adminviews/AdminDaemonTaskListView.
 import AdminDaemonTaskOutputView from "./views/adminviews/AdminDaemonTaskOutputView.vue";
 import ProfileView from "./views/ProfileView.vue";
 import TokensView from "./views/TokensView.vue";
-
+import AdminNodeShowView from "./views/adminviews/AdminNodeShowView.vue";
 const routes = [
     {
         path: '/',
@@ -57,10 +57,19 @@ const routes = [
         },
     },
     {
+        path: '/admin/nodes/:id',
+        name: 'admin.nodes.view',
+        component: AdminNodeShowView,
+        alias: '/admin/dedicated_servers/:id',
+        meta: {
+            title: trans('dedicated_servers.title_view'),
+        },
+    },
+    {
         path: '/admin/nodes/:id/edit',
         name: 'admin.nodes.edit',
         component: AdminNodesEditView,
-        alias: '/admin/dedicated_servers/:id',
+        alias: '/admin/dedicated_servers/:id/edit',
         meta: {
             title: trans('dedicated_servers.title_edit'),
         },

@@ -80,6 +80,15 @@ const createColumns = () => {
       render(row) {
         return [
           h(GButton, {
+            color: 'green',
+            size: 'small',
+            class: 'mr-0.5',
+            route: {name: 'admin.nodes.view', params: {id: row.id}},
+          }, [
+            h("i", {class: 'fa-solid fa-eye'}),
+            h("span", {class: 'hidden xl:inline'}, trans('main.view')),
+          ]),
+          h(GButton, {
             color: 'blue',
             size: 'small',
             class: 'mr-0.5',
