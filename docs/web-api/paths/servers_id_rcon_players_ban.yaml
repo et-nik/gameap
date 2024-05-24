@@ -46,7 +46,7 @@ post:
       label: CLI
       source: |
         curl 'https://demo.gameap.com/api/servers/2/rcon/players/ban' \
-          -H 'Accept: application/json \
+          -H 'Accept: application/json' \
           -H 'Content-Type: application/json' \
           --data-raw '{"player":"123", "reason": "some reason", "time": "10000"}'
 

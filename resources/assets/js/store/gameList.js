@@ -2,85 +2,102 @@ import { defineStore } from 'pinia'
 
 export const useGameListStore = defineStore('games', {
     state: () => ({
-        loading: false,
         games: [],
         gameMods: [],
         allGameMods: [],
+
+        apiProcesses: 0,
     }),
+    getters: {
+        loading: (state) => state.apiProcesses > 0,
+    },
     actions: {
         async fetchGames() {
-            this.loading = true
+            this.apiProcesses++
             try {
                 const response = await axios.get('/api/games/')
                 this.games = response.data;
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false
+                this.apiProcesses--
             }
         },
         async fetchGameMods(gameId) {
-            this.loading = true
+            this.apiProcesses++
             try {
                 const response = await axios.get('/api/games/' + gameId + '/mods')
                 this.gameMods = response.data;
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false
+                this.apiProcesses--
             }
         },
         async fetchAllGameMods() {
-            this.loading = true
+            this.apiProcesses++
             try {
                 const response = await axios.get('/api/game_mods')
                 this.allGameMods = response.data;
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false
+                this.apiProcesses--
             }
         },
         async createGame(game) {
-            this.loading = true
+            this.apiProcesses++
             try {
                 const response = await axios.post('/api/games', game)
                 return response.data
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false
+                this.apiProcesses--
             }
         },
         async createGameMod(mod) {
-            this.loading = true
+            this.apiProcesses++
             try {
                 const response = await axios.post('/api/game_mods', mod)
                 return response.data
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false
+                this.apiProcesses--
+            }
+        },
+        async upgradeGames() {
+            this.apiProcesses++
+            try {
+                await axios.post(
+                    '/api/games/upgrade',
+                    {headers: {'X-Http-Method-Override': 'PATCH'}},
+                )
+            } catch (error) {
+                throw error
+            } finally {
+                this.apiProcesses--
             }
         },
         async deleteGameByCode(code) {
-            this.loading = true
+            this.apiProcesses++
             try {
                 await axios.delete('/api/games/' + code)
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false
+                this.apiProcesses--
             }
         },
         async deleteModById(id) {
-            this.loading = true
+            this.apiProcesses++
             try {
                 await axios.delete('/api/game_mods/' + id)
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false
+                this.apiProcesses--
             }
         }
     },

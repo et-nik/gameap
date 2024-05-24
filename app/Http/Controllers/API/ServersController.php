@@ -443,6 +443,29 @@ class ServersController extends AuthController
         });
     }
 
+    public function summary()
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if ($currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
+            $collection = $this->repository->getAllServers()->collect();
+        } else {
+            $collection = $this->repository->getServersForUser($currentUser->id);
+        }
+
+        $total = $collection->count();
+        $online = $collection->filter(function ($item) {
+            return $item->online;
+        })->count();
+
+        return [
+            'total' => $total,
+            'online' => $online,
+            'offline' => $total - $online,
+        ];
+    }
+
     public function store(SaveServerRequest $request, CreateGameServer $createGameServer): array
     {
         /** @var CreateGameServerCommand $command */

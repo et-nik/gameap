@@ -6,8 +6,20 @@
           Servers
         </div>
         <div class="mt-3 grid grid-cols-2 content-center">
-          <div class="text-xs text-lime-600"><i class="fa-solid fa-heart-pulse"></i>: 4</div>
-          <div class="text-xs text-red-600"><i class="fa-solid fa-power-off "></i>: 2</div>
+          <div class="text-xs text-lime-600">
+            <div class="inline" v-if="!loading">
+              <i class="fa-solid fa-heart-pulse"></i>:
+            </div>
+            <i v-if="loading" class="fa-solid fa-gear fa-spin"></i>
+            <span v-else>{{ serverListStore.summary.online }}</span>
+          </div>
+          <div class="text-xs text-red-600">
+            <div class="inline" v-if="!loading">
+              <i class="fa-solid fa-skull"></i>:
+            </div>
+            <i v-if="loading" class="fa-solid fa-gear fa-spin"></i>
+            <span v-else>{{ serverListStore.summary.offline }}</span>
+          </div>
         </div>
       </GButton>
 
@@ -16,10 +28,21 @@
           <i class="fa-solid fa-hard-drive"></i>
           Nodes
         </div>
-        <div class="mt-3 content-center">
-          <span class="text-xs badge-light">
-            4
-          </span>
+        <div class="mt-3 grid grid-cols-2 content-center">
+          <div class="text-xs text-lime-600">
+            <div class="inline" v-if="!loading">
+              <i class="fa-solid fa-heart-pulse"></i>:
+            </div>
+            <i v-if="loading" class="fa-solid fa-gear fa-spin"></i>
+            <span v-else>{{ nodeListStore.summary.online }}</span>
+          </div>
+          <div class="text-xs text-red-600">
+            <div class="inline" v-if="!loading">
+              <i class="fa-solid fa-power-off"></i>:
+            </div>
+            <i v-if="loading" class="fa-solid fa-gear fa-spin"></i>
+            <span v-else>{{ nodeListStore.summary.offline }}</span>
+          </div>
         </div>
       </GButton>
     </div>
@@ -56,15 +79,15 @@
       <div>
       </div>
       <div>
-        <button type="button" class="text-white bg-[#24A1DE] hover:bg-[#24A1DE]/90 focus:outline-none rounded text-sm px-2 py-1 text-center inline-flex items-center me-1 mb-1 mr-2">
-          <i class="fa-brands fa-telegram mr-1"></i>
-          Telegram
-        </button>
-
-        <button type="button" class="text-white bg-[#7289da] hover:bg-[#7289da]/90 focus:outline-none rounded text-sm px-2 py-1 text-center inline-flex items-center me-1 mb-1 mr-2">
-          <i class="fa-brands fa-discord mr-1"></i>
-          Discord
-        </button>
+        <a
+            type="button"
+            class="text-white bg-[#F96854] hover:bg-[#F96854]/90 focus:outline-none rounded text-sm px-2 py-1 text-center inline-flex items-center me-1 mb-1 mr-2"
+            href="https://www.patreon.com/gameap"
+            target="_blank"
+        >
+          <i class="fa-brands fa-patreon mr-1"></i>
+          Patreon
+        </a>
       </div>
     </div>
   </div>
@@ -93,13 +116,42 @@
 </template>
 
 <script setup>
-import {computed} from "vue"
+import {computed, onMounted} from "vue"
 import GButton from "../components/GButton.vue"
-import {useAuthStore} from "../store/auth";
+import {useAuthStore} from "../store/auth"
+import {useNodeListStore} from "../store/nodeList"
+import {useServerListStore} from "../store/serverList"
 
 const authStore = useAuthStore()
+const nodeListStore = useNodeListStore()
+const serverListStore = useServerListStore()
 
 const isAdmin = computed(() => {
   return authStore.isAdmin
 })
+
+const loading = computed(() => {
+  return serverListStore.loading || nodeListStore.loading
+})
+
+onMounted(() => {
+  fetchServersSummary()
+
+  if (isAdmin.value) {
+    fetchNodesSummary()
+  }
+})
+
+const fetchServersSummary = () => {
+  serverListStore.fetchServersSummary().catch((error) => {
+    errorNotification(error)
+  })
+}
+
+const fetchNodesSummary = () => {
+  nodeListStore.fetchNodesSummary().catch((error) => {
+    errorNotification(error)
+  })
+}
+
 </script>

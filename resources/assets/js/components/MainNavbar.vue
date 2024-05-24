@@ -84,7 +84,7 @@
                     {
                       icon: 'fa-solid fa-sign-out-alt',
                       label: trans('navbar.sign_out'),
-                      route: {name: 'report_bug'},
+                      onClick: logout,
                     }
                 ]
               ]"
@@ -125,10 +125,22 @@ import {trans} from "../i18n/i18n"
 import {computed, ref} from 'vue'
 import MainNavbarDropdown from "./MainNavbarDropdown.vue";
 import {adminLinks, serversLinks} from "./bars";
+import {useAuthStore} from "../store/auth";
+import {errorNotification, notification} from "../parts/dialogs";
+
+const authStore = useAuthStore()
 
 const user = computed(() => {
-    return window.user
+    return authStore.user
 })
 
 const showMobileMenu = ref(false)
+
+const logout = () => {
+    authStore.logout().then(() => {
+        window.location.href = '/'
+    }).catch((error) => {
+        errorNotification(error)
+    })
+}
 </script>

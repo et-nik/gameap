@@ -9,6 +9,7 @@
           :options="taskOptions"
           :placeholder="trans('gdaemon_tasks.task')"
           @update:value="onUpdateFilters"
+          :render-label="renderTaskOptionLabel"
       />
       <n-select
           multiple
@@ -17,6 +18,7 @@
           :placeholder="trans('gdaemon_tasks.status')"
           @update:value="onUpdateFilters"
           :render-label="renderStatusOptionLabel"
+          :render-tag="renderStatusOptionTag"
       />
       <n-select
           multiple
@@ -83,7 +85,7 @@ const createColumns = () => {
       title: trans('gdaemon_tasks.task'),
       key: "task",
       render(row) {
-        return trans('gdaemon_tasks.'+row.task)
+        return renderTaskNameWithIcon(row.task, trans('gdaemon_tasks.'+row.task))
       },
     },
     {
@@ -256,8 +258,39 @@ const statusOptions = [
   },
 ]
 
+const renderTaskOptionLabel = (option) => {
+  return renderTaskNameWithIcon(option.value, option.label)
+}
+
+const renderTaskNameWithIcon = (taskCode, taskName) => {
+  switch (taskCode) {
+    case 'gsstart':
+      return [h("i", {class: "fa-solid fa-play mr-2"}), taskName]
+    case 'gsstop':
+      return [h("i", {class: "fa-solid fa-stop mr-2"}), taskName]
+    case 'gsrest':
+      return [h("i", {class: "fa-solid fa-redo mr-2"}), taskName]
+    case 'gsupd':
+      return [h("i", {class: "fa-solid fa-refresh mr-2"}), taskName]
+    case 'gsinst':
+      return [h("i", {class: "fa-solid fa-download mr-2"}), taskName]
+    case 'gsdel':
+      return [h("i", {class: "fa-solid fa-trash mr-2"}), taskName]
+    case 'gsmove':
+      return [h("i", {class: "fa-solid fa-dolly mr-2"}), taskName]
+    case 'cmdexec':
+      return [h("i", {class: "fa-solid fa-terminal mr-2"}), taskName]
+    default:
+      return taskName
+  }
+}
+
 const renderStatusOptionLabel = (option) => {
   return h(GStatusBadge, {status: option.value})
+}
+
+const renderStatusOptionTag = (item) => {
+  return h(GStatusBadge, {status: item.option.value})
 }
 
 const nodeOptions = computed(() => {

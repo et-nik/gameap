@@ -37,6 +37,30 @@ export const useAuthStore = defineStore('auth', {
             } finally {
                 this.apiProcesses--
             }
-        }
+        },
+        async login(credentials) {
+            this.apiProcesses++
+            try {
+                await axios.post(
+                    '/api/auth/login',
+                    credentials,
+                    {withCredentials: true},
+                )
+            } catch (error) {
+                throw error
+            } finally {
+                this.apiProcesses--
+            }
+        },
+        async logout() {
+            this.apiProcesses++
+            try {
+                await axios.post('/api/auth/logout')
+            } catch (error) {
+                throw error
+            } finally {
+                this.apiProcesses--
+            }
+        },
     }
 })

@@ -1,5 +1,6 @@
 <?php
 
+use Gameap\Http\Controllers\API\AuthController;
 use Gameap\Http\Controllers\API\ClientCertificatesController;
 use Gameap\Http\Controllers\API\DedicatedServersController;
 use Gameap\Http\Controllers\API\GameModsController;
@@ -28,6 +29,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::name('auth.login')
+    ->post('/auth/login', [AuthController::class, 'login']);
+
+Route::name('auth.logout')
+    ->post('/auth/logout', [AuthController::class, 'logout']);
+
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -39,6 +46,9 @@ Route::middleware('auth:sanctum')->group(function() {
         // Dedicated servers
         Route::name('dedicated_servers')
             ->get('/dedicated_servers', [DedicatedServersController::class, "list"]);
+
+        Route::name('dedicated_servers.summary')
+            ->get('/dedicated_servers/summary', [DedicatedServersController::class, 'summary']);
 
         Route::name('dedicated_servers.setup')
             ->get('/dedicated_servers/setup', [DedicatedServersController::class, "setup"]);
@@ -92,6 +102,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
         // Games
         Route::name('games')->get('/games', [GamesController::class, 'index']);
+        Route::name('games.upgrade')->post('/games/upgrade', [GamesController::class, 'upgrade']);
         Route::name('games.mods')->get('/games/{game}/mods', [GameModsController::class, 'getListForGame']);
         Route::name('games.store')->post('/games', [GamesController::class, 'store']);
         Route::name('games.show')->get('/games/{game}', [GamesController::class, 'show']);
@@ -106,6 +117,7 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     Route::name('servers')->get('servers', [ServersController::class, 'getList']);
+    Route::name('servers.summary')->get('servers/summary', [ServersController::class, 'summary']);
 
     // Servers
     Route::middleware('isAdmin')->group(function () {

@@ -10,7 +10,7 @@
       <i class="fa-solid fa-cat"></i>&nbsp;{{ trans('games.add_mod') }}
     </GButton>
 
-    <GButton class="mr-1" color="black" link="#">
+    <GButton class="mr-1" color="black" v-on:click="onClickGamesUpgrade()">
       <i class="fa-solid fa-sync"></i>&nbsp{{ trans('games.upgrade')}}
     </GButton>
   </div>
@@ -110,9 +110,21 @@ const breadcrumbs = computed(() => {
 })
 
 onMounted(() => {
-  gamesStore.fetchGames()
-  gamesStore.fetchAllGameMods()
+  fetchGames()
+  fetchAllGameMods()
 })
+
+const fetchGames = () => {
+  gamesStore.fetchGames().catch((error) => {
+    errorNotification(error)
+  })
+}
+
+const fetchAllGameMods = () => {
+  gamesStore.fetchAllGameMods().catch((error) => {
+    errorNotification(error)
+  })
+}
 
 const createColumns = () => {
   return [
@@ -262,7 +274,7 @@ const onClickGameDelete = (code) => {
 
 const deleteGameByCode = (code) => {
   gamesStore.deleteGameByCode(code).then(() => {
-    gamesStore.fetchGames()
+    fetchGames()
   }).catch((error) => {
     errorNotification(error)
   })
@@ -296,7 +308,7 @@ const onCreateMod = () => {
       content: trans('games.mod_create_success_msg'),
       type: "success",
     }, () => {
-      gamesStore.fetchAllGameMods()
+      fetchAllGameMods()
     })
   }).catch((error) => {
     errorNotification(error)
@@ -363,9 +375,33 @@ const onClickModDelete = (id) => {
 
 const deleteModById = (id) => {
   gamesStore.deleteModById(id).then(() => {
-    gamesStore.fetchAllGameMods()
+    fetchAllGameMods()
   }).catch((error) => {
     errorNotification(error)
+  })
+}
+
+const onClickGamesUpgrade = () => {
+  window.$dialog.success({
+    title: trans('games.d_upgrade_confirm'),
+    positiveText: trans('main.yes'),
+    negativeText: trans('main.no' ),
+    closable: false,
+    onPositiveClick: () => {
+      gamesStore.upgradeGames().then(() => {
+        notification({
+          content: trans('games.upgrade_success_msg'),
+          type: "success",
+        })
+
+        fetchGames()
+        fetchAllGameMods()
+
+      }).catch((error) => {
+        errorNotification(error)
+      })
+    },
+    onNegativeClick: () => {}
   })
 }
 </script>

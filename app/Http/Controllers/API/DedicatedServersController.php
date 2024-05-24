@@ -29,14 +29,19 @@ class DedicatedServersController extends AuthController
     /** @var DebugService */
     protected $debugService;
 
+    /** @var GdaemonStatus */
+    private $gdaemonStatus;
+
     public function __construct(
         NodeRepository $repository,
-        DebugService   $downloadDebugService
+        DebugService   $downloadDebugService,
+        GdaemonStatus $gdaemonStatus
     ) {
         parent::__construct();
 
-        $this->repository           = $repository;
+        $this->repository   = $repository;
         $this->debugService = $downloadDebugService;
+        $this->gdaemonStatus = $gdaemonStatus;
     }
 
     public function list()
@@ -54,6 +59,33 @@ class DedicatedServersController extends AuthController
                 'ip',
             ]);
         });
+    }
+
+    public function summary()
+    {
+        $nodes = $this->repository->getAll();
+
+        $online = 0;
+        $offline = 0;
+
+        foreach ($nodes as $node) {
+            $this->gdaemonStatus->setConfig($node->gdaemonSettings());
+
+            try {
+                $this->gdaemonStatus->connect();
+                $online++;
+            } catch (\RuntimeException $exception) {
+                $offline++;
+            }
+
+            $this->gdaemonStatus->disconnect();
+        }
+
+        return [
+            'total' => $nodes->count(),
+            'online' => $online,
+            'offline' => $offline,
+        ];
     }
 
     public function get(int $id)

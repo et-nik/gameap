@@ -48,6 +48,7 @@ import store from './legacy/store'
 import GBreadcrumbs from "./components/GBreadcrumbs.vue";
 import GButton from "./components/GButton.vue";
 
+import GuestNavbar from "./components/GuestNavbar.vue";
 import MainNavbar from './components/MainNavbar.vue';
 import MainSidebar from './components/MainSidebar.vue';
 
@@ -153,6 +154,7 @@ const app = createApp({
     components: {
         GBreadcrumbs,
         GButton,
+        GuestNavbar,
         MainNavbar,
         MainSidebar,
         ContentView,

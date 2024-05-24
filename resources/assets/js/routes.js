@@ -21,7 +21,13 @@ import AdminDaemonTaskOutputView from "./views/adminviews/AdminDaemonTaskOutputV
 import ProfileView from "./views/ProfileView.vue";
 import TokensView from "./views/TokensView.vue";
 import AdminNodeShowView from "./views/adminviews/AdminNodeShowView.vue";
+import LoginView from "./views/LoginView.vue";
 const routes = [
+    {
+        path: '/login',
+        name: 'login',
+        component: LoginView,
+    },
     {
         path: '/',
         name: 'home',

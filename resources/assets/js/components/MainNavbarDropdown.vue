@@ -36,6 +36,15 @@
               <i v-if="item.icon" :class="item.icon"></i>
               {{ item.label }}
             </a>
+            <a
+                v-else-if="item.onClick"
+                :href="item.link"
+                @click="item.onClick"
+                :class="[active ? 'bg-stone-100 text-stone-900' : 'text-stone-700', 'block px-4 py-2 text-sm cursor-pointer']"
+            >
+              <i v-if="item.icon" :class="item.icon"></i>
+              {{ item.label }}
+            </a>
           </MenuItem>
         </div>
       </MenuItems>
@@ -75,8 +84,6 @@ const onMenuButtonClick = () => {
 const onLinkClick = (item, close) => {
   menuOpened.value = false
   close()
-
-  console.log(item)
 
   if (item.route) {
     router.push(item.route)

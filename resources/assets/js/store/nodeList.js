@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useNodeListStore = defineStore("nodeList",{
     state: () => ({
         nodes: [],
+        summary: {},
 
         autoSetupData: {
             link: '',
@@ -21,6 +22,17 @@ export const useNodeListStore = defineStore("nodeList",{
             try {
                 const response = await axios.get('/api/dedicated_servers/')
                 this.nodes = response.data;
+            } catch (error) {
+                throw error
+            } finally {
+                this.apiProcesses--
+            }
+        },
+        async fetchNodesSummary() {
+            this.apiProcesses++
+            try {
+                const response = await axios.get('/api/dedicated_servers/summary')
+                this.summary = response.data;
             } catch (error) {
                 throw error
             } finally {
