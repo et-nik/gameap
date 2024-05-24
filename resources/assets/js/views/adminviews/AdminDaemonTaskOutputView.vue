@@ -60,7 +60,7 @@ const route = useRoute()
 
 const breadcrumbs = computed(() => {
   let result = [
-    {'route':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'admin.gdaemon_tasks.index'}, 'text':trans('gdaemon_tasks.gdaemon_tasks')},
   ]
 

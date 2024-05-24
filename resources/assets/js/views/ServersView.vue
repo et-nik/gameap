@@ -15,7 +15,7 @@ const ServerMainList = defineAsyncComponent(() =>
 
 const breadcrumbs = computed(() => {
   return [
-    {'route':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'servers'}, 'text':trans('servers.game_servers')},
   ]
 })

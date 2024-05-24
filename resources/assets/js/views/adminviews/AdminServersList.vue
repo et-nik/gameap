@@ -43,7 +43,7 @@ const serverListStore = useServerListStore()
 
 const breadcrumbs = computed(() => {
   return [
-    {'route':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'admin.servers.index'}, 'text':trans('servers.game_servers')},
   ]
 })

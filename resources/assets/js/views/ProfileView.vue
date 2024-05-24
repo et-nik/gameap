@@ -69,7 +69,7 @@ const authStore = useAuthStore()
 
 const breadcrumbs = computed(() => {
   return [
-    {'route':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'profile'}, 'text':trans('profile.profile')},
   ]
 })

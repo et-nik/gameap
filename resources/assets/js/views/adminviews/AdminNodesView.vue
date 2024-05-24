@@ -48,7 +48,7 @@ const nodeListStore = useNodeListStore()
 
 const breadcrumbs = computed(() => {
   return [
-    {'route':'/', 'text':'GameAP', 'icon': 'fas fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'admin.nodes.index'}, 'text':trans('sidebar.dedicated_servers')},
   ]
 })
