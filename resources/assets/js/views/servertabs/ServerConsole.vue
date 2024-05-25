@@ -25,7 +25,8 @@
                     v-on:keyup.enter="sendCommand"
                     v-model="inputText"
                     type="text"
-                    class="terminal-input m-0 p-0 inline"
+                    ref="inputRef"
+                    class="terminal-input m-0 p-0 inline w-full"
                     :placeholder="trans('servers.enter_command') +' ...'"
                 >
               </div>
@@ -49,6 +50,7 @@ import _ from 'lodash';
 import {
   NDivider,
 } from "naive-ui"
+import {errorNotification} from "../../parts/dialogs";
 
 const props = defineProps({
   serverId: Number,
@@ -58,6 +60,7 @@ const props = defineProps({
 });
 
 const consoleRef = ref();
+const inputRef = ref();
 const output = ref(null);
 const inputText = ref(null);
 const lock = ref(false);
@@ -104,9 +107,16 @@ function sendCommand() {
       .catch(error => {
         lock.value = false;
         console.log(error);
-        gameap.alert(error.response.data.message);
+        errorNotification(error)
       }).finally(() => {
         sendCommandLoading.value = false;
+
+        setTimeout(() => {
+          if (inputRef.value) {
+            inputRef.value.select();
+          }
+
+        }, 200);
       });
 }
 
