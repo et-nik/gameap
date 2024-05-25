@@ -12,7 +12,7 @@ class LoginPageTest extends BrowserTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->assertPathIs('/login')
-                    ->assertSee('GameAP');
+                    ->assertSee('Login');
         });
     }
 
@@ -20,7 +20,7 @@ class LoginPageTest extends BrowserTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-                ->type('login', 'admin')
+                ->type('email', 'admin')
                 ->type('password', 'fpwPOuZD')
                 ->press('Login')
                 ->assertPathIs('/home');
