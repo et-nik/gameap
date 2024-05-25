@@ -69,7 +69,10 @@ const createColumns = () => {
     },
     {
       title: trans('dedicated_servers.ip'),
-      key: "ip"
+      key: "ip",
+      render(row) {
+        return _.join(row.ip, ', ')
+      }
     },
     {
       title: trans('dedicated_servers.os'),

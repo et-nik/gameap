@@ -36,7 +36,7 @@ Route::bind('anyserver', function ($id) {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
-    Route::resource('client_certificates', EmptyController::class, ['as' => 'admin', 'except' => ['edit']]);
+    Route::resource('client_certificates', "EmptyController", ['as' => 'admin', 'except' => ['edit']]);
     Route::name('admin.dedicated_servers.download_logs')
         ->get(
             'dedicated_servers/{dedicated_server}/logs.zip',
@@ -63,9 +63,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
         'users/{user}/servers/{server}/edit',
         [EmptyController::class, 'updatePermissions'],
     );
-    Route::resource('users', EmptyController::class, ['as' => 'admin']);
+    Route::resource('users', "EmptyController", ['as' => 'admin']);
 
-    Route::resource('game_mods', EmptyController::class, ['as' => 'admin']);
+    Route::resource('game_mods', "EmptyController", ['as' => 'admin']);
     Route::name('admin.game_mods.create')->get('game_mods/create/{game?}', [EmptyController::class, 'create']);
 
     Route::name('admin.gdaemon_tasks.index')->get('gdaemon_tasks', [EmptyController::class, 'index']);
