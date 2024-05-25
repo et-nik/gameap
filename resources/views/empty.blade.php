@@ -1,4 +1,4 @@
-@php($title = __('dedicated_servers.title_create'))
+@php($title = 'GameAP')
 
 @extends('layouts.main')
 

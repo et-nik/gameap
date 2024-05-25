@@ -42,6 +42,7 @@ services:
       DAEMON_SETUP_TOKEN: test_auto_setup_token
       APP_KEY: eefeiQuaeti0Eeshoh7Efei1paizee1i
       APP_LANG: ru
+      APP_DEBUG: true
     links:
       - mysql:db
     restart: always
