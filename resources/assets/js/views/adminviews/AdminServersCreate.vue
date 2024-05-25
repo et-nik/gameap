@@ -252,7 +252,7 @@ const createServer = () => {
     game_mod_id: serverForm.value.gameMod,
     install: serverForm.value.install,
     rcon: serverForm.value.rcon,
-    user: serverForm.value.user,
+    su_user: serverForm.value.user,
     ds_id: serverForm.value.nodeId,
     server_ip: serverForm.value.ip,
     server_port: serverForm.value.serverPort,

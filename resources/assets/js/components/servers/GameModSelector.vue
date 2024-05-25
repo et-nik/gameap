@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-  import { computed, watch, defineModel } from 'vue';
+  import { computed, watch, defineModel, onUnmounted } from 'vue';
   import { useStore } from 'vuex';
   import {trans} from "../../i18n/i18n";
   import {NFormItem} from "naive-ui";
@@ -51,6 +51,11 @@
 
   const gameModsList = computed(() => store.state.gameMods.gameModsList);
 
+  onUnmounted(() => {
+    store.dispatch('gameMods/setGameMod', null)
+    store.dispatch('games/setGameCode', null)
+  });
+
   const renderGameLabel = (option) => {
     return [
       h(GameIcon, {game: option.value, class: 'mr-2'}),
@@ -67,7 +72,12 @@
   });
 
   watch(gameModel, () => {
+    store.dispatch('games/setGameCode', gameModel.value)
     store.dispatch('gameMods/fetchGameModsList', gameModel.value);
+  });
+
+  watch(gameModModel, () => {
+    store.dispatch('gameMods/setGameMod', gameModModel.value)
   });
 
   watch(gameModsList, (val) => {

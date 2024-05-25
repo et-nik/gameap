@@ -389,7 +389,6 @@ const saveServer = () => {
     blocked: serverForm.value.blocked,
     installed: serverForm.value.status,
     rcon: serverForm.value.rcon,
-    user: serverForm.value.user,
     ds_id: server.value.ds_id,
     server_ip: serverForm.value.ip,
     server_port: serverForm.value.serverPort,

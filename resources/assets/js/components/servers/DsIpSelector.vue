@@ -1,11 +1,11 @@
 <template>
     <div>
-        <input type="hidden" :name="dsIdFieldName" v-model="selectedDs" />
-        <input type="hidden" :name="serverIpFieldName" v-model="selectedIp" />
+        <input type="hidden" :name="dsIdFieldName" v-model="nodeIdModel" />
+        <input type="hidden" :name="serverIpFieldName" v-model="ipModel" />
 
         <n-form-item :path="nodeIdPath">
           <n-select
-              v-model:value="selectedDs"
+              v-model:value="nodeIdModel"
               :disabled="nodeSelectDisabled"
               :options="nodesOptions"
               :placeholder="trans('labels.ds_id')"
@@ -14,8 +14,8 @@
 
         <n-form-item :path="ipPath" :show-label="false">
           <n-select
-              v-model:value="selectedIp"
-              :disabled="!selectedDs"
+              v-model:value="ipModel"
+              :disabled="!nodeIdModel"
               :options="ipListOptions"
               :placeholder="trans('labels.ip')"
           />
@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-  import { computed, watch, onMounted } from 'vue'
+  import { computed, watch } from 'vue'
   import { useStore } from 'vuex'
   import {NFormItem} from "naive-ui"
 
@@ -61,45 +61,18 @@
     return ipList.value.map((ip) => ({ value: ip, label: ip }));
   });
 
-  const selectedDs = computed({
-    get: () => {
-      if (
-          !store.state.dedicatedServers.dsId ||
-          store.state.dedicatedServers.dsId === ""
-      ) {
-        return null;
-      }
-
-      return store.state.dedicatedServers.dsId
-    },
-    set: (dsId) => store.dispatch('dedicatedServers/setDsId', dsId)
-  });
-
-  const selectedIp = computed({
-    get: () => store.state.servers.ip,
-    set: (ip) => store.dispatch('servers/setIp', ip)
-  });
-
   watch(ipList, (list) => {
-    if (list.length >= 1 && !list.includes(selectedIp.value)) {
-      selectedIp.value = list[0];
+    if (list.length >= 1 && !list.includes(ipModel.value)) {
+      ipModel.value = list[0];
     }
   });
 
-  watch(selectedDs, (val) => {
-    nodeIdModel.value = val;
+  watch(nodeIdModel, (val) => {
+    store.dispatch('dedicatedServers/setDsId', nodeIdModel.value);
     store.dispatch('dedicatedServers/fetchIpList');
   });
 
-  watch(selectedIp, (val) => {
-    ipModel.value = val;
-  });
-
-  watch(nodeIdModel, (val) => {
-    selectedDs.value = val;
-  });
-
   watch(ipModel, (val) => {
-    selectedIp.value = val;
+    store.dispatch('servers/setIp', ipModel.value)
   });
 </script>
