@@ -40,6 +40,9 @@ Route::middleware('auth:sanctum')->group(function() {
         return $request->user();
     });
 
+    Route::name('user.servers_abilities')
+        ->get('/user/servers_abilities', [ServersController::class, 'allServersAbilities']);
+
     Route::name('game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', [GameModsController::class, 'getListForGame']);
 
     Route::middleware('isAdmin')->group(function () {
@@ -116,15 +119,16 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::name('game_mods.destroy')->delete('/game_mods/{game_mod}', [GameModsController::class, 'destroy']);
     });
 
-    Route::name('servers')->get('servers', [ServersController::class, 'getList']);
-    Route::name('servers.summary')->get('servers/summary', [ServersController::class, 'summary']);
+    Route::name('servers.get')
+        ->get('servers/{server}', [ServersController::class, 'get']);
+    Route::name('servers')
+        ->get('servers', [ServersController::class, 'getList']);
+    Route::name('servers.summary')
+        ->get('servers/summary', [ServersController::class, 'summary']);
 
     // Servers
     Route::middleware('isAdmin')->group(function () {
         Route::name('servers.search')->get('servers/search',  [ServersController::class, 'search']);
-
-        Route::name('servers.get')
-            ->get('servers/{server}', [ServersController::class, 'get']);
 
         Route::name('servers.store')
             ->post('servers', [ServersController::class, 'store'])

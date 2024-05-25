@@ -283,6 +283,7 @@ import Loading from "../components/Loading.vue";
 import {useServerStore} from "../store/server"
 import {useAuthStore} from "../store/auth";
 import {trans} from "../i18n/i18n";
+import GameIcon from "../components/GameIcon.vue";
 
 const route = useRoute()
 const serverStore = useServerStore()
@@ -328,7 +329,12 @@ const breadcrumbs = computed(() => {
   ]
 
   if (server.value?.name) {
-    bc.push({'text': server.value.name})
+    bc.push({
+      render: () => [
+        h(GameIcon, {game: server.value.game.code, class: 'mr-2 align-middle'}),
+        h('span', {game: server.value.game.code, class: 'align-middle'}, server.value.name),
+      ]
+    })
   }
 
   return bc

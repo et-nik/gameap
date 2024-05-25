@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         profile: {},
+        serversAbilities: {},
         // This is a counter to keep track of how many API processes are running
         apiProcesses: 0,
     }),
@@ -14,6 +15,17 @@ export const useAuthStore = defineStore('auth', {
         user: (state) => {
             return window.user
         },
+        canServerAbility: (state) => (serverId, ability) => {
+            if (state.isAdmin) {
+                return true
+            }
+
+            if (!state.serversAbilities[serverId]) {
+                return false
+            }
+
+            return state.serversAbilities[serverId][ability]
+        }
     },
     actions: {
         async fetchProfile() {
@@ -32,6 +44,17 @@ export const useAuthStore = defineStore('auth', {
             this.apiProcesses++
             try {
                 await axios.put('/api/profile', profile)
+            } catch (error) {
+                throw error
+            } finally {
+                this.apiProcesses--
+            }
+        },
+        async fetchServersAbilities() {
+            this.apiProcesses++
+            try {
+                const response = await axios.get('/api/user/servers_abilities')
+                this.serversAbilities = response.data
             } catch (error) {
                 throw error
             } finally {

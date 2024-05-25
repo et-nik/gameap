@@ -82,6 +82,7 @@ import {computed, ref, onMounted, h} from "vue"
 import {trans} from "../../i18n/i18n"
 import GButton from "../../components/GButton.vue"
 import Loading from "../../components/Loading.vue"
+import GameIcon from "../../components/GameIcon.vue"
 import {useGameListStore} from "../../store/gameList"
 import {errorNotification, notification} from "../../parts/dialogs"
 import {
@@ -131,6 +132,12 @@ const createColumns = () => {
     {
       title: trans('games.name'),
       key: 'name',
+      render(row) {
+        return h("div", {class: 'flex items-center'}, [
+          h(GameIcon, {game: row.code, class: "mr-2"}),
+          h("span", {class: ''}, row.name)
+        ])
+      },
     },
     {
       title: trans('games.code'),
@@ -241,7 +248,7 @@ const gamesData = computed(() => {
     })
   })
 
-  return result
+  return result.sort((a, b) => a.name.localeCompare(b.name))
 })
 
 const getGameMods = (gameCode) => {

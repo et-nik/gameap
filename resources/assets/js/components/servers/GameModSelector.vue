@@ -9,6 +9,7 @@
                   :disabled="gameSelectDisabled"
                   v-model:value="selectedGameCode"
                   :options="gamesOptions"
+                  :render-label="renderGameLabel"
               />
             </n-form-item>
 
@@ -34,6 +35,7 @@
   import { useStore } from 'vuex';
   import {trans} from "../../i18n/i18n";
   import {NFormItem} from "naive-ui";
+  import GameIcon from "../GameIcon.vue";
 
   const props = defineProps({
     games: Object,
@@ -48,6 +50,13 @@
   const store = useStore();
 
   const gameModsList = computed(() => store.state.gameMods.gameModsList);
+
+  const renderGameLabel = (option) => {
+    return [
+      h(GameIcon, {game: option.value, class: 'mr-2'}),
+      option.label,
+    ]
+  }
 
   const gamesOptions = computed(() => {
     return Object.entries(props.games).map(([gameCode, gameName]) => ({ value: gameCode, label: gameName }));

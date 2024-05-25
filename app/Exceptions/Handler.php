@@ -62,6 +62,13 @@ class Handler extends ExceptionHandler
             ], $exception->getStatusCode(), $exception->getHeaders());
         }
 
+        if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
+            return response()->json([
+                'message'   => $exception->getMessage(),
+                'http_code' => Response::HTTP_FORBIDDEN,
+            ], Response::HTTP_FORBIDDEN);
+        }
+
         return parent::render($request, $exception);
     }
 }

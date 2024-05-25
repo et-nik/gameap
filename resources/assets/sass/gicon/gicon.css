@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'gicon';
-  src:  url('fonts/gicon.eot?rmd4fx');
-  src:  url('fonts/gicon.eot?rmd4fx#iefix') format('embedded-opentype'),
-    url('fonts/gicon.ttf?rmd4fx') format('truetype'),
-    url('fonts/gicon.woff?rmd4fx') format('woff'),
-    url('fonts/gicon.svg?rmd4fx#gicon') format('svg');
+  src:  url('fonts/gicon.eot?j68pj6');
+  src:  url('fonts/gicon.eot?j68pj6#iefix') format('embedded-opentype'),
+    url('fonts/gicon.ttf?j68pj6') format('truetype'),
+    url('fonts/gicon.woff?j68pj6') format('woff'),
+    url('fonts/gicon.svg?j68pj6#gicon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -43,6 +43,9 @@
 .gicon-half-life:before {
   content: "\e903";
 }
+.gicon-black-mesa:before {
+  content: "\e90c";
+}
 .gicon-rust:before {
   content: "\e906";
 }
@@ -58,10 +61,36 @@
 .gicon-counter-strike:before {
   content: "\e905";
 }
+.gicon-arma-2:before {
+  content: "\e90d";
+}
 .gicon-arma-3:before {
   content: "\e900";
 }
 .gicon-team-fortress-2:before {
   content: "\e908";
 }
-
+.gicon-ark-survival-evolved:before {
+  content: "\e90b";
+}
+.gicon-garrys-mod:before {
+  content: "\e90e";
+}
+.gicon-dont-starve:before {
+  content: "\e90f";
+}
+.gicon-grand-theft-auto:before {
+  content: "\e910";
+}
+.gicon-grand-theft-auto-five:before {
+  content: "\e911";
+}
+.gicon-rockstar:before {
+  content: "\e912";
+}
+.gicon-hurtworld:before {
+  content: "\e913";
+}
+.gicon-left-4-dead:before {
+  content: "\e914";
+}

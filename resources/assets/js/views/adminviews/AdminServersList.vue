@@ -38,6 +38,7 @@ import {
   NDataTable,
   NEmpty,
 } from "naive-ui"
+import GameIcon from "../../components/GameIcon.vue";
 
 const serverListStore = useServerListStore()
 
@@ -56,11 +57,15 @@ const createColumns = () => {
     },
     {
       title: trans('servers.game'),
-      key: "game"
+      key: "game",
+      render: (row) => [
+        h(GameIcon, {game: row.gameCode, class: 'mr-2'}),
+        row.game,
+      ]
     },
     {
       title: trans('servers.ip_port'),
-      key: "ip_port"
+      key: "ipPort"
     },
     {
       title: trans('main.actions'),
@@ -116,7 +121,8 @@ const serversData = computed(() => {
       id: server.id,
       name: server.name,
       game: server.game.name,
-      ip_port: server.server_ip + ':' + server.server_port,
+      gameCode: server.game.code,
+      ipPort: server.server_ip + ':' + server.server_port,
     })
   })
 

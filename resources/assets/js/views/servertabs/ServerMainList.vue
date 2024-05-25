@@ -2,9 +2,13 @@
     import {defineAsyncComponent, h, ref, onMounted, computed} from 'vue'
     import {trans} from "../../i18n/i18n";
     import store from "../../legacy/store";
+    import {useAuthStore} from "../../store/auth";
 
     import GButton from "../../components/GButton.vue";
     import Loading from "../../components/Loading.vue";
+    import GameIcon from "../../components/GameIcon.vue";
+
+    import {errorNotification} from "../../parts/dialogs";
 
     // Installed statuses
     const NOT_INSTALLED        = 0;
@@ -15,11 +19,19 @@
         import('./ServerControlButton.vue' /* webpackChunkName: "components/server" */)
     );
 
+    const authStore = useAuthStore();
+
     const createColumns = () => {
         return [
             {
                 title: trans('servers.name'),
-                key: "name"
+                key: "name",
+                render(row) {
+                  return h("div", {class: 'flex items-center'}, [
+                    h(GameIcon, {game: row.game.code, class: "mr-2"}),
+                    h("span", {class: ''}, row.name)
+                  ])
+                },
             },
             {
                 title: trans('servers.ip_port'),
@@ -73,7 +85,7 @@
                         return [];
                     }
 
-                    if (row.installed === NOT_INSTALLED) {
+                    if (row.installed === NOT_INSTALLED && canUpdate(row.id)) {
                         return h(ServerControlButton,
                             {
                                 "command": "install",
@@ -88,7 +100,7 @@
                     let buttons = [];
 
                     if (row.installed === INSTALLED) {
-                        if (row.online) {
+                        if (row.online && canStop(row.id)) {
                             buttons.push(
                                 h(ServerControlButton,
                                     {
@@ -101,7 +113,9 @@
                                     }),
                                 " ",
                             );
-                        } else {
+                        }
+
+                        if (!row.online && canStart(row.id)) {
                             buttons.push(
                                 h(ServerControlButton,
                                     {
@@ -116,33 +130,37 @@
                             );
                         }
 
-                        buttons.push(
-                            h(ServerControlButton,
-                                {
+                        if (canRestart(row.id)) {
+                          buttons.push(
+                              h(ServerControlButton,
+                                  {
                                     "command": "restart",
                                     "button-color": "orange",
                                     "button-size": "small",
                                     "icon": "fa fa-redo",
                                     "text": trans('servers.restart'),
                                     "server-id": row.id,
-                                }),
-                            " ",
-                        );
+                                  }),
+                              " ",
+                          );
+                        }
                     }
 
-                    buttons.push(
-                        h(GButton,
-                            {
+                    if (canManage(row.id)) {
+                      buttons.push(
+                          h(GButton,
+                              {
                                 color: "black",
                                 size: "small",
                                 route: "/servers/" + row.id,
-                            },
-                            [
+                              },
+                              [
                                 h('span', {"class": "d-none d-xl-inline"}, trans('servers.control')),
                                 " ",
                                 h('span', {"class": "fa fa-angle-double-right"}),
-                            ])
-                    );
+                              ])
+                      );
+                    }
 
                     return buttons;
                 }
@@ -165,6 +183,12 @@
         loading.value = false;
       });
 
+      if (!authStore.isAdmin) {
+        authStore.fetchServersAbilities().catch((error) =>{
+          errorNotification(error)
+        })
+      }
+
       try {
           const f = JSON.parse(localStorage.getItem("server-filters"))
           if (f !== null) {
@@ -179,7 +203,6 @@
       } catch (e) {
           console.log(e);
       }
-
     });
 
     const data = computed(() => {
@@ -191,7 +214,7 @@
                 selectedGame.value !== "" &&
                 selectedGame.value.length > 0
             ) {
-                skip = !selectedGame.value.includes(server.game.name)
+                skip = !selectedGame.value.includes(server.game.code)
             }
 
             if (
@@ -207,20 +230,47 @@
         });
     });
 
+    const renderGameLabel = (option) => {
+        return [
+            h(GameIcon, {game: option.value, class: 'mr-2'}),
+            option.label,
+        ]
+    }
+
     const games = computed(() => {
-        const set = new Set;
+        const map = new Map;
         for (const idx in store.state.servers.serversList) {
-            set.add(store.state.servers.serversList[idx].game.name)
+            map.set(
+                store.state.servers.serversList[idx].game.code,
+                store.state.servers.serversList[idx].game.name,
+            )
         }
 
-        return Array.from(set).sort();
+        let sorted = [];
+        map.forEach((name, code) => {
+          sorted.push([code, name])
+        });
+
+        sorted.sort((a, b) => {
+          return a[1].localeCompare(b[1])
+        });
+
+        let result = [];
+        sorted.forEach((value) => {
+          result.push({
+            value: value[0],
+            label: value[1],
+          })
+        });
+
+        return result
     });
 
     const gamesOptions = computed(() => {
         var options = [];
 
         for (const el of games.value) {
-            options.push({label: el, value: el});
+            options.push({label: el.label, value: el.value});
         }
         return options;
     });
@@ -256,6 +306,27 @@
     function isFiltersSet() {
         return selectedIP.value !== null || selectedGame.value !== null
     }
+
+    function canManage(serverId) {
+      return authStore.canServerAbility(serverId, 'game-server-common')
+    }
+
+    function canStart(serverId) {
+        return authStore.canServerAbility(serverId, 'game-server-start');
+    }
+
+    function canStop(serverId) {
+        return authStore.canServerAbility(serverId, 'game-server-stop');
+    }
+
+    function canRestart(serverId) {
+        return authStore.canServerAbility(serverId, 'game-server-restart');
+    }
+
+    function canUpdate(serverId) {
+        return authStore.canServerAbility(serverId, 'game-server-update');
+    }
+
 </script>
 
 <template>
@@ -267,6 +338,7 @@
                         <n-select
                             v-model:value="selectedGame"
                             :options="gamesOptions"
+                            :render-label="renderGameLabel"
                             multiple
                             :placeholder="trans('servers.select_game_filter_placeholder')"
                             @update:value="handleUpdateFilters"

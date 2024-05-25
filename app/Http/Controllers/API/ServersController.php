@@ -24,6 +24,7 @@ use Gameap\UseCases\Commands\EditGameServerCommand;
 use Gameap\UseCases\CreateGameServer;
 use Gameap\UseCases\EditGameServer;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Psr\SimpleCache\CacheInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -56,6 +57,9 @@ class ServersController extends AuthController
     /** @var AuthFactory */
     protected $authFactory;
 
+    /** @var CacheInterface */
+    protected $cache;
+
     /**
      * ServersController constructor.
      * @param ServerRepository $repository
@@ -66,7 +70,8 @@ class ServersController extends AuthController
         ServerService $serverService,
         ServerControlService $serverControlService,
         SerializerInterface $serializer,
-        AuthFactory $authFactory
+        AuthFactory $authFactory,
+        CacheInterface $cache
     ) {
         parent::__construct();
 
@@ -76,6 +81,7 @@ class ServersController extends AuthController
         $this->serverControlService  = $serverControlService;
         $this->serializer            = $serializer;
         $this->authFactory           = $authFactory;
+        $this->cache                 = $cache;
     }
 
     /**
@@ -110,8 +116,10 @@ class ServersController extends AuthController
                 'query_port',
                 'rcon_port',
                 'game',
+                'last_process_check',
                 'online',
 
+                // Admin details
                 'rcon',
                 'dir',
                 'su_user',
@@ -137,6 +145,7 @@ class ServersController extends AuthController
             'query_port',
             'rcon_port',
             'game',
+            'last_process_check',
             'online',
         ]);
     }
@@ -441,6 +450,39 @@ class ServersController extends AuthController
                 'online'
             ]);
         });
+    }
+
+    public function allServersAbilities()
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        $cacheKey = 'users:' . $currentUser->id . ':servers-abilities';
+
+        if ($this->cache->has($cacheKey)) {
+            return $this->cache->get($cacheKey);
+        }
+
+        $isAdmin = $currentUser->can(PermissionHelper::ADMIN_PERMISSIONS);
+
+        if ($isAdmin) {
+            $servers = $this->repository->getAllServers()->collect();
+        } else {
+            $servers = $this->repository->getServersForUser($currentUser->id);
+        }
+
+        $abilities = [];
+        foreach ($servers as $server) {
+            $abilities[$server->id] = [];
+
+            foreach (ServerPermissionHelper::getAllPermissions() as $permission) {
+                $abilities[$server->id][$permission] = $isAdmin || $currentUser->can($permission, $server);
+            }
+        }
+
+        $this->cache->set($cacheKey, $abilities, 60);
+
+        return $abilities;
     }
 
     public function summary()
