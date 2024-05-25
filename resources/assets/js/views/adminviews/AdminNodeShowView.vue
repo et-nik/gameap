@@ -52,7 +52,7 @@
         <td><strong>{{ trans('dedicated_servers.gdaemon_uptime') }}:</strong></td>
         <td>{{
             daemonInfo.base_info && daemonInfo.base_info.uptime
-                ? daemonInfo.version.uptime
+                ? daemonInfo.base_info.uptime
                 : trans('dedicated_servers.gdaemon_empty_info')
           }}</td>
       </tr>
