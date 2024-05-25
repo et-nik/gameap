@@ -26,7 +26,7 @@
                     v-model="inputText"
                     type="text"
                     ref="inputRef"
-                    class="terminal-input m-0 p-0 inline w-full"
+                    class="terminal-input inline md:w-[40vw] lg:w-[50vw]"
                     :placeholder="trans('servers.enter_command') +' ...'"
                 >
               </div>
