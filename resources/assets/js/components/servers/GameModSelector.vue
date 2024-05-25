@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="mb-3">
-            <input type="hidden" name="game_id" v-model="selectedGameCode">
+            <input type="hidden" name="game_id" v-model="gameModel">
 
             <n-form-item :label="trans('labels.game_id')" :path="gamePath">
               <n-select
                   filterable
                   :disabled="gameSelectDisabled"
-                  v-model:value="selectedGameCode"
+                  v-model:value="gameModel"
                   :options="gamesOptions"
                   :render-label="renderGameLabel"
               />
@@ -16,13 +16,13 @@
         </div>
 
         <div class="mb-3">
-            <input type="hidden" name="game_mod_id" v-model="selectedMod">
+            <input type="hidden" name="game_mod_id" v-model="gameModModel">
 
             <n-form-item :label="trans('labels.game_mod_id')" :path="gameModPath">
               <n-select
                   filterable
-                  v-model:value="selectedMod"
-                  :disabled="!selectedGameCode"
+                  v-model:value="gameModModel"
+                  :disabled="!gameModel"
                   :options="gameModOptions"
               />
             </n-form-item>
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-  import { computed, watch, onMounted, defineModel } from 'vue';
+  import { computed, watch, defineModel } from 'vue';
   import { useStore } from 'vuex';
   import {trans} from "../../i18n/i18n";
   import {NFormItem} from "naive-ui";
@@ -66,46 +66,12 @@
     return gameModsList.value.map((gameMod) => ({ value: Number(gameMod.id), label: gameMod.name }));
   });
 
-  const selectedGameCode = computed({
-    get: () => {
-      if (
-          !store.state.games.gameCode ||
-          store.state.games.gameCode === ""
-      ) {
-        return null;
-      }
-
-      return store.state.games.gameCode
-    },
-    set: (gameCode) => {
-      gameModel.value = gameCode;
-      store.dispatch('games/setGameCode', gameCode)
-    }
-  });
-
-  const selectedMod = computed({
-    get: () => {
-      if (
-          !store.state.gameMods.gameMod ||
-          store.state.gameMods.gameMod === ""
-      ) {
-        return null;
-      }
-
-      return store.state.gameMods.gameMod
-    },
-    set: (gameMod) => {
-      gameModModel.value = gameMod;
-      store.dispatch('gameMods/setGameMod', gameMod)
-    }
-  });
-
-  watch(selectedGameCode, (gameCode) => {
-    store.dispatch('gameMods/fetchGameModsList', gameCode);
+  watch(gameModel, () => {
+    store.dispatch('gameMods/fetchGameModsList', gameModel.value);
   });
 
   watch(gameModsList, (val) => {
-    let mod = 0
+    let mod = null
     if (val.length > 0) {
       mod = val[0].id
     }
@@ -114,19 +80,7 @@
       mod = gameModModel.value;
     }
 
-    selectedMod.value = mod;
-  });
-
-  watch(gameModel, (val) => {
-    if (val !== 0) {
-      selectedGameCode.value = val;
-    }
-  });
-
-  watch(gameModModel, (val) => {
-    if (val !== 0) {
-      selectedMod.value = val;
-    }
+    gameModModel.value = mod;
   });
 </script>
 

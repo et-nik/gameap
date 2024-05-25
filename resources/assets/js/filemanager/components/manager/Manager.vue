@@ -1,7 +1,7 @@
 <template>
     <div class="fm-content d-flex flex-column">
         <bread-crumb v-bind:manager="manager" />
-        <div class="fm-content-body min-h-[40vh]">
+        <div class="fm-content-body h-[40vh]">
             <table-view v-if="viewType === 'table'" v-bind:manager="manager" />
             <grid-view v-else v-bind:manager="manager" />
         </div>

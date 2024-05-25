@@ -34,7 +34,7 @@ import {
     NTooltip,
 } from 'naive-ui'
 
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter } from 'vue-router'
 
 import './bootstrap';
 
@@ -137,18 +137,13 @@ const setActiveTab = (tab) => {
 import {routes} from "./routes";
 
 const router = createRouter({
-    history: createMemoryHistory(),
+    history: createWebHistory(),
     routes,
 })
 
 router.beforeEach((to, from) => {
     if (to.meta.title) {
         document.title = to.meta.title;
-    }
-
-    const resolved = router.resolve(to.fullPath)
-    if (resolved.name) {
-        window.history.pushState({}, '', to.fullPath);
     }
 })
 

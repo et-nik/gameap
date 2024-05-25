@@ -13,11 +13,11 @@
           <form class="space-y-4 md:space-y-6" action="#">
             <div>
               <label for="email" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">{{ trans('auth.username_email') }}</label>
-              <input type="email" name="email" id="email" v-model="email" class="bg-stone-50 border border-stone-300 text-stone-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@example.com" required="">
+              <input type="email" name="email" id="email" v-model="email" class="bg-stone-50 border border-stone-300 text-stone-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
             </div>
             <div>
               <label for="password" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">{{ trans('auth.password') }}</label>
-              <input type="password" name="password" id="password" v-model="password" placeholder="••••••••" class="bg-stone-50 border border-stone-300 text-stone-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+              <input type="password" name="password" id="password" v-model="password" class="bg-stone-50 border border-stone-300 text-stone-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
             </div>
             <div class="flex items-center justify-between">
               <div class="flex items-start">

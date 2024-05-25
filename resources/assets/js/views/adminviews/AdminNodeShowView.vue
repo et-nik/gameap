@@ -1,6 +1,11 @@
 <template>
   <GBreadcrumbs :items="breadcrumbs"></GBreadcrumbs>
 
+  <GButton color="blue" size="middle" class="mb-5 mr-1" :route="{name: 'admin.nodes.edit', params: {id: route.params.id}}">
+    <i class="fa-solid fa-edit mr-0.5"></i>
+    <span>{{ trans('main.edit')}}</span>
+  </GButton>
+
   <GButton color="orange" size="middle" class="mb-5 mr-1" :link="'/api/dedicated_servers/'+route.params.id+'/logs.zip'">
     <i class="fa-solid fa-download mr-0.5"></i>
     <span>{{ trans('dedicated_servers.download_logs')}}</span>
@@ -55,23 +60,23 @@
         <td><strong>{{ trans('dedicated_servers.gdaemon_online_servers_count') }}:</strong></td>
         <td>{{
             daemonInfo.base_info && daemonInfo.base_info.online_servers_count
-                ? daemonInfo.version.online_servers_count
+                ? daemonInfo.base_info.online_servers_count
                 : trans('dedicated_servers.gdaemon_empty_info')
           }}</td>
       </tr>
       <tr>
         <td><strong>{{ trans('dedicated_servers.gdaemon_working_tasks_count') }}:</strong></td>
         <td>{{
-            daemonInfo.base_info && daemonInfo.base_info.gdaemon_working_tasks_count
-                ? daemonInfo.version.gdaemon_working_tasks_count
+            daemonInfo.base_info && daemonInfo.base_info.working_tasks_count
+                ? daemonInfo.base_info.working_tasks_count
                 : trans('dedicated_servers.gdaemon_empty_info')
           }}</td>
       </tr>
       <tr>
         <td><strong>{{ trans('dedicated_servers.gdaemon_waiting_tasks_count') }}:</strong></td>
         <td>{{
-            daemonInfo.base_info && daemonInfo.base_info.gdaemon_waiting_tasks_count
-                ? daemonInfo.version.gdaemon_waiting_tasks_count
+            daemonInfo.base_info && daemonInfo.base_info.waiting_tasks_count
+                ? daemonInfo.base_info.waiting_tasks_count
                 : trans('dedicated_servers.gdaemon_empty_info')
           }}</td>
       </tr>
