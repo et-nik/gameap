@@ -1,37 +1,54 @@
 <template>
     <div>
-        <div class="terminal-box p-6 m-2">
-            <div id="terminalConsole" ref="terminalConsole" class="terminal">
-              <div v-if="!serverActive" class="bg-red-500 text-white font-bold rounded px-4 py-2 mb-3">
-                {{ trans('servers.offline_console_msg') }}
-              </div>
-              {{ output }}
-            </div>
-            <div v-if="serverActive && sendCommandAvailable" class="mb-3 m-0">
-                <div class="relative flex items-stretch w-full">
-                    <div class="terminal-input">
-                        {{ consoleHostname }}:~$&nbsp;
-                        <input
-                          v-on:keyup.enter="sendCommand"
-                          v-model="inputText"
-                          type="text"
-                          class="terminal-input m-0 p-0"
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="w-full">
+        <div class="coding inverse-toggle px-5 pt-4 shadow-lg text-stone-100 text-sm font-mono subpixel-antialiased
+              bg-stone-800  pb-6 pt-4 rounded-lg leading-normal overflow-hidden">
+          <div class="top mb-2 flex">
+            <div class="h-3 w-3 bg-red-500 rounded-full"></div>
+            <div class="ml-2 h-3 w-3 bg-orange-300 rounded-full"></div>
+            <div class="ml-2 h-3 w-3 bg-green-500 rounded-full"></div>
+          </div>
+          <div v-if="!serverActive" class="bg-red-500 text-white font-bold rounded px-4 py-2 mt-6 mb-3">
+            {{ trans('servers.offline_console_msg') }}
+          </div>
+          <div ref="consoleRef" class="whitespace-pre-wrap mt-4 flex h-[60vh] overflow-y-scroll overscroll-contain">
+            {{ output }}
+          </div>
 
-        <div class="p-6 m-2">
-            <input type="checkbox" id="checkbox" v-model="autoScroll">
-            <label for="checkbox">{{ trans('main.autoscroll') }}</label>
+          <div v-if="serverActive && sendCommandAvailable" class="mt-4">
+            <div class="relative flex items-stretch w-full">
+              <div class="w-full">
+                <div class="inline">{{ consoleHostname }}:>&nbsp;</div>
+                <i v-if="sendCommandLoading" class="fa-solid fa-gear fa-spin"></i>
+                <input
+                    v-else
+                    v-on:keyup.enter="sendCommand"
+                    v-model="inputText"
+                    type="text"
+                    class="terminal-input m-0 p-0 inline"
+                    :placeholder="trans('servers.enter_command') +' ...'"
+                >
+              </div>
+            </div>
+          </div>
+          <NDivider dashed></NDivider>
+          <div class="p-1 cursor-pointer inline" @click="autoScroll = !autoScroll">
+            <span v-if="autoScroll">[x]</span>
+            <span v-else>[&nbsp;]</span>
+            {{ trans('main.autoscroll')}}
+          </div>
         </div>
+      </div>
     </div>
 </template>
 
 <script setup>
-import {ref, computed, onMounted, onUnmounted} from 'vue';
+import {ref, onMounted, onUnmounted} from 'vue';
 import axios from 'axios';
+import _ from 'lodash';
+import {
+  NDivider,
+} from "naive-ui"
 
 const props = defineProps({
   serverId: Number,
@@ -40,15 +57,17 @@ const props = defineProps({
   sendCommandAvailable: Boolean,
 });
 
+const consoleRef = ref();
 const output = ref(null);
 const inputText = ref(null);
 const lock = ref(false);
+const sendCommandLoading = ref(false);
 const updateConsole = ref(true);
 const autoScroll = ref(true);
 
 function scroll() {
-  if (autoScroll.value && this.$refs && this.$refs.terminalConsole) {
-    this.$refs.terminalConsole.scrollTop = this.$refs.terminalConsole.scrollHeight;
+  if (autoScroll.value && consoleRef.value) {
+    consoleRef.value.scrollTo({top: consoleRef.value.scrollHeight, behavior: 'smooth'});
   }
 }
 
@@ -59,7 +78,7 @@ function getConsole() {
 
   axios.get(`/api/servers/${props.serverId}/console`)
       .then(response => {
-        output.value = response.data.console;
+        output.value = _.replace(response.data.console, /(\r\n|\n|\r)/gm, "\n")
         setTimeout(scroll, 1000);
       })
       .catch(error => {
@@ -74,6 +93,7 @@ function sendCommand() {
   }
 
   lock.value = true;
+  sendCommandLoading.value = true;
   axios.post(`/api/servers/${props.serverId}/console`, { command: inputText.value })
       .then(response => {
         inputText.value = '';
@@ -85,6 +105,8 @@ function sendCommand() {
         lock.value = false;
         console.log(error);
         gameap.alert(error.response.data.message);
+      }).finally(() => {
+        sendCommandLoading.value = false;
       });
 }
 
@@ -99,10 +121,3 @@ onUnmounted(() => {
   clearInterval(interval);
 });
 </script>
-
-<style>
-.server-offline-note {
-    color: #880808;
-    font-weight: bold;
-}
-</style>

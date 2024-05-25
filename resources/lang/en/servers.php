@@ -64,6 +64,7 @@ return [
     'query_map'     => 'Map',
 
     'console'       => 'Console',
+    'enter_command' => 'Enter command',
 
     'not_installed_msg' => 'Server is not installed',
     'installation_process_msg' => 'Server in installation process',

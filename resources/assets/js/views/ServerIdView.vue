@@ -114,25 +114,15 @@
 
       <div class="flex flex-wrap mt-2" v-if="serverStore.canReadConsole">
         <div class="md:w-full">
-          <n-card
-              :title="trans('servers.console')"
-              class="mb-3"
-              header-class="bg-stone-100"
-              :segmented="{
-                          content: true,
-                          footer: 'soft'
-                        }"
+          <Loading v-if="loading"></Loading>
+          <ServerConsole
+              v-if="!loading"
+              :console-hostname="server?.name"
+              :server-id="serverId"
+              :server-active="server?.online"
+              :send-command-available="serverStore.canSendConsole"
           >
-            <Loading v-if="loading"></Loading>
-            <ServerConsole
-                v-if="!loading"
-                :console-hostname="server?.name"
-                :server-id="serverId"
-                :server-active="server?.online"
-                :send-command-available="serverStore.canSendConsole"
-            >
-            </ServerConsole>
-          </n-card>
+          </ServerConsole>
         </div>
       </div>
 

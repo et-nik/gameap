@@ -1,30 +1,40 @@
 <template>
     <div id="rcon-console-component">
-        <div class="terminal-box p-6 m-2">
-            <div id="terminal-console" ref="terminal-console" class="terminal">{{ output }}</div>
+      <div class="coding inverse-toggle px-5 pt-4 shadow-lg text-stone-100 text-sm font-mono subpixel-antialiased
+              bg-stone-800  pb-6 pt-4 rounded-lg leading-normal overflow-hidden">
+        <div ref="consoleRef" class="whitespace-pre-wrap mt-4 flex h-[40vh] overflow-y-scroll overscroll-contain">
+          {{ output }}
         </div>
+      </div>
 
-        <div class="relative flex items-stretch w-full">
-            <input v-on:keyup.enter="sendCommand"
-                   v-model="inputText"
-                   type="text"
-                   class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                   placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon1">
+        <div class="grid grid-cols-12 gap-4 mt-2">
+          <NInput
+              v-model:value="inputText"
+              v-on:keyup.enter="sendCommand"
+              class="col-span-11"
+              type="text"
+              placeholder=""
+          />
 
-            <div class="input-group-prepend">
-                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700" type="button" v-on:click="sendCommand">Send</button>
-            </div>
+          <GButton color="black" size="small" v-on:click="sendCommand">
+            <i class="fa-solid fa-terminal mr-1"></i>
+            <span class="hidden xl:inline">&nbsp;{{ trans('main.send') }}</span>
+          </GButton>
         </div>
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
+    import {
+      NInput,
+    } from "naive-ui";
+    import GButton from "../GButton.vue";
+    import {errorNotification} from "../../parts/dialogs";
 
     export default {
         name: "RconConsole",
+      components: {GButton},
         props: {
             serverId: Number
         },
@@ -38,7 +48,7 @@
                 await this.$store.dispatch('rconConsole/sendCommand', this.inputText).then(() => {
                     this.inputText = '';
                 }).catch((error) => {
-                    gameap.alert(error);
+                    errorNotification(error);
                     console.log(error);
                 });
             },
@@ -53,9 +63,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .terminal {
-        min-height: 250px;
-    }
-</style>

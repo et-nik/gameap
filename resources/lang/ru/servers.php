@@ -64,6 +64,7 @@ return [
     'query_map'     => 'Карта',
 
     'console'       => 'Консоль',
+    'enter_command' => 'Введите команду',
 
     'not_installed_msg' => 'Сервер не установлен',
     'installation_process_msg' => 'Сервер в процессе установки',

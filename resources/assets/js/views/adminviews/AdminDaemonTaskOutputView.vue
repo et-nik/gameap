@@ -25,15 +25,15 @@
     </n-table>
 
     <div class="w-full">
-      <div class="coding inverse-toggle px-5 pt-4 shadow-lg text-gray-100 text-sm font-mono subpixel-antialiased
-              bg-gray-800  pb-6 pt-4 rounded-lg leading-normal overflow-hidden">
+      <div class="coding inverse-toggle px-5 pt-4 shadow-lg text-stone-100 text-sm font-mono subpixel-antialiased
+              bg-stone-800  pb-6 pt-4 rounded-lg leading-normal overflow-hidden">
         <div class="top mb-2 flex">
           <div class="h-3 w-3 bg-red-500 rounded-full"></div>
           <div class="ml-2 h-3 w-3 bg-orange-300 rounded-full"></div>
           <div class="ml-2 h-3 w-3 bg-green-500 rounded-full"></div>
         </div>
-        <div class="whitespace-pre-line mt-4 flex">
-          {{ task.output }}
+        <div class="whitespace-pre-wrap mt-4 flex ">
+          {{ output }}
         </div>
       </div>
     </div>
@@ -54,6 +54,7 @@ import {storeToRefs} from "pinia"
 import {useDaemonTaskStore} from "../../store/daemonTask";
 import GStatusBadge from "../../components/GStatusBadge.vue";
 import Loading from "../../components/Loading.vue";
+import _ from "lodash";
 
 const daemonTaskStore = useDaemonTaskStore()
 const route = useRoute()
@@ -81,5 +82,13 @@ onMounted(() => {
   daemonTaskStore.fetchTaskOutput().catch((error) => {
     errorNotification(error)
   })
+})
+
+const output = computed(() => {
+  if (!task.value.output) {
+    return ''
+  }
+
+  return _.replace(task.value.output, /(\r\n|\n|\r)/gm, "\n")
 })
 </script>
