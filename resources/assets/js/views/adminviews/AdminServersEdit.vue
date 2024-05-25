@@ -230,7 +230,7 @@ const {server} = storeToRefs(serverStore)
 
 const breadcrumbs = computed(() => {
   return [
-    {'route':'/', 'text':'GameAP', 'icon': 'fa-solid fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'admin.servers.index'}, 'text':trans('servers.game_servers')},
     {'route':{name: 'admin.servers.edit', params: {id: route.params.id}}, 'text':trans('servers.edit')},
   ]

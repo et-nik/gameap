@@ -16,6 +16,7 @@ return [
     'title_view' => "View Dedicated Server",
 
     'dedicated_servers' => 'Dedicated servers',
+    'nodes' => 'Nodes',
 
     'create'                    => 'Create',
     'edit'                      => 'Edit',

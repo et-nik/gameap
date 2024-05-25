@@ -26,8 +26,12 @@ return [
     'problems'          => 'Problems',
     'get_help'          => 'Get Help',
     'documentation'     => 'Documentation',
+    'api_documentation' => 'API Documentation',
     'report_bug'        => 'Report a bug',
     'update'            => 'Check for updates',
+    'channels'          => 'Channels',
+    'support_gameap'    => 'Support GameAP',
+    'need_help'         => 'Need help?',
 
     'd_report_bug'      => 'Please check the PHP version and the availability of the necessary PHP extensions.
                         PHP versions should be no lower than the minimum recommended.

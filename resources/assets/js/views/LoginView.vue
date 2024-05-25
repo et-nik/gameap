@@ -25,7 +25,7 @@
                   <input v-model="remember" id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-stone-300 rounded bg-stone-50 focus:ring-3 focus:ring-primary-300 dark:bg-stone-700 dark:border-stone-600 dark:focus:ring-primary-600 dark:ring-offset-stone-800" required="">
                 </div>
                 <div class="ml-3 text-sm">
-                  <label for="remember" class="text-stone-500 dark:text-stone-300">Remember me</label>
+                  <label for="remember" class="text-stone-500 dark:text-stone-300">{{ trans('auth.remember') }}</label>
                 </div>
               </div>
             </div>

@@ -151,7 +151,7 @@ const serverForm = ref({
 
 const breadcrumbs = computed(() => {
   return [
-    {'route':'/', 'text':'GameAP', 'icon': 'fa-solid fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'admin.servers.index'}, 'text':trans('servers.game_servers')},
     {'route':{name: 'admin.servers.create'}, 'text':trans('servers.create')},
   ]

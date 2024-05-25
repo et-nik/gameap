@@ -114,7 +114,11 @@ Route::name('tokens.destroy')->delete('/tokens/{token}', [TokensController::clas
 Route::get('/js/lang/{lang}.js', function ($lang) {
     $strings = Cache::rememberForever('lang/' . $lang . '.js', function () use ($lang) {
         if (!file_exists(resource_path('lang/' . $lang))) {
-            abort(Response::HTTP_NOT_FOUND);
+            $lang = 'en';
+
+            if (!file_exists(resource_path('lang/' . $lang))) {
+                abort(Response::HTTP_NOT_FOUND);
+            }
         }
 
         $files   = glob(resource_path('lang/' . $lang . '/*.php'));

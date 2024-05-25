@@ -2,8 +2,6 @@
 import plurals from './plurals';
 import _ from 'lodash';
 
-// const app = createApp({});
-
 const pluralForms = {
     default: (n) => (n !== 1 ? 1 : 0),
     en: (n) => (n !== 1 ? 1 : 0),
@@ -42,4 +40,27 @@ const trans = (string, args) => {
     return value;
 };
 
-export {pluralize, trans}
+let lang = null;
+const pageLanguage = () => {
+    if (lang) {
+        return lang;
+    }
+
+    const htmlEl = document.getElementsByTagName('html')
+    if (htmlEl.length === 0) {
+        lang = navigator.language ?? 'en'
+        return lang
+    }
+
+    const langAttribute = htmlEl[0].getAttribute('lang')
+
+    if (langAttribute === null) {
+        lang = navigator.language ?? 'en'
+        return lang
+    }
+
+    lang = langAttribute ?? 'en'
+    return lang
+}
+
+export {pluralize, trans, pageLanguage}

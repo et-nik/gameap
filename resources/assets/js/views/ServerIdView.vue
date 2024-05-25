@@ -104,7 +104,9 @@
                 {{ trans('servers.status') }}: <span class="badge-red">{{ trans('servers.inactive') }}</span>
               </li>
 
-              <li class="relative block py-3 px-6 -mb-px">{{ trans('servers.last_check') }}: </li>
+              <li class="relative block py-3 px-6 -mb-px">
+                {{ trans('servers.last_check') }}: {{ (new Date(server.last_process_check)).toLocaleString() }}
+              </li>
             </ul>
           </n-card>
         </div>
@@ -191,6 +193,7 @@
           <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 p-2">
             <file-manager
                 :settings="{
+                    'lang': pageLanguage(),
                     'baseUrl': '/file-manager/'+$route.params.id,
                     'headers':{
                         'X-Requested-With': 'XMLHttpRequest',
@@ -282,7 +285,7 @@ import Loading from "../components/Loading.vue";
 
 import {useServerStore} from "../store/server"
 import {useAuthStore} from "../store/auth";
-import {trans} from "../i18n/i18n";
+import {trans, pageLanguage} from "../i18n/i18n";
 import GameIcon from "../components/GameIcon.vue";
 
 const route = useRoute()

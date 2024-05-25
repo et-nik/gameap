@@ -31,7 +31,7 @@ const gameModStore = useGameModStore()
 
 const breadcrumbs = computed(() => {
   let result = [
-    {'route':'/', 'text':'GameAP', 'icon': 'fa-solid fa-home'},
+    {'route':'/', 'text':'GameAP', 'icon': 'gicon gicon-gameap'},
     {'route':{name: 'admin.games.index'}, 'text':trans('games.games')},
   ]
 

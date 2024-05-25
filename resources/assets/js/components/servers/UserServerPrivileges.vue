@@ -14,7 +14,10 @@
                 <tbody>
                   <tr v-for="(server, itemIndex) in items">
                       <td><a :href="'/admin/servers/' + server.id + '/edit'">{{ server.name }}</a></td>
-                      <td>{{ server.game.name }}</td>
+                      <td>
+                        <GameIcon :game="server.game.code" />
+                        {{ server.game.name }}
+                      </td>
                       <td>{{ server.server_ip }}:{{ server.server_port }}</td>
                       <td class="flex flex-wrap gap-1">
                         <GButton color="blue" size="small" v-on:click="onClickEditPrivileges(server)">
@@ -97,7 +100,10 @@
       </tr>
       <tr>
         <td><strong>{{ trans('servers.game') }}:</strong></td>
-        <td>{{ editPrivilegesServer.game.name }}</td>
+        <td>
+          <GameIcon :game="editPrivilegesServer.game.code" class="mr-2" />
+          {{ editPrivilegesServer.game.name }}
+        </td>
       </tr>
       </tbody>
     </n-table>
@@ -124,13 +130,13 @@ import { defineProps, defineModel, ref, onMounted, computed, h } from 'vue'
 import axios from 'axios'
 import {storeToRefs} from "pinia";
 import {
-  NFormItem,
   NTable,
   NSelect,
   NModal,
   NSwitch,
 } from "naive-ui"
 import GButton from "../GButton.vue";
+import GameIcon from "../GameIcon.vue";
 import {trans} from "../../i18n/i18n";
 import {useUserStore} from "../../store/user";
 import {errorNotification, notification} from "../../parts/dialogs";
@@ -234,7 +240,7 @@ function onSearch(search) {
             serverList.value.push({
               id: item.id,
               name: item.name,
-              game: item.game.name,
+              game: item.game,
               server_ip: item.server_ip,
               server_port: item.server_port
             });

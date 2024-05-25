@@ -92,7 +92,7 @@ const createColumns = () => {
       title: trans('gdaemon_tasks.status'),
       key: "status",
       render(row) {
-        return h(GStatusBadge, {status: row.status})
+        return h(GStatusBadge, {status: row.status, text: trans('gdaemon_tasks.status_' + row.status)})
       },
     },
     {
@@ -286,11 +286,11 @@ const renderTaskNameWithIcon = (taskCode, taskName) => {
 }
 
 const renderStatusOptionLabel = (option) => {
-  return h(GStatusBadge, {status: option.value})
+  return h(GStatusBadge, {status: option.value, text: option.label })
 }
 
 const renderStatusOptionTag = (item) => {
-  return h(GStatusBadge, {status: item.option.value})
+  return h(GStatusBadge, {status: item.option.value, text: item.option.label })
 }
 
 const nodeOptions = computed(() => {

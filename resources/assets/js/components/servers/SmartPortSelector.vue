@@ -17,168 +17,157 @@
     </div>
 </template>
 
-<script>
-    import { mapState } from 'vuex';
-    import {NFormItem} from "naive-ui";
-    import {trans} from "../../i18n/i18n";
+<script setup>
+import { ref, computed, watch, onMounted, defineModel } from 'vue';
+import { useStore } from 'vuex';
+import { NFormItem } from 'naive-ui';
+import { trans } from '../../i18n/i18n';
 
-    const DEFAULT_PORTS = {
-        'arma2': 2302,
-        'arma2ao': 2302,
-        'arma3': 2302,
-        'cod4': 28960,
-        'mta': 22003,
-        'samp': 7777,
-        'hurtworld': 12871,
-        'justcause': 7777,
-        'fivem': 30120,
-        'ark': 7777,
-        'rust': 28015,
-        'minecraft': 25565,
-        'rok': 7350,
-        'teamspeak3': 9987,
-        'default': 27015,
-    };
+const DEFAULT_PORTS = {
+  'arma2': 2302,
+  'arma2ao': 2302,
+  'arma3': 2302,
+  'cod4': 28960,
+  'mta': 22003,
+  'samp': 7777,
+  'hurtworld': 12871,
+  'justcause': 7777,
+  'fivem': 30120,
+  'ark': 7777,
+  'rust': 28015,
+  'minecraft': 25565,
+  'rok': 7350,
+  'teamspeak3': 9987,
+  'default': 27015,
+};
 
-    const PORT_DIFF = {
-        'arma2': [0, 0],
-        'arma2ao': [0, 0],
-        'arma3': [0, 0],
-        'cod4': [0, 0],
-        'mta': [0, 2],
-        'samp': [0, 0],
-        'hurtworld': [10, 0],
-        'justcause': [0, 0],
-        'fivem': [0, 0],
-        'ark': [0, 0],
-        'rust': [0, 1],
-        'minecraft': [0, 1],
-        'rok': [0, 0],
-        'teamspeak3': [24, 35], // Default port 9987, query 10011, rcon 10022
-        'default': [0, 0],
-    };
+const PORT_DIFF = {
+  'arma2': [0, 0],
+  'arma2ao': [0, 0],
+  'arma3': [0, 0],
+  'cod4': [0, 0],
+  'mta': [0, 2],
+  'samp': [0, 0],
+  'hurtworld': [10, 0],
+  'justcause': [0, 0],
+  'fivem': [0, 0],
+  'ark': [0, 0],
+  'rust': [0, 1],
+  'minecraft': [0, 1],
+  'rok': [0, 0],
+  'teamspeak3': [24, 35],
+  'default': [0, 0],
+};
 
-    export default {
-        name: "SmartPortSelector",
-      components: {NFormItem},
-        props: {
-            initialServerIp: String,
-            initialServerPort: String,
-            initialQueryPort: String,
-            initialRconPort: String,
-            game: '',
-            serverPortPath: 'serverPort',
-            rconPortPath: 'rconPort',
-            queryPortPath: 'queryPort',
-        },
-        emits: ['update:serverPort', 'update:rconPort', 'update:queryPort'],
-        data: function() {
-            return {
-                serverPort: parseInt(this.initialServerPort) || 27015,
-                queryPort: parseInt(this.initialQueryPort) || 27015,
-                rconPort: parseInt(this.initialRconPort) || 27015,
-                serverPortWarning: '',
-            }
-        },
-        methods: {
-          trans,
-            initPorts() {
-                if (!this.initialServerPort) {
-                    this.setPorts();
-                }
-            },
-            setPorts() {
-                if(this.initialServerIp === this.selectedIp) {
-                    this.serverPort = parseInt(this.initialServerPort) || 27015;
-                    this.queryPort = parseInt(this.initialQueryPort) || 27015;
-                    this.rconPort = parseInt(this.initialRconPort) || 27015;
-                }
+const props = defineProps({
+  initialServerIp: String,
+  initialServerPort: String,
+  initialQueryPort: String,
+  initialRconPort: String,
+  game: String,
+  serverPortPath: { type: String, default: 'serverPort' },
+  rconPortPath: { type: String, default: 'rconPort' },
+  queryPortPath: { type: String, default: 'queryPort' },
+});
 
-                const gameCode = this.getExistsPortGameCode();
+const emit = defineEmits(['update:serverPort', 'update:rconPort', 'update:queryPort']);
 
-                let portCorrect = -1;
+const store = useStore();
 
-                do {
-                    portCorrect++;
-                    this.serverPort = DEFAULT_PORTS[gameCode] + portCorrect;
-                }
-                while(this.isBusy(this.selectedIp, DEFAULT_PORTS[gameCode] + portCorrect));
-            },
-            correctPorts() {
-                const gameCode = this.getExistsPortGameCode();
+const serverPort = defineModel('serverPort')
+const queryPort = defineModel('queryPort')
+const rconPort = defineModel('rconPort')
 
-                this.queryPort = this.serverPort + PORT_DIFF[gameCode][0];
-                this.rconPort = this.serverPort + PORT_DIFF[gameCode][1];
-            },
-            getExistsPortGameCode() {
-                return DEFAULT_PORTS.hasOwnProperty(this.gameCode)
-                    ? this.gameCode
-                    : 'default';
-            },
-            isBusy(serverIp, serverPort) {
-                if (typeof this.initialServerIp != 'undefined'
-                    && typeof this.initialServerPort != 'undefined'
-                    && serverIp === this.initialServerIp
-                    && serverPort === this.initialServerPort
-                ) {
-                    return false;
-                }
+const serverPortWarning = ref('');
 
-                return this.busyPorts.hasOwnProperty(serverIp)
-                    && this.busyPorts[serverIp].indexOf(serverPort) !== -1
-            },
-            checkPorts() {
-                if (this.isBusy(this.selectedIp, this.serverPort)) {
-                    this.serverPortWarning = this.trans('validation.unique', {attribute: this.trans('labels.server_port')});
-                } else {
-                    this.serverPortWarning = '';
-                }
-            }
-        },
-        computed: {
-            ...mapState({
-                ipList: state => state.dedicatedServers.ipList,
-                dsId: state => state.dedicatedServers.dsId,
-                busyPorts: state => state.dedicatedServers.busyPorts,
-                gameCode: state => state.games.gameCode,
-            }),
-            selectedIp: {
-                get() {
-                  if (!this.$store.state.servers.ip || this.$store.state.servers.ip === "") {
-                    return null;
-                  }
+const selectedIp = computed({
+  get() {
+    return store.state.servers.ip || null;
+  },
+  set(value) {
+    store.dispatch('servers/setIp', value);
+  },
+});
 
-                  return this.$store.state.servers.ip;
-                },
-                set(selectedIp) { this.$store.dispatch('servers/setIp', selectedIp) },
-            },
-        },
-        mounted() {
-            this.$store.dispatch('dedicatedServers/fetchBusyPorts', this.initPorts);
-        },
-        watch: {
-            dsId() {
-                this.$store.dispatch('dedicatedServers/fetchBusyPorts', this.setPorts);
-            },
-            gameCode() {
-                this.setPorts();
-            },
-            serverPort(v, oldVal) {
-                console.log("new:", v);
-                console.log("old: ", oldVal);
-                console.log("serverPort: ", this.serverPort);
+const dsId = computed(() => store.state.dedicatedServers.dsId);
+const busyPorts = computed(() => store.state.dedicatedServers.busyPorts);
+const gameCode = computed(() => store.state.games.gameCode);
 
-                this.serverPort = Number(this.serverPort);
-                this.correctPorts();
-                this.checkPorts();
-                this.$emit('update:serverPort', this.serverPort)
-            },
-            rconPort() {
-              this.$emit('update:rconPort', this.rconPort)
-            },
-            queryPort() {
-              this.$emit('update:queryPort', this.queryPort)
-            },
-        }
-    }
+function initPorts() {
+  if (!props.initialServerPort) {
+    setPorts();
+  }
+}
+
+function setPorts() {
+  if (props.initialServerIp === selectedIp.value) {
+    serverPort.value = parseInt(props.initialServerPort) || 27015;
+    queryPort.value = parseInt(props.initialQueryPort) || 27015;
+    rconPort.value = parseInt(props.initialRconPort) || 27015;
+  }
+
+  const gameCode = getExistsPortGameCode();
+
+  let portCorrect = -1;
+
+  do {
+    portCorrect++;
+    serverPort.value = DEFAULT_PORTS[gameCode] + portCorrect;
+  } while (isBusy(props.initialServerIp, DEFAULT_PORTS[gameCode] + portCorrect));
+}
+
+function correctPorts() {
+  const gameCode = getExistsPortGameCode();
+
+  queryPort.value = serverPort.value + PORT_DIFF[gameCode][0];
+  rconPort.value = serverPort.value + PORT_DIFF[gameCode][1];
+}
+
+function getExistsPortGameCode() {
+  return DEFAULT_PORTS.hasOwnProperty(gameCode.value) ? gameCode.value : 'default';
+}
+
+function isBusy(serverIp, serverPort) {
+  if (typeof props.initialServerIp !== 'undefined' && typeof props.initialServerPort !== 'undefined' && serverIp === props.initialServerIp && serverPort === props.initialServerPort) {
+    return false;
+  }
+
+  return busyPorts.value.hasOwnProperty(serverIp) && busyPorts.value[serverIp].indexOf(serverPort) !== -1;
+}
+
+function checkPorts() {
+  if (isBusy(selectedIp.value, serverPort.value)) {
+    serverPortWarning.value = trans('validation.unique', { attribute: trans('labels.server_port') });
+  } else {
+    serverPortWarning.value = '';
+  }
+}
+
+onMounted(() => {
+  store.dispatch('dedicatedServers/fetchBusyPorts', initPorts);
+});
+
+watch(dsId, () => {
+  store.dispatch('dedicatedServers/fetchBusyPorts', setPorts);
+});
+
+watch(gameCode, () => {
+  setPorts();
+});
+
+watch(serverPort, (newVal, oldVal) => {
+  serverPort.value = Number(serverPort.value);
+  correctPorts();
+  checkPorts();
+  emit('update:serverPort', serverPort.value);
+});
+
+watch(rconPort, (newVal) => {
+  emit('update:rconPort', rconPort.value);
+});
+
+watch(queryPort, (newVal) => {
+  emit('update:queryPort', queryPort.value);
+});
+
 </script>

@@ -48,6 +48,8 @@ import store from './legacy/store'
 import GBreadcrumbs from "./components/GBreadcrumbs.vue";
 import GButton from "./components/GButton.vue";
 
+import App from './App.vue';
+
 import GuestNavbar from "./components/GuestNavbar.vue";
 import MainNavbar from './components/MainNavbar.vue';
 import MainSidebar from './components/MainSidebar.vue';
@@ -152,6 +154,7 @@ router.beforeEach((to, from) => {
 
 const app = createApp({
     components: {
+        App,
         GBreadcrumbs,
         GButton,
         GuestNavbar,
@@ -186,10 +189,6 @@ const app = createApp({
         alert: alert,
         confirm: confirm,
         confirmAction: confirmAction,
-        // mountProgressbar(mountPoint) {
-        //     const ProgressbarComponent = app.component('Progressbar');
-        //     return app.mount(ProgressbarComponent, mountPoint);
-        // },
         setActiveTab: setActiveTab,
     },
     computed: {

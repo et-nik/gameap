@@ -9,6 +9,7 @@ use Gameap\Models\Server;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Mavinoo\Batch\Batch;
 use Spatie\QueryBuilder\QueryBuilder;
 

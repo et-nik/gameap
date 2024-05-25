@@ -1,5 +1,5 @@
 <template>
-  <span :class="spanClass">{{ status }}</span>
+  <span :class="spanClass">{{ statusText }}</span>
 </template>
 
 <script setup>
@@ -9,6 +9,9 @@ const props = defineProps({
   status: {
     type: String,
     required: true
+  },
+  text: {
+    type: String,
   },
 })
 
@@ -22,5 +25,9 @@ const badgeClasses = {
 
 const spanClass = computed(() => {
   return badgeClasses[props.status] ?? 'badge-light'
+})
+
+const statusText = computed(() => {
+  return props.text ? props.text : props.status
 })
 </script>

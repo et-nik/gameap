@@ -119,13 +119,6 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::name('game_mods.destroy')->delete('/game_mods/{game_mod}', [GameModsController::class, 'destroy']);
     });
 
-    Route::name('servers.get')
-        ->get('servers/{server}', [ServersController::class, 'get']);
-    Route::name('servers')
-        ->get('servers', [ServersController::class, 'getList']);
-    Route::name('servers.summary')
-        ->get('servers/summary', [ServersController::class, 'summary']);
-
     // Servers
     Route::middleware('isAdmin')->group(function () {
         Route::name('servers.search')->get('servers/search',  [ServersController::class, 'search']);
@@ -142,6 +135,13 @@ Route::middleware('auth:sanctum')->group(function() {
             ->delete('servers/{server}', [ServersController::class, 'destroy'])
             ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CREATE_ABILITY);
     });
+
+    Route::name('servers')
+        ->get('servers', [ServersController::class, 'getList']);
+    Route::name('servers.summary')
+        ->get('servers/summary', [ServersController::class, 'summary']);
+    Route::name('servers.get')
+        ->get('servers/{server}', [ServersController::class, 'get']);
 
     Route::name('servers.abilities')
         ->get('servers/{server}/abilities', [ServersController::class, 'abilities']);

@@ -1,8 +1,7 @@
 <template>
     <div class="fm-content d-flex flex-column">
-        <disk-list v-bind:manager="manager" />
         <bread-crumb v-bind:manager="manager" />
-        <div class="fm-content-body">
+        <div class="fm-content-body min-h-[40vh]">
             <table-view v-if="viewType === 'table'" v-bind:manager="manager" />
             <grid-view v-else v-bind:manager="manager" />
         </div>
@@ -46,15 +45,15 @@ export default {
     .fm-content-body {
         overflow-y: scroll;
 
-        @media screen and (min-height: 800px) {
-            height: 550px;
-        }
-        @media screen and (max-height: 800px) {
-            height: 420px;
-        }
-        @media screen and (max-height: 600px) {
-            height: 350px;
-        }
+        //@media screen and (min-height: 800px) {
+        //    height: 370px;
+        //}
+        //@media screen and (max-height: 800px) {
+        //    height: 270px;
+        //}
+        //@media screen and (max-height: 600px) {
+        //    height: 170px;
+        //}
     }
 }
 </style>

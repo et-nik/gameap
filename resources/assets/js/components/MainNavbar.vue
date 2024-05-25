@@ -50,16 +50,14 @@
                     {
                       icon: 'fa-solid fa-book',
                       label: trans('navbar.documentation'),
-                      link: 'https://docs.gameap.com',
+                      link: pageLanguage === 'ru' ? 'https://docs.gameap.com/ru/' : 'https://docs.gameap.com/en/',
+                    },
+                    {
+                      icon: 'fa-solid fa-laptop-code',
+                      label: trans('navbar.api_documentation'),
+                      link: 'https://openapi.gameap.io/',
                     }
                 ],
-                [
-                    {
-                      icon: 'fa-solid fa-bug',
-                      label: trans('navbar.error_report'),
-                      route: {name: 'report_bug'},
-                    }
-                ]
               ]"
         ></MainNavbarDropdown>
 
@@ -121,12 +119,12 @@
 </template>
 
 <script setup>
-import {trans} from "../i18n/i18n"
+import {trans, pageLanguage} from "../i18n/i18n"
 import {computed, ref} from 'vue'
 import MainNavbarDropdown from "./MainNavbarDropdown.vue";
 import {adminLinks, serversLinks} from "./bars";
 import {useAuthStore} from "../store/auth";
-import {errorNotification, notification} from "../parts/dialogs";
+import {errorNotification} from "../parts/dialogs";
 
 const authStore = useAuthStore()
 

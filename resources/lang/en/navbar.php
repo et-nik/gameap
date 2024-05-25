@@ -18,6 +18,7 @@ return [
     'control_modules'   => '- Modules control panel -',
     'gameap'            => 'GameAP',
     'documentation'     => 'Documentation',
+    'api_documentation' => 'API Documentation',
     'update'            => 'Check for updates',
     'error_report'      => 'Report a bug',
     'help'              => 'Help',

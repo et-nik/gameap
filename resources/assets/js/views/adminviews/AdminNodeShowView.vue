@@ -103,7 +103,7 @@ const { daemonInfo, loading } = storeToRefs(nodeStore)
 
 const breadcrumbs = computed(() => {
   let result = [
-    {route:'/', text:'GameAP', icon: 'fa-solid fa-home'},
+    {route:'/', text:'GameAP', icon: 'gicon gicon-gameap'},
     {route:{name: 'admin.nodes.index'}, text:trans('dedicated_servers.dedicated_servers')},
   ]
 
