@@ -50,9 +50,7 @@ class ServersPermissionsTest extends TestCase
 
     public function testCommonForbidden()
     {
-        $this->userRepository->updateServerPermission($this->user, $this->server, [
-            'game-server-common' => 'disallow',
-        ]);
+        $this->userRepository->saveServerPermission($this->user, $this->server, []);
 
         $response = $this->get(route('servers.control', $this->server->id));
         $response->assertStatus(Response::HTTP_FORBIDDEN);
