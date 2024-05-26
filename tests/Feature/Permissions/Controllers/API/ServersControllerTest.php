@@ -56,24 +56,36 @@ class ServersControllerTest extends PermissionsTestCase
     public function userRoutesDataProvider()
     {
         return [
-            ['get', 'api.servers.get', ['server' => $this->server->id]],
-            ['get', 'api.servers.abilities', ['server' => $this->server->id]],
-            ['post', 'api.servers.start', ['server' => $this->server->id]],
-            ['post', 'api.servers.stop', ['server' => $this->server->id]],
-            ['post', 'api.servers.restart', ['server' => $this->server->id]],
-            ['post', 'api.servers.install', ['server' => $this->server->id]],
-            ['post', 'api.servers.update', ['server' => $this->server->id]],
-            ['post', 'api.servers.reinstall', ['server' => $this->server->id]],
-            ['get', 'api.servers.get_status', ['server' => $this->server->id]],
-            ['get', 'api.servers.query', ['server' => $this->server->id]],
-            ['get', 'api.servers.get_tasks', ['server' => $this->server->id]],
-            ['post', 'api.servers.add_task', ['server' => $this->server->id]],
-            ['put', 'api.servers.update_task', ['server' => $this->server->id, 'server_task' => $this->task]],
-            ['delete', 'api.servers.delete_task', ['server' => $this->server->id, 'server_task' => $this->task]],
-            ['get', 'api.servers.get_settings', ['server' => $this->server->id]],
-            ['put', 'api.servers.save_settings', ['server' => $this->server->id]],
-            ['get', 'api.servers.console', ['server' => $this->server->id]],
-            ['post', 'api.servers.send_command', ['server' => $this->server->id]],
+            ['get', 'api.servers.get', ['server' => $this->server->id], []],
+            ['get', 'api.servers.abilities', ['server' => $this->server->id], []],
+            ['post', 'api.servers.start', ['server' => $this->server->id], []],
+            ['post', 'api.servers.stop', ['server' => $this->server->id], []],
+            ['post', 'api.servers.restart', ['server' => $this->server->id], []],
+            ['post', 'api.servers.install', ['server' => $this->server->id], []],
+            ['post', 'api.servers.update', ['server' => $this->server->id], []],
+            ['post', 'api.servers.reinstall', ['server' => $this->server->id], []],
+            ['get', 'api.servers.get_status', ['server' => $this->server->id], []],
+            ['get', 'api.servers.query', ['server' => $this->server->id], []],
+            ['get', 'api.servers.get_tasks', ['server' => $this->server->id], []],
+            ['post', 'api.servers.add_task', ['server' => $this->server->id], [
+                'server_id'     => $this->server->id,
+                'command'       => 'start',
+                'repeat'        => '0',
+                'repeat_period' => '1 day',
+                'execute_date'  => '2020-05-23 00:00:00',
+            ]],
+            ['put', 'api.servers.update_task', ['server' => $this->server->id, 'server_task' => $this->task], [
+                'server_id'     => $this->server->id,
+                'command'       => 'start',
+                'repeat'        => '0',
+                'repeat_period' => '1 day',
+                'execute_date'  => '2020-05-23 00:00:00',
+            ]],
+            ['delete', 'api.servers.delete_task', ['server' => $this->server->id, 'server_task' => $this->task], []],
+            ['get', 'api.servers.get_settings', ['server' => $this->server->id], []],
+            ['put', 'api.servers.save_settings', ['server' => $this->server->id], [['name' => 'PHP is terrible', 'value' => true]]],
+            ['get', 'api.servers.console', ['server' => $this->server->id], []],
+            ['post', 'api.servers.send_command', ['server' => $this->server->id], ['command' => 'PHP is terrible']],
         ];
     }
 
@@ -91,9 +103,10 @@ class ServersControllerTest extends PermissionsTestCase
             $method = $item[0];
             $route = $item[1];
             $params = $item[2] ?? [];
+            $requestData = $item[3] ?? [];
 
             /** @var TestResponse $response */
-            $response = $this->{$method}(route($route, $params), []);
+            $response = $this->{$method}(route($route, $params), $requestData);
             if ($response->status() !== Response::HTTP_FORBIDDEN) {
             	$this->fail('Response status is '. $response->status() .' should be 403, for route "'. $route . '" with params: ' . json_encode($params));
             }
