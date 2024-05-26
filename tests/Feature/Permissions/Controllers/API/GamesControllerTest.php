@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Permissions\Controllers\API;
 
+use Gameap\Models\Game;
 use Illuminate\Http\Response;
 use Tests\Feature\Permissions\PermissionsTestCase;
 
@@ -14,14 +15,17 @@ class GamesControllerTest extends PermissionsTestCase
 
     public function routesDataProvider()
     {
+        /** @var Game $game */
+        $game = factory(Game::class)->create();
+
         return [
             ['get', 'api.games'],
             ['post', 'api.games.store'],
-            ['get', 'api.games.show', 1],
-            ['put', 'api.games.update', 1],
+            ['get', 'api.games.show', $game->code],
+            ['put', 'api.games.update', $game->code],
             ['post', 'api.games.upgrade'],
-            ['get', 'api.games.mods', 1],
-            ['delete', 'api.games.destroy', 1],
+            ['get', 'api.games.mods', $game->code],
+            ['delete', 'api.games.destroy', $game->code],
         ];
     }
 

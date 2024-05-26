@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Permissions\Controllers\API;
 
-use Gameap\Models\GameMod;
+use Gameap\Models\GdaemonTask;
 use Illuminate\Http\Response;
 use Tests\Feature\Permissions\PermissionsTestCase;
 
-class GameModsControllerTest extends PermissionsTestCase
+class GDaemonTaskControllerTest extends PermissionsTestCase
 {
     public function setUp(): void
     {
@@ -15,16 +15,13 @@ class GameModsControllerTest extends PermissionsTestCase
 
     public function routesDataProvider()
     {
-        /** @var GameMod $gameMod */
-        $gameMod = factory(GameMod::class)->create();
+        /** @var GdaemonTask $task */
+        $task = factory(GdaemonTask::class)->create();
 
         return [
-            ['get', 'api.game_mods'],
-            ['get', 'api.game_mods.get_mods_list', $gameMod->game_code],
-            ['post', 'api.game_mods.store'],
-            ['get', 'api.game_mods.show', $gameMod->id],
-            ['put', 'api.game_mods.update', $gameMod->id],
-            ['delete', 'api.game_mods.destroy', $gameMod->id],
+            ['get', 'api.gdaemon_tasks.list'],
+            ['get', 'api.gdaemon_tasks.get', $task->id],
+            ['get', 'api.gdaemon_tasks.output', $task->id],
         ];
     }
 
