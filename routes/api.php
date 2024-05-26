@@ -180,8 +180,7 @@ Route::middleware('auth:sanctum')->group(function() {
         ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CONSOLE_ABILITY);
 
     Route::name('servers.send_command')
-        ->post('servers/{server}/console', [ServersController::class, 'sendCommand'])
-        ->middleware('abilities:' . PersonalAccessTokenService::SERVER_CONSOLE_ABILITY);
+        ->post('servers/{server}/console', [ServersController::class, 'sendCommand']);
 
     Route::name('servers.get_tasks')->get('servers/{server}/tasks', [ServersTasksController::class, 'getList']);
     Route::name('servers.add_task')->post('servers/{server}/tasks', [ServersTasksController::class, 'store']);
