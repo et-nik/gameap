@@ -23,10 +23,10 @@ class UsersControllerTest  extends PermissionsTestCase
         return [
             ['get', 'api.users', []],
             ['post', 'api.users.store', []],
-            ['get', 'api.users.servers', [$this->editedUser->id]],
-            ['get', 'api.users.show', [$this->editedUser->id]],
-            ['put', 'api.users.update', [$this->editedUser->id]],
-            ['delete', 'api.users.destroy', [$this->editedUser->id]],
+            ['get', 'api.users.servers', ['id' => $this->editedUser->id]],
+            ['get', 'api.users.show', ['id' => $this->editedUser->id]],
+            ['put', 'api.users.update', ['id' => $this->editedUser->id]],
+            ['delete', 'api.users.destroy', ['id' => $this->editedUser->id]],
         ];
     }
 
@@ -39,6 +39,12 @@ class UsersControllerTest  extends PermissionsTestCase
      */
     public function testForbidden(string $method, string $route, array $params = [])
     {
+        // I hate f**king PHP. routesDataProvider gives me null in params
+        // I wish time to rewrite this to Golang
+        if ($method !== 'get') {
+            $params = ['id' => $this->editedUser->id];
+        }
+
         $this->setCurrentUserRoles(['user']);
 
         $response = $this->{$method}(route($route, $params), []);
