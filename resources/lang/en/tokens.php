@@ -24,6 +24,8 @@ return [
             'console'        => 'Access to read and write into game server console',
             'rcon-console'   => 'Access to game server RCON console',
             'rcon-players'   => 'Access to players management on game server',
+            'tasks-manage'   => 'Manage game server tasks',
+            'settings-manage' => 'Manage game server settings',
         ],
         'gdaemon_task' => [
             'read'           => 'Read GameAP Daemon task',
