@@ -70,8 +70,7 @@
 </template>
 
 <script setup>
-import {computed} from "vue";
-import {useAuthStore} from "./store/auth";
+import {computed, ref} from "vue"
 import {
   NConfigProvider,
   NDialogProvider,
@@ -79,16 +78,69 @@ import {
   ruRU,
   enUS,
 } from "naive-ui"
-import MainNavbar from "./components/MainNavbar.vue";
-import GuestNavbar from "./components/GuestNavbar.vue";
-import MainSidebar from "./components/MainSidebar.vue";
-import ContentView from "./components/ContentView.vue";
-import {pageLanguage} from "./i18n/i18n";
+import MainNavbar from "./components/MainNavbar.vue"
+import GuestNavbar from "./components/GuestNavbar.vue"
+import MainSidebar from "./components/MainSidebar.vue"
+import ContentView from "./components/ContentView.vue"
+import {pageLanguage} from "./i18n/i18n"
+
+import {useRoute, useRouter} from "vue-router"
+
+import {useAuthStore} from "./store/auth"
+import {useNodeStore} from "./store/node"
+import {useDaemonTaskStore} from "./store/daemonTask"
+import {useGameStore} from "./store/game"
+import {useServerStore} from "./store/server"
+import {useUserStore} from "./store/user"
+
+const route = useRoute()
+const router = useRouter()
 
 const authStore = useAuthStore()
+const nodeStore = useNodeStore()
+const daemonTaskStore = useDaemonTaskStore()
+const gameStore = useGameStore()
+const serverStore = useServerStore()
+const userStore = useUserStore()
 
 const user = computed(() => {
   return authStore.user
 })
+
+
+const onAnyStoreAction = ({
+  name, // name of the action
+  store, // store instance, same as `someStore`
+  args, // array of parameters passed to the action
+  after, // hook after the action returns or resolves
+  onError, // hook if the action throws or rejects
+}) => {
+  onError((error) => {
+
+    if (error.response && error.response.status) {
+      console.log(error.response)
+      console.log(error.response.status)
+
+      switch (error.response.status) {
+        case 401:
+          authStore.logout()
+          router.push({name: 'login'})
+          break
+        case 403:
+          router.push({name: 'error403'})
+          break
+        case 404:
+          router.push({name: 'error404'})
+          break
+      }
+    }
+  })
+}
+
+nodeStore.$onAction(onAnyStoreAction)
+daemonTaskStore.$onAction(onAnyStoreAction)
+gameStore.$onAction(onAnyStoreAction)
+serverStore.$onAction(onAnyStoreAction)
+userStore.$onAction(onAnyStoreAction)
 
 </script>

@@ -18,8 +18,10 @@ return [
     'generate'      => 'Сгенерировать',
     'upload_file'   => 'Загрузить файл',
 
-    'confirm_message' => 'Вы уверены?',
-    'wait'      => 'Пожалуйста подождите...',
+    'confirm_message'       => 'Вы уверены?',
+    'wait'                  => 'Пожалуйста подождите...',
+    'something_missing'     => 'Что-то отсутствует',
+    'something_went_wrong'  => 'Что-то пошло не так',
 
     'yes'       => 'Да',
     'no'        => 'Нет',

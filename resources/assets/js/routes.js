@@ -22,7 +22,22 @@ import ProfileView from "./views/ProfileView.vue";
 import TokensView from "./views/TokensView.vue";
 import AdminNodeShowView from "./views/adminviews/AdminNodeShowView.vue";
 import LoginView from "./views/LoginView.vue";
+
+import {useAuthStore} from "./store/auth";
+import Error404View from "./views/errors/Error404View.vue";
+import Error403View from "./views/errors/Error403View.vue";
+
 const routes = [
+    {
+        path: '/403',
+        name: 'error403',
+        component: Error403View,
+    },
+    {
+        path: '/404',
+        name: 'error404',
+        component: Error404View,
+    },
     {
         path: '/login',
         name: 'login',
@@ -194,4 +209,21 @@ const routes = [
     },
 ]
 
-export {routes}
+const beforeEachRoute = (to, from) => {
+    const authStore = useAuthStore()
+
+    if (to.name !== 'login' && !authStore.isAuthenticated) {
+        return {name: 'login'}
+    }
+
+    if (to.name === 'login' && authStore.isAuthenticated) {
+        return {name: 'home'}
+    }
+
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    }
+}
+
+
+export {routes, beforeEachRoute}

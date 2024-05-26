@@ -12,8 +12,15 @@ export const useAuthStore = defineStore('auth', {
         isAdmin: (state) => {
             return window.user.roles.includes('admin')
         },
+        isAuthenticated: (state) => {
+            return state.user !== null
+        },
         user: (state) => {
-            return window.user
+            if (window.user && window.user.id !== null) {
+                return window.user
+            }
+
+            return null
         },
         canServerAbility: (state) => (serverId, ability) => {
             if (state.isAdmin) {

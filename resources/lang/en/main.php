@@ -18,8 +18,10 @@ return [
     'generate'      => 'Generate',
     'upload_file'   => 'Upload file',
 
-    'confirm_message' => 'Are you sure?',
-    'wait'      => 'Please wait...',
+    'confirm_message'       => 'Are you sure?',
+    'wait'                  => 'Please wait...',
+    'something_missing'     => 'Something missing',
+    'something_went_wrong'  => 'Something went wrong',
 
     'yes'       => 'Yes',
     'no'        => 'No',

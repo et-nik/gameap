@@ -134,18 +134,7 @@ const setActiveTab = (tab) => {
     store.dispatch('activeTab/setName', tab);
 }
 
-import {routes} from "./routes";
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes,
-})
-
-router.beforeEach((to, from) => {
-    if (to.meta.title) {
-        document.title = to.meta.title;
-    }
-})
+import {beforeEachRoute, routes} from "./routes";
 
 const app = createApp({
     components: {
@@ -228,8 +217,15 @@ const pinia = createPinia()
 
 app.use(store)
 app.use(naive)
-app.use(router)
 app.use(pinia)
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+})
+router.beforeEach(beforeEachRoute)
+
+app.use(router)
 
 app.use(fileManager, {store: store})
 

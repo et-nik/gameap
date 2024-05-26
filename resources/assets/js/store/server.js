@@ -105,8 +105,7 @@ export const useServerStore = defineStore('server', {
                 const response = await axios.get('/api/servers/' + this.serverId)
                 this.server = response.data;
             } catch (error) {
-                this.errors.push(error)
-                console.error(error)
+                throw error
             } finally {
                 this.loading = false;
             }
@@ -118,9 +117,7 @@ export const useServerStore = defineStore('server', {
                 const response = await axios.get('/api/servers/' + this.serverId + '/abilities')
                 this.abilities = response.data;
             } catch (error) {
-                errorNotification('', error)
-                this.errors.push(error)
-                console.error(error)
+                throw error
             } finally {
                 this.loading = false;
             }
@@ -167,9 +164,7 @@ export const useServerStore = defineStore('server', {
                 const response = await axios.get('/api/servers/' + this.serverId + '/rcon/features')
                 this.rconSupportedFeatures = response.data;
             } catch (error) {
-                errorNotification('', error)
-                this.errors.push(error)
-                console.error(error)
+                throw error
             } finally {
                 this.loading = false;
             }

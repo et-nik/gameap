@@ -20,10 +20,10 @@
 <body>
     <script type="application/javascript">
         window.user = {
-            id: {{ Auth::user()->id }},
-            login: "{{ Auth::user()->login }}",
-            name: "{{ Auth::user()->name }}",
-            roles: {!! Auth::user()->getRoles() !!}
+            id: {{ Auth::user() ? Auth::user()->id : 'null'}},
+            login: "{{ Auth::user() ? Auth::user()->login : ''}}",
+            name: "{{ Auth::user() ? Auth::user()->name : ''}}",
+            roles: {!! Auth::user() ? Auth::user()->getRoles() : '[]' !!}
         };
     </script>
 
