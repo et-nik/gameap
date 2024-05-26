@@ -43,8 +43,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::name('user.servers_abilities')
         ->get('/user/servers_abilities', [ServersController::class, 'allServersAbilities']);
 
-    Route::name('game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', [GameModsController::class, 'getListForGame']);
-
     Route::middleware('isAdmin')->group(function () {
         // Dedicated servers
         Route::name('dedicated_servers')
@@ -113,6 +111,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::name('games.destroy')->delete('/games/{game}', [GamesController::class, 'destroy']);
 
         Route::name('game_mods')->get('/game_mods', [GameModsController::class, 'index']);
+        Route::name('game_mods.get_mods_list')->get('game_mods/get_list_for_game/{game}', [GameModsController::class, 'getListForGame']);
         Route::name('game_mods.store')->post('/game_mods', [GameModsController::class, 'store']);
         Route::name('game_mods.show')->get('/game_mods/{game_mod}', [GameModsController::class, 'show']);
         Route::name('game_mods.update')->put('/game_mods/{game_mod}', [GameModsController::class, 'update']);
