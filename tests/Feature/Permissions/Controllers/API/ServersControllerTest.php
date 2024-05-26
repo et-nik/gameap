@@ -26,9 +26,9 @@ class ServersControllerTest extends PermissionsTestCase
     public function routesDataProvider()
     {
         return [
-            ['api.servers.store', []],
-            ['api.servers.save', ['server' => $this->server->id]],
-            ['api.servers.destroy', ['server' => $this->server->id]],
+            ['post', 'api.servers.store', []],
+            ['put', 'api.servers.save', ['server' => $this->server->id]],
+            ['delete', 'api.servers.destroy', ['server' => $this->server->id]],
         ];
     }
 
@@ -80,7 +80,7 @@ class ServersControllerTest extends PermissionsTestCase
     {
         $this->setCurrentUserRoles(['user']);
 
-        $data = $this->routesDataProvider();
+        $data = $this->userRoutesDataProvider();
 
         // dataProvider doesn't work how I expect
         // I don't want to spend a lot of time to find why it doesn't work
