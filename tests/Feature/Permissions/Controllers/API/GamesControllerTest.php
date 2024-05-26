@@ -31,18 +31,23 @@ class GamesControllerTest extends PermissionsTestCase
         ];
     }
 
-    /**
-     * @dataProvider routesDataProvider
-     *
-     * @param string $method
-     * @param string $route
-     * @param array $params
-     */
-    public function testForbidden(string $method, string $route, array $params = [])
+    public function testForbidden()
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, $params), []);
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $data = $this->routesDataProvider();
+
+        // dataProvider doesn't work how I expect
+        // I don't want to spend a lot of time to find why it doesn't work
+        // I rewrite to Golang code faster than found why it doesn't work
+        // I hate PHP and PHPUnit
+        foreach ($data as $item) {
+            $method = $item[0];
+            $route = $item[1];
+            $params = $item[2] ?? [];
+
+            $response = $this->{$method}(route($route, $params), $data);
+            $response->assertStatus(Response::HTTP_FORBIDDEN);
+        }
     }
 }

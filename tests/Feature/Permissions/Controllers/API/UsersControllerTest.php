@@ -41,9 +41,7 @@ class UsersControllerTest  extends PermissionsTestCase
     {
         // I hate f**king PHP. routesDataProvider gives me null in params
         // I wish time to rewrite this to Golang
-        if ($method !== 'get') {
-            $params = ['id' => $this->editedUser->id];
-        }
+        $params = ['id' => $this->editedUser->id];
 
         $this->setCurrentUserRoles(['user']);
 

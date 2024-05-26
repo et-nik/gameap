@@ -68,7 +68,7 @@ class ServersControllerTest extends PermissionsTestCase
     }
 
     /**
-     * $dataProvider userRoutesDataProvider
+     * @dataProvider userRoutesDataProvider
      *
      * @param string $method
      * @param string $route
