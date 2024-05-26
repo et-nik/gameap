@@ -29,7 +29,7 @@ class ClientCertificatesControllerTest extends PermissionsTestCase
 
         // dataProvider doesn't work how I expect
         // I don't want to spend a lot of time to find why it doesn't work
-        // I rewrite to Golang code faster than found why it doesn't work
+        // I rewrite to Golang code faster than found why it doesn't work in PHP
         // I hate PHP and PHPUnit
         foreach ($data as $item) {
             $method = $item[0];

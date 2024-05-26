@@ -32,15 +32,24 @@ class ServersControllerTest extends PermissionsTestCase
         ];
     }
 
-    /**
-     * @dataProvider routesDataProvider
-     */
-    public function testForbidden($method, $route, $param = null, $data = [])
+    public function testForbidden()
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, $param), $data);
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $data = $this->routesDataProvider();
+
+        // dataProvider doesn't work how I expect
+        // I don't want to spend a lot of time to find why it doesn't work
+        // I rewrite to Golang code faster than found why it doesn't work in PHP
+        // I hate PHP and PHPUnit
+        foreach ($data as $item) {
+            $method = $item[0];
+            $route = $item[1];
+            $params = $item[2] ?? [];
+
+            $response = $this->{$method}(route($route, $params), $data);
+            $response->assertStatus(Response::HTTP_FORBIDDEN);
+        }
     }
 
     public function userRoutesDataProvider()
@@ -60,25 +69,30 @@ class ServersControllerTest extends PermissionsTestCase
             ['post', 'api.servers.send_command', ['server' => $this->server->id]],
             ['get', 'api.servers.get_tasks', ['server' => $this->server->id]],
             ['post', 'api.servers.add_task', ['server' => $this->server->id]],
-            ['put', 'api.servers.update_task', [$this->server->id, $this->task]],
-            ['delete', 'api.servers.delete_task', [$this->server->id, $this->task]],
+            ['put', 'api.servers.update_task', ['server' => $this->server->id, 'server_task' => $this->task]],
+            ['delete', 'api.servers.delete_task', ['server' => $this->server->id, 'server_task' => $this->task]],
             ['get', 'api.servers.get_settings', ['server' => $this->server->id]],
             ['put', 'api.servers.save_settings', ['server' => $this->server->id]],
         ];
     }
 
-    /**
-     * @dataProvider userRoutesDataProvider
-     *
-     * @param string $method
-     * @param string $route
-     * @param array $params
-     */
     public function testForbiddenForUser(string $method, string $route, array $params = [])
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, $params), []);
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $data = $this->routesDataProvider();
+
+        // dataProvider doesn't work how I expect
+        // I don't want to spend a lot of time to find why it doesn't work
+        // I rewrite to Golang code faster than found why it doesn't work in PHP
+        // I hate PHP and PHPUnit
+        foreach ($data as $item) {
+            $method = $item[0];
+            $route = $item[1];
+            $params = $item[2] ?? [];
+
+            $response = $this->{$method}(route($route, $params), $data);
+            $response->assertStatus(Response::HTTP_FORBIDDEN);
+        }
     }
 }
