@@ -21,7 +21,7 @@ class GDaemonTaskControllerTest extends PermissionsTestCase
     public function routesDataProvider()
     {
         return [
-            ['get', 'api.gdaemon_tasks.list'],
+            ['get', 'api.gdaemon_tasks.list', []],
             ['get', 'api.gdaemon_tasks.get', ['gdaemon_task' => $this->task->id]],
             ['get', 'api.gdaemon_tasks.output', ['gdaemon_task' => $this->task->id]],
         ];
@@ -29,12 +29,16 @@ class GDaemonTaskControllerTest extends PermissionsTestCase
 
     /**
      * @dataProvider routesDataProvider
+     *
+     * @param string $method
+     * @param string $route
+     * @param array $params
      */
-    public function testForbidden($method, $route, $params = [], $data = [])
+    public function testForbidden($method, $route, array $params = [])
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, $params), $data);
+        $response = $this->{$method}(route($route, $params), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
