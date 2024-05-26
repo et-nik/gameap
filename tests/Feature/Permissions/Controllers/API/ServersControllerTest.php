@@ -3,6 +3,7 @@
 namespace Tests\Feature\Permissions\Controllers\API;
 
 use Gameap\Models\Server;
+use Gameap\Models\ServerTask;
 use Illuminate\Http\Response;
 use Tests\Feature\Permissions\PermissionsTestCase;
 
@@ -11,11 +12,15 @@ class ServersControllerTest extends PermissionsTestCase
     /** @var Server */
     private $server;
 
+    /** @var ServerTask */
+    private $task;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->server = factory(Server::class)->create();
+        $this->task = factory(ServerTask::class)->create(['server_id' => $this->server->id]);
     }
 
     public function routesDataProvider()
@@ -40,9 +45,6 @@ class ServersControllerTest extends PermissionsTestCase
 
     public function userRoutesDataProvider()
     {
-        /** @var Server $server */
-        $server = factory(Server::class)->create();
-
         return [
             ['get', 'api.servers.get', ['server' => $this->server->id]],
             ['get', 'api.servers.abilities', ['server' => $this->server->id]],
@@ -58,8 +60,8 @@ class ServersControllerTest extends PermissionsTestCase
             ['post', 'api.servers.send_command', ['server' => $this->server->id]],
             ['get', 'api.servers.get_tasks', ['server' => $this->server->id]],
             ['post', 'api.servers.add_task', ['server' => $this->server->id]],
-            ['put', 'api.servers.update_task', [$server->id, 1]],
-            ['delete', 'api.servers.delete_task', [$server->id, 1]],
+            ['put', 'api.servers.update_task', [$this->server->id, $this->task]],
+            ['delete', 'api.servers.delete_task', [$this->server->id, $this->task]],
             ['get', 'api.servers.get_settings', ['server' => $this->server->id]],
             ['put', 'api.servers.save_settings', ['server' => $this->server->id]],
         ];
@@ -67,12 +69,16 @@ class ServersControllerTest extends PermissionsTestCase
 
     /**
      * $dataProvider userRoutesDataProvider
+     *
+     * @param string $method
+     * @param string $route
+     * @param array $params
      */
-    public function testForbiddenForUser($method, $route, $params = [])
+    public function testForbiddenForUser(string $method, string $route, array $params = [])
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, $params, []), []);
+        $response = $this->{$method}(route($route, $params), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
