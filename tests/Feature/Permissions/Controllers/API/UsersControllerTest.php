@@ -21,9 +21,9 @@ class UsersControllerTest  extends PermissionsTestCase
     public function routesDataProvider()
     {
         return [
-            ['get', 'api.users'],
-            ['post', 'api.users.store'],
-            ['get', 'api.users.servers'],
+            ['get', 'api.users', []],
+            ['post', 'api.users.store', []],
+            ['get', 'api.users.servers', ['id' => $this->editedUser->id]],
             ['get', 'api.users.show', ['id' => $this->editedUser->id]],
             ['put', 'api.users.update', ['id' => $this->editedUser->id]],
             ['delete', 'api.users.destroy', ['id' => $this->editedUser->id]],
@@ -32,12 +32,16 @@ class UsersControllerTest  extends PermissionsTestCase
 
     /**
      * @dataProvider routesDataProvider
+     *
+     * @param string $method
+     * @param string $route
+     * @param array $params
      */
-    public function testForbidden($method, $route, $params = [], $data = [])
+    public function testForbidden(string $method, string $route, array $params = [])
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, $params), $data);
+        $response = $this->{$method}(route($route, $params), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

@@ -34,7 +34,7 @@ class GDaemonTaskControllerTest extends PermissionsTestCase
      * @param string $route
      * @param array $params
      */
-    public function testForbidden(string $method, string $route, array $params = [])
+    public function testForbidden(string $method, string $route, array $params)
     {
         $this->setCurrentUserRoles(['user']);
 
