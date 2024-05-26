@@ -47,7 +47,7 @@ class ServersControllerTest extends PermissionsTestCase
             $route = $item[1];
             $params = $item[2] ?? [];
 
-            $response = $this->{$method}(route($route, $params), $data);
+            $response = $this->{$method}(route($route, $params), []);
             $response->assertStatus(Response::HTTP_FORBIDDEN);
         }
     }
@@ -91,7 +91,7 @@ class ServersControllerTest extends PermissionsTestCase
             $route = $item[1];
             $params = $item[2] ?? [];
 
-            $response = $this->{$method}(route($route, $params), $data);
+            $response = $this->{$method}(route($route, $params), []);
             $response->assertStatus(Response::HTTP_FORBIDDEN);
         }
     }
