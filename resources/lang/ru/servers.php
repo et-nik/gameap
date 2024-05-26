@@ -64,6 +64,7 @@ return [
     'query_map'     => 'Карта',
 
     'console'       => 'Консоль',
+    'enter_command' => 'Введите команду',
 
     'not_installed_msg' => 'Сервер не установлен',
     'installation_process_msg' => 'Сервер в процессе установки',
@@ -76,6 +77,7 @@ return [
     'create'        => 'Создать',
     'edit'          => 'Редактирование сервера',
     'revoke'        => 'Отозвать',
+    'add_server'    => 'Добавить сервер',
 
     'settings'          => 'Настройки',
 
@@ -137,4 +139,7 @@ return [
     'filters' => 'Фильтр',
     'select_game_filter_placeholder' => 'Выберите игры',
     'select_ip_filter_placeholder' => 'Выберите список IP',
+
+    'select_server' => 'Выберите сервер',
+    'server_already_added' => 'Сервер уже добавлен',
 ];

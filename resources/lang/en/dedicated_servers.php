@@ -16,9 +16,11 @@ return [
     'title_view' => "View Dedicated Server",
 
     'dedicated_servers' => 'Dedicated servers',
+    'nodes' => 'Nodes',
 
     'create'                    => 'Create',
     'edit'                      => 'Edit',
+    'view'                      => 'View',
     'save'                      => 'Save',
     'main'                      => 'Main',
     'name'                      => 'Name',
@@ -65,23 +67,27 @@ return [
 
     'console_command_shortcodes'   => 'Script Send Command',
     'd_shortcodes_console_command'   => 'Console command',
+
+    'delete_confirm_msg' => 'Are you sure you want to delete this node?',
     
     'create_success_msg' => 'Dedicated server created successfully',
     'update_success_msg' => 'Dedicated server updated successfully',
     'delete_success_msg' => 'Dedicated server deleted successfully',
+
+    'delete_has_servers_error_msg' => 'You can\'t delete dedicated server with game servers',
     
     'autosetup_title' => 'Dedicated Server Auto Setup',
     
     'autosetup_description_linux' => '<p>You can use this host and token to setup GDaemon via gameapctl:</p>
-                    <ul>
+                    <ul class="list-disc">
                         <li>Host: <code>:host</code></li>
                         <li>Token: <code>:token</code></li>
                     </ul>
                     <p>Or to auto setup GDaemon run the command on Dedicated Server:</p>',
 
     'autosetup_description_windows' => '<p>Only for Windows</p>
-                                <ul>
-                                    <li>Go to <a href="https://github.com/gameap/gameapctl/releases">gameapctl releases page</a>
+                                <ul class="list-disc">
+                                    <li>Go to <a target="_blank" href="https://github.com/gameap/gameapctl/releases">gameapctl releases page</a>
                                         (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>
                                     <li>Select a last version and download an archive for you architecture, most likely gameapctl-vX.Y.Z-windows-amd64.zip will work for you</li>

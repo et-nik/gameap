@@ -15,7 +15,7 @@ module.exports = {
     resolve: {
         alias: {
             vue: '@vue/compat'
-        }
+        },
     },
     module: {
         rules: [
@@ -40,7 +40,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         output: {
             chunkFilename: 'js/chunks/[name].js?[chunkhash]',
             publicPath: '/',
-        }
+        },
     })
     .vue({
         extractStyles: true,

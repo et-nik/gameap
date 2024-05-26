@@ -1,0 +1,132 @@
+get:
+  summary: Get Server Settings
+  description: |
+    Get all settings for the game server
+  tags:
+    - servers
+  parameters:
+    - name: server
+      in: path
+      required: true
+      description: 'Game Server ID'
+      schema:
+        type: integer
+  responses:
+    200:
+      description: List of settings
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Setting name
+                value:
+                  type: string
+                  description: Setting value
+                type:
+                  type: string
+                  description: Setting type (string, bool, int, etc...)
+                label:
+                  type: string
+                  description: Setting label
+
+            example: |
+              [
+                {
+                  "name": "autostart",
+                  "value": false,
+                  "type": "bool",
+                  "label": "Autostart on crash"
+                },
+                {
+                  "name": "update_before_start",
+                  "value": false,
+                  "type": "bool",
+                  "label": "Update server before starting"
+                },
+                {
+                  "name": "default_map",
+                  "value": "de_dust2",
+                  "type": "string",
+                  "label": "Default Map"
+                },
+                {
+                  "name": "maxplayers",
+                  "value": 32,
+                  "type": "string",
+                  "label": "Maximum players on server"
+                },
+                {
+                  "name": "fps",
+                  "value": 500,
+                  "type": "string",
+                  "label": "Server FPS (tickrate)"
+                }
+              ]
+
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
+put:
+  summary: Update Server Settings
+  tags:
+    - servers
+  parameters:
+    - name: server
+      in: path
+      required: true
+      description: 'Game Server ID'
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Setting name
+              value:
+                type: string
+                description: Setting value
+
+          example: |
+            [
+              {
+                "name": "autostart",
+                "value": false
+              },
+              {
+                "name": "update_before_start",
+                "value": false
+              },
+              {
+                "name": "default_map",
+                "value": "de_dust2"
+              },
+              {
+                "name": "maxplayers",
+                "value": 32
+              },
+              {
+                "name": "fps",
+                "value": 500
+              }
+            ]
+  responses:
+    200:
+      $ref: '../responses/common-success.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

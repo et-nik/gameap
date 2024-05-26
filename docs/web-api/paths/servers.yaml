@@ -11,20 +11,20 @@ get:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Server'
+              $ref: '../schemas/server.yaml'
   x-codeSamples:
     - lang: 'cURL'
       label: 'CLI'
       source: |
         curl --request GET \
-        --url 'https://demo.gameap.ru/api/servers' \
+        --url 'https://demo.gameap.com/api/servers' \
         --header 'Content-Type: application/json: ' \
         --header 'Authorization: Bearer YOUR_API_KEY'
     - lang: 'PHP'
       source: |
         <?php
   
-        $url = 'https://demo.gameap.ru/api/servers';
+        $url = 'https://demo.gameap.com/api/servers';
         $apiKey = 'YOUR_API_KEY';
 
         $curl = curl_init();
@@ -67,7 +67,7 @@ get:
         )
         
         func main() {
-          url := "https://demo.gameap.ru/api/servers"
+          url := "https://demo.gameap.com/api/servers"
           apiKey := "YOUR_API_KEY"
           
           client := &http.Client{}
@@ -100,7 +100,7 @@ get:
       source: |
         const request = require('request');
   
-        const url = 'https://demo.gameap.ru/api/servers';
+        const url = 'https://demo.gameap.com/api/servers';
         const apiKey = 'YOUR_API_KEY';
         
         const headers = {
@@ -154,15 +154,15 @@ post:
               maxLength: 128
               description: The name of the server.
               example: My Awesome Server
-            game_id:
-              type: string
-              description: The code of the game.
-              example: cstrike
             ds_id:
               type: integer
               format: int64
               description: The ID of the game server provider.
               example: 1
+            game_id:
+              type: string
+              description: The code of the game.
+              example: cstrike
             game_mod_id:
               type: integer
               format: int64
@@ -210,94 +210,3 @@ post:
       $ref: '../responses/common-error.yaml'
     5XX:
       $ref: '../responses/common-error.yaml'
-
-
-
-components:
-  schemas:
-    Server:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the server.
-          example: 1
-        uuid:
-          type: string
-          format: uuid
-          description: The UUID of the server.
-          example: "9910a3c8-d5b6-428f-8d5d-7bfa4db3ea8e"
-        uuid_short:
-          type: string
-          description: The short UUID of the server.
-          example: "9910a3c8"
-        enabled:
-          type: boolean
-          description: Indicates whether the server is enabled.
-          example: true
-        installed:
-          type: integer
-          description: Indicates whether the server is installed.
-          example: 1
-        blocked:
-          type: boolean
-          description: Indicates whether the server is blocked.
-          example: false
-        name:
-          type: string
-          description: The name of the server.
-          example: "CS 1.6"
-        ds_id:
-          type: integer
-          description: The ID of the game server provider.
-          example: 1
-        game_id:
-          type: string
-          description: The code of the game.
-          example: "cstrike"
-        game_mod_id:
-          type: integer
-          description: The ID of the game mod.
-          example: 7
-        server_ip:
-          type: string
-          description: The IP address of the server.
-          example: "172.17.0.8"
-        server_port:
-          type: integer
-          format: int32
-          description: The port number of the game server.
-          example: 27015
-        query_port:
-          type: integer
-          format: int32
-          description: The port number of the game server query.
-          example: 27015
-        rcon_port:
-          type: integer
-          format: int32
-          description: The port number of the game server rcon.
-          example: 27015
-        game:
-          type: object
-          properties:
-            code:
-              type: string
-              description: The code of the game.
-              example: "cstrike"
-            name:
-              type: string
-              description: The name of the game.
-              example: "Counter-Strike 1.6"
-            engine:
-              type: string
-              description: The engine of the game.
-              example: "GoldSource"
-            engine_version:
-              type: string
-              description: The version of the engine of the game.
-              example: "1"
-        online:
-          type: boolean
-          description: Indicates whether the server is online.
-          example: true

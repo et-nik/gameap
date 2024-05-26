@@ -15,9 +15,11 @@ return [
     'title_edit' => "Редактирование выделенного сервера",
 
     'dedicated_servers' => 'Выделенные серверы',
+    'nodes'             => 'Ноды',
 
     'create'                    => 'Создать',
     'edit'                      => 'Редактировать',
+    'view'                      => 'Просмотр',
     'save'                      => 'Сохранить',
     'main'                      => 'Основное',
     'name'                      => 'Имя',
@@ -65,22 +67,26 @@ return [
     'console_command_shortcodes'   => 'Скрипт отправки команды',
     'd_shortcodes_console_command'   => 'Команда консоли',
 
+    'delete_confirm_msg' => 'Вы уверены, что хотите удалить эту ноду?',
+
     'create_success_msg' => 'Выделенный сервер успешно создан',
     'update_success_msg' => 'Выделенный сервер успешно обновлён',
     'delete_success_msg' => 'Выделенный сервер успешно удалён',
 
+    'delete_has_servers_error_msg' => 'Нельзя удалить выделенный сервер, на котором есть сервера',
+
     'autosetup_title' => 'Автоматическая настройка выделенного сервера',
 
     'autosetup_description_linux' => '<p>Можете использовать следующие хост и токен для настройки GDaemon используя gameapctl:</p>
-                    <ul>
+                    <ul class="list-disc">
                         <li>Хост: <code>:host</code></li>
                         <li>Токен: <code>:token</code></li>
                     </ul>
                     <p>Или для автоматической настройки GDaemon запустите команду в консоли выделенного сервера:</p>',
 
     'autosetup_description_windows' => '<p>Только для Windows</p>
-                                <ul>
-                                    <li>Перейдите на страницу <a href="https://github.com/gameap/gameapctl/releases">gameapctl релизов</a>
+                                <ul class="list-disc">
+                                    <li>Перейдите на страницу <a target="_blank" href="https://github.com/gameap/gameapctl/releases">gameapctl релизов</a>
                                         (<code>https://github.com/gameap/gameapctl/releases</code>)
                                     </li>
                                     <li>Выберите последнюю версию и скачайте архив для вашей архитектуры, скорее всего вам подойдёт gameapctl-vX.Y.Z-windows-amd64.zip</li>

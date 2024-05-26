@@ -30,7 +30,7 @@ class UserRepository
     /**
      * @param array $attributes
      */
-    public function store(array $attributes): void
+    public function store(array $attributes): User
     {
         $user = User::create($attributes);
 
@@ -42,6 +42,8 @@ class UserRepository
             }
             $this->bouncer->refresh();
         }
+
+        return $user;
     }
 
     /**
@@ -98,6 +100,27 @@ class UserRepository
             } else {
                 $this->bouncer->unforbid($user)->to($pname, $server);
                 $user->allow($pname, $server);
+            }
+        }
+
+        $user->servers()->syncWithoutDetaching([$server->id]);
+
+        $this->bouncer->refreshFor($user);
+    }
+
+    public function saveServerPermission(User $user, Server $server, array $list): void
+    {
+        $permissions = collect($list)->keyBy('permission');
+        foreach (ServerPermissionHelper::getAllPermissions() as $pname) {
+            $isEnabled = $permissions->has($pname) &&
+                $permissions->get($pname)['value'];
+
+            if ($isEnabled) {
+                $this->bouncer->unforbid($user)->to($pname, $server);
+                $user->allow($pname, $server);
+            } else {
+                $this->bouncer->forbid($user)->to($pname, $server);
+                $user->disallow($pname, $server);
             }
         }
 

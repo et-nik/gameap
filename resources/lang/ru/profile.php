@@ -18,9 +18,12 @@ return [
     'roles'     => 'Роли',
 
     'profile'   => 'Профиль',
+    'edit'      => 'Редактировать профиль',
 
     'change_password' => 'Сменить пароль',
 
     'password_not_match_msg' => 'Ваш текущий пароль введён неверно. Попробуйте ещё раз.',
     'password_change_success_msg' => 'Пароль успешно изменён',
+
+    'update_success_msg' => 'Профиль успешно обновлён',
 ];

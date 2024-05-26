@@ -1,14 +1,14 @@
 <script setup>
-import { ref } from "vue";
+  import { ref } from "vue";
 
-const props = defineProps({
-    options: null,
-    name: "",
-    value: null,
-});
+  const props = defineProps({
+      options: null,
+      name: "",
+      value: null,
+  });
 
-const name = ref(props.name);
-const value = ref(props.value);
+  const name = ref(props.name);
+  const value = ref(props.value);
 </script>
 
 

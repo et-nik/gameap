@@ -1,3 +1,26 @@
+get:
+  summary: Get Server
+  tags:
+    - 'servers'
+  parameters:
+    - name: server
+      in: path
+      required: true
+      description: 'Game Server ID'
+      schema:
+        type: integer
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/server.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
 put:
   summary: Save Game Server
   tags:
@@ -213,7 +236,7 @@ delete:
     - lang: cURL
       label: CLI
       source: |
-        curl -X DELETE "https://demo.gameap.ru/api/servers/6" \
+        curl -X DELETE "https://demo.gameap.com/api/servers/6" \
              -H "Content-Type: application/json" \
              -H 'Authorization: Bearer YOUR_API_KEY' \
              -d '{"delete_files": true}'
@@ -222,7 +245,7 @@ delete:
       source: |
         <?php
 
-        $url = 'https://demo.gameap.ru/api/servers/6';
+        $url = 'https://demo.gameap.com/api/servers/6';
         $data = '{"delete_files": true}';
 
         curl_setopt_array($curl, [

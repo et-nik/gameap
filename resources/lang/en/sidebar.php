@@ -24,7 +24,7 @@ return [
     'control'           => 'Control',
     'servers'           => 'Servers',
 
-    'gameap'            => 'Gameap',
+    'gameap'            => 'GameAP',
     'modules'           => 'Modules',
     'update'            => 'Update',
 

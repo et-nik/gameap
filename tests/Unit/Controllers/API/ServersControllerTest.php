@@ -14,6 +14,7 @@ use Gameap\Services\ServerService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\JsonResponse;
+use Psr\SimpleCache\CacheInterface;
 use Silber\Bouncer\Bouncer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Tests\TestCase;
@@ -58,6 +59,7 @@ class ServersControllerTest extends TestCase
             $this->serverControlServiceMock,
             $serializer,
             $this->app->get(AuthFactory::class),
+            $this->app->get(CacheInterface::class),
         );
 
         $this->bouncer = $this->app->get(Bouncer::class);

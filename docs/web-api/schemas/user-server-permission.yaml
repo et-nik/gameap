@@ -1,0 +1,17 @@
+type: object
+properties:
+  permission:
+    type: string
+    description: The permission of the user.
+    example: "game-server-start"
+  value:
+    type: boolean
+    description: |
+      The value of the permission (true/false).
+      If the value is true, the user has the permission.
+      If the value is false, the user does not have the permission.
+    example: true
+  name:
+    type: string
+    description: The name of the permission.
+    example: "Start Game Server"

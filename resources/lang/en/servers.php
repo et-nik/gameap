@@ -64,6 +64,7 @@ return [
     'query_map'     => 'Map',
 
     'console'       => 'Console',
+    'enter_command' => 'Enter command',
 
     'not_installed_msg' => 'Server is not installed',
     'installation_process_msg' => 'Server in installation process',
@@ -76,6 +77,7 @@ return [
     'create'        => 'Create',
     'edit'          => 'Edit server',
     'revoke'        => 'Revoke',
+    'add_server'    => 'Add server',
 
     'settings'      => 'Settings',
 
@@ -137,4 +139,7 @@ return [
     'filters' => 'Filters',
     'select_game_filter_placeholder' => 'Choose games',
     'select_ip_filter_placeholder' => 'Choose IP list',
+
+    'select_server' => 'Select server',
+    'server_already_added' => 'Server already added',
 ];

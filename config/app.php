@@ -211,6 +211,7 @@ return [
          */
         Mavinoo\Batch\BatchServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
+        Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
     ],
 
     /*

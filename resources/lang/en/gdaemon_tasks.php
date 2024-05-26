@@ -13,6 +13,21 @@ return [
 
     'cancel' => 'Cancel',
 
+    'gsstart' => 'Start game server',
+    'gsstop' => 'Stop game server',
+    'gsrest' => 'Restart game server',
+    'gsupd' => 'Update game server',
+    'gsinst' => 'Install game server',
+    'gsdel' => 'Delete game server',
+    'gsmove' => 'Move game server',
+    'cmdexec' => 'Execute command',
+
+    'status_waiting' => 'waiting',
+    'status_working' => 'working',
+    'status_error' => 'error',
+    'status_success' => 'success',
+    'status_canceled' => 'canceled',
+
     'canceled_success_msg' => 'Tasks canceled successfully',
 
     'canceled_fail_msg' => 'Tasks cancel error: :error',

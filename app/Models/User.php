@@ -12,6 +12,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property string $name
  * @property iterable $tokens
+ *
+ * @property Server[] $servers
  */
 class User extends Authenticatable
 {
@@ -43,8 +45,8 @@ class User extends Authenticatable
      * @var array
      */
     protected static $rules = [
-        'login' => 'sometimes|string|max:255|unique:users',
-        'email' => 'sometimes|string|email|max:255|unique:users',
+        'login'    => 'sometimes|string|max:255|unique:users',
+        'email'    => 'sometimes|string|email|max:255|unique:users',
         'password' => 'nullable|sometimes|string|min:6',
         'name'     => 'string|nullable|max:255',
     ];

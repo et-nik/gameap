@@ -4,6 +4,8 @@ namespace Gameap\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class Handler extends ExceptionHandler
 {
@@ -46,11 +48,25 @@ class Handler extends ExceptionHandler
             }
         }
 
+        if ($exception instanceof HttpExceptionInterface) {
+            return response()->json([
+                'message'   => $exception->getMessage(),
+                'http_code' => $exception->getStatusCode(),
+            ], $exception->getStatusCode(), $exception->getHeaders());
+        }
+
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
             return response()->json([
                 'message'   => $exception->getMessage(),
                 'http_code' => $exception->getStatusCode(),
             ], $exception->getStatusCode(), $exception->getHeaders());
+        }
+
+        if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
+            return response()->json([
+                'message'   => $exception->getMessage(),
+                'http_code' => Response::HTTP_FORBIDDEN,
+            ], Response::HTTP_FORBIDDEN);
         }
 
         return parent::render($request, $exception);

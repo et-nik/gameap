@@ -3,6 +3,7 @@
 namespace Gameap\Repositories;
 
 use Gameap\Exceptions\GameapException;
+use Gameap\Exceptions\Repositories\InvalidCertificateException;
 use Gameap\Http\Requests\ClientCertificatesRequest;
 use Gameap\Models\ClientCertificate;
 use Gameap\Services\Daemon\CertificateService;
@@ -32,6 +33,14 @@ class ClientCertificateRepository extends Repository
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function findById($id) {
+        return ClientCertificate::findOrFail($id);
+    }
+
+    /**
      * @param ClientCertificatesRequest $request
      *
      * @return ClientCertificate
@@ -54,9 +63,10 @@ class ClientCertificateRepository extends Repository
                 'local'
             );
         }
+
         
         if (!openssl_x509_check_private_key(Storage::get($attributes['certificate']), Storage::get($attributes['private_key']))) {
-            throw new GameapException(__('client_certificates.private_key_not_correspond'));
+            throw new InvalidCertificateException(__('client_certificates.private_key_not_correspond'));
         }
 
         $info = CertificateService::certificateInfo($attributes['certificate']);
