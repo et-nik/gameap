@@ -92,7 +92,7 @@ const createColumns = () => {
             onClick: () => {onClickDelete(row.id)},
           }, [
             h("i", {class: 'fa-solid fa-trash'}),
-            h("span", {class: 'hidden xl:inline'}, trans('main.delete')),
+            h("span", {class: 'hidden lg:inline'}, trans('main.delete')),
           ]),
         ]
       },

@@ -44,7 +44,7 @@
 
     <GButton color="green" v-on:click="onClickGenerate">
       <i class="fa-regular fa-square-plus"></i>
-      <span class="hidden xl:inline">&nbsp;{{ trans('main.generate') }}</span>
+      <span class="hidden lg:inline">&nbsp;{{ trans('main.generate') }}</span>
     </GButton>
   </div>
 </template>

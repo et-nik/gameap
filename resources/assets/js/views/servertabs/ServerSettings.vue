@@ -22,7 +22,7 @@
 
       <GButton color="green" v-on:click="saveSettings()">
         <i class="fas fa-edit"></i>
-        <span class="hidden xl:inline">&nbsp;{{ trans('main.save') }}</span>
+        <span class="hidden lg:inline">&nbsp;{{ trans('main.save') }}</span>
       </GButton>
   </n-form>
 </template>

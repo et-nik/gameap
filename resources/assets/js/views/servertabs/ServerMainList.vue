@@ -155,7 +155,7 @@
                                 route: "/servers/" + row.id,
                               },
                               [
-                                h('span', {"class": "d-none d-xl-inline"}, trans('servers.control')),
+                                h('span', {"class": "hidden lg:inline"}, trans('servers.control')),
                                 " ",
                                 h('span', {"class": "fa fa-angle-double-right"}),
                               ])
@@ -359,7 +359,7 @@
 
                     <div class="md:w-1/4 pr-4 pl-4">
                         <n-button @click="clearFilters" type="error" :disabled="!isFiltersSet()" ghost>
-                            <i class="fa fa-eraser"></i><span class="hidden xl:inline">&nbsp;{{ trans('main.clear') }}</span>
+                            <i class="fa fa-eraser"></i><span class="hidden lg:inline">&nbsp;{{ trans('main.clear') }}</span>
                         </n-button>
                     </div>
                 </div>

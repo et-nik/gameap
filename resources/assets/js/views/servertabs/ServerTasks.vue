@@ -24,11 +24,11 @@
           <td class="px-3 py-4">
             <GButton v-on:click="editTask(key)" color="blue" size="small" class="mr-1">
               <i class="fas fa-edit"></i>
-              <span class="hidden xl:inline">&nbsp;{{ trans('main.edit') }}</span>
+              <span class="hidden lg:inline">&nbsp;{{ trans('main.edit') }}</span>
             </GButton>
             <GButton v-on:click="deleteTask(key)" color="red" size="small">
               <i class="fas fa-trash"></i>
-              <span class="hidden xl:inline">&nbsp;{{ trans('main.delete') }}</span>
+              <span class="hidden lg:inline">&nbsp;{{ trans('main.delete') }}</span>
             </GButton>
           </td>
         </tr>

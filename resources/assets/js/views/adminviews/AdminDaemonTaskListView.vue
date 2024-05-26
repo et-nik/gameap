@@ -29,7 +29,7 @@
       />
 
       <n-button @click="clearFilters" type="error" :disabled="!isFiltersSet()" ghost>
-        <i class="fa fa-eraser"></i><span class="hidden xl:inline">&nbsp;{{ trans('main.clear') }}</span>
+        <i class="fa fa-eraser"></i><span class="hidden lg:inline">&nbsp;{{ trans('main.clear') }}</span>
       </n-button>
     </n-input-group>
   </div>
@@ -121,7 +121,7 @@ const createColumns = () => {
             route: {name: 'admin.gdaemon_tasks.output', params: {id: row.id}},
           }, [
             h("i", {class: 'fa-solid fa-eye'}),
-            h("span", {class: 'hidden xl:inline'}, trans('main.view')),
+            h("span", {class: 'hidden lg:inline'}, trans('main.view')),
           ]),
         ]
       },

@@ -24,7 +24,7 @@
 
           <GButton color="black" size="small" v-on:click="sendCommand">
             <i class="fa-solid fa-terminal mr-1"></i>
-            <span class="hidden xl:inline">&nbsp;{{ trans('main.send') }}</span>
+            <span class="hidden lg:inline">&nbsp;{{ trans('main.send') }}</span>
           </GButton>
         </div>
     </div>

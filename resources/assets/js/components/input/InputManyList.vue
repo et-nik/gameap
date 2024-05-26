@@ -95,7 +95,7 @@ const columns = computed(() => {
           },
         }, [
           h("i", {class: 'fa-solid fa-times mr-0.5'}),
-          h("span", {class: 'hidden xl:inline'}, trans('main.delete')),
+          h("span", {class: 'hidden lg:inline'}, trans('main.delete')),
         ]),
       ]
     },

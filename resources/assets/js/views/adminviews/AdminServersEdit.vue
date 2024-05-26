@@ -184,7 +184,7 @@
 
       <GButton color="green" v-on:click="onClickSave">
         <i class="fa-solid fa-floppy-disk"></i>
-        <span class="hidden xl:inline">&nbsp;{{ trans('main.save') }}</span>
+        <span class="hidden lg:inline">&nbsp;{{ trans('main.save') }}</span>
       </GButton>
     </div>
   </n-form>

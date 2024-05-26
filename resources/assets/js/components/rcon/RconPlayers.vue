@@ -23,12 +23,12 @@
                 <td>
                     <button v-on:click="openDialog('kick', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-orange-400 text-black hover:bg-orange-500 m-1">
                         <i class="gicon gicon-kick"></i>
-                        <span class="hidden xl:inline">{{ trans('rcon.kick') }}</span>
+                        <span class="hidden lg:inline">{{ trans('rcon.kick') }}</span>
                     </button>
 
                     <button v-on:click="openDialog('ban', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1">
                         <i class="fas fa-ban"></i>
-                        <span class="hidden xl:inline">{{ trans('rcon.ban') }}</span>
+                        <span class="hidden lg:inline">{{ trans('rcon.ban') }}</span>
                     </button>
                 </td>
             </tr>

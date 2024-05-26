@@ -112,7 +112,7 @@ const createColumns = () => {
             onClick: () => {onClickShow(row.id)},
           }, [
             h("i", {class: 'fa-solid fa-eye'}),
-            h("span", {class: 'hidden xl:inline'}, trans('main.view')),
+            h("span", {class: 'hidden lg:inline'}, trans('main.view')),
           ]),
           h(GButton, {
             color: 'blue',
@@ -121,7 +121,7 @@ const createColumns = () => {
             route: {name: 'admin.users.edit', params: {id: row.id}},
           }, [
             h("i", {class: 'fa-solid fa-pen-to-square'}),
-            h("span", {class: 'hidden xl:inline'}, trans('main.edit')),
+            h("span", {class: 'hidden lg:inline'}, trans('main.edit')),
           ]),
           h(GButton, {
             color: 'red',
@@ -131,7 +131,7 @@ const createColumns = () => {
             onClick: () => {onClickDelete(row.id)},
           }, [
             h("i", {class: 'fa-solid fa-trash'}),
-            h("span", {class: 'hidden xl:inline'}, trans('main.delete')),
+            h("span", {class: 'hidden lg:inline'}, trans('main.delete')),
           ]),
         ]
       },

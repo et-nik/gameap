@@ -297,7 +297,7 @@
 
   <g-button :class="button" :color="buttonColor" :size="buttonSize" @click="run(command)">
     <i :class="icon"></i>
-    <span class="hidden xl:inline">&nbsp;{{ text }}</span>
+    <span class="hidden lg:inline">&nbsp;{{ text }}</span>
   </g-button>
 </template>
 

@@ -352,7 +352,7 @@
     <slot name="button">
       <GButton class="mt-2" color="green" v-on:click="onClickSend">
         <i class="fa-regular fa-floppy-disk mr-0.5"></i>
-        <span class="hidden xl:inline">&nbsp;{{ trans('main.save') }}</span>
+        <span class="hidden lg:inline">&nbsp;{{ trans('main.save') }}</span>
       </GButton>
     </slot>
   </div>

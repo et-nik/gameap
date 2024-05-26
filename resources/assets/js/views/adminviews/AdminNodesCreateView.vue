@@ -10,7 +10,7 @@
     <template #button>
       <GButton class="mt-2" color="green" v-on:click="onCreate">
         <i class="fa-regular fa-plus-square mr-0.5"></i>
-        <span class="hidden xl:inline">&nbsp;{{ trans('main.create') }}</span>
+        <span class="hidden lg:inline">&nbsp;{{ trans('main.create') }}</span>
       </GButton>
     </template>
   </UpdateNodeForm>
