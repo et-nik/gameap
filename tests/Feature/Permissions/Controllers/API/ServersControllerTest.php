@@ -5,6 +5,7 @@ namespace Tests\Feature\Permissions\Controllers\API;
 use Gameap\Models\Server;
 use Gameap\Models\ServerTask;
 use Illuminate\Http\Response;
+use Illuminate\Testing\TestResponse;
 use Tests\Feature\Permissions\PermissionsTestCase;
 
 class ServersControllerTest extends PermissionsTestCase
@@ -91,6 +92,7 @@ class ServersControllerTest extends PermissionsTestCase
             $route = $item[1];
             $params = $item[2] ?? [];
 
+            /** @var TestResponse $response */
             $response = $this->{$method}(route($route, $params), []);
             $response->assertStatus(Response::HTTP_FORBIDDEN);
         }

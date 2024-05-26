@@ -163,6 +163,16 @@ class ServersController extends AuthController
         $currentUser = $this->authFactory->guard()->user();
         $isAdmin = $currentUser->can(PermissionHelper::ADMIN_PERMISSIONS);
 
+        if (!$isAdmin) {
+            $servers = $this->repository->getServersForUser($currentUser->id);
+            if (!$servers->contains($server)) {
+                return response()->json([
+                    'message'   => 'Forbidden',
+                    'http_code' => Response::HTTP_FORBIDDEN,
+                ], Response::HTTP_FORBIDDEN);
+            }
+        }
+
         $abilities = [];
 
         foreach (ServerPermissionHelper::getAllPermissions() as $permission) {
