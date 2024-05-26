@@ -66,14 +66,14 @@ class ServersControllerTest extends PermissionsTestCase
             ['post', 'api.servers.reinstall', ['server' => $this->server->id]],
             ['get', 'api.servers.get_status', ['server' => $this->server->id]],
             ['get', 'api.servers.query', ['server' => $this->server->id]],
-            ['get', 'api.servers.console', ['server' => $this->server->id]],
-            ['post', 'api.servers.send_command', ['server' => $this->server->id]],
             ['get', 'api.servers.get_tasks', ['server' => $this->server->id]],
             ['post', 'api.servers.add_task', ['server' => $this->server->id]],
             ['put', 'api.servers.update_task', ['server' => $this->server->id, 'server_task' => $this->task]],
             ['delete', 'api.servers.delete_task', ['server' => $this->server->id, 'server_task' => $this->task]],
             ['get', 'api.servers.get_settings', ['server' => $this->server->id]],
             ['put', 'api.servers.save_settings', ['server' => $this->server->id]],
+            ['get', 'api.servers.console', ['server' => $this->server->id]],
+            ['post', 'api.servers.send_command', ['server' => $this->server->id]],
         ];
     }
 
