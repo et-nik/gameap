@@ -95,7 +95,7 @@ class ServersControllerTest extends PermissionsTestCase
             /** @var TestResponse $response */
             $response = $this->{$method}(route($route, $params), []);
             if ($response->status() !== Response::HTTP_FORBIDDEN) {
-            	$this->fail('Response status is not 403, for route'. $route . ' with params: ' . json_encode($params));
+            	$this->fail('Response status is not 403, for route "'. $route . '" with params: ' . json_encode($params));
             }
         }
     }
