@@ -22,8 +22,8 @@ class GDaemonTaskControllerTest extends PermissionsTestCase
     {
         return [
             ['get', 'api.gdaemon_tasks.list'],
-            ['get', 'api.gdaemon_tasks.get', $this->task->id],
-            ['get', 'api.gdaemon_tasks.output', $this->task->id],
+            ['get', 'api.gdaemon_tasks.get', ['gdaemon_task' => $this->task->id]],
+            ['get', 'api.gdaemon_tasks.output', ['gdaemon_task' => $this->task->id]],
         ];
     }
 

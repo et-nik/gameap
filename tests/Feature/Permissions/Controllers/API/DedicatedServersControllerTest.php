@@ -19,14 +19,14 @@ class DedicatedServersControllerTest extends PermissionsTestCase
             ['get', 'api.dedicated_servers.summary'],
             ['get', 'api.dedicated_servers.setup'],
             ['get', 'api.dedicated_servers.certificates'],
-            ['get', 'api.dedicated_servers.logs', 1],
-            ['get', 'api.dedicated_servers.get', 1],
-            ['get', 'api.dedicated_servers.daemon', 1],
-            ['get', 'api.dedicated_servers.ip_list', 1],
-            ['get', 'api.dedicated_servers.busy_ports', 1],
+            ['get', 'api.dedicated_servers.logs', ['dedicated_server' => 1]],
+            ['get', 'api.dedicated_servers.get', ['dedicated_server' => 1]],
+            ['get', 'api.dedicated_servers.daemon', ['dedicated_server' => 1]],
+            ['get', 'api.dedicated_servers.ip_list', ['dedicated_server' => 1]],
+            ['get', 'api.dedicated_servers.busy_ports', ['dedicated_server' => 1]],
             ['post', 'api.dedicated_servers.store'],
-            ['put', 'api.dedicated_servers.update', 1],
-            ['delete', 'api.dedicated_servers.destroy', 1],
+            ['put', 'api.dedicated_servers.update', ['dedicated_server' => 1]],
+            ['delete', 'api.dedicated_servers.destroy', ['dedicated_server' => 1]],
         ];
     }
 

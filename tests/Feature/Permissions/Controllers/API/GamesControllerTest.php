@@ -23,11 +23,11 @@ class GamesControllerTest extends PermissionsTestCase
         return [
             ['get', 'api.games'],
             ['post', 'api.games.store'],
-            ['get', 'api.games.show', $this->game->code],
-            ['put', 'api.games.update', $this->game->code],
+            ['get', 'api.games.show', ['game' => $this->game->code]],
+            ['put', 'api.games.update', ['game' => $this->game->code]],
             ['post', 'api.games.upgrade'],
-            ['get', 'api.games.mods', $this->game->code],
-            ['delete', 'api.games.destroy', $this->game->code],
+            ['get', 'api.games.mods', ['game' => $this->game->code]],
+            ['delete', 'api.games.destroy', ['game' => $this->game->code]],
         ];
     }
 
