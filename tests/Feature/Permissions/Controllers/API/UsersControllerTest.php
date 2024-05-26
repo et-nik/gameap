@@ -23,10 +23,10 @@ class UsersControllerTest  extends PermissionsTestCase
         return [
             ['get', 'api.users', []],
             ['post', 'api.users.store', []],
-            ['get', 'api.users.servers', ['id' => $this->editedUser->id]],
-            ['get', 'api.users.show', ['id' => $this->editedUser->id]],
-            ['put', 'api.users.update', ['id' => $this->editedUser->id]],
-            ['delete', 'api.users.destroy', ['id' => $this->editedUser->id]],
+            ['get', 'api.users.servers', [$this->editedUser->id]],
+            ['get', 'api.users.show', [$this->editedUser->id]],
+            ['put', 'api.users.update', [$this->editedUser->id]],
+            ['delete', 'api.users.destroy', [$this->editedUser->id]],
         ];
     }
 
