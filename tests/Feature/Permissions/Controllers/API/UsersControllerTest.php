@@ -2,28 +2,31 @@
 
 namespace Tests\Feature\Permissions\Controllers\API;
 
-use Gameap\Models\GdaemonTask;
+use Gameap\Models\User;
 use Illuminate\Http\Response;
 use Tests\Feature\Permissions\PermissionsTestCase;
 
-class GDaemonTaskControllerTest extends PermissionsTestCase
+class UsersControllerTest  extends PermissionsTestCase
 {
-    /** @var GdaemonTask */
-    private $task;
+    /** @var User */
+    private $editedUser;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->task = factory(GdaemonTask::class)->create();
+        $this->editedUser = factory(User::class)->create();
     }
 
     public function routesDataProvider()
     {
         return [
-            ['get', 'api.gdaemon_tasks.list'],
-            ['get', 'api.gdaemon_tasks.get', ['gdaemon_task' => $this->task->id]],
-            ['get', 'api.gdaemon_tasks.output', ['gdaemon_task' => $this->task->id]],
+            ['get', 'api.users'],
+            ['post', 'api.users.store'],
+            ['get', 'api.users.servers'],
+            ['get', 'api.users.show', ['id' => $this->editedUser->id]],
+            ['put', 'api.users.update', ['id' => $this->editedUser->id]],
+            ['delete', 'api.users.destroy', ['id' => $this->editedUser->id]],
         ];
     }
 

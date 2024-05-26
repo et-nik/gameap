@@ -94,8 +94,8 @@ Route::middleware('auth:sanctum')->group(function() {
         // Users
         Route::name('users')->get('/users', [UsersController::class, 'index']);
         Route::name('users.servers')->get('/users/{id}/servers', [UsersController::class, 'servers']);
-        Route::name('users.servers')->get('/users/{id}/servers/{server}/permissions', [UsersController::class, 'serverPermissions']);
-        Route::name('users.servers')->put('/users/{id}/servers/{server}/permissions', [UsersController::class, 'saveServerPermission']);
+        Route::name('users.servers.permissions')->get('/users/{id}/servers/{server}/permissions', [UsersController::class, 'serverPermissions']);
+        Route::name('users.servers.save_permissions')->put('/users/{id}/servers/{server}/permissions', [UsersController::class, 'saveServerPermission']);
         Route::name('users.store')->post('/users', [UsersController::class, 'store']);
         Route::name('users.show')->get('/users/{id}', [UsersController::class, 'show']);
         Route::name('users.update')->put('/users/{id}', [UsersController::class, 'update']);

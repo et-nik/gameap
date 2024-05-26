@@ -34,11 +34,11 @@ class GamesControllerTest extends PermissionsTestCase
     /**
      * @dataProvider routesDataProvider
      */
-    public function testForbidden($method, $route, $param = null, $data = [])
+    public function testForbidden($method, $route, $params = [], $data = [])
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, $param), $data);
+        $response = $this->{$method}(route($route, $params), $data);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

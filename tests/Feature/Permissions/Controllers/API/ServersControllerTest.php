@@ -68,11 +68,11 @@ class ServersControllerTest extends PermissionsTestCase
     /**
      * $dataProvider userRoutesDataProvider
      */
-    public function testForbiddenForUser($method, $route, $data = [])
+    public function testForbiddenForUser($method, $route, $params = [])
     {
         $this->setCurrentUserRoles(['user']);
 
-        $response = $this->{$method}(route($route, ['server' => $this->server->id]), $data);
+        $response = $this->{$method}(route($route, $params, []), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
