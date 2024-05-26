@@ -26,7 +26,7 @@ class ServersControllerTest extends PermissionsTestCase
     public function routesDataProvider()
     {
         return [
-            ['api.servers.store'],
+            ['api.servers.store', []],
             ['api.servers.save', ['server' => $this->server->id]],
             ['api.servers.destroy', ['server' => $this->server->id]],
         ];
@@ -76,7 +76,7 @@ class ServersControllerTest extends PermissionsTestCase
         ];
     }
 
-    public function testForbiddenForUser(string $method, string $route, array $params = [])
+    public function testForbiddenForUser()
     {
         $this->setCurrentUserRoles(['user']);
 
