@@ -2,10 +2,6 @@
 
 namespace Tests\API;
 
-use Gameap\Models\DedicatedServer;
-use Gameap\Models\Game;
-use Gameap\Models\GameMod;
-use Gameap\Models\Server;
 use Illuminate\Container\Container;
 use Tests\TestCase;
 

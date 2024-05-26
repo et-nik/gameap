@@ -8,20 +8,22 @@ use Tests\Feature\Permissions\PermissionsTestCase;
 
 class GDaemonTaskControllerTest extends PermissionsTestCase
 {
+    /** @var GdaemonTask */
+    private $task;
+
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->task = factory(GdaemonTask::class)->create();
     }
 
     public function routesDataProvider()
     {
-        /** @var GdaemonTask $task */
-        $task = factory(GdaemonTask::class)->create();
-
         return [
             ['get', 'api.gdaemon_tasks.list'],
-            ['get', 'api.gdaemon_tasks.get', $task->id],
-            ['get', 'api.gdaemon_tasks.output', $task->id],
+            ['get', 'api.gdaemon_tasks.get', $this->task->id],
+            ['get', 'api.gdaemon_tasks.output', $this->task->id],
         ];
     }
 

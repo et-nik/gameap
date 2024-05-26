@@ -8,23 +8,25 @@ use Tests\Feature\Permissions\PermissionsTestCase;
 
 class GameModsControllerTest extends PermissionsTestCase
 {
+    /** @var GameMod */
+    private $gameMod;
+
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->gameMod = factory(GameMod::class)->create();
     }
 
     public function routesDataProvider()
     {
-        /** @var GameMod $gameMod */
-        $gameMod = factory(GameMod::class)->create();
-
         return [
             ['get', 'api.game_mods'],
-            ['get', 'api.game_mods.get_mods_list', $gameMod->game_code],
+            ['get', 'api.game_mods.get_mods_list', $this->gameMod->game_code],
             ['post', 'api.game_mods.store'],
-            ['get', 'api.game_mods.show', $gameMod->id],
-            ['put', 'api.game_mods.update', $gameMod->id],
-            ['delete', 'api.game_mods.destroy', $gameMod->id],
+            ['get', 'api.game_mods.show', $this->gameMod->id],
+            ['put', 'api.game_mods.update', $this->gameMod->id],
+            ['delete', 'api.game_mods.destroy', $this->gameMod->id],
         ];
     }
 
