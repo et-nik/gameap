@@ -1,18 +1,18 @@
 <template>
     <div>
       <n-form-item :label="trans('labels.server_port')" :path="serverPortPath">
-        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
+        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
         <template #feedback>
           <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
         </template>
       </n-form-item>
 
       <n-form-item :label="trans('labels.query_port')" :path="queryPortPath">
-        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="query_port" type="number" id="server_port" min="1024" max="65535" v-model="queryPort">
+        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded" name="query_port" type="number" id="server_port" min="1024" max="65535" v-model="queryPort">
       </n-form-item>
 
       <n-form-item :label="trans('labels.rcon_port')" :path="rconPortPath">
-        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="rcon_port" type="number" id="server_port" min="1024" max="65535" v-model="rconPort">
+        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded" name="rcon_port" type="number" id="server_port" min="1024" max="65535" v-model="rconPort">
       </n-form-item>
     </div>
 </template>

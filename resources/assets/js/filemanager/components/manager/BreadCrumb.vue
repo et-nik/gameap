@@ -15,7 +15,7 @@
                     v-on:click="selectDirectory(index)"
                 >
                     <div class="flex items-center">
-                        <span class="mx-2 text-gray-400">/</span>
+                        <span class="mx-2 text-stone-400">/</span>
                         <span>{{ item }}</span>
                     </div>
                 </li>

@@ -48,7 +48,7 @@
                 <form>
                     <div class="mb-3" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
                         <label for="input-reason" class="control-label">{{ trans('rcon.reason') }}</label>
-                        <input v-model.number="form.reason" id="input-reason" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input v-model.number="form.reason" id="input-reason" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
 
                         <span v-if="errors['reason']" class="help-block">
                                     <strong class="text-red-600">{{ errors['reason'] }}</strong>
@@ -57,7 +57,7 @@
 
                     <div class="mb-3" v-if="dialogAction === 'ban'">
                         <label for="input-time" class="control-label">{{ trans('rcon.time') }}</label>
-                        <input v-model.number="form.time" id="input-time" type="number" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input v-model.number="form.time" id="input-time" type="number" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
 
                         <span v-if="errors['time']" class="help-block">
                                     <strong class="text-red-600">{{ errors['time'] }}</strong>
@@ -66,7 +66,7 @@
 
                     <div class="mb-3" v-if="dialogAction === 'message'">
                         <label for="input-mesage" class="control-label">{{ trans('rcon.message') }}</label>
-                        <input v-model.number="form.message" id="input-mesage" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input v-model.number="form.message" id="input-mesage" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
 
                         <span v-if="errors['message']" class="help-block">
                                     <strong class="text-red-600">{{ errors['message'] }}</strong>
@@ -77,7 +77,7 @@
 
             <template #footer>
                 <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="send">{{ trans('main.send') }}</button>
-                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-stone-600 text-white hover:bg-stone-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
 
             </template>
         </n-modal>
