@@ -168,7 +168,7 @@
                 <tbody>
                 <tr v-for="item in startCommandVars" class="stone-table-row">
                   <td class="px-2 py-2 w-1/4">
-                    <span class="bg-gray-100 highlighter-rouge p-1 rounded">
+                    <span class="bg-stone-100 highlighter-rouge p-1 rounded">
                       <span>{</span>{{ item.name }}<span>}</span>
                     </span>
                   </td>

@@ -86,6 +86,16 @@
           VKontakte
         </a>
 
+        <a
+            type="button"
+            class="text-white bg-[#FF5700] hover:bg-[#FF5700]/90 focus:outline-none rounded text-sm px-2 py-1 text-center inline-flex items-center me-1 mb-1 mr-2"
+            href="https://www.reddit.com/r/gameap/"
+            target="_blank"
+        >
+          <i class="fa-brands fa-reddit mr-1"></i>
+          Reddit
+        </a>
+
       </div>
     </div>
   </div>
@@ -97,15 +107,36 @@
         {{ trans('home.support_gameap') }}
       </h5>
       <div class="col-span-2">
-        <a
-            type="button"
-            class="text-white bg-[#F96854] hover:bg-[#F96854]/90 focus:outline-none rounded text-sm px-2 py-1 text-center inline-flex items-center me-1 mb-1 mr-2"
-            href="https://www.patreon.com/gameap"
-            target="_blank"
-        >
-          <i class="fa-brands fa-patreon mr-1"></i>
-          Patreon
-        </a>
+        <div class="flex">
+          <div>
+            <a
+                type="button"
+                class="text-white bg-[#F96854] hover:bg-[#F96854]/90 focus:outline-none rounded text-sm px-2 py-1 text-center inline-flex items-center me-1 mb-1 mr-2"
+                href="https://www.patreon.com/gameap"
+                target="_blank"
+            >
+              <i class="fa-brands fa-patreon mr-1"></i>
+              Patreon
+            </a>
+          </div>
+
+          <div>
+            <a
+                type="button"
+                class="text-white bg-[#F15F2C] hover:bg-[#F15F2C]/90 focus:outline-none rounded text-sm px-2 py-1 text-center inline-flex items-center me-1 mb-1 mr-2"
+                href="https://boosty.to/gameap"
+                target="_blank"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 235.6 292.2">
+                <path class="st0" fill="#FFFFFF" d="M44.3,164.5L76.9,51.6H127l-10.1,35c-0.1,0.2-0.2,0.4-0.3,0.6L90,179.6h24.8c-10.4,25.9-18.5,46.2-24.3,60.9
+		c-45.8-0.5-58.6-33.3-47.4-72.1 M90.7,240.6l60.4-86.9h-25.6l22.3-55.7c38.2,4,56.2,34.1,45.6,70.5
+		c-11.3,39.1-57.1,72.1-101.7,72.1C91.3,240.6,91,240.6,90.7,240.6z"/>
+              </svg>
+
+              Boosty
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

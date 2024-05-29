@@ -9,6 +9,10 @@ const actions = {
         commit('setDsId', dsId);
     },
 
+    resetDsId({commit}) {
+        commit('setDsId', 0);
+    },
+
     fetchIpList({state, commit}) {
         if (state.dsId <= 0) {
             return;

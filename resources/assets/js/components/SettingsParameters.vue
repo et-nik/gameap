@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-2">
+        <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-stone-300 mb-2">
             <div class="flex-auto p-6">
                 <div v-for="(item, itemIndex) in items">
                     <div class="mb-3">
@@ -10,7 +10,7 @@
                                 v-bind:id="inputName + '[' + itemIndex + ']' + '[name]'"
                                 v-model="item.name"
                                 type="text"
-                                class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                                class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
                     </div>
 
                     <div class="mb-3">
@@ -19,7 +19,7 @@
                                 v-bind:name="inputName + '[' + itemIndex + ']' + '[value]'"
                                 v-bind:id="inputName + '[' + itemIndex + ']' + '[value]'"
                                 v-model="item.value"
-                                class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded"
                                 v-bind:rows='(item.value.match(new RegExp("\n", "g")) || []).length + 2'>
                         </textarea>
                     </div>

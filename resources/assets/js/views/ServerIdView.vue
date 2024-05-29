@@ -1,7 +1,8 @@
 <template>
   <GBreadcrumbs :items="breadcrumbs"></GBreadcrumbs>
 
-  <n-tabs type="line" class="flex justify-between" animated>
+  <Loading v-if="loading"></Loading>
+  <n-tabs v-if="!loading && isServerEnabled" type="line" class="flex justify-between" animated>
     <n-tab-pane name="control">
       <template #tab>
         <i class="fas fa-play mr-1"></i>
@@ -180,7 +181,7 @@
 
       <div class="flex flex-wrap mt-2">
         <div class="md:w-full">
-          <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 p-2">
+          <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-stone-300 p-2">
             <file-manager
                 :settings="{
                     'lang': pageLanguage(),
@@ -235,10 +236,11 @@
     </template>
 
   </n-tabs>
+  <InactiveServer v-if="!loading && !isServerEnabled" :server="server"></InactiveServer>
 </template>
 
 <script setup>
-import {computed, defineAsyncComponent, onMounted} from "vue";
+import {computed, defineAsyncComponent, onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import {storeToRefs} from "pinia";
 
@@ -277,6 +279,7 @@ import {useServerStore} from "../store/server"
 import {useAuthStore} from "../store/auth";
 import {trans, pageLanguage} from "../i18n/i18n";
 import GameIcon from "../components/GameIcon.vue";
+import InactiveServer from "./InactiveServer.vue";
 
 const route = useRoute()
 const serverStore = useServerStore()
@@ -291,10 +294,23 @@ const {
 
 onMounted(() => {
   serverStore.setServerId(Number(route.params.id))
-  serverStore.fetchServer()
-  serverStore.fetchAbilities()
-  serverStore.fetchRconSupportedFeatures()
+  serverStore.fetchServer().then(() => {
+    if (server.value) {
+      document.title = server.value.name
+    }
+
+    isServerEnabled.value = server.value?.enabled
+        && !server.value?.blocked
+        && server.value?.installed === 1
+
+    if (isServerEnabled.value) {
+      serverStore.fetchAbilities()
+      serverStore.fetchRconSupportedFeatures()
+    }
+  })
 });
+
+const isServerEnabled = ref(true)
 
 const privileges = computed(() => {
   return {

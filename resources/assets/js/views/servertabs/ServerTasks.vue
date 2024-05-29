@@ -115,7 +115,7 @@
                             type="number"
                             min="1"
                             max="255"
-                            class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                            class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
 
                         <span v-if="errors['taskRepeatInput']" class="help-block">
                                     <strong class="text-red-600">{{ errors['taskRepeatInput'] }}</strong>
@@ -134,7 +134,7 @@
                                        name="repeat_period"
                                        type="number"
                                        :min="repeatMin"
-                                       class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                                       class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
                             </div>
 
                             <div class="md:w-2/3 pr-4 pl-4">

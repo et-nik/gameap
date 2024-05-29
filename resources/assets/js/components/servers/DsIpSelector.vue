@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-  import { computed, watch } from 'vue'
+  import { computed, watch, onUnmounted } from 'vue'
   import { useStore } from 'vuex'
   import {NFormItem} from "naive-ui"
 
@@ -74,5 +74,9 @@
 
   watch(ipModel, (val) => {
     store.dispatch('servers/setIp', ipModel.value)
+  });
+
+  onUnmounted(() => {
+    store.dispatch('dedicatedServers/resetDsId');
   });
 </script>
