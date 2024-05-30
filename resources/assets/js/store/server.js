@@ -1,7 +1,6 @@
 // Pinia store. Vuex should be replaced with Pinia in the future.
 
 import { defineStore } from 'pinia'
-import {errorNotification} from "../parts/dialogs";
 
 export const useServerStore = defineStore('server', {
     state: () => ({
@@ -55,8 +54,11 @@ export const useServerStore = defineStore('server', {
             rcon: false,
             playersManage: false,
         },
+
+        apiProcesses: 0,
     }),
     getters: {
+        loading: (state) => state.apiProcesses > 0,
         canStart(state) {
             return Boolean(state.abilities['game-server-start'])
         },
@@ -99,7 +101,7 @@ export const useServerStore = defineStore('server', {
             this.serverId = serverId;
         },
         async fetchServer() {
-            this.loading = true;
+            this.apiProcesses++
 
             try {
                 const response = await axios.get('/api/servers/' + this.serverId)
@@ -107,11 +109,11 @@ export const useServerStore = defineStore('server', {
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false;
+                this.apiProcesses--
             }
         },
         async fetchAbilities() {
-            this.loading = true;
+            this.apiProcesses++
 
             try {
                 const response = await axios.get('/api/servers/' + this.serverId + '/abilities')
@@ -119,11 +121,11 @@ export const useServerStore = defineStore('server', {
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false;
+                this.apiProcesses--
             }
         },
         async fetchSettings() {
-            this.loading = true;
+            this.apiProcesses++
 
             try {
                 const response = await axios.get('/api/servers/' + this.serverId + '/settings')
@@ -131,34 +133,34 @@ export const useServerStore = defineStore('server', {
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false;
+                this.apiProcesses--
             }
         },
         async save(server) {
-            this.loading = true;
+            this.apiProcesses++
 
             try {
                 await axios.put('/api/servers/' + this.serverId, server)
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false;
+                this.apiProcesses--
             }
 
         },
         async saveSettings(settings) {
-            this.loading = true;
+            this.apiProcesses++
 
             try {
                 await axios.put('/api/servers/' + this.serverId + '/settings', settings)
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false;
+                this.apiProcesses--
             }
         },
         async fetchRconSupportedFeatures() {
-            this.loading = true;
+            this.apiProcesses++
 
             try {
                 const response = await axios.get('/api/servers/' + this.serverId + '/rcon/features')
@@ -166,7 +168,7 @@ export const useServerStore = defineStore('server', {
             } catch (error) {
                 throw error
             } finally {
-                this.loading = false;
+                this.apiProcesses--
             }
         }
     },

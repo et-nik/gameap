@@ -32,7 +32,13 @@ import {trans} from "../../i18n/i18n"
 import {useServerStore} from "../../store/server"
 import {onMounted, ref, computed} from "vue"
 import {storeToRefs} from "pinia"
-import {NForm, NFormItem, NSwitch} from "naive-ui"
+import {
+  NForm,
+  NFormItem,
+  NInput,
+  NEmpty,
+  NSwitch,
+} from "naive-ui"
 import GButton from '../../components/GButton.vue'
 import {errorNotification, notification} from "../../parts/dialogs.js";
 

@@ -1,8 +1,8 @@
 <template>
   <GBreadcrumbs :items="breadcrumbs"></GBreadcrumbs>
 
-  <Loading v-if="loading"></Loading>
-  <n-tabs v-if="!loading && isServerEnabled" type="line" class="flex justify-between" animated>
+  <InactiveServer v-if="!loading && !isServerEnabled" :server="server"></InactiveServer>
+  <n-tabs type="line" class="flex justify-between" :class="(!isServerEnabled) ? 'hidden': ''" animated>
     <n-tab-pane name="control">
       <template #tab>
         <i class="fas fa-play mr-1"></i>
@@ -218,8 +218,8 @@
         <div class="md:w-full">
           <n-card class="mb-3">
             <div>
-              <ServerSettings :class="loading ? 'opacity-20' : ''"></ServerSettings>
               <Loading v-if="loading" class="absolute inset-0 flex justify-center items-center z-10"></Loading>
+              <ServerSettings :class="loading ? 'opacity-20' : ''"></ServerSettings>
             </div>
           </n-card>
         </div>
@@ -236,7 +236,6 @@
     </template>
 
   </n-tabs>
-  <InactiveServer v-if="!loading && !isServerEnabled" :server="server"></InactiveServer>
 </template>
 
 <script setup>
@@ -304,10 +303,10 @@ onMounted(() => {
         && server.value?.installed === 1
 
     if (isServerEnabled.value) {
-      serverStore.fetchAbilities()
       serverStore.fetchRconSupportedFeatures()
     }
   })
+  serverStore.fetchAbilities()
 });
 
 const isServerEnabled = ref(true)
