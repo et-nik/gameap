@@ -6,7 +6,6 @@ import gameMods from './gameMods';
 import activeTab from './activeTab';
 
 // Rcon
-import rconConsole from './rcon/console';
 import rconPlayers from './rcon/players';
 
 const store = createStore({
@@ -19,7 +18,6 @@ const store = createStore({
         activeTab,
 
         // Rcon
-        rconConsole,
         rconPlayers,
     },
 });
