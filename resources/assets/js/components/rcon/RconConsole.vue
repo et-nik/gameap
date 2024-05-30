@@ -65,7 +65,9 @@ const command = ref('')
 const loading = computed(() => serverRconStore.loading)
 
 const sendCommand = () => {
-  serverRconStore.sendCommand(command.value)
+  serverRconStore.sendCommand(command.value).catch((error) => {
+    errorNotification(error)
+  })
 }
 
 const setAndSendCommand = (fastCommand) => {
