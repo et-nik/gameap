@@ -1,17 +1,17 @@
 <template>
     <div id="rcon-players-component">
-        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-lime-500 text-white hover:bg-lime-600 m-1" v-on:click="updatePlayers()">
-            <i class="fas fa-sync"></i>
-        </button>
+        <GButton color="green" size="small" class="mb-2" v-on:click="updatePlayers">
+          <i class="fas fa-sync"></i>
+        </GButton>
 
-        <table class="w-full max-w-full mb-4 bg-transparent table-striped table-bordered">
+        <n-table size="small" :bordered="false">
             <thead>
             <tr>
-                <td>{{ trans('rcon.player_name') }}</td>
-                <td v-if="scoreRow">{{ trans('rcon.player_score') }}</td>
-                <td v-if="pingRow">{{ trans('rcon.player_ping') }}</td>
-                <td v-if="ipRow">{{ trans('rcon.player_ip') }}</td>
-                <td>{{ trans('main.actions') }}</td>
+                <th>{{ trans('rcon.player_name') }}</th>
+                <th v-if="scoreRow">{{ trans('rcon.player_score') }}</th>
+                <th v-if="pingRow">{{ trans('rcon.player_ping') }}</th>
+                <th v-if="ipRow">{{ trans('rcon.player_ip') }}</th>
+                <th>{{ trans('main.actions') }}</th>
             </tr>
             </thead>
             <tbody v-for="(value, key) in players">
@@ -20,20 +20,20 @@
                 <td v-if="scoreRow">{{ value.score }}</td>
                 <td v-if="pingRow">{{ value.ping }}</td>
                 <td v-if="ipRow">{{ value.ip }}</td>
-                <td>
-                    <button v-on:click="openDialog('kick', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-orange-400 text-black hover:bg-orange-500 m-1">
-                        <i class="gicon gicon-kick"></i>
-                        <span class="hidden lg:inline">{{ trans('rcon.kick') }}</span>
-                    </button>
+                <td class="grid grid-cols-2 gap-x-4">
+                  <GButton color="black" size="small" class="mb-2" v-on:click="openDialog('kick', key)">
+                    <i class="gicon gicon-kick mr-1"></i>
+                    <span class="hidden lg:inline">{{ trans('rcon.kick') }}</span>
+                  </GButton>
 
-                    <button v-on:click="openDialog('ban', key)" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1.5 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600 bg-red-600 text-white hover:bg-red-700 m-1">
-                        <i class="fas fa-ban"></i>
-                        <span class="hidden lg:inline">{{ trans('rcon.ban') }}</span>
-                    </button>
+                  <GButton color="black" size="small" class="mb-2" v-on:click="openDialog('ban', key)">
+                    <i class="fas fa-ban mr-1"></i>
+                    <span class="hidden lg:inline">{{ trans('rcon.ban') }}</span>
+                  </GButton>
                 </td>
             </tr>
             </tbody>
-        </table>
+        </n-table>
 
         <n-modal
             v-model:show="modalEnabled"
@@ -85,12 +85,18 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import { ref } from "vue";
+    import { mapState } from 'vuex'
+    import { ref } from "vue"
     import { pluralize, trans } from '../../i18n/i18n'
+    import GButton from "../GButton.vue"
+    import {
+      NTable,
+      NModal,
+    } from "naive-ui"
 
     export default {
         name: "RconPlayers",
+      components: {GButton},
         props: {
             serverId: Number,
         },

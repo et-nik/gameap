@@ -206,6 +206,7 @@ Route::middleware('auth:sanctum')->group(function() {
     // Rcon
     Route::middleware('abilities:' . PersonalAccessTokenService::SERVER_RCON_CONSOLE_ABILITY)->group(function() {
         Route::name('server.rcon.features')->get('servers/{server}/rcon/features', [ServersRconController::class, 'supportedFeatures']);
+        Route::name('server.rcon.features')->get('servers/{server}/rcon/fast_rcon', [ServersRconController::class, 'fastRcon']);
         Route::name('server.rcon')->post('servers/{server}/rcon', [ServersRconController::class, 'sendCommand']);
 
         Route::middleware('abilities:' . PersonalAccessTokenService::SERVER_RCON_PLAYERS_ABILITY)->group(function() {

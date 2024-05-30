@@ -148,8 +148,7 @@
                       footer: 'soft'
                     }">
                 <Loading v-if="loading"></Loading>
-                <rcon-players :server-id="serverId" v-if="!loading">
-                </rcon-players>
+                <rcon-players :server-id="serverId" v-if="!loading" />
               </n-card>
             </div>
 
@@ -163,8 +162,7 @@
                       footer: 'soft'
                     }">
                 <Loading v-if="loading"></Loading>
-                <rcon-console :server-id="serverId" v-if="!loading">
-                </rcon-console>
+                <rcon-console :server-id="serverId" v-if="!loading" />
               </n-card>
             </div>
 
@@ -275,6 +273,7 @@ import GBreadcrumbs from "../components/GBreadcrumbs.vue";
 import Loading from "../components/Loading.vue";
 
 import {useServerStore} from "../store/server"
+import {useServerRconStore} from "../store/serverRcon"
 import {useAuthStore} from "../store/auth";
 import {trans, pageLanguage} from "../i18n/i18n";
 import GameIcon from "../components/GameIcon.vue";
@@ -282,17 +281,25 @@ import InactiveServer from "./InactiveServer.vue";
 
 const route = useRoute()
 const serverStore = useServerStore()
+const serverRconStore = useServerRconStore()
 const authStore = useAuthStore()
 
 const {
-  loading,
   serverId,
   server,
-  rconSupportedFeatures,
 } = storeToRefs(serverStore)
+
+const {
+  rconSupportedFeatures,
+} = storeToRefs(serverRconStore)
+
+const loading = computed(() => {
+  return serverStore.loading
+})
 
 onMounted(() => {
   serverStore.setServerId(Number(route.params.id))
+
   serverStore.fetchServer().then(() => {
     if (server.value) {
       document.title = server.value.name
@@ -303,7 +310,7 @@ onMounted(() => {
         && server.value?.installed === 1
 
     if (isServerEnabled.value) {
-      serverStore.fetchRconSupportedFeatures()
+      serverRconStore.fetchRconSupportedFeatures()
     }
   })
   serverStore.fetchAbilities()
@@ -326,7 +333,7 @@ const serverOnline = computed(() => {
 
 const rconTabPossible = computed(() => {
   return (rconSupportedFeatures.value.rcon || rconSupportedFeatures.value.playersManage) &&
-      serverStore.canUseRcon &&
+      serverRconStore.canUseRcon &&
       serverOnline.value
 })
 

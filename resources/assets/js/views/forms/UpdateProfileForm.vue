@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import {ref, defineModel, defineProps} from "vue"
+import {ref, defineModel} from "vue"
 import {trans} from "../../i18n/i18n";
 import GButton from "../../components/GButton.vue";
 import {

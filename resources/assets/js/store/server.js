@@ -50,10 +50,6 @@ export const useServerStore = defineStore('server', {
             aliases: null,
         },
         settings: [],
-        rconSupportedFeatures: {
-            rcon: false,
-            playersManage: false,
-        },
 
         apiProcesses: 0,
     }),
@@ -85,12 +81,6 @@ export const useServerStore = defineStore('server', {
         },
         canManageSettings(state) {
             return Boolean(state.abilities['game-server-settings'])
-        },
-        canUseRcon(state) {
-            return Boolean(state.abilities['game-server-rcon-console'])
-        },
-        canManageRconPlayers(state) {
-            return Boolean(state.abilities['game-server-rcon-players'])
         },
         getServer(state) {
             return state.server;
@@ -153,18 +143,6 @@ export const useServerStore = defineStore('server', {
 
             try {
                 await axios.put('/api/servers/' + this.serverId + '/settings', settings)
-            } catch (error) {
-                throw error
-            } finally {
-                this.apiProcesses--
-            }
-        },
-        async fetchRconSupportedFeatures() {
-            this.apiProcesses++
-
-            try {
-                const response = await axios.get('/api/servers/' + this.serverId + '/rcon/features')
-                this.rconSupportedFeatures = response.data;
             } catch (error) {
                 throw error
             } finally {

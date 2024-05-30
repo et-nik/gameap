@@ -12,65 +12,68 @@
         </div>
       </div>
 
-        <div class="grid grid-cols-12 gap-4 mt-2">
+      <div v-if="fastRcon" class="gap-x-2 mt-2">
+        <span
+            v-for="fastCommand in fastRcon"
+            v-on:click="setAndSendCommand(fastCommand.command)"
+            class="bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-medium me-2
+            px-2.5 py-1 rounded dark:bg-stone-700 dark:text-stone-300 cursor-pointer">
+          {{ fastCommand.info }}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-8 gap-x-2 mt-2">
+        <div class="col-span-7 w-full">
           <NInput
               v-model:value="inputText"
               v-on:keyup.enter="sendCommand"
               :disabled="loading"
-              class="col-span-11"
               type="text"
               placeholder=""
           />
-
-          <GButton color="black" size="small" v-on:click="sendCommand">
-            <i class="fa-solid fa-terminal mr-1"></i>
-            <span class="hidden lg:inline">&nbsp;{{ trans('main.send') }}</span>
-          </GButton>
         </div>
+
+        <GButton color="black" size="small" v-on:click="sendCommand">
+          <i class="fa-solid fa-terminal"></i>
+          <span class="hidden lg:inline">&nbsp;{{ trans('main.send') }}</span>
+        </GButton>
+
+      </div>
     </div>
 </template>
 
-<script>
-    import { mapState } from 'vuex';
-    import {
-      NInput,
-    } from "naive-ui";
-    import GButton from "../GButton.vue";
-    import {errorNotification} from "../../parts/dialogs";
-    import Loading from "../Loading.vue";
+<script setup>
+import {computed, ref, onMounted, defineProps} from "vue"
+import {
+  NInput,
+} from "naive-ui"
+import {storeToRefs} from "pinia"
+import GButton from "../GButton.vue"
+import {errorNotification} from "../../parts/dialogs"
+import Loading from "../Loading.vue"
+import {useServerRconStore} from "../../store/serverRcon";
 
-    export default {
-        name: "RconConsole",
-        components: {Loading, GButton},
-        props: {
-            serverId: Number
-        },
-        data: function () {
-            return {
-                inputText: null,
-                loading: false,
-            };
-        },
-        methods: {
-            async sendCommand() {
-                this.loading = true;
-                await this.$store.dispatch('rconConsole/sendCommand', this.inputText).then(() => {
-                    this.inputText = '';
-                }).catch((error) => {
-                    errorNotification(error);
-                    console.log(error);
-                }).finally(() => {
-                    this.loading = false;
-                });
-            },
-        },
-        computed: {
-            ...mapState({
-                output: state => state.rconConsole.output,
-            })
-        },
-        mounted() {
-            this.$store.dispatch('servers/setServerId', this.serverId);
-        }
-    }
+const serverRconStore = useServerRconStore()
+
+const {output, fastRcon} = storeToRefs(serverRconStore)
+
+const props = defineProps({
+  serverId: null
+})
+
+const command = ref('')
+const loading = computed(() => serverRconStore.loading)
+
+const sendCommand = () => {
+  serverRconStore.sendCommand(command.value)
+}
+
+const setAndSendCommand = (fastCommand) => {
+  command.value = fastCommand
+  sendCommand()
+}
+
+onMounted(() => {
+  serverRconStore.fetchFastRcon()
+})
 </script>
