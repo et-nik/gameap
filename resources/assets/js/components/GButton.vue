@@ -20,11 +20,11 @@ const defaultDisabledClass = 'cursor-not-allowed'
 
 const colors = {
   black: 'bg-stone-700 text-white hover:bg-stone-800',
-  white: 'text-black bg-white border border-stone-300 focus:outline-none hover:bg-stone-100 focus:ring-4 focus:ring-stone-100 dark:bg-stone-800 dark:text-white dark:border-stone-600 dark:hover:bg-stone-700 dark:hover:border-stone-600 dark:focus:ring-stone-700',
-  green: 'bg-lime-500 text-white hover:bg-lime-600',
-  red: 'bg-red-500 text-white hover:bg-red-600',
-  orange: 'bg-orange-400 text-white hover:bg-orange-500',
-  blue: 'bg-sky-500 text-white hover:bg-sky-600',
+  white: 'text-black bg-white focus:outline-none hover:bg-stone-100 focus:ring-4 focus:ring-stone-100 dark:bg-stone-800 dark:text-white dark:border-stone-600 dark:hover:bg-stone-700 dark:hover:border-stone-600 dark:focus:ring-stone-700',
+  green: 'bg-lime-500 text-white hover:bg-lime-600 dark:bg-lime-800 dark:hover:bg-lime-900 dark:text-stone-200',
+  red: 'bg-red-500 text-white hover:bg-red-600 dark:bg-red-800 dark:hover:bg-red-900 dark:text-stone-200',
+  orange: 'bg-orange-400 text-white hover:bg-orange-500 dark:bg-orange-800 dark:hover:bg-orange-900 dark:text-stone-200',
+  blue: 'bg-sky-500 text-white hover:bg-sky-600 dark:bg-sky-800 dark:hover:bg-sky-900 dark:text-stone-200',
 }
 
 const disabledColors = {

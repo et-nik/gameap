@@ -1,32 +1,8 @@
 <template>
   <n-config-provider
       :locale="pageLanguage() === 'ru' ? ruRU : enUS"
-      :theme-overrides='{
-                  "common": {
-                    "primaryColor": "#84cc16",
-                    "primaryColorHover": "#65a30d",
-                    "primaryColorPressed": "#65a30d",
-                    "successColor": "#84CC16FF",
-                    "successColorHover": "#65A30DFF",
-                    "successColorPressed": "#65A30DFF",
-                    "successColorSuppl": "#65A30DFF",
-                    "warningColor": "#fb923cFF",
-                    "warningColorHover": "#f97316FF",
-                    "warningColorPressed": "#f97316FF",
-                    "warningColorSuppl": "#f97316FF",
-                    "errorColor": "#ef4444FF",
-                    "errorColorHover": "#dc2626ff",
-                    "errorColorPressed": "#dc2626ff",
-                    "errorColorSuppl": "#dc2626ff",
-                    "tableHeaderColor": "#f5f5f4ff"
-                  },
-                  "Tabs": {
-                    "tabTextColorLine": "#78716c",
-                    "tabTextColorActiveLine": "#1c1917",
-                    "tabTextColorHoverLine": "#1c1917",
-                    "barColor": "#1c1917"
-                  }
-            }'>
+      :theme="darkTheme"
+  >
     <n-dialog-provider>
       <n-message-provider>
         <div v-if="user">
@@ -75,6 +51,7 @@ import {
   NConfigProvider,
   NDialogProvider,
   NMessageProvider,
+  darkTheme,
   ruRU,
   enUS,
 } from "naive-ui"
@@ -107,6 +84,32 @@ const user = computed(() => {
   return authStore.user
 })
 
+const themeOverrides = {
+  "common": {
+    "primaryColor": "#84cc16",
+    "primaryColorHover": "#65a30d",
+    "primaryColorPressed": "#65a30d",
+    "successColor": "#84CC16FF",
+    "successColorHover": "#65A30DFF",
+    "successColorPressed": "#65A30DFF",
+    "successColorSuppl": "#65A30DFF",
+    "warningColor": "#fb923cFF",
+    "warningColorHover": "#f97316FF",
+    "warningColorPressed": "#f97316FF",
+    "warningColorSuppl": "#f97316FF",
+    "errorColor": "#ef4444FF",
+    "errorColorHover": "#dc2626ff",
+    "errorColorPressed": "#dc2626ff",
+    "errorColorSuppl": "#dc2626ff",
+    "tableHeaderColor": "#f5f5f4ff"
+  },
+  "Tabs": {
+    "tabTextColorLine": "#78716c",
+    "tabTextColorActiveLine": "#1c1917",
+    "tabTextColorHoverLine": "#1c1917",
+    "barColor": "#1c1917"
+  }
+}
 
 const onAnyStoreAction = ({
   name, // name of the action

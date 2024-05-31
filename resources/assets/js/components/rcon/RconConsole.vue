@@ -25,7 +25,7 @@
       <div class="grid grid-cols-8 gap-x-2 mt-2">
         <div class="col-span-7 w-full">
           <NInput
-              v-model:value="inputText"
+              v-model:value="command"
               v-on:keyup.enter="sendCommand"
               :disabled="loading"
               type="text"
@@ -65,7 +65,11 @@ const command = ref('')
 const loading = computed(() => serverRconStore.loading)
 
 const sendCommand = () => {
-  serverRconStore.sendCommand(command.value).catch((error) => {
+  serverRconStore.sendCommand(command.value).
+  then(() => {
+    command.value = ''
+  }).
+  catch((error) => {
     errorNotification(error)
   })
 }
