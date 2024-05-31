@@ -42,7 +42,7 @@ export const useNodeListStore = defineStore("nodeList",{
         async createNode(node) {
             this.apiProcesses++
             try {
-                await axios.put('/api/dedicated_servers', node)
+                await axios.post('/api/dedicated_servers', node)
             } catch (error) {
                 throw error
             } finally {
