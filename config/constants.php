@@ -2,6 +2,6 @@
 //file : app/config/constants.php
 
 return [
-    'AP_VERSION' => '3.1.2',
-    'AP_DATE'    => '02.03.2024'
+    'AP_VERSION' => '3.2.0',
+    'AP_DATE'    => '01.06.2024'
 ];
