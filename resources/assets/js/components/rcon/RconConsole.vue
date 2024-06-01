@@ -1,7 +1,8 @@
 <template>
     <div id="rcon-console-component">
       <div class="coding inverse-toggle px-5 pt-4 shadow-lg text-stone-100 text-sm font-mono subpixel-antialiased
-              bg-stone-800  pb-6 pt-4 rounded-lg leading-normal overflow-hidden">
+              bg-stone-800 dark:bg-stone-900 pb-6 pt-4 rounded-lg leading-normal overflow-hidden
+      ">
         <div ref="consoleRef" class="whitespace-pre-wrap mt-4 flex h-[40vh] overflow-y-scroll overscroll-contain">
           <div v-if="loading" class="flex w-full items-center justify-center">
             <Loading></Loading>
