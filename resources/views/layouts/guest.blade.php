@@ -15,8 +15,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app" class="dark:bg-stone-800">
+<body class="dark:bg-stone-800">
+    <div id="app">
         <app />
     </div>
 
