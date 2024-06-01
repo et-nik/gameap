@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: composer
-    image: knik/php:7.3-fpm-stretch
+    image: mirror.gcr.io/knik/php:7.3-fpm-stretch
     commands:
       - apt -y update && apt install -y git
       - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -11,7 +11,7 @@ steps:
       - touch composer_installed
 
   - name: tests-php-7.3
-    image: knik/php:7.3-fpm-stretch
+    image: mirror.gcr.io/knik/php:7.3-fpm-stretch
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       DB_CONNECTION: mysql
@@ -34,7 +34,7 @@ steps:
       - rm .env
 
   - name: tests-php-7.4
-    image: knik/php:7.4-fpm-alpine
+    image: mirror.gcr.io/knik/php:7.4-fpm-alpine
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       DB_CONNECTION: mysql
@@ -56,7 +56,7 @@ steps:
       - rm .env
 
   - name: tests-php-8.0
-    image: knik/php:8.0-fpm-alpine
+    image: mirror.gcr.io/knik/php:8.0-fpm-alpine
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       DB_CONNECTION: mysql
@@ -78,7 +78,7 @@ steps:
       - rm .env
 
   - name: tests-php-8.1
-    image: knik/php:8.1-fpm-alpine
+    image: mirror.gcr.io/knik/php:8.1-fpm-alpine
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       DB_CONNECTION: mysql
@@ -100,7 +100,7 @@ steps:
       - rm .env
 
   - name: tests-php-8.2
-    image: knik/php:8.2-fpm-alpine
+    image: mirror.gcr.io/knik/php:8.2-fpm-alpine
     failure: ignore
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
@@ -123,14 +123,14 @@ steps:
       - rm .env
 
   - name: npm
-    image: node:20
+    image: mirror.gcr.io/node:20
     commands:
       - node --version
       - npm install
       - npm run prod
 
   - name: browser-tests
-    image: knik/php:7.3-fpm-buster
+    image: mirror.gcr.io/knik/php:7.3-fpm-buster
     environment:
       SELENIUM_URL: http://selenium:4444/wd/hub
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
@@ -174,12 +174,12 @@ steps:
         - master
 
   - name: archive
-    image: debian:buster
+    image: mirror.gcr.io/debian:buster
     commands:
       - apt update && apt -y install rsync
       - mkdir gameap
       - rsync -rl --exclude=/gameap --exclude=/node_modules --exclude=/storage/app/certs ./ gameap/
-      - tar czf "/publish/gameap-3.1.tar.gz" "gameap"
+      - tar czf "/publish/gameap-3.2.tar.gz" "gameap"
     volumes:
       - name: publish
         path: /publish
@@ -189,7 +189,7 @@ steps:
         - aws-publish-test
 
   - name: archive-shared
-    image: knik/php:8.2-fpm-alpine
+    image: mirror.gcr.io/knik/php:8.2-fpm-alpine
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       APP_DEBUG: true
@@ -220,7 +220,7 @@ steps:
       - unzip -o shared-build-artifacts.zip -d gameap-shared
       - cd gameap-shared
         && mv upload/gameap.sql gameap.sql
-        && zip -r "/publish/gameap-3.1-shared.zip" ./
+        && zip -r "/publish/gameap-3.2-shared.zip" ./
     volumes:
       - name: publish
         path: /publish
@@ -230,7 +230,7 @@ steps:
         - aws-publish-test
 
   - name: publish
-    image: cschlosser/drone-ftps
+    image: mirror.gcr.io/cschlosser/drone-ftps
     environment:
       FTP_USERNAME:
         from_secret: ftp_username
@@ -255,7 +255,7 @@ steps:
         - aws-publish-test
 
   - name: publish-sdn
-    image: plugins/s3
+    image: mirror.gcr.io/plugins/s3
     settings:
       bucket: gameap
       region: eu-central-1
@@ -275,7 +275,7 @@ steps:
         - aws-publish-test
 
   - name: artifacts
-    image: knik/drone-s3-plugin
+    image: mirror.gcr.io/knik/drone-s3-plugin
     failure: ignore
     settings:
       endpoint:
@@ -301,7 +301,7 @@ steps:
 
 services:
   - name: db
-    image: mysql:5.6
+    image: mirror.gcr.io/mysql:5.6
     environment:
       MYSQL_ROOT_PASSWORD: userpass
       MYSQL_DATABASE: homestead
@@ -309,7 +309,7 @@ services:
       MYSQL_PASSWORD: secret
 
   - name: webserver
-    image: knik/php:7.4-cli-alpine
+    image: mirror.gcr.io/knik/php:7.4-cli-alpine
     environment:
       APP_KEY: base64:QhlU2DzlLyaYVHzlh3RlSipTtBhwb3/5jPKbctx2lP8=
       APP_DEBUG: true
@@ -328,7 +328,7 @@ services:
       - ./artisan serve --host=webserver --port=80
 
   - name: selenium
-    image: selenium/standalone-chrome:4.1.0
+    image: mirror.gcr.io/selenium/standalone-chrome:4.1.0
     shm_size: 2000000000
     environment:
       HUB_PORT: 4444
