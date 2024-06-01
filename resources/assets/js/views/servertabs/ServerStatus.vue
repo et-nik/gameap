@@ -2,10 +2,6 @@
     <div id="server-status-component">
         <div class="flex flex-wrap ">
             <div class="md:w-1/6 pr-4 pl-4">
-                <strong>{{ trans('servers.query') }}</strong>
-            </div>
-
-            <div class="md:w-1/6 pr-4 pl-4">
                 <div v-if="status === 'online'" class="inline">
                     <span class="badge-green">{{ trans('servers.online') }}</span>
                 </div>
