@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $server_id
  * @property integer $name
  * @property mixed   $value
+ * @property string  $type
  *
  * @property Server $server
  */
@@ -24,6 +25,7 @@ class ServerSetting extends Model
         'server_id',
         'name',
         'value',
+        'type',
     ];
 
     public function server()

@@ -38,9 +38,17 @@ return [
         'game-server-rcon-players'  => 'RCON управление игроками',
     ],
 
+    'update_password' => 'Обновление пароля',
+
     'server_permission_edit' => 'Привилегии сервера',
+
+    'delete_confirm_msg' => 'Вы уверены, что хотите удалить этого пользователя?',
 
     'create_success_msg' => 'Пользователь успешно создан',
     'update_success_msg' => 'Пользователь успешно обновлён',
-    'delete_success_msg' => 'Пользователь успешно улалён',
+    'delete_success_msg' => 'Пользователь успешно удалён',
+
+    'privileges_saved_success_msg' => 'Привилегии успешно сохранены',
+
+    'delete_self_error_msg' => 'Вы не можете удалить себя',
 ];

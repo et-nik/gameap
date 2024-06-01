@@ -8,6 +8,8 @@ return [
     'abilities' => 'Abilities',
     'last_used' => 'Last Used',
 
+    'delete_confirm_msg' => 'Are you sure you want to delete the token?',
+
     'token_created_notification' => 'Make sure to copy your new personal access token now. You won’t be able to see it again!',
     'token_created_msg'          => 'Token created: :token',
     'token_removed_msg'          => 'Token removed successfully.',
@@ -22,6 +24,8 @@ return [
             'console'        => 'Access to read and write into game server console',
             'rcon-console'   => 'Access to game server RCON console',
             'rcon-players'   => 'Access to players management on game server',
+            'tasks-manage'   => 'Manage game server tasks',
+            'settings-manage' => 'Manage game server settings',
         ],
         'gdaemon_task' => [
             'read'           => 'Read GameAP Daemon task',

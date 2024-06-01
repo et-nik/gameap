@@ -24,6 +24,13 @@ class ServersRconController extends AuthController
         return $rconService->supportedFeatures($server);
     }
 
+    public function fastRcon(Server $server)
+    {
+        $this->authorize('server-rcon-console', $server);
+
+        return $server->gameMod->fast_rcon;
+    }
+
     /**
      * @param RconService $rconService
      * @param CommandRequest $request

@@ -53,6 +53,17 @@ class GamesController extends AuthController
         return response()->json($game, 200);
     }
 
+    public function upgrade()
+    {
+        $result = $this->repository->upgradeFromRepo();
+
+        if ($result) {
+            return response()->json(['message' => 'Games and Game Mods upgraded'], 200);
+        } else {
+            return response()->json(['message' => 'Error while upgrading Games and Game Mods'], 500);
+        }
+    }
+
     public function destroy(Game $game)
     {
         $game->delete();

@@ -10,13 +10,6 @@ steps:
       - composer install --no-ansi
       - touch composer_installed
 
-  - name: npm
-    image: node:20
-    commands:
-      - node --version
-      - npm install
-      - npm run prod
-
   - name: tests-php-7.3
     image: knik/php:7.3-fpm-stretch
     environment:
@@ -128,6 +121,13 @@ steps:
       - rm -rf storage/debugbar/*
       - rm -rf storage/logs/*
       - rm .env
+
+  - name: npm
+    image: node:20
+    commands:
+      - node --version
+      - npm install
+      - npm run prod
 
   - name: browser-tests
     image: knik/php:7.3-fpm-buster

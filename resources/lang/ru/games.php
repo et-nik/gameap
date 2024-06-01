@@ -68,4 +68,7 @@ return [
 
     'upgrade_success_msg'    => 'Игры успешно обновлены',
     'upgrade_fail_msg'       => 'Ошибка обновления',
+
+    'delete_game_confirm_msg' => 'Вы уверены, что хотите удалить игру?',
+    'delete_mod_confirm_msg'  => 'Вы уверены, что хотите удалить мод?',
 ];

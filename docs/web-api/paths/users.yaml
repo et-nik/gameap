@@ -1,0 +1,41 @@
+get:
+  summary: Get Users
+  tags:
+    - users
+  description: Get a list of users.
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/user.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
+post:
+  summary: Create User
+  tags:
+      - users
+  description: Create a new user.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+            $ref: '../schemas/user-with-password-and-roles.yaml'
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+              $ref: '../schemas/user.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

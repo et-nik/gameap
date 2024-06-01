@@ -7,11 +7,11 @@ window._ = _
  * code may be modified to fit the specific needs of your application.
  */
 
-window.bootstrap = {};
-
-import {Modal, Tooltip} from 'bootstrap';
-window.bootstrap.Modal = Modal;
-window.bootstrap.Tooltip = Tooltip;
+// window.bootstrap = {};
+//
+// import {Modal, Tooltip} from 'bootstrap';
+// window.bootstrap.Modal = Modal;
+// window.bootstrap.Tooltip = Tooltip;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -23,6 +23,18 @@ import axios from 'axios'
 window.axios = axios
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
+axios.interceptors.response.use(undefined, function (error) {
+    if (error.response && error.response.status) {
+        switch (error.response.status) {
+            case 401:
+                window.location.href = '/'
+                break
+        }
+    }
+
+    return Promise.reject(error);
+})
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -37,7 +49,3 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-
-import 'bootstrap-select';
-
-import 'popper.js'

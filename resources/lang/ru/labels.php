@@ -34,6 +34,7 @@ return [
     'script_pause' => 'Скрипт паузы',
     'script_unpause' => 'Скрипт возобновления',
     'script_stop' => 'Скрипт остановки',
+    'script_kill' => 'Скрипт принудительной остановки',
     'script_restart' => 'Скрипт перезагрузки',
     'script_status' => 'Скрипт статуса',
     'script_stats' => 'Скрипт статистики',
@@ -96,7 +97,9 @@ return [
 
     // User
     'login' => 'Логин',
+    'email' => 'Email',
     'current_password' => 'Текущий пароль',
+    'new_password' => 'Новый пароль',
     'password' => 'Пароль',
     'password_confirmation' => 'Подтверждение пароля',
     'roles' => 'Роли',

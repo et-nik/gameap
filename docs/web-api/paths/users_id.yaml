@@ -1,0 +1,70 @@
+get:
+  summary: Get User
+  tags:
+      - users
+  parameters:
+    - name: user
+      in: path
+      required: true
+      description: 'User ID'
+      schema:
+        type: integer
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+              $ref: '../schemas/user-with-roles.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
+put:
+  summary: Save User
+  tags:
+    - users
+  parameters:
+    - name: user
+      in: path
+      required: true
+      description: 'User ID'
+      schema:
+          type: integer
+  requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/user-with-password-and-roles.yaml'
+  responses:
+    200:
+      description: OK
+      content:
+          application/json:
+            schema:
+              $ref: '../schemas/user-with-roles.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
+delete:
+  summary: Delete User
+  tags:
+    - users
+  parameters:
+    - name: user
+      in: path
+      required: true
+      description: 'User ID'
+      schema:
+          type: integer
+  responses:
+    200:
+      $ref: '../responses/common-success.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

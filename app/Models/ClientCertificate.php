@@ -2,6 +2,7 @@
 
 namespace Gameap\Models;
 
+use Gameap\Services\Daemon\CertificateService;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $certificate
  * @property string $private_key
  * @property string $private_key_pass
+ * @property array $info
  */
 class ClientCertificate extends Model
 {
@@ -48,5 +50,10 @@ class ClientCertificate extends Model
     public function dedicatedServers()
     {
         return $this->hasMany(DedicatedServer::class);
+    }
+
+    public function getInfoAttribute()
+    {
+        return CertificateService::certificateInfo($this->certificate);
     }
 }

@@ -18,6 +18,7 @@ return [
     'control_modules'   => '- Управление модулями -',
     'gameap'            => 'GameAP',
     'documentation'     => 'Документация',
+    'api_documentation' => 'API Документация',
     'update'            => 'Проверить обновления',
     'error_report'      => 'Сообщить о баге',
     'help'              => 'Помощь',

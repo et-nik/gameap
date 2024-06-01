@@ -1,0 +1,201 @@
+get:
+  summary: Get User Server Permissions
+  tags:
+      - users
+      - servers
+  parameters:
+    - name: user
+      in: path
+      required: true
+      description: 'User ID'
+      schema:
+          type: integer
+    - name: server
+      in: path
+      required: true
+      description: 'Server ID'
+      schema:
+          type: integer
+  responses:
+    200:
+      description: OK
+      content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '../schemas/user-server-permission.yaml'
+              example: |
+                [
+                  {
+                    "permission": "game-server-common",
+                    "value": false,
+                    "name": "Common Game Server Ability"
+                  },
+                  {
+                    "permission": "game-server-start",
+                    "value": true,
+                    "name": "Start Game Server"
+                  },
+                  {
+                    "permission": "game-server-stop",
+                    "value": false,
+                    "name": "Stop Game Server"
+                  },
+                  {
+                    "permission": "game-server-restart",
+                    "value": true,
+                    "name": "Restart Game Server"
+                  },
+                  {
+                    "permission": "game-server-pause",
+                    "value": true,
+                    "name": "Pause Game Server"
+                  },
+                  {
+                    "permission": "game-server-update",
+                    "value": true,
+                    "name": "Update Game Server"
+                  },
+                  {
+                    "permission": "game-server-files",
+                    "value": true,
+                    "name": "Access to filemanager"
+                  },
+                  {
+                    "permission": "game-server-tasks",
+                    "value": true,
+                    "name": "Access to task scheduler"
+                  },
+                  {
+                    "permission": "game-server-settings",
+                    "value": true,
+                    "name": "Access to settings"
+                  },
+                  {
+                    "permission": "game-server-console-view",
+                    "value": true,
+                    "name": "Access to read server console"
+                  },
+                  {
+                    "permission": "game-server-console-send",
+                    "value": true,
+                    "name": "Access to send console commands"
+                  },
+                  {
+                    "permission": "game-server-rcon-console",
+                    "value": true,
+                    "name": "RCON console"
+                  },
+                  {
+                    "permission": "game-server-rcon-players",
+                    "value": true,
+                    "name": "RCON players manage"
+                  }
+                ]
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
+put:
+  summary: Save User Server Permissions
+  tags:
+    - users
+    - servers
+  parameters:
+    - name: user
+      in: path
+      required: true
+      description: 'User ID'
+      schema:
+        type: integer
+    - name: server
+      in: path
+      required: true
+      description: 'Server ID'
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../schemas/user-server-permission.yaml'
+          example: |
+            [
+              {
+                "permission": "game-server-common",
+                "value": false,
+                "name": "Common Game Server Ability"
+              },
+              {
+                "permission": "game-server-start",
+                "value": true,
+                "name": "Start Game Server"
+              },
+              {
+                "permission": "game-server-stop",
+                "value": false,
+                "name": "Stop Game Server"
+              },
+              {
+                "permission": "game-server-restart",
+                "value": true,
+                "name": "Restart Game Server"
+              },
+              {
+                "permission": "game-server-pause",
+                "value": true,
+                "name": "Pause Game Server"
+              },
+              {
+                "permission": "game-server-update",
+                "value": true,
+                "name": "Update Game Server"
+              },
+              {
+                "permission": "game-server-files",
+                "value": true,
+                "name": "Access to filemanager"
+              },
+              {
+                "permission": "game-server-tasks",
+                "value": true,
+                "name": "Access to task scheduler"
+              },
+              {
+                "permission": "game-server-settings",
+                "value": true,
+                "name": "Access to settings"
+              },
+              {
+                "permission": "game-server-console-view",
+                "value": true,
+                "name": "Access to read server console"
+              },
+              {
+                "permission": "game-server-console-send",
+                "value": true,
+                "name": "Access to send console commands"
+              },
+              {
+                "permission": "game-server-rcon-console",
+                "value": true,
+                "name": "RCON console"
+              },
+              {
+                "permission": "game-server-rcon-players",
+                "value": true,
+                "name": "RCON players manage"
+              }
+            ]
+  responses:
+    200:
+      $ref: '../responses/common-success.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'

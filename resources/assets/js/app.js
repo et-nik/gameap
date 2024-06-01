@@ -6,36 +6,59 @@
 import {createApp, h} from "vue";
 import {defineAsyncComponent} from 'vue'
 
+import {createPinia} from 'pinia'
+
 import {
     create,
     NAlert,
     NButton,
+    NCard,
+    NCheckbox,
     NCollapse,
     NCollapseItem,
+    NConfigProvider,
     NDatePicker,
     NDataTable,
     NDialog,
     NDialogProvider,
     NEmpty,
+    NInput,
+    NInputNumber,
     NMessageProvider,
     NModal,
     NProgress,
+    NRadio,
     NSelect,
     NTable,
+    NTabs,
+    NTabPane,
+    NThemeEditor,
     NTooltip,
 } from 'naive-ui'
 
+import { createWebHistory, createRouter } from 'vue-router'
+
 import './bootstrap';
 
-import './parts/leftMenu'
 import './parts/form'
 import {alert, confirmAction, confirm} from './parts/dialogs'
 
 import {pluralize, trans} from "./i18n/i18n";
 
-import store from './store'
+import store from './legacy/store'
+
+import GBreadcrumbs from "./components/GBreadcrumbs.vue";
+import GButton from "./components/GButton.vue";
+
+import App from './App.vue';
+
+import GuestNavbar from "./components/GuestNavbar.vue";
+import MainNavbar from './components/MainNavbar.vue';
+import MainSidebar from './components/MainSidebar.vue';
 
 import ContentView from './components/ContentView.vue';
+
+import KeyValueTable from "./components/KeyValueTable.vue";
 
 const InputTextList = defineAsyncComponent(() =>
     import('./components/input/InputTextList.vue' /* webpackChunkName: "components/input" */)
@@ -49,26 +72,22 @@ const GameapSelect = defineAsyncComponent(() =>
     import('./components/input/GameapSelect.vue' /* webpackChunkName: "components/input" */)
 )
 
-import fileManager from 'gameap-file-manager';
+import fileManager from './filemanager';
 
 const ServerStatus = defineAsyncComponent(() =>
-    import('./components/ServerStatus.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerStatus.vue' /* webpackChunkName: "components/server" */)
 )
 
 const ServerConsole = defineAsyncComponent(() =>
-    import('./components/ServerConsole.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerConsole.vue' /* webpackChunkName: "components/server" */)
 )
 
 const ServerTasks = defineAsyncComponent(() =>
-    import('./components/ServerTasks.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerTasks.vue' /* webpackChunkName: "components/server" */)
 )
 
 const ServerControlButton = defineAsyncComponent(() =>
-    import('./components/ServerControlButton.vue' /* webpackChunkName: "components/server" */)
-)
-
-const ServerMainList = defineAsyncComponent(() =>
-    import('./components/ServerMainList.vue' /* webpackChunkName: "components/server" */)
+    import('./views/servertabs/ServerControlButton.vue' /* webpackChunkName: "components/server" */)
 )
 
 const TaskOutput = defineAsyncComponent(() =>
@@ -107,13 +126,28 @@ const SettingsParameters = defineAsyncComponent(() =>
     import('./components/SettingsParameters.vue' /* webpackChunkName: "components/settings" */)
 )
 
+// Blocks
+
+const CreateNodeModal  = defineAsyncComponent(() =>
+    import('./components/blocks/CreateNodeModal.vue' /* webpackChunkName: "components/blocks" */)
+)
+
 const setActiveTab = (tab) => {
     store.dispatch('activeTab/setName', tab);
 }
 
+import {beforeEachRoute, routes} from "./routes";
+
 const app = createApp({
     components: {
+        App,
+        GBreadcrumbs,
+        GButton,
+        GuestNavbar,
+        MainNavbar,
+        MainSidebar,
         ContentView,
+        KeyValueTable,
         DsIpSelector,
         GameModSelector,
         GameapSelect,
@@ -123,7 +157,6 @@ const app = createApp({
         RconPlayers,
         ServerConsole,
         ServerControlButton,
-        ServerMainList,
         ServerSelector,
         ServerStatus,
         ServerTasks,
@@ -131,6 +164,9 @@ const app = createApp({
         SmartPortSelector,
         TaskOutput,
         UserServerPrivileges,
+
+        // Blocks
+        CreateNodeModal
     },
     setup: () => {
 
@@ -139,10 +175,6 @@ const app = createApp({
         alert: alert,
         confirm: confirm,
         confirmAction: confirmAction,
-        // mountProgressbar(mountPoint) {
-        //     const ProgressbarComponent = app.component('Progressbar');
-        //     return app.mount(ProgressbarComponent, mountPoint);
-        // },
         setActiveTab: setActiveTab,
     },
     computed: {
@@ -160,26 +192,50 @@ const naive = create({
     components: [
         NAlert,
         NButton,
+        NCard,
+        NCheckbox,
         NCollapse,
         NCollapseItem,
+        NConfigProvider,
         NDialog,
         NDataTable,
         NDatePicker,
         NDialogProvider,
         NEmpty,
+        NInput,
+        NInputNumber,
         NMessageProvider,
         NModal,
         NProgress,
+        NRadio,
         NSelect,
         NTable,
+        NTabs,
+        NTabPane,
+        NThemeEditor,
         NTooltip,
     ],
 })
 
+const pinia = createPinia()
+
 app.use(store)
 app.use(naive)
+app.use(pinia)
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+})
+router.beforeEach(beforeEachRoute)
+
+app.use(router)
 
 app.use(fileManager, {store: store})
+
+const meta = document.createElement('meta')
+meta.name = 'naive-ui-style'
+document.head.appendChild(meta)
 
 app.mount("#app")
 

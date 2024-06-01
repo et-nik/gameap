@@ -1,3 +1,26 @@
+get:
+  summary: Get Server
+  tags:
+    - 'servers'
+  parameters:
+    - name: server
+      in: path
+      required: true
+      description: 'Game Server ID'
+      schema:
+        type: integer
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/server.yaml'
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
 put:
   summary: Save Game Server
   tags:
@@ -68,6 +91,11 @@ put:
               nullable: true
               description: The port number of the game server rcon.
               example: 27017
+            start_command:
+              type: string
+              nullable: true
+              description: The start command of the game server.
+              example: ./start.sh
             dir:
               type: string
               nullable: true
@@ -87,6 +115,98 @@ put:
       $ref: '../responses/common-error.yaml'
     5XX:
       $ref: '../responses/common-error.yaml'
+
+  x-codeSamples:
+    - lang: cURL
+      label: CLI
+      source: |
+        curl -X PUT "https://demo.gameap.ru/api/servers/6" \
+             -H "Content-Type: application/json" \
+             -H 'Authorization: Bearer YOUR_API_KEY' \
+             -d '{
+                    "enabled": 1,
+                    "installed": 1,
+                    "blocked": 0,
+                    "name": "My Awesome Server",
+                    "game_id": "cstrike",
+                    "ds_id": 1,
+                    "game_mod_id": 1,
+                    "server_ip": "
+                    "server_port": 27015,
+                    "query_port": 27016,
+                    "rcon_port": 27017,
+                    "start_command": "./start.sh",
+                    "dir": "servers/my-awesome-server"
+                 }'
+    - lang: PHP
+      source: |
+        <?php
+
+        $url = 'https://demo.gameap.ru/api/servers/6';
+        $data = '{
+                    "enabled": 1,
+                    "installed": 1,
+                    "blocked": 0,
+                    "name": "My Awesome Server",
+                    "game_id": "cstrike",
+                    "ds_id": 1,
+                    "game_mod_id": 1,
+                    "server_ip": "
+                    "server_port": 27015,
+                    "query_port": 27016,
+                    "rcon_port": 27017,
+                    "start_command": "./start.sh",
+                    "dir": "servers/my-awesome-server"
+                 }';
+        
+        curl_setopt_array($curl, [
+          CURLOPT_URL => $url,
+          CURLOPT_CUSTOMREQUEST => 'PUT',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+          ],
+          CURLOPT_POSTFIELDS => $data,
+        ]);
+
+        $response = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            echo 'Curl error: ' . curl_error($curl);
+            exit;
+        }
+
+        curl_close($curl);
+        print_r($response);
+
+    - lang: JavaScript
+      label: JavaScript fetch
+      source: |
+          fetch("https://demo.gameap.ru/api/servers/6", {
+          "headers": {
+              "accept": "application/json",
+              "content-type": "application/json",
+              "authorization": "Bearer " + YOUR_API_KEY
+          },
+          "body": '{
+                      "enabled": 1,
+                      "installed": 1,
+                      "blocked": 0,
+                      "name": "My Awesome Server",
+                      "game_id": "cstrike",
+                      "ds_id": 1,
+                      "game_mod_id": 1,
+                      "server_ip": "
+                      "server_port": 27015,
+                      "query_port": 27016,
+                      "rcon_port": 27017,
+                      "start_command": "./start.sh",
+                      "dir": "servers/my-awesome-server"
+                   }',
+          "method": "PUT",
+          });
 
 delete:
   summary: Delete Server
@@ -116,7 +236,7 @@ delete:
     - lang: cURL
       label: CLI
       source: |
-        curl -X DELETE "https://demo.gameap.ru/api/servers/6" \
+        curl -X DELETE "https://demo.gameap.com/api/servers/6" \
              -H "Content-Type: application/json" \
              -H 'Authorization: Bearer YOUR_API_KEY' \
              -d '{"delete_files": true}'
@@ -125,7 +245,7 @@ delete:
       source: |
         <?php
 
-        $url = 'https://demo.gameap.ru/api/servers/6';
+        $url = 'https://demo.gameap.com/api/servers/6';
         $data = '{"delete_files": true}';
 
         curl_setopt_array($curl, [
@@ -136,6 +256,7 @@ delete:
             'Content-Type: application/json',
             'Authorization: Bearer ' . $apiKey,
           ],
+          CURLOPT_POSTFIELDS => $data,
         ]);
 
         $response = curl_exec($curl);

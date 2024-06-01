@@ -4,14 +4,12 @@ namespace Database\Factories;
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Gameap\Models\DedicatedServer;
 use Gameap\Models\Server;
 use Gameap\Models\GdaemonTask;
 use Faker\Generator as Faker;
 
 $factory->define(GdaemonTask::class, function (Faker $faker) {
     
-    // $randomDsId = DedicatedServer::all()->random()->id;
     $randomServer = Server::all()->random();
     
     return [

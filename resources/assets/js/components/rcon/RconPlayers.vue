@@ -1,17 +1,17 @@
 <template>
     <div id="rcon-players-component">
-        <button class="btn btn-success m-1" v-on:click="updatePlayers()">
-            <i class="fas fa-sync"></i>
-        </button>
+        <GButton color="green" size="small" class="mb-2" v-on:click="updatePlayers">
+          <i class="fas fa-sync"></i>
+        </GButton>
 
-        <table class="table table-striped table-bordered">
+        <n-table size="small" :bordered="false">
             <thead>
             <tr>
-                <td>{{ trans('rcon.player_name') }}</td>
-                <td v-if="scoreRow">{{ trans('rcon.player_score') }}</td>
-                <td v-if="pingRow">{{ trans('rcon.player_ping') }}</td>
-                <td v-if="ipRow">{{ trans('rcon.player_ip') }}</td>
-                <td>{{ trans('main.actions') }}</td>
+                <th>{{ trans('rcon.player_name') }}</th>
+                <th v-if="scoreRow">{{ trans('rcon.player_score') }}</th>
+                <th v-if="pingRow">{{ trans('rcon.player_ping') }}</th>
+                <th v-if="ipRow">{{ trans('rcon.player_ip') }}</th>
+                <th>{{ trans('main.actions') }}</th>
             </tr>
             </thead>
             <tbody v-for="(value, key) in players">
@@ -20,20 +20,20 @@
                 <td v-if="scoreRow">{{ value.score }}</td>
                 <td v-if="pingRow">{{ value.ping }}</td>
                 <td v-if="ipRow">{{ value.ip }}</td>
-                <td>
-                    <button v-on:click="openDialog('kick', key)" class="btn btn-sm btn-info btn-warning m-1">
-                        <i class="gicon gicon-kick"></i>
-                        <span class="d-none d-xl-inline">{{ trans('rcon.kick') }}</span>
-                    </button>
+                <td class="grid grid-cols-2 gap-x-4">
+                  <GButton color="black" size="small" class="mb-2" v-on:click="openDialog('kick', key)">
+                    <i class="gicon gicon-kick mr-1"></i>
+                    <span class="hidden lg:inline">{{ trans('rcon.kick') }}</span>
+                  </GButton>
 
-                    <button v-on:click="openDialog('ban', key)" class="btn btn-sm btn-info btn-danger m-1">
-                        <i class="fas fa-ban"></i>
-                        <span class="d-none d-xl-inline">{{ trans('rcon.ban') }}</span>
-                    </button>
+                  <GButton color="black" size="small" class="mb-2" v-on:click="openDialog('ban', key)">
+                    <i class="fas fa-ban mr-1"></i>
+                    <span class="hidden lg:inline">{{ trans('rcon.ban') }}</span>
+                  </GButton>
                 </td>
             </tr>
             </tbody>
-        </table>
+        </n-table>
 
         <n-modal
             v-model:show="modalEnabled"
@@ -48,36 +48,36 @@
                 <form>
                     <div class="mb-3" v-if="dialogAction === 'ban' || dialogAction === 'kick'">
                         <label for="input-reason" class="control-label">{{ trans('rcon.reason') }}</label>
-                        <input v-model.number="form.reason" id="input-reason" type="text" class="form-control">
+                        <input v-model.number="form.reason" id="input-reason" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
 
                         <span v-if="errors['reason']" class="help-block">
-                                    <strong class="text-danger">{{ errors['reason'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['reason'] }}</strong>
                                 </span>
                     </div>
 
                     <div class="mb-3" v-if="dialogAction === 'ban'">
                         <label for="input-time" class="control-label">{{ trans('rcon.time') }}</label>
-                        <input v-model.number="form.time" id="input-time" type="number" class="form-control">
+                        <input v-model.number="form.time" id="input-time" type="number" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
 
                         <span v-if="errors['time']" class="help-block">
-                                    <strong class="text-danger">{{ errors['time'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['time'] }}</strong>
                                 </span>
                     </div>
 
                     <div class="mb-3" v-if="dialogAction === 'message'">
                         <label for="input-mesage" class="control-label">{{ trans('rcon.message') }}</label>
-                        <input v-model.number="form.message" id="input-mesage" type="text" class="form-control">
+                        <input v-model.number="form.message" id="input-mesage" type="text" class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
 
                         <span v-if="errors['message']" class="help-block">
-                                    <strong class="text-danger">{{ errors['message'] }}</strong>
+                                    <strong class="text-red-600">{{ errors['message'] }}</strong>
                                 </span>
                     </div>
                 </form>
             </div>
 
             <template #footer>
-                <button type="button" class="btn btn-primary me-1" v-on:click="send">{{ trans('main.send') }}</button>
-                <button type="button" class="btn btn-secondary" v-on:click="hideModal">{{ trans('main.close') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 me-1" v-on:click="send">{{ trans('main.send') }}</button>
+                <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-3 leading-normal no-underline bg-stone-600 text-white hover:bg-stone-700" v-on:click="hideModal">{{ trans('main.close') }}</button>
 
             </template>
         </n-modal>
@@ -85,12 +85,18 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import { ref } from "vue";
+    import { mapState } from 'vuex'
+    import { ref } from "vue"
     import { pluralize, trans } from '../../i18n/i18n'
+    import GButton from "../GButton.vue"
+    import {
+      NTable,
+      NModal,
+    } from "naive-ui"
 
     export default {
         name: "RconPlayers",
+      components: {GButton},
         props: {
             serverId: Number,
         },

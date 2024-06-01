@@ -2,6 +2,7 @@
 
 return [
     'title_create'  => 'Create Certificate',
+    'title_upload'  => 'Upload Certificate',
     'title_list'    => 'Certificates List',
     'title_view'    => 'Certificate View',
     
@@ -13,6 +14,7 @@ return [
     'private_key_pass' => 'Private Key Password',
     
     'list'   => 'Client Certificates List',
+    'upload' => 'Upload Certificate',
     'create' => 'Create Certificate',
     'view' => 'View Certificate',
     
@@ -28,6 +30,9 @@ return [
 
     'used' => 'Used',
 
+    'delete_confirm_msg' => 'Are you sure you want to delete this Certificate?',
+
+    'upload_success_msg' => 'Client Certificate uploaded successfully.',
     'create_success_msg' => 'Client Certificate created successfully',
     'delete_success_msg' => 'Client Certificate deleted successfully',
     

@@ -41,15 +41,15 @@ post:
     - lang: cURL
       label: CLI
       source: |
-        curl 'https://demo.gameap.ru/api/servers/2/rcon/players/kick' \
-          -H 'Accept: application/json \
+        curl 'https://demo.gameap.com/api/servers/2/rcon/players/kick' \
+          -H 'Accept: application/json' \
           -H 'Content-Type: application/json' \
           --data-raw '{"player":"123", "reason": "some reason"}'
 
     - lang: JavaScript
       label: JavaScript fetch
       source: |
-        fetch("https://demo.gameap.ru", {
+        fetch("https://demo.gameap.com", {
           "headers": {
             "accept": "application/json",
             "content-type": "application/json",
@@ -63,7 +63,7 @@ post:
       source: |
         <?php
         
-        $url = 'https://demo.gameap.ru/api/servers/2/rcon/players/kick';
+        $url = 'https://demo.gameap.com/api/servers/2/rcon/players/kick';
         $data = '{"player":"123", "reason": "some reason"}';
         
         curl_setopt_array($curl, [

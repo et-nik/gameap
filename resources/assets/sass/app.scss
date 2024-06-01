@@ -1,13 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // Fonts
- @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
 @import "variables";
-
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
-@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Font Awesome
 @import '@fortawesome/fontawesome-free/scss/brands';
@@ -15,10 +14,10 @@
 @import '@fortawesome/fontawesome-free/scss/solid';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
 
+@import '../js/style.css';
+
 // GIcon
 @import "gicon/gicon";
 
 // GameAP
 @import './gameap';
-@import 'bootstrap/switches';
-@import 'bootstrap-custom';

@@ -1,0 +1,96 @@
+get:
+  summary: List current user's abilities
+  description: |
+    List all abilities that the current user has access to on the game server
+  tags:
+    - servers
+  parameters:
+    - in: path
+      name: server
+      required: true
+      description: ID of the game server
+      schema:
+        type: integer
+  responses:
+    200:
+      description: List of abilities
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              abilities:
+                type: array
+                items:
+                  type: string
+    4XX:
+      $ref: '../responses/common-error.yaml'
+    5XX:
+      $ref: '../responses/common-error.yaml'
+
+  x-codeSamples:
+    - lang: 'cURL'
+      label: 'CLI'
+      source: |
+        curl --request GET \
+        --url 'https://demo.gameap.com/api/servers/6/abilities' \
+        --header 'Content-Type: application/json: ' \
+        --header 'Authorization: Bearer YOUR_API_KEY'
+
+    - lang: 'PHP'
+      source: |
+        <?php
+
+        $url = 'https://demo.gameap.com/api/servers/6/abilities';
+        $apiKey = 'YOUR_API_KEY';
+        
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+              'Content-Type: application/json',
+              'Authorization: Bearer ' . $apiKey
+            ),
+        ));
+        
+        $response = curl_exec($curl);
+        
+        if (curl_errno($curl)) {
+        echo 'Curl error: ' . curl_error($curl);
+        exit;
+        }
+        
+        curl_close($curl);
+        
+        $result = json_decode($response, true);
+        print_r($result);
+
+    - lang: "NodeJS"
+      source: |
+        const request = require('request');
+
+        const url = 'https://demo.gameap.com/api/servers/6/abilities';
+        const apiKey = 'YOUR_API_KEY';
+
+        const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + apiKey
+        };
+
+        request.get({
+          url: url,
+          headers: headers
+        }, (error, response, body) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(body);
+          }
+        });

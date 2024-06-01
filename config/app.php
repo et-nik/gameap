@@ -136,6 +136,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Enable experimental features
+    |--------------------------------------------------------------------------
+    |
+    */
+    'enable_experimental_features' => env('APP_ENABLE_EXPERIMENTAL_FEATURES', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -203,6 +211,7 @@ return [
          */
         Mavinoo\Batch\BatchServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
+        Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
     ],
 
     /*

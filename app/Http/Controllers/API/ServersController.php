@@ -24,9 +24,9 @@ use Gameap\UseCases\Commands\EditGameServerCommand;
 use Gameap\UseCases\CreateGameServer;
 use Gameap\UseCases\EditGameServer;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Psr\SimpleCache\CacheInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ServersController extends AuthController
@@ -57,6 +57,9 @@ class ServersController extends AuthController
     /** @var AuthFactory */
     protected $authFactory;
 
+    /** @var CacheInterface */
+    protected $cache;
+
     /**
      * ServersController constructor.
      * @param ServerRepository $repository
@@ -67,7 +70,8 @@ class ServersController extends AuthController
         ServerService $serverService,
         ServerControlService $serverControlService,
         SerializerInterface $serializer,
-        AuthFactory $authFactory
+        AuthFactory $authFactory,
+        CacheInterface $cache
     ) {
         parent::__construct();
 
@@ -77,6 +81,105 @@ class ServersController extends AuthController
         $this->serverControlService  = $serverControlService;
         $this->serializer            = $serializer;
         $this->authFactory           = $authFactory;
+        $this->cache                 = $cache;
+    }
+
+    /**
+     * @param Server $server
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function get(Server $server)
+    {
+        $this->authorize(ServerPermissionHelper::CONTROL_ABILITY, $server);
+
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+        $isAdmin = $currentUser->can(PermissionHelper::ADMIN_PERMISSIONS);
+
+        if ($isAdmin) {
+            return $server->only([
+                'id',
+                'uuid',
+                'uuid_short',
+                'enabled',
+                'installed',
+                'blocked',
+                'name',
+                'ds_id',
+                'game_id',
+                'game_mod_id',
+                'server_ip',
+                'server_port',
+                'query_port',
+                'rcon_port',
+                'game',
+                'last_process_check',
+                'online',
+
+                // Admin details
+                'rcon',
+                'dir',
+                'su_user',
+                'start_command',
+                'aliases',
+                'vars',
+            ]);
+        }
+
+        return $server->only([
+            'id',
+            'uuid',
+            'uuid_short',
+            'enabled',
+            'installed',
+            'blocked',
+            'name',
+            'ds_id',
+            'game_id',
+            'game_mod_id',
+            'server_ip',
+            'server_port',
+            'query_port',
+            'rcon_port',
+            'game',
+            'last_process_check',
+            'online',
+        ]);
+    }
+
+    /**
+     * @param Server $server
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function abilities(Server $server)
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+        $isAdmin = $currentUser->can(PermissionHelper::ADMIN_PERMISSIONS);
+
+        if (!$isAdmin) {
+            $servers = $this->repository->getServersForUser($currentUser->id);
+            if (!$servers->contains($server)) {
+                return response()->json([
+                    'message'   => 'Forbidden',
+                    'http_code' => Response::HTTP_FORBIDDEN,
+                ], Response::HTTP_FORBIDDEN);
+            }
+        }
+
+        $abilities = [];
+
+        foreach (ServerPermissionHelper::getAllPermissions() as $permission) {
+            $abilities[$permission] = $isAdmin || $currentUser->can($permission, $server);
+        }
+
+        return $abilities;
     }
 
     /**
@@ -359,6 +462,62 @@ class ServersController extends AuthController
         });
     }
 
+    public function allServersAbilities()
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        $cacheKey = 'users:' . $currentUser->id . ':servers-abilities';
+
+        if ($this->cache->has($cacheKey)) {
+            return $this->cache->get($cacheKey);
+        }
+
+        $isAdmin = $currentUser->can(PermissionHelper::ADMIN_PERMISSIONS);
+
+        if ($isAdmin) {
+            $servers = $this->repository->getAllServers()->collect();
+        } else {
+            $servers = $this->repository->getServersForUser($currentUser->id);
+        }
+
+        $abilities = [];
+        foreach ($servers as $server) {
+            $abilities[$server->id] = [];
+
+            foreach (ServerPermissionHelper::getAllPermissions() as $permission) {
+                $abilities[$server->id][$permission] = $isAdmin || $currentUser->can($permission, $server);
+            }
+        }
+
+        $this->cache->set($cacheKey, $abilities, 60);
+
+        return $abilities;
+    }
+
+    public function summary()
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if ($currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
+            $collection = $this->repository->getAllServers()->collect();
+        } else {
+            $collection = $this->repository->getServersForUser($currentUser->id);
+        }
+
+        $total = $collection->count();
+        $online = $collection->filter(function ($item) {
+            return $item->online;
+        })->count();
+
+        return [
+            'total' => $total,
+            'online' => $online,
+            'offline' => $total - $online,
+        ];
+    }
+
     public function store(SaveServerRequest $request, CreateGameServer $createGameServer): array
     {
         /** @var CreateGameServerCommand $command */
@@ -411,7 +570,10 @@ class ServersController extends AuthController
      */
     private function handleException(\Throwable $exception)
     {
-        if (Auth::user()->can(PermissionHelper::ADMIN_PERMISSIONS)) {
+        /** @var User $currentUser */
+        $currentUser = $this->authFactory->guard()->user();
+
+        if ($currentUser->can(PermissionHelper::ADMIN_PERMISSIONS)) {
             $extraMessage = $this->getDocMessage($exception);
         } else {
             $extraMessage = (string)__('main.common_admin_error');
