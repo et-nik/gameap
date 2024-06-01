@@ -185,15 +185,12 @@ const onAnyStoreAction = ({
   onError, // hook if the action throws or rejects
 }) => {
   onError((error) => {
-
     if (error.response && error.response.status) {
-      console.log(error.response)
-      console.log(error.response.status)
-
       switch (error.response.status) {
         case 401:
-          authStore.logout()
-          router.push({name: 'login'})
+          authStore.logout().then(() => {
+            window.location.href = '/'
+          })
           break
         case 403:
           router.push({name: 'error403'})
