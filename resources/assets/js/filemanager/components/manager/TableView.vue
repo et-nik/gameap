@@ -121,7 +121,6 @@ export default {
     thead th {
         @apply text-left;
 
-        background: white;
         position: sticky;
         top: 0;
         z-index: 10;
@@ -129,7 +128,7 @@ export default {
         border-top: none;
 
         &:hover {
-            background-color: #f8f9fa;
+          @apply bg-stone-100 dark:bg-[#262322];
         }
 
         & > i {
@@ -148,7 +147,7 @@ export default {
     }
 
     tr:hover {
-        background-color: #f8f9fa;
+      @apply bg-stone-100 dark:bg-[#262322];
     }
 
     .w-10 {

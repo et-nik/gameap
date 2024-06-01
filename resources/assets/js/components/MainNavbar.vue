@@ -41,6 +41,11 @@
           </div>
         </div>
 
+        <div class="md:mr-4 gap-x-1.5 text-white hover:bg-stone-800 md:px-5 md:py-2 rounded" v-on:click="switchTheme()">
+          <i v-if="themeModel === 'dark'" class="fa-solid fa-sun px-2 w-full"></i>
+          <i v-if="themeModel === 'light'" class="fa-solid fa-moon px-2 w-full"></i>
+        </div>
+
         <MainNavbarDropdown
             class="md:mr-4"
             :button-text="trans('navbar.help')"
@@ -128,11 +133,17 @@ import {errorNotification} from "../parts/dialogs";
 
 const authStore = useAuthStore()
 
+const themeModel = defineModel('theme')
+
 const user = computed(() => {
     return authStore.user
 })
 
 const showMobileMenu = ref(false)
+
+const switchTheme = () => {
+    themeModel.value = themeModel.value === 'dark' ? 'light' : 'dark'
+}
 
 const logout = () => {
     authStore.logout().then(() => {

@@ -13,7 +13,7 @@
               :title="trans('games.basic_info')"
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'
@@ -60,7 +60,7 @@
               :title="trans('games.steam_info')"
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'
@@ -93,7 +93,7 @@
               :title="trans('games.repositories_local')"
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'
@@ -120,7 +120,7 @@
               :title="trans('games.repositories_remote')"
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'

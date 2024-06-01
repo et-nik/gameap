@@ -13,7 +13,7 @@
               :title="trans('users.user')"
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'
@@ -58,7 +58,7 @@
               :title="trans('users.update_password')"
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'
@@ -96,7 +96,7 @@
               :title="trans('users.servers')"
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'

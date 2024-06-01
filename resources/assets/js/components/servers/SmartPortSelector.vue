@@ -1,18 +1,38 @@
 <template>
     <div>
       <n-form-item :label="trans('labels.server_port')" :path="serverPortPath">
-        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded" name="server_port" type="number" id="server_port" min="1024" max="65535" v-model="serverPort">
+        <n-input-number
+            name="server_port"
+            id="server_port"
+            :min="1024"
+            :max="65535"
+            v-model:value="serverPort"
+        />
         <template #feedback>
           <span v-if="serverPortWarning" class="help-block"><strong>{{ serverPortWarning }}</strong></span>
         </template>
       </n-form-item>
 
       <n-form-item :label="trans('labels.query_port')" :path="queryPortPath">
-        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded" name="query_port" type="number" id="server_port" min="1024" max="65535" v-model="queryPort">
+        <n-input-number
+            name="query_port"
+            type="number"
+            id="server_port"
+            :min="1024"
+            :max="65535"
+            v-model:value="queryPort"
+        />
       </n-form-item>
 
       <n-form-item :label="trans('labels.rcon_port')" :path="rconPortPath">
-        <input class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded" name="rcon_port" type="number" id="server_port" min="1024" max="65535" v-model="rconPort">
+        <n-input-number
+            name="rcon_port"
+            type="number"
+            id="server_port"
+            :min="1024"
+            :max="65535"
+            v-model:value="rconPort"
+        />
       </n-form-item>
     </div>
 </template>
@@ -20,7 +40,10 @@
 <script setup>
 import { ref, computed, watch, onMounted, defineModel } from 'vue';
 import { useStore } from 'vuex';
-import { NFormItem } from 'naive-ui';
+import {
+  NFormItem,
+  NInputNumber
+} from 'naive-ui';
 import { trans } from '../../i18n/i18n';
 
 const DEFAULT_PORTS = {
@@ -101,7 +124,7 @@ function setPorts() {
   do {
     portCorrect++;
     serverPort.value = DEFAULT_PORTS[gameCode] + portCorrect;
-  } while (isBusy(props.initialServerIp, DEFAULT_PORTS[gameCode] + portCorrect));
+  } while (isBusy(selectedIp.value, DEFAULT_PORTS[gameCode] + portCorrect));
 }
 
 function correctPorts() {

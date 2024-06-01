@@ -3,19 +3,28 @@
 }
 
 .btn-secondary {
-    @apply inline-block align-middle text-center select-none font-normal leading-normal no-underline text-white bg-stone-700 hover:bg-stone-800 disabled:bg-stone-400;
+    @apply inline-block align-middle text-center select-none font-normal leading-normal
+        no-underline text-white bg-stone-700 hover:bg-stone-800 dark:bg-stone-900 dark:hover:bg-stone-950
+        disabled:cursor-not-allowed disabled:bg-stone-600 disabled:text-stone-400 disabled:dark:bg-stone-900 disabled:dark:text-stone-600;
 }
 
 .btn-info {
-    @apply inline-block align-middle text-center select-none font-normal leading-normal no-underline text-white bg-stone-700 hover:bg-stone-800 disabled:bg-stone-400;
+    @apply inline-block align-middle text-center select-none font-normal leading-normal
+        no-underline text-white bg-stone-700 hover:bg-stone-800
+        disabled:cursor-not-allowed disabled:bg-stone-400;
 }
 
 .btn-light {
-    @apply inline-block align-middle text-center select-none font-normal leading-normal no-underline text-black bg-white border border-stone-300 focus:outline-none hover:bg-stone-100 focus:ring-4 focus:ring-stone-100 dark:bg-stone-800 dark:text-white dark:border-stone-600 dark:hover:bg-stone-700 dark:hover:border-stone-600 dark:focus:ring-stone-700;
+    @apply inline-block align-middle text-center select-none font-normal leading-normal
+        no-underline text-black bg-white border border-stone-300 focus:outline-none hover:bg-stone-100
+        focus:ring-4 focus:ring-stone-100 dark:bg-stone-800 dark:text-white dark:border-stone-600
+        dark:hover:bg-stone-700 dark:hover:border-stone-600 dark:focus:ring-stone-700
+        disabled:cursor-not-allowed;
 }
 
 .btn-danger {
-    @apply inline-block align-middle text-center select-none font-normal leading-normal no-underline bg-red-500 text-white hover:bg-red-600;
+    @apply inline-block align-middle text-center select-none font-normal leading-normal
+        no-underline bg-red-500 text-white hover:bg-red-600;
 }
 
 .btn-group {
@@ -55,7 +64,7 @@
 }
 
 .stone-table {
-    @apply w-full text-left rtl:text-right border text-stone-700 dark:text-stone-400;
+    @apply w-full text-left rtl:text-right border dark:border-0 text-stone-700 dark:text-stone-400;
 }
 
 .stone-table-header {
@@ -92,4 +101,8 @@
 
 .badge-light {
     @apply bg-stone-50 text-stone-600 me-2 px-1.5 py-0.5 rounded ring-1 ring-inset ring-stone-500/10;
+}
+
+.g-card-header {
+    @apply bg-stone-100 dark:bg-stone-700;
 }

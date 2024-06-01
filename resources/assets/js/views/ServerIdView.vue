@@ -25,7 +25,7 @@
           <n-card
               :title="trans('servers.commands')"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                           content: true,
                           footer: 'soft'
@@ -90,7 +90,7 @@
           <n-card
               :title="trans('servers.process_status')"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                           content: true,
                           footer: 'soft'
@@ -142,7 +142,7 @@
               <n-card
                   :title="trans('rcon.players_manage')"
                   class="mb-3"
-                  header-class="bg-stone-100"
+                  header-class="g-card-header"
                   :segmented="{
                       content: true,
                       footer: 'soft'
@@ -156,7 +156,7 @@
               <n-card
                   :title="trans('rcon.console')"
                   class="mb-3"
-                  header-class="bg-stone-100"
+                  header-class="g-card-header"
                   :segmented="{
                       content: true,
                       footer: 'soft'
@@ -179,7 +179,10 @@
 
       <div class="flex flex-wrap mt-2">
         <div class="md:w-full">
-          <div class="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-stone-300 p-2">
+          <div
+              class="flex flex-col min-w-0 rounded break-words border bg-white
+              dark:bg-stone-800 border-1 border-stone-300 dark:border-stone-700 p-2"
+          >
             <file-manager
                 :settings="{
                     'lang': pageLanguage(),

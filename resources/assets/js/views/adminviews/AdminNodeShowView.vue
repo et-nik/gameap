@@ -19,7 +19,7 @@
   <n-card
       size="small"
       class="mb-3"
-      header-class="bg-stone-100"
+      header-class="g-card-header"
       :segmented="{
                             content: true,
                             footer: 'soft'

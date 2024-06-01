@@ -74,12 +74,12 @@ onMounted(() => {
 <style>
 .create-node-modal {
   code {
-    @apply text-rose-800 text-sm;
+    @apply text-rose-800 dark:text-rose-300 text-sm;
     word-wrap: break-word;
   }
 
   .curl-link {
-    @apply block bg-stone-50 p-1 my-1 rounded;
+    @apply block bg-stone-50 dark:bg-stone-600 p-1 my-1 rounded;
     font-family: monospace;
   }
 

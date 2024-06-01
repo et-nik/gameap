@@ -17,7 +17,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ URL::asset('favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ URL::asset('favicon-96x96.png') }}">
 </head>
-<body>
+<body class="dark:bg-stone-800">
     <script type="application/javascript">
         window.user = {
             id: {{ Auth::user() ? Auth::user()->id : 'null'}},

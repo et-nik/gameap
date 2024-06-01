@@ -71,51 +71,44 @@
                     </div>
 
                     <div class="relative block mb-2">
-                        <label class="control-label">
-                            <input
-                                v-model="taskRepeatRadio"
-                                v-on:change="formChange"
-                                type="radio"
-                                name="repeat"
-                                value="1">
-                            {{ trans('servers_tasks.no_repeat') }}
-                        </label>
+                          <n-radio
+                              :checked="taskRepeatRadio === '1' || taskRepeatRadio === 1"
+                              @change="onTaskRepeatRadioChange"
+                              name="repeat"
+                              :label="trans('servers_tasks.no_repeat')"
+                              value="1"
+                          />
                     </div>
 
                     <div class="relative block mb-2">
-                        <label class="control-label">
-                            <input
-                                v-model="taskRepeatRadio"
-                                v-on:change="formChange"
-                                type="radio"
-                                name="repeat"
-                                value="0">
-                            {{ trans('servers_tasks.endlessly_repeat') }}
-                        </label>
+                        <n-radio
+                            :checked="taskRepeatRadio === '0' || taskRepeatRadio === 0"
+                            @change="onTaskRepeatRadioChange"
+                            name="repeat"
+                            :label="trans('servers_tasks.endlessly_repeat')"
+                            value="0"
+                        />
                     </div>
 
                     <div class="relative block mb-2">
-                        <label class="control-label">
-                            <input
-                                v-model="taskRepeatRadio"
-                                v-on:change="formChange"
-                                type="radio"
-                                name="repeat"
-                                value="">
-                            {{ trans('servers_tasks.custom_repeat') }}
-                        </label>
+                        <n-radio
+                            :checked="taskRepeatRadio === ''"
+                            @change="onTaskRepeatRadioChange"
+                            name="repeat"
+                            :label="trans('servers_tasks.custom_repeat')"
+                            value=""
+                        />
                     </div>
 
                     <div class="mb-3">
                         <label for="repeat" class="control-label">{{ trans('servers_tasks.repeat_num') }}</label>
-                        <input
-                            v-model.number="taskRepeatInput"
+                        <n-input-number
+                            v-model:value="taskRepeatInput"
                             :disabled="taskRepeatRadio !== ''"
                             id="repeat"
-                            type="number"
-                            min="1"
-                            max="255"
-                            class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
+                            :min="1"
+                            :max="255"
+                        />
 
                         <span v-if="errors['taskRepeatInput']" class="help-block">
                                     <strong class="text-red-600">{{ errors['taskRepeatInput'] }}</strong>
@@ -127,14 +120,15 @@
 
                         <div class="flex flex-wrap ">
                             <div class="md:w-1/3 pr-4 pl-4">
-                                <input v-model="taskRepeatPeriod"
-                                       :disabled="repeat === 1"
-                                       v-on:change="formChange"
-                                       id="repeat_period"
-                                       name="repeat_period"
-                                       type="number"
-                                       :min="repeatMin"
-                                       class="block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded">
+                                <n-input-number
+                                    v-model:value="taskRepeatPeriod"
+                                    :disabled="repeat === 1"
+                                    v-on:update="formChange"
+                                    id="repeat_period"
+                                    name="repeat_period"
+                                    type="number"
+                                    :min="repeatMin"
+                                />
                             </div>
 
                             <div class="md:w-2/3 pr-4 pl-4">
@@ -334,6 +328,10 @@
                     taskRepeatInput: null,
                     taskRepeatPeriod: null,
                 };
+            },
+            onTaskRepeatRadioChange(e) {
+                this.taskRepeatRadio = e.target.value;
+                this.formChange();
             },
             formChange() {
                 this.resetErrors();

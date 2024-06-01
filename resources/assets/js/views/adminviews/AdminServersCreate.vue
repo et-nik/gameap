@@ -14,7 +14,7 @@
             :title="trans('servers.basic_info')"
             size="small"
             class="mb-3"
-            header-class="bg-stone-100"
+            header-class="g-card-header"
             :segmented="{
                             content: true,
                             footer: 'soft'
@@ -81,7 +81,7 @@
             :title="trans('servers.ds_ip_ports')"
             size="small"
             class="mb-3"
-            header-class="bg-stone-100"
+            header-class="g-card-header"
             :segmented="{
                             content: true,
                             footer: 'soft'

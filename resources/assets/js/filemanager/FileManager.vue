@@ -245,19 +245,6 @@ export default {
     position: relative;
     height: 100%;
     padding: 1rem;
-    background-color: white;
-
-    &:-moz-full-screen {
-        background-color: white;
-    }
-
-    &:-webkit-full-screen {
-        background-color: white;
-    }
-
-    &:fullscreen {
-        background-color: white;
-    }
 
     .fm-body {
         flex: 1 1 auto;

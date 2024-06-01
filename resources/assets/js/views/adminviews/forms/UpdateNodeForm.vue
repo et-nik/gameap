@@ -19,7 +19,7 @@
                   :title="trans('games.basic_info')"
                   size="small"
                   class="mb-3"
-                  header-class="bg-stone-100"
+                  header-class="g-card-header"
                   :segmented="{
                             content: true,
                             footer: 'soft'
@@ -86,7 +86,7 @@
                   :title="trans('dedicated_servers.ip_list')"
                   size="small"
                   class="mb-3"
-                  header-class="bg-stone-100"
+                  header-class="g-card-header"
                   :segmented="{
                             content: true,
                             footer: 'soft'
@@ -110,7 +110,7 @@
           <n-card
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'
@@ -182,7 +182,7 @@
           <n-card
               size="small"
               class="mb-3"
-              header-class="bg-stone-100"
+              header-class="g-card-header"
               :segmented="{
                             content: true,
                             footer: 'soft'

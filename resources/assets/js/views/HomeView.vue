@@ -1,6 +1,8 @@
 <template>
     <div class="mt-4">
-      <GButton class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2 h-28 min-w-48" :route="{name: 'servers'}">
+      <GButton class="px-8 py-8 bg-stone-50 hover:bg-stone-100
+        border dark:border-stone-700 dark:bg-stone-800
+        dark:hover:bg-stone-900 m-2 h-28 min-w-48" :route="{name: 'servers'}">
         <div class="text-lg">
           <i class="fa-solid fa-server"></i>
           {{ trans('servers.servers') }}
@@ -23,7 +25,9 @@
         </div>
       </GButton>
 
-      <GButton v-if="isAdmin" class="px-8 py-8 bg-stone-50 hover:bg-stone-100 m-2 h-28 min-w-48" :route="{name: 'admin.nodes.index'}">
+      <GButton v-if="isAdmin" class="px-8 py-8 bg-stone-50 hover:bg-stone-100
+        px-8 py-8 bg-stone-50 hover:bg-stone-100 border dark:border-stone-700
+        dark:bg-stone-800 dark:hover:bg-stone-900 m-2 h-28 min-w-48" :route="{name: 'admin.nodes.index'}">
         <div class="text-lg">
           <i class="fa-solid fa-hard-drive"></i>
           {{ trans('dedicated_servers.nodes' )}}
