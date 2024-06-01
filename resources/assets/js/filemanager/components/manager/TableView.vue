@@ -119,7 +119,7 @@ export default {
 <style lang="scss">
 .fm-table {
     thead th {
-        @apply text-left;
+        @apply text-left dark:bg-stone-800;
 
         position: sticky;
         top: 0;

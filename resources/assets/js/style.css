@@ -56,7 +56,7 @@
 }
 
 .table-info {
-    @apply w-full bg-stone-100;
+    @apply w-full bg-stone-100 dark:bg-stone-950;
 }
 
 .form-select {

@@ -140,9 +140,10 @@ export default {
 
 <style lang="scss">
 .fm-context-menu {
+    @apply bg-white dark:bg-stone-900;
+
     position: absolute;
     z-index: 9997;
-    background-color: white;
     box-shadow: 3px 2px 5px gray;
     border-radius: 5px;
 
@@ -163,7 +164,7 @@ export default {
         cursor: pointer;
 
         &:hover {
-            background-color: #f8f9fa;
+          @apply bg-stone-100 dark:bg-[#262322];
         }
 
         i {
