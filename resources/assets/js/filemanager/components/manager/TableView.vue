@@ -119,7 +119,7 @@ export default {
 <style lang="scss">
 .fm-table {
     thead th {
-        @apply text-left dark:bg-stone-800;
+        @apply text-left bg-white dark:bg-stone-800;
 
         position: sticky;
         top: 0;
@@ -143,11 +143,11 @@ export default {
     }
 
     tr {
-        @apply border-b;
+        @apply border-b dark:border-stone-700;
     }
 
     tr:hover {
-      @apply bg-stone-100 dark:bg-[#262322];
+      @apply bg-stone-100 dark:bg-stone-900;
     }
 
     .w-10 {

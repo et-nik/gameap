@@ -153,10 +153,10 @@ export default {
 
 <style lang="scss">
 .fm-info-block {
+    @apply border-b dark:border-stone-700;
     flex: 0 0 auto;
     padding-top: 0.2rem;
     padding-bottom: 0.4rem;
-    border-bottom: 1px solid #6c757d;
 
     .progress {
         margin-top: 0.3rem;

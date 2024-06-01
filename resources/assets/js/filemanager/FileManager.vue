@@ -247,13 +247,12 @@ export default {
     padding: 1rem;
 
     .fm-body {
+        @apply border-b border-t dark:border-stone-700;
         flex: 1 1 auto;
         overflow: hidden;
         position: relative;
         padding-top: 1rem;
         padding-bottom: 1rem;
-        border-top: 1px solid #6c757d;
-        border-bottom: 1px solid #6c757d;
     }
 
     .unselectable {
@@ -262,33 +261,23 @@ export default {
 }
 
 .fm-error {
-    color: white;
-    background-color: #dc3545;
-    border-color: #dc3545;
+    @apply text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900 border-red-500 dark:border-red-400;
 }
 
 .fm-danger {
-    color: #dc3545;
-    background-color: white;
-    border-color: #dc3545;
+    @apply text-white bg-red-100 dark:bg-red-900 border-red-500 dark:border-red-400;
 }
 
 .fm-warning {
-    color: #ffc107;
-    background-color: white;
-    border-color: #ffc107;
+  @apply text-orange-500 dark:text-orange-400 bg-orange-100 dark:bg-orange-900 border-orange-500 dark:border-orange-400;
 }
 
 .fm-success {
-    color: #198754;
-    background-color: white;
-    border-color: #198754;
+  @apply text-white bg-lime-500 dark:bg-lime-800 border-lime-500 dark:border-lime-400;
 }
 
 .fm-info {
-    color: #0dcaf0;
-    background-color: white;
-    border-color: #0dcaf0;
+  @apply text-white bg-sky-500 dark:bg-sky-800 border-sky-500 dark:border-sky-400;
 }
 
 .fm.fm-full-screen {

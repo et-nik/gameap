@@ -144,7 +144,6 @@ export default {
 
     position: absolute;
     z-index: 9997;
-    box-shadow: 3px 2px 5px gray;
     border-radius: 5px;
 
     &:focus {

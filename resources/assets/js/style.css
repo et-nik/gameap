@@ -4,22 +4,24 @@
 
 .btn-secondary {
     @apply inline-block align-middle text-center select-none font-normal leading-normal
-        no-underline text-white bg-stone-700 hover:bg-stone-800 dark:bg-stone-900 dark:hover:bg-stone-950
-        disabled:cursor-not-allowed disabled:bg-stone-600 disabled:text-stone-400 disabled:dark:bg-stone-900 disabled:dark:text-stone-600;
+    no-underline text-white bg-stone-700 hover:bg-stone-800 dark:bg-stone-900 dark:hover:bg-stone-950
+    disabled:cursor-not-allowed disabled:bg-stone-600 disabled:text-stone-400 disabled:dark:bg-stone-900
+    disabled:dark:text-stone-600;
 }
 
 .btn-info {
     @apply inline-block align-middle text-center select-none font-normal leading-normal
-        no-underline text-white bg-stone-700 hover:bg-stone-800
-        disabled:cursor-not-allowed disabled:bg-stone-400;
+    no-underline text-white bg-stone-700 hover:bg-stone-800
+    disabled:cursor-not-allowed disabled:bg-stone-400
+    dark:bg-stone-900 dark:hover:bg-stone-950 dark:disabled:bg-stone-900;
 }
 
 .btn-light {
     @apply inline-block align-middle text-center select-none font-normal leading-normal
-        no-underline text-black bg-white border border-stone-300 focus:outline-none hover:bg-stone-100
-        focus:ring-4 focus:ring-stone-100 dark:bg-stone-800 dark:text-white dark:border-stone-600
-        dark:hover:bg-stone-700 dark:hover:border-stone-600 dark:focus:ring-stone-700
-        disabled:cursor-not-allowed;
+    no-underline text-black bg-white border border-stone-300 focus:outline-none hover:bg-stone-100
+    focus:ring-4 focus:ring-stone-100 dark:bg-stone-800 dark:text-white dark:border-stone-600
+    dark:hover:bg-stone-900 dark:hover:border-stone-900 dark:focus:ring-stone-700
+    disabled:cursor-not-allowed;
 }
 
 .btn-danger {
@@ -32,11 +34,15 @@
 }
 
 .btn-close {
-    @apply ms-auto -mx-1.5 -my-1.5 bg-white text-stone-400 hover:text-stone-900 rounded-lg focus:ring-2 focus:ring-stone-300 p-1.5 hover:bg-stone-100 inline-flex items-center justify-center h-8 w-8 dark:text-stone-500 dark:hover:text-white dark:bg-stone-800 dark:hover:bg-stone-700;
+    @apply ms-auto -mx-1.5 -my-1.5 bg-white text-stone-400 hover:text-stone-900
+    rounded-lg focus:ring-2 focus:ring-stone-300 p-1.5 hover:bg-stone-100
+    inline-flex items-center justify-center h-8 w-8
+    dark:text-stone-500 dark:hover:text-white dark:bg-stone-800 dark:hover:bg-stone-900;
 }
 
 .form-control {
-    @apply block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded;
+    @apply block appearance-none w-full py-1 px-2 mb-1 leading-normal bg-white text-stone-800 border border-stone-200 rounded
+    dark:bg-stone-800 dark:text-stone-300 dark:border-stone-600 dark:placeholder-stone-400 dark:focus:ring-stone-500 dark:focus:border-stone-500;
 }
 
 .modal-header {
@@ -56,7 +62,7 @@
 }
 
 .table-info {
-    @apply w-full bg-stone-100 dark:bg-stone-950;
+    @apply w-full bg-stone-100 dark:bg-stone-900;
 }
 
 .form-select {
