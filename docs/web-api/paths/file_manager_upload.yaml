@@ -1,0 +1,216 @@
+post:
+  summary: Upload Files
+  tags:
+    - 'file manager'
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            disk:
+              type: string
+              example: server
+            path:
+              type: string
+              example: ""
+            overwrite:
+              type: integer
+              example: 0
+            files:
+              type: array
+              items:
+                type: string
+                format: binary
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: All files uploaded!
+  x-codeSamples:
+    - lang: 'cURL'
+      label: 'CLI'
+      source: |
+        curl -X POST "https://demo.gameap.com/file-manager/1/upload" \
+          --header "Accept: application/json" \
+          --header 'Authorization: Bearer YOUR_API_KEY'
+          --header "Content-Type: multipart/form-data" \
+          --form "disk=server" \
+          --form "path=some/path/to/directory" \
+          --form "overwrite=0" \
+          --form "files=@/path/to/your/file1.txt" \
+          --form "files=@/path/to/your/file2.jpg"
+
+    - lang: 'PHP'
+      source: |
+        <?php
+
+        $url = 'https://demo.gameap.com/file-manager/1/upload';
+        $apiKey = 'YOUR_API_KEY';
+        
+        $files = [
+          '/path/to/your/file1.txt',
+          '/path/to/your/file2.jpg'
+        ];
+        
+        $curl = curl_init();
+        
+        $fileFields = [];
+        foreach ($files as $file) {
+          $fileFields[] = new CURLFile($file);
+        }
+        
+        $postFields = [
+            'disk' => 'server',
+            'path' => 'path/to/directory',
+            'overwrite' => 0,
+            'files' => $fileFields
+        ];
+        
+        curl_setopt_array($curl, [
+         CURLOPT_URL => $url,
+         CURLOPT_POST => true,
+         CURLOPT_POSTFIELDS => $postFields,
+         CURLOPT_RETURNTRANSFER => true,
+         CURLOPT_HTTPHEADER => [
+           'Content-Type: multipart/form-data',
+           'Authorization: Bearer ' . $apiKey,
+         ],
+        ]);
+        
+        $response = curl_exec($curl);
+        
+        // Check for errors
+        if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+        } else {
+          $responseData = json_decode($response, true);
+          print_r($responseData);
+        }
+        
+        curl_close($curl);
+
+    - lang: 'GO'
+      source: |
+        package main
+
+        import (
+          "bytes"
+          "fmt"
+          "io"
+          "mime/multipart"
+          "net/http"
+          "os"
+          "path/filepath"
+        )
+        
+        func main() {
+          // Replace with the actual URL endpoint
+          url := "https://demo.gameap.com/file-manager/1/upload"
+          apiKey := "YOUR_API_KEY"
+          
+          // Prepare the files to be uploaded
+          files := []string{"path/to/your/file1.txt", "path/to/your/file2.jpg"}
+          
+          // Create a buffer to write our multipart form
+          var requestBody bytes.Buffer
+          writer := multipart.NewWriter(&requestBody)
+          
+          // Add fields
+          writer.WriteField("disk", "server")
+          writer.WriteField("path", "some/path/to/directory")
+          writer.WriteField("overwrite", "0")
+          
+          // Add files
+          for _, filePath := range files {
+            file, err := os.Open(filePath)
+            if err != nil {
+              fmt.Println("Error opening file:", err)
+              return
+            }
+            defer file.Close()
+            
+            part, err := writer.CreateFormFile("files", filepath.Base(file.Name()))
+            if err != nil {
+              fmt.Println("Error creating form file:", err)
+              return
+            }
+          
+            _, err = io.Copy(part, file)
+            if err != nil {
+              fmt.Println("Error copying file:", err)
+              return
+            }
+          }
+        
+          // Close the writer to finalize the multipart form
+          writer.Close()
+          
+          // Create a new HTTP request
+          req, err := http.NewRequest("POST", url, &requestBody)
+          if err != nil {
+            fmt.Println("Error creating request:", err)
+            return
+          }
+        
+          req.Header.Add("Accept", "application/json")
+          req.Header.Set("Content-Type", writer.FormDataContentType())
+          req.Header.Add("Authorization", "Bearer "+apiKey)
+          
+          
+          // Perform the request
+          client := &http.Client{}
+          resp, err := client.Do(req)
+          if err != nil {
+            fmt.Println("Error performing request:", err)
+            return
+          }
+          defer resp.Body.Close()
+          
+          // Read and print the response
+          respBody, err := io.ReadAll(resp.Body)
+          if err != nil {
+            fmt.Println("Error reading response:", err)
+            return
+          }
+        
+          fmt.Println("Response:", string(respBody))
+        }
+
+    - lang: "NodeJS"
+      source: |
+        const fs = require('fs');
+        const request = require('request');
+
+        const url = 'https://demo.gameap.com/file-manager/1/upload';
+        const apiKey = 'YOUR_API_KEY';
+
+        const formData = {
+          disk: 'server',
+          path: 'some/path/to/directory',
+          overwrite: '0',
+          files: [
+            fs.createReadStream('/path/to/your/file1.txt'),
+            fs.createReadStream('/path/to/your/file2.jpg')
+          ]
+        };
+
+        request.post({ url: url, formData: formData }, function (err, httpResponse, body) {
+          if (err) {
+            return console.error('Upload failed:', err);
+          }
+          console.log('Upload successful! Server responded with:', body);
+        });

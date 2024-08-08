@@ -1,0 +1,214 @@
+get:
+  summary: Get Files
+  tags:
+    - 'file manager'
+  description: Returns a list of files and directories in the specified directory.
+  parameters:
+    - in: path
+      name: server
+      required: true
+      description: The server ID.
+      schema:
+          type: integer
+    - in: query
+      name: disk
+      required: true
+      description: The disk name.
+      schema:
+          type: string
+    - in: query
+      name: path
+      description: The path to the directory. If not specified, the root directory will be used.
+      schema:
+          type: string
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    nullable: true
+                    example: null
+              directories:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                      example: path/to/logs
+                    timestamp:
+                      type: integer
+                      example: 1723147777
+                    type:
+                      type: string
+                      example: dir
+                    dirname:
+                      type: string
+                      example: ""
+                    basename:
+                      type: string
+                      example: logs
+              files:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                      example: path/to/ops.json
+                    timestamp:
+                      type: integer
+                      example: 1723147780
+                    type:
+                      type: string
+                      example: file
+                    visibility:
+                      type: string
+                      example: public
+                    size:
+                      type: integer
+                      example: 2
+                    dirname:
+                      type: string
+                      example: ""
+                    basename:
+                      type: string
+                      example: ops.json
+                    extension:
+                      type: string
+                      example: json
+                    filename:
+                      type: string
+                      example: ops
+    4XX:
+      description: OK
+      content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                  message:
+                    type: string
+    5XX:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+  x-codeSamples:
+    - lang: 'cURL'
+      label: 'CLI'
+      source: |
+        curl --request GET \
+          --url 'https://demo.gameap.com/file-manager/1/content?disk=server&path=logs' \
+          --header "Accept: application/json" \
+          --header 'Content-Type: application/json: ' \
+          --header 'Authorization: Bearer YOUR_API_KEY'
+    - lang: 'PHP'
+      source: |
+        <?php
+        
+        $url = 'https://demo.gameap.com/file-manager/1/content?disk=server&path=logs';
+        $apiKey = 'YOUR_API_KEY';
+
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, [
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+          ],
+        ]);
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        
+        $result = json_decode($response, true);
+        print_r($result);
+    - lang: 'GO'
+      source: |
+        package main
+
+        import (
+          "fmt"
+          "io"
+          "net/http"
+          "os"
+        )
+
+        func main() {
+            url := "https://demo.gameap.com/file-manager/1/content?disk=server&path=logs"
+            apiKey := "YOUR_API_KEY"
+        
+            client := &http.Client{}
+
+            req, err := http.NewRequest("GET", url, nil)
+            if err != nil {
+              fmt.Println(err)
+              return
+            }
+
+            req.Header.Add("Accept", "application/json")
+            req.Header.Add("Content-Type", "application/json")
+            req.Header.Add("Authorization", "Bearer "+apiKey)
+
+            resp, err := client.Do(req)
+            if err != nil {
+              fmt.Println(err)
+              return
+            }
+            defer resp.Body.Close()
+  
+            body, err := io.ReadAll(resp.Body)
+            if err != nil {
+              fmt.Println(err)
+              return
+            }
+  
+            fmt.Println(string(body))
+        }
+    - lang: "NodeJS"
+      source: |
+        const request = require('request');
+
+        const url = 'https://demo.gameap.com/file-manager/1/content?disk=server&path=logs';
+        const apiKey = 'YOUR_API_KEY';
+
+        const headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + apiKey
+        };
+        
+        request.get({
+          url: url,
+          headers: headers
+        }, (error, response, body) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(body);
+          }
+        });

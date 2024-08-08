@@ -37,6 +37,8 @@ tags:
     description: Game Mods management
   - name: users
     description: Users management
+  - name: file manager
+    description: File management
 
 servers:
   - url: "{gameap-host}"
@@ -142,6 +144,13 @@ paths:
 
   /api/gdaemon_tasks/{gdaemon_task}/output:
     $ref: './web-api/paths/gdaemon_tasks_id_output.yaml'
+
+  /file-manager/{server}/content:
+    $ref: './web-api/paths/file_manager_content.yaml'
+
+  /file-manager/{server}/upload:
+    $ref: './web-api/paths/file_manager_upload.yaml'
+
 
 components:
   schemas:
