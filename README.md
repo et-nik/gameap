@@ -1,3 +1,10 @@
+# GameAP 3.x
+
+**Outdated Repository Notice**
+
+> This repository contains the legacy GameAP 3.x version written in PHP, which is no longer supported.
+GameAP has been fully rewritten in Go. You can find the new, actively maintained repository here: https://github.com/gameap/gameap
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/et-nik/gameap/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/et-nik/gameap/?branch=develop)
 [![Code Coverage](https://scrutinizer-ci.com/g/et-nik/gameap/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/et-nik/gameap/?branch=develop)
 [![Build Status](https://travis-ci.com/et-nik/gameap.svg?branch=develop)](https://travis-ci.com/et-nik/gameap)
