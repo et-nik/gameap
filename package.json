@@ -22,7 +22,7 @@
     "cross-env": "^7.0.3",
     "gameap-file-manager": "4.0.0-dev3",
     "laravel-mix": "^6.0.49",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.23",
     "moment": "^2.29.4",
     "pinia": "^2.1.7",
     "sass": "^1.32.0",
